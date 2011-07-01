@@ -9,20 +9,26 @@ class Settings
 
 		Settings();
 
-		const int GetFrequency() const;
+        const bool GetAlwaysOnTop() const;
+        const bool GetHorizontalLayout() const;
 		const int GetNewWordsCount() const;
 		const int GetNewWordsFrequency() const;
-		const bool GetOnTop() const;
+        const bool GetRememberWindowPosition() const;
 		const QString GetVocabFile() const;
 		const int GetWindowHeight() const;
 		const int GetWindowWidth() const;
 		const int GetWindowX() const;
 		const int GetWindowY() const;
+        const int GetWordsFrequency() const;
+        const void SetAlwaysOnTop(const bool &pEnable);
+        const void SetHorizontalLayout(const bool &pEnable);
+        const void SetRememberWindowPosition(const bool &pEnable);
 		const void SetVocabFile(const QString &pFile);
 		const void SetWindowHeight(const int &pHeight);
 		const void SetWindowWidth(const int &pWidth);
 		const void SetWindowX(const int &pX);
 		const void SetWindowY(const int &pY);
+        const void SetWordsFrequency(const int &pFrequency);
 
 	private:
 		static const int DEFAULT_FREQUENCY = 60 * 1000;

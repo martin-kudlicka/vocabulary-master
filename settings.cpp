@@ -1,22 +1,28 @@
 #include "settings.h"
 
 const QString APPLICATION = "Vocabulary Master";
-const QString KEY_FREQUENCY = "frequency";
-const QString KEY_NEWWORDSCOUNT = "newwordscount";
-const QString KEY_NEWWORDSFREQUENCY = "newwordsfrequency";
-const QString KEY_ONTOP = "ontop";
-const QString KEY_VOCABFILE = "vocabfile";
-const QString KEY_WINDOWHEIGHT = "windowheight";
-const QString KEY_WINDOWWIDTH = "windowwidth";
-const QString KEY_WINDOWX = "windowx";
-const QString KEY_WINDOWY = "windowy";
-const QString INI_FILE = "VocabLearn.ini";
+const QString KEY_ALWAYSONTOP = "AlwaysOnTop";
+const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
+const QString KEY_NEWWORDSCOUNT = "NewWordsCount";
+const QString KEY_NEWWORDSFREQUENCY = "NewWordsFrequency";
+const QString KEY_REMEMBERWINDOWPOSITION = "RememberWindowPosition";
+const QString KEY_VOCABULARYFILE = "VocabularyFile";
+const QString KEY_WINDOWHEIGHT = "WindowHeight";
+const QString KEY_WINDOWWIDTH = "WindowWidth";
+const QString KEY_WINDOWX = "WindowX";
+const QString KEY_WINDOWY = "WindowY";
+const QString KEY_WORDSFREQUENCY = "WordsFrequency";
 const QString ORGANIZATION  = "Isshou";
 
-const int Settings::GetFrequency() const
+const bool Settings::GetAlwaysOnTop() const
 {
-	return _qsSettings.value(KEY_FREQUENCY, DEFAULT_FREQUENCY).toInt();
-} // GetFrequency
+    return _qsSettings.value(KEY_ALWAYSONTOP, false).toBool();
+} // GetAlwaysOnTop
+
+const bool Settings::GetHorizontalLayout() const
+{
+    return _qsSettings.value(KEY_HORIZONTALLAYOUT, false).toBool();
+} // GetHorizontalLayout
 
 const int Settings::GetNewWordsCount() const
 {
@@ -28,14 +34,14 @@ const int Settings::GetNewWordsFrequency() const
 	return _qsSettings.value(KEY_NEWWORDSFREQUENCY, DEFAULT_NEWWORDSFREQUENCY).toInt();
 } // GetNewWordsFrequency
 
-const bool Settings::GetOnTop() const
+const bool Settings::GetRememberWindowPosition() const
 {
-	return _qsSettings.value(KEY_ONTOP, false).toBool();
-} // GetOnTop
+    return _qsSettings.value(KEY_REMEMBERWINDOWPOSITION, true).toBool();
+} // GetRememberWindowPosition
 
 const QString Settings::GetVocabFile() const
 {
-	return _qsSettings.value(KEY_VOCABFILE).toString();
+	return _qsSettings.value(KEY_VOCABULARYFILE).toString();
 } // GetVocabFile
 
 const int Settings::GetWindowHeight() const
@@ -58,13 +64,33 @@ const int Settings::GetWindowY() const
 	return _qsSettings.value(KEY_WINDOWY, DEFAULT_DIMENSION).toInt();
 } // GetWindowY
 
+const int Settings::GetWordsFrequency() const
+{
+    return _qsSettings.value(KEY_WORDSFREQUENCY, DEFAULT_FREQUENCY).toInt();
+} // GetWordsFrequency
+
+const void Settings::SetAlwaysOnTop(const bool &pEnable)
+{
+    _qsSettings.setValue(KEY_ALWAYSONTOP, pEnable);
+} // SetAlwaysOnTop
+
+const void Settings::SetHorizontalLayout(const bool &pEnable)
+{
+    _qsSettings.setValue(KEY_HORIZONTALLAYOUT, pEnable);
+} // SetHorizontalLayout
+
+const void Settings::SetRememberWindowPosition(const bool &pEnable)
+{
+    _qsSettings.setValue(KEY_REMEMBERWINDOWPOSITION, pEnable);
+} // SetRememberWindowPosition
+
 Settings::Settings() : _qsSettings(ORGANIZATION, APPLICATION)
 {
 } // Settings
 
 const void Settings::SetVocabFile(const QString &pFile)
 {
-	_qsSettings.setValue(KEY_VOCABFILE, pFile);
+	_qsSettings.setValue(KEY_VOCABULARYFILE, pFile);
 } // SetVocabFile
 
 const void Settings::SetWindowHeight(const int &pHeight)
@@ -86,3 +112,8 @@ const void Settings::SetWindowY(const int &pY)
 {
 	_qsSettings.setValue(KEY_WINDOWY, pY);
 } // SetWindowY
+
+const void Settings::SetWordsFrequency(const int &pFrequency)
+{
+    _qsSettings.setValue(KEY_WORDSFREQUENCY, pFrequency);
+} // SetWordsFrequency

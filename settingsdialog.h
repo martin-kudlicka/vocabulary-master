@@ -15,7 +15,11 @@ class SettingsDialog : public QDialog
 
 	private:
 		Settings *_sSettings;
-		Ui::UiSettingsDialog _usdSettingsDialog;
+		Ui::qdUiSettings _usdSettingsDialog;
+
+        void accept();
+        const void FillOptions();
+        const void SaveOptions();
 }; // MainWindow
 
 #endif // SETTINGSDIALOG_H

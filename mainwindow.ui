@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>UiMainWindow</class>
- <widget class="QMainWindow" name="UiMainWindow">
+ <class>qmwUiMain</class>
+ <widget class="QMainWindow" name="qmwUiMain">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,7 +13,28 @@
   <property name="windowTitle">
    <string>Vocabulary Master</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="qwCentral">
+   <widget class="QTextBrowser" name="qtbWindow1">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>256</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="qtbWindow2">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>20</y>
+      <width>256</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
@@ -27,15 +48,25 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="ActionExit"/>
+    <addaction name="qaNew"/>
+    <addaction name="qaOpen"/>
+    <addaction name="separator"/>
+    <addaction name="qaExit"/>
    </widget>
    <widget class="QMenu" name="menu_Options">
     <property name="title">
      <string>&amp;Options</string>
     </property>
-    <addaction name="ActionSettings"/>
+    <addaction name="qaSettings"/>
+   </widget>
+   <widget class="QMenu" name="qmVocabulary">
+    <property name="title">
+     <string>&amp;Vocabulary</string>
+    </property>
+    <addaction name="qaManage"/>
    </widget>
    <addaction name="menu_File"/>
+   <addaction name="qmVocabulary"/>
    <addaction name="menu_Options"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -47,14 +78,29 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="ActionExit">
+  <action name="qaExit">
    <property name="text">
     <string>E&amp;xit</string>
    </property>
   </action>
-  <action name="ActionSettings">
+  <action name="qaSettings">
    <property name="text">
     <string>&amp;Settings</string>
+   </property>
+  </action>
+  <action name="qaNew">
+   <property name="text">
+    <string>&amp;New</string>
+   </property>
+  </action>
+  <action name="qaOpen">
+   <property name="text">
+    <string>&amp;Open</string>
+   </property>
+  </action>
+  <action name="qaManage">
+   <property name="text">
+    <string>&amp;Manage</string>
    </property>
   </action>
  </widget>
@@ -64,9 +110,9 @@
  </resources>
  <connections>
   <connection>
-   <sender>ActionExit</sender>
+   <sender>qaExit</sender>
    <signal>activated()</signal>
-   <receiver>UiMainWindow</receiver>
+   <receiver>qmwUiMain</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
