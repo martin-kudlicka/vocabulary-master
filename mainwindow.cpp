@@ -4,12 +4,20 @@
 #include <QtGui/QFileDialog>
 #include "vocabularymanagerdialog.h"
 
-const QString OPEN_CAPTION = QT_TRANSLATE_NOOP("MainWindow", "Create new vocabulary");
 const QString VOCABULARY_FILTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary (*.sl3)");
 
 const void MainWindow::ApplySettings()
 {
     SetLayout();
+
+    if (_sSettings.GetAlwaysOnTop()) {
+        setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+    } else {
+        setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint);
+    } // if else
+    if (_sSettings.GetWindowX() != Settings::DEFAULT_DIMENSION) {
+        setGeometry(_sSettings.GetWindowX(), _sSettings.GetWindowY(), _sSettings.GetWindowWidth(), _sSettings.GetWindowHeight());
+    } // if
 } // ApplySettings
 
 const void MainWindow::EnableControls()
@@ -19,13 +27,21 @@ const void MainWindow::EnableControls()
 
 MainWindow::~MainWindow()
 {
+    _sSettings.SetVocabularyFile(_vVocabulary.GetVocabularyFile());
+    _sSettings.SetWindowX(geometry().x());
+    _sSettings.SetWindowY(geometry().y());
+    _sSettings.SetWindowHeight(geometry().height());
+    _sSettings.SetWindowWidth(geometry().width());
 } // ~MainWindow
 
-MainWindow::MainWindow(QWidget *parent /* 0 */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags)
+MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags)
 {
 	_umwMainWindow.setupUi(this);
 
     ApplySettings();
+
+    _vVocabulary.Open(_sSettings.GetVocabularyFile());
+
     EnableControls();
 } // MainWindow
 
@@ -37,7 +53,7 @@ const void MainWindow::on_qaManage_triggered(bool checked /* false */)
 
 const void MainWindow::on_qaNew_triggered(bool checked /* false */)
 {
-    QFileDialog qfdNew(this, OPEN_CAPTION, QString(), VOCABULARY_FILTER);
+    QFileDialog qfdNew(this, tr("Create new vocabulary"), QString(), VOCABULARY_FILTER);
     qfdNew.setAcceptMode(QFileDialog::AcceptSave);
     if (qfdNew.exec() == QDialog::Accepted) {
         QStringList qslFiles = qfdNew.selectedFiles();
@@ -49,7 +65,7 @@ const void MainWindow::on_qaNew_triggered(bool checked /* false */)
 
 const void MainWindow::on_qaOpen_triggered(bool checked /* false */)
 {
-    QString qsFile = QFileDialog::getOpenFileName(this, OPEN_CAPTION, QString(), VOCABULARY_FILTER);
+    QString qsFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), QString(), VOCABULARY_FILTER);
     if (!qsFile.isEmpty()) {
         _vVocabulary.Open(qsFile);
 

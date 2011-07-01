@@ -14,7 +14,7 @@ class Settings
 		const int GetNewWordsCount() const;
 		const int GetNewWordsFrequency() const;
         const bool GetRememberWindowPosition() const;
-		const QString GetVocabFile() const;
+		const QString GetVocabularyFile() const;
 		const int GetWindowHeight() const;
 		const int GetWindowWidth() const;
 		const int GetWindowX() const;
@@ -23,7 +23,7 @@ class Settings
         const void SetAlwaysOnTop(const bool &pEnable);
         const void SetHorizontalLayout(const bool &pEnable);
         const void SetRememberWindowPosition(const bool &pEnable);
-		const void SetVocabFile(const QString &pFile);
+		const void SetVocabularyFile(const QString &pFile);
 		const void SetWindowHeight(const int &pHeight);
 		const void SetWindowWidth(const int &pWidth);
 		const void SetWindowX(const int &pX);

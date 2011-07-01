@@ -29,7 +29,7 @@ const void SettingsDialog::SaveOptions()
     _sSettings->SetWordsFrequency(_usdSettingsDialog.qsbWordsFrequency->value());
 } // SaveOptions
 
-SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *parent /* 0 */, Qt::WindowFlags f /* 0 */) : QDialog(parent, f)
+SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
 {
 	_sSettings = pSettings;
 
