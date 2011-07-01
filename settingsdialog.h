@@ -11,7 +11,7 @@ class SettingsDialog : public QDialog
 	Q_OBJECT
 
 	public:
-		SettingsDialog(Settings *pSettings, QWidget *parent = 0, Qt::WindowFlags f = 0);
+		SettingsDialog(Settings *pSettings, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 	private:
 		Settings *_sSettings;

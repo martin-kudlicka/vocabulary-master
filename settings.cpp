@@ -39,10 +39,10 @@ const bool Settings::GetRememberWindowPosition() const
     return _qsSettings.value(KEY_REMEMBERWINDOWPOSITION, true).toBool();
 } // GetRememberWindowPosition
 
-const QString Settings::GetVocabFile() const
+const QString Settings::GetVocabularyFile() const
 {
 	return _qsSettings.value(KEY_VOCABULARYFILE).toString();
-} // GetVocabFile
+} // GetVocabularyFile
 
 const int Settings::GetWindowHeight() const
 {
@@ -88,10 +88,10 @@ Settings::Settings() : _qsSettings(ORGANIZATION, APPLICATION)
 {
 } // Settings
 
-const void Settings::SetVocabFile(const QString &pFile)
+const void Settings::SetVocabularyFile(const QString &pFile)
 {
 	_qsSettings.setValue(KEY_VOCABULARYFILE, pFile);
-} // SetVocabFile
+} // SetVocabularyFile
 
 const void Settings::SetWindowHeight(const int &pHeight)
 {

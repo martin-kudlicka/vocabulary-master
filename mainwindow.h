@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow
 
 	public:
         ~MainWindow();
-		MainWindow(QWidget *parent = 0, Qt::WindowFlags flags = 0);
+		MainWindow(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 	private:
 		Settings _sSettings;
