@@ -4,7 +4,8 @@
 #include <QtGui/QFileDialog>
 #include "vocabularymanagerdialog.h"
 
-const QString VOCABULARY_FILTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary (*.sl3)");
+const QString VOCABULARY_SUFFIX = "sl3";
+const QString VOCABULARY_FILTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary (*." + VOCABULARY_SUFFIX + ")");
 
 const void MainWindow::ApplySettings()
 {
@@ -56,8 +57,14 @@ const void MainWindow::on_qaNew_triggered(bool checked /* false */)
     QFileDialog qfdNew(this, tr("Create new vocabulary"), QString(), VOCABULARY_FILTER);
     qfdNew.setAcceptMode(QFileDialog::AcceptSave);
     if (qfdNew.exec() == QDialog::Accepted) {
-        QStringList qslFiles = qfdNew.selectedFiles();
-        _vVocabulary.Open(qslFiles.at(0));
+        QFileInfo qfiFile(qfdNew.selectedFiles().at(0));
+		QString qsFile;
+		if (qfiFile.suffix() != VOCABULARY_SUFFIX) {
+			qsFile = qfdNew.selectedFiles().at(0) + "." + VOCABULARY_SUFFIX;
+		} else {
+			qsFile = qfdNew.selectedFiles().at(0);
+		} // if else
+        _vVocabulary.New(qsFile);
 
         EnableControls();
     } // if

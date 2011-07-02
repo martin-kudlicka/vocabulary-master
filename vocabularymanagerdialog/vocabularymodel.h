@@ -11,11 +11,11 @@ class VocabularyModel : public QAbstractTableModel
     public:
         VocabularyModel(const Vocabulary *pVocabulary, const int &pCategoryId, QObject *pParent = NULL);
 
+		const void InsertRow(const int &pRow);
         int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
     private:
         enum eColumn {
-            ColumnNumber,
             ColumnLang1,
             ColumnLang2,
             ColumnPriority,

@@ -39,7 +39,7 @@ const void VocabularyManagerDialog::on_qpbCategoryAdd_clicked(bool checked /* fa
 const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false */)
 {
     VocabularyModel *vmVocabularyModel = static_cast<VocabularyModel *>(static_cast<QTableView *>(_qdvmVocabularyManager.qtwTabs->currentWidget())->model());
-    vmVocabularyModel->insertRow(vmVocabularyModel->rowCount());
+    vmVocabularyModel->InsertRow(vmVocabularyModel->rowCount());
 } // on_qpbWordAdd_clicked
 
 VocabularyManagerDialog::VocabularyManagerDialog(const Vocabulary *pVocabulary, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
