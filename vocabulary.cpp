@@ -7,6 +7,7 @@
 #include <QtCore/QFile>
 
 const QString COLUMN_CATEGORYID = "categoryid";
+const QString COLUMN_ENABLED = "enabled";
 const QString COLUMN_ID = "id";
 //const QString COLUMN_KEY = "key";
 const QString COLUMN_NAME = "name";
@@ -21,6 +22,11 @@ const int Vocabulary::AddCategory(const QString &pName) const
     QSqlQuery qsqQuery("INSERT INTO " + TABLE_CATEGORIES + " (" + COLUMN_NAME + ") VALUES ('" + pName + "')");
     return qsqQuery.lastInsertId().toInt();
 } // AddCategory
+
+const void Vocabulary::AddWord(const int &pCategoryId) const
+{
+	QSqlQuery qsqQuery("INSERT INTO " + TABLE_WORDS + " (" + COLUMN_CATEGORYID + ") VALUES (" + QString::number(pCategoryId) + ")");
+} // AddWord
 
 const Vocabulary::tCategoryIdList Vocabulary::GetCategoryIds() const
 {
@@ -59,7 +65,11 @@ const QString Vocabulary::GetWord(const int &pCategoryId, const int &pRow, const
 const int Vocabulary::GetWordCount(const int &pCategoryId) const
 {
     QSqlQuery qsqQuery("SELECT " + COLUMN_ID + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
-    return qsqQuery.size();
+	if (qsqQuery.last()) {
+		return qsqQuery.at() + 1;
+	} else {
+		return 0;
+	} // if else
 } // GetWordCount
 
 const void Vocabulary::Initialize() const
@@ -72,19 +82,39 @@ const void Vocabulary::Initialize() const
                   + COLUMN_VALUE + " TEXT)");*/
     qsqQuery.exec("CREATE TABLE " + TABLE_CATEGORIES + " ("
                   + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                  + COLUMN_NAME + " TEXT)");
+                  + COLUMN_NAME + " TEXT,"
+				  + COLUMN_ENABLED + " INTEGER)");
     qsqQuery.exec("CREATE TABLE " + TABLE_WORDS + " ("
                   + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                   + COLUMN_CATEGORYID + " INTEGER,"
                   + COLUMN_LANG1 + " TEXT,"
                   + COLUMN_LANG2 + " TEXT,"
-                  + COLUMN_PRIORITY + " INTEGER)");
+                  + COLUMN_PRIORITY + " INTEGER,"
+				  + COLUMN_ENABLED + " INTEGER)");
 } // Initialize
 
 const bool Vocabulary::IsOpen() const
 {
     return _qsdDatabase.isOpen();
 } // IsOpen
+
+const void Vocabulary::New(const QString &pFilePath)
+{
+	if (QFile::exists(pFilePath)) {
+		QFile::remove(pFilePath);
+	} // if
+
+	_qsVocabularyFile = pFilePath;
+
+	if (_qsdDatabase.isOpen()) {
+		_qsdDatabase.close();
+	} // if
+
+	_qsdDatabase.setDatabaseName(_qsVocabularyFile);
+	_qsdDatabase.open();
+
+	Initialize();
+} // New
 
 const void Vocabulary::Open(const QString &pFilePath)
 {
@@ -100,10 +130,6 @@ const void Vocabulary::Open(const QString &pFilePath)
 
     _qsdDatabase.setDatabaseName(_qsVocabularyFile);
     _qsdDatabase.open();
-
-    if (_qsdDatabase.tables().isEmpty()) {
-        Initialize();
-    } // if
 } // Open
 
 Vocabulary::Vocabulary()

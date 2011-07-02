@@ -10,8 +10,6 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
     switch (role) {
         case Qt::DisplayRole:
             switch (index.column()) {
-                case ColumnNumber:
-                    return index.column();
                 case ColumnLang1:
                     return _vVocabulary->GetWord(_iCategoryId, index.row(), COLUMN_LANG1);
                 case ColumnLang2:
@@ -23,6 +21,13 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
             return QVariant();
     } // switch
 } // data
+
+const void VocabularyModel::InsertRow(const int &pRow)
+{
+	beginInsertRows(QModelIndex(), pRow, pRow);
+	_vVocabulary->AddWord(_iCategoryId);
+	endInsertRows();
+} // InsertRow
 
 int VocabularyModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {

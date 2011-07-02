@@ -15,12 +15,14 @@ class Vocabulary
         Vocabulary();
 
         const int AddCategory(const QString &pName) const;
+		const void AddWord(const int &pCategoryId) const;
         const tCategoryIdList GetCategoryIds() const;
         const QString GetCategoryName(const int &pCategoryId) const;
         const QString &GetVocabularyFile() const;
         const QString GetWord(const int &pCategoryId, const int &pRow, const QString &pLanguage) const;
         const int GetWordCount(const int &pCategoryId) const;
         const bool IsOpen() const;
+		const void New(const QString &pFilePath);
         const void Open(const QString &pFilePath);
 
     private:
