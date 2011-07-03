@@ -1,6 +1,5 @@
 #include "vocabularymanagerdialog.h"
 
-#include <QtGui/QTableView>
 #include <QtGui/QInputDialog>
 #include "vocabularymanagerdialog/vocabularymodel.h"
 #include "vocabularymanagerdialog/vocabularyview.h"
@@ -43,8 +42,12 @@ const void VocabularyManagerDialog::on_qpbCategoryAdd_clicked(bool checked /* fa
 
 const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false */)
 {
-    VocabularyModel *vmVocabularyModel = static_cast<VocabularyModel *>(static_cast<QTableView *>(_qdvmVocabularyManager.qtwTabs->currentWidget())->model());
+	VocabularyView *vvVocabularyView = static_cast<VocabularyView *>(_qdvmVocabularyManager.qtwTabs->currentWidget());
+    VocabularyModel *vmVocabularyModel = static_cast<VocabularyModel *>(vvVocabularyView->model());
     vmVocabularyModel->InsertRow(vmVocabularyModel->rowCount());
+
+	vvVocabularyView->setCurrentIndex(vmVocabularyModel->index(vmVocabularyModel->rowCount() - 1, 0));
+	vvVocabularyView->setFocus(Qt::OtherFocusReason);
 } // on_qpbWordAdd_clicked
 
 VocabularyManagerDialog::VocabularyManagerDialog(const Vocabulary *pVocabulary, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
