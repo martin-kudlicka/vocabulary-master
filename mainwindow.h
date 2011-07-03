@@ -27,6 +27,7 @@ class MainWindow : public QMainWindow
 
         const void ApplySettings();
         const void EnableControls();
+		const QString GetLangText(const bool &pAnswer) const;
         const void SetLayout();
 		void timerEvent(QTimerEvent *event);
 

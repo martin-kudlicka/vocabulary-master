@@ -65,7 +65,7 @@
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
-       <string>Training</string>
+       <string>Learning</string>
       </attribute>
       <widget class="QSpinBox" name="qsbWordsFrequency">
        <property name="geometry">
@@ -133,6 +133,19 @@
        </property>
        <property name="text">
         <string>Wait for answer</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="cbSwitchLearningDirection">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>90</y>
+         <width>140</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Switch learning direction</string>
        </property>
       </widget>
      </widget>

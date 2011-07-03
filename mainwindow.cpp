@@ -36,6 +36,15 @@ const void MainWindow::EnableControls()
 	_umwMainWindow.qaNext->setEnabled(_vVocabulary.IsOpen() && _iTimerLearing != 0);
 } // EnableControls
 
+const QString MainWindow::GetLangText(const bool &pAnswer) const
+{
+	if ((!_sSettings.GetSwitchLearningDirection() && !pAnswer) || (_sSettings.GetSwitchLearningDirection() && pAnswer)) {
+		return COLUMN_LANG1;
+	} else {
+		return COLUMN_LANG2;
+	} // if else
+} // GetLangText
+
 MainWindow::~MainWindow()
 {
     _sSettings.SetVocabularyFile(_vVocabulary.GetVocabularyFile());
@@ -127,7 +136,7 @@ const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 const void MainWindow::OnShowTranslation()
 {
 	if (_iTimerLearing != 0) {
-		_umwMainWindow.qtbWindow2->setText(FORMAT_TEXT.arg(_vVocabulary.GetWord(_iCurrentWord, COLUMN_LANG2)));
+		_umwMainWindow.qtbWindow2->setText(FORMAT_TEXT.arg(_vVocabulary.GetWord(_iCurrentWord, GetLangText(true))));
 	} // if
 } // OnShowTranslation
 
@@ -153,7 +162,7 @@ const void MainWindow::SetLayout()
 void MainWindow::timerEvent(QTimerEvent *event)
 {
 	_iCurrentWord = qrand() % _vVocabulary.GetWordCount();
-	_umwMainWindow.qtbWindow1->setText(FORMAT_TEXT.arg(_vVocabulary.GetWord(_iCurrentWord, COLUMN_LANG1)));
+	_umwMainWindow.qtbWindow1->setText(FORMAT_TEXT.arg(_vVocabulary.GetWord(_iCurrentWord, GetLangText(false))));
 
 	if (_sSettings.GetNewWordSound()) {
 		QApplication::beep();
