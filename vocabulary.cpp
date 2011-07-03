@@ -57,7 +57,7 @@ const QString &Vocabulary::GetVocabularyFile() const
 
 const QString Vocabulary::GetWord(const int &pCategoryId, const int &pRow, const QString &pLanguage) const
 {
-    QSqlQuery qsqQuery("SELECT " + COLUMN_ID + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
+    QSqlQuery qsqQuery("SELECT " + pLanguage + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
     qsqQuery.seek(pRow);
     return qsqQuery.value(qsqQuery.record().indexOf(pLanguage)).toString();
 } // GetWord
@@ -131,6 +131,17 @@ const void Vocabulary::Open(const QString &pFilePath)
     _qsdDatabase.setDatabaseName(_qsVocabularyFile);
     _qsdDatabase.open();
 } // Open
+
+const void Vocabulary::SetWord(const QString &pWord, const int &pCategoryId, const int &pRow, const QString &pLanguage) const
+{
+	QSqlQuery qsqQuery;
+
+	qsqQuery.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
+	qsqQuery.seek(pRow);
+	int iColumnId = qsqQuery.value(qsqQuery.record().indexOf(COLUMN_ID)).toInt();
+
+	qsqQuery.exec("UPDATE " + TABLE_WORDS + " SET " + pLanguage + " = '" + pWord + "' WHERE " + COLUMN_ID + " = " + QString::number(iColumnId));
+} // SetWord
 
 Vocabulary::Vocabulary()
 {
