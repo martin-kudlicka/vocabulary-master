@@ -8,6 +8,7 @@ const QString KEY_NEWWORDSFREQUENCY = "NewWordsFrequency";
 const QString KEY_NEWWORDSOUND = "NewWordSound";
 const QString KEY_REMEMBERWINDOWPOSITION = "RememberWindowPosition";
 const QString KEY_VOCABULARYFILE = "VocabularyFile";
+const QString KEY_WAITFORANSWER = "WaitForAnswer";
 const QString KEY_WINDOWHEIGHT = "WindowHeight";
 const QString KEY_WINDOWWIDTH = "WindowWidth";
 const QString KEY_WINDOWX = "WindowX";
@@ -49,6 +50,11 @@ const QString Settings::GetVocabularyFile() const
 {
 	return _qsSettings.value(KEY_VOCABULARYFILE).toString();
 } // GetVocabularyFile
+
+const int Settings::GetWaitForAnswer() const
+{
+	return _qsSettings.value(KEY_WAITFORANSWER, DEFAULT_WAIT).toInt();
+} // GetWaitForAnswer
 
 const int Settings::GetWindowHeight() const
 {
@@ -103,6 +109,11 @@ const void Settings::SetVocabularyFile(const QString &pFile)
 {
 	_qsSettings.setValue(KEY_VOCABULARYFILE, pFile);
 } // SetVocabularyFile
+
+const void Settings::SetWaitForAnswer(const int &pTime)
+{
+	_qsSettings.value(KEY_WAITFORANSWER, pTime);
+} // SetWaitForAnswer
 
 const void Settings::SetWindowHeight(const int &pHeight)
 {

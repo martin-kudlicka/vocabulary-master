@@ -16,6 +16,7 @@ class Settings
         const bool GetRememberWindowPosition() const;
 		const bool GetNewWordSound() const;
 		const QString GetVocabularyFile() const;
+		const int GetWaitForAnswer() const;
 		const int GetWindowHeight() const;
 		const int GetWindowWidth() const;
 		const int GetWindowX() const;
@@ -26,6 +27,7 @@ class Settings
         const void SetRememberWindowPosition(const bool &pEnable);
 		const void SetNewWordSound(const bool &pEnable);
 		const void SetVocabularyFile(const QString &pFile);
+		const void SetWaitForAnswer(const int &pTime);
 		const void SetWindowHeight(const int &pHeight);
 		const void SetWindowWidth(const int &pWidth);
 		const void SetWindowX(const int &pX);
@@ -35,6 +37,7 @@ class Settings
 	private:
 		static const int DEFAULT_FREQUENCY = 60 * 1000;
 		static const int DEFAULT_NEWWORDSFREQUENCY = 5;
+		static const int DEFAULT_WAIT = 0;
 
 		QSettings _qsSettings;
 }; // Settings

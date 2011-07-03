@@ -16,8 +16,15 @@ const void SettingsDialog::FillOptions()
 
     // training
     _usdSettingsDialog.qsbWordsFrequency->setValue(_sSettings->GetWordsFrequency());
+	_usdSettingsDialog.qsbWaitForAnswer->setMaximum(_sSettings->GetWordsFrequency());
+	_usdSettingsDialog.qsbWaitForAnswer->setValue(_sSettings->GetWaitForAnswer());
 	_usdSettingsDialog.cbNewWordSound->setChecked(_sSettings->GetNewWordSound());
 } // FillOptions
+
+void SettingsDialog::on_qsbWordsFrequency_valueChanged(int i)
+{
+	_usdSettingsDialog.qsbWaitForAnswer->setMaximum(i);
+} // on_qsbWordsFrequency_valueChanged
 
 const void SettingsDialog::SaveOptions()
 {
@@ -28,6 +35,7 @@ const void SettingsDialog::SaveOptions()
 
     // training
     _sSettings->SetWordsFrequency(_usdSettingsDialog.qsbWordsFrequency->value());
+	_sSettings->SetWaitForAnswer(_usdSettingsDialog.qsbWaitForAnswer->value());
 	_sSettings->SetNewWordSound(_usdSettingsDialog.cbNewWordSound->isChecked());
 } // SaveOptions
 
