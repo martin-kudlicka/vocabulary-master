@@ -118,14 +118,14 @@ const bool Vocabulary::IsOpen() const
 
 const void Vocabulary::New(const QString &pFilePath)
 {
-	if (QFile::exists(pFilePath)) {
-		QFile::remove(pFilePath);
-	} // if
-
 	_qsVocabularyFile = pFilePath;
 
 	if (_qsdDatabase.isOpen()) {
 		_qsdDatabase.close();
+	} // if
+
+	if (QFile::exists(pFilePath)) {
+		QFile::remove(pFilePath);
 	} // if
 
 	_qsdDatabase.setDatabaseName(_qsVocabularyFile);
