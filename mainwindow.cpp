@@ -69,6 +69,10 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     _vVocabulary.Open(_sSettings.GetVocabularyFile());
 
     EnableControls();
+
+	if (_sSettings.GetStartLearningOnStartup()) {
+		on_qaStart_triggered();
+	} // if
 } // MainWindow
 
 const void MainWindow::on_qaManage_triggered(bool checked /* false */)
