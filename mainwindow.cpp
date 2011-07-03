@@ -32,7 +32,7 @@ const void MainWindow::EnableControls()
     _umwMainWindow.qmVocabulary->setEnabled(_vVocabulary.IsOpen());
 
 	// tool bar
-	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimerLearing == 0);
+	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimerLearing == 0 && _vVocabulary.GetWordCount() > 0);
 	_umwMainWindow.qaStop->setEnabled(_vVocabulary.IsOpen() && _iTimerLearing != 0);
 	_umwMainWindow.qaNext->setEnabled(_vVocabulary.IsOpen() && _iTimerLearing != 0);
 } // EnableControls
@@ -70,7 +70,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
     EnableControls();
 
-	if (_sSettings.GetStartLearningOnStartup()) {
+	if (_sSettings.GetStartLearningOnStartup() && _vVocabulary.IsOpen()) {
 		on_qaStart_triggered();
 	} // if
 } // MainWindow
