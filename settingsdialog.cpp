@@ -20,6 +20,7 @@ const void SettingsDialog::FillOptions()
 	_usdSettingsDialog.qsbWaitForAnswer->setValue(_sSettings->GetWaitForAnswer());
 	_usdSettingsDialog.cbNewWordSound->setChecked(_sSettings->GetNewWordSound());
 	_usdSettingsDialog.cbSwitchLearningDirection->setChecked(_sSettings->GetSwitchLearningDirection());
+	_usdSettingsDialog.cbStartLearningOnStartup->setChecked(_sSettings->GetStartLearningOnStartup());
 } // FillOptions
 
 void SettingsDialog::on_qsbWordsFrequency_valueChanged(int i)
@@ -39,6 +40,7 @@ const void SettingsDialog::SaveOptions()
 	_sSettings->SetWaitForAnswer(_usdSettingsDialog.qsbWaitForAnswer->value());
 	_sSettings->SetNewWordSound(_usdSettingsDialog.cbNewWordSound->isChecked());
 	_sSettings->SetSwitchLearningDirection(_usdSettingsDialog.cbSwitchLearningDirection->isChecked());
+	_sSettings->SetStartLearningOnStartup(_usdSettingsDialog.cbStartLearningOnStartup->isChecked());
 } // SaveOptions
 
 SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)

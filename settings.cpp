@@ -7,6 +7,7 @@ const QString KEY_NEWWORDSCOUNT = "NewWordsCount";
 const QString KEY_NEWWORDSFREQUENCY = "NewWordsFrequency";
 const QString KEY_NEWWORDSOUND = "NewWordSound";
 const QString KEY_REMEMBERWINDOWPOSITION = "RememberWindowPosition";
+const QString KEY_STARTLEARNINGONSTARTUP = "StartLearningOnStartup";
 const QString KEY_SWITCHLEARNINGDIRECTION = "SwitchLearningDirection";
 const QString KEY_VOCABULARYFILE = "VocabularyFile";
 const QString KEY_WAITFORANSWER = "WaitForAnswer";
@@ -46,6 +47,11 @@ const bool Settings::GetNewWordSound() const
 {
 	return _qsSettings.value(KEY_NEWWORDSOUND, true).toBool();
 } // GetNewWordSound
+
+const bool Settings::GetStartLearningOnStartup() const
+{
+	return _qsSettings.value(KEY_STARTLEARNINGONSTARTUP, false).toBool();
+} // GetStartLearningOnStartup
 
 const bool Settings::GetSwitchLearningDirection() const
 {
@@ -106,6 +112,11 @@ const void Settings::SetNewWordSound(const bool &pEnable)
 {
 	_qsSettings.setValue(KEY_NEWWORDSOUND, pEnable);
 } // SetNewWordSound
+
+const void Settings::SetStartLearningOnStartup(const bool &pEnable)
+{
+	_qsSettings.setValue(KEY_STARTLEARNINGONSTARTUP, pEnable);
+} // SetStartLearningOnStartup
 
 const void Settings::SetSwitchLearningDirection(const bool &pSwitch)
 {

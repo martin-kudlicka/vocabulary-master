@@ -148,6 +148,19 @@
         <string>Switch learning direction</string>
        </property>
       </widget>
+      <widget class="QCheckBox" name="cbStartLearningOnStartup">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>110</y>
+         <width>140</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Start learning on startup</string>
+       </property>
+      </widget>
      </widget>
     </widget>
    </item>
