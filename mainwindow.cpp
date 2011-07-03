@@ -3,6 +3,7 @@
 #include "settingsdialog.h"
 #include <QtGui/QFileDialog>
 #include "vocabularymanagerdialog.h"
+#include <QtCore/QTimer>
 
 const QString FORMAT_TEXT = "<center style=\"font-size:xx-large\">%1</center>";
 const QString VOCABULARY_SUFFIX = "sl3";
@@ -46,6 +47,7 @@ MainWindow::~MainWindow()
 
 MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags)
 {
+	_iCurrentWord = -1;
 	_iTimerLearing = 0;
 
 	_umwMainWindow.setupUi(this);
@@ -122,6 +124,13 @@ const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 	_umwMainWindow.qtbWindow2->clear();
 } // on_qaStop_triggered
 
+const void MainWindow::OnShowTranslation()
+{
+	if (_iTimerLearing != 0) {
+		_umwMainWindow.qtbWindow2->setText(FORMAT_TEXT.arg(_vVocabulary.GetWord(_iCurrentWord, COLUMN_LANG2)));
+	} // if
+} // OnShowTranslation
+
 const void MainWindow::SetLayout()
 {
     QBoxLayout *qblLayout;
@@ -143,11 +152,12 @@ const void MainWindow::SetLayout()
 
 void MainWindow::timerEvent(QTimerEvent *event)
 {
-	int iWord = qrand() % _vVocabulary.GetWordCount();
-	_umwMainWindow.qtbWindow1->setText(FORMAT_TEXT.arg(_vVocabulary.GetWord(iWord, COLUMN_LANG1)));
-	_umwMainWindow.qtbWindow2->setText(FORMAT_TEXT.arg(_vVocabulary.GetWord(iWord, COLUMN_LANG2)));
+	_iCurrentWord = qrand() % _vVocabulary.GetWordCount();
+	_umwMainWindow.qtbWindow1->setText(FORMAT_TEXT.arg(_vVocabulary.GetWord(_iCurrentWord, COLUMN_LANG1)));
 
 	if (_sSettings.GetNewWordSound()) {
 		QApplication::beep();
 	} // if
+
+	QTimer::singleShot(_sSettings.GetWaitForAnswer() * MILISECONDS_PER_SECOND, this, SLOT(OnShowTranslation()));
 } // timerEvent
