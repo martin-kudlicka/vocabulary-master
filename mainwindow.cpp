@@ -20,6 +20,8 @@ const void MainWindow::ApplySettings()
     if (_sSettings.GetWindowX() != Settings::DEFAULT_DIMENSION) {
         setGeometry(_sSettings.GetWindowX(), _sSettings.GetWindowY(), _sSettings.GetWindowWidth(), _sSettings.GetWindowHeight());
     } // if
+
+	show();
 } // ApplySettings
 
 const void MainWindow::EnableControls()
@@ -100,6 +102,7 @@ const void MainWindow::on_qaStart_triggered(bool checked /* false */)
 {
 	_iTimerLearing = startTimer(_sSettings.GetWordsFrequency() * MILISECONDS_PER_SECOND);
 	EnableControls();
+	timerEvent(NULL);
 } // on_qaStart_triggered
 
 const void MainWindow::on_qaStop_triggered(bool checked /* false */)
