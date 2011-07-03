@@ -19,6 +19,7 @@ class MainWindow : public QMainWindow
 	private:
 		static const int MILISECONDS_PER_SECOND = 1000;
 
+		int _iCurrentWord;
 		int _iTimerLearing;
 		Settings _sSettings;
 		Ui::qmwUiMain _umwMainWindow;
@@ -37,6 +38,7 @@ class MainWindow : public QMainWindow
 		const void on_qaSettings_triggered(bool checked = false);
 		const void on_qaStart_triggered(bool checked = false);
 		const void on_qaStop_triggered(bool checked = false);
+		const void OnShowTranslation();
 }; // MainWindow
 
 #endif // MAINWINDOW_H
