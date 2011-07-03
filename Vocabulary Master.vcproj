@@ -193,6 +193,10 @@
 				RelativePath=".\vocabularymanagerdialog\vocabularymodel.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\vocabularymanagerdialog\vocabularyview.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -287,6 +291,10 @@
 			</File>
 			<File
 				RelativePath=".\vocabularymanagerdialog\vocabularymodel.h"
+				>
+			</File>
+			<File
+				RelativePath=".\vocabularymanagerdialog\vocabularyview.h"
 				>
 			</File>
 		</Filter>

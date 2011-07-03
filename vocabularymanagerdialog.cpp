@@ -3,15 +3,16 @@
 #include <QtGui/QTableView>
 #include <QtGui/QInputDialog>
 #include "vocabularymanagerdialog/vocabularymodel.h"
+#include "vocabularymanagerdialog/vocabularyview.h"
 
 const int VocabularyManagerDialog::AddTab(const int &pCategoryId)
 {
-    QTableView *qtvTableView = new QTableView(_qdvmVocabularyManager.qtwTabs);
-    qtvTableView->setModel(new VocabularyModel(_vVocabulary, pCategoryId, qtvTableView));
-	qtvTableView->horizontalHeader()->setResizeMode(VocabularyModel::ColumnLang1, QHeaderView::Stretch);
-	qtvTableView->horizontalHeader()->setResizeMode(VocabularyModel::ColumnLang2, QHeaderView::Stretch);
+    VocabularyView *vvTableView = new VocabularyView(_qdvmVocabularyManager.qtwTabs);
+    vvTableView->setModel(new VocabularyModel(_vVocabulary, pCategoryId, vvTableView));
+	vvTableView->horizontalHeader()->setResizeMode(VocabularyModel::ColumnLang1, QHeaderView::Stretch);
+	vvTableView->horizontalHeader()->setResizeMode(VocabularyModel::ColumnLang2, QHeaderView::Stretch);
 
-    int iTab = _qdvmVocabularyManager.qtwTabs->addTab(qtvTableView, _vVocabulary->GetCategoryName(pCategoryId));
+    int iTab = _qdvmVocabularyManager.qtwTabs->addTab(vvTableView, _vVocabulary->GetCategoryName(pCategoryId));
 	EnableControls();
 	return iTab;
 } // AddTab
