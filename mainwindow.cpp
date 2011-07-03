@@ -170,6 +170,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 {
 	_iCurrentWord = qrand() % _vVocabulary.GetWordCount();
 	_umwMainWindow.qtbWindow1->setText(FORMAT_TEXT.arg(_vVocabulary.GetWord(_iCurrentWord, GetLangText(false))));
+	_umwMainWindow.qtbWindow2->clear();
 
 	if (_sSettings.GetNewWordSound()) {
 		QApplication::beep();
