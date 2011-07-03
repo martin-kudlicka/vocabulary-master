@@ -112,7 +112,7 @@ const void Settings::SetVocabularyFile(const QString &pFile)
 
 const void Settings::SetWaitForAnswer(const int &pTime)
 {
-	_qsSettings.value(KEY_WAITFORANSWER, pTime);
+	_qsSettings.setValue(KEY_WAITFORANSWER, pTime);
 } // SetWaitForAnswer
 
 const void Settings::SetWindowHeight(const int &pHeight)
