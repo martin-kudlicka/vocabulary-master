@@ -5,6 +5,7 @@ const QString KEY_ALWAYSONTOP = "AlwaysOnTop";
 const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
 const QString KEY_NEWWORDSCOUNT = "NewWordsCount";
 const QString KEY_NEWWORDSFREQUENCY = "NewWordsFrequency";
+const QString KEY_NEWWORDSOUND = "NewWordSound";
 const QString KEY_REMEMBERWINDOWPOSITION = "RememberWindowPosition";
 const QString KEY_VOCABULARYFILE = "VocabularyFile";
 const QString KEY_WINDOWHEIGHT = "WindowHeight";
@@ -38,6 +39,11 @@ const bool Settings::GetRememberWindowPosition() const
 {
     return _qsSettings.value(KEY_REMEMBERWINDOWPOSITION, true).toBool();
 } // GetRememberWindowPosition
+
+const bool Settings::GetNewWordSound() const
+{
+	return _qsSettings.value(KEY_NEWWORDSOUND, true).toBool();
+} // GetNewWordSound
 
 const QString Settings::GetVocabularyFile() const
 {
@@ -83,6 +89,11 @@ const void Settings::SetRememberWindowPosition(const bool &pEnable)
 {
     _qsSettings.setValue(KEY_REMEMBERWINDOWPOSITION, pEnable);
 } // SetRememberWindowPosition
+
+const void Settings::SetNewWordSound(const bool &pEnable)
+{
+	_qsSettings.setValue(KEY_NEWWORDSOUND, pEnable);
+} // SetNewWordSound
 
 Settings::Settings() : _qsSettings(ORGANIZATION, APPLICATION)
 {

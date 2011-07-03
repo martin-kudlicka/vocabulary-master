@@ -96,6 +96,19 @@
         <string>Words frequency</string>
        </property>
       </widget>
+      <widget class="QCheckBox" name="cbNewWordSound">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>150</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Play sound with new word</string>
+       </property>
+      </widget>
      </widget>
     </widget>
    </item>

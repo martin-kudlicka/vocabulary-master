@@ -16,6 +16,7 @@ const void SettingsDialog::FillOptions()
 
     // training
     _usdSettingsDialog.qsbWordsFrequency->setValue(_sSettings->GetWordsFrequency());
+	_usdSettingsDialog.cbNewWordSound->setChecked(_sSettings->GetNewWordSound());
 } // FillOptions
 
 const void SettingsDialog::SaveOptions()
@@ -27,6 +28,7 @@ const void SettingsDialog::SaveOptions()
 
     // training
     _sSettings->SetWordsFrequency(_usdSettingsDialog.qsbWordsFrequency->value());
+	_sSettings->SetNewWordSound(_usdSettingsDialog.cbNewWordSound->isChecked());
 } // SaveOptions
 
 SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
