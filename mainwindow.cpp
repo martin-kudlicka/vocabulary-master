@@ -4,6 +4,7 @@
 #include <QtGui/QFileDialog>
 #include "vocabularymanagerdialog.h"
 #include <QtCore/QTimer>
+#include <QtCore/QTime>
 
 const QString FORMAT_TEXT = "<center style=\"font-size:xx-large\">%1</center>";
 const QString VOCABULARY_SUFFIX = "sl3";
@@ -58,6 +59,8 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 {
 	_iCurrentWord = -1;
 	_iTimerLearing = 0;
+
+	qsrand(QTime::currentTime().msec());
 
 	_umwMainWindow.setupUi(this);
 
