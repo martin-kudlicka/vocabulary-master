@@ -32,6 +32,7 @@ class MainWindow : public QMainWindow
 	private slots:
         const void on_qaManage_triggered(bool checked = false);
         const void on_qaNew_triggered(bool checked = false);
+		const void on_qaNext_triggered(bool checked = false);
         const void on_qaOpen_triggered(bool checked = false);
 		const void on_qaSettings_triggered(bool checked = false);
 		const void on_qaStart_triggered(bool checked = false);

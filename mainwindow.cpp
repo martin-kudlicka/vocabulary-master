@@ -32,6 +32,7 @@ const void MainWindow::EnableControls()
 	// tool bar
 	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimerLearing == 0);
 	_umwMainWindow.qaStop->setEnabled(_vVocabulary.IsOpen() && _iTimerLearing != 0);
+	_umwMainWindow.qaNext->setEnabled(_vVocabulary.IsOpen() && _iTimerLearing != 0);
 } // EnableControls
 
 MainWindow::~MainWindow()
@@ -79,6 +80,12 @@ const void MainWindow::on_qaNew_triggered(bool checked /* false */)
         EnableControls();
     } // if
 } // on_qaNew_triggered
+
+const void MainWindow::on_qaNext_triggered(bool checked /* false */)
+{
+	on_qaStop_triggered();
+	on_qaStart_triggered();
+} // on_qaNext_triggered
 
 const void MainWindow::on_qaOpen_triggered(bool checked /* false */)
 {
