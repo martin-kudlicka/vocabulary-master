@@ -15,6 +15,7 @@ class Settings
 		const int GetNewWordsFrequency() const;
         const bool GetRememberWindowPosition() const;
 		const bool GetNewWordSound() const;
+		const bool GetSwitchLearningDirection() const;
 		const QString GetVocabularyFile() const;
 		const int GetWaitForAnswer() const;
 		const int GetWindowHeight() const;
@@ -26,6 +27,7 @@ class Settings
         const void SetHorizontalLayout(const bool &pEnable);
         const void SetRememberWindowPosition(const bool &pEnable);
 		const void SetNewWordSound(const bool &pEnable);
+		const void SetSwitchLearningDirection(const bool &pSwitch);
 		const void SetVocabularyFile(const QString &pFile);
 		const void SetWaitForAnswer(const int &pTime);
 		const void SetWindowHeight(const int &pHeight);
