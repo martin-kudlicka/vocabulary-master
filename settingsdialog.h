@@ -20,6 +20,9 @@ class SettingsDialog : public QDialog
         void accept();
         const void FillOptions();
         const void SaveOptions();
+
+	private slots:
+		void on_qsbWordsFrequency_valueChanged(int i);
 }; // MainWindow
 
 #endif // SETTINGSDIALOG_H
