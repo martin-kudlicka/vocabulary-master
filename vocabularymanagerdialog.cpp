@@ -11,9 +11,7 @@ const int VocabularyManagerDialog::AddTab(const int &pCategoryId)
 	vvTableView->horizontalHeader()->setResizeMode(VocabularyModel::ColumnLang1, QHeaderView::Stretch);
 	vvTableView->horizontalHeader()->setResizeMode(VocabularyModel::ColumnLang2, QHeaderView::Stretch);
 
-    int iTab = _qdvmVocabularyManager.qtwTabs->addTab(vvTableView, _vVocabulary->GetCategoryName(pCategoryId));
-	EnableControls();
-	return iTab;
+    return _qdvmVocabularyManager.qtwTabs->addTab(vvTableView, _vVocabulary->GetCategoryName(pCategoryId));
 } // AddTab
 
 const void VocabularyManagerDialog::EnableControls()
@@ -36,7 +34,11 @@ const void VocabularyManagerDialog::on_qpbCategoryAdd_clicked(bool checked /* fa
     QString qsCategory = QInputDialog::getText(this, tr("Add category"), tr("New category name"));
     if (!qsCategory.isEmpty()) {
         int iCategory = _vVocabulary->AddCategory(qsCategory);
-        _qhTabCategory.insert(AddTab(iCategory), iCategory);
+		int iTab = AddTab(iCategory);
+        _qhTabCategory.insert(iTab, iCategory);
+
+		_qdvmVocabularyManager.qtwTabs->setCurrentIndex(iTab);
+		EnableControls();
     } // if
 } // on_qpbCategoryAdd_clicked
 
