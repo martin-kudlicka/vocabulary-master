@@ -4,6 +4,7 @@
 #include <QtGui/QFileDialog>
 #include "vocabularymanagerdialog.h"
 
+const QString FORMAT_TEXT = "<center style=\"font-size:xx-large\">%1</center>";
 const QString VOCABULARY_SUFFIX = "sl3";
 const QString VOCABULARY_FILTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary (*." + VOCABULARY_SUFFIX + ")");
 
@@ -23,7 +24,12 @@ const void MainWindow::ApplySettings()
 
 const void MainWindow::EnableControls()
 {
+	// menu
     _umwMainWindow.qmVocabulary->setEnabled(_vVocabulary.IsOpen());
+
+	// tool bar
+	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimerLearing == 0);
+	_umwMainWindow.qaStop->setEnabled(_vVocabulary.IsOpen() && _iTimerLearing != 0);
 } // EnableControls
 
 MainWindow::~MainWindow()
@@ -37,6 +43,8 @@ MainWindow::~MainWindow()
 
 MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags)
 {
+	_iTimerLearing = 0;
+
 	_umwMainWindow.setupUi(this);
 
     ApplySettings();
@@ -88,6 +96,22 @@ const void MainWindow::on_qaSettings_triggered(bool checked /* false */)
     } // if
 } // on_qaSettings_triggered
 
+const void MainWindow::on_qaStart_triggered(bool checked /* false */)
+{
+	_iTimerLearing = startTimer(_sSettings.GetWordsFrequency() * MILISECONDS_PER_SECOND);
+	EnableControls();
+} // on_qaStart_triggered
+
+const void MainWindow::on_qaStop_triggered(bool checked /* false */)
+{
+	killTimer(_iTimerLearing);
+	_iTimerLearing = 0;
+	EnableControls();
+
+	_umwMainWindow.qtbWindow1->clear();
+	_umwMainWindow.qtbWindow2->clear();
+} // on_qaStop_triggered
+
 const void MainWindow::SetLayout()
 {
     QBoxLayout *qblLayout;
@@ -106,3 +130,10 @@ const void MainWindow::SetLayout()
     } // if
     _umwMainWindow.qwCentral->setLayout(qblLayout);
 } // SetLayout
+
+void MainWindow::timerEvent(QTimerEvent *event)
+{
+	int iWord = qrand() % _vVocabulary.GetWordCount();
+	_umwMainWindow.qtbWindow1->setText(FORMAT_TEXT.arg(_vVocabulary.GetWord(iWord, COLUMN_LANG1)));
+	_umwMainWindow.qtbWindow2->setText(FORMAT_TEXT.arg(_vVocabulary.GetWord(iWord, COLUMN_LANG2)));
+} // timerEvent

@@ -55,12 +55,29 @@ const QString &Vocabulary::GetVocabularyFile() const
     return _qsVocabularyFile;
 } // GetVocabularyFile
 
+const QString Vocabulary::GetWord(const int &pRow, const QString &pLanguage) const
+{
+	QSqlQuery qsqQuery("SELECT " + pLanguage + " FROM " + TABLE_WORDS);
+	qsqQuery.seek(pRow);
+	return qsqQuery.value(qsqQuery.record().indexOf(pLanguage)).toString();
+} // GetWord
+
 const QString Vocabulary::GetWord(const int &pCategoryId, const int &pRow, const QString &pLanguage) const
 {
     QSqlQuery qsqQuery("SELECT " + pLanguage + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
     qsqQuery.seek(pRow);
     return qsqQuery.value(qsqQuery.record().indexOf(pLanguage)).toString();
 } // GetWord
+
+const int Vocabulary::GetWordCount() const
+{
+	QSqlQuery qsqQuery("SELECT " + COLUMN_ID + " FROM " + TABLE_WORDS);
+	if (qsqQuery.last()) {
+		return qsqQuery.at() + 1;
+	} else {
+		return 0;
+	} // if else
+} // GetWordCount
 
 const int Vocabulary::GetWordCount(const int &pCategoryId) const
 {
@@ -83,6 +100,7 @@ const void Vocabulary::Initialize() const
     qsqQuery.exec("CREATE TABLE " + TABLE_CATEGORIES + " ("
                   + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                   + COLUMN_NAME + " TEXT,"
+				  + COLUMN_PRIORITY + " INTEGER,"
 				  + COLUMN_ENABLED + " INTEGER)");
     qsqQuery.exec("CREATE TABLE " + TABLE_WORDS + " ("
                   + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"

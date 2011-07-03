@@ -19,7 +19,9 @@ class Vocabulary
         const tCategoryIdList GetCategoryIds() const;
         const QString GetCategoryName(const int &pCategoryId) const;
         const QString &GetVocabularyFile() const;
+		const QString GetWord(const int &pRow, const QString &pLanguage) const;
         const QString GetWord(const int &pCategoryId, const int &pRow, const QString &pLanguage) const;
+		const int GetWordCount() const;
         const int GetWordCount(const int &pCategoryId) const;
         const bool IsOpen() const;
 		const void New(const QString &pFilePath);
