@@ -11,7 +11,9 @@ const int VocabularyManagerDialog::AddTab(const int &pCategoryId)
 	qtvTableView->horizontalHeader()->setResizeMode(VocabularyModel::ColumnLang1, QHeaderView::Stretch);
 	qtvTableView->horizontalHeader()->setResizeMode(VocabularyModel::ColumnLang2, QHeaderView::Stretch);
 
-    return _qdvmVocabularyManager.qtwTabs->addTab(qtvTableView, _vVocabulary->GetCategoryName(pCategoryId));
+    int iTab = _qdvmVocabularyManager.qtwTabs->addTab(qtvTableView, _vVocabulary->GetCategoryName(pCategoryId));
+	EnableControls();
+	return iTab;
 } // AddTab
 
 const void VocabularyManagerDialog::EnableControls()
