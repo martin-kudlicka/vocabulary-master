@@ -8,8 +8,10 @@ const int VocabularyManagerDialog::AddTab(const int &pCategoryId)
 {
     VocabularyView *vvTableView = new VocabularyView(_qdvmVocabularyManager.qtwTabs);
     vvTableView->setModel(new VocabularyModel(_vVocabulary, pCategoryId, vvTableView));
-	vvTableView->horizontalHeader()->setResizeMode(VocabularyModel::ColumnLang1, QHeaderView::Stretch);
-	vvTableView->horizontalHeader()->setResizeMode(VocabularyModel::ColumnLang2, QHeaderView::Stretch);
+
+    for (int iColumn = 0; iColumn < VocabularyModel::ColumnCount; iColumn++) {
+	    vvTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Stretch);
+    } // for
 
     return _qdvmVocabularyManager.qtwTabs->addTab(vvTableView, _vVocabulary->GetCategoryName(pCategoryId));
 } // AddTab
