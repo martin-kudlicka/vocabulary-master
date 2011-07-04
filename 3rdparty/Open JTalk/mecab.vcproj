@@ -145,99 +145,99 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\source\mecab\source\mecab\char_property.cpp"
+				RelativePath=".\source\mecab\src\char_property.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\connector.cpp"
+				RelativePath=".\source\mecab\src\connector.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\context_id.cpp"
+				RelativePath=".\source\mecab\src\context_id.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\dictionary.cpp"
+				RelativePath=".\source\mecab\src\dictionary.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\dictionary_compiler.cpp"
+				RelativePath=".\source\mecab\src\dictionary_compiler.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\dictionary_generator.cpp"
+				RelativePath=".\source\mecab\src\dictionary_generator.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\dictionary_rewriter.cpp"
+				RelativePath=".\source\mecab\src\dictionary_rewriter.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\eval.cpp"
+				RelativePath=".\source\mecab\src\eval.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\feature_index.cpp"
+				RelativePath=".\source\mecab\src\feature_index.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\iconv_utils.cpp"
+				RelativePath=".\source\mecab\src\iconv_utils.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\lbfgs.cpp"
+				RelativePath=".\source\mecab\src\lbfgs.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\learner.cpp"
+				RelativePath=".\source\mecab\src\learner.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\learner_tagger.cpp"
+				RelativePath=".\source\mecab\src\learner_tagger.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\libmecab.cpp"
+				RelativePath=".\source\mecab\src\libmecab.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\mecab-dict-index.cpp"
+				RelativePath=".\source\mecab\src\mecab-dict-index.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\mecab.cpp"
+				RelativePath=".\source\mecab\src\mecab.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\nbest_generator.cpp"
+				RelativePath=".\source\mecab\src\nbest_generator.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\param.cpp"
+				RelativePath=".\source\mecab\src\param.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\string_buffer.cpp"
+				RelativePath=".\source\mecab\src\string_buffer.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\tagger.cpp"
+				RelativePath=".\source\mecab\src\tagger.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\tokenizer.cpp"
+				RelativePath=".\source\mecab\src\tokenizer.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\utils.cpp"
+				RelativePath=".\source\mecab\src\utils.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\viterbi.cpp"
+				RelativePath=".\source\mecab\src\viterbi.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\writer.cpp"
+				RelativePath=".\source\mecab\src\writer.cpp"
 				>
 			</File>
 		</Filter>
@@ -247,123 +247,123 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\source\mecab\source\mecab\char_property.h"
+				RelativePath=".\source\mecab\src\char_property.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\common.h"
+				RelativePath=".\source\mecab\src\common.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\connector.h"
+				RelativePath=".\source\mecab\src\connector.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\context_id.h"
+				RelativePath=".\source\mecab\src\context_id.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\darts.h"
+				RelativePath=".\source\mecab\src\darts.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\dictionary.h"
+				RelativePath=".\source\mecab\src\dictionary.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\dictionary_rewriter.h"
+				RelativePath=".\source\mecab\src\dictionary_rewriter.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\feature_index.h"
+				RelativePath=".\source\mecab\src\feature_index.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\freelist.h"
+				RelativePath=".\source\mecab\src\freelist.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\iconv_utils.h"
+				RelativePath=".\source\mecab\src\iconv_utils.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\lbfgs.h"
+				RelativePath=".\source\mecab\src\lbfgs.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\learner_node.h"
+				RelativePath=".\source\mecab\src\learner_node.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\learner_tagger.h"
+				RelativePath=".\source\mecab\src\learner_tagger.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\mecab.h"
+				RelativePath=".\source\mecab\src\mecab.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\mempool.h"
+				RelativePath=".\source\mecab\src\mempool.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\mmap.h"
+				RelativePath=".\source\mecab\src\mmap.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\mutex.h"
+				RelativePath=".\source\mecab\src\mutex.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\nbest_generator.h"
+				RelativePath=".\source\mecab\src\nbest_generator.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\param.h"
+				RelativePath=".\source\mecab\src\param.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\scoped_ptr.h"
+				RelativePath=".\source\mecab\src\scoped_ptr.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\stream_wrapper.h"
+				RelativePath=".\source\mecab\src\stream_wrapper.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\string_buffer.h"
+				RelativePath=".\source\mecab\src\string_buffer.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\thread.h"
+				RelativePath=".\source\mecab\src\thread.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\tokenizer.h"
+				RelativePath=".\source\mecab\src\tokenizer.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\ucs.h"
+				RelativePath=".\source\mecab\src\ucs.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\ucstable.h"
+				RelativePath=".\source\mecab\src\ucstable.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\utils.h"
+				RelativePath=".\source\mecab\src\utils.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\viterbi.h"
+				RelativePath=".\source\mecab\src\viterbi.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\viterbisub.h"
+				RelativePath=".\source\mecab\src\viterbisub.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\mecab\source\mecab\writer.h"
+				RelativePath=".\source\mecab\src\writer.h"
 				>
 			</File>
 		</Filter>

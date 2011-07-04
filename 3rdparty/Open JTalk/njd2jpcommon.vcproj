@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\njd;..\jpcommon"
+				AdditionalIncludeDirectories=".\source\njd;.\source\jpcommon"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;CHARSET_UTF_8;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -102,7 +102,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\njd;..\jpcommon"
+				AdditionalIncludeDirectories=".\source\njd;.\source\jpcommon"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;CHARSET_UTF_8;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -147,7 +147,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\source\njd2jpcommonl\njd2jpcommon.c"
+				RelativePath=".\source\njd2jpcommon\njd2jpcommon.c"
 				>
 			</File>
 		</Filter>
@@ -157,19 +157,19 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\source\njd2jpcommonl\njd2jpcommon.h"
+				RelativePath=".\source\njd2jpcommon\njd2jpcommon.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\njd2jpcommonl\njd2jpcommon_rule_euc_jp.h"
+				RelativePath=".\source\njd2jpcommon\njd2jpcommon_rule_euc_jp.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\njd2jpcommonl\njd2jpcommon_rule_shift_jis.h"
+				RelativePath=".\source\njd2jpcommon\njd2jpcommon_rule_shift_jis.h"
 				>
 			</File>
 			<File
-				RelativePath=".\source\njd2jpcommonl\njd2jpcommon_rule_utf_8.h"
+				RelativePath=".\source\njd2jpcommon\njd2jpcommon_rule_utf_8.h"
 				>
 			</File>
 		</Filter>
