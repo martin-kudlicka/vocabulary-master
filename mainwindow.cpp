@@ -6,11 +6,12 @@
 #include <QtCore/QTimer>
 #include <QtCore/QTime>
 
-const QString FORMAT_TEXT = "<center style=\"font-size:xx-large\">%1</center>";
+const QString FORMAT_NOTE = "<center style=\"font-size:small\">%1</center>";
+const QString FORMAT_WORD = "<center style=\"font-size:xx-large\">%1</center>";
 const QString VOCABULARY_SUFFIX = "sl3";
 const QString VOCABULARY_FILTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary (*." + VOCABULARY_SUFFIX + ")");
 
-const void MainWindow::ApplySettings()
+const void MainWindow::ApplySettings(const bool &pStartup)
 {
     SetLayout();
 
@@ -19,7 +20,7 @@ const void MainWindow::ApplySettings()
     } else {
         setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint);
     } // if else
-    if (_sSettings.GetWindowX() != Settings::DEFAULT_DIMENSION) {
+    if (pStartup && _sSettings.GetWindowX() != Settings::DEFAULT_DIMENSION) {
         setGeometry(_sSettings.GetWindowX(), _sSettings.GetWindowY(), _sSettings.GetWindowWidth(), _sSettings.GetWindowHeight());
     } // if
 
@@ -37,14 +38,35 @@ const void MainWindow::EnableControls()
 	_umwMainWindow.qaNext->setEnabled(_vVocabulary.IsOpen() && _iTimerLearing != 0);
 } // EnableControls
 
-const QString MainWindow::GetLangText(const bool &pAnswer) const
+const QString MainWindow::GetLangColumn(const bool &pAnswer) const
 {
 	if ((!_sSettings.GetSwitchLearningDirection() && !pAnswer) || (_sSettings.GetSwitchLearningDirection() && pAnswer)) {
 		return COLUMN_LANG1;
 	} else {
 		return COLUMN_LANG2;
 	} // if else
-} // GetLangText
+} // GetLangColumn
+
+const QString MainWindow::GetLearningText(const bool &pAnswer) const
+{
+    QString qsWord = FORMAT_WORD.arg(_vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pAnswer)));
+    QString qsNote = _vVocabulary.GetNote(_iCurrentWord, GetNoteColumn(pAnswer));
+    if (!qsNote.isEmpty()) {
+        qsNote = FORMAT_NOTE.arg(qsNote);
+        return qsWord + qsNote;
+    } else {
+        return qsWord;
+    } // if else
+} // GetLearningText
+
+const QString MainWindow::GetNoteColumn(const bool &pAnswer) const
+{
+    if ((!_sSettings.GetSwitchLearningDirection() && !pAnswer) || (_sSettings.GetSwitchLearningDirection() && pAnswer)) {
+        return COLUMN_NOTE1;
+    } else {
+        return COLUMN_NOTE2;
+    } // if else
+} // GetNoteColumn
 
 MainWindow::~MainWindow()
 {
@@ -64,7 +86,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
 	_umwMainWindow.setupUi(this);
 
-    ApplySettings();
+    ApplySettings(true);
 
     _vVocabulary.Open(_sSettings.GetVocabularyFile());
 
@@ -119,7 +141,7 @@ const void MainWindow::on_qaSettings_triggered(bool checked /* false */)
 {
 	SettingsDialog sdDialog(&_sSettings);
     if (sdDialog.exec() == QDialog::Accepted) {
-        ApplySettings();
+        ApplySettings(false);
     } // if
 } // on_qaSettings_triggered
 
@@ -143,7 +165,7 @@ const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 const void MainWindow::OnShowTranslation()
 {
 	if (_iTimerLearing != 0) {
-		_umwMainWindow.qtbWindow2->setText(FORMAT_TEXT.arg(_vVocabulary.GetWord(_iCurrentWord, GetLangText(true))));
+		_umwMainWindow.qtbWindow2->setText(GetLearningText(true));
 	} // if
 } // OnShowTranslation
 
@@ -169,7 +191,7 @@ const void MainWindow::SetLayout()
 void MainWindow::timerEvent(QTimerEvent *event)
 {
 	_iCurrentWord = qrand() % _vVocabulary.GetWordCount();
-	_umwMainWindow.qtbWindow1->setText(FORMAT_TEXT.arg(_vVocabulary.GetWord(_iCurrentWord, GetLangText(false))));
+	_umwMainWindow.qtbWindow1->setText(GetLearningText(false));
 	_umwMainWindow.qtbWindow2->clear();
 
 	if (_sSettings.GetNewWordSound()) {

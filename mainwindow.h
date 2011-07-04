@@ -25,9 +25,11 @@ class MainWindow : public QMainWindow
 		Ui::qmwUiMain _umwMainWindow;
         Vocabulary _vVocabulary;
 
-        const void ApplySettings();
+        const void ApplySettings(const bool &pStartup);
         const void EnableControls();
-		const QString GetLangText(const bool &pAnswer) const;
+		const QString GetLangColumn(const bool &pAnswer) const;
+        const QString GetLearningText(const bool &pAnswer) const;
+        const QString GetNoteColumn(const bool &pAnswer) const;
         const void SetLayout();
 		void timerEvent(QTimerEvent *event);
 

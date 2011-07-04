@@ -12,8 +12,12 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
             switch (index.column()) {
                 case ColumnLang1:
                     return _vVocabulary->GetWord(_iCategoryId, index.row(), COLUMN_LANG1);
+                case ColumnNote1:
+                    return _vVocabulary->GetNote(_iCategoryId, index.row(), COLUMN_NOTE1);
                 case ColumnLang2:
                     return _vVocabulary->GetWord(_iCategoryId, index.row(), COLUMN_LANG2);
+                case ColumnNote2:
+                    return _vVocabulary->GetNote(_iCategoryId, index.row(), COLUMN_NOTE2);
             } // switch
         default:
             return QVariant();
