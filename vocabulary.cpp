@@ -50,6 +50,20 @@ const QString Vocabulary::GetCategoryName(const int &pCategoryId) const
     } // if else
 } // GetCategoryName
 
+const QString Vocabulary::GetNote(const int &pRow, const QString &pNote) const
+{
+    QSqlQuery qsqQuery("SELECT " + pNote + " FROM " + TABLE_WORDS);
+    qsqQuery.seek(pRow);
+    return qsqQuery.value(qsqQuery.record().indexOf(pNote)).toString();
+} // GetNote
+
+const QString Vocabulary::GetNote(const int &pCategoryId, const int &pRow, const QString &pNote) const
+{
+    QSqlQuery qsqQuery("SELECT " + pNote + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
+    qsqQuery.seek(pRow);
+    return qsqQuery.value(qsqQuery.record().indexOf(pNote)).toString();
+} // GetNote
+
 const QString &Vocabulary::GetVocabularyFile() const
 {
     return _qsVocabularyFile;
@@ -106,7 +120,9 @@ const void Vocabulary::Initialize() const
                   + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                   + COLUMN_CATEGORYID + " INTEGER,"
                   + COLUMN_LANG1 + " TEXT,"
+                  + COLUMN_NOTE1 + " TEXT,"
                   + COLUMN_LANG2 + " TEXT,"
+                  + COLUMN_NOTE2 + " TEXT,"
                   + COLUMN_PRIORITY + " INTEGER,"
 				  + COLUMN_ENABLED + " INTEGER)");
 } // Initialize

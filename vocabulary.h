@@ -5,7 +5,9 @@
 #include <QtCore/QList>
 
 const QString COLUMN_LANG1 = "lang1";
+const QString COLUMN_NOTE1 = "note1";
 const QString COLUMN_LANG2 = "lang2";
+const QString COLUMN_NOTE2 = "note2";
 
 class Vocabulary
 {
@@ -18,6 +20,8 @@ class Vocabulary
 		const void AddWord(const int &pCategoryId) const;
         const tCategoryIdList GetCategoryIds() const;
         const QString GetCategoryName(const int &pCategoryId) const;
+        const QString GetNote(const int &pRow, const QString &pNote) const;
+        const QString GetNote(const int &pCategoryId, const int &pRow, const QString &pNote) const;
         const QString &GetVocabularyFile() const;
 		const QString GetWord(const int &pRow, const QString &pLanguage) const;
         const QString GetWord(const int &pCategoryId, const int &pRow, const QString &pLanguage) const;

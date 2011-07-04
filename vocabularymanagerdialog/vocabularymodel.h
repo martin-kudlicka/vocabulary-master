@@ -11,7 +11,9 @@ class VocabularyModel : public QAbstractTableModel
     public:
 		enum eColumn {
 			ColumnLang1,
+            ColumnNote1,
 			ColumnLang2,
+            ColumnNote2,
 			ColumnCount
 		}; // eColumn
 
