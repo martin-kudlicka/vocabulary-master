@@ -14,9 +14,9 @@ class TTSInterface
 		}; // eTTS
 
 		virtual const eTTSPlugin GetPluginId() const = 0;
+		virtual const void Initialize() = 0;
 
 	private:
-		virtual const void Initialize() = 0;
 		virtual const void Uninitialize() = 0;
 }; // TTSInterface
 
