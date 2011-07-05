@@ -8,6 +8,13 @@
 const QString DIR_PLUGINS = "plugins";
 #endif
 
+const void Plugins::Initialize()
+{
+	foreach (TTSInterface *tiPlugin, _qhTTSPlugins.values()) {
+		tiPlugin->Initialize();
+	} // foreach
+} // Initialize
+
 const void Plugins::Load()
 {
 	QDir qdPlugins(QCoreApplication::applicationDirPath());

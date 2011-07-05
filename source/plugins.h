@@ -7,6 +7,7 @@
 class Plugins
 {
 	public:
+		const void Initialize();
 		const void Load();
 
 	private:
