@@ -11,6 +11,9 @@ class TTSOpenJTalk : private TTSInterface, public QObject
 {
 	Q_INTERFACES(TTSInterface)
 
+	public:
+		const eTTSPlugin GetPluginId() const;
+
 	private:
 		static const HTS_Boolean USE_LOG_GAIN = FALSE;
 		static const int AUDIO_BUFF_SIZE = 1600;
