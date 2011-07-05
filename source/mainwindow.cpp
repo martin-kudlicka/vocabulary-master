@@ -75,6 +75,8 @@ MainWindow::~MainWindow()
     _sSettings.SetWindowY(geometry().y());
     _sSettings.SetWindowHeight(geometry().height());
     _sSettings.SetWindowWidth(geometry().width());
+
+	_pPlugins.Uninitialize();
 } // ~MainWindow
 
 MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags)
@@ -87,6 +89,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 	_umwMainWindow.setupUi(this);
 
 	_pPlugins.Load();
+	_pPlugins.Initialize();
     ApplySettings(true);
 
     _vVocabulary.Open(_sSettings.GetVocabularyFile());
