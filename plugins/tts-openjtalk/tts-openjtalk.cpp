@@ -27,6 +27,11 @@ const double GV_WEIGHT_LPF = 1.0;
 const double GV_WEIGHT_MGC = 1.0;
 const double UV_THRESHOLD = 0.5;
 
+const TTSInterface::eTTSPlugin TTSOpenJTalk::GetPluginId() const
+{
+	return TTSPluginOpenJTalk;
+} // GetPluginId
+
 const void TTSOpenJTalk::Initialize()
 {
 	// initialize

@@ -4,15 +4,22 @@
 #include <QtCore/QString>
 #include <QtPlugin>
 
-const char *TTS_OPENJTALK_INTERFACE = "TTS Open JTalk Plugin 1.0";
+static const char *TTS_INTERFACE = "TTS Interface 1.0";
 
 class TTSInterface
 {
+	public:
+		enum eTTSPlugin {
+			TTSPluginOpenJTalk
+		}; // eTTS
+
+		virtual const eTTSPlugin GetPluginId() const = 0;
+
 	private:
 		virtual const void Initialize() = 0;
 		virtual const void Uninitialize() = 0;
 }; // TTSInterface
 
-Q_DECLARE_INTERFACE(TTSInterface, TTS_OPENJTALK_INTERFACE);
+Q_DECLARE_INTERFACE(TTSInterface, TTS_INTERFACE);
 
 #endif // TTSINTERFACE_H
