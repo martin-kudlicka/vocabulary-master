@@ -9,6 +9,7 @@ class Plugins
 	public:
 		const void Initialize();
 		const void Load();
+		const void Uninitialize();
 
 	private:
 		QHash<TTSInterface::eTTSPlugin, TTSInterface *> _qhTTSPlugins;

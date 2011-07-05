@@ -31,3 +31,10 @@ const void Plugins::Load()
 		} // if
 	} // foreach
 } // Load
+
+const void Plugins::Uninitialize()
+{
+	foreach (TTSInterface *tiPlugin, _qhTTSPlugins.values()) {
+		tiPlugin->Uninitialize();
+	} // foreach
+} // Uninitialize
