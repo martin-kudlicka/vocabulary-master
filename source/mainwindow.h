@@ -7,6 +7,7 @@
 #include "settings.h"
 #include <QtGui/QBoxLayout>
 #include "vocabulary.h"
+#include "plugins.h"
 
 class MainWindow : public QMainWindow
 {
@@ -21,6 +22,7 @@ class MainWindow : public QMainWindow
 
 		int _iCurrentWord;
 		int _iTimerLearing;
+		Plugins _pPlugins;
 		Settings _sSettings;
 		Ui::qmwUiMain _umwMainWindow;
         Vocabulary _vVocabulary;

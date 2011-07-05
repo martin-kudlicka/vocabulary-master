@@ -86,6 +86,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
 	_umwMainWindow.setupUi(this);
 
+	_pPlugins.Load();
     ApplySettings(true);
 
     _vVocabulary.Open(_sSettings.GetVocabularyFile());
