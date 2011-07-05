@@ -27,7 +27,9 @@ class TTSOpenJTalk : public QObject, private TTSInterface
 		NJD _nNjd;
 		JPCommon _jJpcommon;
 
+		const QString GetFileInSubdir(const QString &pFile, const QString &pDir) const;
 		const eTTSPlugin GetPluginId() const;
+		const QString GetSubdir(const QString &pDir) const;
 		const void Initialize();
 		const void Uninitialize();
 }; // TTSOpenJTalk
