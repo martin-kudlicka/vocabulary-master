@@ -7,12 +7,10 @@
 #include "../../3rdparty/Open JTalk/source/jpcommon/jpcommon.h"
 #include "../../3rdparty/hts_engine API/source/include/HTS_engine.h"
 
-class TTSOpenJTalk : private TTSInterface, public QObject
+class TTSOpenJTalk : public QObject, private TTSInterface
 {
+	Q_OBJECT
 	Q_INTERFACES(TTSInterface)
-
-	public:
-		const eTTSPlugin GetPluginId() const;
 
 	private:
 		static const HTS_Boolean USE_LOG_GAIN = FALSE;
@@ -29,6 +27,7 @@ class TTSOpenJTalk : private TTSInterface, public QObject
 		NJD _nNjd;
 		JPCommon _jJpcommon;
 
+		const eTTSPlugin GetPluginId() const;
 		const void Initialize();
 		const void Uninitialize();
 }; // TTSOpenJTalk

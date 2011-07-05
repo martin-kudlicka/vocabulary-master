@@ -1,9 +1,11 @@
 #include "tts-openjtalk.h"
 
+#include <QtCore/QCoreApplication>
+#include <QtCore/QDir>
+
 #define PLUGIN_CLASS TTSOpenJTalk
 #define PLUGIN_NAME	 tts-openjtalk
 
-char *DIC_DIR = "open_jtalk_dic_utf_8";
 char *FN_GV_SWITCH = "gv-switch.inf";
 char *FN_MS_DUR = "dur.pdf";
 char *FN_MS_GV1 = "gv-lf0.pdf";
@@ -26,6 +28,7 @@ const double GV_WEIGHT_LF0 = 1.0;
 const double GV_WEIGHT_LPF = 1.0;
 const double GV_WEIGHT_MGC = 1.0;
 const double UV_THRESHOLD = 0.5;
+const QString DIC_DIR = "open_jtalk_dic_utf_8";
 
 const TTSInterface::eTTSPlugin TTSOpenJTalk::GetPluginId() const
 {
@@ -52,7 +55,7 @@ const void TTSOpenJTalk::Initialize()
 	HTS_Engine_set_gv_weight(&_heEngine, 2, GV_WEIGHT_LPF);
 
 	// load
-	Mecab_load(&_mMecab, DIC_DIR);
+	Mecab_load(&_mMecab, QString(QCoreApplication::applicationDirPath() + QDir::separator() + DIC_DIR).toLocal8Bit().data());
 	HTS_Engine_load_duration_from_fn(&_heEngine, &FN_MS_DUR, &FN_TS_DUR, 1);
 	HTS_Engine_load_parameter_from_fn(&_heEngine, &FN_MS_MGC, &FN_TS_MGC, &FN_WS_MGC, 0, FALSE, NUM_WS_MGC, 1);
 	HTS_Engine_load_parameter_from_fn(&_heEngine, &FN_MS_LF0, &FN_TS_LF0, &FN_WS_LF0, 1, TRUE, NUM_WS_LF0, 1);
