@@ -3,6 +3,7 @@
 #include <QtGui/QInputDialog>
 #include "vocabularymanagerdialog/vocabularymodel.h"
 #include "vocabularymanagerdialog/vocabularyview.h"
+#include "vocabularymanagerdialog/vocabularysettingsdialog.h"
 
 const int VocabularyManagerDialog::AddTab(const int &pCategoryId)
 {
@@ -44,6 +45,12 @@ const void VocabularyManagerDialog::on_qpbCategoryAdd_clicked(bool checked /* fa
     } // if
 } // on_qpbCategoryAdd_clicked
 
+const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checked /* false */)
+{
+	VocabularySettingsDialog vsdSettings(_vVocabulary, _pPlugins, this);
+	vsdSettings.exec();
+} // on_qpbVocabularySettings_clicked
+
 const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false */)
 {
 	VocabularyView *vvVocabularyView = static_cast<VocabularyView *>(_qdvmVocabularyManager.qtwTabs->currentWidget());
@@ -54,9 +61,10 @@ const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false 
 	vvVocabularyView->setFocus(Qt::OtherFocusReason);
 } // on_qpbWordAdd_clicked
 
-VocabularyManagerDialog::VocabularyManagerDialog(const Vocabulary *pVocabulary, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
+VocabularyManagerDialog::VocabularyManagerDialog(const Vocabulary *pVocabulary, const Plugins *pPlugins, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
 {
     _vVocabulary = pVocabulary;
+	_pPlugins = pPlugins;
 
     _qdvmVocabularyManager.setupUi(this);
 
