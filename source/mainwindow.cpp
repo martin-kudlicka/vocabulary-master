@@ -170,6 +170,7 @@ const void MainWindow::OnShowTranslation()
 {
 	if (_iTimerLearing != 0) {
 		_umwMainWindow.qtbWindow2->setText(GetLearningText(true));
+		_umwMainWindow.qtbWindow2->repaint();
 		Say(true);
 	} // if
 } // OnShowTranslation
