@@ -9,11 +9,11 @@
 const QString COLUMN_CATEGORYID = "categoryid";
 const QString COLUMN_ENABLED = "enabled";
 const QString COLUMN_ID = "id";
-//const QString COLUMN_KEY = "key";
+const QString COLUMN_KEY = "key";
 const QString COLUMN_NAME = "name";
 const QString COLUMN_PRIORITY = "priority";
-/*const QString COLUMN_VALUE = "value";
-const QString TABLE_SETTINGS = "settings";*/
+const QString COLUMN_VALUE = "value";
+const QString TABLE_SETTINGS = "settings";
 const QString TABLE_CATEGORIES = "categories";
 const QString TABLE_WORDS = "words";
 
@@ -64,6 +64,16 @@ const QString Vocabulary::GetNote(const int &pCategoryId, const int &pRow, const
     return qsqQuery.value(qsqQuery.record().indexOf(pNote)).toString();
 } // GetNote
 
+const QString Vocabulary::GetSettings(const QString &pKey) const
+{
+	QSqlQuery qsqQuery("SELECT " + COLUMN_VALUE + " FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + pKey + "'");
+	if (qsqQuery.next()) {
+		return qsqQuery.value(0).toString();
+	} else {
+		return QString();
+	} // if else
+} // GetSettings
+
 const QString &Vocabulary::GetVocabularyFile() const
 {
     return _qsVocabularyFile;
@@ -107,10 +117,10 @@ const void Vocabulary::Initialize() const
 {
     QSqlQuery qsqQuery;
 
-    /*qsqQuery.exec("CREATE TABLE " + TABLE_SETTINGS + " ("
+    qsqQuery.exec("CREATE TABLE " + TABLE_SETTINGS + " ("
                   + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                   + COLUMN_KEY + " TEXT,"
-                  + COLUMN_VALUE + " TEXT)");*/
+                  + COLUMN_VALUE + " TEXT)");
     qsqQuery.exec("CREATE TABLE " + TABLE_CATEGORIES + " ("
                   + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                   + COLUMN_NAME + " TEXT,"
@@ -165,6 +175,15 @@ const void Vocabulary::Open(const QString &pFilePath)
     _qsdDatabase.setDatabaseName(_qsVocabularyFile);
     _qsdDatabase.open();
 } // Open
+
+const void Vocabulary::SetSettings(const QString &pKey, const QString &pValue) const
+{
+	if (GetSettings(pKey).isEmpty()) {
+		QSqlQuery qsqQuery("INSERT INTO " + TABLE_SETTINGS + " (" + COLUMN_KEY + ", " + COLUMN_VALUE + ") VALUES ('" + pKey + "', '" + pValue + "')");
+	} else {
+		QSqlQuery qsqQuery("UPDATE " + TABLE_SETTINGS + " SET " + COLUMN_VALUE + " = '" + pValue + "' WHERE " + COLUMN_KEY + " = '" + pKey + "'");
+	} // if else
+} // SetSettings
 
 const void Vocabulary::SetWord(const QString &pWord, const int &pCategoryId, const int &pRow, const QString &pLanguage) const
 {

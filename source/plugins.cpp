@@ -8,6 +8,16 @@
 const QString DIR_PLUGINS = "plugins";
 #endif
 
+const TTSInterface *Plugins::GetPlugin(const TTSInterface::eTTSPlugin &pPluginId) const
+{
+	return _qhTTSPlugins.value(pPluginId);
+} // GetPlugin
+
+const Plugins::tKeyList Plugins::GetPluginList() const
+{
+	return _qhTTSPlugins.keys();
+} // GetPluginList
+
 const void Plugins::Initialize()
 {
 	foreach (TTSInterface *tiPlugin, _qhTTSPlugins.values()) {

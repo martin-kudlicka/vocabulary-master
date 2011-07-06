@@ -103,7 +103,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
 const void MainWindow::on_qaManage_triggered(bool checked /* false */)
 {
-    VocabularyManagerDialog vmdManager(&_vVocabulary, this);
+    VocabularyManagerDialog vmdManager(&_vVocabulary, &_pPlugins, this);
     vmdManager.exec();
 } // on_qaManage_triggered
 
