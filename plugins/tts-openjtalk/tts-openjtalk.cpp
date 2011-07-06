@@ -137,7 +137,7 @@ const void TTSOpenJTalk::Initialize()
 
 const void TTSOpenJTalk::Say(const QString &pText)
 {
-	char *cBuffer = static_cast<char *>(calloc(2 * pText.toUtf8().size() + 8, sizeof(char)));
+	char *cBuffer = static_cast<char *>(calloc(2 * pText.toUtf8().size() + 1, sizeof(char)));
 	text2mecab(cBuffer, pText.toUtf8().data());
 	Mecab_analysis(&_mMecab, cBuffer);
 	free(cBuffer);
