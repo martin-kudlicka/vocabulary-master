@@ -2,6 +2,15 @@
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
+#include "../../3rdparty/Open JTalk/source/text2mecab/text2mecab.h"
+#include "../../3rdparty/Open JTalk/source/mecab2njd/mecab2njd.h"
+#include "../../3rdparty/Open JTalk/source/njd_set_pronunciation/njd_set_pronunciation.h"
+#include "../../3rdparty/Open JTalk/source/njd_set_digit/njd_set_digit.h"
+#include "../../3rdparty/Open JTalk/source/njd_set_accent_phrase/njd_set_accent_phrase.h"
+#include "../../3rdparty/Open JTalk/source/njd_set_accent_type/njd_set_accent_type.h"
+#include "../../3rdparty/Open JTalk/source/njd_set_unvoiced_vowel/njd_set_unvoiced_vowel.h"
+#include "../../3rdparty/Open JTalk/source/njd_set_long_vowel/njd_set_long_vowel.h"
+#include "../../3rdparty/Open JTalk/source/njd2jpcommon/njd2jpcommon.h"
 
 #define PLUGIN_CLASS TTSOpenJTalk
 #define PLUGIN_NAME	 tts-openjtalk
@@ -26,9 +35,13 @@ const QString FN_TS_GVM = "tree-gv-mgc.inf";
 const QString FN_TS_LF0 = "tree-lf0.inf";
 const QString FN_TS_LPF = "tree-lpf.inf";
 const QString FN_TS_MGC = "tree-mgc.inf";
-const QString FN_WS_LF0 = "lf0.win1";
+const QString FN_WS_LF0_1 = "lf0.win1";
+const QString FN_WS_LF0_2 = "lf0.win2";
+const QString FN_WS_LF0_3 = "lf0.win3";
 const QString FN_WS_LPF = "lpf.win1";
-const QString FN_WS_MGC = "mgc.win2";
+const QString FN_WS_MGC_1 = "mgc.win1";
+const QString FN_WS_MGC_2 = "mgc.win2";
+const QString FN_WS_MGC_3 = "mgc.win3";
 const QString VOICE_DIR = "hts_voice_nitech_jp_atr503_m001";
 
 const QString TTSOpenJTalk::GetFileInSubdir(const QString &pFile, const QString &pDir) const
@@ -66,9 +79,12 @@ const void TTSOpenJTalk::Initialize()
 	HTS_Engine_set_gv_weight(&_heEngine, 2, GV_WEIGHT_LPF);
 
 	// load
+	char **cPaths = static_cast<char **>(malloc(NUM_WS_MGC * sizeof(char *)));
 	char *cPath1 = static_cast<char *>(malloc(MAX_PATH + 1));
 	char *cPath2 = static_cast<char *>(malloc(MAX_PATH + 1));
 	char *cPath3 = static_cast<char *>(malloc(MAX_PATH + 1));
+	char *cPath4 = static_cast<char *>(malloc(MAX_PATH + 1));
+	char *cPath5 = static_cast<char *>(malloc(MAX_PATH + 1));
 
 	Mecab_load(&_mMecab, GetSubdir(DIC_DIR).toLocal8Bit().data());
 	strcpy(cPath1, GetFileInSubdir(FN_MS_DUR, VOICE_DIR).toLocal8Bit().data());
@@ -76,12 +92,22 @@ const void TTSOpenJTalk::Initialize()
 	HTS_Engine_load_duration_from_fn(&_heEngine, &cPath1, &cPath2, 1);
 	strcpy(cPath1, GetFileInSubdir(FN_MS_MGC, VOICE_DIR).toLocal8Bit().data());
 	strcpy(cPath2, GetFileInSubdir(FN_TS_MGC, VOICE_DIR).toLocal8Bit().data());
-	strcpy(cPath3, GetFileInSubdir(FN_WS_MGC, VOICE_DIR).toLocal8Bit().data());
-	HTS_Engine_load_parameter_from_fn(&_heEngine, &cPath1, &cPath2, &cPath3, 0, FALSE, NUM_WS_MGC, 1);
+	strcpy(cPath3, GetFileInSubdir(FN_WS_MGC_1, VOICE_DIR).toLocal8Bit().data());
+	strcpy(cPath4, GetFileInSubdir(FN_WS_MGC_2, VOICE_DIR).toLocal8Bit().data());
+	strcpy(cPath5, GetFileInSubdir(FN_WS_MGC_3, VOICE_DIR).toLocal8Bit().data());
+	cPaths[0] = cPath3;
+	cPaths[1] = cPath4;
+	cPaths[2] = cPath5;
+	HTS_Engine_load_parameter_from_fn(&_heEngine, &cPath1, &cPath2, cPaths, 0, FALSE, NUM_WS_MGC, 1);
 	strcpy(cPath1, GetFileInSubdir(FN_MS_LF0, VOICE_DIR).toLocal8Bit().data());
 	strcpy(cPath2, GetFileInSubdir(FN_TS_LF0, VOICE_DIR).toLocal8Bit().data());
-	strcpy(cPath3, GetFileInSubdir(FN_WS_LF0, VOICE_DIR).toLocal8Bit().data());
-	HTS_Engine_load_parameter_from_fn(&_heEngine, &cPath1, &cPath2, &cPath3, 1, TRUE, NUM_WS_LF0, 1);
+	strcpy(cPath3, GetFileInSubdir(FN_WS_LF0_1, VOICE_DIR).toLocal8Bit().data());
+	strcpy(cPath4, GetFileInSubdir(FN_WS_LF0_2, VOICE_DIR).toLocal8Bit().data());
+	strcpy(cPath5, GetFileInSubdir(FN_WS_LF0_3, VOICE_DIR).toLocal8Bit().data());
+	cPaths[0] = cPath3;
+	cPaths[1] = cPath4;
+	cPaths[2] = cPath5;
+	HTS_Engine_load_parameter_from_fn(&_heEngine, &cPath1, &cPath2, cPaths, 1, TRUE, NUM_WS_LF0, 1);
 	if (HTS_Engine_get_nstream(&_heEngine) == 3) {
 		strcpy(cPath1, GetFileInSubdir(FN_MS_LPF, VOICE_DIR).toLocal8Bit().data());
 		strcpy(cPath2, GetFileInSubdir(FN_TS_LPF, VOICE_DIR).toLocal8Bit().data());
@@ -99,7 +125,37 @@ const void TTSOpenJTalk::Initialize()
 	free(cPath1);
 	free(cPath2);
 	free(cPath3);
+	free(cPath4);
+	free(cPath5);
+	free(cPaths);
 } // Initialize
+
+const void TTSOpenJTalk::Say(const QString &pText)
+{
+	char *cBuffer = static_cast<char *>(calloc(2 * pText.toLocal8Bit().size() + 1, sizeof(char)));
+	text2mecab(cBuffer, pText.toLocal8Bit().data());
+	Mecab_analysis(&_mMecab, cBuffer);
+	free(cBuffer);
+	mecab2njd(&_nNjd, Mecab_get_feature(&_mMecab), Mecab_get_size(&_mMecab));
+	njd_set_pronunciation(&_nNjd);
+	njd_set_digit(&_nNjd);
+	njd_set_accent_phrase(&_nNjd);
+	njd_set_accent_type(&_nNjd);
+	njd_set_unvoiced_vowel(&_nNjd);
+	njd_set_long_vowel(&_nNjd);
+	njd2jpcommon(&_jJpcommon, &_nNjd);
+	JPCommon_make_label(&_jJpcommon);
+	if (JPCommon_get_label_size(&_jJpcommon) > 2) {
+		HTS_Engine_load_label_from_string_list(&_heEngine, JPCommon_get_label_feature(&_jJpcommon), JPCommon_get_label_size(&_jJpcommon));
+		HTS_Engine_create_sstream(&_heEngine);
+		HTS_Engine_create_pstream(&_heEngine);
+		HTS_Engine_create_gstream(&_heEngine);
+		HTS_Engine_refresh(&_heEngine);
+	} // if
+	JPCommon_refresh(&_jJpcommon);
+	NJD_refresh(&_nNjd);
+	Mecab_refresh(&_mMecab);
+} // Say
 
 const void TTSOpenJTalk::Uninitialize()
 {
