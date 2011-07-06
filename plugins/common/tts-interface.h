@@ -10,6 +10,7 @@ class TTSInterface
 {
 	public:
 		enum eTTSPlugin {
+			TTPluginNone,
 			TTSPluginOpenJTalk
 		}; // eTTS
 
