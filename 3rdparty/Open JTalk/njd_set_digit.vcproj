@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories=".\source\njd"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;CHARSET_UTF_8"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;CHARSET_UTF_8;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -103,7 +103,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories=".\source\njd"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;CHARSET_UTF_8"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;CHARSET_UTF_8;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
