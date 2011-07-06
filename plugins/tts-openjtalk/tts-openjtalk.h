@@ -16,9 +16,9 @@ class TTSOpenJTalk : public QObject, private TTSInterface
 		static const HTS_Boolean USE_LOG_GAIN = FALSE;
 		static const int AUDIO_BUFF_SIZE = 1600;
 		static const int FRAME_SHIFT = 240;
-		static const int NUM_WS_LF0 = 1;
+		static const int NUM_WS_LF0 = 3;
 		static const int NUM_WS_LPF = 1;
-		static const int NUM_WS_MGC = 1;
+		static const int NUM_WS_MGC = 3;
 		static const int SAMPLING_RATE = 48000;
 		static const int STAGE = 0;
 
@@ -31,6 +31,7 @@ class TTSOpenJTalk : public QObject, private TTSInterface
 		const eTTSPlugin GetPluginId() const;
 		const QString GetSubdir(const QString &pDir) const;
 		const void Initialize();
+		const void Say(const QString &pText);
 		const void Uninitialize();
 }; // TTSOpenJTalk
 
