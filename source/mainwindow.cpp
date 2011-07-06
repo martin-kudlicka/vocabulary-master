@@ -170,8 +170,25 @@ const void MainWindow::OnShowTranslation()
 {
 	if (_iTimerLearing != 0) {
 		_umwMainWindow.qtbWindow2->setText(GetLearningText(true));
+		Say(true);
 	} // if
 } // OnShowTranslation
+
+const void MainWindow::Say(const bool &pAnswer) const
+{
+	QString qsSpeech;
+	if ((!_sSettings.GetSwitchLearningDirection() && !pAnswer) || (_sSettings.GetSwitchLearningDirection() && pAnswer)) {
+		qsSpeech = COLUMN_SPEECH1;
+	} else {
+		qsSpeech = COLUMN_SPEECH2;
+	} // if else
+
+	int iSpeech = _vVocabulary.GetSettings(qsSpeech).toInt();
+	if (iSpeech != TTSInterface::TTPluginNone) {
+		TTSInterface *tiPlugin = _pPlugins.GetPlugin(static_cast<TTSInterface::eTTSPlugin>(iSpeech));
+		tiPlugin->Say(_vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pAnswer)));
+	} // if
+} // Say
 
 const void MainWindow::SetLayout()
 {
@@ -201,6 +218,8 @@ void MainWindow::timerEvent(QTimerEvent *event)
 	if (_sSettings.GetNewWordSound()) {
 		QApplication::beep();
 	} // if
+
+	Say(false);
 
 	QTimer::singleShot(_sSettings.GetWaitForAnswer() * MILISECONDS_PER_SECOND, this, SLOT(OnShowTranslation()));
 } // timerEvent

@@ -9,7 +9,7 @@ class Plugins
 	public:
 		typedef QList<TTSInterface::eTTSPlugin> tKeyList;
 
-		const TTSInterface *GetPlugin(const TTSInterface::eTTSPlugin &pPluginId) const;
+		TTSInterface *GetPlugin(const TTSInterface::eTTSPlugin &pPluginId) const;
 		const tKeyList GetPluginList() const;
 		const void Initialize();
 		const void Load();

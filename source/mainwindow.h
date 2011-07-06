@@ -32,6 +32,7 @@ class MainWindow : public QMainWindow
 		const QString GetLangColumn(const bool &pAnswer) const;
         const QString GetLearningText(const bool &pAnswer) const;
         const QString GetNoteColumn(const bool &pAnswer) const;
+		const void Say(const bool &pAnswer) const;
         const void SetLayout();
 		void timerEvent(QTimerEvent *event);
 

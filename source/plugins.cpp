@@ -8,7 +8,7 @@
 const QString DIR_PLUGINS = "plugins";
 #endif
 
-const TTSInterface *Plugins::GetPlugin(const TTSInterface::eTTSPlugin &pPluginId) const
+TTSInterface *Plugins::GetPlugin(const TTSInterface::eTTSPlugin &pPluginId) const
 {
 	return _qhTTSPlugins.value(pPluginId);
 } // GetPlugin
