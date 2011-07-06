@@ -15,6 +15,7 @@ class TTSInterface
 		}; // eTTS
 
 		virtual const eTTSPlugin GetPluginId() const = 0;
+		virtual const QString GetPluginName() const = 0;
 		virtual const void Initialize() = 0;
 		virtual const void Say(const QString &pText) = 0;
 		virtual const void Uninitialize() = 0;

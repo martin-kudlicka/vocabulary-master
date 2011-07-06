@@ -54,6 +54,11 @@ const TTSInterface::eTTSPlugin TTSOpenJTalk::GetPluginId() const
 	return TTSPluginOpenJTalk;
 } // GetPluginId
 
+const QString TTSOpenJTalk::GetPluginName() const
+{
+	return "Open JTalk";
+} // GetPluginName
+
 const QString TTSOpenJTalk::GetSubdir(const QString &pDir) const
 {
 	return QCoreApplication::applicationDirPath() + QDir::separator() + pDir;
