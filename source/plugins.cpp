@@ -4,10 +4,6 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QPluginLoader>
 
-#ifndef _DEBUG
-const QString DIR_PLUGINS = "plugins";
-#endif
-
 TTSInterface *Plugins::GetPlugin(const TTSInterface::eTTSPlugin &pPluginId) const
 {
 	return _qhTTSPlugins.value(pPluginId);

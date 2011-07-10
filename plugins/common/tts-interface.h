@@ -5,6 +5,9 @@
 #include <QtPlugin>
 
 static const char *TTS_INTERFACE = "TTS Interface 1.0";
+#ifndef _DEBUG
+const QString DIR_PLUGINS = "plugins";
+#endif
 
 class TTSInterface
 {
