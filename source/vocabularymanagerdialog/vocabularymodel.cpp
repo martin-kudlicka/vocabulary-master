@@ -28,7 +28,7 @@ Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
 {
 	Qt::ItemFlags ifFlags;
 
-	if (index.column() == ColumnLang1 || index.column() == ColumnLang2) {
+	if (index.column() == ColumnLang1 || index.column() == ColumnNote1 || index.column() == ColumnLang2 || index.column() == ColumnNote2) {
 		ifFlags = Qt::ItemIsEditable;
 	} // if
 
