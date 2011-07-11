@@ -53,9 +53,9 @@ const bool Settings::GetStartLearningOnStartup() const
 	return _qsSettings.value(KEY_STARTLEARNINGONSTARTUP, false).toBool();
 } // GetStartLearningOnStartup
 
-const bool Settings::GetSwitchLearningDirection() const
+const Qt::CheckState Settings::GetSwitchLearningDirection() const
 {
-	return _qsSettings.value(KEY_SWITCHLEARNINGDIRECTION, false).toBool();
+	return static_cast<Qt::CheckState>(_qsSettings.value(KEY_SWITCHLEARNINGDIRECTION, false).toInt());
 } // GetSwitchLearningDirection
 
 const QString Settings::GetVocabularyFile() const
@@ -118,7 +118,7 @@ const void Settings::SetStartLearningOnStartup(const bool &pEnable)
 	_qsSettings.setValue(KEY_STARTLEARNINGONSTARTUP, pEnable);
 } // SetStartLearningOnStartup
 
-const void Settings::SetSwitchLearningDirection(const bool &pSwitch)
+const void Settings::SetSwitchLearningDirection(const Qt::CheckState &pSwitch)
 {
 	_qsSettings.setValue(KEY_SWITCHLEARNINGDIRECTION, pSwitch);
 } // SetSwitchLearningDirection
