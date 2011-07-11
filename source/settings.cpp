@@ -3,6 +3,7 @@
 const QString APPLICATION = "Vocabulary Master";
 const QString KEY_ALWAYSONTOP = "AlwaysOnTop";
 const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
+const QString KEY_NEWWORDFLASH = "NewWordFlash";
 const QString KEY_NEWWORDSCOUNT = "NewWordsCount";
 const QString KEY_NEWWORDSFREQUENCY = "NewWordsFrequency";
 const QString KEY_NEWWORDSOUND = "NewWordSound";
@@ -42,6 +43,11 @@ const bool Settings::GetRememberWindowPosition() const
 {
     return _qsSettings.value(KEY_REMEMBERWINDOWPOSITION, true).toBool();
 } // GetRememberWindowPosition
+
+const bool Settings::GetNewWordFlash() const
+{
+	return _qsSettings.value(KEY_NEWWORDFLASH, false).toBool();
+} // GetNewWordFlash
 
 const bool Settings::GetNewWordSound() const
 {
@@ -107,6 +113,11 @@ const void Settings::SetRememberWindowPosition(const bool &pEnable)
 {
     _qsSettings.setValue(KEY_REMEMBERWINDOWPOSITION, pEnable);
 } // SetRememberWindowPosition
+
+const void Settings::SetNewWordFlash(const bool &pEnable)
+{
+	_qsSettings.setValue(KEY_NEWWORDFLASH, pEnable);
+} // SetNewWordFlash
 
 const void Settings::SetNewWordSound(const bool &pEnable)
 {

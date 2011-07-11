@@ -139,7 +139,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>90</y>
+         <y>110</y>
          <width>140</width>
          <height>17</height>
         </rect>
@@ -155,13 +155,26 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>110</y>
+         <y>130</y>
          <width>140</width>
          <height>17</height>
         </rect>
        </property>
        <property name="text">
         <string>Start learning on startup</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="cbNewWordFlash">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>90</y>
+         <width>120</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Flash with new word</string>
        </property>
       </widget>
      </widget>

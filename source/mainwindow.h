@@ -18,6 +18,8 @@ class MainWindow : public QMainWindow
 		MainWindow(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 	private:
+		static const int FLASH_COUNT = 3;
+		static const int FLASH_WAIT = 100;
 		static const int MILISECONDS_PER_SECOND = 1000;
 
 		struct sAnswer {
