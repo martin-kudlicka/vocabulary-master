@@ -5,6 +5,7 @@
 #include "vocabularymanagerdialog.h"
 #include <QtCore/QTimer>
 #include <QtCore/QTime>
+#include <QTest>
 
 const QString FORMAT_NOTE = "<center style=\"font-size:small\">%1</center>";
 const QString FORMAT_WORD = "<center style=\"font-size:xx-large\">%1</center>";
@@ -231,6 +232,18 @@ void MainWindow::timerEvent(QTimerEvent *event)
 
 	if (_sSettings.GetNewWordSound()) {
 		QApplication::beep();
+	} // if
+	if (_sSettings.GetNewWordFlash()) {
+		QColor qcOriginal = _umwMainWindow.qtbWindow1->textBackgroundColor();
+
+		for (int iI = 0; iI < FLASH_COUNT; iI++) {
+			//_umwMainWindow.qtbWindow1->setTextBackgroundColor(Qt::green);
+			QTest::qWait(FLASH_WAIT);
+			//_umwMainWindow.qtbWindow1->setTextBackgroundColor(qcOriginal);
+			if (iI < FLASH_COUNT - 1) {
+				QTest::qWait(FLASH_WAIT);
+			} // if
+		} // for
 	} // if
 
 	Say(false);
