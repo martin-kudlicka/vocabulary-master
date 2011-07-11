@@ -20,9 +20,15 @@ class MainWindow : public QMainWindow
 	private:
 		static const int MILISECONDS_PER_SECOND = 1000;
 
+		struct sAnswer {
+			int iWord;
+			bool bDirectionSwitched;
+		}; // sAnswer
+
 		int _iCurrentWord;
 		int _iTimerLearing;
 		Plugins _pPlugins;
+		sAnswer _saAnswer;
 		Settings _sSettings;
 		Ui::qmwUiMain _umwMainWindow;
         Vocabulary _vVocabulary;
@@ -30,6 +36,7 @@ class MainWindow : public QMainWindow
         const void ApplySettings(const bool &pStartup);
         const void EnableControls();
 		const QString GetLangColumn(const bool &pAnswer) const;
+		const bool GetLearningDirection() const;
         const QString GetLearningText(const bool &pAnswer) const;
         const QString GetNoteColumn(const bool &pAnswer) const;
 		const void Say(const bool &pAnswer) const;

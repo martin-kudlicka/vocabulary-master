@@ -147,6 +147,9 @@
        <property name="text">
         <string>Switch learning direction</string>
        </property>
+       <property name="tristate">
+        <bool>true</bool>
+       </property>
       </widget>
       <widget class="QCheckBox" name="cbStartLearningOnStartup">
        <property name="geometry">

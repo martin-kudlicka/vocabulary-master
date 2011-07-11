@@ -40,12 +40,21 @@ const void MainWindow::EnableControls()
 
 const QString MainWindow::GetLangColumn(const bool &pAnswer) const
 {
-	if ((!_sSettings.GetSwitchLearningDirection() && !pAnswer) || (_sSettings.GetSwitchLearningDirection() && pAnswer)) {
+	if ((!_saAnswer.bDirectionSwitched && !pAnswer) || (_saAnswer.bDirectionSwitched && pAnswer)) {
 		return COLUMN_LANG1;
 	} else {
 		return COLUMN_LANG2;
 	} // if else
 } // GetLangColumn
+
+const bool MainWindow::GetLearningDirection() const
+{
+	if (_sSettings.GetSwitchLearningDirection() != Qt::PartiallyChecked) {
+		return _sSettings.GetSwitchLearningDirection();
+	} else {
+		return qrand() % 2;
+	} // if else
+} // if
 
 const QString MainWindow::GetLearningText(const bool &pAnswer) const
 {
@@ -61,7 +70,7 @@ const QString MainWindow::GetLearningText(const bool &pAnswer) const
 
 const QString MainWindow::GetNoteColumn(const bool &pAnswer) const
 {
-    if ((!_sSettings.GetSwitchLearningDirection() && !pAnswer) || (_sSettings.GetSwitchLearningDirection() && pAnswer)) {
+    if ((!_saAnswer.bDirectionSwitched && !pAnswer) || (_saAnswer.bDirectionSwitched && pAnswer)) {
         return COLUMN_NOTE1;
     } else {
         return COLUMN_NOTE2;
@@ -168,7 +177,7 @@ const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 
 const void MainWindow::OnShowTranslation()
 {
-	if (_iTimerLearing != 0) {
+	if (_iTimerLearing != 0 && _saAnswer.iWord == _iCurrentWord) {
 		_umwMainWindow.qtbWindow2->setText(GetLearningText(true));
 		_umwMainWindow.qtbWindow2->repaint();
 		Say(true);
@@ -178,7 +187,7 @@ const void MainWindow::OnShowTranslation()
 const void MainWindow::Say(const bool &pAnswer) const
 {
 	QString qsSpeech;
-	if ((!_sSettings.GetSwitchLearningDirection() && !pAnswer) || (_sSettings.GetSwitchLearningDirection() && pAnswer)) {
+	if ((!_saAnswer.bDirectionSwitched && !pAnswer) || (_saAnswer.bDirectionSwitched && pAnswer)) {
 		qsSpeech = COLUMN_SPEECH1;
 	} else {
 		qsSpeech = COLUMN_SPEECH2;
@@ -213,6 +222,10 @@ const void MainWindow::SetLayout()
 void MainWindow::timerEvent(QTimerEvent *event)
 {
 	_iCurrentWord = qrand() % _vVocabulary.GetWordCount();
+
+	_saAnswer.iWord = _iCurrentWord;
+	_saAnswer.bDirectionSwitched = GetLearningDirection();
+
 	_umwMainWindow.qtbWindow1->setText(GetLearningText(false));
 	_umwMainWindow.qtbWindow2->clear();
 

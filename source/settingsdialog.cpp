@@ -19,7 +19,7 @@ const void SettingsDialog::FillOptions()
 	_usdSettingsDialog.qsbWaitForAnswer->setMaximum(_sSettings->GetWordsFrequency() - 1);
 	_usdSettingsDialog.qsbWaitForAnswer->setValue(_sSettings->GetWaitForAnswer());
 	_usdSettingsDialog.cbNewWordSound->setChecked(_sSettings->GetNewWordSound());
-	_usdSettingsDialog.cbSwitchLearningDirection->setChecked(_sSettings->GetSwitchLearningDirection());
+	_usdSettingsDialog.cbSwitchLearningDirection->setCheckState(_sSettings->GetSwitchLearningDirection());
 	_usdSettingsDialog.cbStartLearningOnStartup->setChecked(_sSettings->GetStartLearningOnStartup());
 } // FillOptions
 
@@ -39,7 +39,7 @@ const void SettingsDialog::SaveOptions()
     _sSettings->SetWordsFrequency(_usdSettingsDialog.qsbWordsFrequency->value());
 	_sSettings->SetWaitForAnswer(_usdSettingsDialog.qsbWaitForAnswer->value());
 	_sSettings->SetNewWordSound(_usdSettingsDialog.cbNewWordSound->isChecked());
-	_sSettings->SetSwitchLearningDirection(_usdSettingsDialog.cbSwitchLearningDirection->isChecked());
+	_sSettings->SetSwitchLearningDirection(_usdSettingsDialog.cbSwitchLearningDirection->checkState());
 	_sSettings->SetStartLearningOnStartup(_usdSettingsDialog.cbStartLearningOnStartup->isChecked());
 } // SaveOptions
 

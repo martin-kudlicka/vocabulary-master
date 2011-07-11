@@ -16,7 +16,7 @@ class Settings
         const bool GetRememberWindowPosition() const;
 		const bool GetNewWordSound() const;
 		const bool GetStartLearningOnStartup() const;
-		const bool GetSwitchLearningDirection() const;
+		const Qt::CheckState GetSwitchLearningDirection() const;
 		const QString GetVocabularyFile() const;
 		const int GetWaitForAnswer() const;
 		const int GetWindowHeight() const;
@@ -29,7 +29,7 @@ class Settings
         const void SetRememberWindowPosition(const bool &pEnable);
 		const void SetNewWordSound(const bool &pEnable);
 		const void SetStartLearningOnStartup(const bool &pEnable);
-		const void SetSwitchLearningDirection(const bool &pSwitch);
+		const void SetSwitchLearningDirection(const Qt::CheckState &pSwitch);
 		const void SetVocabularyFile(const QString &pFile);
 		const void SetWaitForAnswer(const int &pTime);
 		const void SetWindowHeight(const int &pHeight);
