@@ -21,6 +21,7 @@ class MainWindow : public QMainWindow
 		static const int FLASH_COUNT = 3;
 		static const int FLASH_WAIT = 100;
 		static const int MILISECONDS_PER_SECOND = 1000;
+        static const int SAY_BEEP_WAIT = 500;
 
 		struct sAnswer {
 			int iWord;
