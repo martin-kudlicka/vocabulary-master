@@ -234,12 +234,15 @@ void MainWindow::timerEvent(QTimerEvent *event)
 		QApplication::beep();
 	} // if
 	if (_sSettings.GetNewWordFlash()) {
-		QColor qcOriginal = _umwMainWindow.qtbWindow1->textBackgroundColor();
+		QPalette qpOriginal = _umwMainWindow.qtbWindow1->palette();
 
 		for (int iI = 0; iI < FLASH_COUNT; iI++) {
-			//_umwMainWindow.qtbWindow1->setTextBackgroundColor(Qt::green);
+            QPalette qpPalette;
+
+            qpPalette.setColor(QPalette::Active, QPalette::Base, Qt::green);
+            _umwMainWindow.qtbWindow1->setPalette(qpPalette);
 			QTest::qWait(FLASH_WAIT);
-			//_umwMainWindow.qtbWindow1->setTextBackgroundColor(qcOriginal);
+			_umwMainWindow.qtbWindow1->setPalette(qpOriginal);
 			if (iI < FLASH_COUNT - 1) {
 				QTest::qWait(FLASH_WAIT);
 			} // if
