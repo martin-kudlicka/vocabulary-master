@@ -249,7 +249,10 @@ void MainWindow::timerEvent(QTimerEvent *event)
 		} // for
 	} // if
 
-	Say(false);
+    if (_sSettings.GetNewWordSound()) {
+        QTest::qWait(SAY_BEEP_WAIT);
+        Say(false);
+    } // if
 
 	QTimer::singleShot(_sSettings.GetWaitForAnswer() * MILISECONDS_PER_SECOND, this, SLOT(OnShowTranslation()));
 } // timerEvent
