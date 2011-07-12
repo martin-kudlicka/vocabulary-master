@@ -34,14 +34,14 @@ const void MainWindow::EnableControls()
     _umwMainWindow.qmVocabulary->setEnabled(_vVocabulary.IsOpen());
 
 	// tool bar
-	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimerLearing == 0 && _vVocabulary.GetWordCount() > 0);
-	_umwMainWindow.qaStop->setEnabled(_vVocabulary.IsOpen() && _iTimerLearing != 0);
-	_umwMainWindow.qaNext->setEnabled(_vVocabulary.IsOpen() && _iTimerLearing != 0);
+	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimerQuestion == 0 && _vVocabulary.GetWordCount() > 0);
+	_umwMainWindow.qaStop->setEnabled(_vVocabulary.IsOpen() && _iTimerQuestion != 0);
+	_umwMainWindow.qaNext->setEnabled(_vVocabulary.IsOpen() && _iTimerQuestion != 0);
 } // EnableControls
 
-const QString MainWindow::GetLangColumn(const bool &pAnswer) const
+const QString MainWindow::GetLangColumn(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
-	if ((!_saAnswer.bDirectionSwitched && !pAnswer) || (_saAnswer.bDirectionSwitched && pAnswer)) {
+	if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
 		return COLUMN_LANG1;
 	} else {
 		return COLUMN_LANG2;
@@ -57,10 +57,10 @@ const bool MainWindow::GetLearningDirection() const
 	} // if else
 } // if
 
-const QString MainWindow::GetLearningText(const bool &pAnswer) const
+const QString MainWindow::GetLearningText(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
-    QString qsWord = FORMAT_WORD.arg(_vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pAnswer)));
-    QString qsNote = _vVocabulary.GetNote(_iCurrentWord, GetNoteColumn(pAnswer));
+    QString qsWord = FORMAT_WORD.arg(_vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
+    QString qsNote = _vVocabulary.GetNote(_iCurrentWord, GetNoteColumn(pDirectionSwitched, pAnswer));
     if (!qsNote.isEmpty()) {
         qsNote = FORMAT_NOTE.arg(qsNote);
         return qsWord + qsNote;
@@ -69,9 +69,9 @@ const QString MainWindow::GetLearningText(const bool &pAnswer) const
     } // if else
 } // GetLearningText
 
-const QString MainWindow::GetNoteColumn(const bool &pAnswer) const
+const QString MainWindow::GetNoteColumn(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
-    if ((!_saAnswer.bDirectionSwitched && !pAnswer) || (_saAnswer.bDirectionSwitched && pAnswer)) {
+    if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
         return COLUMN_NOTE1;
     } else {
         return COLUMN_NOTE2;
@@ -92,7 +92,8 @@ MainWindow::~MainWindow()
 MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags)
 {
 	_iCurrentWord = -1;
-	_iTimerLearing = 0;
+    _iTimerAnswer = 0;
+	_iTimerQuestion = 0;
 
 	qsrand(QTime::currentTime().msec());
 
@@ -161,34 +162,29 @@ const void MainWindow::on_qaSettings_triggered(bool checked /* false */)
 
 const void MainWindow::on_qaStart_triggered(bool checked /* false */)
 {
-	_iTimerLearing = startTimer(_sSettings.GetWordsFrequency() * MILISECONDS_PER_SECOND);
+	_iTimerQuestion = startTimer(_sSettings.GetWordsFrequency() * MILISECONDS_PER_SECOND);
 	EnableControls();
-	timerEvent(NULL);
+	timerEvent(&QTimerEvent(_iTimerQuestion));
 } // on_qaStart_triggered
 
 const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 {
-	killTimer(_iTimerLearing);
-	_iTimerLearing = 0;
+    if (_iTimerAnswer != 0) {
+        killTimer(_iTimerAnswer);
+        _iTimerAnswer = 0;
+    } // if
+	killTimer(_iTimerQuestion);
+	_iTimerQuestion = 0;
 	EnableControls();
 
 	_umwMainWindow.qtbWindow1->clear();
 	_umwMainWindow.qtbWindow2->clear();
 } // on_qaStop_triggered
 
-const void MainWindow::OnShowTranslation()
-{
-	if (_iTimerLearing != 0 && _saAnswer.iWord == _iCurrentWord) {
-		_umwMainWindow.qtbWindow2->setText(GetLearningText(true));
-		_umwMainWindow.qtbWindow2->repaint();
-		Say(true);
-	} // if
-} // OnShowTranslation
-
-const void MainWindow::Say(const bool &pAnswer) const
+const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
 	QString qsSpeech;
-	if ((!_saAnswer.bDirectionSwitched && !pAnswer) || (_saAnswer.bDirectionSwitched && pAnswer)) {
+	if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
 		qsSpeech = COLUMN_SPEECH1;
 	} else {
 		qsSpeech = COLUMN_SPEECH2;
@@ -197,7 +193,7 @@ const void MainWindow::Say(const bool &pAnswer) const
 	int iSpeech = _vVocabulary.GetSettings(qsSpeech).toInt();
 	if (iSpeech != TTSInterface::TTPluginNone) {
 		TTSInterface *tiPlugin = _pPlugins.GetPlugin(static_cast<TTSInterface::eTTSPlugin>(iSpeech));
-		tiPlugin->Say(_vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pAnswer)));
+		tiPlugin->Say(_vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
 	} // if
 } // Say
 
@@ -222,37 +218,60 @@ const void MainWindow::SetLayout()
 
 void MainWindow::timerEvent(QTimerEvent *event)
 {
-	_iCurrentWord = qrand() % _vVocabulary.GetWordCount();
+    if (event->timerId() == _iTimerQuestion) {
+	    _iCurrentWord = qrand() % _vVocabulary.GetWordCount();
 
-	_saAnswer.iWord = _iCurrentWord;
-	_saAnswer.bDirectionSwitched = GetLearningDirection();
+        // question parameters
+        sAnswer saAnswer;
+	    saAnswer.iWord = _iCurrentWord;
+	    saAnswer.bDirectionSwitched = GetLearningDirection();
 
-	_umwMainWindow.qtbWindow1->setText(GetLearningText(false));
-	_umwMainWindow.qtbWindow2->clear();
+        // gui
+	    _umwMainWindow.qtbWindow1->setText(GetLearningText(saAnswer.bDirectionSwitched, false));
+	    _umwMainWindow.qtbWindow2->clear();
 
-	if (_sSettings.GetNewWordSound()) {
-		QApplication::beep();
-	} // if
-	if (_sSettings.GetNewWordFlash()) {
-		QPalette qpOriginal = _umwMainWindow.qtbWindow1->palette();
+        // sound
+	    if (_sSettings.GetNewWordSound()) {
+		    QApplication::beep();
+	    } // if
+        // flash
+	    if (_sSettings.GetNewWordFlash()) {
+		    QPalette qpOriginal = _umwMainWindow.qtbWindow1->palette();
 
-		for (int iI = 0; iI < FLASH_COUNT; iI++) {
-            QPalette qpPalette;
+		    for (int iI = 0; iI < FLASH_COUNT; iI++) {
+                QPalette qpPalette;
 
-            qpPalette.setColor(QPalette::Active, QPalette::Base, Qt::green);
-            _umwMainWindow.qtbWindow1->setPalette(qpPalette);
-			QTest::qWait(FLASH_WAIT);
-			_umwMainWindow.qtbWindow1->setPalette(qpOriginal);
-			if (iI < FLASH_COUNT - 1) {
-				QTest::qWait(FLASH_WAIT);
-			} // if
-		} // for
-	} // if
+                qpPalette.setColor(QPalette::Active, QPalette::Base, Qt::green);
+                _umwMainWindow.qtbWindow1->setPalette(qpPalette);
+			    QTest::qWait(FLASH_WAIT);
+			    _umwMainWindow.qtbWindow1->setPalette(qpOriginal);
+			    if (iI < FLASH_COUNT - 1) {
+				    QTest::qWait(FLASH_WAIT);
+			    } // if
+		    } // for
+	    } // if
+        // speech
+        if (_sSettings.GetNewWordSound()) {
+            QTest::qWait(SAY_BEEP_WAIT);
+            Say(saAnswer.bDirectionSwitched, false);
+        } // if
 
-    if (_sSettings.GetNewWordSound()) {
-        QTest::qWait(SAY_BEEP_WAIT);
-        Say(false);
-    } // if
+        // answer timer
+        _iTimerAnswer = startTimer(_sSettings.GetWaitForAnswer() * MILISECONDS_PER_SECOND);
+        _taHash.insert(_iTimerAnswer, saAnswer);
+    } else {
+        // check for answer timer
+        if (_taHash.contains(event->timerId())) {
+            sAnswer saAnswer = _taHash.value(event->timerId());
+            _taHash.remove(event->timerId());
 
-	QTimer::singleShot(_sSettings.GetWaitForAnswer() * MILISECONDS_PER_SECOND, this, SLOT(OnShowTranslation()));
+            if (saAnswer.iWord == _iCurrentWord) {
+                // gui
+                _umwMainWindow.qtbWindow2->setText(GetLearningText(saAnswer.bDirectionSwitched, true));
+                _umwMainWindow.qtbWindow2->repaint();
+                // speech
+                Say(saAnswer.bDirectionSwitched, true);
+            } // if
+        } // if
+    } // if else
 } // timerEvent
