@@ -8,8 +8,10 @@ const QString COLUMN_LANG1 = "lang1";
 const QString COLUMN_LANG2 = "lang2";
 const QString COLUMN_NOTE1 = "note1";
 const QString COLUMN_NOTE2 = "note2";
-const QString COLUMN_SPEECH1 = "speech1";
-const QString COLUMN_SPEECH2 = "speech2";
+const QString KEY_SPEECH1 = "speech1";
+const QString KEY_SPEECH2 = "speech2";
+const QString KEY_VOICE1 = "voice1";
+const QString KEY_VOICE2 = "voice2";
 
 class Vocabulary
 {

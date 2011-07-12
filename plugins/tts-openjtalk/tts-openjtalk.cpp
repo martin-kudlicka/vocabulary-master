@@ -12,9 +12,6 @@
 #include "../../3rdparty/Open JTalk/source/njd_set_long_vowel/njd_set_long_vowel.h"
 #include "../../3rdparty/Open JTalk/source/njd2jpcommon/njd2jpcommon.h"
 
-#define PLUGIN_CLASS TTSOpenJTalk
-#define PLUGIN_NAME	 tts-openjtalk
-
 char *FN_GV_SWITCH = "gv-switch.inf";
 const double ALPHA = 0.55;
 const double BETA = 0.0;
@@ -58,6 +55,11 @@ const QString TTSOpenJTalk::GetPluginName() const
 {
 	return "Open JTalk";
 } // GetPluginName
+
+const QStringList TTSOpenJTalk::GetVoicesIds() const
+{
+    return QStringList() << "NIT ATR503 M001";
+} // GetVoicesIds
 
 const QString TTSOpenJTalk::GetSubdir(const QString &pDir) const
 {
@@ -139,7 +141,7 @@ const void TTSOpenJTalk::Initialize()
 	free(cPaths);
 } // Initialize
 
-const void TTSOpenJTalk::Say(const QString &pText)
+const void TTSOpenJTalk::Say(const QString &pVoice, const QString &pText)
 {
 	char *cBuffer = static_cast<char *>(calloc(2 * pText.toUtf8().size() + 1, sizeof(char)));
 	text2mecab(cBuffer, pText.toUtf8().data());
@@ -174,4 +176,4 @@ const void TTSOpenJTalk::Uninitialize()
 	HTS_Engine_clear(&_heEngine);
 } // Uninitialize
 
-Q_EXPORT_PLUGIN2(PLUGIN_NAME, PLUGIN_CLASS)
+Q_EXPORT_PLUGIN2(tts-openjtalk, TTSOpenJTalk)

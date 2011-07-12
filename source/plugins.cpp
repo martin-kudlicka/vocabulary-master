@@ -9,10 +9,10 @@ TTSInterface *Plugins::GetPlugin(const TTSInterface::eTTSPlugin &pPluginId) cons
 	return _qhTTSPlugins.value(pPluginId);
 } // GetPlugin
 
-const Plugins::tKeyList Plugins::GetPluginList() const
+const Plugins::tKeyList Plugins::GetPluginIds() const
 {
 	return _qhTTSPlugins.keys();
-} // GetPluginList
+} // GetPluginIds
 
 const void Plugins::Initialize()
 {
