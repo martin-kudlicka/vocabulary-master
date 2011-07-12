@@ -183,17 +183,19 @@ const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 
 const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
-	QString qsSpeech;
+	QString qsSpeech, qsVoice;
 	if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
-		qsSpeech = COLUMN_SPEECH1;
+		qsSpeech = KEY_SPEECH1;
+		qsVoice = KEY_VOICE1;
 	} else {
-		qsSpeech = COLUMN_SPEECH2;
+		qsSpeech = KEY_SPEECH2;
+		qsVoice = KEY_VOICE2;
 	} // if else
 
 	int iSpeech = _vVocabulary.GetSettings(qsSpeech).toInt();
 	if (iSpeech != TTSInterface::TTPluginNone) {
 		TTSInterface *tiPlugin = _pPlugins.GetPlugin(static_cast<TTSInterface::eTTSPlugin>(iSpeech));
-		tiPlugin->Say(_vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
+		tiPlugin->Say(qsVoice, _vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
 	} // if
 } // Say
 
