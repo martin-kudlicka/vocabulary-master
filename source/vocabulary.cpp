@@ -28,6 +28,16 @@ const void Vocabulary::AddWord(const int &pCategoryId) const
 	QSqlQuery qsqQuery("INSERT INTO " + TABLE_WORDS + " (" + COLUMN_CATEGORYID + ") VALUES (" + QString::number(pCategoryId) + ")");
 } // AddWord
 
+const bool Vocabulary::GetCategoryEnabled(const int &pCategoryId) const
+{
+    QSqlQuery qsqQuery("SELECT " + COLUMN_ENABLED + " FROM " + TABLE_CATEGORIES + " WHERE " + COLUMN_ID + " = " + QString::number(pCategoryId));
+    if (qsqQuery.next()) {
+        return qsqQuery.value(0).toBool();
+    } else {
+        return true;
+    } // if else
+} // GetCategoryEnabled
+
 const Vocabulary::tCategoryIdList Vocabulary::GetCategoryIds() const
 {
     tCategoryIdList tcilCategories;
@@ -194,6 +204,11 @@ const void Vocabulary::RemoveWord(const int &pCategoryId, const int &pRow) const
 
     qsqQuery.exec("DELETE FROM " + TABLE_WORDS + " WHERE " + COLUMN_ID + " = " + QString::number(iColumnId));
 } // RemoveWord
+
+const void Vocabulary::SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const
+{
+    QSqlQuery qsqQuery("UPDATE " + TABLE_CATEGORIES + " SET " + COLUMN_ENABLED + " = " + QString::number(pEnabled) + " WHERE " + COLUMN_ID + " = " + QString::number(pCategoryId));
+} // SetCategoryEnabled
 
 const void Vocabulary::SetSettings(const QString &pKey, const QString &pValue) const
 {

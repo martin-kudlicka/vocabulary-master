@@ -29,6 +29,7 @@ class VocabularyManagerDialog : public QDialog
 		const void on_qpbVocabularySettings_clicked(bool checked = false);
         const void on_qpbWordAdd_clicked(bool checked = false);
         const void on_qpbWordRemove_clicked(bool checked = false);
+        const void on_TabEnableChanged(const int &pIndex, const Qt::CheckState &pState) const;
 }; // VocabularyManagerDialog
 
 #endif // VOCABULARYMANAGERDIALOG_H

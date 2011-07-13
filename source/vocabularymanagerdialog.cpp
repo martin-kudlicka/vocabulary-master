@@ -7,19 +7,21 @@
 
 const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
 {
-    VocabularyView *vvTableView = new VocabularyView(_qdvmVocabularyManager.qtwTabs);
+    VocabularyView *vvTableView = new VocabularyView(_qdvmVocabularyManager.vtwTabs);
     vvTableView->setModel(new VocabularyModel(_vVocabulary, pCategoryId, vvTableView));
 
     for (int iColumn = 0; iColumn < VocabularyModel::ColumnCount; iColumn++) {
 	    vvTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Stretch);
     } // for
 
-    _qdvmVocabularyManager.qtwTabs->addTab(vvTableView, _vVocabulary->GetCategoryName(pCategoryId));
+    VocabularyTabWidget *vtwTabs = _qdvmVocabularyManager.vtwTabs;
+    int iTab = vtwTabs->addTab(vvTableView, _vVocabulary->GetCategoryName(pCategoryId), _vVocabulary->GetCategoryEnabled(pCategoryId));
+    vtwTabs->setTabEnabled(iTab, _vVocabulary->GetCategoryEnabled(pCategoryId));
 } // AddTab
 
 const void VocabularyManagerDialog::EnableControls()
 {
-    _qdvmVocabularyManager.qpbWordAdd->setEnabled(_qdvmVocabularyManager.qtwTabs->currentWidget());
+    _qdvmVocabularyManager.qpbWordAdd->setEnabled(_qdvmVocabularyManager.vtwTabs->currentWidget());
 } // EnableControls
 
 const void VocabularyManagerDialog::InitTabs()
@@ -41,15 +43,15 @@ const void VocabularyManagerDialog::on_qpbCategoryAdd_clicked(bool checked /* fa
 		AddTab(iCategory);
         _qlCategories.append(iCategory);
 
-		_qdvmVocabularyManager.qtwTabs->setCurrentIndex(_qdvmVocabularyManager.qtwTabs->count() - 1);
+		_qdvmVocabularyManager.vtwTabs->setCurrentIndex(_qdvmVocabularyManager.vtwTabs->count() - 1);
 		EnableControls();
     } // if
 } // on_qpbCategoryAdd_clicked
 
 const void VocabularyManagerDialog::on_qpbCategoryRemove_clicked(bool checked /* false */)
 {
-    int iTab = _qdvmVocabularyManager.qtwTabs->currentIndex();
-    _qdvmVocabularyManager.qtwTabs->removeTab(iTab);
+    int iTab = _qdvmVocabularyManager.vtwTabs->currentIndex();
+    _qdvmVocabularyManager.vtwTabs->removeTab(iTab);
     _vVocabulary->RemoveCategory(_qlCategories.takeAt(iTab));
 } // on_qpbCategoryRemove_clicked
 
@@ -61,7 +63,7 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
 
 const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false */)
 {
-	VocabularyView *vvVocabularyView = static_cast<VocabularyView *>(_qdvmVocabularyManager.qtwTabs->currentWidget());
+	VocabularyView *vvVocabularyView = static_cast<VocabularyView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
     VocabularyModel *vmVocabularyModel = static_cast<VocabularyModel *>(vvVocabularyView->model());
     vmVocabularyModel->InsertRow(vmVocabularyModel->rowCount());
 
@@ -71,11 +73,17 @@ const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false 
 
 const void VocabularyManagerDialog::on_qpbWordRemove_clicked(bool checked /* false */)
 {
-    VocabularyView *vvVocabularyView = static_cast<VocabularyView *>(_qdvmVocabularyManager.qtwTabs->currentWidget());
+    VocabularyView *vvVocabularyView = static_cast<VocabularyView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
     VocabularyModel *vmVocabularyModel = static_cast<VocabularyModel *>(vvVocabularyView->model());
     QItemSelectionModel *qismSelection = vvVocabularyView->selectionModel();
     vmVocabularyModel->RemoveRow(qismSelection->currentIndex().row());
 } // on_qpbWordRemove_clicked
+
+const void VocabularyManagerDialog::on_TabEnableChanged(const int &pIndex, const Qt::CheckState &pState) const
+{
+    _vVocabulary->SetCategoryEnabled(_qlCategories.at(pIndex), pState);
+    _qdvmVocabularyManager.vtwTabs->setTabEnabled(pIndex, pState);
+} // on_TabEnableChanged
 
 VocabularyManagerDialog::VocabularyManagerDialog(const Vocabulary *pVocabulary, const Plugins *pPlugins, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
 {
@@ -86,4 +94,6 @@ VocabularyManagerDialog::VocabularyManagerDialog(const Vocabulary *pVocabulary, 
 
     InitTabs();
     EnableControls();
+
+    connect(_qdvmVocabularyManager.vtwTabs, SIGNAL(TabEnableChanged(const int &, const Qt::CheckState &)), SLOT(on_TabEnableChanged(const int &, const Qt::CheckState &)));
 } // VocabularyManagerDialog
