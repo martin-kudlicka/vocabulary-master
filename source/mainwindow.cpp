@@ -238,15 +238,12 @@ void MainWindow::timerEvent(QTimerEvent *event)
 	    } // if
         // flash
 	    if (_sSettings.GetNewWordFlash()) {
-		    QPalette qpOriginal = _umwMainWindow.qtbWindow1->palette();
+            QString qsStyleSheet = _umwMainWindow.qtbWindow1->styleSheet();
 
 		    for (int iI = 0; iI < FLASH_COUNT; iI++) {
-                QPalette qpPalette;
-
-                qpPalette.setColor(QPalette::Active, QPalette::Base, Qt::green);
-                _umwMainWindow.qtbWindow1->setPalette(qpPalette);
+                _umwMainWindow.qtbWindow1->setStyleSheet("background: lime");
 			    QTest::qWait(FLASH_WAIT);
-			    _umwMainWindow.qtbWindow1->setPalette(qpOriginal);
+                _umwMainWindow.qtbWindow1->setStyleSheet(qsStyleSheet);
 			    if (iI < FLASH_COUNT - 1) {
 				    QTest::qWait(FLASH_WAIT);
 			    } // if
