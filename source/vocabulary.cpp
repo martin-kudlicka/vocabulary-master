@@ -176,6 +176,14 @@ const void Vocabulary::Open(const QString &pFilePath)
     _qsdDatabase.open();
 } // Open
 
+const void Vocabulary::RemoveCategory(const int &pCategoryId) const
+{
+    QSqlQuery qsqQuery;
+
+    qsqQuery.exec("DELETE FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
+    qsqQuery.exec("DELETE FROM " + TABLE_CATEGORIES + " WHERE " + COLUMN_ID + " = " + QString::number(pCategoryId));
+} // RemoveCategory
+
 const void Vocabulary::RemoveWord(const int &pCategoryId, const int &pRow) const
 {
     QSqlQuery qsqQuery;
@@ -184,7 +192,7 @@ const void Vocabulary::RemoveWord(const int &pCategoryId, const int &pRow) const
     qsqQuery.seek(pRow);
     int iColumnId = qsqQuery.value(qsqQuery.record().indexOf(COLUMN_ID)).toInt();
 
-    qsqQuery.exec("DELETE FROM "  + TABLE_WORDS + " WHERE " + COLUMN_ID + " = " + QString::number(iColumnId));
+    qsqQuery.exec("DELETE FROM " + TABLE_WORDS + " WHERE " + COLUMN_ID + " = " + QString::number(iColumnId));
 } // RemoveWord
 
 const void Vocabulary::SetSettings(const QString &pKey, const QString &pValue) const
