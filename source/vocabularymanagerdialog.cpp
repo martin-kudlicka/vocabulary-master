@@ -61,6 +61,14 @@ const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false 
 	vvVocabularyView->setFocus(Qt::OtherFocusReason);
 } // on_qpbWordAdd_clicked
 
+const void VocabularyManagerDialog::on_qpbWordRemove_clicked(bool checked /* false */)
+{
+    VocabularyView *vvVocabularyView = static_cast<VocabularyView *>(_qdvmVocabularyManager.qtwTabs->currentWidget());
+    VocabularyModel *vmVocabularyModel = static_cast<VocabularyModel *>(vvVocabularyView->model());
+    QItemSelectionModel *qismSelection = vvVocabularyView->selectionModel();
+    vmVocabularyModel->RemoveRow(qismSelection->currentIndex().row());
+} // on_qpbWordRemove_clicked
+
 VocabularyManagerDialog::VocabularyManagerDialog(const Vocabulary *pVocabulary, const Plugins *pPlugins, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
 {
     _vVocabulary = pVocabulary;
