@@ -35,6 +35,7 @@ class Vocabulary
         const bool IsOpen() const;
 		const void New(const QString &pFilePath);
         const void Open(const QString &pFilePath);
+        const void RemoveWord(const int &pCategoryId, const int &pRow) const;
 		const void SetSettings(const QString &pKey, const QString &pValue) const;
 		const void SetWord(const QString &pWord, const int &pCategoryId, const int &pRow, const QString &pLanguage) const;
 

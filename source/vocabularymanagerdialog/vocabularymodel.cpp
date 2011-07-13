@@ -42,6 +42,13 @@ const void VocabularyModel::InsertRow(const int &pRow)
 	endInsertRows();
 } // InsertRow
 
+const void VocabularyModel::RemoveRow(const int &pRow)
+{
+    beginRemoveRows(QModelIndex(), pRow, pRow);
+    _vVocabulary->RemoveWord(_iCategoryId, pRow);
+    endRemoveRows();
+} // RemoveRow
+
 int VocabularyModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return _vVocabulary->GetWordCount(_iCategoryId);

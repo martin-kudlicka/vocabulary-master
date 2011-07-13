@@ -27,6 +27,7 @@ class VocabularyManagerDialog : public QDialog
         const void on_qpbCategoryAdd_clicked(bool checked = false);
 		const void on_qpbVocabularySettings_clicked(bool checked = false);
         const void on_qpbWordAdd_clicked(bool checked = false);
+        const void on_qpbWordRemove_clicked(bool checked = false);
 }; // VocabularyManagerDialog
 
 #endif // VOCABULARYMANAGERDIALOG_H

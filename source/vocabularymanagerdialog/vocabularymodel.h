@@ -20,6 +20,7 @@ class VocabularyModel : public QAbstractTableModel
         VocabularyModel(const Vocabulary *pVocabulary, const int &pCategoryId, QObject *pParent = NULL);
 
 		const void InsertRow(const int &pRow);
+        const void RemoveRow(const int &pRow);
         int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
     private:

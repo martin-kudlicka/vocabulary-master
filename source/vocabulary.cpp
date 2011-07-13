@@ -176,6 +176,17 @@ const void Vocabulary::Open(const QString &pFilePath)
     _qsdDatabase.open();
 } // Open
 
+const void Vocabulary::RemoveWord(const int &pCategoryId, const int &pRow) const
+{
+    QSqlQuery qsqQuery;
+
+    qsqQuery.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
+    qsqQuery.seek(pRow);
+    int iColumnId = qsqQuery.value(qsqQuery.record().indexOf(COLUMN_ID)).toInt();
+
+    qsqQuery.exec("DELETE FROM "  + TABLE_WORDS + " WHERE " + COLUMN_ID + " = " + QString::number(iColumnId));
+} // RemoveWord
+
 const void Vocabulary::SetSettings(const QString &pKey, const QString &pValue) const
 {
 	if (GetSettings(pKey).isEmpty()) {
