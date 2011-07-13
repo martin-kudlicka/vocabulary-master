@@ -15,7 +15,7 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <widget class="QTabWidget" name="qtwTabs">
+    <widget class="VocabularyTabWidget" name="vtwTabs">
      <property name="currentIndex">
       <number>-1</number>
      </property>
@@ -132,6 +132,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>VocabularyTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>vocabularymanagerdialog/vocabularytabwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
