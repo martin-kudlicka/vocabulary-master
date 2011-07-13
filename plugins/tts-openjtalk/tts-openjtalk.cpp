@@ -56,10 +56,12 @@ const QString TTSOpenJTalk::GetPluginName() const
 	return "Open JTalk";
 } // GetPluginName
 
-const QStringList TTSOpenJTalk::GetVoicesIds() const
+const TTSInterface::tVoiceInfoList TTSOpenJTalk::GetVoicesInfo() const
 {
-    return QStringList() << "NIT ATR503 M001";
-} // GetVoicesIds
+    TTSInterface::sVoiceInfo sviVoice;
+    sviVoice.qsDescription = "NIT ATR503 M001";
+    return TTSInterface::tVoiceInfoList() << sviVoice;
+} // GetVoicesInfo
 
 const QString TTSOpenJTalk::GetSubdir(const QString &pDir) const
 {

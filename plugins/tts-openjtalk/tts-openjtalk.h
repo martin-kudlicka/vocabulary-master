@@ -30,7 +30,7 @@ class TTSOpenJTalk : public QObject, private TTSInterface
 		const QString GetFileInSubdir(const QString &pFile, const QString &pDir) const;
 		const eTTSPlugin GetPluginId() const;
 		const QString GetPluginName() const;
-        const QStringList GetVoicesIds() const;
+        const tVoiceInfoList GetVoicesInfo() const;
 		const QString GetSubdir(const QString &pDir) const;
 		const void Initialize();
 		const void Say(const QString &pVoice, const QString &pText);

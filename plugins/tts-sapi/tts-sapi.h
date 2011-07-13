@@ -14,7 +14,7 @@ class TTSSAPI : public QObject, private TTSInterface
 
         const eTTSPlugin GetPluginId() const;
         const QString GetPluginName() const;
-		const QStringList GetVoicesIds() const;
+		const tVoiceInfoList GetVoicesInfo() const;
 		const void Initialize();
 		const void Say(const QString &pVoice, const QString &pText);
 		const void Uninitialize();
