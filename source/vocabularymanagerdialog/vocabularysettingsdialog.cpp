@@ -31,6 +31,14 @@ const void VocabularySettingsDialog::FillSpeech(QComboBox *pComboBox, const QStr
 			return;
 		} // if
 	} // for
+
+    // add unknown speech module when selected not found
+    sSpeechVoice spvVoice;
+    spvVoice.etpPlugin = static_cast<TTSInterface::eTTSPlugin>(iSpeech);
+    spvVoice.qsVoiceId = qsVoice;
+    _tvVoiceList.append(spvVoice);
+    pComboBox->addItem(tr("Unknown"));
+    pComboBox->setItemData(pComboBox->count() - 1, _tvVoiceList.size() - 1);
 } // FillSpeech
 
 const void VocabularySettingsDialog::FillSpeechPlugins(QComboBox *pComboBox)
