@@ -1,6 +1,5 @@
 #include "tts-sapi.h"
 
-#include <QtCore/QStringList>
 #include <Windows.h>
 #include <atlcomcli.h>
 #include <sapi.h>
@@ -16,10 +15,10 @@ const QString TTSSAPI::GetPluginName() const
     return "SAPI";
 } // Initialize
 
-const QStringList TTSSAPI::GetVoicesIds() const
+const TTSInterface::tVoiceInfoList TTSSAPI::GetVoicesInfo() const
 {
 	CComPtr<IEnumSpObjectTokens> ccpVoices;
-	QStringList qslVoiceIds;
+    TTSInterface::tVoiceInfoList tvilVoices;
 	ULONG ulCount;
 
 	SpEnumTokens(SPCAT_VOICES, NULL, NULL, &ccpVoices);
@@ -27,17 +26,20 @@ const QStringList TTSSAPI::GetVoicesIds() const
 
 	for(ULONG ulI = 0; ulI < ulCount; ulI++) {
 		CComPtr<ISpObjectToken> ccpVoiceInfo;
-		WCHAR *wcId;
+		WCHAR *wcDescription, *wcId;
 
 		ccpVoices->Next(1, &ccpVoiceInfo, NULL);
 		ccpVoiceInfo->GetId(&wcId);
-		//SpGetDescription(ccpVoiceInfo, &wcDescription);
+		SpGetDescription(ccpVoiceInfo, &wcDescription);
 
-		qslVoiceIds.append(QString::fromWCharArray(wcId));
+        TTSInterface::sVoiceInfo sviVoice;
+        sviVoice.qsId = QString::fromWCharArray(wcId);
+        sviVoice.qsDescription = QString::fromWCharArray(wcDescription);
+		tvilVoices.append(sviVoice);
 	} // for
 
-	return qslVoiceIds;
-} // GetVoicesIds
+	return tvilVoices;
+} // GetVoicesInfo
 
 const void TTSSAPI::Initialize()
 {

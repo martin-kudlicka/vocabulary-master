@@ -26,7 +26,7 @@ const void VocabularySettingsDialog::FillSpeech(QComboBox *pComboBox, const QStr
 
 	for (int iI = 0; iI < pComboBox->count(); iI++) {
 		sSpeechVoice spvVoice = _tvVoiceList.at(pComboBox->itemData(iI).toInt());
-		if (spvVoice.etpPlugin == iSpeech && spvVoice.qsVoice == qsVoice) {
+		if (spvVoice.etpPlugin == iSpeech && spvVoice.qsVoiceId == qsVoice) {
 			pComboBox->setCurrentIndex(iI);
 			return;
 		} // if
@@ -45,12 +45,12 @@ const void VocabularySettingsDialog::FillSpeechPlugins(QComboBox *pComboBox)
 	foreach (TTSInterface::eTTSPlugin etpPlugin, _pPlugins->GetPluginIds()) {
 		const TTSInterface *tiPlugin = _pPlugins->GetPlugin(etpPlugin);
 
-		QStringList qslVoicesIds = tiPlugin->GetVoicesIds();
-		foreach (QString qsVoiceId, qslVoicesIds) {
+        TTSInterface::tVoiceInfoList tvilVoices = tiPlugin->GetVoicesInfo();
+        foreach (TTSInterface::sVoiceInfo sviVoice, tvilVoices) {
 			spvVoice.etpPlugin = etpPlugin;
-			spvVoice.qsVoice = qsVoiceId;
+			spvVoice.qsVoiceId = sviVoice.qsId;
 			_tvVoiceList.append(spvVoice);
-			pComboBox->addItem(QString("%1 (%2)").arg(tiPlugin->GetPluginName()).arg(qsVoiceId));
+			pComboBox->addItem(QString("%1 (%2)").arg(tiPlugin->GetPluginName()).arg(sviVoice.qsDescription));
 			pComboBox->setItemData(pComboBox->count() - 1, _tvVoiceList.size() - 1);
 		} // foreach
 	} // foreach
@@ -60,10 +60,10 @@ const void VocabularySettingsDialog::SaveOptions()
 {
 	sSpeechVoice spvVoice = _tvVoiceList.at(_qdvsdVocabularySettingsDialog.qcbSpeechLeft->itemData(_qdvsdVocabularySettingsDialog.qcbSpeechLeft->currentIndex()).toInt());
 	_vVocabulary->SetSettings(KEY_SPEECH1, QString::number(spvVoice.etpPlugin));
-	_vVocabulary->SetSettings(KEY_VOICE1, spvVoice.qsVoice);
+	_vVocabulary->SetSettings(KEY_VOICE1, spvVoice.qsVoiceId);
 	spvVoice = _tvVoiceList.at(_qdvsdVocabularySettingsDialog.qcbSpeechRight->itemData(_qdvsdVocabularySettingsDialog.qcbSpeechRight->currentIndex()).toInt());
 	_vVocabulary->SetSettings(KEY_SPEECH2, QString::number(spvVoice.etpPlugin));
-	_vVocabulary->SetSettings(KEY_VOICE2, spvVoice.qsVoice);
+	_vVocabulary->SetSettings(KEY_VOICE2, spvVoice.qsVoiceId);
 } // SaveOptions
 
 VocabularySettingsDialog::VocabularySettingsDialog(const Vocabulary *pVocabulary, const Plugins *pPlugins, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)

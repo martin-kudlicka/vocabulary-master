@@ -16,7 +16,7 @@ class VocabularySettingsDialog : public QDialog
 	private:
 		struct sSpeechVoice {
 			TTSInterface::eTTSPlugin etpPlugin;
-			QString qsVoice;
+			QString qsVoiceId;
 		};
 
 		typedef QList<sSpeechVoice> tVoices;
