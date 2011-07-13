@@ -15,16 +15,17 @@ class VocabularyManagerDialog : public QDialog
 
     private:
 		const Plugins *_pPlugins;
-        QHash<int, int> _qhTabCategory;
+        QList<int> _qlCategories;
         Ui::qdVocabularyManager _qdvmVocabularyManager;
         const Vocabulary *_vVocabulary;
 
-        const int AddTab(const int &pCategoryId);
+        const void AddTab(const int &pCategoryId);
         const void EnableControls();
         const void InitTabs();
 
     private slots:
         const void on_qpbCategoryAdd_clicked(bool checked = false);
+        const void on_qpbCategoryRemove_clicked(bool checked = false);
 		const void on_qpbVocabularySettings_clicked(bool checked = false);
         const void on_qpbWordAdd_clicked(bool checked = false);
         const void on_qpbWordRemove_clicked(bool checked = false);

@@ -5,7 +5,7 @@
 #include "vocabularymanagerdialog/vocabularyview.h"
 #include "vocabularymanagerdialog/vocabularysettingsdialog.h"
 
-const int VocabularyManagerDialog::AddTab(const int &pCategoryId)
+const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
 {
     VocabularyView *vvTableView = new VocabularyView(_qdvmVocabularyManager.qtwTabs);
     vvTableView->setModel(new VocabularyModel(_vVocabulary, pCategoryId, vvTableView));
@@ -14,7 +14,7 @@ const int VocabularyManagerDialog::AddTab(const int &pCategoryId)
 	    vvTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Stretch);
     } // for
 
-    return _qdvmVocabularyManager.qtwTabs->addTab(vvTableView, _vVocabulary->GetCategoryName(pCategoryId));
+    _qdvmVocabularyManager.qtwTabs->addTab(vvTableView, _vVocabulary->GetCategoryName(pCategoryId));
 } // AddTab
 
 const void VocabularyManagerDialog::EnableControls()
@@ -28,7 +28,8 @@ const void VocabularyManagerDialog::InitTabs()
 
     Vocabulary::tCategoryIdList::const_iterator ciCategoryId;
     for (ciCategoryId = tcilCategories.constBegin(); ciCategoryId != tcilCategories.constEnd(); ciCategoryId++) {
-        _qhTabCategory.insert(AddTab(*ciCategoryId), *ciCategoryId);
+        AddTab(*ciCategoryId);
+        _qlCategories.append(*ciCategoryId);
     } // for
 } // InitTabs
 
@@ -37,13 +38,20 @@ const void VocabularyManagerDialog::on_qpbCategoryAdd_clicked(bool checked /* fa
     QString qsCategory = QInputDialog::getText(this, tr("Add category"), tr("New category name"));
     if (!qsCategory.isEmpty()) {
         int iCategory = _vVocabulary->AddCategory(qsCategory);
-		int iTab = AddTab(iCategory);
-        _qhTabCategory.insert(iTab, iCategory);
+		AddTab(iCategory);
+        _qlCategories.append(iCategory);
 
-		_qdvmVocabularyManager.qtwTabs->setCurrentIndex(iTab);
+		_qdvmVocabularyManager.qtwTabs->setCurrentIndex(_qdvmVocabularyManager.qtwTabs->count() - 1);
 		EnableControls();
     } // if
 } // on_qpbCategoryAdd_clicked
+
+const void VocabularyManagerDialog::on_qpbCategoryRemove_clicked(bool checked /* false */)
+{
+    int iTab = _qdvmVocabularyManager.qtwTabs->currentIndex();
+    _qdvmVocabularyManager.qtwTabs->removeTab(iTab);
+    _vVocabulary->RemoveCategory(_qlCategories.takeAt(iTab));
+} // on_qpbCategoryRemove_clicked
 
 const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checked /* false */)
 {
