@@ -10,6 +10,7 @@ class Settings
 		Settings();
 
         const bool GetAlwaysOnTop() const;
+        const QString GetColorFlash() const;
         const int GetFontSizeNote() const;
         const int GetFontSizeWord() const;
         const bool GetHorizontalLayout() const;
@@ -29,6 +30,7 @@ class Settings
 		const int GetWindowY() const;
         const int GetWordsFrequency() const;
         const void SetAlwaysOnTop(const bool &pEnable);
+        const void SetColorFlash(const QString &pColor);
         const void SetFontSizeNote(const int &pSize);
         const void SetFontSizeWord(const int &pSize);
         const void SetHorizontalLayout(const bool &pEnable);
