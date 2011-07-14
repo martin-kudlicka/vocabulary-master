@@ -1,7 +1,9 @@
 #include "settings.h"
 
 const QString APPLICATION = "Vocabulary Master";
+const QString DEFAULT_COLORFLASH = "green";
 const QString KEY_ALWAYSONTOP = "AlwaysOnTop";
+const QString KEY_COLORFLASH = "ColorFlash";
 const QString KEY_FONTSIZENOTE = "FontSizeNote";
 const QString KEY_FONTSIZEWORD = "FontSizeWord";
 const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
@@ -26,6 +28,11 @@ const bool Settings::GetAlwaysOnTop() const
 {
     return _qsSettings.value(KEY_ALWAYSONTOP, false).toBool();
 } // GetAlwaysOnTop
+
+const QString Settings::GetColorFlash() const
+{
+    return _qsSettings.value(KEY_COLORFLASH, DEFAULT_COLORFLASH).toString();
+} // GetColorFlash
 
 const int Settings::GetFontSizeNote() const
 {
@@ -121,6 +128,11 @@ const void Settings::SetAlwaysOnTop(const bool &pEnable)
 {
     _qsSettings.setValue(KEY_ALWAYSONTOP, pEnable);
 } // SetAlwaysOnTop
+
+const void Settings::SetColorFlash(const QString &pColor)
+{
+    _qsSettings.setValue(KEY_COLORFLASH, pColor);
+} // SetColorFlash
 
 const void Settings::SetFontSizeNote(const int &pSize)
 {
