@@ -42,6 +42,7 @@ class MainWindow : public QMainWindow
         const void ApplySettings(const bool &pStartup);
         const void EnableControls();
 		const QString GetLangColumn(const bool &pDirectionSwitched, const bool &pAnswer) const;
+        const QString GetLanguageText(const bool &pDirectionSwitched, const bool &pAnswer) const;
 		const bool GetLearningDirection() const;
         const QString GetLearningText(const bool &pDirectionSwitched, const bool &pAnswer) const;
         const QString GetNoteColumn(const bool &pDirectionSwitched, const bool &pAnswer) const;
