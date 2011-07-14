@@ -91,6 +91,7 @@
    <addaction name="qaStart"/>
    <addaction name="qaStop"/>
    <addaction name="qaNext"/>
+   <addaction name="qaAnswer"/>
    <addaction name="separator"/>
    <addaction name="qaMute"/>
   </widget>
@@ -141,6 +142,11 @@
    </property>
    <property name="text">
     <string>Mute</string>
+   </property>
+  </action>
+  <action name="qaAnswer">
+   <property name="text">
+    <string>Answer</string>
    </property>
   </action>
  </widget>
