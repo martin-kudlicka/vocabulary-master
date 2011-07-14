@@ -14,37 +14,63 @@
    <string>Vocabulary Master</string>
   </property>
   <widget class="QWidget" name="qwCentral">
-   <widget class="QTextBrowser" name="qtbWindow1">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>20</y>
-      <width>111</width>
-      <height>100</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>0</width>
-      <height>40</height>
-     </size>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="qtbWindow2">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>20</y>
-      <width>150</width>
-      <height>100</height>
+      <y>0</y>
+      <width>258</width>
+      <height>213</height>
      </rect>
     </property>
-    <property name="minimumSize">
-     <size>
-      <width>0</width>
-      <height>40</height>
-     </size>
+    <layout class="QVBoxLayout" name="qvblAnswer">
+     <item>
+      <widget class="QLabel" name="qlLanguage2">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="qtbWindow2">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>0</y>
+      <width>258</width>
+      <height>213</height>
+     </rect>
     </property>
+    <layout class="QVBoxLayout" name="qvblQuestion">
+     <item>
+      <widget class="QLabel" name="qlLanguage1">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="qtbWindow1">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

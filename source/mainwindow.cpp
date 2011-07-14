@@ -49,6 +49,15 @@ const QString MainWindow::GetLangColumn(const bool &pDirectionSwitched, const bo
 	} // if else
 } // GetLangColumn
 
+const QString MainWindow::GetLanguageText(const bool &pDirectionSwitched, const bool &pAnswer) const
+{
+    if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
+        return _vVocabulary.GetSettings(KEY_LANGUAGE1);
+    } else {
+        return _vVocabulary.GetSettings(KEY_LANGUAGE2);
+    } // if else
+} // GetLanguageText
+
 const bool MainWindow::GetLearningDirection() const
 {
 	if (_sSettings.GetSwitchLearningDirection() != Qt::PartiallyChecked) {
@@ -181,7 +190,11 @@ const void MainWindow::on_qaSettings_triggered(bool checked /* false */)
 const void MainWindow::on_qaStart_triggered(bool checked /* false */)
 {
 	_iTimerQuestion = startTimer(_sSettings.GetWordsFrequency() * MILISECONDS_PER_SECOND);
+
 	EnableControls();
+    _umwMainWindow.qlLanguage1->setVisible(true);
+    _umwMainWindow.qlLanguage2->setVisible(true);
+
 	timerEvent(&QTimerEvent(_iTimerQuestion));
 } // on_qaStart_triggered
 
@@ -195,7 +208,9 @@ const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 	_iTimerQuestion = 0;
 	EnableControls();
 
+    _umwMainWindow.qlLanguage1->setVisible(false);
 	_umwMainWindow.qtbWindow1->clear();
+    _umwMainWindow.qlLanguage2->setVisible(false);
 	_umwMainWindow.qtbWindow2->clear();
 } // on_qaStop_triggered
 
@@ -226,19 +241,18 @@ const void MainWindow::SetLayout()
 {
     QBoxLayout *qblLayout;
 
-    if (_sSettings.GetHorizontalLayout()) {
-        qblLayout = new QHBoxLayout(this);
-    } else {
-        qblLayout = new QVBoxLayout(this);
-    } // if else
-
-    qblLayout->addWidget(_umwMainWindow.qtbWindow1);
-    qblLayout->addWidget(_umwMainWindow.qtbWindow2);
-
     if (_umwMainWindow.qwCentral->layout()) {
         delete _umwMainWindow.qwCentral->layout();
     } // if
-    _umwMainWindow.qwCentral->setLayout(qblLayout);
+
+    if (_sSettings.GetHorizontalLayout()) {
+        qblLayout = new QHBoxLayout(_umwMainWindow.qwCentral);
+    } else {
+        qblLayout = new QVBoxLayout(_umwMainWindow.qwCentral);
+    } // if else
+
+    qblLayout->addWidget(_umwMainWindow.qvblQuestion->parentWidget());
+    qblLayout->addWidget(_umwMainWindow.qvblAnswer->parentWidget());
 } // SetLayout
 
 void MainWindow::timerEvent(QTimerEvent *event)
@@ -258,6 +272,8 @@ void MainWindow::timerEvent(QTimerEvent *event)
 	    saAnswer.bDirectionSwitched = GetLearningDirection();
 
         // gui
+        _umwMainWindow.qlLanguage1->setText(GetLanguageText(saAnswer.bDirectionSwitched, false));
+        _umwMainWindow.qlLanguage2->setText(GetLanguageText(saAnswer.bDirectionSwitched, true));
 	    _umwMainWindow.qtbWindow1->setText(GetLearningText(saAnswer.bDirectionSwitched, false));
 	    _umwMainWindow.qtbWindow2->clear();
 
