@@ -9,6 +9,7 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 {
     switch (role) {
         case Qt::DisplayRole:
+        case Qt::EditRole:
             switch (index.column()) {
                 case ColumnLang1:
                     return _vVocabulary->GetWordId(_iCategoryId, index.row(), COLUMN_LANG1);
