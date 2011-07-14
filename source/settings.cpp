@@ -3,6 +3,7 @@
 const QString APPLICATION = "Vocabulary Master";
 const QString KEY_ALWAYSONTOP = "AlwaysOnTop";
 const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
+const QString KEY_MUTE = "Mute";
 const QString KEY_NEWWORDFLASH = "NewWordFlash";
 const QString KEY_NEWWORDSCOUNT = "NewWordsCount";
 const QString KEY_NEWWORDSFREQUENCY = "NewWordsFrequency";
@@ -29,6 +30,11 @@ const bool Settings::GetHorizontalLayout() const
     return _qsSettings.value(KEY_HORIZONTALLAYOUT, false).toBool();
 } // GetHorizontalLayout
 
+const bool Settings::GetMute() const
+{
+    return _qsSettings.value(KEY_MUTE, false).toBool();
+} // GetMute
+
 const int Settings::GetNewWordsCount() const
 {
 	return _qsSettings.value(KEY_NEWWORDSCOUNT).toInt();
@@ -39,11 +45,6 @@ const int Settings::GetNewWordsFrequency() const
 	return _qsSettings.value(KEY_NEWWORDSFREQUENCY, DEFAULT_NEWWORDSFREQUENCY).toInt();
 } // GetNewWordsFrequency
 
-const bool Settings::GetRememberWindowPosition() const
-{
-    return _qsSettings.value(KEY_REMEMBERWINDOWPOSITION, true).toBool();
-} // GetRememberWindowPosition
-
 const bool Settings::GetNewWordFlash() const
 {
 	return _qsSettings.value(KEY_NEWWORDFLASH, false).toBool();
@@ -53,6 +54,11 @@ const bool Settings::GetNewWordSound() const
 {
 	return _qsSettings.value(KEY_NEWWORDSOUND, true).toBool();
 } // GetNewWordSound
+
+const bool Settings::GetRememberWindowPosition() const
+{
+    return _qsSettings.value(KEY_REMEMBERWINDOWPOSITION, true).toBool();
+} // GetRememberWindowPosition
 
 const bool Settings::GetStartLearningOnStartup() const
 {
@@ -109,10 +115,10 @@ const void Settings::SetHorizontalLayout(const bool &pEnable)
     _qsSettings.setValue(KEY_HORIZONTALLAYOUT, pEnable);
 } // SetHorizontalLayout
 
-const void Settings::SetRememberWindowPosition(const bool &pEnable)
+const void Settings::SetMute(const bool &pEnable)
 {
-    _qsSettings.setValue(KEY_REMEMBERWINDOWPOSITION, pEnable);
-} // SetRememberWindowPosition
+    _qsSettings.setValue(KEY_MUTE, pEnable);
+} // SetMute
 
 const void Settings::SetNewWordFlash(const bool &pEnable)
 {
@@ -123,6 +129,11 @@ const void Settings::SetNewWordSound(const bool &pEnable)
 {
 	_qsSettings.setValue(KEY_NEWWORDSOUND, pEnable);
 } // SetNewWordSound
+
+const void Settings::SetRememberWindowPosition(const bool &pEnable)
+{
+    _qsSettings.setValue(KEY_REMEMBERWINDOWPOSITION, pEnable);
+} // SetRememberWindowPosition
 
 const void Settings::SetStartLearningOnStartup(const bool &pEnable)
 {

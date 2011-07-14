@@ -97,16 +97,23 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
 	qsrand(QTime::currentTime().msec());
 
+    // gui
 	_umwMainWindow.setupUi(this);
 
+    // plugins
 	_pPlugins.Load();
 	_pPlugins.Initialize();
+
+    // settings
     ApplySettings(true);
 
     _vVocabulary.Open(_sSettings.GetVocabularyFile());
 
+    // controls
     EnableControls();
+    _umwMainWindow.qaMute->setChecked(_sSettings.GetMute());
 
+    // learning
 	if (_sSettings.GetStartLearningOnStartup() && _vVocabulary.IsOpen()) {
 		on_qaStart_triggered();
 	} // if
@@ -117,6 +124,11 @@ const void MainWindow::on_qaManage_triggered(bool checked /* false */)
     VocabularyManagerDialog vmdManager(&_vVocabulary, &_pPlugins, this);
     vmdManager.exec();
 } // on_qaManage_triggered
+
+const void MainWindow::on_qaMute_toggled(bool checked)
+{
+    _sSettings.SetMute(checked);
+} // on_qaMute_toggled
 
 const void MainWindow::on_qaNew_triggered(bool checked /* false */)
 {
@@ -183,23 +195,25 @@ const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 
 const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
-	QString qsSpeech, qsVoice;
-	if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
-		qsSpeech = KEY_SPEECH1;
-		qsVoice = KEY_VOICE1;
-	} else {
-		qsSpeech = KEY_SPEECH2;
-		qsVoice = KEY_VOICE2;
-	} // if else
+    if (!_sSettings.GetMute()) {
+	    QString qsSpeech, qsVoice;
+	    if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
+		    qsSpeech = KEY_SPEECH1;
+		    qsVoice = KEY_VOICE1;
+	    } else {
+		    qsSpeech = KEY_SPEECH2;
+		    qsVoice = KEY_VOICE2;
+	    } // if else
 
-	int iSpeech = _vVocabulary.GetSettings(qsSpeech).toInt();
-    qsVoice = _vVocabulary.GetSettings(qsVoice);
-	if (iSpeech != TTSInterface::TTPluginNone) {
-		TTSInterface *tiPlugin = _pPlugins.GetPlugin(static_cast<TTSInterface::eTTSPlugin>(iSpeech));
-        if (tiPlugin) {
-		    tiPlugin->Say(qsVoice, _vVocabulary.GetWordId(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
-        } // if
-	} // if
+	    int iSpeech = _vVocabulary.GetSettings(qsSpeech).toInt();
+        qsVoice = _vVocabulary.GetSettings(qsVoice);
+	    if (iSpeech != TTSInterface::TTPluginNone) {
+		    TTSInterface *tiPlugin = _pPlugins.GetPlugin(static_cast<TTSInterface::eTTSPlugin>(iSpeech));
+            if (tiPlugin) {
+		        tiPlugin->Say(qsVoice, _vVocabulary.GetWordId(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
+            } // if
+	    } // if
+    } // if
 } // Say
 
 const void MainWindow::SetLayout()
@@ -242,7 +256,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 	    _umwMainWindow.qtbWindow2->clear();
 
         // sound
-	    if (_sSettings.GetNewWordSound()) {
+	    if (_sSettings.GetNewWordSound() && !_sSettings.GetMute()) {
 		    QApplication::beep();
 	    } // if
         // flash
