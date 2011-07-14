@@ -19,6 +19,7 @@ class SettingsDialog : public QDialog
 
         void accept();
         const void FillOptions();
+		const void PrepareColorFlash();
         const void SaveOptions();
 
 	private slots:

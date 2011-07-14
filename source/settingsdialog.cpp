@@ -1,5 +1,7 @@
 #include "settingsdialog.h"
 
+#include "settings/colordelegate.h"
+
 void SettingsDialog::accept()
 {
     SaveOptions();
@@ -33,6 +35,13 @@ void SettingsDialog::on_qsbWordsFrequency_valueChanged(int i)
 	_usdSettingsDialog.qsbWaitForAnswer->setMaximum(i - 1);
 } // on_qsbWordsFrequency_valueChanged
 
+const void SettingsDialog::PrepareColorFlash()
+{
+	foreach (QString qsColor, QColor::colorNames()) {
+		_usdSettingsDialog.qcbColorFlash->addItem(QString(), qsColor);
+	} // foreach
+} // PrepareColorFlash
+
 const void SettingsDialog::SaveOptions()
 {
     // general
@@ -58,6 +67,8 @@ SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */,
 	_sSettings = pSettings;
 
 	_usdSettingsDialog.setupUi(this);
+	_usdSettingsDialog.qcbColorFlash->setItemDelegate(new ColorDelegate(_usdSettingsDialog.qcbColorFlash));
 
+	PrepareColorFlash();
     FillOptions();
 } // SettingsDialog
