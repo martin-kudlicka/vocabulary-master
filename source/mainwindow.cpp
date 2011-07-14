@@ -35,8 +35,9 @@ const void MainWindow::EnableControls()
 
 	// tool bar
 	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimerQuestion == 0 && _vVocabulary.GetWordCount() > 0);
-	_umwMainWindow.qaStop->setEnabled(_vVocabulary.IsOpen() && _iTimerQuestion != 0);
-	_umwMainWindow.qaNext->setEnabled(_vVocabulary.IsOpen() && _iTimerQuestion != 0);
+	_umwMainWindow.qaStop->setEnabled(_iTimerQuestion != 0);
+	_umwMainWindow.qaNext->setEnabled(_iTimerQuestion != 0);
+    _umwMainWindow.qaAnswer->setEnabled(_iTimerAnswer != 0);
 } // EnableControls
 
 const QString MainWindow::GetLangColumn(const bool &pDirectionSwitched, const bool &pAnswer) const
@@ -118,6 +119,11 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 		on_qaStart_triggered();
 	} // if
 } // MainWindow
+
+const void MainWindow::on_qaAnswer_triggered(bool checked /* false */)
+{
+    timerEvent(&QTimerEvent(_iTimerAnswer));
+} // on_qaAnswer_triggered
 
 const void MainWindow::on_qaManage_triggered(bool checked /* false */)
 {
@@ -281,13 +287,24 @@ void MainWindow::timerEvent(QTimerEvent *event)
         // answer timer
         _iTimerAnswer = startTimer(_sSettings.GetWaitForAnswer() * MILISECONDS_PER_SECOND);
         _taHash.insert(_iTimerAnswer, saAnswer);
+
+        // answer
+        _umwMainWindow.qaAnswer->setEnabled(true);
     } else {
         // check for answer timer
         if (_taHash.contains(event->timerId())) {
+            killTimer(event->timerId());
+            if (_iTimerAnswer == event->timerId()) {
+                _iTimerAnswer = 0;
+            } // if
+
             sAnswer saAnswer = _taHash.value(event->timerId());
             _taHash.remove(event->timerId());
 
             if (saAnswer.iWord == _iCurrentWord) {
+                // answer
+                _umwMainWindow.qaAnswer->setEnabled(false);
+
                 // gui
                 _umwMainWindow.qtbWindow2->setText(GetLearningText(saAnswer.bDirectionSwitched, true));
                 _umwMainWindow.qtbWindow2->repaint();

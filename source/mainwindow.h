@@ -50,6 +50,7 @@ class MainWindow : public QMainWindow
 		void timerEvent(QTimerEvent *event);
 
 	private slots:
+        const void on_qaAnswer_triggered(bool checked = false);
         const void on_qaManage_triggered(bool checked = false);
         const void on_qaMute_toggled(bool checked);
         const void on_qaNew_triggered(bool checked = false);
