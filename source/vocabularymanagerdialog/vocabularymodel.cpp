@@ -1,5 +1,7 @@
 #include "vocabularymanagerdialog/vocabularymodel.h"
 
+const QString COLUMN_NOTE = QT_TRANSLATE_NOOP("VocabularyModel", "Note (%1)");
+
 int VocabularyModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return ColumnCount;
@@ -35,6 +37,29 @@ Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
 
 	return ifFlags | QAbstractTableModel::flags(index);
 } // flags
+
+QVariant VocabularyModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
+{
+    switch (role) {
+        case Qt::DisplayRole:
+            if (orientation == Qt::Horizontal) {
+                switch (section) {
+                    case ColumnLang1:
+                        return _vVocabulary->GetSettings(KEY_LANGUAGE1);
+                    case ColumnNote1:
+                        return COLUMN_NOTE.arg(_vVocabulary->GetSettings(KEY_LANGUAGE1).toLower());
+                    case ColumnLang2:
+                        return _vVocabulary->GetSettings(KEY_LANGUAGE2);
+                    case ColumnNote2:
+                        return COLUMN_NOTE.arg(_vVocabulary->GetSettings(KEY_LANGUAGE2).toLower());
+                } // switch
+            } else {
+                return section + 1;
+            } // if else
+        default:
+            return QVariant();
+    } // switch
+} // headerData
 
 const void VocabularyModel::InsertRow(const int &pRow)
 {

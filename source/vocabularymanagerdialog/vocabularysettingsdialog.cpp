@@ -9,6 +9,10 @@ void VocabularySettingsDialog::accept()
 
 const void VocabularySettingsDialog::FillOptions()
 {
+    // language
+    _qdvsdVocabularySettingsDialog.leLanguageLeft->setText(_vVocabulary->GetSettings(KEY_LANGUAGE1));
+    _qdvsdVocabularySettingsDialog.leLanguageRight->setText(_vVocabulary->GetSettings(KEY_LANGUAGE2));
+    // speech
 	FillSpeech(_qdvsdVocabularySettingsDialog.qcbSpeechLeft, KEY_SPEECH1, KEY_VOICE1);
 	FillSpeech(_qdvsdVocabularySettingsDialog.qcbSpeechRight, KEY_SPEECH2, KEY_VOICE2);
 } // FillOptions
@@ -66,6 +70,10 @@ const void VocabularySettingsDialog::FillSpeechPlugins(QComboBox *pComboBox)
 
 const void VocabularySettingsDialog::SaveOptions()
 {
+    // language
+    _vVocabulary->SetSettings(KEY_LANGUAGE1, _qdvsdVocabularySettingsDialog.leLanguageLeft->text());
+    _vVocabulary->SetSettings(KEY_LANGUAGE2, _qdvsdVocabularySettingsDialog.leLanguageRight->text());
+    // speech
 	sSpeechVoice spvVoice = _tvVoiceList.at(_qdvsdVocabularySettingsDialog.qcbSpeechLeft->itemData(_qdvsdVocabularySettingsDialog.qcbSpeechLeft->currentIndex()).toInt());
 	_vVocabulary->SetSettings(KEY_SPEECH1, QString::number(spvVoice.etpPlugin));
 	_vVocabulary->SetSettings(KEY_VOICE1, spvVoice.qsVoiceId);

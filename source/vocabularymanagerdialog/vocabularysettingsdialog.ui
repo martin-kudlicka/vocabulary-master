@@ -62,9 +62,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>10</y>
+     <y>100</y>
      <width>380</width>
-     <height>110</height>
+     <height>90</height>
     </rect>
    </property>
    <property name="title">
@@ -113,6 +113,65 @@
       <y>50</y>
       <width>291</width>
       <height>22</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>380</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Language</string>
+   </property>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Left:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Right:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="leLanguageLeft">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>20</y>
+      <width>290</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="leLanguageRight">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>50</y>
+      <width>290</width>
+      <height>20</height>
      </rect>
     </property>
    </widget>
