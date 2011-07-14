@@ -7,8 +7,8 @@
 #include <QtCore/QTime>
 #include <QTest>
 
-const QString FORMAT_NOTE = "<center style=\"font-size:small\">%1</center>";
-const QString FORMAT_WORD = "<center style=\"font-size:xx-large\">%1</center>";
+const QString FORMAT_NOTE = "<center style=\"font-size:%1px\">%2</center>";
+const QString FORMAT_WORD = "<center style=\"font-size:%1px\">%2</center>";
 const QString VOCABULARY_SUFFIX = "sl3";
 const QString VOCABULARY_FILTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary (*." + VOCABULARY_SUFFIX + ")");
 
@@ -69,10 +69,10 @@ const bool MainWindow::GetLearningDirection() const
 
 const QString MainWindow::GetLearningText(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
-    QString qsWord = FORMAT_WORD.arg(_vVocabulary.GetWordId(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
+    QString qsWord = FORMAT_WORD.arg(QString::number(_sSettings.GetFontSizeWord())).arg(_vVocabulary.GetWordId(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
     QString qsNote = _vVocabulary.GetNote(_iCurrentWord, GetNoteColumn(pDirectionSwitched, pAnswer));
     if (!qsNote.isEmpty()) {
-        qsNote = FORMAT_NOTE.arg(qsNote);
+        qsNote = FORMAT_NOTE.arg(QString::number(_sSettings.GetFontSizeNote())).arg(qsNote);
         return qsWord + qsNote;
     } else {
         return qsWord;

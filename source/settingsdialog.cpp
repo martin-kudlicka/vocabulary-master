@@ -22,6 +22,10 @@ const void SettingsDialog::FillOptions()
 	_usdSettingsDialog.cbNewWordFlash->setChecked(_sSettings->GetNewWordFlash());
 	_usdSettingsDialog.cbSwitchLearningDirection->setCheckState(_sSettings->GetSwitchLearningDirection());
 	_usdSettingsDialog.cbStartLearningOnStartup->setChecked(_sSettings->GetStartLearningOnStartup());
+
+    // font
+    _usdSettingsDialog.qsbFontSizeNote->setValue(_sSettings->GetFontSizeNote());
+    _usdSettingsDialog.qsbFontSizeWord->setValue(_sSettings->GetFontSizeWord());
 } // FillOptions
 
 void SettingsDialog::on_qsbWordsFrequency_valueChanged(int i)
@@ -43,6 +47,10 @@ const void SettingsDialog::SaveOptions()
 	_sSettings->SetNewWordFlash(_usdSettingsDialog.cbNewWordFlash->isChecked());
 	_sSettings->SetSwitchLearningDirection(_usdSettingsDialog.cbSwitchLearningDirection->checkState());
 	_sSettings->SetStartLearningOnStartup(_usdSettingsDialog.cbStartLearningOnStartup->isChecked());
+
+    // font
+    _sSettings->SetFontSizeNote(_usdSettingsDialog.qsbFontSizeNote->value());
+    _sSettings->SetFontSizeWord(_usdSettingsDialog.qsbFontSizeWord->value());
 } // SaveOptions
 
 SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
