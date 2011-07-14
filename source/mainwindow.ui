@@ -91,6 +91,8 @@
    <addaction name="qaStart"/>
    <addaction name="qaStop"/>
    <addaction name="qaNext"/>
+   <addaction name="separator"/>
+   <addaction name="qaMute"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="qaExit">
@@ -131,6 +133,14 @@
   <action name="qaNext">
    <property name="text">
     <string>Next</string>
+   </property>
+  </action>
+  <action name="qaMute">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Mute</string>
    </property>
   </action>
  </widget>
