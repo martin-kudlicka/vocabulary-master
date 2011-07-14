@@ -2,6 +2,8 @@
 
 const QString APPLICATION = "Vocabulary Master";
 const QString KEY_ALWAYSONTOP = "AlwaysOnTop";
+const QString KEY_FONTSIZENOTE = "FontSizeNote";
+const QString KEY_FONTSIZEWORD = "FontSizeWord";
 const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
 const QString KEY_MUTE = "Mute";
 const QString KEY_NEWWORDFLASH = "NewWordFlash";
@@ -24,6 +26,16 @@ const bool Settings::GetAlwaysOnTop() const
 {
     return _qsSettings.value(KEY_ALWAYSONTOP, false).toBool();
 } // GetAlwaysOnTop
+
+const int Settings::GetFontSizeNote() const
+{
+    return _qsSettings.value(KEY_FONTSIZENOTE, DEFAULT_FONTSIZENOTE).toInt();
+} // GetFontSizeNote
+
+const int Settings::GetFontSizeWord() const
+{
+    return _qsSettings.value(KEY_FONTSIZEWORD, DEFAULT_FONTSIZEWORD).toInt();
+} // GetFontSizeWord
 
 const bool Settings::GetHorizontalLayout() const
 {
@@ -109,6 +121,16 @@ const void Settings::SetAlwaysOnTop(const bool &pEnable)
 {
     _qsSettings.setValue(KEY_ALWAYSONTOP, pEnable);
 } // SetAlwaysOnTop
+
+const void Settings::SetFontSizeNote(const int &pSize)
+{
+    _qsSettings.setValue(KEY_FONTSIZENOTE, pSize);
+} // SetFontSizeNote
+
+const void Settings::SetFontSizeWord(const int &pSize)
+{
+    _qsSettings.setValue(KEY_FONTSIZEWORD, pSize);
+} // SetFontSizeWord
 
 const void Settings::SetHorizontalLayout(const bool &pEnable)
 {

@@ -10,6 +10,8 @@ class Settings
 		Settings();
 
         const bool GetAlwaysOnTop() const;
+        const int GetFontSizeNote() const;
+        const int GetFontSizeWord() const;
         const bool GetHorizontalLayout() const;
         const bool GetMute() const;
 		const int GetNewWordsCount() const;
@@ -27,6 +29,8 @@ class Settings
 		const int GetWindowY() const;
         const int GetWordsFrequency() const;
         const void SetAlwaysOnTop(const bool &pEnable);
+        const void SetFontSizeNote(const int &pSize);
+        const void SetFontSizeWord(const int &pSize);
         const void SetHorizontalLayout(const bool &pEnable);
         const void SetMute(const bool &pEnable);
 		const void SetNewWordFlash(const bool &pEnable);
@@ -43,6 +47,8 @@ class Settings
         const void SetWordsFrequency(const int &pFrequency);
 
 	private:
+        static const int DEFAULT_FONTSIZENOTE = 10;
+        static const int DEFAULT_FONTSIZEWORD = 20;
 		static const int DEFAULT_FREQUENCY = 60 * 1000;
 		static const int DEFAULT_NEWWORDSFREQUENCY = 5;
 		static const int DEFAULT_WAIT = 0;
