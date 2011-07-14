@@ -29,10 +29,11 @@ class Vocabulary
         const QString GetNote(const int &pCategoryId, const int &pRow, const QString &pNote) const;
 		const QString GetSettings(const QString &pKey) const;
         const QString &GetVocabularyFile() const;
-		const QString GetWord(const int &pRow, const QString &pLanguage) const;
-        const QString GetWord(const int &pCategoryId, const int &pRow, const QString &pLanguage) const;
+		const int GetWordCategory(const int &pWordId) const;
 		const int GetWordCount() const;
         const int GetWordCount(const int &pCategoryId) const;
+        const QString GetWordId(const int &pRow, const QString &pLanguage) const;
+        const QString GetWordId(const int &pCategoryId, const int &pRow, const QString &pLanguage) const;
         const bool IsOpen() const;
 		const void New(const QString &pFilePath);
         const void Open(const QString &pFilePath);

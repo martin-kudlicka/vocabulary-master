@@ -59,7 +59,7 @@ const bool MainWindow::GetLearningDirection() const
 
 const QString MainWindow::GetLearningText(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
-    QString qsWord = FORMAT_WORD.arg(_vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
+    QString qsWord = FORMAT_WORD.arg(_vVocabulary.GetWordId(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
     QString qsNote = _vVocabulary.GetNote(_iCurrentWord, GetNoteColumn(pDirectionSwitched, pAnswer));
     if (!qsNote.isEmpty()) {
         qsNote = FORMAT_NOTE.arg(qsNote);
@@ -197,7 +197,7 @@ const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) 
 	if (iSpeech != TTSInterface::TTPluginNone) {
 		TTSInterface *tiPlugin = _pPlugins.GetPlugin(static_cast<TTSInterface::eTTSPlugin>(iSpeech));
         if (tiPlugin) {
-		    tiPlugin->Say(qsVoice, _vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
+		    tiPlugin->Say(qsVoice, _vVocabulary.GetWordId(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
         } // if
 	} // if
 } // Say
@@ -224,7 +224,13 @@ const void MainWindow::SetLayout()
 void MainWindow::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == _iTimerQuestion) {
-	    _iCurrentWord = qrand() % _vVocabulary.GetWordCount();
+        while (true) {
+	        _iCurrentWord = qrand() % _vVocabulary.GetWordCount();
+            int iCategoryId = _vVocabulary.GetWordCategory(_iCurrentWord);
+            if (_vVocabulary.GetCategoryEnabled(iCategoryId)) {
+                break;
+            } // if
+        } // while
 
         // question parameters
         sAnswer saAnswer;

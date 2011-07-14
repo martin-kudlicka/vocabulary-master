@@ -89,19 +89,15 @@ const QString &Vocabulary::GetVocabularyFile() const
     return _qsVocabularyFile;
 } // GetVocabularyFile
 
-const QString Vocabulary::GetWord(const int &pRow, const QString &pLanguage) const
+const int Vocabulary::GetWordCategory(const int &pWordId) const
 {
-	QSqlQuery qsqQuery("SELECT " + pLanguage + " FROM " + TABLE_WORDS);
-	qsqQuery.seek(pRow);
-	return qsqQuery.value(qsqQuery.record().indexOf(pLanguage)).toString();
-} // GetWord
-
-const QString Vocabulary::GetWord(const int &pCategoryId, const int &pRow, const QString &pLanguage) const
-{
-    QSqlQuery qsqQuery("SELECT " + pLanguage + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
-    qsqQuery.seek(pRow);
-    return qsqQuery.value(qsqQuery.record().indexOf(pLanguage)).toString();
-} // GetWord
+    QSqlQuery qsqQuery("SELECT " + COLUMN_CATEGORYID + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_ID + " = " + QString::number(pWordId));
+    if (qsqQuery.next()) {
+        return qsqQuery.value(0).toInt();
+    } else {
+        return -1;
+    } // if else
+} // GetWordCategory
 
 const int Vocabulary::GetWordCount() const
 {
@@ -122,6 +118,20 @@ const int Vocabulary::GetWordCount(const int &pCategoryId) const
 		return 0;
 	} // if else
 } // GetWordCount
+
+const QString Vocabulary::GetWordId(const int &pRow, const QString &pLanguage) const
+{
+    QSqlQuery qsqQuery("SELECT " + pLanguage + " FROM " + TABLE_WORDS);
+    qsqQuery.seek(pRow);
+    return qsqQuery.value(qsqQuery.record().indexOf(pLanguage)).toString();
+} // GetWordId
+
+const QString Vocabulary::GetWordId(const int &pCategoryId, const int &pRow, const QString &pLanguage) const
+{
+    QSqlQuery qsqQuery("SELECT " + pLanguage + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
+    qsqQuery.seek(pRow);
+    return qsqQuery.value(qsqQuery.record().indexOf(pLanguage)).toString();
+} // GetWordId
 
 const void Vocabulary::Initialize() const
 {
