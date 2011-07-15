@@ -9,6 +9,16 @@ void SettingsDialog::accept()
     QDialog::accept();
 } // accept
 
+const void SettingsDialog::FillColorFlash()
+{
+    for (int iI = 0; iI < _usdSettingsDialog.qcbColorFlash->count(); iI++) {
+        if (_usdSettingsDialog.qcbColorFlash->itemData(iI, Qt::UserRole).toString() == _sSettings->GetColorFlash()) {
+            _usdSettingsDialog.qcbColorFlash->setCurrentIndex(iI);
+            return;
+        } // if
+    } // for
+} // FillColorFlash
+
 const void SettingsDialog::FillOptions()
 {
     // general
@@ -25,9 +35,10 @@ const void SettingsDialog::FillOptions()
 	_usdSettingsDialog.cbSwitchLearningDirection->setCheckState(_sSettings->GetSwitchLearningDirection());
 	_usdSettingsDialog.cbStartLearningOnStartup->setChecked(_sSettings->GetStartLearningOnStartup());
 
-    // font
+    // appearance
     _usdSettingsDialog.qsbFontSizeNote->setValue(_sSettings->GetFontSizeNote());
     _usdSettingsDialog.qsbFontSizeWord->setValue(_sSettings->GetFontSizeWord());
+    FillColorFlash();
 } // FillOptions
 
 void SettingsDialog::on_qsbWordsFrequency_valueChanged(int i)
@@ -57,9 +68,10 @@ const void SettingsDialog::SaveOptions()
 	_sSettings->SetSwitchLearningDirection(_usdSettingsDialog.cbSwitchLearningDirection->checkState());
 	_sSettings->SetStartLearningOnStartup(_usdSettingsDialog.cbStartLearningOnStartup->isChecked());
 
-    // font
+    // appearance
     _sSettings->SetFontSizeNote(_usdSettingsDialog.qsbFontSizeNote->value());
     _sSettings->SetFontSizeWord(_usdSettingsDialog.qsbFontSizeWord->value());
+    _sSettings->SetColorFlash(_usdSettingsDialog.qcbColorFlash->itemData(_usdSettingsDialog.qcbColorFlash->currentIndex(), Qt::UserRole).toString());
 } // SaveOptions
 
 SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)

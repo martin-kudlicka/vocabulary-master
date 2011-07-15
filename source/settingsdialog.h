@@ -18,6 +18,7 @@ class SettingsDialog : public QDialog
 		Ui::qdUiSettings _usdSettingsDialog;
 
         void accept();
+        const void FillColorFlash();
         const void FillOptions();
 		const void PrepareColorFlash();
         const void SaveOptions();
