@@ -286,7 +286,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
             QString qsStyleSheet = _umwMainWindow.qtbWindow1->styleSheet();
 
 		    for (int iI = 0; iI < FLASH_COUNT; iI++) {
-                _umwMainWindow.qtbWindow1->setStyleSheet(QString("background: %1").arg(_sSettings.GetColorFlash()));
+                _umwMainWindow.qtbWindow1->setStyleSheet(QString("QAbstractScrollArea { background-color: %1 }").arg(_sSettings.GetColorFlash()));
 			    QTest::qWait(FLASH_WAIT);
                 _umwMainWindow.qtbWindow1->setStyleSheet(qsStyleSheet);
 			    if (iI < FLASH_COUNT - 1) {
