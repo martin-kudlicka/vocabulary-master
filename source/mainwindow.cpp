@@ -54,7 +54,7 @@ bool MainWindow::event(QEvent *event)
 {
 	if (event->type() == QEvent::WindowStateChange) {
 		if (isMinimized() && _sSettings.GetSystemTrayIcon() && _sSettings.GetMinimizeToTray()) {
-			setWindowFlags(windowFlags() | Qt::Tool);
+			setWindowFlags(windowFlags() | Qt::CustomizeWindowHint); // just add some flag to hide window
 		} // if
 	} // if
 
@@ -149,6 +149,9 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 	if (_sSettings.GetStartLearningOnStartup() && _vVocabulary.IsOpen()) {
 		on_qaStart_triggered();
 	} // if
+
+	// connections
+	connect(&_qstiTrayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason)));
 } // MainWindow
 
 const void MainWindow::on_qaAnswer_triggered(bool checked /* false */)
@@ -242,6 +245,14 @@ const void MainWindow::on_qmTray_triggered(QAction *action)
 		close();
 	} // if
 } // on_qmTray_triggered
+
+const void MainWindow::on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason reason)
+{
+	if (reason == QSystemTrayIcon::DoubleClick && isMinimized()) {
+		setWindowFlags(windowFlags() & ~Qt::CustomizeWindowHint);
+		showNormal();
+	} // if
+} // on_qstiTrayIcon_activated
 
 const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
