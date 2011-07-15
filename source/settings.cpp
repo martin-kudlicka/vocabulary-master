@@ -14,6 +14,7 @@ const QString KEY_NEWWORDSCOUNT = "NewWordsCount";
 const QString KEY_NEWWORDSFREQUENCY = "NewWordsFrequency";
 const QString KEY_NEWWORDSOUND = "NewWordSound";
 const QString KEY_REMEMBERWINDOWPOSITION = "RememberWindowPosition";
+const QString KEY_SHOWWORDSINTRAYBALLOON = "ShowWordsInTrayBalloon";
 const QString KEY_STARTLEARNINGONSTARTUP = "StartLearningOnStartup";
 const QString KEY_SWITCHLEARNINGDIRECTION = "SwitchLearningDirection";
 const QString KEY_SYSTEMTRAYICON = "SystemTrayIcon";
@@ -85,6 +86,11 @@ const bool Settings::GetRememberWindowPosition() const
 {
     return _qsSettings.value(KEY_REMEMBERWINDOWPOSITION, true).toBool();
 } // GetRememberWindowPosition
+
+const bool Settings::GetShowWordsInTrayBalloon() const
+{
+	return _qsSettings.value(KEY_SHOWWORDSINTRAYBALLOON, false).toBool();
+} // GetShowWordsInTrayBalloon
 
 const bool Settings::GetStartLearningOnStartup() const
 {
@@ -185,6 +191,11 @@ const void Settings::SetRememberWindowPosition(const bool &pEnable)
 {
     _qsSettings.setValue(KEY_REMEMBERWINDOWPOSITION, pEnable);
 } // SetRememberWindowPosition
+
+const void Settings::SetShowWordsInTrayBalloon(const bool &pEnable)
+{
+	_qsSettings.setValue(KEY_SHOWWORDSINTRAYBALLOON, pEnable);
+} // SetShowWordsInTrayBalloon
 
 const void Settings::SetStartLearningOnStartup(const bool &pEnable)
 {

@@ -54,6 +54,7 @@ class MainWindow : public QMainWindow
         const QString GetNoteColumn(const bool &pDirectionSwitched, const bool &pAnswer) const;
 		const void Say(const bool &pDirectionSwitched, const bool &pAnswer) const;
         const void SetLayout();
+		const void ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer);
 		void timerEvent(QTimerEvent *event);
 
 	private slots:

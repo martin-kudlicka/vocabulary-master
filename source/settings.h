@@ -21,6 +21,7 @@ class Settings
 		const bool GetNewWordFlash() const;
 		const bool GetNewWordSound() const;
         const bool GetRememberWindowPosition() const;
+		const bool GetShowWordsInTrayBalloon() const;
 		const bool GetStartLearningOnStartup() const;
 		const Qt::CheckState GetSwitchLearningDirection() const;
         const bool GetSystemTrayIcon() const;
@@ -41,6 +42,7 @@ class Settings
 		const void SetNewWordFlash(const bool &pEnable);
 		const void SetNewWordSound(const bool &pEnable);
         const void SetRememberWindowPosition(const bool &pEnable);
+		const void SetShowWordsInTrayBalloon(const bool &pEnable);
 		const void SetStartLearningOnStartup(const bool &pEnable);
 		const void SetSwitchLearningDirection(const Qt::CheckState &pSwitch);
         const void SetSystemTrayIcon(const bool &pEnable);

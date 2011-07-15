@@ -79,13 +79,26 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>90</y>
+         <y>110</y>
          <width>100</width>
          <height>17</height>
         </rect>
        </property>
        <property name="text">
         <string>Minimize to tray</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="qcbShowWordsInTrayBalloon">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>90</y>
+         <width>150</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Show words in tray balloon</string>
        </property>
       </widget>
      </widget>

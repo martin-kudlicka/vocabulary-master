@@ -295,6 +295,16 @@ const void MainWindow::SetLayout()
     qblLayout->addWidget(_umwMainWindow.qvblAnswer->parentWidget());
 } // SetLayout
 
+const void MainWindow::ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer)
+{
+	QString qsText = _vVocabulary.GetWordId(_iCurrentWord, GetLangColumn(pDirectionSwitched, false));
+	if (pAnswer) {
+		qsText += " -> " + _vVocabulary.GetWordId(_iCurrentWord, GetLangColumn(pDirectionSwitched, true));
+	} // if
+
+	_qstiTrayIcon.showMessage("Vocabulary Master", qsText);
+} // ShowTrayBalloon
+
 void MainWindow::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == _iTimerQuestion) {
@@ -317,10 +327,16 @@ void MainWindow::timerEvent(QTimerEvent *event)
 	    _umwMainWindow.qtbWindow1->setText(GetLearningText(saAnswer.bDirectionSwitched, false));
 	    _umwMainWindow.qtbWindow2->clear();
 
+		// tray
+		if (_sSettings.GetSystemTrayIcon() && _sSettings.GetShowWordsInTrayBalloon()) {
+			ShowTrayBalloon(saAnswer.bDirectionSwitched, false);
+		} // if
+
         // sound
 	    if (_sSettings.GetNewWordSound() && !_sSettings.GetMute()) {
 		    QApplication::beep();
 	    } // if
+
         // flash
 	    if (_sSettings.GetNewWordFlash()) {
             QString qsStyleSheet = _umwMainWindow.qtbWindow1->styleSheet();
@@ -334,6 +350,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 			    } // if
 		    } // for
 	    } // if
+
         // speech
         if (_sSettings.GetNewWordSound()) {
             QTest::qWait(SAY_BEEP_WAIT);
@@ -364,6 +381,12 @@ void MainWindow::timerEvent(QTimerEvent *event)
                 // gui
                 _umwMainWindow.qtbWindow2->setText(GetLearningText(saAnswer.bDirectionSwitched, true));
                 _umwMainWindow.qtbWindow2->repaint();
+
+				// tray
+				if (_sSettings.GetSystemTrayIcon() && _sSettings.GetShowWordsInTrayBalloon()) {
+					ShowTrayBalloon(saAnswer.bDirectionSwitched, true);
+				} // if
+
                 // speech
                 Say(saAnswer.bDirectionSwitched, true);
             } // if
