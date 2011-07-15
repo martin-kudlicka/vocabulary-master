@@ -15,6 +15,7 @@ const QString KEY_NEWWORDSOUND = "NewWordSound";
 const QString KEY_REMEMBERWINDOWPOSITION = "RememberWindowPosition";
 const QString KEY_STARTLEARNINGONSTARTUP = "StartLearningOnStartup";
 const QString KEY_SWITCHLEARNINGDIRECTION = "SwitchLearningDirection";
+const QString KEY_SYSTEMTRAYICON = "SystemTrayIcon";
 const QString KEY_VOCABULARYFILE = "VocabularyFile";
 const QString KEY_WAITFORANSWER = "WaitForAnswer";
 const QString KEY_WINDOWHEIGHT = "WindowHeight";
@@ -88,6 +89,11 @@ const Qt::CheckState Settings::GetSwitchLearningDirection() const
 {
 	return static_cast<Qt::CheckState>(_qsSettings.value(KEY_SWITCHLEARNINGDIRECTION, false).toInt());
 } // GetSwitchLearningDirection
+
+const bool Settings::GetSystemTrayIcon() const
+{
+    return _qsSettings.value(KEY_SYSTEMTRAYICON, false).toBool();
+} // GetSystemTrayIcon
 
 const QString Settings::GetVocabularyFile() const
 {
@@ -178,6 +184,11 @@ const void Settings::SetSwitchLearningDirection(const Qt::CheckState &pSwitch)
 {
 	_qsSettings.setValue(KEY_SWITCHLEARNINGDIRECTION, pSwitch);
 } // SetSwitchLearningDirection
+
+const void Settings::SetSystemTrayIcon(const bool &pEnable)
+{
+    _qsSettings.setValue(KEY_SYSTEMTRAYICON, pEnable);
+} // SetSystemTrayIcon
 
 Settings::Settings() : _qsSettings(ORGANIZATION, APPLICATION)
 {
