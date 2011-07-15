@@ -67,6 +67,7 @@ class MainWindow : public QMainWindow
 		const void on_qaStart_triggered(bool checked = false);
 		const void on_qaStop_triggered(bool checked = false);
 		const void on_qmTray_triggered(QAction *action);
+		const void on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason reason);
 }; // MainWindow
 
 #endif // MAINWINDOW_H
