@@ -1,7 +1,7 @@
 #include "settings.h"
 
 const QString APPLICATION = "Vocabulary Master";
-const QString DEFAULT_COLORFLASH = "green";
+const QString DEFAULT_COLORFLASH = "chartreuse";
 const QString KEY_ALWAYSONTOP = "AlwaysOnTop";
 const QString KEY_COLORFLASH = "ColorFlash";
 const QString KEY_FONTSIZENOTE = "FontSizeNote";
