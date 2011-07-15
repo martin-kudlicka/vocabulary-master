@@ -17,12 +17,6 @@ const void VocabularySettingsDialog::FillOptions()
 	FillSpeech(_qdvsdVocabularySettingsDialog.qcbSpeechRight, KEY_SPEECH2, KEY_VOICE2);
 } // FillOptions
 
-const void VocabularySettingsDialog::FillPlugins()
-{
-	FillSpeechPlugins(_qdvsdVocabularySettingsDialog.qcbSpeechLeft);
-	FillSpeechPlugins(_qdvsdVocabularySettingsDialog.qcbSpeechRight);
-} // FillPlugins
-
 const void VocabularySettingsDialog::FillSpeech(QComboBox *pComboBox, const QString &pSpeech, const QString &pVoice)
 {
 	int iSpeech = _vVocabulary->GetSettings(pSpeech).toInt();
@@ -45,7 +39,13 @@ const void VocabularySettingsDialog::FillSpeech(QComboBox *pComboBox, const QStr
     pComboBox->setItemData(pComboBox->count() - 1, _tvVoiceList.size() - 1);
 } // FillSpeech
 
-const void VocabularySettingsDialog::FillSpeechPlugins(QComboBox *pComboBox)
+const void VocabularySettingsDialog::PreparePlugins()
+{
+    PrepareSpeechPlugins(_qdvsdVocabularySettingsDialog.qcbSpeechLeft);
+    PrepareSpeechPlugins(_qdvsdVocabularySettingsDialog.qcbSpeechRight);
+} // PreparePlugins
+
+const void VocabularySettingsDialog::PrepareSpeechPlugins(QComboBox *pComboBox)
 {
 	sSpeechVoice spvVoice;
 
@@ -66,7 +66,7 @@ const void VocabularySettingsDialog::FillSpeechPlugins(QComboBox *pComboBox)
 			pComboBox->setItemData(pComboBox->count() - 1, _tvVoiceList.size() - 1);
 		} // foreach
 	} // foreach
-} // FillSpeechPlugins
+} // PrepareSpeechPlugins
 
 const void VocabularySettingsDialog::SaveOptions()
 {
@@ -89,6 +89,6 @@ VocabularySettingsDialog::VocabularySettingsDialog(const Vocabulary *pVocabulary
 
 	_qdvsdVocabularySettingsDialog.setupUi(this);
 
-	FillPlugins();
+	PreparePlugins();
 	FillOptions();
 } // VocabularySettingsDialog

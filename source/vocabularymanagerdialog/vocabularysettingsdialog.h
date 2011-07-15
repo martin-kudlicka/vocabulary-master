@@ -28,9 +28,9 @@ class VocabularySettingsDialog : public QDialog
 
 		void accept();
 		const void FillOptions();
-		const void FillPlugins();
 		const void FillSpeech(QComboBox *pComboBox, const QString &pSpeech, const QString &pVoice);
-		const void FillSpeechPlugins(QComboBox *pComboBox);
+        const void PreparePlugins();
+		const void PrepareSpeechPlugins(QComboBox *pComboBox);
 		const void SaveOptions();
 }; // VocabularySettingsDialog
 
