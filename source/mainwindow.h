@@ -35,6 +35,8 @@ class MainWindow : public QMainWindow
         int _iTimerAnswer;
 		int _iTimerQuestion;
 		Plugins _pPlugins;
+		QAction *_qaTrayExit;
+		QMenu _qmTray;
         QSystemTrayIcon _qstiTrayIcon;
 		Settings _sSettings;
         tAnswer _taHash;
@@ -42,6 +44,7 @@ class MainWindow : public QMainWindow
         Vocabulary _vVocabulary;
 
         const void ApplySettings(const bool &pStartup);
+		const void CreateTrayMenu();
         const void EnableControls();
 		bool event(QEvent *event);
 		const QString GetLangColumn(const bool &pDirectionSwitched, const bool &pAnswer) const;
@@ -63,6 +66,7 @@ class MainWindow : public QMainWindow
 		const void on_qaSettings_triggered(bool checked = false);
 		const void on_qaStart_triggered(bool checked = false);
 		const void on_qaStop_triggered(bool checked = false);
+		const void on_qmTray_triggered(QAction *action);
 }; // MainWindow
 
 #endif // MAINWINDOW_H
