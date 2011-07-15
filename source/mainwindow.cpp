@@ -42,6 +42,17 @@ const void MainWindow::EnableControls()
     _umwMainWindow.qaAnswer->setEnabled(_iTimerAnswer != 0);
 } // EnableControls
 
+bool MainWindow::event(QEvent *event)
+{
+	if (event->type() == QEvent::WindowStateChange) {
+		if (isMinimized() && _sSettings.GetSystemTrayIcon() && _sSettings.GetMinimizeToTray()) {
+			setWindowFlags(windowFlags() | Qt::Tool);
+		} // if
+	} // if
+
+	return QMainWindow::event(event);
+} // event
+
 const QString MainWindow::GetLangColumn(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
 	if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {

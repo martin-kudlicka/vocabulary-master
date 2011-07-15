@@ -14,6 +14,7 @@ class Settings
         const int GetFontSizeNote() const;
         const int GetFontSizeWord() const;
         const bool GetHorizontalLayout() const;
+        const bool GetMinimizeToTray() const;
         const bool GetMute() const;
 		const int GetNewWordsCount() const;
 		const int GetNewWordsFrequency() const;
@@ -35,6 +36,7 @@ class Settings
         const void SetFontSizeNote(const int &pSize);
         const void SetFontSizeWord(const int &pSize);
         const void SetHorizontalLayout(const bool &pEnable);
+		const void SetMinimizeToTray(const bool &pEnable);
         const void SetMute(const bool &pEnable);
 		const void SetNewWordFlash(const bool &pEnable);
 		const void SetNewWordSound(const bool &pEnable);

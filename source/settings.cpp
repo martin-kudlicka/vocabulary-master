@@ -7,6 +7,7 @@ const QString KEY_COLORFLASH = "ColorFlash";
 const QString KEY_FONTSIZENOTE = "FontSizeNote";
 const QString KEY_FONTSIZEWORD = "FontSizeWord";
 const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
+const QString KEY_MINIMIZETOTRAY = "MinimizeToTray";
 const QString KEY_MUTE = "Mute";
 const QString KEY_NEWWORDFLASH = "NewWordFlash";
 const QString KEY_NEWWORDSCOUNT = "NewWordsCount";
@@ -49,6 +50,11 @@ const bool Settings::GetHorizontalLayout() const
 {
     return _qsSettings.value(KEY_HORIZONTALLAYOUT, false).toBool();
 } // GetHorizontalLayout
+
+const bool Settings::GetMinimizeToTray() const
+{
+	return _qsSettings.value(KEY_MINIMIZETOTRAY, false).toBool();
+} // GetMinimizeToTray
 
 const bool Settings::GetMute() const
 {
@@ -154,6 +160,11 @@ const void Settings::SetHorizontalLayout(const bool &pEnable)
 {
     _qsSettings.setValue(KEY_HORIZONTALLAYOUT, pEnable);
 } // SetHorizontalLayout
+
+const void Settings::SetMinimizeToTray(const bool &pEnable)
+{
+	_qsSettings.setValue(KEY_MINIMIZETOTRAY, pEnable);
+} // SetMinimizeToTray
 
 const void Settings::SetMute(const bool &pEnable)
 {

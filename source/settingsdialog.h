@@ -24,7 +24,8 @@ class SettingsDialog : public QDialog
         const void SaveOptions();
 
 	private slots:
-		void on_qsbWordsFrequency_valueChanged(int i);
+		const void on_qcbSystemTrayIcon_stateChanged(int state);
+		const void on_qsbWordsFrequency_valueChanged(int i);
 }; // MainWindow
 
 #endif // SETTINGSDIALOG_H
