@@ -62,6 +62,19 @@
         <string>Horizontal layout</string>
        </property>
       </widget>
+      <widget class="QCheckBox" name="qcbSystemTrayIcon">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>100</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>System tray icon</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">

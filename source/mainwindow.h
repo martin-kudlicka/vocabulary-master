@@ -8,6 +8,7 @@
 #include <QtGui/QBoxLayout>
 #include "vocabulary.h"
 #include "plugins.h"
+#include <QtGui/QSystemTrayIcon>
 
 class MainWindow : public QMainWindow
 {
@@ -34,6 +35,7 @@ class MainWindow : public QMainWindow
         int _iTimerAnswer;
 		int _iTimerQuestion;
 		Plugins _pPlugins;
+        QSystemTrayIcon _qstiTrayIcon;
 		Settings _sSettings;
         tAnswer _taHash;
 		Ui::qmwUiMain _umwMainWindow;

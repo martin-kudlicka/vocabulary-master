@@ -25,6 +25,8 @@ const void MainWindow::ApplySettings(const bool &pStartup)
         setGeometry(_sSettings.GetWindowX(), _sSettings.GetWindowY(), _sSettings.GetWindowWidth(), _sSettings.GetWindowHeight());
     } // if
 
+    _qstiTrayIcon.setVisible(_sSettings.GetSystemTrayIcon());
+
 	show();
 } // ApplySettings
 
