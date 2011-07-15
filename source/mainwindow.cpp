@@ -30,6 +30,14 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 	show();
 } // ApplySettings
 
+const void MainWindow::CreateTrayMenu()
+{
+	_qaTrayExit = _qmTray.addAction(tr("Exit"));
+
+	connect(&_qmTray, SIGNAL(triggered(QAction *)), SLOT(on_qmTray_triggered(QAction *)));
+	_qstiTrayIcon.setContextMenu(&_qmTray);
+} // CreateTrayMenu
+
 const void MainWindow::EnableControls()
 {
 	// menu
@@ -122,6 +130,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
     // gui
 	_umwMainWindow.setupUi(this);
+	CreateTrayMenu();
 
     // plugins
 	_pPlugins.Load();
@@ -226,6 +235,13 @@ const void MainWindow::on_qaStop_triggered(bool checked /* false */)
     _umwMainWindow.qlLanguage2->setVisible(false);
 	_umwMainWindow.qtbWindow2->clear();
 } // on_qaStop_triggered
+
+const void MainWindow::on_qmTray_triggered(QAction *action)
+{
+	if (action == _qaTrayExit) {
+		close();
+	} // if
+} // on_qmTray_triggered
 
 const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
