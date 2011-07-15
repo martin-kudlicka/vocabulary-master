@@ -26,6 +26,8 @@ const void SettingsDialog::FillOptions()
     _usdSettingsDialog.qcbAlwaysOnTop->setChecked(_sSettings->GetAlwaysOnTop());
     _usdSettingsDialog.qcbRememberWindowPosition->setChecked(_sSettings->GetRememberWindowPosition());
     _usdSettingsDialog.qcbSystemTrayIcon->setChecked(_sSettings->GetSystemTrayIcon());
+	on_qcbSystemTrayIcon_stateChanged(_usdSettingsDialog.qcbMinimizeToTray->checkState());
+	_usdSettingsDialog.qcbMinimizeToTray->setChecked(_sSettings->GetMinimizeToTray());
 
     // learning
     _usdSettingsDialog.qsbWordsFrequency->setValue(_sSettings->GetWordsFrequency());
@@ -42,7 +44,12 @@ const void SettingsDialog::FillOptions()
     FillColorFlash();
 } // FillOptions
 
-void SettingsDialog::on_qsbWordsFrequency_valueChanged(int i)
+const void SettingsDialog::on_qcbSystemTrayIcon_stateChanged(int state)
+{
+	_usdSettingsDialog.qcbMinimizeToTray->setEnabled(state == Qt::Checked);
+} // on_qcbSystemTrayIcon_stateChanged
+
+const void SettingsDialog::on_qsbWordsFrequency_valueChanged(int i)
 {
 	_usdSettingsDialog.qsbWaitForAnswer->setMaximum(i - 1);
 } // on_qsbWordsFrequency_valueChanged
@@ -61,6 +68,7 @@ const void SettingsDialog::SaveOptions()
     _sSettings->SetAlwaysOnTop(_usdSettingsDialog.qcbAlwaysOnTop->isChecked());
     _sSettings->SetRememberWindowPosition(_usdSettingsDialog.qcbRememberWindowPosition->isChecked());
     _sSettings->SetSystemTrayIcon(_usdSettingsDialog.qcbSystemTrayIcon->isChecked());
+	_sSettings->SetMinimizeToTray(_usdSettingsDialog.qcbMinimizeToTray->isChecked());
 
     // learning
     _sSettings->SetWordsFrequency(_usdSettingsDialog.qsbWordsFrequency->value());
