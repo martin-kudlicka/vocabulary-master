@@ -129,22 +129,22 @@
   </action>
   <action name="qaSettings">
    <property name="text">
-    <string>&amp;Settings</string>
+    <string>&amp;Settings...</string>
    </property>
   </action>
   <action name="qaNew">
    <property name="text">
-    <string>&amp;New</string>
+    <string>&amp;New...</string>
    </property>
   </action>
   <action name="qaOpen">
    <property name="text">
-    <string>&amp;Open</string>
+    <string>&amp;Open...</string>
    </property>
   </action>
   <action name="qaManage">
    <property name="text">
-    <string>&amp;Manage</string>
+    <string>&amp;Manage...</string>
    </property>
   </action>
   <action name="qaStart">
