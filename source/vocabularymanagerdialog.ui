@@ -44,7 +44,7 @@
          </rect>
         </property>
         <property name="text">
-         <string>Add</string>
+         <string>Add...</string>
         </property>
        </widget>
        <widget class="QPushButton" name="qpbCategoryRemove">
@@ -83,7 +83,7 @@
          </rect>
         </property>
         <property name="text">
-         <string>&amp;Add</string>
+         <string>&amp;Add...</string>
         </property>
        </widget>
        <widget class="QPushButton" name="qpbWordRemove">
@@ -104,7 +104,7 @@
      <item>
       <widget class="QPushButton" name="qpbVocabularySettings">
        <property name="text">
-        <string>Settings</string>
+        <string>Settings...</string>
        </property>
       </widget>
      </item>
