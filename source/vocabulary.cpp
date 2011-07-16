@@ -220,6 +220,17 @@ const void Vocabulary::SetCategoryEnabled(const int &pCategoryId, const bool &pE
     QSqlQuery qsqQuery("UPDATE " + TABLE_CATEGORIES + " SET " + COLUMN_ENABLED + " = " + QString::number(pEnabled) + " WHERE " + COLUMN_ID + " = " + QString::number(pCategoryId));
 } // SetCategoryEnabled
 
+const void Vocabulary::SetNote(const QString &pNote, const int &pCategoryId, const int &pRow, const QString &pLanguage) const
+{
+	QSqlQuery qsqQuery;
+
+	qsqQuery.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
+	qsqQuery.seek(pRow);
+	int iColumnId = qsqQuery.value(qsqQuery.record().indexOf(COLUMN_ID)).toInt();
+
+	qsqQuery.exec("UPDATE " + TABLE_WORDS + " SET " + pLanguage + " = '" + pNote + "' WHERE " + COLUMN_ID + " = " + QString::number(iColumnId));
+} // SetNote
+
 const void Vocabulary::SetSettings(const QString &pKey, const QString &pValue) const
 {
 	if (GetSettings(pKey).isEmpty()) {
