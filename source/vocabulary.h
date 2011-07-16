@@ -42,6 +42,7 @@ class Vocabulary
         const void RemoveCategory(const int &pCategoryId) const;
         const void RemoveWord(const int &pCategoryId, const int &pRow) const;
         const void SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const;
+		const void SetNote(const QString &pNote, const int &pCategoryId, const int &pRow, const QString &pLanguage) const;
 		const void SetSettings(const QString &pKey, const QString &pValue) const;
 		const void SetWord(const QString &pWord, const int &pCategoryId, const int &pRow, const QString &pLanguage) const;
 

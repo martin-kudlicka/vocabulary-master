@@ -90,8 +90,14 @@ bool VocabularyModel::setData(const QModelIndex &index, const QVariant &value, i
 		case ColumnLang1:
 			_vVocabulary->SetWord(value.toString(), _iCategoryId, index.row(), COLUMN_LANG1);
 			break;
+		case ColumnNote1:
+			_vVocabulary->SetNote(value.toString(), _iCategoryId, index.row(), COLUMN_NOTE1);
+			break;
 		case ColumnLang2:
 			_vVocabulary->SetWord(value.toString(), _iCategoryId, index.row(), COLUMN_LANG2);
+			break;
+		case ColumnNote2:
+			_vVocabulary->SetNote(value.toString(), _iCategoryId, index.row(), COLUMN_NOTE2);
 			break;
 	} // switch
 
