@@ -1,7 +1,7 @@
 #ifndef VOCABULARYMANAGERDIALOG_H
 #define VOCABULARYMANAGERDIALOG_H
 
-#include "ui_vocabularymanagerdialog.h"
+#include <ui_vocabularymanagerdialog.h>
 
 #include "vocabulary.h"
 #include "plugins.h"
@@ -28,6 +28,7 @@ class VocabularyManagerDialog : public QDialog
         const void on_qpbCategoryRemove_clicked(bool checked = false);
 		const void on_qpbVocabularySettings_clicked(bool checked = false);
         const void on_qpbWordAdd_clicked(bool checked = false);
+		const void on_qpbWordImport_clicked(bool checked = false);
         const void on_qpbWordRemove_clicked(bool checked = false);
         const void on_vtwTabs_TabEnableChanged(const int &pIndex, const Qt::CheckState &pState) const;
 }; // VocabularyManagerDialog
