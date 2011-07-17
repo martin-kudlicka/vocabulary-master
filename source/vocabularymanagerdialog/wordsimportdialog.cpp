@@ -1,29 +1,23 @@
 #include "vocabularymanagerdialog/wordsimportdialog.h"
 
-#include "vocabularymanagerdialog/wordsimportdialog/importfilter/importfilteranki.h"
 #include <QtGui/QMessageBox>
-
-// same order as WordsImportDialog::eFileType
-const QStringList IMPORT_FILTERS = QStringList() << ("Anki (*.anki)");
-
-WordsImportDialog::~WordsImportDialog()
-{
-	if (_ifImportFilter) {
-		delete _ifImportFilter;
-	} // if
-} // ~WordsImportDialog
 
 int WordsImportDialog::exec()
 {
 	// check file according to filter
-	eFileType eftFilter = static_cast<eFileType>(IMPORT_FILTERS.indexOf(_qsFilter));
-	switch (eftFilter) {
-		case FileTypeAnki:
-			_ifImportFilter = new ImportFilterAnki(_qsFile);
+	foreach (const ImpInterface *iiPlugin, _pPlugins->GetImpPlugins()) {
+		if (_qsFilter == iiPlugin->GetFilter()) {
+			_iiPlugin = iiPlugin;
 			break;
-	} // switch
+		} // if
+	} // foreach
 
-	if (_ifImportFilter->Open()) {
+	bool bOpen = false;
+	if (_iiPlugin) {
+		bOpen = _iiPlugin->Open(_qsFile);
+	} // if
+
+	if (bOpen) {
 		return QDialog::exec();
 	} else {
 		QMessageBox::critical(this, tr("Words import"), tr("Can't import data from selected file."));
@@ -31,18 +25,14 @@ int WordsImportDialog::exec()
 	} // if else
 } // exec
 
-const QString WordsImportDialog::GetFilter()
-{
-	return IMPORT_FILTERS.join(";;");
-} // GetFilter
-
-WordsImportDialog::WordsImportDialog(const QString &pFile, const QString &pFilter, const Vocabulary *pVocabulary, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
+WordsImportDialog::WordsImportDialog(const QString &pFile, const QString &pFilter, const Vocabulary *pVocabulary, const Plugins *pPlugins, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
 {
 	_qsFile = pFile;
 	_qsFilter = pFilter;
 	_vVocabulary = pVocabulary;
+	_pPlugins = pPlugins;
 
-	_ifImportFilter = NULL;
+	_iiPlugin = NULL;
 
 	_qdwiWordsImport.setupUi(this);
 } // WordsImportDialog

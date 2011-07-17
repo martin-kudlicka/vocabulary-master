@@ -75,10 +75,16 @@ const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false 
 
 const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* false */)
 {
+	// prepare filter
+	QStringList qslFilters;
+	foreach (const ImpInterface *iiPlugin, _pPlugins->GetImpPlugins()) {
+		qslFilters.append(iiPlugin->GetFilter());
+	} // foreach
+
 	QString qsFilter;
-	QString qsFile = QFileDialog::getOpenFileName(this, tr("Import words"), QString(), WordsImportDialog::GetFilter(), &qsFilter);
+	QString qsFile = QFileDialog::getOpenFileName(this, tr("Import words"), QString(), qslFilters.join(";;"), &qsFilter);
 	if (!qsFile.isEmpty()) {
-		WordsImportDialog wiImport(qsFile, qsFilter, _vVocabulary, this);
+		WordsImportDialog wiImport(qsFile, qsFilter, _vVocabulary, _pPlugins, this);
 		wiImport.exec();
 	} // if
 } // on_qpbWordImport_clicked

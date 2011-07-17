@@ -269,7 +269,7 @@ const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) 
 	    int iSpeech = _vVocabulary.GetSettings(qsSpeech).toInt();
         qsVoice = _vVocabulary.GetSettings(qsVoice);
 	    if (iSpeech != TTSInterface::TTPluginNone) {
-		    TTSInterface *tiPlugin = _pPlugins.GetPlugin(static_cast<TTSInterface::eTTSPlugin>(iSpeech));
+		    TTSInterface *tiPlugin = _pPlugins.GetTTSPlugin(static_cast<TTSInterface::eTTSPlugin>(iSpeech));
             if (tiPlugin) {
 		        tiPlugin->Say(qsVoice, _vVocabulary.GetWordId(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
             } // if
