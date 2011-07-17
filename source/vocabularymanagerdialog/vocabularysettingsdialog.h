@@ -1,7 +1,7 @@
 #ifndef VOCABULARYSETTINGSDIALOG_H
 #define VOCABULARYSETTINGSDIALOG_H
 
-#include "ui_vocabularysettingsdialog.h"
+#include <ui_vocabularysettingsdialog.h>
 
 #include "vocabulary.h"
 #include "plugins.h"
