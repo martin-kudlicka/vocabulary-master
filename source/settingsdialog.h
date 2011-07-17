@@ -2,7 +2,7 @@
 #define SETTINGSDIALOG_H
 
 #include <QtGui/QDialog>
-#include "ui_settingsdialog.h"
+#include <ui_settingsdialog.h>
 
 #include "settings.h"
 

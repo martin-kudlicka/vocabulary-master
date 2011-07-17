@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QtGui/QMainWindow>
-#include "ui_mainwindow.h"
+#include <ui_mainwindow.h>
 
 #include "settings.h"
 #include <QtGui/QBoxLayout>
