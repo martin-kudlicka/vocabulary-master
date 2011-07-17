@@ -43,6 +43,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tts-openjtalk", "plugins\tt
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tts-sapi", "plugins\tts-sapi\tts-sapi.vcproj", "{4CDF914C-320C-462E-9D99-333CB209921D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "imp-anki", "plugins\imp-anki\imp-anki.vcproj", "{C78EFA28-4AC0-4D84-9A42-2F4E8F4232E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -113,6 +115,10 @@ Global
 		{4CDF914C-320C-462E-9D99-333CB209921D}.Debug|Win32.Build.0 = Debug|Win32
 		{4CDF914C-320C-462E-9D99-333CB209921D}.Release|Win32.ActiveCfg = Release|Win32
 		{4CDF914C-320C-462E-9D99-333CB209921D}.Release|Win32.Build.0 = Release|Win32
+		{C78EFA28-4AC0-4D84-9A42-2F4E8F4232E7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C78EFA28-4AC0-4D84-9A42-2F4E8F4232E7}.Debug|Win32.Build.0 = Debug|Win32
+		{C78EFA28-4AC0-4D84-9A42-2F4E8F4232E7}.Release|Win32.ActiveCfg = Release|Win32
+		{C78EFA28-4AC0-4D84-9A42-2F4E8F4232E7}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -136,5 +142,6 @@ Global
 		{F3FAA179-BC8A-4F70-8AEE-20265CDB2825} = {04210029-2F07-44AA-ABAA-BFD86BFC6D1A}
 		{E7826957-8800-430A-9CA3-45D5DC3D73CC} = {16B0AC46-7D8F-44D3-B60B-0EAF796DB86B}
 		{4CDF914C-320C-462E-9D99-333CB209921D} = {16B0AC46-7D8F-44D3-B60B-0EAF796DB86B}
+		{C78EFA28-4AC0-4D84-9A42-2F4E8F4232E7} = {16B0AC46-7D8F-44D3-B60B-0EAF796DB86B}
 	EndGlobalSection
 EndGlobal
