@@ -4,15 +4,20 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QPluginLoader>
 
-TTSInterface *Plugins::GetPlugin(const TTSInterface::eTTSPlugin &pPluginId) const
+TTSInterface *Plugins::GetTTSPlugin(const TTSInterface::eTTSPlugin &pPluginId) const
 {
 	return _qhTTSPlugins.value(pPluginId);
-} // GetPlugin
+} // GetTTSPlugin
 
-const Plugins::tKeyList Plugins::GetPluginIds() const
+const Plugins::tImpPluginList &Plugins::GetImpPlugins() const
 {
-	return _qhTTSPlugins.keys();
-} // GetPluginIds
+	return _tiplImpPlugins;
+} // GetImpPlugins
+
+const Plugins::tTTSPluginList Plugins::GetTTSPlugins() const
+{
+	return _qhTTSPlugins.values();
+} // GetTTSPlugins
 
 const void Plugins::Initialize()
 {
@@ -30,10 +35,17 @@ const void Plugins::Load()
 	foreach (QString qsFileName, qdPlugins.entryList(QDir::Files)) {
 		QPluginLoader qplLoader(qdPlugins.absoluteFilePath(qsFileName));
 		if (qplLoader.instance()) {
-			TTSInterface *tiPlugin = qobject_cast<TTSInterface *>(qplLoader.instance());
-			if (tiPlugin) {
-				_qhTTSPlugins.insert(tiPlugin->GetPluginId(), tiPlugin);
-			} // if
+			if (qsFileName.startsWith("tts-")) {
+				TTSInterface *tiPlugin = qobject_cast<TTSInterface *>(qplLoader.instance());
+				if (tiPlugin) {
+					_qhTTSPlugins.insert(tiPlugin->GetPluginId(), tiPlugin);
+				} // if
+			} else {
+				ImpInterface *iiPlugin = qobject_cast<ImpInterface *>(qplLoader.instance());
+				if (iiPlugin) {
+					_tiplImpPlugins.append(iiPlugin);
+				} // if
+			} // if else
 		} // if
 	} // foreach
 } // Load

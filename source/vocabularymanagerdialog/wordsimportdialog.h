@@ -4,25 +4,20 @@
 #include <ui_wordsimportdialog.h>
 
 #include "vocabulary.h"
-#include "vocabularymanagerdialog/wordsimportdialog/importfilter.h"
+#include "plugins.h"
 
 class WordsImportDialog : public QDialog
 {
 	Q_ENUMS(eFileType)
 
 	public:
-		~WordsImportDialog();
-		WordsImportDialog(const QString &pFile, const QString &pFilter, const Vocabulary *pVocabulary, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+		WordsImportDialog(const QString &pFile, const QString &pFilter, const Vocabulary *pVocabulary, const Plugins *pPlugins, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 		int exec();
-		static const QString GetFilter();
 
 	private:
-		enum eFileType {
-			FileTypeAnki
-		}; // eFileType
-
-		ImportFilter *_ifImportFilter;
+		const ImpInterface *_iiPlugin;
+		const Plugins *_pPlugins;
 		QString _qsFile;
 		QString _qsFilter;
 		Ui::qdWordsImport _qdwiWordsImport;

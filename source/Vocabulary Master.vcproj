@@ -174,14 +174,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\vocabularymanagerdialog\wordsimportdialog\importfilter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\vocabularymanagerdialog\wordsimportdialog\importfilter\importfilteranki.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
@@ -241,14 +233,6 @@
 			</File>
 			<File
 				RelativePath=".\settings\colordelegate.h"
-				>
-			</File>
-			<File
-				RelativePath=".\vocabularymanagerdialog\wordsimportdialog\importfilter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\vocabularymanagerdialog\wordsimportdialog\importfilter\importfilteranki.h"
 				>
 			</File>
 			<File

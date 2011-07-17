@@ -54,12 +54,10 @@ const void VocabularySettingsDialog::PrepareSpeechPlugins(QComboBox *pComboBox)
 	pComboBox->addItem(tr("None"));
 	pComboBox->setItemData(pComboBox->count() - 1, _tvVoiceList.size() - 1);
 
-	foreach (TTSInterface::eTTSPlugin etpPlugin, _pPlugins->GetPluginIds()) {
-		const TTSInterface *tiPlugin = _pPlugins->GetPlugin(etpPlugin);
-
+	foreach (const TTSInterface *tiPlugin, _pPlugins->GetTTSPlugins()) {
         TTSInterface::tVoiceInfoList tvilVoices = tiPlugin->GetVoicesInfo();
         foreach (TTSInterface::sVoiceInfo sviVoice, tvilVoices) {
-			spvVoice.etpPlugin = etpPlugin;
+			spvVoice.etpPlugin = tiPlugin->GetPluginId();
 			spvVoice.qsVoiceId = sviVoice.qsId;
 			_tvVoiceList.append(spvVoice);
 			pComboBox->addItem(QString("%1 (%2)").arg(tiPlugin->GetPluginName()).arg(sviVoice.qsDescription));
