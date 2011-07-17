@@ -4,6 +4,8 @@
 #include "vocabularymanagerdialog/vocabularymodel.h"
 #include "vocabularymanagerdialog/vocabularyview.h"
 #include "vocabularymanagerdialog/vocabularysettingsdialog.h"
+#include "vocabularymanagerdialog/wordsimportdialog.h"
+#include <QtGui/QFileDialog>
 
 const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
 {
@@ -70,6 +72,16 @@ const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false 
 	vvVocabularyView->setCurrentIndex(vmVocabularyModel->index(vmVocabularyModel->rowCount() - 1, 0));
 	vvVocabularyView->setFocus(Qt::OtherFocusReason);
 } // on_qpbWordAdd_clicked
+
+const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* false */)
+{
+	QString qsFilter;
+	QString qsFile = QFileDialog::getOpenFileName(this, tr("Import words"), QString(), WordsImportDialog::GetFilter(), &qsFilter);
+	if (!qsFile.isEmpty()) {
+		WordsImportDialog wiImport(qsFile, qsFilter, _vVocabulary, this);
+		wiImport.exec();
+	} // if
+} // on_qpbWordImport_clicked
 
 const void VocabularyManagerDialog::on_qpbWordRemove_clicked(bool checked /* false */)
 {
