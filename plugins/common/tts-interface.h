@@ -11,6 +11,8 @@ const QString DIR_PLUGINS = "plugins";
 
 class TTSInterface
 {
+	Q_ENUMS(eTTSPlugin)
+
 	public:
 		enum eTTSPlugin {
 			TTPluginNone,
