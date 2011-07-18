@@ -90,7 +90,7 @@ const bool MainWindow::GetLearningDirection() const
 
 const QString MainWindow::GetLearningText(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
-    QString qsWord = FORMAT_WORD.arg(QString::number(_sSettings.GetFontSizeWord())).arg(_vVocabulary.GetWordId(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
+    QString qsWord = FORMAT_WORD.arg(QString::number(_sSettings.GetFontSizeWord())).arg(_vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
     QString qsNote = _vVocabulary.GetNote(_iCurrentWord, GetNoteColumn(pDirectionSwitched, pAnswer));
     if (!qsNote.isEmpty()) {
         qsNote = FORMAT_NOTE.arg(QString::number(_sSettings.GetFontSizeNote())).arg(qsNote);
@@ -271,7 +271,7 @@ const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) 
 	    if (iSpeech != TTSInterface::TTPluginNone) {
 		    TTSInterface *tiPlugin = _pPlugins.GetTTSPlugin(static_cast<TTSInterface::eTTSPlugin>(iSpeech));
             if (tiPlugin) {
-		        tiPlugin->Say(qsVoice, _vVocabulary.GetWordId(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
+		        tiPlugin->Say(qsVoice, _vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
             } // if
 	    } // if
     } // if
@@ -297,9 +297,9 @@ const void MainWindow::SetLayout()
 
 const void MainWindow::ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer)
 {
-	QString qsText = _vVocabulary.GetWordId(_iCurrentWord, GetLangColumn(pDirectionSwitched, false));
+	QString qsText = _vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, false));
 	if (pAnswer) {
-		qsText += " -> " + _vVocabulary.GetWordId(_iCurrentWord, GetLangColumn(pDirectionSwitched, true));
+		qsText += " -> " + _vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, true));
 	} // if
 
 	_qstiTrayIcon.showMessage("Vocabulary Master", qsText);

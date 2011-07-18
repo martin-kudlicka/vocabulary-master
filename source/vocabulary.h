@@ -20,6 +20,8 @@ class Vocabulary
     public:
         typedef QList<int> tCategoryIdList;
 
+        static const int SEARCH_NOT_FOUND = -1;
+
         Vocabulary();
 
         const int AddCategory(const QString &pName) const;
@@ -29,18 +31,21 @@ class Vocabulary
         const QString GetCategoryName(const int &pCategoryId) const;
         const QString GetNote(const int &pRow, const QString &pNote) const;
         const QString GetNote(const int &pCategoryId, const int &pRow, const QString &pNote) const;
+        const int GetRow(const int &pWordId, const int &pCategoryId) const;
 		const QString GetSettings(const QString &pKey) const;
         const QString &GetVocabularyFile() const;
+        const QString GetWord(const int &pRow, const QString &pLanguage) const;
+        const QString GetWord(const int &pCategoryId, const int &pRow, const QString &pLanguage) const;
 		const int GetWordCategory(const int &pWordId) const;
 		const int GetWordCount() const;
         const int GetWordCount(const int &pCategoryId) const;
-        const QString GetWordId(const int &pRow, const QString &pLanguage) const;
-        const QString GetWordId(const int &pCategoryId, const int &pRow, const QString &pLanguage) const;
+        const int GetWordId(const int &pCategoryId, const int &pRow) const;
         const bool IsOpen() const;
 		const void New(const QString &pFilePath);
         const void Open(const QString &pFilePath);
         const void RemoveCategory(const int &pCategoryId) const;
         const void RemoveWord(const int &pCategoryId, const int &pRow) const;
+        const int Search(const QString &pWord, const int &pStartId) const;
         const void SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const;
 		const void SetNote(const QString &pNote, const int &pCategoryId, const int &pRow, const QString &pLanguage) const;
 		const void SetSettings(const QString &pKey, const QString &pValue) const;
