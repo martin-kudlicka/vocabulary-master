@@ -308,10 +308,11 @@ const void MainWindow::ShowTrayBalloon(const bool &pDirectionSwitched, const boo
 void MainWindow::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == _iTimerQuestion) {
+        int iLastWord = _iCurrentWord;
         while (true) {
 	        _iCurrentWord = qrand() % _vVocabulary.GetWordCount();
             int iCategoryId = _vVocabulary.GetWordCategory(_iCurrentWord);
-            if (_vVocabulary.GetCategoryEnabled(iCategoryId)) {
+            if (_vVocabulary.GetCategoryEnabled(iCategoryId) && _iCurrentWord != iLastWord) {
                 break;
             } // if
         } // while
