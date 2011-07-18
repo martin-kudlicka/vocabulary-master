@@ -5,9 +5,6 @@
 #include <QtPlugin>
 
 static const char *IMP_INTERFACE = "Imp Interface 1.0";
-#ifndef _DEBUG
-const QString DIR_PLUGINS = "plugins";
-#endif
 
 class ImpInterface
 {
