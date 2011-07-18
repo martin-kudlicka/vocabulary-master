@@ -38,8 +38,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;.&quot;;&quot;.\..\..\temp\$(ConfigurationName)\imp-anki&quot;;&quot;.\..\..\temp&quot;"
-				PreprocessorDefinitions=",UNICODE,WIN32,QT_LARGEFILE_SUPPORT;QT_NO_DEBUG,NDEBUG;QT_CORE_LIB;IMP-ANKI_LIB"
+				AdditionalIncludeDirectories="&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;.&quot;;&quot;.\..\..\temp\$(ConfigurationName)\imp-anki&quot;;&quot;.\..\..\temp&quot;;&quot;$(QTDIR)\include\QtSql&quot;"
+				PreprocessorDefinitions=",UNICODE,WIN32,QT_LARGEFILE_SUPPORT;QT_NO_DEBUG,NDEBUG;QT_CORE_LIB;IMP-ANKI_LIB;QT_SQL_LIB"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="false"
 				DebugInformationFormat="0"
@@ -55,7 +55,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmain.lib QtCore4.lib"
+				AdditionalDependencies="qtmain.lib QtCore4.lib QtSql4.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dll"
 				AdditionalLibraryDirectories="$(QTDIR)\lib"
 				GenerateDebugInformation="false"
@@ -107,8 +107,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;.&quot;;&quot;.\..\..\temp\$(ConfigurationName)\imp-anki&quot;;&quot;.\..\..\temp&quot;"
-				PreprocessorDefinitions=",UNICODE,WIN32,QT_LARGEFILE_SUPPORT;QT_CORE_LIB;IMP-ANKI_LIB"
+				AdditionalIncludeDirectories="&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;.&quot;;&quot;.\..\..\temp\$(ConfigurationName)\imp-anki&quot;;&quot;.\..\..\temp&quot;;&quot;$(QTDIR)\include\QtSql&quot;"
+				PreprocessorDefinitions=",UNICODE,WIN32,QT_LARGEFILE_SUPPORT;QT_CORE_LIB;IMP-ANKI_LIB;QT_SQL_LIB"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
 				DebugInformationFormat="3"
@@ -124,7 +124,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib QtSqld4.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dll"
 				AdditionalLibraryDirectories="$(QTDIR)\lib"
 				GenerateDebugInformation="true"
@@ -180,7 +180,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DIMP-ANKI_LIB -D_WINDLL &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-anki&quot; &quot;-I.\..\..\temp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DIMP-ANKI_LIB -DQT_SQL_LIB -D_WINDLL  &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-anki&quot; &quot;-I.\..\..\temp&quot; &quot;-I$(QTDIR)\include\QtSql&quot; &quot;.\imp-anki.h&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;"
 					/>
@@ -191,7 +191,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DIMP-ANKI_LIB -D_WINDLL &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-anki&quot; &quot;-I.\..\..\temp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DIMP-ANKI_LIB -DQT_SQL_LIB -D_WINDLL  &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-anki&quot; &quot;-I.\..\..\temp&quot; &quot;-I$(QTDIR)\include\QtSql&quot; &quot;.\imp-anki.h&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;"
 					/>

@@ -13,10 +13,7 @@ class ImpInterface
 {
 	public:
 		virtual const QString GetFilter() const = 0;
-		virtual const bool Open(const QString &pFile) const = 0;
-
-	private:
-		QString _qsFile;
+		virtual const bool Open(const QString &pFile) = 0;
 }; // ImpInterface
 
 Q_DECLARE_INTERFACE(ImpInterface, IMP_INTERFACE);

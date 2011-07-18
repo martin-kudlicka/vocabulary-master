@@ -16,7 +16,7 @@ class WordsImportDialog : public QDialog
 		int exec();
 
 	private:
-		const ImpInterface *_iiPlugin;
+		ImpInterface *_iiPlugin;
 		const Plugins *_pPlugins;
 		QString _qsFile;
 		QString _qsFilter;

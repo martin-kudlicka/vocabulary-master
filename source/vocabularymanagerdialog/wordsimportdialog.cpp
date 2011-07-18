@@ -5,7 +5,7 @@
 int WordsImportDialog::exec()
 {
 	// check file according to filter
-	foreach (const ImpInterface *iiPlugin, _pPlugins->GetImpPlugins()) {
+	foreach (ImpInterface *iiPlugin, _pPlugins->GetImpPlugins()) {
 		if (_qsFilter == iiPlugin->GetFilter()) {
 			_iiPlugin = iiPlugin;
 			break;
