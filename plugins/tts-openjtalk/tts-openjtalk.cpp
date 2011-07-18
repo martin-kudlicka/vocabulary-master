@@ -67,7 +67,7 @@ const QString TTSOpenJTalk::GetSubdir(const QString &pDir) const
 {
 	return QCoreApplication::applicationDirPath() + QDir::separator() +
 #ifndef _DEBUG
-		"plugins" + QDir::separator() +
+		DIR_PLUGINS + QDir::separator() +
 #endif
 		pDir;
 } // GetSubdir
