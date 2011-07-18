@@ -22,6 +22,7 @@ class VocabularyManagerDialog : public QDialog
         const void AddTab(const int &pCategoryId);
         const void EnableControls();
         const void InitTabs();
+        const void SelectFirstEnabledTab();
 
     private slots:
         const void on_qpbCategoryAdd_clicked(bool checked = false);
