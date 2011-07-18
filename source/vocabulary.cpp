@@ -64,15 +64,31 @@ const QString Vocabulary::GetNote(const int &pRow, const QString &pNote) const
 {
     QSqlQuery qsqQuery("SELECT " + pNote + " FROM " + TABLE_WORDS);
     qsqQuery.seek(pRow);
-    return qsqQuery.value(qsqQuery.record().indexOf(pNote)).toString();
+    return qsqQuery.value(0).toString();
 } // GetNote
 
 const QString Vocabulary::GetNote(const int &pCategoryId, const int &pRow, const QString &pNote) const
 {
     QSqlQuery qsqQuery("SELECT " + pNote + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
     qsqQuery.seek(pRow);
-    return qsqQuery.value(qsqQuery.record().indexOf(pNote)).toString();
+    return qsqQuery.value(0).toString();
 } // GetNote
+
+const int Vocabulary::GetRow(const int &pWordId, const int &pCategoryId) const
+{
+    int iRow = 0;
+
+    QSqlQuery qsqQuery("SELECT " + COLUMN_ID + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
+    while (qsqQuery.next()) {
+        if (qsqQuery.value(0).toInt() == pWordId) {
+            return iRow;
+        } else {
+            iRow++;
+        } // if else
+    } // while
+
+    return -1;
+} // GetRow
 
 const QString Vocabulary::GetSettings(const QString &pKey) const
 {
@@ -88,6 +104,20 @@ const QString &Vocabulary::GetVocabularyFile() const
 {
     return _qsVocabularyFile;
 } // GetVocabularyFile
+
+const QString Vocabulary::GetWord(const int &pRow, const QString &pLanguage) const
+{
+    QSqlQuery qsqQuery("SELECT " + pLanguage + " FROM " + TABLE_WORDS);
+    qsqQuery.seek(pRow);
+    return qsqQuery.value(0).toString();
+} // GetWord
+
+const QString Vocabulary::GetWord(const int &pCategoryId, const int &pRow, const QString &pLanguage) const
+{
+    QSqlQuery qsqQuery("SELECT " + pLanguage + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
+    qsqQuery.seek(pRow);
+    return qsqQuery.value(0).toString();
+} // GetWord
 
 const int Vocabulary::GetWordCategory(const int &pWordId) const
 {
@@ -119,18 +149,11 @@ const int Vocabulary::GetWordCount(const int &pCategoryId) const
 	} // if else
 } // GetWordCount
 
-const QString Vocabulary::GetWordId(const int &pRow, const QString &pLanguage) const
+const int Vocabulary::GetWordId(const int &pCategoryId, const int &pRow) const
 {
-    QSqlQuery qsqQuery("SELECT " + pLanguage + " FROM " + TABLE_WORDS);
+    QSqlQuery qsqQuery("SELECT " + COLUMN_ID + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
     qsqQuery.seek(pRow);
-    return qsqQuery.value(qsqQuery.record().indexOf(pLanguage)).toString();
-} // GetWordId
-
-const QString Vocabulary::GetWordId(const int &pCategoryId, const int &pRow, const QString &pLanguage) const
-{
-    QSqlQuery qsqQuery("SELECT " + pLanguage + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
-    qsqQuery.seek(pRow);
-    return qsqQuery.value(qsqQuery.record().indexOf(pLanguage)).toString();
+    return qsqQuery.value(0).toInt();
 } // GetWordId
 
 const void Vocabulary::Initialize() const
@@ -210,10 +233,28 @@ const void Vocabulary::RemoveWord(const int &pCategoryId, const int &pRow) const
 
     qsqQuery.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
     qsqQuery.seek(pRow);
-    int iColumnId = qsqQuery.value(qsqQuery.record().indexOf(COLUMN_ID)).toInt();
+    int iColumnId = qsqQuery.value(0).toInt();
 
     qsqQuery.exec("DELETE FROM " + TABLE_WORDS + " WHERE " + COLUMN_ID + " = " + QString::number(iColumnId));
 } // RemoveWord
+
+const int Vocabulary::Search(const QString &pWord, const int &pStartId) const
+{
+    QString qsWordLike = '%' + pWord + '%';
+    QSqlQuery qsqQuery("SELECT " + COLUMN_ID + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_LANG1 + " LIKE '" + qsWordLike + "' OR " + COLUMN_LANG2 + " LIKE '" + qsWordLike + "' ORDER BY " + COLUMN_ID);
+    if (!qsqQuery.next()) {
+        return SEARCH_NOT_FOUND;
+    } // if
+
+    do {
+        if (qsqQuery.value(0).toInt() >= pStartId) {
+            return qsqQuery.value(0).toInt();
+        } // if
+    } while (qsqQuery.next());
+
+    qsqQuery.seek(0);
+    return qsqQuery.value(0).toInt();
+} // Search
 
 const void Vocabulary::SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const
 {
@@ -226,7 +267,7 @@ const void Vocabulary::SetNote(const QString &pNote, const int &pCategoryId, con
 
 	qsqQuery.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
 	qsqQuery.seek(pRow);
-	int iColumnId = qsqQuery.value(qsqQuery.record().indexOf(COLUMN_ID)).toInt();
+	int iColumnId = qsqQuery.value(0).toInt();
 
 	qsqQuery.exec("UPDATE " + TABLE_WORDS + " SET " + pLanguage + " = '" + pNote + "' WHERE " + COLUMN_ID + " = " + QString::number(iColumnId));
 } // SetNote
@@ -246,7 +287,7 @@ const void Vocabulary::SetWord(const QString &pWord, const int &pCategoryId, con
 
 	qsqQuery.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_WORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
 	qsqQuery.seek(pRow);
-	int iColumnId = qsqQuery.value(qsqQuery.record().indexOf(COLUMN_ID)).toInt();
+	int iColumnId = qsqQuery.value(0).toInt();
 
 	qsqQuery.exec("UPDATE " + TABLE_WORDS + " SET " + pLanguage + " = '" + pWord + "' WHERE " + COLUMN_ID + " = " + QString::number(iColumnId));
 } // SetWord

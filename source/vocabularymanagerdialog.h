@@ -25,8 +25,10 @@ class VocabularyManagerDialog : public QDialog
         const void SelectFirstEnabledTab();
 
     private slots:
+        const void on_qleSearch_textChanged(const QString &text) const;
         const void on_qpbCategoryAdd_clicked(bool checked = false);
         const void on_qpbCategoryRemove_clicked(bool checked = false);
+        const void on_qpbSearch_clicked(bool checked = false) const;
 		const void on_qpbVocabularySettings_clicked(bool checked = false);
         const void on_qpbWordAdd_clicked(bool checked = false);
 		const void on_qpbWordImport_clicked(bool checked = false);
