@@ -8,7 +8,7 @@
 class Plugins
 {
 	public:
-		typedef QList<const ImpInterface *> tImpPluginList;
+		typedef QList<ImpInterface *> tImpPluginList;
 		typedef QList<TTSInterface *> tTTSPluginList;
 
 		TTSInterface *GetTTSPlugin(const TTSInterface::eTTSPlugin &pPluginId) const;
