@@ -103,6 +103,16 @@ const void VocabularyManagerDialog::on_vtwTabs_TabEnableChanged(const int &pInde
     _qdvmVocabularyManager.vtwTabs->setTabEnabled(pIndex, pState);
 } // on_vtwTabs_TabEnableChanged
 
+const void VocabularyManagerDialog::SelectFirstEnabledTab()
+{
+    for (int iI = 0; iI < _qdvmVocabularyManager.vtwTabs->count(); iI++) {
+        if (_qdvmVocabularyManager.vtwTabs->isTabEnabled(iI)) {
+            _qdvmVocabularyManager.vtwTabs->setCurrentIndex(iI);
+            return;
+        } // if
+    } // for
+} // SelectFirstEnabledTab
+
 VocabularyManagerDialog::VocabularyManagerDialog(const Vocabulary *pVocabulary, const Plugins *pPlugins, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
 {
     _vVocabulary = pVocabulary;
@@ -112,6 +122,7 @@ VocabularyManagerDialog::VocabularyManagerDialog(const Vocabulary *pVocabulary, 
 
     InitTabs();
     EnableControls();
+    SelectFirstEnabledTab();
 
     connect(_qdvmVocabularyManager.vtwTabs, SIGNAL(TabEnableChanged(const int &, const Qt::CheckState &)), SLOT(on_vtwTabs_TabEnableChanged(const int &, const Qt::CheckState &)));
 } // VocabularyManagerDialog
