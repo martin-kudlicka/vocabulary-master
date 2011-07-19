@@ -12,11 +12,14 @@ const void VocabularySettingsDialog::FillOptions()
     // language
     _qdvsdVocabularySettingsDialog.leLanguageLeft->setText(_vVocabulary->GetSettings(KEY_LANGUAGE1));
     _qdvsdVocabularySettingsDialog.leLanguageRight->setText(_vVocabulary->GetSettings(KEY_LANGUAGE2));
+#ifndef FREE
     // speech
 	FillSpeech(_qdvsdVocabularySettingsDialog.qcbSpeechLeft, KEY_SPEECH1, KEY_VOICE1);
 	FillSpeech(_qdvsdVocabularySettingsDialog.qcbSpeechRight, KEY_SPEECH2, KEY_VOICE2);
+#endif
 } // FillOptions
 
+#ifndef FREE
 const void VocabularySettingsDialog::FillSpeech(QComboBox *pComboBox, const QString &pSpeech, const QString &pVoice)
 {
 	int iSpeech = _vVocabulary->GetSettings(pSpeech).toInt();
@@ -65,12 +68,14 @@ const void VocabularySettingsDialog::PrepareSpeechPlugins(QComboBox *pComboBox)
 		} // foreach
 	} // foreach
 } // PrepareSpeechPlugins
+#endif
 
 const void VocabularySettingsDialog::SaveOptions()
 {
     // language
     _vVocabulary->SetSettings(KEY_LANGUAGE1, _qdvsdVocabularySettingsDialog.leLanguageLeft->text());
     _vVocabulary->SetSettings(KEY_LANGUAGE2, _qdvsdVocabularySettingsDialog.leLanguageRight->text());
+#ifndef FREE
     // speech
 	sSpeechVoice spvVoice = _tvVoiceList.at(_qdvsdVocabularySettingsDialog.qcbSpeechLeft->itemData(_qdvsdVocabularySettingsDialog.qcbSpeechLeft->currentIndex()).toInt());
 	_vVocabulary->SetSettings(KEY_SPEECH1, QString::number(spvVoice.etpPlugin));
@@ -78,15 +83,24 @@ const void VocabularySettingsDialog::SaveOptions()
 	spvVoice = _tvVoiceList.at(_qdvsdVocabularySettingsDialog.qcbSpeechRight->itemData(_qdvsdVocabularySettingsDialog.qcbSpeechRight->currentIndex()).toInt());
 	_vVocabulary->SetSettings(KEY_SPEECH2, QString::number(spvVoice.etpPlugin));
 	_vVocabulary->SetSettings(KEY_VOICE2, spvVoice.qsVoiceId);
+#endif
 } // SaveOptions
 
-VocabularySettingsDialog::VocabularySettingsDialog(const Vocabulary *pVocabulary, const Plugins *pPlugins, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
+VocabularySettingsDialog::VocabularySettingsDialog(const Vocabulary *pVocabulary,
+#ifndef FREE
+    const Plugins *pPlugins,
+#endif
+    QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
 {
 	_vVocabulary = pVocabulary;
+#ifndef FREE
 	_pPlugins = pPlugins;
+#endif
 
 	_qdvsdVocabularySettingsDialog.setupUi(this);
 
+#ifndef FREE
 	PreparePlugins();
+#endif
 	FillOptions();
 } // VocabularySettingsDialog
