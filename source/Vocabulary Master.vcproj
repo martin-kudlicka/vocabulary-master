@@ -309,31 +309,10 @@
 			<File
 				RelativePath=".\settings\colorcombobox.cpp"
 				>
-				<FileConfiguration
-					Name="Debug FREE|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release FREE|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\settings\colordelegate.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug FREE|Win32"
 					ExcludedFromBuild="true"
@@ -1706,11 +1685,30 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="Translation Files"
+			Filter="ts"
+			UniqueIdentifier="{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}"
+			ParseFiles="false"
+			>
+			<File
+				RelativePath=".\lang\cs_CZ.ts"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 		<Global
+			Name="lreleaseOptions"
+			Value="-removeidentical"
+		/>
+		<Global
 			Name="lupdateOnBuild"
 			Value="0"
+		/>
+		<Global
+			Name="lupdateOptions"
+			Value=""
 		/>
 		<Global
 			Name="MocDir"

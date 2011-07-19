@@ -2,6 +2,8 @@
 
 #include <QtCore/QSettings>
 
+const QString DIR_LANG = "lang";
+
 class Settings
 {
 	public:
@@ -33,6 +35,7 @@ class Settings
 #ifndef FREE
         const bool GetSystemTrayIcon() const;
 #endif
+        const QString GetTranslation() const;
 		const QString GetVocabularyFile() const;
 		const int GetWaitForAnswer() const;
 #ifndef FREE
@@ -62,6 +65,7 @@ class Settings
 #ifndef FREE
         const void SetSystemTrayIcon(const bool &pEnable);
 #endif
+        const void SetTranslation(const QString &pTranslation);
 		const void SetVocabularyFile(const QString &pFile);
 #ifndef FREE
 		const void SetWaitForAnswer(const int &pTime);
