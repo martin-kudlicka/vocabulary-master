@@ -1,6 +1,8 @@
 #include "settingsdialog.h"
 
-#include "settings/colordelegate.h"
+#ifndef FREE
+# include "settings/colordelegate.h"
+#endif
 
 void SettingsDialog::accept()
 {
@@ -114,9 +116,9 @@ SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */,
 	_sSettings = pSettings;
 
 	_usdSettingsDialog.setupUi(this);
+#ifndef FREE
 	_usdSettingsDialog.qcbColorFlash->setItemDelegate(new ColorDelegate(_usdSettingsDialog.qcbColorFlash));
 
-#ifndef FREE
 	PrepareColorFlash();
 #endif
     FillOptions();

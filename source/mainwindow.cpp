@@ -14,9 +14,9 @@ const QString VOCABULARY_FILTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary (*
 
 const void MainWindow::ApplySettings(const bool &pStartup)
 {
-#ifndef FREE
     SetLayout();
 
+#ifndef FREE
     if (_sSettings.GetAlwaysOnTop()) {
         setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
     } else {
@@ -52,7 +52,9 @@ const void MainWindow::EnableControls()
 	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimerQuestion == 0 && _vVocabulary.GetWordCount() > 0);
 	_umwMainWindow.qaStop->setEnabled(_iTimerQuestion != 0);
 	_umwMainWindow.qaNext->setEnabled(_iTimerQuestion != 0);
+#ifndef FREE
     _umwMainWindow.qaAnswer->setEnabled(_iTimerAnswer != 0);
+#endif
 } // EnableControls
 
 #ifndef FREE
@@ -308,6 +310,7 @@ const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) 
 	    } // if
     } // if
 } // Say
+#endif
 
 const void MainWindow::SetLayout()
 {
@@ -317,16 +320,21 @@ const void MainWindow::SetLayout()
         delete _umwMainWindow.qwCentral->layout();
     } // if
 
+#ifndef FREE
     if (_sSettings.GetHorizontalLayout()) {
         qblLayout = new QHBoxLayout(_umwMainWindow.qwCentral);
     } else {
+#endif
         qblLayout = new QVBoxLayout(_umwMainWindow.qwCentral);
+#ifndef FREE
     } // if else
+#endif
 
     qblLayout->addWidget(_umwMainWindow.qvblQuestion->parentWidget());
     qblLayout->addWidget(_umwMainWindow.qvblAnswer->parentWidget());
 } // SetLayout
 
+#ifndef FREE
 const void MainWindow::ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer)
 {
 	QString qsText = _vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, false));
