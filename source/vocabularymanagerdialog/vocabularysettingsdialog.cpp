@@ -98,8 +98,10 @@ VocabularySettingsDialog::VocabularySettingsDialog(const Vocabulary *pVocabulary
 #endif
 
 	_qdvsdVocabularySettingsDialog.setupUi(this);
+#ifdef FREE
+    delete _qdvsdVocabularySettingsDialog.qgbSpeech;
 
-#ifndef FREE
+#else
 	PreparePlugins();
 #endif
 	FillOptions();

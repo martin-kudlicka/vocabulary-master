@@ -50,9 +50,9 @@ const void SettingsDialog::FillOptions()
 #endif
 
     // appearance
-    _usdSettingsDialog.qsbFontSizeNote->setValue(_sSettings->GetFontSizeNote());
     _usdSettingsDialog.qsbFontSizeWord->setValue(_sSettings->GetFontSizeWord());
 #ifndef FREE
+    _usdSettingsDialog.qsbFontSizeNote->setValue(_sSettings->GetFontSizeNote());
     FillColorFlash();
 #endif
 } // FillOptions
@@ -63,14 +63,12 @@ const void SettingsDialog::on_qcbSystemTrayIcon_stateChanged(int state)
 	_usdSettingsDialog.qcbMinimizeToTray->setEnabled(state == Qt::Checked);
 	_usdSettingsDialog.qcbShowWordsInTrayBalloon->setEnabled(state == Qt::Checked);
 } // on_qcbSystemTrayIcon_stateChanged
-#endif
 
 const void SettingsDialog::on_qsbWordsFrequency_valueChanged(int i)
 {
 	_usdSettingsDialog.qsbWaitForAnswer->setMaximum(i - 1);
 } // on_qsbWordsFrequency_valueChanged
 
-#ifndef FREE
 const void SettingsDialog::PrepareColorFlash()
 {
 	foreach (QString qsColor, QColor::colorNames()) {
@@ -104,9 +102,9 @@ const void SettingsDialog::SaveOptions()
 #endif
 
     // appearance
-    _sSettings->SetFontSizeNote(_usdSettingsDialog.qsbFontSizeNote->value());
     _sSettings->SetFontSizeWord(_usdSettingsDialog.qsbFontSizeWord->value());
 #ifndef FREE
+    _sSettings->SetFontSizeNote(_usdSettingsDialog.qsbFontSizeNote->value());
     _sSettings->SetColorFlash(_usdSettingsDialog.qcbColorFlash->itemData(_usdSettingsDialog.qcbColorFlash->currentIndex(), Qt::UserRole).toString());
 #endif
 } // SaveOptions
@@ -116,7 +114,18 @@ SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */,
 	_sSettings = pSettings;
 
 	_usdSettingsDialog.setupUi(this);
-#ifndef FREE
+#ifdef FREE
+    _usdSettingsDialog.qtwTabs->removeTab(TabGeneral);
+    delete _usdSettingsDialog.qlWaitForAnswer;
+    delete _usdSettingsDialog.qsbWaitForAnswer;
+    delete _usdSettingsDialog.cbNewWordSound;
+    delete _usdSettingsDialog.cbNewWordFlash;
+    delete _usdSettingsDialog.cbStartLearningOnStartup;
+    delete _usdSettingsDialog.qlFontSizeNote;
+    delete _usdSettingsDialog.qsbFontSizeNote;
+    delete _usdSettingsDialog.qlColorFlash;
+    delete _usdSettingsDialog.qcbColorFlash;
+#else
 	_usdSettingsDialog.qcbColorFlash->setItemDelegate(new ColorDelegate(_usdSettingsDialog.qcbColorFlash));
 
 	PrepareColorFlash();

@@ -15,12 +15,16 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
             switch (index.column()) {
                 case ColumnLang1:
                     return _vVocabulary->GetWord(_iCategoryId, index.row(), COLUMN_LANG1);
+#ifndef FREE
                 case ColumnNote1:
                     return _vVocabulary->GetNote(_iCategoryId, index.row(), COLUMN_NOTE1);
+#endif
                 case ColumnLang2:
                     return _vVocabulary->GetWord(_iCategoryId, index.row(), COLUMN_LANG2);
+#ifndef FREE
                 case ColumnNote2:
                     return _vVocabulary->GetNote(_iCategoryId, index.row(), COLUMN_NOTE2);
+#endif
             } // switch
         default:
             return QVariant();
@@ -31,7 +35,15 @@ Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
 {
 	Qt::ItemFlags ifFlags;
 
-	if (index.column() == ColumnLang1 || index.column() == ColumnNote1 || index.column() == ColumnLang2 || index.column() == ColumnNote2) {
+	if (index.column() == ColumnLang1
+#ifndef FREE
+        || index.column() == ColumnNote1
+#endif
+        || index.column() == ColumnLang2
+#ifndef FREE
+        || index.column() == ColumnNote2
+#endif
+        ) {
 		ifFlags = Qt::ItemIsEditable;
 	} // if
 
@@ -46,12 +58,16 @@ QVariant VocabularyModel::headerData(int section, Qt::Orientation orientation, i
                 switch (section) {
                     case ColumnLang1:
                         return _vVocabulary->GetSettings(KEY_LANGUAGE1);
+#ifndef FREE
                     case ColumnNote1:
                         return COLUMN_NOTE.arg(_vVocabulary->GetSettings(KEY_LANGUAGE1).toLower());
+#endif
                     case ColumnLang2:
                         return _vVocabulary->GetSettings(KEY_LANGUAGE2);
+#ifndef FREE
                     case ColumnNote2:
                         return COLUMN_NOTE.arg(_vVocabulary->GetSettings(KEY_LANGUAGE2).toLower());
+#endif
                 } // switch
             } else {
                 return section + 1;
@@ -90,15 +106,19 @@ bool VocabularyModel::setData(const QModelIndex &index, const QVariant &value, i
 		case ColumnLang1:
 			_vVocabulary->SetWord(value.toString(), _iCategoryId, index.row(), COLUMN_LANG1);
 			break;
+#ifndef FREE
 		case ColumnNote1:
 			_vVocabulary->SetNote(value.toString(), _iCategoryId, index.row(), COLUMN_NOTE1);
 			break;
+#endif
 		case ColumnLang2:
 			_vVocabulary->SetWord(value.toString(), _iCategoryId, index.row(), COLUMN_LANG2);
 			break;
+#ifndef FREE
 		case ColumnNote2:
 			_vVocabulary->SetNote(value.toString(), _iCategoryId, index.row(), COLUMN_NOTE2);
 			break;
+#endif
 	} // switch
 
 	emit dataChanged(index, index);

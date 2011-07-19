@@ -1,6 +1,7 @@
 #include "vocabularymanagerdialog/vocabularytabwidget.h"
 
-#include <QtGui/QCheckBox>
+#ifndef FREE
+# include <QtGui/QCheckBox>
 
 int VocabularyTabWidget::addTab(QWidget *page, const QString &label, const bool &pEnabled)
 {
@@ -23,6 +24,7 @@ const void VocabularyTabWidget::on_qcbEnabled_stateChanged(int state) const
         } // if
     } // for
 } // on_qcbEnabled_stateChanged
+#endif
 
 VocabularyTabWidget::VocabularyTabWidget(QWidget *pParent /* NULL */) : QTabWidget(pParent)
 {

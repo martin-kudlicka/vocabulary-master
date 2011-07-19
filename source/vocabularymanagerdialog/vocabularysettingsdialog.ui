@@ -58,7 +58,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QGroupBox" name="qgbSpeech">
    <property name="geometry">
     <rect>
      <x>10</x>
