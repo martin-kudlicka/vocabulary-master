@@ -152,6 +152,8 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 #ifdef FREE
     _umwMainWindow.qaAnswer->deleteLater();
     _umwMainWindow.qaMute->deleteLater();
+
+    setWindowTitle(windowTitle() + tr(" FREE"));
 #else
 	CreateTrayMenu();
 #endif
