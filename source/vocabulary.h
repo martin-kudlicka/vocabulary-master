@@ -10,10 +10,12 @@ const QString COLUMN_NOTE1 = "note1";
 const QString COLUMN_NOTE2 = "note2";
 const QString KEY_LANGUAGE1 = "language1";
 const QString KEY_LANGUAGE2 = "language2";
+#ifndef FREE
 const QString KEY_SPEECH1 = "speech1";
 const QString KEY_SPEECH2 = "speech2";
 const QString KEY_VOICE1 = "voice1";
 const QString KEY_VOICE2 = "voice2";
+#endif
 
 class Vocabulary
 {
@@ -26,11 +28,15 @@ class Vocabulary
 
         const int AddCategory(const QString &pName) const;
 		const void AddWord(const int &pCategoryId) const;
+#ifndef FREE
         const bool GetCategoryEnabled(const int &pCategoryId) const;
+#endif
         const tCategoryIdList GetCategoryIds() const;
         const QString GetCategoryName(const int &pCategoryId) const;
+#ifndef FREE
         const QString GetNote(const int &pRow, const QString &pNote) const;
         const QString GetNote(const int &pCategoryId, const int &pRow, const QString &pNote) const;
+#endif
         const int GetRow(const int &pWordId, const int &pCategoryId) const;
 		const QString GetSettings(const QString &pKey) const;
         const QString &GetVocabularyFile() const;
@@ -46,8 +52,10 @@ class Vocabulary
         const void RemoveCategory(const int &pCategoryId) const;
         const void RemoveWord(const int &pCategoryId, const int &pRow) const;
         const int Search(const QString &pWord, const int &pStartId) const;
+#ifndef FREE
         const void SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const;
 		const void SetNote(const QString &pNote, const int &pCategoryId, const int &pRow, const QString &pLanguage) const;
+#endif
 		const void SetSettings(const QString &pKey, const QString &pValue) const;
 		const void SetWord(const QString &pWord, const int &pCategoryId, const int &pRow, const QString &pLanguage) const;
 

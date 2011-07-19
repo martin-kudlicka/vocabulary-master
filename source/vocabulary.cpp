@@ -28,6 +28,7 @@ const void Vocabulary::AddWord(const int &pCategoryId) const
 	QSqlQuery qsqQuery("INSERT INTO " + TABLE_WORDS + " (" + COLUMN_CATEGORYID + ") VALUES (" + QString::number(pCategoryId) + ")");
 } // AddWord
 
+#ifndef FREE
 const bool Vocabulary::GetCategoryEnabled(const int &pCategoryId) const
 {
     QSqlQuery qsqQuery("SELECT " + COLUMN_ENABLED + " FROM " + TABLE_CATEGORIES + " WHERE " + COLUMN_ID + " = " + QString::number(pCategoryId));
@@ -37,6 +38,7 @@ const bool Vocabulary::GetCategoryEnabled(const int &pCategoryId) const
         return true;
     } // if else
 } // GetCategoryEnabled
+#endif
 
 const Vocabulary::tCategoryIdList Vocabulary::GetCategoryIds() const
 {
@@ -60,6 +62,7 @@ const QString Vocabulary::GetCategoryName(const int &pCategoryId) const
     } // if else
 } // GetCategoryName
 
+#ifndef FREE
 const QString Vocabulary::GetNote(const int &pRow, const QString &pNote) const
 {
     QSqlQuery qsqQuery("SELECT " + pNote + " FROM " + TABLE_WORDS);
@@ -73,6 +76,7 @@ const QString Vocabulary::GetNote(const int &pCategoryId, const int &pRow, const
     qsqQuery.seek(pRow);
     return qsqQuery.value(0).toString();
 } // GetNote
+#endif
 
 const int Vocabulary::GetRow(const int &pWordId, const int &pCategoryId) const
 {
@@ -256,6 +260,7 @@ const int Vocabulary::Search(const QString &pWord, const int &pStartId) const
     return qsqQuery.value(0).toInt();
 } // Search
 
+#ifndef FREE
 const void Vocabulary::SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const
 {
     QSqlQuery qsqQuery("UPDATE " + TABLE_CATEGORIES + " SET " + COLUMN_ENABLED + " = " + QString::number(pEnabled) + " WHERE " + COLUMN_ID + " = " + QString::number(pCategoryId));
@@ -271,6 +276,7 @@ const void Vocabulary::SetNote(const QString &pNote, const int &pCategoryId, con
 
 	qsqQuery.exec("UPDATE " + TABLE_WORDS + " SET " + pLanguage + " = '" + pNote + "' WHERE " + COLUMN_ID + " = " + QString::number(iColumnId));
 } // SetNote
+#endif
 
 const void Vocabulary::SetSettings(const QString &pKey, const QString &pValue) const
 {

@@ -2,7 +2,9 @@
 #define VOCABULARYTABWIDGET_H
 
 #include <QtGui/QTabWidget>
-#include <QtGui/QTabBar>
+#ifndef FREE
+# include <QtGui/QTabBar>
+#endif
 
 class VocabularyTabWidget : public QTabWidget
 {
@@ -11,6 +13,7 @@ class VocabularyTabWidget : public QTabWidget
     public:
         VocabularyTabWidget(QWidget *pParent = NULL);
 
+#ifndef FREE
         int addTab(QWidget *page, const QString &label, const bool &pEnabled);
 
     private:
@@ -21,6 +24,7 @@ class VocabularyTabWidget : public QTabWidget
 
     private slots:
         const void on_qcbEnabled_stateChanged(int state) const;
+#endif
 }; // VocabularyTabWidget
 
 #endif // VOCABULARYTABWIDGET_H

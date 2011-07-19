@@ -30,7 +30,9 @@ class VocabularyManagerDialog : public QDialog
         const void AddTab(const int &pCategoryId);
         const void EnableControls();
         const void InitTabs();
+#ifndef FREE
         const void SelectFirstEnabledTab();
+#endif
 
     private slots:
         const void on_qleSearch_textChanged(const QString &text) const;
@@ -43,7 +45,9 @@ class VocabularyManagerDialog : public QDialog
 		const void on_qpbWordImport_clicked(bool checked = false);
 #endif
         const void on_qpbWordRemove_clicked(bool checked = false);
+#ifndef FREE
         const void on_vtwTabs_TabEnableChanged(const int &pIndex, const Qt::CheckState &pState) const;
+#endif
 }; // VocabularyManagerDialog
 
 #endif // VOCABULARYMANAGERDIALOG_H

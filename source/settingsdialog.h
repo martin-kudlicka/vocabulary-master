@@ -14,6 +14,10 @@ class SettingsDialog : public QDialog
 		SettingsDialog(Settings *pSettings, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 	private:
+        enum eTabs {
+            TabGeneral
+        }; // eTabs
+
 		Settings *_sSettings;
 		Ui::qdUiSettings _usdSettingsDialog;
 
@@ -30,8 +34,8 @@ class SettingsDialog : public QDialog
 	private slots:
 #ifndef FREE
 		const void on_qcbSystemTrayIcon_stateChanged(int state);
-#endif
 		const void on_qsbWordsFrequency_valueChanged(int i);
+#endif
 }; // MainWindow
 
 #endif // SETTINGSDIALOG_H

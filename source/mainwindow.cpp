@@ -147,7 +147,10 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
     // gui
 	_umwMainWindow.setupUi(this);
-#ifndef FREE
+#ifdef FREE
+    _umwMainWindow.qaAnswer->deleteLater();
+    _umwMainWindow.qaMute->deleteLater();
+#else
 	CreateTrayMenu();
 #endif
 
@@ -353,9 +356,13 @@ void MainWindow::timerEvent(QTimerEvent *event)
         while (true) {
 	        _iCurrentWord = qrand() % _vVocabulary.GetWordCount();
             int iCategoryId = _vVocabulary.GetWordCategory(_iCurrentWord);
+#ifndef FREE
             if (_vVocabulary.GetCategoryEnabled(iCategoryId) && _iCurrentWord != iLastWord) {
+#endif
                 break;
+#ifndef FREE
             } // if
+#endif
         } // while
 
         // question parameters
@@ -405,8 +412,10 @@ void MainWindow::timerEvent(QTimerEvent *event)
         _iTimerAnswer = startTimer(_sSettings.GetWaitForAnswer() * MILISECONDS_PER_SECOND);
         _taHash.insert(_iTimerAnswer, saAnswer);
 
+#ifndef FREE
         // answer
         _umwMainWindow.qaAnswer->setEnabled(true);
+#endif
     } else {
         // check for answer timer
         if (_taHash.contains(event->timerId())) {
@@ -419,8 +428,10 @@ void MainWindow::timerEvent(QTimerEvent *event)
             _taHash.remove(event->timerId());
 
             if (saAnswer.iWord == _iCurrentWord) {
+#ifndef FREE
                 // answer
                 _umwMainWindow.qaAnswer->setEnabled(false);
+#endif
 
                 // gui
                 _umwMainWindow.qtbWindow2->setText(GetLearningText(saAnswer.bDirectionSwitched, true));
