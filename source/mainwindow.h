@@ -68,7 +68,9 @@ class MainWindow : public QMainWindow
 #ifndef FREE
         const QString GetNoteColumn(const bool &pDirectionSwitched, const bool &pAnswer) const;
 		const void Say(const bool &pDirectionSwitched, const bool &pAnswer) const;
+#endif
         const void SetLayout();
+#ifndef FREE
 		const void ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer);
 #endif
 		void timerEvent(QTimerEvent *event);
