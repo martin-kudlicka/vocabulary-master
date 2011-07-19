@@ -13,6 +13,7 @@
 # include "plugins.h"
 # include <QtGui/QSystemTrayIcon>
 #endif
+#include <QtCore/QTranslator>
 
 class MainWindow : public QMainWindow
 {
@@ -48,6 +49,7 @@ class MainWindow : public QMainWindow
 		QMenu _qmTray;
         QSystemTrayIcon _qstiTrayIcon;
 #endif
+		QTranslator _qtTranslator;
 		Settings _sSettings;
         tAnswer _taHash;
 		Ui::qmwUiMain _umwMainWindow;

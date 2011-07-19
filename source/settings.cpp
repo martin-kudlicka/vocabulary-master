@@ -26,6 +26,7 @@ const QString KEY_SWITCHLEARNINGDIRECTION = "SwitchLearningDirection";
 #ifndef FREE
 const QString KEY_SYSTEMTRAYICON = "SystemTrayIcon";
 #endif
+const QString KEY_TRANSLATION = "Translation";
 const QString KEY_VOCABULARYFILE = "VocabularyFile";
 #ifndef FREE
 const QString KEY_WAITFORANSWER = "WaitForAnswer";
@@ -124,6 +125,11 @@ const bool Settings::GetSystemTrayIcon() const
     return _qsSettings.value(KEY_SYSTEMTRAYICON, false).toBool();
 } // GetSystemTrayIcon
 #endif
+
+const QString Settings::GetTranslation() const
+{
+    return _qsSettings.value(KEY_TRANSLATION).toString();
+} // GetTranslation
 
 const QString Settings::GetVocabularyFile() const
 {
@@ -245,6 +251,11 @@ const void Settings::SetSystemTrayIcon(const bool &pEnable)
 Settings::Settings() : _qsSettings(ORGANIZATION, APPLICATION)
 {
 } // Settings
+
+const void Settings::SetTranslation(const QString &pTranslation)
+{
+    _qsSettings.setValue(KEY_TRANSLATION, pTranslation);
+} // SetTranslation
 
 const void Settings::SetVocabularyFile(const QString &pFile)
 {

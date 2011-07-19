@@ -3,6 +3,7 @@
 #ifndef FREE
 # include "settings/colordelegate.h"
 #endif
+#include <QtCore/QDir>
 
 void SettingsDialog::accept()
 {
@@ -25,8 +26,8 @@ const void SettingsDialog::FillColorFlash()
 
 const void SettingsDialog::FillOptions()
 {
-#ifndef FREE
     // general
+#ifndef FREE
     _usdSettingsDialog.qcbHorizontalLayout->setChecked(_sSettings->GetHorizontalLayout());
     _usdSettingsDialog.qcbAlwaysOnTop->setChecked(_sSettings->GetAlwaysOnTop());
     _usdSettingsDialog.qcbRememberWindowPosition->setChecked(_sSettings->GetRememberWindowPosition());
@@ -35,6 +36,7 @@ const void SettingsDialog::FillOptions()
 	_usdSettingsDialog.qcbShowWordsInTrayBalloon->setChecked(_sSettings->GetShowWordsInTrayBalloon());
 	_usdSettingsDialog.qcbMinimizeToTray->setChecked(_sSettings->GetMinimizeToTray());
 #endif
+	FillTranslation();
 
     // learning
     _usdSettingsDialog.qsbWordsFrequency->setValue(_sSettings->GetWordsFrequency());
@@ -57,6 +59,16 @@ const void SettingsDialog::FillOptions()
 #endif
 } // FillOptions
 
+const void SettingsDialog::FillTranslation()
+{
+	for (int iI = 0; iI < _usdSettingsDialog.qcbLanguage->count(); iI++) {
+		if (_usdSettingsDialog.qcbLanguage->itemData(iI) == _sSettings->GetTranslation()) {
+			_usdSettingsDialog.qcbLanguage->setCurrentIndex(iI);
+			return;
+		} // if
+	} // for
+} // FillTranslation
+
 #ifndef FREE
 const void SettingsDialog::on_qcbSystemTrayIcon_stateChanged(int state)
 {
@@ -77,6 +89,22 @@ const void SettingsDialog::PrepareColorFlash()
 } // PrepareColorFlash
 #endif
 
+const void SettingsDialog::PrepareTranslations()
+{
+    // add default language
+    _usdSettingsDialog.qcbLanguage->addItem(tr("English"));
+
+    // get installed languages
+    QDir qdDir;
+    qdDir.cd(DIR_LANG);
+    QFileInfoList qfilFiles = qdDir.entryInfoList(QStringList() << "*.qm", QDir::Files);
+
+    foreach (QFileInfo qfiFile, qfilFiles) {
+        QLocale qlLocale(qfiFile.completeBaseName());
+        _usdSettingsDialog.qcbLanguage->addItem(QLocale::languageToString(qlLocale.language()) + " (" + QLocale::countryToString(qlLocale.country()) + ')', qfiFile.fileName());
+    } // foreach
+} // PrepareTranslations
+
 const void SettingsDialog::SaveOptions()
 {
 #ifndef FREE
@@ -88,6 +116,7 @@ const void SettingsDialog::SaveOptions()
 	_sSettings->SetShowWordsInTrayBalloon(_usdSettingsDialog.qcbShowWordsInTrayBalloon->isChecked());
 	_sSettings->SetMinimizeToTray(_usdSettingsDialog.qcbMinimizeToTray->isChecked());
 #endif
+	_sSettings->SetTranslation(_usdSettingsDialog.qcbLanguage->itemData(_usdSettingsDialog.qcbLanguage->currentIndex()).toString());
 
     // learning
     _sSettings->SetWordsFrequency(_usdSettingsDialog.qsbWordsFrequency->value());
@@ -105,7 +134,7 @@ const void SettingsDialog::SaveOptions()
     _sSettings->SetFontSizeWord(_usdSettingsDialog.qsbFontSizeWord->value());
 #ifndef FREE
     _sSettings->SetFontSizeNote(_usdSettingsDialog.qsbFontSizeNote->value());
-    _sSettings->SetColorFlash(_usdSettingsDialog.qcbColorFlash->itemData(_usdSettingsDialog.qcbColorFlash->currentIndex(), Qt::UserRole).toString());
+    _sSettings->SetColorFlash(_usdSettingsDialog.qcbColorFlash->itemData(_usdSettingsDialog.qcbColorFlash->currentIndex()).toString());
 #endif
 } // SaveOptions
 
@@ -115,12 +144,22 @@ SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */,
 
 	_usdSettingsDialog.setupUi(this);
 #ifdef FREE
-    _usdSettingsDialog.qtwTabs->removeTab(TabGeneral);
+    // general
+    delete _usdSettingsDialog.qcbHorizontalLayout;
+    delete _usdSettingsDialog.qcbAlwaysOnTop;
+    delete _usdSettingsDialog.qcbRememberWindowPosition;
+    delete _usdSettingsDialog.qcbSystemTrayIcon;
+    delete _usdSettingsDialog.qcbShowWordsInTrayBalloon;
+    delete _usdSettingsDialog.qcbMinimizeToTray;
+
+    // learning
     delete _usdSettingsDialog.qlWaitForAnswer;
     delete _usdSettingsDialog.qsbWaitForAnswer;
     delete _usdSettingsDialog.cbNewWordSound;
     delete _usdSettingsDialog.cbNewWordFlash;
     delete _usdSettingsDialog.cbStartLearningOnStartup;
+
+    // appearance
     delete _usdSettingsDialog.qlFontSizeNote;
     delete _usdSettingsDialog.qsbFontSizeNote;
     delete _usdSettingsDialog.qlColorFlash;
@@ -130,5 +169,6 @@ SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */,
 
 	PrepareColorFlash();
 #endif
+    PrepareTranslations();
     FillOptions();
 } // SettingsDialog

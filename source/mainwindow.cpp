@@ -16,6 +16,11 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 {
     SetLayout();
 
+	if (!_qtTranslator.load(_sSettings.GetTranslation(), DIR_LANG)) {
+		_qtTranslator.load(QLocale::system().name(), DIR_LANG);
+	} // if
+	_umwMainWindow.retranslateUi(this);
+
 #ifndef FREE
     if (_sSettings.GetAlwaysOnTop()) {
         setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
@@ -163,6 +168,9 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 	_pPlugins.Load();
 	_pPlugins.Initialize();
 #endif
+
+	// translator
+	QCoreApplication::installTranslator(&_qtTranslator);
 
     // settings
     ApplySettings(true);

@@ -14,10 +14,6 @@ class SettingsDialog : public QDialog
 		SettingsDialog(Settings *pSettings, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 	private:
-        enum eTabs {
-            TabGeneral
-        }; // eTabs
-
 		Settings *_sSettings;
 		Ui::qdUiSettings _usdSettingsDialog;
 
@@ -26,9 +22,11 @@ class SettingsDialog : public QDialog
         const void FillColorFlash();
 #endif
         const void FillOptions();
+        const void FillTranslation();
 #ifndef FREE
 		const void PrepareColorFlash();
 #endif
+        const void PrepareTranslations();
         const void SaveOptions();
 
 	private slots:
