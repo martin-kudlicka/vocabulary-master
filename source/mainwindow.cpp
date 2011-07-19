@@ -147,6 +147,8 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
     // gui
 	_umwMainWindow.setupUi(this);
+    _umwMainWindow.qlLanguage1->setVisible(false);
+    _umwMainWindow.qlLanguage2->setVisible(false);
 #ifdef FREE
     _umwMainWindow.qaAnswer->deleteLater();
     _umwMainWindow.qaMute->deleteLater();
