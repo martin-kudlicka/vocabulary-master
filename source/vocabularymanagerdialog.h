@@ -4,17 +4,25 @@
 #include <ui_vocabularymanagerdialog.h>
 
 #include "vocabulary.h"
-#include "plugins.h"
+#ifndef FREE
+# include "plugins.h"
+#endif
 
 class VocabularyManagerDialog : public QDialog
 {
     Q_OBJECT
 
     public:
-        VocabularyManagerDialog(const Vocabulary *pVocabulary, const Plugins *pPlugins, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+        VocabularyManagerDialog(const Vocabulary *pVocabulary,
+#ifndef FREE
+            const Plugins *pPlugins,
+#endif
+            QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
     private:
+#ifndef FREE
 		const Plugins *_pPlugins;
+#endif
         QList<int> _qlCategories;
         Ui::qdVocabularyManager _qdvmVocabularyManager;
         const Vocabulary *_vVocabulary;
@@ -31,7 +39,9 @@ class VocabularyManagerDialog : public QDialog
         const void on_qpbSearch_clicked(bool checked = false) const;
 		const void on_qpbVocabularySettings_clicked(bool checked = false);
         const void on_qpbWordAdd_clicked(bool checked = false);
+#ifndef FREE
 		const void on_qpbWordImport_clicked(bool checked = false);
+#endif
         const void on_qpbWordRemove_clicked(bool checked = false);
         const void on_vtwTabs_TabEnableChanged(const int &pIndex, const Qt::CheckState &pState) const;
 }; // VocabularyManagerDialog

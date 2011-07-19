@@ -98,7 +98,11 @@ const void VocabularyManagerDialog::on_qpbSearch_clicked(bool checked /* false *
 
 const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checked /* false */)
 {
-	VocabularySettingsDialog vsdSettings(_vVocabulary, _pPlugins, this);
+	VocabularySettingsDialog vsdSettings(_vVocabulary,
+#ifndef FREE
+        _pPlugins,
+#endif
+        this);
 	vsdSettings.exec();
 } // on_qpbVocabularySettings_clicked
 
@@ -112,6 +116,7 @@ const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false 
 	vvVocabularyView->setFocus(Qt::OtherFocusReason);
 } // on_qpbWordAdd_clicked
 
+#ifndef FREE
 const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* false */)
 {
 	// prepare filter
@@ -127,6 +132,7 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
 		wiImport.exec();
 	} // if
 } // on_qpbWordImport_clicked
+#endif
 
 const void VocabularyManagerDialog::on_qpbWordRemove_clicked(bool checked /* false */)
 {
@@ -152,10 +158,16 @@ const void VocabularyManagerDialog::SelectFirstEnabledTab()
     } // for
 } // SelectFirstEnabledTab
 
-VocabularyManagerDialog::VocabularyManagerDialog(const Vocabulary *pVocabulary, const Plugins *pPlugins, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
+VocabularyManagerDialog::VocabularyManagerDialog(const Vocabulary *pVocabulary,
+#ifndef FREE
+    const Plugins *pPlugins,
+#endif
+    QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
 {
     _vVocabulary = pVocabulary;
+#ifndef FREE
 	_pPlugins = pPlugins;
+#endif
 
     _qdvmVocabularyManager.setupUi(this);
 

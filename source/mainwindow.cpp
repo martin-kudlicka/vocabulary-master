@@ -14,6 +14,7 @@ const QString VOCABULARY_FILTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary (*
 
 const void MainWindow::ApplySettings(const bool &pStartup)
 {
+#ifndef FREE
     SetLayout();
 
     if (_sSettings.GetAlwaysOnTop()) {
@@ -24,12 +25,15 @@ const void MainWindow::ApplySettings(const bool &pStartup)
     if (pStartup && _sSettings.GetWindowX() != Settings::DEFAULT_DIMENSION) {
         setGeometry(_sSettings.GetWindowX(), _sSettings.GetWindowY(), _sSettings.GetWindowWidth(), _sSettings.GetWindowHeight());
     } // if
+#endif
+    show();
 
+#ifndef FREE
     _qstiTrayIcon.setVisible(_sSettings.GetSystemTrayIcon());
-
-	show();
+#endif
 } // ApplySettings
 
+#ifndef FREE
 const void MainWindow::CreateTrayMenu()
 {
 	_qaTrayExit = _qmTray.addAction(tr("Exit"));
@@ -37,6 +41,7 @@ const void MainWindow::CreateTrayMenu()
 	connect(&_qmTray, SIGNAL(triggered(QAction *)), SLOT(on_qmTray_triggered(QAction *)));
 	_qstiTrayIcon.setContextMenu(&_qmTray);
 } // CreateTrayMenu
+#endif
 
 const void MainWindow::EnableControls()
 {
@@ -50,6 +55,7 @@ const void MainWindow::EnableControls()
     _umwMainWindow.qaAnswer->setEnabled(_iTimerAnswer != 0);
 } // EnableControls
 
+#ifndef FREE
 bool MainWindow::event(QEvent *event)
 {
 	if (event->type() == QEvent::WindowStateChange) {
@@ -60,6 +66,7 @@ bool MainWindow::event(QEvent *event)
 
 	return QMainWindow::event(event);
 } // event
+#endif
 
 const QString MainWindow::GetLangColumn(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
@@ -91,15 +98,20 @@ const bool MainWindow::GetLearningDirection() const
 const QString MainWindow::GetLearningText(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
     QString qsWord = FORMAT_WORD.arg(QString::number(_sSettings.GetFontSizeWord())).arg(_vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
+#ifndef FREE
     QString qsNote = _vVocabulary.GetNote(_iCurrentWord, GetNoteColumn(pDirectionSwitched, pAnswer));
     if (!qsNote.isEmpty()) {
         qsNote = FORMAT_NOTE.arg(QString::number(_sSettings.GetFontSizeNote())).arg(qsNote);
         return qsWord + qsNote;
     } else {
+#endif
         return qsWord;
+#ifndef FREE
     } // if else
+#endif
 } // GetLearningText
 
+#ifndef FREE
 const QString MainWindow::GetNoteColumn(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
     if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
@@ -108,16 +120,19 @@ const QString MainWindow::GetNoteColumn(const bool &pDirectionSwitched, const bo
         return COLUMN_NOTE2;
     } // if else
 } // GetNoteColumn
+#endif
 
 MainWindow::~MainWindow()
 {
     _sSettings.SetVocabularyFile(_vVocabulary.GetVocabularyFile());
+#ifndef FREE
     _sSettings.SetWindowX(geometry().x());
     _sSettings.SetWindowY(geometry().y());
     _sSettings.SetWindowHeight(geometry().height());
     _sSettings.SetWindowWidth(geometry().width());
 
 	_pPlugins.Uninitialize();
+#endif
 } // ~MainWindow
 
 MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags)
@@ -130,11 +145,15 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
     // gui
 	_umwMainWindow.setupUi(this);
+#ifndef FREE
 	CreateTrayMenu();
+#endif
 
+#ifndef FREE
     // plugins
 	_pPlugins.Load();
 	_pPlugins.Initialize();
+#endif
 
     // settings
     ApplySettings(true);
@@ -143,6 +162,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
     // controls
     EnableControls();
+#ifndef FREE
     _umwMainWindow.qaMute->setChecked(_sSettings.GetMute());
 
     // learning
@@ -152,23 +172,32 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
 	// connections
 	connect(&_qstiTrayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason)));
+#endif
 } // MainWindow
 
+#ifndef FREE
 const void MainWindow::on_qaAnswer_triggered(bool checked /* false */)
 {
     timerEvent(&QTimerEvent(_iTimerAnswer));
 } // on_qaAnswer_triggered
+#endif
 
 const void MainWindow::on_qaManage_triggered(bool checked /* false */)
 {
-    VocabularyManagerDialog vmdManager(&_vVocabulary, &_pPlugins, this);
+    VocabularyManagerDialog vmdManager(&_vVocabulary,
+#ifndef FREE
+        &_pPlugins,
+#endif
+        this);
     vmdManager.exec();
 } // on_qaManage_triggered
 
+#ifndef FREE
 const void MainWindow::on_qaMute_toggled(bool checked)
 {
     _sSettings.SetMute(checked);
 } // on_qaMute_toggled
+#endif
 
 const void MainWindow::on_qaNew_triggered(bool checked /* false */)
 {
@@ -208,7 +237,9 @@ const void MainWindow::on_qaSettings_triggered(bool checked /* false */)
 {
 	SettingsDialog sdDialog(&_sSettings);
     if (sdDialog.exec() == QDialog::Accepted) {
+#ifndef FREE
         ApplySettings(false);
+#endif
     } // if
 } // on_qaSettings_triggered
 
@@ -239,6 +270,7 @@ const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 	_umwMainWindow.qtbWindow2->clear();
 } // on_qaStop_triggered
 
+#ifndef FREE
 const void MainWindow::on_qmTray_triggered(QAction *action)
 {
 	if (action == _qaTrayExit) {
@@ -304,6 +336,7 @@ const void MainWindow::ShowTrayBalloon(const bool &pDirectionSwitched, const boo
 
 	_qstiTrayIcon.showMessage("Vocabulary Master", qsText);
 } // ShowTrayBalloon
+#endif
 
 void MainWindow::timerEvent(QTimerEvent *event)
 {
@@ -328,6 +361,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 	    _umwMainWindow.qtbWindow1->setText(GetLearningText(saAnswer.bDirectionSwitched, false));
 	    _umwMainWindow.qtbWindow2->clear();
 
+#ifndef FREE
 		// tray
 		if (_sSettings.GetSystemTrayIcon() && _sSettings.GetShowWordsInTrayBalloon()) {
 			ShowTrayBalloon(saAnswer.bDirectionSwitched, false);
@@ -357,6 +391,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
             QTest::qWait(SAY_BEEP_WAIT);
             Say(saAnswer.bDirectionSwitched, false);
         } // if
+#endif
 
         // answer timer
         _iTimerAnswer = startTimer(_sSettings.GetWaitForAnswer() * MILISECONDS_PER_SECOND);
@@ -383,6 +418,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
                 _umwMainWindow.qtbWindow2->setText(GetLearningText(saAnswer.bDirectionSwitched, true));
                 _umwMainWindow.qtbWindow2->repaint();
 
+#ifndef FREE
 				// tray
 				if (_sSettings.GetSystemTrayIcon() && _sSettings.GetShowWordsInTrayBalloon()) {
 					ShowTrayBalloon(saAnswer.bDirectionSwitched, true);
@@ -390,6 +426,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 
                 // speech
                 Say(saAnswer.bDirectionSwitched, true);
+#endif
             } // if
         } // if
     } // if else
