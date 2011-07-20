@@ -21,12 +21,22 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 {
     SetLayout();
 
+	// retranslate
+	QString qsLang1, qsLang2;
+	if (_iTimerQuestion != 0) {
+		qsLang1 = _umwMainWindow.qlLanguage1->text();
+		qsLang2 = _umwMainWindow.qlLanguage2->text();
+	} // if
 	if (!_qtTranslator.load(_sSettings.GetTranslation(), DIR_LANG)) {
 		if (!_sSettings.GetTranslation().isEmpty()) {
 			_qtTranslator.load(QLocale::system().name(), DIR_LANG);
 		} // if
 	} // if
 	_umwMainWindow.retranslateUi(this);
+	if (_iTimerQuestion != 0) {
+		_umwMainWindow.qlLanguage1->setText(qsLang1);
+		_umwMainWindow.qlLanguage2->setText(qsLang2);
+	} // if
 
 #ifndef FREE
     if (_sSettings.GetAlwaysOnTop()) {
