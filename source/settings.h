@@ -21,10 +21,6 @@ class Settings
         const bool GetHorizontalLayout() const;
         const bool GetMinimizeToTray() const;
         const bool GetMute() const;
-#endif
-		const int GetNewWordsCount() const;
-		const int GetNewWordsFrequency() const;
-#ifndef FREE
 		const bool GetNewWordFlash() const;
 		const bool GetNewWordSound() const;
         const bool GetRememberWindowPosition() const;
@@ -80,7 +76,6 @@ class Settings
         static const int DEFAULT_FONTSIZENOTE = 10;
         static const int DEFAULT_FONTSIZEWORD = 20;
 		static const int DEFAULT_FREQUENCY = 60 * 1000;
-		static const int DEFAULT_NEWWORDSFREQUENCY = 5;
 		static const int DEFAULT_WAIT = 0;
 
 		QSettings _qsSettings;
