@@ -6,11 +6,16 @@
 #include <QtCore/QTimer>
 #include <QtCore/QTime>
 #include <QTest>
+#include <QtGui/QMessageBox>
 
 const QString FORMAT_NOTE = "<center style=\"font-size:%1px\">%2</center>";
 const QString FORMAT_WORD = "<center style=\"font-size:%1px\">%2</center>";
+#ifdef FREE
+const QString FREE = QT_TRANSLATE_NOOP("MainWindow", " FREE");
+#endif
 const QString VOCABULARY_SUFFIX = "sl3";
 const QString VOCABULARY_FILTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary (*." + VOCABULARY_SUFFIX + ")");
+const QString VOCABULARY_MASTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary Master");
 
 const void MainWindow::ApplySettings(const bool &pStartup)
 {
@@ -158,7 +163,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     _umwMainWindow.qaAnswer->deleteLater();
     _umwMainWindow.qaMute->deleteLater();
 
-    setWindowTitle(windowTitle() + tr(" FREE"));
+    setWindowTitle(windowTitle() + FREE);
 #else
 	CreateTrayMenu();
 #endif
@@ -191,6 +196,15 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 	connect(&_qstiTrayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason)));
 #endif
 } // MainWindow
+
+const void MainWindow::on_qaAbout_triggered(bool checked /* false */)
+{
+    QMessageBox::about(this, tr("About Vocabulary Master"), "<center><b>" + VOCABULARY_MASTER
+#ifdef FREE
+        + FREE
+#endif
+        + "</b></center><br /><center>Version 1.0</center><br />Copyright (C) 2011 Isshou.");
+} // on_qaAbout_triggered
 
 #ifndef FREE
 const void MainWindow::on_qaAnswer_triggered(bool checked /* false */)
@@ -357,7 +371,7 @@ const void MainWindow::ShowTrayBalloon(const bool &pDirectionSwitched, const boo
 		qsText += " -> " + _vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, true));
 	} // if
 
-	_qstiTrayIcon.showMessage("Vocabulary Master", qsText);
+	_qstiTrayIcon.showMessage(VOCABULARY_MASTER, qsText);
 } // ShowTrayBalloon
 #endif
 

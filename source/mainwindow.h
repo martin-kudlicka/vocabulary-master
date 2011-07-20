@@ -78,6 +78,7 @@ class MainWindow : public QMainWindow
 		void timerEvent(QTimerEvent *event);
 
 	private slots:
+        const void on_qaAbout_triggered(bool checked = false);
 #ifndef FREE
         const void on_qaAnswer_triggered(bool checked = false);
 #endif
