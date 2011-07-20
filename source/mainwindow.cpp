@@ -22,7 +22,9 @@ const void MainWindow::ApplySettings(const bool &pStartup)
     SetLayout();
 
 	if (!_qtTranslator.load(_sSettings.GetTranslation(), DIR_LANG)) {
-		_qtTranslator.load(QLocale::system().name(), DIR_LANG);
+		if (!_sSettings.GetTranslation().isEmpty()) {
+			_qtTranslator.load(QLocale::system().name(), DIR_LANG);
+		} // if
 	} // if
 	_umwMainWindow.retranslateUi(this);
 
