@@ -215,7 +215,7 @@ const void MainWindow::on_qaAbout_triggered(bool checked /* false */)
 #ifdef FREE
         + FREE
 #endif
-        + "</b></center><br /><center>Version 1.0</center><br />Copyright (C) 2011 Isshou.");
+        + "</b></center><center>Version 1.0</center><br />Copyright (C) 2011 Isshou.");
 } // on_qaAbout_triggered
 
 #ifndef FREE
