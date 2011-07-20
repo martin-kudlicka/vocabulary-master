@@ -13,10 +13,6 @@ const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
 const QString KEY_MINIMIZETOTRAY = "MinimizeToTray";
 const QString KEY_MUTE = "Mute";
 const QString KEY_NEWWORDFLASH = "NewWordFlash";
-#endif
-const QString KEY_NEWWORDSCOUNT = "NewWordsCount";
-const QString KEY_NEWWORDSFREQUENCY = "NewWordsFrequency";
-#ifndef FREE
 const QString KEY_NEWWORDSOUND = "NewWordSound";
 const QString KEY_REMEMBERWINDOWPOSITION = "RememberWindowPosition";
 const QString KEY_SHOWWORDSINTRAYBALLOON = "ShowWordsInTrayBalloon";
@@ -75,19 +71,7 @@ const bool Settings::GetMute() const
 {
     return _qsSettings.value(KEY_MUTE, false).toBool();
 } // GetMute
-#endif
 
-const int Settings::GetNewWordsCount() const
-{
-	return _qsSettings.value(KEY_NEWWORDSCOUNT).toInt();
-} // GetNewWordsCount
-
-const int Settings::GetNewWordsFrequency() const
-{
-	return _qsSettings.value(KEY_NEWWORDSFREQUENCY, DEFAULT_NEWWORDSFREQUENCY).toInt();
-} // GetNewWordsFrequency
-
-#ifndef FREE
 const bool Settings::GetNewWordFlash() const
 {
 	return _qsSettings.value(KEY_NEWWORDFLASH, false).toBool();
