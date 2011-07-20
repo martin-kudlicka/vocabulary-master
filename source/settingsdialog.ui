@@ -23,302 +23,333 @@
       <attribute name="title">
        <string>General</string>
       </attribute>
-      <widget class="QCheckBox" name="qcbAlwaysOnTop">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>30</y>
-         <width>90</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Always on top</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="qcbRememberWindowPosition">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>50</y>
-         <width>150</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Remember window position</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="qcbHorizontalLayout">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Horizontal layout</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="qcbSystemTrayIcon">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>70</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>System tray icon</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="qcbMinimizeToTray">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>110</y>
-         <width>100</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Minimize to tray</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="qcbShowWordsInTrayBalloon">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>90</y>
-         <width>150</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Show words in tray balloon</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_2">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>142</y>
-         <width>46</width>
-         <height>13</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Language:</string>
-       </property>
-      </widget>
-      <widget class="QComboBox" name="qcbLanguage">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>140</y>
-         <width>69</width>
-         <height>22</height>
-        </rect>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QCheckBox" name="qcbHorizontalLayout">
+         <property name="text">
+          <string>Horizontal layout</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="qcbAlwaysOnTop">
+         <property name="text">
+          <string>Always on top</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="qcbRememberWindowPosition">
+         <property name="text">
+          <string>Remember window position</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="qcbSystemTrayIcon">
+         <property name="text">
+          <string>System tray icon</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="leftMargin">
+          <number>15</number>
+         </property>
+         <item>
+          <widget class="QCheckBox" name="qcbShowWordsInTrayBalloon">
+           <property name="text">
+            <string>Show words in tray balloon</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="qcbMinimizeToTray">
+           <property name="text">
+            <string>Minimize to tray</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Language:</string>
+           </property>
+           <property name="buddy">
+            <cstring>qcbLanguage</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="qcbLanguage">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
        <string>Learning</string>
       </attribute>
-      <widget class="QSpinBox" name="qsbWordsFrequency">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>42</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="suffix">
-        <string>s</string>
-       </property>
-       <property name="minimum">
-        <number>1</number>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label">
-       <property name="geometry">
-        <rect>
-         <x>60</x>
-         <y>13</y>
-         <width>90</width>
-         <height>13</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Words frequency</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="cbNewWordSound">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>70</y>
-         <width>150</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Play sound with new word</string>
-       </property>
-      </widget>
-      <widget class="QSpinBox" name="qsbWaitForAnswer">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>40</y>
-         <width>42</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="suffix">
-        <string>s</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="qlWaitForAnswer">
-       <property name="geometry">
-        <rect>
-         <x>60</x>
-         <y>43</y>
-         <width>80</width>
-         <height>13</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Wait for answer</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="cbSwitchLearningDirection">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>110</y>
-         <width>140</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Switch learning direction</string>
-       </property>
-       <property name="tristate">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="cbStartLearningOnStartup">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>130</y>
-         <width>140</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Start learning on startup</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="cbNewWordFlash">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>90</y>
-         <width>120</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Flash with new word</string>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QSpinBox" name="qsbWordsFrequency">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="suffix">
+            <string>s</string>
+           </property>
+           <property name="minimum">
+            <number>1</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Words frequency</string>
+           </property>
+           <property name="buddy">
+            <cstring>qsbWordsFrequency</cstring>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QSpinBox" name="qsbWaitForAnswer">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="suffix">
+            <string>s</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="qlWaitForAnswer">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Wait for answer</string>
+           </property>
+           <property name="buddy">
+            <cstring>qsbWaitForAnswer</cstring>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbNewWordSound">
+         <property name="text">
+          <string>Play sound with new word</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbNewWordFlash">
+         <property name="text">
+          <string>Flash with new word</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbSwitchLearningDirection">
+         <property name="text">
+          <string>Switch learning direction</string>
+         </property>
+         <property name="tristate">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbStartLearningOnStartup">
+         <property name="text">
+          <string>Start learning on startup</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
        <string>Appearance</string>
       </attribute>
-      <widget class="QLabel" name="label_3">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>13</y>
-         <width>46</width>
-         <height>13</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Word:</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="qlFontSizeNote">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>43</y>
-         <width>46</width>
-         <height>13</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Note:</string>
-       </property>
-      </widget>
-      <widget class="QSpinBox" name="qsbFontSizeWord">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>10</y>
-         <width>50</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="suffix">
-        <string>px</string>
-       </property>
-      </widget>
-      <widget class="QSpinBox" name="qsbFontSizeNote">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>40</y>
-         <width>50</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="suffix">
-        <string>px</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="qlColorFlash">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>73</y>
-         <width>60</width>
-         <height>13</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Flash color:</string>
-       </property>
-      </widget>
-      <widget class="ColorComboBox" name="qcbColorFlash">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>70</y>
-         <width>69</width>
-         <height>22</height>
-        </rect>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QSpinBox" name="qsbFontSizeWord">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="suffix">
+            <string>px</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Word size</string>
+           </property>
+           <property name="buddy">
+            <cstring>qsbFontSizeWord</cstring>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QSpinBox" name="qsbFontSizeNote">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="suffix">
+            <string>px</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="qlFontSizeNote">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Note size</string>
+           </property>
+           <property name="buddy">
+            <cstring>qsbFontSizeNote</cstring>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="ColorComboBox" name="qcbColorFlash">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="qlColorFlash">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Flash color</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>
@@ -368,6 +399,27 @@
    <header>settings/colorcombobox.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>qtwTabs</tabstop>
+  <tabstop>qcbHorizontalLayout</tabstop>
+  <tabstop>qcbAlwaysOnTop</tabstop>
+  <tabstop>qcbRememberWindowPosition</tabstop>
+  <tabstop>qcbSystemTrayIcon</tabstop>
+  <tabstop>qcbShowWordsInTrayBalloon</tabstop>
+  <tabstop>qcbMinimizeToTray</tabstop>
+  <tabstop>qcbLanguage</tabstop>
+  <tabstop>qsbWordsFrequency</tabstop>
+  <tabstop>qsbWaitForAnswer</tabstop>
+  <tabstop>cbNewWordSound</tabstop>
+  <tabstop>cbNewWordFlash</tabstop>
+  <tabstop>cbSwitchLearningDirection</tabstop>
+  <tabstop>cbStartLearningOnStartup</tabstop>
+  <tabstop>qsbFontSizeWord</tabstop>
+  <tabstop>qsbFontSizeNote</tabstop>
+  <tabstop>qcbColorFlash</tabstop>
+  <tabstop>qpbOk</tabstop>
+  <tabstop>qpbCancel</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -377,8 +429,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>278</x>
-     <y>253</y>
+     <x>298</x>
+     <y>285</y>
     </hint>
     <hint type="destinationlabel">
      <x>96</x>
@@ -393,8 +445,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>369</x>
-     <y>253</y>
+     <x>379</x>
+     <y>285</y>
     </hint>
     <hint type="destinationlabel">
      <x>179</x>
