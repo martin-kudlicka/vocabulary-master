@@ -156,8 +156,7 @@ SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */,
     delete _usdSettingsDialog.cbStartLearningOnStartup;
 
     // appearance
-    delete _usdSettingsDialog.qlColorFlash;
-    delete _usdSettingsDialog.qcbColorFlash;
+    _usdSettingsDialog.qtwTabs->removeTab(TabAppearance);
 #else
 	_usdSettingsDialog.qcbColorFlash->setItemDelegate(new ColorDelegate(_usdSettingsDialog.qcbColorFlash));
 
