@@ -20,6 +20,7 @@ class Vocabulary
 {
     public:
         typedef QList<int> tCategoryIdList;
+		typedef QList<int> tFieldIdList;
 
 		enum eFieldLanguage {
 			FieldLanguageUknown,
@@ -47,9 +48,10 @@ class Vocabulary
 		const QString GetDataText(const int &pRecordId, const int &pFieldId) const;
 		const int GetFieldCount() const;
 		const int GetFieldId(const int &pPosition) const;
-		const eFieldLanguage GetFieldLanguage(const int &pPosition) const;
-		const QString GetFieldName(const int &pPosition) const;
-		//const eFieldType GetFieldType(const int &pPosition) const;
+		const tFieldIdList GetFieldIds() const;
+		const eFieldLanguage GetFieldLanguage(const int &pFieldId) const;
+		const QString GetFieldName(const int &pFieldId) const;
+		//const eFieldType GetFieldType(const int &pFieldId) const;
 		const int GetRecordCategory(const int &pRecordId) const;
 		const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
@@ -79,13 +81,6 @@ class Vocabulary
 		enum eFieldAttrbiute {
 			FieldAttributeNone
 		}; // eFieldAttrbiute
-
-		enum eFieldPosition {
-			FieldPosition1,
-			FieldPosition2,
-			FieldPosition3,
-			FieldPosition4
-		}; // eFieldPosition
 
         QSqlDatabase _qsdDatabase;
         QString _qsVocabularyFile;
