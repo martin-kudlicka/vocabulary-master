@@ -247,11 +247,11 @@
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
           <widget class="ColorComboBox" name="qcbColorFlash">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+           <property name="minimumSize">
+            <size>
+             <width>65</width>
+             <height>0</height>
+            </size>
            </property>
           </widget>
          </item>
