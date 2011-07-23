@@ -18,11 +18,13 @@ const QString COLUMN_NAME = "name";
 const QString COLUMN_RECORDID = "record_id";
 const QString COLUMN_TEMPLATENAME = "template_name";
 const QString COLUMN_TEXT = "text";
-const QString COLUMN_TYPE = "type";
+//const QString COLUMN_TYPE = "type";
 const QString COLUMN_VALUE = "value";
+#ifdef FREE
 const QString FIELD_NOTE = QT_TRANSLATE_NOOP("Vocabulary", "Note");
 const QString FIELD_WORD = QT_TRANSLATE_NOOP("Vocabulary", "Word");
 const QString LEARNING_TEMPLATE = "<center style=\"font-size:20px\">" + VARIABLE_MARK + FIELD_WORD + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + FIELD_NOTE + "</center>";
+#endif
 const QString TABLE_CATEGORIES = "categories";
 const QString TABLE_DATA = "data";
 const QString TABLE_FIELDS = "fields";
