@@ -35,6 +35,7 @@ class Vocabulary
 
         static const int NOT_FOUND = -1;
 
+		~Vocabulary();
         Vocabulary();
 
         const int AddCategory(const QString &pName) const;
@@ -85,6 +86,7 @@ class Vocabulary
         QSqlDatabase _qsdDatabase;
         QString _qsVocabularyFile;
 
+		const void Close();
 		const void RemoveRecord(const int &pRecordId) const;
         const void Initialize() const;
 }; // Vocabulary
