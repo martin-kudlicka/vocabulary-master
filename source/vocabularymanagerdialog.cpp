@@ -115,20 +115,19 @@ const void VocabularyManagerDialog::on_qpbCategoryRemove_clicked(bool checked /*
 const void VocabularyManagerDialog::on_qpbSearch_clicked(bool checked /* false */) const
 {
     // get current word id
-    const QTableView *qtvVocabularyView = qobject_cast<const QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
+    QTableView *qtvVocabularyView = qobject_cast<QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
     const VocabularyModel *vmVocabularyModel = qobject_cast<const VocabularyModel *>(qtvVocabularyView->model());
     const QItemSelectionModel *qismSelection = qtvVocabularyView->selectionModel();
-	// TODO
-    /*int iCurrentWord = _vVocabulary->GetWordId(_qlCategories.at(_qdvmVocabularyManager.vtwTabs->currentIndex()), qismSelection->currentIndex().row());
+    int iCurrentRecord = _vVocabulary->GetRecordId(_qlCategories.at(_qdvmVocabularyManager.vtwTabs->currentIndex()), qismSelection->currentIndex().row());
 
     // search for next word
-    int iWord = _vVocabulary->Search(_qdvmVocabularyManager.qleSearch->text(), iCurrentWord + 1);
-    if (iWord == Vocabulary::SEARCH_NOT_FOUND) {
+    int iRecordId = _vVocabulary->Search(_qdvmVocabularyManager.qleSearch->text(), iCurrentRecord + 1);
+    if (iRecordId == Vocabulary::NOT_FOUND) {
         return;
     } // if
 
     // get found word category
-    int iCategory = _vVocabulary->GetWordCategory(iWord);
+    int iCategory = _vVocabulary->GetRecordCategory(iRecordId);
 
     // get tab for category
     int iTab;
@@ -139,13 +138,12 @@ const void VocabularyManagerDialog::on_qpbSearch_clicked(bool checked /* false *
     } // for
 
     // switch tabs
-    _qdvmVocabularyManager.vtwTabs->setCurrentIndex(iTab);*/
+    _qdvmVocabularyManager.vtwTabs->setCurrentIndex(iTab);
 
     // focus on word
-    qtvVocabularyView = qobject_cast<const QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
+    qtvVocabularyView = qobject_cast<QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
     vmVocabularyModel = qobject_cast<const VocabularyModel *>(qtvVocabularyView->model());
-	// TODO
-    //qtvVocabularyView->setCurrentIndex(vmVocabularyModel->index(_vVocabulary->GetRow(iWord, iCategory), VocabularyModel::ColumnLang1));
+    qtvVocabularyView->setCurrentIndex(vmVocabularyModel->index(_vVocabulary->GetRow(iRecordId, iCategory), 0));
 } // on_qpbSearch_clicked
 
 const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checked /* false */)

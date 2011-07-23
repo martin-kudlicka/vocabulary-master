@@ -193,6 +193,29 @@ const int Vocabulary::GetRecordId(const int &pRow) const
 	return qsqQuery.value(0).toInt();
 } // GetRecordId
 
+const int Vocabulary::GetRecordId(const int &pCategoryId, const int &pRow) const
+{
+	QSqlQuery qsqQuery("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
+	qsqQuery.seek(pRow);
+	return qsqQuery.value(0).toInt();
+} // GetRecordId
+
+const int Vocabulary::GetRow(const int &pRecordId, const int &pCategoryId) const
+{
+	int iRow = 0;
+
+	QSqlQuery qsqQuery("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
+	while (qsqQuery.next()) {
+		if (qsqQuery.value(0).toInt() == pRecordId) {
+			return iRow;
+		} else {
+			iRow++;
+		} // if else
+	} // while
+
+	return NOT_FOUND;
+} // GetRow
+
 const QString Vocabulary::GetSettings(const QString &pKey) const
 {
 	QSqlQuery qsqQuery("SELECT " + COLUMN_VALUE + " FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + pKey + "'");
@@ -331,6 +354,24 @@ const void Vocabulary::RemoveRecord(const int &pRecordId) const
 
 	qsqQuery.exec("DELETE FROM " + TABLE_RECORDS + " WHERE " + COLUMN_ID + " = " + QString::number(pRecordId));
 } // RemoveRecord
+
+const int Vocabulary::Search(const QString &pWord, const int &pStartId) const
+{
+	QString qsWordLike = '%' + pWord + '%';
+	QSqlQuery qsqQuery("SELECT " + TABLE_RECORDSDATA + '.' + COLUMN_RECORDID + " FROM " + TABLE_RECORDSDATA + " JOIN " + TABLE_DATA + " ON " + TABLE_RECORDSDATA + '.' + COLUMN_DATAID + " = " + TABLE_DATA + '.' + COLUMN_ID + " WHERE " + TABLE_DATA + '.' + COLUMN_TEXT + " LIKE '" + qsWordLike + "' GROUP BY " + TABLE_RECORDSDATA + '.' + COLUMN_RECORDID);
+	if (!qsqQuery.next()) {
+		return NOT_FOUND;
+	} // if
+
+	do {
+		if (qsqQuery.value(0).toInt() >= pStartId) {
+			return qsqQuery.value(0).toInt();
+		} // if
+	} while (qsqQuery.next());
+
+	qsqQuery.seek(0);
+	return qsqQuery.value(0).toInt();
+} // Search
 
 #ifndef FREE
 const void Vocabulary::SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const
