@@ -108,15 +108,23 @@ const bool MainWindow::GetLearningDirection() const
 	} // if else
 } // if
 
-const QString MainWindow::GetLearningText(const bool &pDirectionSwitched, const bool &pAnswer) const
+const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool &pDirectionSwitched, const bool &pAnswer) const
 {
 	QString qsTemplate;
 	Vocabulary::eFieldLanguage eflLanguage;
 	if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
-		qsTemplate = _vVocabulary.GetSettings(KEY_LEARNINGTEMPLATE1);
+		if (pTemplate == TemplateLearning) {
+			qsTemplate = _vVocabulary.GetSettings(KEY_LEARNINGTEMPLATE1);
+		} else {
+			qsTemplate = _vVocabulary.GetSettings(KEY_TRAYTEMPLATE1);
+		} // if else
 		eflLanguage = Vocabulary::FieldLanguageLeft;
 	} else {
-		qsTemplate = _vVocabulary.GetSettings(KEY_LEARNINGTEMPLATE2);
+		if (pTemplate == TemplateLearning) {
+			qsTemplate = _vVocabulary.GetSettings(KEY_LEARNINGTEMPLATE2);
+		} else {
+			qsTemplate = _vVocabulary.GetSettings(KEY_TRAYTEMPLATE2);
+		} // if else
 		eflLanguage = Vocabulary::FieldLanguageRight;
 	} // if else
 
@@ -366,13 +374,12 @@ const void MainWindow::SetLayout()
 #ifndef FREE
 const void MainWindow::ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer)
 {
-	// TODO
-	/*QString qsText = _vVocabulary.GetWord(_iCurrentRecordId, GetLangColumn(pDirectionSwitched, false));
+	QString qsText = GetLearningText(TemplateTray, pDirectionSwitched, false);
 	if (pAnswer) {
-		qsText += " -> " + _vVocabulary.GetWord(_iCurrentRecordId, GetLangColumn(pDirectionSwitched, true));
+		qsText += " -> " + GetLearningText(TemplateTray, pDirectionSwitched, true);
 	} // if
 
-	_qstiTrayIcon.showMessage(VOCABULARY_MASTER, qsText);*/
+	_qstiTrayIcon.showMessage(VOCABULARY_MASTER, qsText);
 } // ShowTrayBalloon
 #endif
 
@@ -412,7 +419,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 			_umwMainWindow.qlLanguage2->setVisible(true);
 			_umwMainWindow.qlLanguage2->setText(qsLang2);
 		} // if else
-	    _umwMainWindow.qtbWindow1->setText(GetLearningText(saAnswer.bDirectionSwitched, false));
+	    _umwMainWindow.qtbWindow1->setText(GetLearningText(TemplateLearning, saAnswer.bDirectionSwitched, false));
 	    _umwMainWindow.qtbWindow2->clear();
 
 #ifndef FREE
@@ -473,7 +480,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 #endif
 
                 // gui
-                _umwMainWindow.qtbWindow2->setText(GetLearningText(saAnswer.bDirectionSwitched, true));
+                _umwMainWindow.qtbWindow2->setText(GetLearningText(TemplateLearning, saAnswer.bDirectionSwitched, true));
                 _umwMainWindow.qtbWindow2->repaint();
 
 #ifndef FREE

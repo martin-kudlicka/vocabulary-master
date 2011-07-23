@@ -11,6 +11,8 @@ const QString KEY_LEARNINGTEMPLATE2 = "learningtemplate2";
 #ifndef FREE
 const QString KEY_SPEECH1 = "speech1";
 const QString KEY_SPEECH2 = "speech2";
+const QString KEY_TRAYTEMPLATE1 = "traytemplate1";
+const QString KEY_TRAYTEMPLATE2 = "traytemplate2";
 const QString KEY_VOICE1 = "voice1";
 const QString KEY_VOICE2 = "voice2";
 #endif
