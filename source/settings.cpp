@@ -5,10 +5,6 @@ const QString APPLICATION = "Vocabulary Master";
 const QString DEFAULT_COLORFLASH = "chartreuse";
 const QString KEY_ALWAYSONTOP = "AlwaysOnTop";
 const QString KEY_COLORFLASH = "ColorFlash";
-#endif
-const QString KEY_FONTSIZENOTE = "FontSizeNote";
-const QString KEY_FONTSIZEWORD = "FontSizeWord";
-#ifndef FREE
 const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
 const QString KEY_MINIMIZETOTRAY = "MinimizeToTray";
 const QString KEY_MUTE = "Mute";
@@ -44,19 +40,7 @@ const QString Settings::GetColorFlash() const
 {
     return _qsSettings.value(KEY_COLORFLASH, DEFAULT_COLORFLASH).toString();
 } // GetColorFlash
-#endif
 
-const int Settings::GetFontSizeNote() const
-{
-    return _qsSettings.value(KEY_FONTSIZENOTE, DEFAULT_FONTSIZENOTE).toInt();
-} // GetFontSizeNote
-
-const int Settings::GetFontSizeWord() const
-{
-    return _qsSettings.value(KEY_FONTSIZEWORD, DEFAULT_FONTSIZEWORD).toInt();
-} // GetFontSizeWord
-
-#ifndef FREE
 const bool Settings::GetHorizontalLayout() const
 {
     return _qsSettings.value(KEY_HORIZONTALLAYOUT, false).toBool();
@@ -166,19 +150,7 @@ const void Settings::SetColorFlash(const QString &pColor)
 {
     _qsSettings.setValue(KEY_COLORFLASH, pColor);
 } // SetColorFlash
-#endif
 
-const void Settings::SetFontSizeNote(const int &pSize)
-{
-    _qsSettings.setValue(KEY_FONTSIZENOTE, pSize);
-} // SetFontSizeNote
-
-const void Settings::SetFontSizeWord(const int &pSize)
-{
-    _qsSettings.setValue(KEY_FONTSIZEWORD, pSize);
-} // SetFontSizeWord
-
-#ifndef FREE
 const void Settings::SetHorizontalLayout(const bool &pEnable)
 {
     _qsSettings.setValue(KEY_HORIZONTALLAYOUT, pEnable);

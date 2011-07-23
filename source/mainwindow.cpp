@@ -8,8 +8,6 @@
 #include <QTest>
 #include <QtGui/QMessageBox>
 
-const QString FORMAT_NOTE = "<center style=\"font-size:%1px\">%2</center>";
-const QString FORMAT_WORD = "<center style=\"font-size:%1px\">%2</center>";
 #ifdef FREE
 const QString FREE = QT_TRANSLATE_NOOP("MainWindow", " FREE");
 #endif
@@ -71,7 +69,7 @@ const void MainWindow::EnableControls()
     _umwMainWindow.qmVocabulary->setEnabled(_vVocabulary.IsOpen());
 
 	// tool bar
-	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimerQuestion == 0 && _vVocabulary.GetWordCount() > 0);
+	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimerQuestion == 0 && _vVocabulary.GetRecordCount() > 0);
 	_umwMainWindow.qaStop->setEnabled(_iTimerQuestion != 0);
 	_umwMainWindow.qaNext->setEnabled(_iTimerQuestion != 0);
 #ifndef FREE
@@ -91,15 +89,6 @@ bool MainWindow::event(QEvent *event)
 	return QMainWindow::event(event);
 } // event
 #endif
-
-const QString MainWindow::GetLangColumn(const bool &pDirectionSwitched, const bool &pAnswer) const
-{
-	if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
-		return COLUMN_LANG1;
-	} else {
-		return COLUMN_LANG2;
-	} // if else
-} // GetLangColumn
 
 const QString MainWindow::GetLanguageText(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
@@ -121,30 +110,29 @@ const bool MainWindow::GetLearningDirection() const
 
 const QString MainWindow::GetLearningText(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
-    QString qsWord = FORMAT_WORD.arg(QString::number(_sSettings.GetFontSizeWord())).arg(_vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
-#ifndef FREE
-    QString qsNote = _vVocabulary.GetNote(_iCurrentWord, GetNoteColumn(pDirectionSwitched, pAnswer));
-    if (!qsNote.isEmpty()) {
-        qsNote = FORMAT_NOTE.arg(QString::number(_sSettings.GetFontSizeNote())).arg(qsNote);
-        return qsWord + qsNote;
-    } else {
-#endif
-        return qsWord;
-#ifndef FREE
-    } // if else
-#endif
-} // GetLearningText
+	QString qsTemplate;
+	Vocabulary::eFieldLanguage eflLanguage;
+	if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
+		qsTemplate = _vVocabulary.GetSettings(KEY_LEARNINGTEMPLATE1);
+		eflLanguage = Vocabulary::FieldLanguageLeft;
+	} else {
+		qsTemplate = _vVocabulary.GetSettings(KEY_LEARNINGTEMPLATE2);
+		eflLanguage = Vocabulary::FieldLanguageRight;
+	} // if else
 
-#ifndef FREE
-const QString MainWindow::GetNoteColumn(const bool &pDirectionSwitched, const bool &pAnswer) const
-{
-    if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
-        return COLUMN_NOTE1;
-    } else {
-        return COLUMN_NOTE2;
-    } // if else
-} // GetNoteColumn
-#endif
+	// substitute variables in template
+	for (int iI = 0; iI < _vVocabulary.GetFieldCount(); iI++) {
+		if (_vVocabulary.GetFieldLanguage(iI) == eflLanguage) {
+			int iFieldId = _vVocabulary.GetFieldId(iI);
+			QString qsData = _vVocabulary.GetDataText(_iCurrentRecordId, iFieldId);
+
+			QString qsField = _vVocabulary.GetFieldName(iI);
+			qsTemplate.replace(VARIABLE_MARK + qsField, qsData);
+		} // if
+	} // for
+
+	return qsTemplate;
+} // GetLearningText
 
 MainWindow::~MainWindow()
 {
@@ -161,7 +149,7 @@ MainWindow::~MainWindow()
 
 MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags)
 {
-	_iCurrentWord = -1;
+	_iCurrentRecordId = -1;
     _iTimerAnswer = 0;
 	_iTimerQuestion = 0;
 
@@ -233,6 +221,8 @@ const void MainWindow::on_qaManage_triggered(bool checked /* false */)
 #endif
         this);
     vmdManager.exec();
+
+	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimerQuestion == 0 && _vVocabulary.GetRecordCount() > 0);
 } // on_qaManage_triggered
 
 #ifndef FREE
@@ -346,7 +336,8 @@ const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) 
 	    if (iSpeech != TTSInterface::TTPluginNone) {
 		    TTSInterface *tiPlugin = _pPlugins.GetTTSPlugin(static_cast<TTSInterface::eTTSPlugin>(iSpeech));
             if (tiPlugin) {
-		        tiPlugin->Say(qsVoice, _vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, pAnswer)));
+				// TODO
+		        //tiPlugin->Say(qsVoice, _vVocabulary.GetWord(_iCurrentRecordId, GetLangColumn(pDirectionSwitched, pAnswer)));
             } // if
 	    } // if
     } // if
@@ -378,24 +369,25 @@ const void MainWindow::SetLayout()
 #ifndef FREE
 const void MainWindow::ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer)
 {
-	QString qsText = _vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, false));
+	// TODO
+	/*QString qsText = _vVocabulary.GetWord(_iCurrentRecordId, GetLangColumn(pDirectionSwitched, false));
 	if (pAnswer) {
-		qsText += " -> " + _vVocabulary.GetWord(_iCurrentWord, GetLangColumn(pDirectionSwitched, true));
+		qsText += " -> " + _vVocabulary.GetWord(_iCurrentRecordId, GetLangColumn(pDirectionSwitched, true));
 	} // if
 
-	_qstiTrayIcon.showMessage(VOCABULARY_MASTER, qsText);
+	_qstiTrayIcon.showMessage(VOCABULARY_MASTER, qsText);*/
 } // ShowTrayBalloon
 #endif
 
 void MainWindow::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == _iTimerQuestion) {
-        int iLastWord = _iCurrentWord;
+        int iLastRecordId = _iCurrentRecordId;
         while (true) {
-	        _iCurrentWord = qrand() % _vVocabulary.GetWordCount();
-            int iCategoryId = _vVocabulary.GetWordCategory(_iCurrentWord);
+	        _iCurrentRecordId = _vVocabulary.GetRecordId(qrand() % _vVocabulary.GetRecordCount());
+            int iCategoryId = _vVocabulary.GetRecordCategory(_iCurrentRecordId);
 #ifndef FREE
-            if (_vVocabulary.GetCategoryEnabled(iCategoryId) && _iCurrentWord != iLastWord) {
+            if (_vVocabulary.GetCategoryEnabled(iCategoryId) && _iCurrentRecordId != iLastRecordId) {
 #endif
                 break;
 #ifndef FREE
@@ -405,7 +397,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 
         // question parameters
         sAnswer saAnswer;
-	    saAnswer.iWord = _iCurrentWord;
+	    saAnswer.iWord = _iCurrentRecordId;
 	    saAnswer.bDirectionSwitched = GetLearningDirection();
 
         // gui
@@ -465,7 +457,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
             sAnswer saAnswer = _taHash.value(event->timerId());
             _taHash.remove(event->timerId());
 
-            if (saAnswer.iWord == _iCurrentWord) {
+            if (saAnswer.iWord == _iCurrentRecordId) {
 #ifndef FREE
                 // answer
                 _umwMainWindow.qaAnswer->setEnabled(false);

@@ -51,10 +51,8 @@ const void SettingsDialog::FillOptions()
 	_usdSettingsDialog.cbStartLearningOnStartup->setChecked(_sSettings->GetStartLearningOnStartup());
 #endif
 
-    // appearance
-    _usdSettingsDialog.qsbFontSizeWord->setValue(_sSettings->GetFontSizeWord());
 #ifndef FREE
-    _usdSettingsDialog.qsbFontSizeNote->setValue(_sSettings->GetFontSizeNote());
+    // appearance
     FillColorFlash();
 #endif
 } // FillOptions
@@ -130,10 +128,8 @@ const void SettingsDialog::SaveOptions()
 	_sSettings->SetStartLearningOnStartup(_usdSettingsDialog.cbStartLearningOnStartup->isChecked());
 #endif
 
-    // appearance
-    _sSettings->SetFontSizeWord(_usdSettingsDialog.qsbFontSizeWord->value());
 #ifndef FREE
-    _sSettings->SetFontSizeNote(_usdSettingsDialog.qsbFontSizeNote->value());
+    // appearance
     _sSettings->SetColorFlash(_usdSettingsDialog.qcbColorFlash->itemData(_usdSettingsDialog.qcbColorFlash->currentIndex()).toString());
 #endif
 } // SaveOptions
@@ -160,8 +156,6 @@ SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */,
     delete _usdSettingsDialog.cbStartLearningOnStartup;
 
     // appearance
-    delete _usdSettingsDialog.qlFontSizeNote;
-    delete _usdSettingsDialog.qsbFontSizeNote;
     delete _usdSettingsDialog.qlColorFlash;
     delete _usdSettingsDialog.qcbColorFlash;
 #else
