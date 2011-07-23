@@ -54,6 +54,8 @@ class Vocabulary
 		const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
 		const int GetRecordId(const int &pRow) const;
+		const int GetRecordId(const int &pCategoryId, const int &pRow) const;
+		const int GetRow(const int &pRecordId, const int &pCategoryId) const;
 		const QString GetSettings(const QString &pKey) const;
         const QString &GetVocabularyFile() const;
         const bool IsOpen() const;
@@ -61,6 +63,7 @@ class Vocabulary
         const void Open(const QString &pFilePath);
         const void RemoveCategory(const int &pCategoryId) const;
 		const void RemoveRecord(const int &pCategoryId, const int &pRow) const;
+		const int Search(const QString &pWord, const int &pStartId) const;
 #ifndef FREE
         const void SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const;
 #endif
