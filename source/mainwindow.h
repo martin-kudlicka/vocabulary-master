@@ -24,6 +24,11 @@ class MainWindow : public QMainWindow
 		MainWindow(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 	private:
+		enum eTemplate {
+			TemplateLearning,
+			TemplateTray
+		}; // eTemplate
+
 #ifndef FREE
 		static const int FLASH_COUNT = 3;
 		static const int FLASH_WAIT = 100;
@@ -65,7 +70,7 @@ class MainWindow : public QMainWindow
 #endif
         const QString GetLanguageText(const bool &pDirectionSwitched, const bool &pAnswer) const;
 		const bool GetLearningDirection() const;
-        const QString GetLearningText(const bool &pDirectionSwitched, const bool &pAnswer) const;
+        const QString GetLearningText(const eTemplate &pTemplate, const bool &pDirectionSwitched, const bool &pAnswer) const;
 #ifndef FREE
 		const void Say(const bool &pDirectionSwitched, const bool &pAnswer) const;
 #endif
