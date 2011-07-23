@@ -9,7 +9,7 @@
 #include <QtGui/QMessageBox>
 
 #ifdef FREE
-const QString FREE = QT_TRANSLATE_NOOP("MainWindow", " FREE");
+const QString FREE_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " FREE");
 #endif
 const QString VOCABULARY_SUFFIX = "sl3";
 const QString VOCABULARY_FILTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary (*." + VOCABULARY_SUFFIX + ")");
@@ -162,7 +162,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     _umwMainWindow.qaAnswer->deleteLater();
     _umwMainWindow.qaMute->deleteLater();
 
-    setWindowTitle(windowTitle() + FREE);
+    setWindowTitle(windowTitle() + FREE_SUFFIX);
 #else
 	CreateTrayMenu();
 #endif
@@ -200,7 +200,7 @@ const void MainWindow::on_qaAbout_triggered(bool checked /* false */)
 {
     QMessageBox::about(this, tr("About Vocabulary Master"), "<center><b>" + VOCABULARY_MASTER
 #ifdef FREE
-        + FREE
+        + FREE_SUFFIX
 #endif
         + "</b></center><center>Version 1.0</center><br />Copyright (C) 2011 Isshou.");
 } // on_qaAbout_triggered
