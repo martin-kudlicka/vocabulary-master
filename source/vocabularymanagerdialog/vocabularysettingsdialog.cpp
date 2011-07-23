@@ -9,13 +9,16 @@ void VocabularySettingsDialog::accept()
 
 const void VocabularySettingsDialog::FillOptions()
 {
-    // language
+    // languages
     _qdvsdVocabularySettingsDialog.leLanguageLeft->setText(_vVocabulary->GetSettings(KEY_LANGUAGE1));
     _qdvsdVocabularySettingsDialog.leLanguageRight->setText(_vVocabulary->GetSettings(KEY_LANGUAGE2));
 #ifndef FREE
-    // speech
 	FillSpeech(_qdvsdVocabularySettingsDialog.qcbSpeechLeft, KEY_SPEECH1, KEY_VOICE1);
 	FillSpeech(_qdvsdVocabularySettingsDialog.qcbSpeechRight, KEY_SPEECH2, KEY_VOICE2);
+
+	// templates
+	_qdvsdVocabularySettingsDialog.qteLearningLeft->setPlainText(_vVocabulary->GetSettings(KEY_LEARNINGTEMPLATE1));
+	_qdvsdVocabularySettingsDialog.qteLearningRight->setPlainText(_vVocabulary->GetSettings(KEY_LEARNINGTEMPLATE2));
 #endif
 } // FillOptions
 
@@ -72,17 +75,20 @@ const void VocabularySettingsDialog::PrepareSpeechPlugins(QComboBox *pComboBox)
 
 const void VocabularySettingsDialog::SaveOptions()
 {
-    // language
+    // languages
     _vVocabulary->SetSettings(KEY_LANGUAGE1, _qdvsdVocabularySettingsDialog.leLanguageLeft->text());
     _vVocabulary->SetSettings(KEY_LANGUAGE2, _qdvsdVocabularySettingsDialog.leLanguageRight->text());
 #ifndef FREE
-    // speech
 	sSpeechVoice spvVoice = _tvVoiceList.at(_qdvsdVocabularySettingsDialog.qcbSpeechLeft->itemData(_qdvsdVocabularySettingsDialog.qcbSpeechLeft->currentIndex()).toInt());
 	_vVocabulary->SetSettings(KEY_SPEECH1, QString::number(spvVoice.etpPlugin));
 	_vVocabulary->SetSettings(KEY_VOICE1, spvVoice.qsVoiceId);
 	spvVoice = _tvVoiceList.at(_qdvsdVocabularySettingsDialog.qcbSpeechRight->itemData(_qdvsdVocabularySettingsDialog.qcbSpeechRight->currentIndex()).toInt());
 	_vVocabulary->SetSettings(KEY_SPEECH2, QString::number(spvVoice.etpPlugin));
 	_vVocabulary->SetSettings(KEY_VOICE2, spvVoice.qsVoiceId);
+
+	// templates
+	_vVocabulary->SetSettings(KEY_LEARNINGTEMPLATE1, _qdvsdVocabularySettingsDialog.qteLearningLeft->toPlainText());
+	_vVocabulary->SetSettings(KEY_LEARNINGTEMPLATE2, _qdvsdVocabularySettingsDialog.qteLearningRight->toPlainText());
 #endif
 } // SaveOptions
 
@@ -100,6 +106,7 @@ VocabularySettingsDialog::VocabularySettingsDialog(const Vocabulary *pVocabulary
 	_qdvsdVocabularySettingsDialog.setupUi(this);
 #ifdef FREE
     delete _qdvsdVocabularySettingsDialog.qgbSpeech;
+	_qdvsdVocabularySettingsDialog.qtwTabs->removeTab(TabTemplates);
 
 #else
 	PreparePlugins();
