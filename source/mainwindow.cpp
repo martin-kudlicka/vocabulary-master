@@ -121,15 +121,14 @@ const QString MainWindow::GetLearningText(const bool &pDirectionSwitched, const 
 	} // if else
 
 	// substitute variables in template
-	for (int iI = 0; iI < _vVocabulary.GetFieldCount(); iI++) {
-		if (_vVocabulary.GetFieldLanguage(iI) == eflLanguage) {
-			int iFieldId = _vVocabulary.GetFieldId(iI);
+	foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
+		if (_vVocabulary.GetFieldLanguage(iFieldId) == eflLanguage) {
 			QString qsData = _vVocabulary.GetDataText(_iCurrentRecordId, iFieldId);
 
-			QString qsField = _vVocabulary.GetFieldName(iI);
+			QString qsField = _vVocabulary.GetFieldName(iFieldId);
 			qsTemplate.replace(VARIABLE_MARK + qsField, qsData);
 		} // if
-	} // for
+	} // foreach
 
 	return qsTemplate;
 } // GetLearningText

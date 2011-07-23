@@ -9,7 +9,7 @@
 #endif
 #include <QtGui/QFileDialog>
 
-const char *PROPERTY_COLUMN = "FieldId";
+const char *PROPERTY_COLUMN = "Column";
 
 const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
 {
@@ -38,12 +38,12 @@ const void VocabularyManagerDialog::InitEditor()
 	int iFieldsLeft = 0;
 	int iFieldsRight = 0;
 
-	for (int iI = 0; iI < _vVocabulary->GetFieldCount(); iI++) {
+	foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
 		int iColumn, iRow;
 
 		// get field language
 		QGridLayout *qglGrid;
-		if (_vVocabulary->GetFieldLanguage(iI) == Vocabulary::FieldLanguageLeft) {
+		if (_vVocabulary->GetFieldLanguage(iFieldId) == Vocabulary::FieldLanguageLeft) {
 			qglGrid = _qdvmVocabularyManager.qglLeft;
 			iRow = iFieldsLeft++;
 			iColumn = EditorColumnLeftLabel;
@@ -54,15 +54,15 @@ const void VocabularyManagerDialog::InitEditor()
 		} // if else
 
 		// label
-		QLabel *qlLabel = new QLabel(_vVocabulary->GetFieldName(iI) + ':', _qdvmVocabularyManager.qgbEditor);
+		QLabel *qlLabel = new QLabel(_vVocabulary->GetFieldName(iFieldId) + ':', _qdvmVocabularyManager.qgbEditor);
 		qglGrid->addWidget(qlLabel, iRow, iColumn);
 
 		// control
 		QLineEdit *qleControl = new QLineEdit(_qdvmVocabularyManager.qgbEditor);
-		qleControl->setProperty(PROPERTY_COLUMN, iI);
+		qleControl->setProperty(PROPERTY_COLUMN, iFieldsLeft + iFieldsRight - 1);
 		connect(qleControl, SIGNAL(textEdited(const QString &)), SLOT(on_qleControl_textEdited(const QString &)));
 		qglGrid->addWidget(qleControl, iRow, iColumn + 1);
-	} // for
+	} // foreach
 } // InitEditor
 
 const void VocabularyManagerDialog::InitTabs()

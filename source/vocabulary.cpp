@@ -14,7 +14,6 @@ const QString COLUMN_ID = "id";
 const QString COLUMN_KEY = "key";
 const QString COLUMN_LANGUAGE = "language";
 const QString COLUMN_NAME = "name";
-const QString COLUMN_POSITION = "position";
 //const QString COLUMN_PRIORITY = "priority";
 const QString COLUMN_RECORDID = "record_id";
 const QString COLUMN_TEMPLATENAME = "template_name";
@@ -46,10 +45,10 @@ const void Vocabulary::AddRecord(const int &pCategoryId) const
 
 	// create new empty data
 	QList<int> qlDataList;
-	for (int iI = 1; iI <= GetFieldCount(); iI++) {
-		qsqQuery.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(iI) + "', '" + QString::number(iRecord) + "', '')");
+	foreach (int iFieldId, GetFieldIds()) {
+		qsqQuery.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(iFieldId) + "', '" + QString::number(iRecord) + "', '')");
 		qlDataList.append(qsqQuery.lastInsertId().toInt());
-	} // for
+	} // foreach
 } // AddRecord
 
 #ifndef FREE
@@ -108,48 +107,57 @@ const int Vocabulary::GetFieldCount() const
 
 const int Vocabulary::GetFieldId(const int &pPosition) const
 {
-	QSqlQuery qsqQuery("SELECT " + COLUMN_ID + ", " + COLUMN_POSITION + " FROM " + TABLE_FIELDS);
+	QSqlQuery qsqQuery("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS);
+	int iPosition = 0;
 	while (qsqQuery.next()) {
-		if (qsqQuery.value(ColumnPosition2) == pPosition) {
+		if (iPosition == pPosition) {
 			return qsqQuery.value(ColumnPosition1).toInt();
-		} // if
+		} else {
+			iPosition++;
+		} // if else
 	} // while
 
 	return NOT_FOUND;
 } // GetFieldId
 
-const Vocabulary::eFieldLanguage Vocabulary::GetFieldLanguage(const int &pPosition) const
+const Vocabulary::tFieldIdList Vocabulary::GetFieldIds() const
 {
-	QSqlQuery qsqQuery("SELECT " + COLUMN_LANGUAGE + ", " + COLUMN_POSITION + " FROM " + TABLE_FIELDS);
+	tFieldIdList tfilIds;
+
+	QSqlQuery qsqQuery("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS);
 	while (qsqQuery.next()) {
-		if (qsqQuery.value(ColumnPosition2) == pPosition) {
-			return static_cast<eFieldLanguage>(qsqQuery.value(ColumnPosition1).toInt());
-		} // if
+		tfilIds.append(qsqQuery.value(ColumnPosition1).toInt());
 	} // while
+
+	return tfilIds;
+} // GetFieldIds
+
+const Vocabulary::eFieldLanguage Vocabulary::GetFieldLanguage(const int &pFieldId) const
+{
+	QSqlQuery qsqQuery("SELECT " + COLUMN_LANGUAGE + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+	if (qsqQuery.next()) {
+		return static_cast<eFieldLanguage>(qsqQuery.value(ColumnPosition1).toInt());
+	} // if
 
 	return FieldLanguageUknown;
 } // GetFieldLanguage
 
-const QString Vocabulary::GetFieldName(const int &pPosition) const
+const QString Vocabulary::GetFieldName(const int &pFieldId) const
 {
-	QSqlQuery qsqQuery("SELECT " + COLUMN_NAME + ", " + COLUMN_POSITION + " FROM " + TABLE_FIELDS);
-	while (qsqQuery.next()) {
-		if (qsqQuery.value(ColumnPosition2) == pPosition) {
-			return qsqQuery.value(ColumnPosition1).toString();
-		} // if
+	QSqlQuery qsqQuery("SELECT " + COLUMN_NAME + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+	if (qsqQuery.next()) {
+		return qsqQuery.value(ColumnPosition1).toString();
 	} // while
 
 	return QString();
 } // GetFieldName
 
-/*const Vocabulary::eFieldType Vocabulary::GetFieldType(const int &pPosition) const
+/*const Vocabulary::eFieldType Vocabulary::GetFieldType(const int &pFieldId) const
 {
-	QSqlQuery qsqQuery("SELECT " + COLUMN_TYPE + ", " + COLUMN_POSITION + " FROM " + TABLE_FIELDS);
-	while (qsqQuery.next()) {
-		if (qsqQuery.value(ColumnPosition2) == pPosition) {
-			return static_cast<eFieldType>(qsqQuery.value(ColumnPosition1).toInt());
-		} // if
-	} // while
+	QSqlQuery qsqQuery("SELECT " + COLUMN_TYPE + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+	if (qsqQuery.next()) {
+		return static_cast<eFieldType>(qsqQuery.value(ColumnPosition1).toInt());
+	} // if
 
 	return FieldTypeUnknown;
 } // GetFieldType*/
@@ -244,8 +252,7 @@ const void Vocabulary::Initialize() const
 				  //+ COLUMN_TYPE + " INTEGER NOT NULL,"
 				  + COLUMN_NAME + " TEXT NOT NULL,"
 				  + COLUMN_ATTRIBUTES + " INTEGER NOT NULL,"
-				  + COLUMN_LANGUAGE + " INTEGER NOT NULL,"
-				  + COLUMN_POSITION + " INTEGER NOT NULL)");
+				  + COLUMN_LANGUAGE + " INTEGER NOT NULL)");
 	qsqQuery.exec("CREATE TABLE " + TABLE_RECORDS + " ("
 				  + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 				  + COLUMN_CATEGORYID + " INTEGER REFERENCES " + TABLE_CATEGORIES + " ON DELETE CASCADE)");
@@ -259,10 +266,10 @@ const void Vocabulary::Initialize() const
 
 //#ifdef FREE
 	// fill default data
-	qsqQuery.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ", " + COLUMN_POSITION + ") VALUES ('" + FIELD_WORD + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_WORD + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "', '" + QString::number(FieldPosition1) + "')");
-	qsqQuery.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ", " + COLUMN_POSITION + ") VALUES ('" + FIELD_NOTE + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_NOTE + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "', '" + QString::number(FieldPosition2) + "')");
-	qsqQuery.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ", " + COLUMN_POSITION + ") VALUES ('" + FIELD_WORD + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_WORD + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageRight) + "', '" + QString::number(FieldPosition3) + "')");
-	qsqQuery.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ", " + COLUMN_POSITION + ") VALUES ('" + FIELD_NOTE + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_NOTE + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageRight) + "', '" + QString::number(FieldPosition4) + "')");
+	qsqQuery.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_WORD + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_WORD + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
+	qsqQuery.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_NOTE + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_NOTE + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
+	qsqQuery.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_WORD + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_WORD + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageRight) + "')");
+	qsqQuery.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_NOTE + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_NOTE + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageRight) + "')");
 	qsqQuery.exec("INSERT INTO " + TABLE_SETTINGS + " VALUES ('" + KEY_LEARNINGTEMPLATE1 + "', '" + LEARNING_TEMPLATE + "')");
 	qsqQuery.exec("INSERT INTO " + TABLE_SETTINGS + " VALUES ('" + KEY_LEARNINGTEMPLATE2 + "', '" + LEARNING_TEMPLATE + "')");
 //#endif

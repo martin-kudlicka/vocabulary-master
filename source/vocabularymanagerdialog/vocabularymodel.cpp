@@ -20,7 +20,7 @@ QVariant VocabularyModel::headerData(int section, Qt::Orientation orientation, i
     switch (role) {
         case Qt::DisplayRole:
             if (orientation == Qt::Horizontal) {
-                return _vVocabulary->GetFieldName(section);
+                return _vVocabulary->GetFieldName(_vVocabulary->GetFieldId(section));
             } else {
                 return section + 1;
             } // if else
