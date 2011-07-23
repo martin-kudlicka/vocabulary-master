@@ -20,7 +20,12 @@ class VocabularySettingsDialog : public QDialog
             QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 	private:
-#ifndef FREE
+#ifdef FREE
+		enum eTab {
+			TabLanguages,
+			TabTemplates
+		}; // eTab
+#else
 		struct sSpeechVoice {
 			TTSInterface::eTTSPlugin etpPlugin;
 			QString qsVoiceId;
