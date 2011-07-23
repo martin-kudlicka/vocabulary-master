@@ -505,6 +505,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
 				RelativePath=".\settings.h"
 				>
 			</File>
@@ -1844,6 +1848,14 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\res\mainwindow.ico"
+			>
+		</File>
+		<File
+			RelativePath=".\Vocabulary Master.rc"
+			>
+		</File>
 	</Files>
 	<Globals>
 		<Global
