@@ -8,7 +8,6 @@
 
 const QString COLUMN_ATTRIBUTES = "attributes";
 const QString COLUMN_CATEGORYID = "category_id";
-const QString COLUMN_DATAID = "data_id";
 const QString COLUMN_ENABLED = "enabled";
 const QString COLUMN_FIELDID = "field_id";
 const QString COLUMN_ID = "id";
@@ -29,7 +28,6 @@ const QString TABLE_CATEGORIES = "categories";
 const QString TABLE_DATA = "data";
 const QString TABLE_FIELDS = "fields";
 const QString TABLE_RECORDS = "records";
-const QString TABLE_RECORDSDATA = "records_data";
 const QString TABLE_SETTINGS = "settings";
 
 const int Vocabulary::AddCategory(const QString &pName) const
@@ -42,19 +40,16 @@ const void Vocabulary::AddRecord(const int &pCategoryId) const
 {
 	QSqlQuery qsqQuery;
 
-	// create new empty data
-	QList<int> qlDataList;
-	for (int iI = 1; iI <= GetFieldCount(); iI++) {
-		qsqQuery.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(iI) + "', '')");
-		qlDataList.append(qsqQuery.lastInsertId().toInt());
-	} // for
-
 	// create new record
 	qsqQuery.exec("INSERT INTO " + TABLE_RECORDS + " (" + COLUMN_CATEGORYID + ") VALUES ('" + QString::number(pCategoryId) + "')");
 	int iRecord = qsqQuery.lastInsertId().toInt();
-	foreach (int iDataId, qlDataList) {
-		qsqQuery.exec("INSERT INTO " + TABLE_RECORDSDATA + " (" + COLUMN_RECORDID + ", " + COLUMN_DATAID + ") VALUES ('" + QString::number(iRecord) + "', '" + QString::number(iDataId) + "')");
-	} // foreach
+
+	// create new empty data
+	QList<int> qlDataList;
+	for (int iI = 1; iI <= GetFieldCount(); iI++) {
+		qsqQuery.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(iI) + "', '" + QString::number(iRecord) + "', '')");
+		qlDataList.append(qsqQuery.lastInsertId().toInt());
+	} // for
 } // AddRecord
 
 #ifndef FREE
@@ -96,7 +91,7 @@ const QString Vocabulary::GetDataText(const int &pCategoryId, const int &pRow, c
 
 const QString Vocabulary::GetDataText(const int &pRecordId, const int &pFieldId) const
 {
-	QSqlQuery qsqQuery("SELECT " + TABLE_DATA + '.' + COLUMN_TEXT + " FROM " + TABLE_DATA + " JOIN " + TABLE_RECORDSDATA + " ON " + TABLE_DATA + '.' + COLUMN_ID + " = " + TABLE_RECORDSDATA + '.' + COLUMN_DATAID + " WHERE " + TABLE_RECORDSDATA + '.' + COLUMN_RECORDID + " = " + QString::number(pRecordId) + " AND " + TABLE_DATA + '.' + COLUMN_FIELDID + " = " + QString::number(pFieldId));
+	QSqlQuery qsqQuery("SELECT " + COLUMN_TEXT + " FROM " + TABLE_DATA + " WHERE " + COLUMN_RECORDID + " = " + QString::number(pRecordId) + " AND " + COLUMN_FIELDID + " = " + QString::number(pFieldId));
 	qsqQuery.next();
 	return qsqQuery.value(0).toString();
 } // GetDataText
@@ -251,18 +246,16 @@ const void Vocabulary::Initialize() const
 				  + COLUMN_ATTRIBUTES + " INTEGER NOT NULL,"
 				  + COLUMN_LANGUAGE + " INTEGER NOT NULL,"
 				  + COLUMN_POSITION + " INTEGER NOT NULL)");
-    qsqQuery.exec("CREATE TABLE " + TABLE_DATA + " ("
-                  + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-				  + COLUMN_FIELDID + " INTEGER REFERENCES " + TABLE_FIELDS + " ON DELETE CASCADE,"
-				  + COLUMN_TEXT + " TEXT NOT NULL)"
-                  /*+ COLUMN_PRIORITY + " INTEGER,"
-				  + COLUMN_ENABLED + " INTEGER)"*/);
 	qsqQuery.exec("CREATE TABLE " + TABLE_RECORDS + " ("
 				  + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 				  + COLUMN_CATEGORYID + " INTEGER REFERENCES " + TABLE_CATEGORIES + " ON DELETE CASCADE)");
-	qsqQuery.exec("CREATE TABLE " + TABLE_RECORDSDATA + " ("
+    qsqQuery.exec("CREATE TABLE " + TABLE_DATA + " ("
+                  + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+				  + COLUMN_FIELDID + " INTEGER REFERENCES " + TABLE_FIELDS + " ON DELETE CASCADE,"
 				  + COLUMN_RECORDID + " INTEGER REFERENCES " + TABLE_RECORDS + " ON DELETE CASCADE,"
-				  + COLUMN_DATAID + " INTEGER REFERENCES " + TABLE_DATA + " ON DELETE CASCADE)");
+				  + COLUMN_TEXT + " TEXT NOT NULL)"
+                  /*+ COLUMN_PRIORITY + " INTEGER,"
+				  + COLUMN_ENABLED + " INTEGER)"*/);
 
 //#ifdef FREE
 	// fill default data
@@ -343,14 +336,11 @@ const void Vocabulary::RemoveRecord(const int &pRecordId) const
 	QSqlQuery qsqQuery;
 
 	// remove record's data
-	qsqQuery.exec("SELECT " + TABLE_DATA + '.' + COLUMN_ID + " FROM " + TABLE_DATA + " JOIN " + TABLE_RECORDSDATA + " ON " + TABLE_DATA + '.' + COLUMN_ID + " = " + TABLE_RECORDSDATA + '.' + COLUMN_DATAID + " WHERE " + TABLE_RECORDSDATA + '.' + COLUMN_RECORDID + " = " + QString::number(pRecordId));
+	qsqQuery.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DATA + " WHERE " + COLUMN_RECORDID + " = " + QString::number(pRecordId));
 	while (qsqQuery.next()) {
 		int iDataId = qsqQuery.value(0).toInt();
 		QSqlQuery qsqRemove("DELETE FROM " + TABLE_DATA + " WHERE " + COLUMN_ID + " = " + QString::number(iDataId));
 	} // while
-
-	// remove record-data pairs
-	qsqQuery.exec("DELETE FROM " + TABLE_RECORDSDATA + " WHERE " + COLUMN_RECORDID + " = " + QString::number(pRecordId));
 
 	qsqQuery.exec("DELETE FROM " + TABLE_RECORDS + " WHERE " + COLUMN_ID + " = " + QString::number(pRecordId));
 } // RemoveRecord
@@ -358,7 +348,7 @@ const void Vocabulary::RemoveRecord(const int &pRecordId) const
 const int Vocabulary::Search(const QString &pWord, const int &pStartId) const
 {
 	QString qsWordLike = '%' + pWord + '%';
-	QSqlQuery qsqQuery("SELECT " + TABLE_RECORDSDATA + '.' + COLUMN_RECORDID + " FROM " + TABLE_RECORDSDATA + " JOIN " + TABLE_DATA + " ON " + TABLE_RECORDSDATA + '.' + COLUMN_DATAID + " = " + TABLE_DATA + '.' + COLUMN_ID + " WHERE " + TABLE_DATA + '.' + COLUMN_TEXT + " LIKE '" + qsWordLike + "' GROUP BY " + TABLE_RECORDSDATA + '.' + COLUMN_RECORDID);
+	QSqlQuery qsqQuery("SELECT " + COLUMN_RECORDID + " FROM " + TABLE_DATA + " WHERE " + COLUMN_TEXT + " LIKE '" + qsWordLike + "' GROUP BY " + COLUMN_RECORDID);
 	if (!qsqQuery.next()) {
 		return NOT_FOUND;
 	} // if
@@ -389,7 +379,7 @@ const void Vocabulary::SetDataText(const int &pCategoryId, const int &pRow, cons
 	qsqQuery.seek(pRow);
 	int iRecordId = qsqQuery.value(0).toInt();
 
-	qsqQuery.exec("SELECT " + TABLE_DATA + '.' + COLUMN_ID + " FROM " + TABLE_DATA + " JOIN " + TABLE_RECORDSDATA + " ON " + TABLE_DATA + '.' + COLUMN_ID + " = " + TABLE_RECORDSDATA + '.' + COLUMN_DATAID + " WHERE " + TABLE_RECORDSDATA + '.' + COLUMN_RECORDID + " = " + QString::number(iRecordId) + " AND " + TABLE_DATA + '.' + COLUMN_FIELDID + " = " + QString::number(pFieldId));
+	qsqQuery.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DATA + " WHERE " + COLUMN_RECORDID + " = " + QString::number(iRecordId) + " AND " + COLUMN_FIELDID + " = " + QString::number(pFieldId));
 	qsqQuery.next();
 	int iDataId = qsqQuery.value(0).toInt();
 
