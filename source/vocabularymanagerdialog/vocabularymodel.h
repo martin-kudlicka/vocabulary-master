@@ -6,26 +6,15 @@
 
 class VocabularyModel : public QAbstractTableModel
 {
-    Q_ENUMS(eColumn)
+	Q_OBJECT
 
     public:
-		enum eColumn {
-			ColumnLang1,
-#ifndef FREE
-            ColumnNote1,
-#endif
-			ColumnLang2,
-#ifndef FREE
-            ColumnNote2,
-#endif
-			ColumnCount
-		}; // eColumn
-
         VocabularyModel(const Vocabulary *pVocabulary, const int &pCategoryId, QObject *pParent = NULL);
 
 		const void InsertRow(const int &pRow);
         const void RemoveRow(const int &pRow);
         int rowCount(const QModelIndex &parent = QModelIndex()) const;
+		bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
 
     private:
         int _iCategoryId;
@@ -33,9 +22,7 @@ class VocabularyModel : public QAbstractTableModel
 
         int columnCount(const QModelIndex &parent = QModelIndex()) const;
         QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-		Qt::ItemFlags flags(const QModelIndex &index) const;
         QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-		bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
 }; // VocabularyModel
 
 #endif // VOCABULARYMODEL_H

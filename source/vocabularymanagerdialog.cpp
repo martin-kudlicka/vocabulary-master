@@ -2,24 +2,28 @@
 
 #include <QtGui/QInputDialog>
 #include "vocabularymanagerdialog/vocabularymodel.h"
-#include "vocabularymanagerdialog/vocabularyview.h"
+#include <QtGui/QTableView>
 #include "vocabularymanagerdialog/vocabularysettingsdialog.h"
 #ifndef FREE
 # include "vocabularymanagerdialog/wordsimportdialog.h"
 #endif
 #include <QtGui/QFileDialog>
 
+const char *PROPERTY_COLUMN = "FieldId";
+
 const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
 {
-    VocabularyView *vvTableView = new VocabularyView(_qdvmVocabularyManager.vtwTabs);
-    vvTableView->setModel(new VocabularyModel(_vVocabulary, pCategoryId, vvTableView));
+    QTableView *qtvTableView = new QTableView(_qdvmVocabularyManager.vtwTabs);
+	qtvTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    qtvTableView->setModel(new VocabularyModel(_vVocabulary, pCategoryId, qtvTableView));
+	connect(qtvTableView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvTableViewSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 
-    for (int iColumn = 0; iColumn < VocabularyModel::ColumnCount; iColumn++) {
-	    vvTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Stretch);
+    for (int iColumn = 0; iColumn < qtvTableView->horizontalHeader()->count(); iColumn++) {
+	    qtvTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Stretch);
     } // for
 
     VocabularyTabWidget *vtwTabs = _qdvmVocabularyManager.vtwTabs;
-    int iTab = vtwTabs->addTab(vvTableView, _vVocabulary->GetCategoryName(pCategoryId)
+    int iTab = vtwTabs->addTab(qtvTableView, _vVocabulary->GetCategoryName(pCategoryId)
 #ifndef FREE
         , _vVocabulary->GetCategoryEnabled(pCategoryId)
 #endif
@@ -29,10 +33,37 @@ const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
 #endif
 } // AddTab
 
-const void VocabularyManagerDialog::EnableControls()
+const void VocabularyManagerDialog::InitEditor()
 {
-    _qdvmVocabularyManager.qpbWordAdd->setEnabled(_qdvmVocabularyManager.vtwTabs->currentWidget());
-} // EnableControls
+	int iFieldsLeft = 0;
+	int iFieldsRight = 0;
+
+	for (int iI = 0; iI < _vVocabulary->GetFieldCount(); iI++) {
+		int iColumn, iRow;
+
+		// get field language
+		QGridLayout *qglGrid;
+		if (_vVocabulary->GetFieldLanguage(iI) == Vocabulary::FieldLanguageLeft) {
+			qglGrid = _qdvmVocabularyManager.qglLeft;
+			iRow = iFieldsLeft++;
+			iColumn = EditorColumnLeftLabel;
+		} else {
+			qglGrid = _qdvmVocabularyManager.qglRight;
+			iRow = iFieldsRight++;
+			iColumn = EditorColumnRightLabel;
+		} // if else
+
+		// label
+		QLabel *qlLabel = new QLabel(_vVocabulary->GetFieldName(iI) + ':', _qdvmVocabularyManager.qgbEditor);
+		qglGrid->addWidget(qlLabel, iRow, iColumn);
+
+		// control
+		QLineEdit *qleControl = new QLineEdit(_qdvmVocabularyManager.qgbEditor);
+		qleControl->setProperty(PROPERTY_COLUMN, iI);
+		connect(qleControl, SIGNAL(textEdited(const QString &)), SLOT(on_qleControl_textEdited(const QString &)));
+		qglGrid->addWidget(qleControl, iRow, iColumn + 1);
+	} // for
+} // InitEditor
 
 const void VocabularyManagerDialog::InitTabs()
 {
@@ -44,6 +75,17 @@ const void VocabularyManagerDialog::InitTabs()
         _qlCategories.append(*ciCategoryId);
     } // for
 } // InitTabs
+
+const void VocabularyManagerDialog::on_qleControl_textEdited(const QString &pText) const
+{
+	int iColumn = sender()->property(PROPERTY_COLUMN).toInt();
+
+	const QTableView *qtvVocabularyView = qobject_cast<const QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
+	QModelIndex qmiCurrent = qtvVocabularyView->currentIndex();
+
+	VocabularyModel *vmVocabularyModel = qobject_cast<VocabularyModel *>(qtvVocabularyView->model());
+	vmVocabularyModel->setData(vmVocabularyModel->index(qmiCurrent.row(), iColumn), pText);
+} // on_qleControl_textEdited
 
 const void VocabularyManagerDialog::on_qleSearch_textChanged(const QString &text) const
 {
@@ -59,7 +101,7 @@ const void VocabularyManagerDialog::on_qpbCategoryAdd_clicked(bool checked /* fa
         _qlCategories.append(iCategory);
 
 		_qdvmVocabularyManager.vtwTabs->setCurrentIndex(_qdvmVocabularyManager.vtwTabs->count() - 1);
-		EnableControls();
+		_qdvmVocabularyManager.qpbWordAdd->setEnabled(true);
     } // if
 } // on_qpbCategoryAdd_clicked
 
@@ -73,10 +115,11 @@ const void VocabularyManagerDialog::on_qpbCategoryRemove_clicked(bool checked /*
 const void VocabularyManagerDialog::on_qpbSearch_clicked(bool checked /* false */) const
 {
     // get current word id
-    VocabularyView *vvVocabularyView = static_cast<VocabularyView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
-    VocabularyModel *vmVocabularyModel = static_cast<VocabularyModel *>(vvVocabularyView->model());
-    QItemSelectionModel *qismSelection = vvVocabularyView->selectionModel();
-    int iCurrentWord = _vVocabulary->GetWordId(_qlCategories.at(_qdvmVocabularyManager.vtwTabs->currentIndex()), qismSelection->currentIndex().row());
+    const QTableView *qtvVocabularyView = qobject_cast<const QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
+    const VocabularyModel *vmVocabularyModel = qobject_cast<const VocabularyModel *>(qtvVocabularyView->model());
+    const QItemSelectionModel *qismSelection = qtvVocabularyView->selectionModel();
+	// TODO
+    /*int iCurrentWord = _vVocabulary->GetWordId(_qlCategories.at(_qdvmVocabularyManager.vtwTabs->currentIndex()), qismSelection->currentIndex().row());
 
     // search for next word
     int iWord = _vVocabulary->Search(_qdvmVocabularyManager.qleSearch->text(), iCurrentWord + 1);
@@ -96,12 +139,13 @@ const void VocabularyManagerDialog::on_qpbSearch_clicked(bool checked /* false *
     } // for
 
     // switch tabs
-    _qdvmVocabularyManager.vtwTabs->setCurrentIndex(iTab);
+    _qdvmVocabularyManager.vtwTabs->setCurrentIndex(iTab);*/
 
     // focus on word
-    vvVocabularyView = static_cast<VocabularyView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
-    vmVocabularyModel = static_cast<VocabularyModel *>(vvVocabularyView->model());
-    vvVocabularyView->setCurrentIndex(vmVocabularyModel->index(_vVocabulary->GetRow(iWord, iCategory), VocabularyModel::ColumnLang1));
+    qtvVocabularyView = qobject_cast<const QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
+    vmVocabularyModel = qobject_cast<const VocabularyModel *>(qtvVocabularyView->model());
+	// TODO
+    //qtvVocabularyView->setCurrentIndex(vmVocabularyModel->index(_vVocabulary->GetRow(iWord, iCategory), VocabularyModel::ColumnLang1));
 } // on_qpbSearch_clicked
 
 const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checked /* false */)
@@ -116,12 +160,12 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
 
 const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false */)
 {
-	VocabularyView *vvVocabularyView = static_cast<VocabularyView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
-    VocabularyModel *vmVocabularyModel = static_cast<VocabularyModel *>(vvVocabularyView->model());
+	QTableView *qtvVocabularyView = qobject_cast<QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
+    VocabularyModel *vmVocabularyModel = qobject_cast<VocabularyModel *>(qtvVocabularyView->model());
     vmVocabularyModel->InsertRow(vmVocabularyModel->rowCount());
 
-	vvVocabularyView->setCurrentIndex(vmVocabularyModel->index(vmVocabularyModel->rowCount() - 1, VocabularyModel::ColumnLang1));
-	vvVocabularyView->setFocus(Qt::OtherFocusReason);
+	qtvVocabularyView->setCurrentIndex(vmVocabularyModel->index(vmVocabularyModel->rowCount() - 1, 0));
+	qtvVocabularyView->setFocus(Qt::OtherFocusReason);
 } // on_qpbWordAdd_clicked
 
 #ifndef FREE
@@ -144,11 +188,21 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
 
 const void VocabularyManagerDialog::on_qpbWordRemove_clicked(bool checked /* false */)
 {
-    VocabularyView *vvVocabularyView = static_cast<VocabularyView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
-    VocabularyModel *vmVocabularyModel = static_cast<VocabularyModel *>(vvVocabularyView->model());
-    QItemSelectionModel *qismSelection = vvVocabularyView->selectionModel();
+    const QTableView *qtvVocabularyView = qobject_cast<const QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
+    VocabularyModel *vmVocabularyModel = qobject_cast<VocabularyModel *>(qtvVocabularyView->model());
+    const QItemSelectionModel *qismSelection = qtvVocabularyView->selectionModel();
     vmVocabularyModel->RemoveRow(qismSelection->currentIndex().row());
 } // on_qpbWordRemove_clicked
+
+const void VocabularyManagerDialog::on_qtvTableViewSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
+{
+	UpdateEditor();
+} // on_qtvTableViewSelectionModel_selectionChanged
+
+const void VocabularyManagerDialog::on_vtwTabs_currentChanged(int index) const
+{
+	UpdateEditor();
+} // on_vtwTabs_currentChanged
 
 #ifndef FREE
 const void VocabularyManagerDialog::on_vtwTabs_TabEnableChanged(const int &pIndex, const Qt::CheckState &pState) const
@@ -168,6 +222,49 @@ const void VocabularyManagerDialog::SelectFirstEnabledTab()
 } // SelectFirstEnabledTab
 #endif
 
+const void VocabularyManagerDialog::UpdateEditor() const
+{
+	const QTableView *qtvVocabularyView = qobject_cast<const QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
+	const QItemSelectionModel *qismSelection;
+	if (qtvVocabularyView) {
+		qismSelection = qtvVocabularyView->selectionModel();
+	} else {
+		qismSelection = NULL;
+	} // if else
+	_qdvmVocabularyManager.qgbEditor->setEnabled(qismSelection && qismSelection->hasSelection());
+
+	UpdateEditor(_qdvmVocabularyManager.qglLeft, EditorColumnLeftControl);
+	UpdateEditor(_qdvmVocabularyManager.qglRight, EditorColumnRightControl);
+} // UpdateEditor
+
+const void VocabularyManagerDialog::UpdateEditor(const QGridLayout *pGridLayout, const eEditorColumn &pControlsColumn) const
+{
+	for (int iI = 0; iI <  pGridLayout->rowCount(); iI++) {
+		QLayoutItem *qliItem = pGridLayout->itemAtPosition(iI, pControlsColumn);
+		if (qliItem) {
+			QWidget *qwWidget = qliItem->widget();
+			QLineEdit *qleControl = qobject_cast<QLineEdit *>(qwWidget);
+
+			const QTableView *qtvVocabularyView = qobject_cast<const QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
+			const QItemSelectionModel *qismSelection;
+			if (qtvVocabularyView) {
+				qismSelection = qtvVocabularyView->selectionModel();
+			} else {
+				qismSelection = NULL;
+			} // if else
+
+			if (qismSelection && qismSelection->hasSelection()) {
+				int iTab = _qdvmVocabularyManager.vtwTabs->currentIndex();
+				QModelIndex qmiIndex = qtvVocabularyView->currentIndex();
+				int iColumn = qleControl->property(PROPERTY_COLUMN).toInt();
+				qleControl->setText(_vVocabulary->GetDataText(_qlCategories.at(iTab), qmiIndex.row(), _vVocabulary->GetFieldId(iColumn)));
+			} else {
+				qleControl->clear();
+			} // if else
+		} // if
+	} // for
+} // UpdateEditor
+
 VocabularyManagerDialog::VocabularyManagerDialog(const Vocabulary *pVocabulary,
 #ifndef FREE
     const Plugins *pPlugins,
@@ -185,10 +282,12 @@ VocabularyManagerDialog::VocabularyManagerDialog(const Vocabulary *pVocabulary,
 #endif
 
     InitTabs();
-    EnableControls();
+	InitEditor();
 #ifndef FREE
     SelectFirstEnabledTab();
 #endif
+
+	_qdvmVocabularyManager.qpbWordAdd->setEnabled(_qdvmVocabularyManager.vtwTabs->currentWidget());
 
     connect(_qdvmVocabularyManager.vtwTabs, SIGNAL(TabEnableChanged(const int &, const Qt::CheckState &)), SLOT(on_vtwTabs_TabEnableChanged(const int &, const Qt::CheckState &)));
 } // VocabularyManagerDialog

@@ -14,10 +14,6 @@ class Settings
 #ifndef FREE
         const bool GetAlwaysOnTop() const;
         const QString GetColorFlash() const;
-#endif
-        const int GetFontSizeNote() const;
-        const int GetFontSizeWord() const;
-#ifndef FREE
         const bool GetHorizontalLayout() const;
         const bool GetMinimizeToTray() const;
         const bool GetMute() const;
@@ -44,10 +40,6 @@ class Settings
 #ifndef FREE
         const void SetAlwaysOnTop(const bool &pEnable);
         const void SetColorFlash(const QString &pColor);
-#endif
-        const void SetFontSizeNote(const int &pSize);
-        const void SetFontSizeWord(const int &pSize);
-#ifndef FREE
         const void SetHorizontalLayout(const bool &pEnable);
 		const void SetMinimizeToTray(const bool &pEnable);
         const void SetMute(const bool &pEnable);
@@ -73,8 +65,6 @@ class Settings
         const void SetWordsFrequency(const int &pFrequency);
 
 	private:
-        static const int DEFAULT_FONTSIZENOTE = 10;
-        static const int DEFAULT_FONTSIZEWORD = 20;
 		static const int DEFAULT_FREQUENCY = 60 * 1000;
 		static const int DEFAULT_WAIT = 0;
 

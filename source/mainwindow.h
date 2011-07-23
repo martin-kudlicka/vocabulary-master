@@ -40,7 +40,7 @@ class MainWindow : public QMainWindow
 
         typedef QHash<int, sAnswer> tAnswer;
 
-		int _iCurrentWord;
+		int _iCurrentRecordId;
         int _iTimerAnswer;
 		int _iTimerQuestion;
 #ifndef FREE
@@ -63,12 +63,10 @@ class MainWindow : public QMainWindow
 #ifndef FREE
 		bool event(QEvent *event);
 #endif
-		const QString GetLangColumn(const bool &pDirectionSwitched, const bool &pAnswer) const;
         const QString GetLanguageText(const bool &pDirectionSwitched, const bool &pAnswer) const;
 		const bool GetLearningDirection() const;
         const QString GetLearningText(const bool &pDirectionSwitched, const bool &pAnswer) const;
 #ifndef FREE
-        const QString GetNoteColumn(const bool &pDirectionSwitched, const bool &pAnswer) const;
 		const void Say(const bool &pDirectionSwitched, const bool &pAnswer) const;
 #endif
         const void SetLayout();

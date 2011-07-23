@@ -244,72 +244,6 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <widget class="QSpinBox" name="qsbFontSizeWord">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="suffix">
-            <string>px</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_3">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Word size</string>
-           </property>
-           <property name="buddy">
-            <cstring>qsbFontSizeWord</cstring>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
-         <item>
-          <widget class="QSpinBox" name="qsbFontSizeNote">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="suffix">
-            <string>px</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="qlFontSizeNote">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Note size</string>
-           </property>
-           <property name="buddy">
-            <cstring>qsbFontSizeNote</cstring>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
           <widget class="ColorComboBox" name="qcbColorFlash">
@@ -414,8 +348,6 @@
   <tabstop>cbNewWordFlash</tabstop>
   <tabstop>cbSwitchLearningDirection</tabstop>
   <tabstop>cbStartLearningOnStartup</tabstop>
-  <tabstop>qsbFontSizeWord</tabstop>
-  <tabstop>qsbFontSizeNote</tabstop>
   <tabstop>qcbColorFlash</tabstop>
   <tabstop>qpbOk</tabstop>
   <tabstop>qpbCancel</tabstop>

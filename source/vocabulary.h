@@ -4,65 +4,90 @@
 #include <QtSql/QSqlDatabase>
 #include <QtCore/QList>
 
-const QString COLUMN_LANG1 = "lang1";
-const QString COLUMN_LANG2 = "lang2";
-const QString COLUMN_NOTE1 = "note1";
-const QString COLUMN_NOTE2 = "note2";
 const QString KEY_LANGUAGE1 = "language1";
 const QString KEY_LANGUAGE2 = "language2";
+const QString KEY_LEARNINGTEMPLATE1 = "learningtemplate1";
+const QString KEY_LEARNINGTEMPLATE2 = "learningtemplate2";
 #ifndef FREE
 const QString KEY_SPEECH1 = "speech1";
 const QString KEY_SPEECH2 = "speech2";
 const QString KEY_VOICE1 = "voice1";
 const QString KEY_VOICE2 = "voice2";
 #endif
+const QString VARIABLE_MARK = "$";
 
 class Vocabulary
 {
     public:
         typedef QList<int> tCategoryIdList;
 
-        static const int SEARCH_NOT_FOUND = -1;
+		enum eFieldLanguage {
+			FieldLanguageUknown,
+			FieldLanguageLeft,
+			FieldLanguageRight
+		}; // eFieldLanguage
+
+		/*enum eFieldType {
+			FieldTypeUnknown,
+			FieldTypeTextEdit
+		}; // eFieldType*/
+
+        static const int NOT_FOUND = -1;
 
         Vocabulary();
 
         const int AddCategory(const QString &pName) const;
-		const void AddWord(const int &pCategoryId) const;
+		const void AddRecord(const int &pCategoryId) const;
 #ifndef FREE
         const bool GetCategoryEnabled(const int &pCategoryId) const;
 #endif
         const tCategoryIdList GetCategoryIds() const;
         const QString GetCategoryName(const int &pCategoryId) const;
-#ifndef FREE
-        const QString GetNote(const int &pRow, const QString &pNote) const;
-        const QString GetNote(const int &pCategoryId, const int &pRow, const QString &pNote) const;
-#endif
-        const int GetRow(const int &pWordId, const int &pCategoryId) const;
+		const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
+		const QString GetDataText(const int &pRecordId, const int &pFieldId) const;
+		const int GetFieldCount() const;
+		const int GetFieldId(const int &pPosition) const;
+		const eFieldLanguage GetFieldLanguage(const int &pPosition) const;
+		const QString GetFieldName(const int &pPosition) const;
+		//const eFieldType GetFieldType(const int &pPosition) const;
+		const int GetRecordCategory(const int &pRecordId) const;
+		const int GetRecordCount() const;
+		const int GetRecordCount(const int &pCategoryId) const;
+		const int GetRecordId(const int &pRow) const;
 		const QString GetSettings(const QString &pKey) const;
         const QString &GetVocabularyFile() const;
-        const QString GetWord(const int &pRow, const QString &pLanguage) const;
-        const QString GetWord(const int &pCategoryId, const int &pRow, const QString &pLanguage) const;
-		const int GetWordCategory(const int &pWordId) const;
-		const int GetWordCount() const;
-        const int GetWordCount(const int &pCategoryId) const;
-        const int GetWordId(const int &pCategoryId, const int &pRow) const;
         const bool IsOpen() const;
 		const void New(const QString &pFilePath);
         const void Open(const QString &pFilePath);
         const void RemoveCategory(const int &pCategoryId) const;
-        const void RemoveWord(const int &pCategoryId, const int &pRow) const;
-        const int Search(const QString &pWord, const int &pStartId) const;
+		const void RemoveRecord(const int &pCategoryId, const int &pRow) const;
 #ifndef FREE
         const void SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const;
-		const void SetNote(const QString &pNote, const int &pCategoryId, const int &pRow, const QString &pLanguage) const;
 #endif
+		const void SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData) const;
 		const void SetSettings(const QString &pKey, const QString &pValue) const;
-		const void SetWord(const QString &pWord, const int &pCategoryId, const int &pRow, const QString &pLanguage) const;
 
     private:
+		enum eColumnPosition {
+			ColumnPosition1,
+			ColumnPosition2
+		}; // eColumnPosition
+
+		enum eFieldAttrbiute {
+			FieldAttributeNone
+		}; // eFieldAttrbiute
+
+		enum eFieldPosition {
+			FieldPosition1,
+			FieldPosition2,
+			FieldPosition3,
+			FieldPosition4
+		}; // eFieldPosition
+
         QSqlDatabase _qsdDatabase;
         QString _qsVocabularyFile;
 
+		const void RemoveRecord(const int &pRecordId) const;
         const void Initialize() const;
 }; // Vocabulary
 
