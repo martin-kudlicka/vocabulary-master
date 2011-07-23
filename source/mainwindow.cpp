@@ -280,8 +280,6 @@ const void MainWindow::on_qaStart_triggered(bool checked /* false */)
 	_iTimerQuestion = startTimer(_sSettings.GetWordsFrequency() * MILISECONDS_PER_SECOND);
 
 	EnableControls();
-    _umwMainWindow.qlLanguage1->setVisible(true);
-    _umwMainWindow.qlLanguage2->setVisible(true);
 
 	timerEvent(&QTimerEvent(_iTimerQuestion));
 } // on_qaStart_triggered
@@ -400,8 +398,20 @@ void MainWindow::timerEvent(QTimerEvent *event)
 	    saAnswer.bDirectionSwitched = GetLearningDirection();
 
         // gui
-        _umwMainWindow.qlLanguage1->setText(GetLanguageText(saAnswer.bDirectionSwitched, false));
-        _umwMainWindow.qlLanguage2->setText(GetLanguageText(saAnswer.bDirectionSwitched, true));
+		QString qsLang1 = GetLanguageText(saAnswer.bDirectionSwitched, false);
+		if (qsLang1.isEmpty()) {
+			_umwMainWindow.qlLanguage1->setVisible(false);
+		} else {
+			_umwMainWindow.qlLanguage1->setVisible(true);
+			_umwMainWindow.qlLanguage1->setText(qsLang1);
+		} // if else
+		QString qsLang2 = GetLanguageText(saAnswer.bDirectionSwitched, true);
+		if (qsLang2.isEmpty()) {
+			_umwMainWindow.qlLanguage2->setVisible(false);
+		} else {
+			_umwMainWindow.qlLanguage2->setVisible(true);
+			_umwMainWindow.qlLanguage2->setText(qsLang2);
+		} // if else
 	    _umwMainWindow.qtbWindow1->setText(GetLearningText(saAnswer.bDirectionSwitched, false));
 	    _umwMainWindow.qtbWindow2->clear();
 
