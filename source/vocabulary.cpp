@@ -31,7 +31,7 @@ const QString TABLE_SETTINGS = "settings";
 
 Vocabulary::~Vocabulary()
 {
-	Close();
+	CloseDatabase();
 } // ~Vocabulary
 
 const int Vocabulary::AddCategory(const QString &pName) const
@@ -54,13 +54,13 @@ const void Vocabulary::AddRecord(const int &pCategoryId) const
 	} // foreach
 } // AddRecord
 
-const void Vocabulary::Close()
+const void Vocabulary::CloseDatabase()
 {
 	if (_qsdDatabase.isOpen()) {
 		_qsdDatabase.commit();
 		_qsdDatabase.close();
 	} // if
-} // Close
+} // CloseDatabase
 
 #ifndef FREE
 const bool Vocabulary::GetCategoryEnabled(const int &pCategoryId) const
@@ -293,16 +293,13 @@ const void Vocabulary::New(const QString &pFilePath)
 {
 	_qsVocabularyFile = pFilePath;
 
-	Close();
+	CloseDatabase();
 
 	if (QFile::exists(pFilePath)) {
 		QFile::remove(pFilePath);
 	} // if
 
-	_qsdDatabase.setDatabaseName(_qsVocabularyFile);
-	_qsdDatabase.open();
-	_qsdDatabase.transaction();
-
+	OpenDatabase();
 	Initialize();
 } // New
 
@@ -314,12 +311,16 @@ const void Vocabulary::Open(const QString &pFilePath)
 
     _qsVocabularyFile = pFilePath;
 
-    Close();
-
-    _qsdDatabase.setDatabaseName(_qsVocabularyFile);
-    _qsdDatabase.open();
-	_qsdDatabase.transaction();
+    CloseDatabase();
+    OpenDatabase();
 } // Open
+
+const void Vocabulary::OpenDatabase()
+{
+	_qsdDatabase.setDatabaseName(_qsVocabularyFile);
+	_qsdDatabase.open();
+	_qsdDatabase.transaction();
+} // OpenDatabase
 
 const void Vocabulary::RemoveCategory(const int &pCategoryId) const
 {

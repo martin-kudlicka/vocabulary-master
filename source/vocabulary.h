@@ -86,9 +86,10 @@ class Vocabulary
         QSqlDatabase _qsdDatabase;
         QString _qsVocabularyFile;
 
-		const void Close();
+		const void CloseDatabase();
+		const void Initialize() const;
+		const void OpenDatabase();
 		const void RemoveRecord(const int &pRecordId) const;
-        const void Initialize() const;
 }; // Vocabulary
 
 #endif // VOCABULARY_H
