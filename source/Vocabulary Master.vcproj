@@ -387,10 +387,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\vocabularymanagerdialog\vocabularyview.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\vocabularymanagerdialog\wordsimportdialog.cpp"
 				>
 				<FileConfiguration
@@ -755,10 +751,6 @@
 						Outputs="&quot;.\..\temp\$(ConfigurationName)\Vocabulary Master\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\vocabularymanagerdialog\vocabularyview.h"
-				>
 			</File>
 			<File
 				RelativePath=".\vocabularymanagerdialog\wordsimportdialog.h"
