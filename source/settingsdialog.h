@@ -14,6 +14,14 @@ class SettingsDialog : public QDialog
 		SettingsDialog(Settings *pSettings, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 	private:
+#ifdef FREE
+		enum eTab {
+			TabGeneral,
+			TabLearning,
+			TabAppearance
+		}; // eTab
+#endif
+
 		Settings *_sSettings;
 		Ui::qdUiSettings _usdSettingsDialog;
 
