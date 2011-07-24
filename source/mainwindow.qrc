@@ -1,5 +1,11 @@
 <RCC>
   <qresource prefix="MainWindow">
+    <file>res/menubar/about.png</file>
+    <file>res/menubar/manage.png</file>
+    <file>res/menubar/open.png</file>
+    <file>res/menubar/new.png</file>
+    <file>res/menubar/settings.png</file>
+    <file>res/menubar/exit.png</file>
     <file>res/mainwindow.png</file>
   </qresource>
 </RCC>
