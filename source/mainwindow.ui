@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Vocabulary Master</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="mainwindow.qrc">
+    <normaloff>:/MainWindow/res/mainwindow.png</normaloff>:/MainWindow/res/mainwindow.png</iconset>
+  </property>
   <widget class="QWidget" name="qwCentral">
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
