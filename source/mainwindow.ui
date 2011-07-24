@@ -134,26 +134,46 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="qaExit">
+   <property name="icon">
+    <iconset resource="mainwindow.qrc">
+     <normaloff>:/MainWindow/res/menubar/exit.png</normaloff>:/MainWindow/res/menubar/exit.png</iconset>
+   </property>
    <property name="text">
     <string>E&amp;xit</string>
    </property>
   </action>
   <action name="qaSettings">
+   <property name="icon">
+    <iconset resource="mainwindow.qrc">
+     <normaloff>:/MainWindow/res/menubar/settings.png</normaloff>:/MainWindow/res/menubar/settings.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Settings...</string>
    </property>
   </action>
   <action name="qaNew">
+   <property name="icon">
+    <iconset resource="mainwindow.qrc">
+     <normaloff>:/MainWindow/res/menubar/new.png</normaloff>:/MainWindow/res/menubar/new.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;New...</string>
    </property>
   </action>
   <action name="qaOpen">
+   <property name="icon">
+    <iconset resource="mainwindow.qrc">
+     <normaloff>:/MainWindow/res/menubar/open.png</normaloff>:/MainWindow/res/menubar/open.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Open...</string>
    </property>
   </action>
   <action name="qaManage">
+   <property name="icon">
+    <iconset resource="mainwindow.qrc">
+     <normaloff>:/MainWindow/res/menubar/manage.png</normaloff>:/MainWindow/res/menubar/manage.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Manage...</string>
    </property>
@@ -187,6 +207,10 @@
    </property>
   </action>
   <action name="qaAbout">
+   <property name="icon">
+    <iconset resource="mainwindow.qrc">
+     <normaloff>:/MainWindow/res/menubar/about.png</normaloff>:/MainWindow/res/menubar/about.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;About...</string>
    </property>
