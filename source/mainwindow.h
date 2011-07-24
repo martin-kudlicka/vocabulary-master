@@ -25,8 +25,10 @@ class MainWindow : public QMainWindow
 
 	private:
 		enum eTemplate {
-			TemplateLearning,
-			TemplateTray
+			TemplateLearning
+#ifndef FREE
+			, TemplateTray
+#endif
 		}; // eTemplate
 
 #ifndef FREE

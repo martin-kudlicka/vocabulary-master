@@ -35,8 +35,10 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 		_umwMainWindow.qlLanguage1->setText(qsLang1);
 		_umwMainWindow.qlLanguage2->setText(qsLang2);
 	} // if
+#ifdef FREE
+	setWindowTitle(windowTitle() + FREE_SUFFIX);
+#else
 
-#ifndef FREE
     if (_sSettings.GetAlwaysOnTop()) {
         setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
     } else {
@@ -115,16 +117,22 @@ const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool
 	if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
 		if (pTemplate == TemplateLearning) {
 			qsTemplate = _vVocabulary.GetSettings(KEY_LEARNINGTEMPLATE1);
-		} else {
+		}
+#ifndef FREE
+		else {
 			qsTemplate = _vVocabulary.GetSettings(KEY_TRAYTEMPLATE1);
 		} // if else
+#endif
 		eflLanguage = Vocabulary::FieldLanguageLeft;
 	} else {
 		if (pTemplate == TemplateLearning) {
 			qsTemplate = _vVocabulary.GetSettings(KEY_LEARNINGTEMPLATE2);
-		} else {
+		}
+#ifndef FREE
+		else {
 			qsTemplate = _vVocabulary.GetSettings(KEY_TRAYTEMPLATE2);
 		} // if else
+#endif
 		eflLanguage = Vocabulary::FieldLanguageRight;
 	} // if else
 
@@ -169,8 +177,6 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 #ifdef FREE
     _umwMainWindow.qaAnswer->deleteLater();
     _umwMainWindow.qaMute->deleteLater();
-
-    setWindowTitle(windowTitle() + FREE_SUFFIX);
 #else
 	CreateTrayMenu();
 #endif
