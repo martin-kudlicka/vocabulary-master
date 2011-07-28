@@ -179,6 +179,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 #else
 	CreateTrayMenu();
 #endif
+    _umwMainWindow.qsbStatusBar->addWidget(&_qlVocabularyStatus);
 
 #ifndef FREE
     // plugins
@@ -193,6 +194,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     ApplySettings(true);
 
     _vVocabulary.Open(_sSettings.GetVocabularyFile());
+    RefreshStatusBar();
 
     // controls
     EnableControls();
@@ -238,6 +240,7 @@ const void MainWindow::on_qaManage_triggered(bool checked /* false */)
     vmdManager.exec();
 
 	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimerQuestion == 0 && _vVocabulary.GetRecordCount() > 0);
+    RefreshStatusBar();
 } // on_qaManage_triggered
 
 #ifndef FREE
@@ -332,7 +335,14 @@ const void MainWindow::on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReas
 		showNormal();
 	} // if
 } // on_qstiTrayIcon_activated
+#endif
 
+const void MainWindow::RefreshStatusBar()
+{
+    _qlVocabularyStatus.setText(QString("%1, %2/%3 records").arg(_vVocabulary.GetName()).arg(_vVocabulary.GetRecordCount(true)).arg(_vVocabulary.GetRecordCount()));
+} // RefreshStatusBar
+
+#ifndef FREE
 const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
     if (!_sSettings.GetMute()) {

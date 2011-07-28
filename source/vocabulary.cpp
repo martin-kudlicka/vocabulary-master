@@ -5,6 +5,7 @@
 #include <QtCore/QVariant>
 #include <QtSql/QSqlRecord>
 #include <QtCore/QFile>
+#include <QtCore/QFileInfo>
 
 const QString COLUMN_ATTRIBUTES = "attributes";
 const QString COLUMN_CATEGORYID = "category_id";
@@ -173,6 +174,11 @@ const QString Vocabulary::GetFieldName(const int &pFieldId) const
 
 	return FieldTypeUnknown;
 } // GetFieldType*/
+
+const QString Vocabulary::GetName() const
+{
+    return QFileInfo(_qsVocabularyFile).completeBaseName();
+} // GetName
 
 const int Vocabulary::GetRecordCategory(const int &pRecordId) const
 {

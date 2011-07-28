@@ -56,6 +56,7 @@ class MainWindow : public QMainWindow
 		QAction *_qaTrayExit;
 #endif
         QHash<int, int> _qhCurrentAnswer;
+        QLabel _qlVocabularyStatus;
 #ifndef FREE
 		QMenu _qmTray;
         QSystemTrayIcon _qstiTrayIcon;
@@ -105,6 +106,7 @@ class MainWindow : public QMainWindow
 		const void on_qmTray_triggered(QAction *action);
 		const void on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason reason);
 #endif
+        const void RefreshStatusBar();
 }; // MainWindow
 
 #endif // MAINWINDOW_H
