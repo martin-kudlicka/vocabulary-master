@@ -221,7 +221,10 @@ const void MainWindow::on_qaAbout_triggered(bool checked /* false */)
 #ifndef FREE
 const void MainWindow::on_qaAnswer_triggered(bool checked /* false */)
 {
-    timerEvent(&QTimerEvent(_iTimerAnswer));
+/*#ifdef _DEBUG
+    qDebug("(Answer) Current word: %d, timer: %d", _iCurrentRecordId, _qhCurrentAnswer.value(_iCurrentRecordId));
+#endif*/
+    timerEvent(&QTimerEvent(_qhCurrentAnswer.value(_iCurrentRecordId)));
 } // on_qaAnswer_triggered
 #endif
 
@@ -407,6 +410,9 @@ void MainWindow::timerEvent(QTimerEvent *event)
                 } // if
 #endif
             } // while
+/*#ifdef _DEBUG
+            qDebug("Current word: %d", _iCurrentRecordId);
+#endif*/
 
             // question parameters
             sAnswer saAnswer;
@@ -465,7 +471,11 @@ void MainWindow::timerEvent(QTimerEvent *event)
 
             // answer timer
             _iTimerAnswer = startTimer(_sSettings.GetWaitForAnswer() * MILISECONDS_PER_SECOND);
+/*#ifdef _DEBUG
+            qDebug("Answer: %d, word: %d, timer: %d", _iTimerAnswer, saAnswer.iWord, _iTimerAnswer);
+#endif*/
             _taHash.insert(_iTimerAnswer, saAnswer);
+            _qhCurrentAnswer.insert(saAnswer.iWord, _iTimerAnswer);
 
 #ifndef FREE
             // answer
@@ -482,6 +492,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 
             sAnswer saAnswer = _taHash.value(event->timerId());
             _taHash.remove(event->timerId());
+            _qhCurrentAnswer.remove(saAnswer.iWord);
 
             if (saAnswer.iWord == _iCurrentRecordId) {
 #ifndef FREE

@@ -54,6 +54,9 @@ class MainWindow : public QMainWindow
 #ifndef FREE
 		Plugins _pPlugins;
 		QAction *_qaTrayExit;
+#endif
+        QHash<int, int> _qhCurrentAnswer;
+#ifndef FREE
 		QMenu _qmTray;
         QSystemTrayIcon _qstiTrayIcon;
 #endif
