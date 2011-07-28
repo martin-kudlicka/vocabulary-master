@@ -58,6 +58,7 @@ class Vocabulary
 		const int GetRecordCategory(const int &pRecordId) const;
 		const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
+        const int GetRecordCount(const bool &pEnabled) const;
 		const int GetRecordId(const int &pRow) const;
 		const int GetRecordId(const int &pCategoryId, const int &pRow) const;
 		const int GetRow(const int &pRecordId, const int &pCategoryId) const;
