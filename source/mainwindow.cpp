@@ -452,7 +452,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 	        if (_sSettings.GetNewWordFlash()) {
                 QString qsStyleSheet = _umwMainWindow.qtbWindow1->styleSheet();
 
-		        for (int iI = 0; iI < FLASH_COUNT; iI++) {
+		        for (int iI = 0; iI < FLASH_COUNT && !_qhCurrentAnswer.contains(_iCurrentRecordId); iI++) {
                     _umwMainWindow.qtbWindow1->setStyleSheet(QString("QAbstractScrollArea { background-color: %1 }").arg(_sSettings.GetColorFlash()));
 			        QTest::qWait(FLASH_WAIT);
                     _umwMainWindow.qtbWindow1->setStyleSheet(qsStyleSheet);
@@ -463,7 +463,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 	        } // if
 
             // speech
-            if (_sSettings.GetNewWordSound()) {
+            if (_sSettings.GetNewWordSound() && !_qhCurrentAnswer.contains(_iCurrentRecordId)) {
                 QTest::qWait(SAY_BEEP_WAIT);
                 Say(saAnswer.bDirectionSwitched, false);
             } // if
