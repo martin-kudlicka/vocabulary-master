@@ -19,19 +19,24 @@
         <translation>Vocabulary Master</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="215"/>
+        <location filename="../mainwindow.cpp" line="216"/>
         <source>About Vocabulary Master</source>
         <translation>O Vocabulary Master</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="250"/>
+        <location filename="../mainwindow.cpp" line="255"/>
         <source>Create new vocabulary</source>
         <translation>Vytvořit nový slovník</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="274"/>
+        <location filename="../mainwindow.cpp" line="279"/>
         <source>Open vocabulary</source>
         <translation>Otevřít slovník</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="340"/>
+        <source>%1, %2/%3 records</source>
+        <translation>%1, %2/%3 záznamů</translation>
     </message>
 </context>
 <context>
@@ -45,7 +50,7 @@
 <context>
     <name>Vocabulary</name>
     <message>
-        <location filename="../vocabulary.cpp" line="24"/>
+        <location filename="../vocabulary.cpp" line="25"/>
         <source>Word</source>
         <translation>Slovíčko</translation>
     </message>

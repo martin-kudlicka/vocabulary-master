@@ -288,9 +288,7 @@ const void MainWindow::on_qaSettings_triggered(bool checked /* false */)
 {
 	SettingsDialog sdDialog(&_sSettings, this);
     if (sdDialog.exec() == QDialog::Accepted) {
-#ifndef FREE
         ApplySettings(false);
-#endif
     } // if
 } // on_qaSettings_triggered
 
@@ -339,7 +337,7 @@ const void MainWindow::on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReas
 
 const void MainWindow::RefreshStatusBar()
 {
-    _qlVocabularyStatus.setText(QString("%1, %2/%3 records").arg(_vVocabulary.GetName()).arg(_vVocabulary.GetRecordCount(true)).arg(_vVocabulary.GetRecordCount()));
+    _qlVocabularyStatus.setText(tr("%1, %2/%3 records").arg(_vVocabulary.GetName()).arg(_vVocabulary.GetRecordCount(true)).arg(_vVocabulary.GetRecordCount()));
 } // RefreshStatusBar
 
 #ifndef FREE
