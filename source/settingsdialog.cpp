@@ -29,7 +29,9 @@ const void SettingsDialog::FillOptions()
     // general
 #ifndef FREE
     _usdSettingsDialog.qcbHorizontalLayout->setChecked(_sSettings->GetHorizontalLayout());
+#endif
     _usdSettingsDialog.qcbAlwaysOnTop->setChecked(_sSettings->GetAlwaysOnTop());
+#ifndef FREE
     _usdSettingsDialog.qcbRememberWindowPosition->setChecked(_sSettings->GetRememberWindowPosition());
     _usdSettingsDialog.qcbSystemTrayIcon->setChecked(_sSettings->GetSystemTrayIcon());
 	on_qcbSystemTrayIcon_stateChanged(_usdSettingsDialog.qcbSystemTrayIcon->checkState());
@@ -105,10 +107,12 @@ const void SettingsDialog::PrepareTranslations()
 
 const void SettingsDialog::SaveOptions()
 {
-#ifndef FREE
     // general
+#ifndef FREE
     _sSettings->SetHorizontalLayout(_usdSettingsDialog.qcbHorizontalLayout->isChecked());
+#endif
     _sSettings->SetAlwaysOnTop(_usdSettingsDialog.qcbAlwaysOnTop->isChecked());
+#ifndef FREE
     _sSettings->SetRememberWindowPosition(_usdSettingsDialog.qcbRememberWindowPosition->isChecked());
     _sSettings->SetSystemTrayIcon(_usdSettingsDialog.qcbSystemTrayIcon->isChecked());
 	_sSettings->SetShowWordsInTrayBalloon(_usdSettingsDialog.qcbShowWordsInTrayBalloon->isChecked());
@@ -142,7 +146,6 @@ SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */,
 #ifdef FREE
     // general
     delete _usdSettingsDialog.qcbHorizontalLayout;
-    delete _usdSettingsDialog.qcbAlwaysOnTop;
     delete _usdSettingsDialog.qcbRememberWindowPosition;
     delete _usdSettingsDialog.qcbSystemTrayIcon;
     delete _usdSettingsDialog.qcbShowWordsInTrayBalloon;

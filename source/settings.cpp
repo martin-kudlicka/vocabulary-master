@@ -3,7 +3,9 @@
 const QString APPLICATION = "Vocabulary Master";
 #ifndef FREE
 const QString DEFAULT_COLORFLASH = "chartreuse";
+#endif
 const QString KEY_ALWAYSONTOP = "AlwaysOnTop";
+#ifndef FREE
 const QString KEY_COLORFLASH = "ColorFlash";
 const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
 const QString KEY_MINIMIZETOTRAY = "MinimizeToTray";
@@ -30,12 +32,12 @@ const QString KEY_WINDOWY = "WindowY";
 const QString KEY_WORDSFREQUENCY = "WordsFrequency";
 const QString ORGANIZATION  = "Isshou";
 
-#ifndef FREE
 const bool Settings::GetAlwaysOnTop() const
 {
     return _qsSettings.value(KEY_ALWAYSONTOP, false).toBool();
 } // GetAlwaysOnTop
 
+#ifndef FREE
 const QString Settings::GetColorFlash() const
 {
     return _qsSettings.value(KEY_COLORFLASH, DEFAULT_COLORFLASH).toString();
@@ -140,12 +142,12 @@ const int Settings::GetWordsFrequency() const
     return _qsSettings.value(KEY_WORDSFREQUENCY, DEFAULT_FREQUENCY).toInt();
 } // GetWordsFrequency
 
-#ifndef FREE
 const void Settings::SetAlwaysOnTop(const bool &pEnable)
 {
     _qsSettings.setValue(KEY_ALWAYSONTOP, pEnable);
 } // SetAlwaysOnTop
 
+#ifndef FREE
 const void Settings::SetColorFlash(const QString &pColor)
 {
     _qsSettings.setValue(KEY_COLORFLASH, pColor);

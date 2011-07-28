@@ -37,13 +37,14 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 	} // if
 #ifdef FREE
 	setWindowTitle(windowTitle() + FREE_SUFFIX);
-#else
+#endif
 
     if (_sSettings.GetAlwaysOnTop()) {
         setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
     } else {
         setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint);
     } // if else
+#ifndef FREE
     if (pStartup && _sSettings.GetWindowX() != Settings::DEFAULT_DIMENSION) {
         setGeometry(_sSettings.GetWindowX(), _sSettings.GetWindowY(), _sSettings.GetWindowWidth(), _sSettings.GetWindowHeight());
     } // if
