@@ -250,7 +250,7 @@
         <location filename="../vocabularymanagerdialog.ui" line="50"/>
         <location filename="../vocabularymanagerdialog.ui" line="103"/>
         <source>Word</source>
-        <translation>Slovíčka</translation>
+        <translation>Slovíčko</translation>
     </message>
     <message>
         <location filename="../vocabularymanagerdialog.ui" line="66"/>
