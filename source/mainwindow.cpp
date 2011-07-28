@@ -174,8 +174,8 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     _umwMainWindow.qlLanguage1->setVisible(false);
     _umwMainWindow.qlLanguage2->setVisible(false);
 #ifdef FREE
-    _umwMainWindow.qaAnswer->deleteLater();
-    _umwMainWindow.qaMute->deleteLater();
+    _umwMainWindow.qaAnswer->setVisible(false);
+    _umwMainWindow.qaMute->setVisible(false);
 #else
 	CreateTrayMenu();
 #endif
