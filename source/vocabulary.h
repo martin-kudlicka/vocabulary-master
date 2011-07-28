@@ -55,6 +55,7 @@ class Vocabulary
 		const eFieldLanguage GetFieldLanguage(const int &pFieldId) const;
 		const QString GetFieldName(const int &pFieldId) const;
 		//const eFieldType GetFieldType(const int &pFieldId) const;
+        const QString GetName() const;
 		const int GetRecordCategory(const int &pRecordId) const;
 		const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
