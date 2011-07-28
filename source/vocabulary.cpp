@@ -201,6 +201,16 @@ const int Vocabulary::GetRecordCount(const int &pCategoryId) const
 	} // if else
 } // GetRecordCount
 
+const int Vocabulary::GetRecordCount(const bool &pEnabled) const
+{
+    QSqlQuery qsqQuery("SELECT " + TABLE_RECORDS + '.' + COLUMN_ID + " FROM " + TABLE_RECORDS + " JOIN " + TABLE_CATEGORIES + " ON " + TABLE_RECORDS + '.' + COLUMN_CATEGORYID + " = " + TABLE_CATEGORIES + '.' + COLUMN_ID + " WHERE " + TABLE_CATEGORIES + '.' + COLUMN_ENABLED + " = " + QString::number(pEnabled));
+    if (qsqQuery.last()) {
+        return qsqQuery.at() + 1;
+    } else {
+        return 0;
+    } // if else
+} // GetRecordCount
+
 const int Vocabulary::GetRecordId(const int &pRow) const
 {
 	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS);
