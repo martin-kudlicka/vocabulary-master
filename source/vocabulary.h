@@ -28,6 +28,9 @@ class Vocabulary
 			FieldLanguageUknown,
 			FieldLanguageLeft,
 			FieldLanguageRight
+#ifndef FREE
+            , FieldLanguageCount
+#endif
 		}; // eFieldLanguage
 
 		/*enum eFieldType {
@@ -43,7 +46,7 @@ class Vocabulary
         const int AddCategory(const QString &pName) const;
 		const void AddRecord(const int &pCategoryId) const;
         const void BeginEdit();
-        const void EndEdit();
+        const void EndEdit(const bool &pSave = true);
 #ifndef FREE
         const bool GetCategoryEnabled(const int &pCategoryId) const;
 #endif
@@ -56,7 +59,11 @@ class Vocabulary
 		const tFieldIdList GetFieldIds() const;
 		const eFieldLanguage GetFieldLanguage(const int &pFieldId) const;
 		const QString GetFieldName(const int &pFieldId) const;
+        const QString GetFieldTemplateName(const int &pFieldId) const;
 		//const eFieldType GetFieldType(const int &pFieldId) const;
+#ifndef FREE
+        const QString GetLanguageName(const eFieldLanguage &pLanguage) const;
+#endif
         const QString GetName() const;
 		const int GetRecordCategory(const int &pRecordId) const;
 		const int GetRecordCount() const;
@@ -77,6 +84,11 @@ class Vocabulary
         const void SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const;
 #endif
 		const void SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData) const;
+#ifndef FREE
+        const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage) const;
+        const void SetFieldName(const int &pFieldId, const QString &pName) const;
+        const void SetFieldTemplateName(const int &pFieldId, const QString &pTemplateName) const;
+#endif
 		const void SetSettings(const QString &pKey, const QString &pValue) const;
 
     private:

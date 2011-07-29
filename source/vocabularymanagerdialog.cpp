@@ -158,7 +158,17 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
         _pPlugins,
 #endif
         this);
-	vsdSettings.exec();
+
+#ifndef FREE
+    _vVocabulary->EndEdit();
+    _vVocabulary->BeginEdit();
+#endif
+    if (vsdSettings.exec() == QDialog::Rejected) {
+#ifndef FREE
+        _vVocabulary->EndEdit(false);
+        _vVocabulary->BeginEdit();
+#endif
+    } // if
 } // on_qpbVocabularySettings_clicked
 
 const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false */)

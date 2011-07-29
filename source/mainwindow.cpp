@@ -142,7 +142,7 @@ const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool
 		if (_vVocabulary.GetFieldLanguage(iFieldId) == eflLanguage) {
 			QString qsData = _vVocabulary.GetDataText(_iCurrentRecordId, iFieldId);
 
-			QString qsField = _vVocabulary.GetFieldName(iFieldId);
+			QString qsField = _vVocabulary.GetFieldTemplateName(iFieldId);
 			qsTemplate.replace(VARIABLE_MARK + qsField, qsData);
 		} // if
 	} // foreach
