@@ -237,6 +237,9 @@
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
             <widget class="QPushButton" name="qpbFieldUp">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="text">
               <string>Up</string>
              </property>
@@ -244,6 +247,9 @@
            </item>
            <item>
             <widget class="QPushButton" name="qpbFieldDown">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="text">
               <string>Down</string>
              </property>
@@ -264,6 +270,9 @@
            </item>
            <item>
             <widget class="QPushButton" name="qpbFieldRemove">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="text">
               <string>Remove</string>
              </property>
