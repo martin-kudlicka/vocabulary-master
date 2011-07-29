@@ -338,7 +338,13 @@ const void MainWindow::on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReas
 
 const void MainWindow::RefreshStatusBar()
 {
-    _qlVocabularyStatus.setText(tr("%1, %2/%3 records").arg(_vVocabulary.GetName()).arg(_vVocabulary.GetRecordCount(true)).arg(_vVocabulary.GetRecordCount()));
+    QString qsInfo;
+#ifdef FREE
+    qsInfo = QString("%1, %2").arg(_vVocabulary.GetName()).arg(_vVocabulary.GetRecordCount());
+#else
+    qsInfo = QString("%1, %2/%3").arg(_vVocabulary.GetName()).arg(_vVocabulary.GetRecordCount(true)).arg(_vVocabulary.GetRecordCount());
+#endif
+    _qlVocabularyStatus.setText(tr("%1 records").arg(qsInfo));
 } // RefreshStatusBar
 
 #ifndef FREE
