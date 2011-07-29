@@ -3,9 +3,12 @@
 
 #include <ui_vocabularysettingsdialog.h>
 
-#include "vocabulary.h"
-#ifndef FREE
+#ifdef FREE
+# include "vocabulary.h"
+#else
+# include "vocabularymanagerdialog/vocabularysettingsdialog/fieldsmodel.h"
 # include "plugins.h"
+# include "vocabularymanagerdialog/vocabularysettingsdialog/languagefielddelegate.h"
 #endif
 
 class VocabularySettingsDialog : public QDialog
@@ -23,7 +26,8 @@ class VocabularySettingsDialog : public QDialog
 #ifdef FREE
 		enum eTab {
 			TabLanguages,
-			TabTemplates
+			TabTemplates,
+            TabFields
 		}; // eTab
 #else
 		struct sSpeechVoice {
@@ -33,6 +37,8 @@ class VocabularySettingsDialog : public QDialog
 
 		typedef QList<sSpeechVoice> tVoices;
 
+        FieldsModel _fmFieldsModel;
+        LanguageFieldDelegate _lfdLanguageDelegate;
 		const Plugins *_pPlugins;
 		tVoices _tvVoiceList;
 #endif

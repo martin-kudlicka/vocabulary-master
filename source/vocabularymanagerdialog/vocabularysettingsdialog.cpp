@@ -97,6 +97,9 @@ VocabularySettingsDialog::VocabularySettingsDialog(const Vocabulary *pVocabulary
     const Plugins *pPlugins,
 #endif
     QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
+#ifndef FREE
+    , _fmFieldsModel(pVocabulary), _lfdLanguageDelegate(pVocabulary)
+#endif
 {
 	_vVocabulary = pVocabulary;
 #ifndef FREE
@@ -107,8 +110,11 @@ VocabularySettingsDialog::VocabularySettingsDialog(const Vocabulary *pVocabulary
 #ifdef FREE
     delete _qdvsdVocabularySettingsDialog.qgbSpeech;
 	_qdvsdVocabularySettingsDialog.qtwTabs->removeTab(TabTemplates);
-
+    _qdvsdVocabularySettingsDialog.qtwTabs->removeTab(TabFields);
 #else
+    _qdvsdVocabularySettingsDialog.qtvFields->setModel(&_fmFieldsModel);
+    _qdvsdVocabularySettingsDialog.qtvFields->setItemDelegateForColumn(FieldsModel::ColumnLanguage, &_lfdLanguageDelegate);
+
 	PreparePlugins();
 #endif
 	FillOptions();

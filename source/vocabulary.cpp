@@ -69,9 +69,13 @@ const void Vocabulary::CloseDatabase()
 	} // if
 } // CloseDatabase
 
-const void Vocabulary::EndEdit()
+const void Vocabulary::EndEdit(const bool &pSave /* true */)
 {
-    _qsdDatabase.commit();
+    if (pSave) {
+        _qsdDatabase.commit();
+    } else {
+        _qsdDatabase.rollback();
+    } // if else
 } // EndEdit
 
 #ifndef FREE
@@ -175,6 +179,16 @@ const QString Vocabulary::GetFieldName(const int &pFieldId) const
 	return QString();
 } // GetFieldName
 
+const QString Vocabulary::GetFieldTemplateName(const int &pFieldId) const
+{
+    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_TEMPLATENAME + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+    if (qsqQuery.next()) {
+        return qsqQuery.value(ColumnPosition1).toString();
+    } // while
+
+    return QString();
+} // GetFieldTemplateName
+
 /*const Vocabulary::eFieldType Vocabulary::GetFieldType(const int &pFieldId) const
 {
 	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_TYPE + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
@@ -184,6 +198,20 @@ const QString Vocabulary::GetFieldName(const int &pFieldId) const
 
 	return FieldTypeUnknown;
 } // GetFieldType*/
+
+#ifndef FREE
+const QString Vocabulary::GetLanguageName(const eFieldLanguage &pLanguage) const
+{
+    switch (pLanguage) {
+        case FieldLanguageLeft:
+            return GetSettings(KEY_LANGUAGE1);
+        case FieldLanguageRight:
+            return GetSettings(KEY_LANGUAGE2);
+        default:
+            return QString();
+    } // switch
+} // GetLanguageName
+#endif
 
 const QString Vocabulary::GetName() const
 {
@@ -420,6 +448,23 @@ const void Vocabulary::SetDataText(const int &pCategoryId, const int &pRow, cons
 
 	_qsdDatabase.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_TEXT + " = '" + pData + "' WHERE " + COLUMN_ID + " = " + QString::number(iDataId));
 } // SetDataText
+
+#ifndef FREE
+const void Vocabulary::SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage) const
+{
+    _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_LANGUAGE + " = '" + QString::number(pLanguage) + "' WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+} // SetFieldLanguage
+
+const void Vocabulary::SetFieldName(const int &pFieldId, const QString &pName) const
+{
+    _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_NAME + " = '" + pName + "' WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+} // SetFieldName
+
+const void Vocabulary::SetFieldTemplateName(const int &pFieldId, const QString &pTemplateName) const
+{
+    _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_TEMPLATENAME + " = '" + pTemplateName + "' WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+} // SetFieldTemplateName
+#endif
 
 const void Vocabulary::SetSettings(const QString &pKey, const QString &pValue) const
 {
