@@ -169,6 +169,11 @@ const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false 
 
 	qtvVocabularyView->setCurrentIndex(vmVocabularyModel->index(vmVocabularyModel->rowCount() - 1, 0));
 	qtvVocabularyView->setFocus(Qt::OtherFocusReason);
+
+    if (!_qdvmVocabularyManager.qglLeft->isEmpty()) {
+        QLayoutItem *qliControl = _qdvmVocabularyManager.qglLeft->itemAtPosition(0, EditorColumnLeftControl);
+        qliControl->widget()->setFocus(Qt::OtherFocusReason);
+    } // if
 } // on_qpbWordAdd_clicked
 
 #ifndef FREE
