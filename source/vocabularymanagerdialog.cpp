@@ -11,6 +11,11 @@
 
 const char *PROPERTY_COLUMN = "Column";
 
+VocabularyManagerDialog::~VocabularyManagerDialog()
+{
+    _vVocabulary->EndEdit();
+} // ~VocabularyManagerDialog
+
 const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
 {
     QTableView *qtvTableView = new QTableView(_qdvmVocabularyManager.vtwTabs);
@@ -263,7 +268,7 @@ const void VocabularyManagerDialog::UpdateEditor(const QGridLayout *pGridLayout,
 	} // for
 } // UpdateEditor
 
-VocabularyManagerDialog::VocabularyManagerDialog(const Vocabulary *pVocabulary,
+VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *pVocabulary,
 #ifndef FREE
     const Plugins *pPlugins,
 #endif
@@ -288,4 +293,6 @@ VocabularyManagerDialog::VocabularyManagerDialog(const Vocabulary *pVocabulary,
 	_qdvmVocabularyManager.qpbWordAdd->setEnabled(_qdvmVocabularyManager.vtwTabs->currentWidget());
 
     connect(_qdvmVocabularyManager.vtwTabs, SIGNAL(TabEnableChanged(const int &, const Qt::CheckState &)), SLOT(on_vtwTabs_TabEnableChanged(const int &, const Qt::CheckState &)));
+
+    pVocabulary->BeginEdit();
 } // VocabularyManagerDialog

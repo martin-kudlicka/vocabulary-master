@@ -42,6 +42,8 @@ class Vocabulary
 
         const int AddCategory(const QString &pName) const;
 		const void AddRecord(const int &pCategoryId) const;
+        const void BeginEdit();
+        const void EndEdit();
 #ifndef FREE
         const bool GetCategoryEnabled(const int &pCategoryId) const;
 #endif

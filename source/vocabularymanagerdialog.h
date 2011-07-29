@@ -13,7 +13,8 @@ class VocabularyManagerDialog : public QDialog
     Q_OBJECT
 
     public:
-        VocabularyManagerDialog(const Vocabulary *pVocabulary,
+        ~VocabularyManagerDialog();
+        VocabularyManagerDialog(Vocabulary *pVocabulary,
 #ifndef FREE
             const Plugins *pPlugins,
 #endif
@@ -32,7 +33,7 @@ class VocabularyManagerDialog : public QDialog
 #endif
         QList<int> _qlCategories;
         Ui::qdVocabularyManager _qdvmVocabularyManager;
-        const Vocabulary *_vVocabulary;
+        Vocabulary *_vVocabulary;
 
         const void AddTab(const int &pCategoryId);
 		const void InitEditor();
