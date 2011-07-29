@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="mainwindow.qrc">
-    <normaloff>:/MainWindow/res/mainwindow.png</normaloff>:/MainWindow/res/mainwindow.png</iconset>
+    <normaloff>:/MainWindow/res/mainwindow/mainwindow.png</normaloff>:/MainWindow/res/mainwindow/mainwindow.png</iconset>
   </property>
   <widget class="QWidget" name="qwCentral">
    <widget class="QWidget" name="layoutWidget">
@@ -142,7 +142,7 @@
   <action name="qaExit">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/MainWindow/res/menubar/exit.png</normaloff>:/MainWindow/res/menubar/exit.png</iconset>
+     <normaloff>:/MainWindow/res/mainwindow/menubar/exit.png</normaloff>:/MainWindow/res/mainwindow/menubar/exit.png</iconset>
    </property>
    <property name="text">
     <string>E&amp;xit</string>
@@ -151,7 +151,7 @@
   <action name="qaSettings">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/MainWindow/res/menubar/settings.png</normaloff>:/MainWindow/res/menubar/settings.png</iconset>
+     <normaloff>:/MainWindow/res/mainwindow/menubar/settings.png</normaloff>:/MainWindow/res/mainwindow/menubar/settings.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Settings...</string>
@@ -160,7 +160,7 @@
   <action name="qaNew">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/MainWindow/res/menubar/new.png</normaloff>:/MainWindow/res/menubar/new.png</iconset>
+     <normaloff>:/MainWindow/res/mainwindow/menubar/new.png</normaloff>:/MainWindow/res/mainwindow/menubar/new.png</iconset>
    </property>
    <property name="text">
     <string>&amp;New...</string>
@@ -169,7 +169,7 @@
   <action name="qaOpen">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/MainWindow/res/menubar/open.png</normaloff>:/MainWindow/res/menubar/open.png</iconset>
+     <normaloff>:/MainWindow/res/mainwindow/menubar/open.png</normaloff>:/MainWindow/res/mainwindow/menubar/open.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Open...</string>
@@ -178,7 +178,7 @@
   <action name="qaManage">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/MainWindow/res/menubar/manage.png</normaloff>:/MainWindow/res/menubar/manage.png</iconset>
+     <normaloff>:/MainWindow/res/mainwindow/menubar/manage.png</normaloff>:/MainWindow/res/mainwindow/menubar/manage.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Manage...</string>
@@ -187,7 +187,7 @@
   <action name="qaStart">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/MainWindow/res/toolbar/play.png</normaloff>:/MainWindow/res/toolbar/play.png</iconset>
+     <normaloff>:/MainWindow/res/mainwindow/toolbar/play.png</normaloff>:/MainWindow/res/mainwindow/toolbar/play.png</iconset>
    </property>
    <property name="text">
     <string>Start</string>
@@ -196,7 +196,7 @@
   <action name="qaStop">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/MainWindow/res/toolbar/stop.png</normaloff>:/MainWindow/res/toolbar/stop.png</iconset>
+     <normaloff>:/MainWindow/res/mainwindow/toolbar/stop.png</normaloff>:/MainWindow/res/mainwindow/toolbar/stop.png</iconset>
    </property>
    <property name="text">
     <string>Stop</string>
@@ -205,7 +205,7 @@
   <action name="qaNext">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/MainWindow/res/toolbar/next.png</normaloff>:/MainWindow/res/toolbar/next.png</iconset>
+     <normaloff>:/MainWindow/res/mainwindow/toolbar/next.png</normaloff>:/MainWindow/res/mainwindow/toolbar/next.png</iconset>
    </property>
    <property name="text">
     <string>Next</string>
@@ -217,7 +217,7 @@
    </property>
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/MainWindow/res/toolbar/mute.png</normaloff>:/MainWindow/res/toolbar/mute.png</iconset>
+     <normaloff>:/MainWindow/res/mainwindow/toolbar/mute.png</normaloff>:/MainWindow/res/mainwindow/toolbar/mute.png</iconset>
    </property>
    <property name="text">
     <string>Mute</string>
@@ -226,7 +226,7 @@
   <action name="qaAnswer">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/MainWindow/res/toolbar/answer.png</normaloff>:/MainWindow/res/toolbar/answer.png</iconset>
+     <normaloff>:/MainWindow/res/mainwindow/toolbar/answer.png</normaloff>:/MainWindow/res/mainwindow/toolbar/answer.png</iconset>
    </property>
    <property name="text">
     <string>Answer</string>
@@ -235,7 +235,7 @@
   <action name="qaAbout">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/MainWindow/res/menubar/about.png</normaloff>:/MainWindow/res/menubar/about.png</iconset>
+     <normaloff>:/MainWindow/res/mainwindow/menubar/about.png</normaloff>:/MainWindow/res/mainwindow/menubar/about.png</iconset>
    </property>
    <property name="text">
     <string>&amp;About...</string>
