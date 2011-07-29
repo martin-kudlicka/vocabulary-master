@@ -45,6 +45,20 @@ const void VocabularySettingsDialog::FillSpeech(QComboBox *pComboBox, const QStr
     pComboBox->setItemData(pComboBox->count() - 1, _tvVoiceList.size() - 1);
 } // FillSpeech
 
+const void VocabularySettingsDialog::on_qpbFieldRemove_clicked(bool checked /* false */) const
+{
+	FieldsModel *fmFields = qobject_cast<FieldsModel *>(_qdvsdVocabularySettingsDialog.qtvFields->model());
+	const QItemSelectionModel *qismSelection = _qdvsdVocabularySettingsDialog.qtvFields->selectionModel();
+	fmFields->RemoveRow(qismSelection->currentIndex().row());
+} // on_qpbFieldRemove_clicked
+
+const void VocabularySettingsDialog::on_qtvFieldsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
+{
+	const QItemSelectionModel *qismSelection = _qdvsdVocabularySettingsDialog.qtvFields->selectionModel();
+
+	_qdvsdVocabularySettingsDialog.qpbFieldRemove->setEnabled(qismSelection->hasSelection());
+} // on_qtvFieldsSelectionModel_selectionChanged
+
 const void VocabularySettingsDialog::PreparePlugins()
 {
     PrepareSpeechPlugins(_qdvsdVocabularySettingsDialog.qcbSpeechLeft);
@@ -114,6 +128,7 @@ VocabularySettingsDialog::VocabularySettingsDialog(const Vocabulary *pVocabulary
 #else
     _qdvsdVocabularySettingsDialog.qtvFields->setModel(&_fmFieldsModel);
     _qdvsdVocabularySettingsDialog.qtvFields->setItemDelegateForColumn(FieldsModel::ColumnLanguage, &_lfdLanguageDelegate);
+	connect(_qdvsdVocabularySettingsDialog.qtvFields->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvFieldsSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 
 	PreparePlugins();
 #endif

@@ -78,6 +78,9 @@ class Vocabulary
 		const void New(const QString &pFilePath);
         const void Open(const QString &pFilePath);
         const void RemoveCategory(const int &pCategoryId) const;
+#ifndef FREE
+		const void RemoveField(const int &pFieldId) const;
+#endif
 		const void RemoveRecord(const int &pCategoryId, const int &pRow) const;
 		const int Search(const QString &pWord, const int &pStartId) const;
 #ifndef FREE

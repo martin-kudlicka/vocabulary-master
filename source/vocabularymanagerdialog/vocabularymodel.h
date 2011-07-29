@@ -11,6 +11,7 @@ class VocabularyModel : public QAbstractTableModel
     public:
         VocabularyModel(const Vocabulary *pVocabulary, const int &pCategoryId, QObject *pParent = NULL);
 
+		int columnCount(const QModelIndex &parent = QModelIndex()) const;
 		const void InsertRow(const int &pRow);
         const void RemoveRow(const int &pRow);
         int rowCount(const QModelIndex &parent = QModelIndex()) const;
@@ -20,7 +21,6 @@ class VocabularyModel : public QAbstractTableModel
         int _iCategoryId;
         const Vocabulary *_vVocabulary;
 
-        int columnCount(const QModelIndex &parent = QModelIndex()) const;
         QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
         QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 }; // VocabularyModel

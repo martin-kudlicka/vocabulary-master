@@ -34,12 +34,14 @@ QVariant FieldsModel::headerData(int section, Qt::Orientation orientation, int r
 
 QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
+	int iFieldId = _vVocabulary->GetFieldId(index.row());
+
     switch (index.column()) {
         case ColumnTemplateName:
             switch (role) {
                 case Qt::DisplayRole:
                 case Qt::EditRole:
-                    return _vVocabulary->GetFieldTemplateName(index.row() + 1);
+                    return _vVocabulary->GetFieldTemplateName(iFieldId);
                 default:
                     return QVariant();
             } // switch
@@ -47,16 +49,16 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
             switch (role) {
                 case Qt::DisplayRole:
                 case Qt::EditRole:
-                    return _vVocabulary->GetFieldName(index.row() + 1);
+                    return _vVocabulary->GetFieldName(iFieldId);
                 default:
                     return QVariant();
             } // switch
         case ColumnLanguage:
             switch (role) {
                 case Qt::DisplayRole:
-                    return _vVocabulary->GetLanguageName(_vVocabulary->GetFieldLanguage(index.row() + 1));
+                    return _vVocabulary->GetLanguageName(_vVocabulary->GetFieldLanguage(iFieldId));
                 case Qt::EditRole:
-                    return _vVocabulary->GetFieldLanguage(index.row() + 1);
+                    return _vVocabulary->GetFieldLanguage(iFieldId);
                 default:
                     return QVariant();
             } // switch
@@ -64,6 +66,14 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
             return QVariant();
     } // switch
 } // data
+
+const void FieldsModel::RemoveRow(const int &pRow)
+{
+	beginRemoveRows(QModelIndex(), pRow, pRow);
+	int iFieldId = _vVocabulary->GetFieldId(pRow);
+	_vVocabulary->RemoveField(iFieldId);
+	endRemoveRows();
+} // RemoveRow
 
 int FieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {

@@ -53,6 +53,12 @@ class VocabularySettingsDialog : public QDialog
 		const void PrepareSpeechPlugins(QComboBox *pComboBox);
 #endif
 		const void SaveOptions();
+
+#ifndef FREE
+	private slots:
+		const void on_qpbFieldRemove_clicked(bool checked = false) const;
+		const void on_qtvFieldsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
+#endif
 }; // VocabularySettingsDialog
 
 #endif // VOCABULARYSETTINGSDIALOG_H
