@@ -57,13 +57,22 @@ const void Vocabulary::AddRecord(const int &pCategoryId) const
 	} // foreach
 } // AddRecord
 
+const void Vocabulary::BeginEdit()
+{
+    _qsdDatabase.transaction();
+} // BeginEdit
+
 const void Vocabulary::CloseDatabase()
 {
 	if (_qsdDatabase.isOpen()) {
-		_qsdDatabase.commit();
 		_qsdDatabase.close();
 	} // if
 } // CloseDatabase
+
+const void Vocabulary::EndEdit()
+{
+    _qsdDatabase.commit();
+} // EndEdit
 
 #ifndef FREE
 const bool Vocabulary::GetCategoryEnabled(const int &pCategoryId) const
@@ -337,7 +346,6 @@ const void Vocabulary::OpenDatabase()
 {
 	_qsdDatabase.setDatabaseName(_qsVocabularyFile);
 	_qsdDatabase.open();
-	_qsdDatabase.transaction();
 } // OpenDatabase
 
 const void Vocabulary::RemoveCategory(const int &pCategoryId) const
