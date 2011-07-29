@@ -388,6 +388,14 @@ const void Vocabulary::RemoveCategory(const int &pCategoryId) const
     _qsdDatabase.exec("DELETE FROM " + TABLE_CATEGORIES + " WHERE " + COLUMN_ID + " = " + QString::number(pCategoryId));
 } // RemoveCategory
 
+#ifndef FREE
+const void Vocabulary::RemoveField(const int &pFieldId) const
+{
+	_qsdDatabase.exec("DELETE FROM " + TABLE_DATA + " WHERE " + COLUMN_FIELDID + " = " + QString::number(pFieldId));
+	_qsdDatabase.exec("DELETE FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+} // RemoveField
+#endif
+
 const void Vocabulary::RemoveRecord(const int &pCategoryId, const int &pRow) const
 {
 	// find record

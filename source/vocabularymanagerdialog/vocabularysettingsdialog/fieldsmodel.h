@@ -19,6 +19,8 @@ class FieldsModel : public QAbstractTableModel
 
         FieldsModel(const Vocabulary *pVocabulary, QObject *pParent = NULL);
 
+		const void RemoveRow(const int &pRow);
+
     private:
         const Vocabulary *_vVocabulary;
 

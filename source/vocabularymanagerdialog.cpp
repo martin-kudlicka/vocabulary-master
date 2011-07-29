@@ -2,7 +2,6 @@
 
 #include <QtGui/QInputDialog>
 #include "vocabularymanagerdialog/vocabularymodel.h"
-#include <QtGui/QTableView>
 #include "vocabularymanagerdialog/vocabularysettingsdialog.h"
 #ifndef FREE
 # include "vocabularymanagerdialog/wordsimportdialog.h"
@@ -23,9 +22,7 @@ const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
     qtvTableView->setModel(new VocabularyModel(_vVocabulary, pCategoryId, qtvTableView));
 	connect(qtvTableView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvTableViewSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 
-    for (int iColumn = 0; iColumn < qtvTableView->horizontalHeader()->count(); iColumn++) {
-	    qtvTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Stretch);
-    } // for
+    StretchColumns(qtvTableView);
 
     VocabularyTabWidget *vtwTabs = _qdvmVocabularyManager.vtwTabs;
     int iTab = vtwTabs->addTab(qtvTableView, _vVocabulary->GetCategoryName(pCategoryId)
@@ -37,6 +34,19 @@ const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
     vtwTabs->setTabEnabled(iTab, _vVocabulary->GetCategoryEnabled(pCategoryId));
 #endif
 } // AddTab
+
+#ifndef FREE
+const int VocabularyManagerDialog::GetColumnCount() const
+{
+	QTableView *qtvVocabularyView = qobject_cast<QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
+	if (qtvVocabularyView) {
+		const VocabularyModel *vmVocabularyModel = qobject_cast<VocabularyModel *>(qtvVocabularyView->model());
+		return vmVocabularyModel->columnCount();
+	} else {
+		return COLUMNS_NONE;
+	} // if else
+} // GetColumnCount
+#endif
 
 const void VocabularyManagerDialog::InitEditor()
 {
@@ -160,15 +170,30 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
         this);
 
 #ifndef FREE
+	int iOldColumnCount = GetColumnCount();
+
     _vVocabulary->EndEdit();
     _vVocabulary->BeginEdit();
 #endif
-    if (vsdSettings.exec() == QDialog::Rejected) {
+    if (vsdSettings.exec() == QDialog::Accepted) {
+#ifndef FREE
+		if (iOldColumnCount != GetColumnCount()) {
+			// reassign models to refresh column count
+			for (int iTab = 0; iTab < _qdvmVocabularyManager.vtwTabs->count(); iTab++) {
+				QTableView *qtvVocabularyView = qobject_cast<QTableView *>(_qdvmVocabularyManager.vtwTabs->widget(iTab));
+				VocabularyModel *vmVocabularyModel = qobject_cast<VocabularyModel *>(qtvVocabularyView->model());
+				qtvVocabularyView->setModel(NULL);
+				qtvVocabularyView->setModel(vmVocabularyModel);
+				StretchColumns(qtvVocabularyView);
+			} // for
+		} // if
+#endif
+	} else {
 #ifndef FREE
         _vVocabulary->EndEdit(false);
         _vVocabulary->BeginEdit();
 #endif
-    } // if
+    } // if else
 } // on_qpbVocabularySettings_clicked
 
 const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false */)
@@ -239,6 +264,13 @@ const void VocabularyManagerDialog::SelectFirstEnabledTab()
     } // for
 } // SelectFirstEnabledTab
 #endif
+
+const void VocabularyManagerDialog::StretchColumns(const QTableView *pTableView) const
+{
+	for (int iColumn = 0; iColumn < pTableView->horizontalHeader()->count(); iColumn++) {
+		pTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Stretch);
+	} // for
+} // StretchColumns
 
 const void VocabularyManagerDialog::UpdateEditor() const
 {

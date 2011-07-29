@@ -7,6 +7,7 @@
 #ifndef FREE
 # include "plugins.h"
 #endif
+#include <QtGui/QTableView>
 
 class VocabularyManagerDialog : public QDialog
 {
@@ -29,6 +30,8 @@ class VocabularyManagerDialog : public QDialog
 		}; // eEditorColumn
 
 #ifndef FREE
+		static const int COLUMNS_NONE = -1;
+
 		const Plugins *_pPlugins;
 #endif
         QList<int> _qlCategories;
@@ -36,11 +39,15 @@ class VocabularyManagerDialog : public QDialog
         Vocabulary *_vVocabulary;
 
         const void AddTab(const int &pCategoryId);
+#ifndef FREE
+		const int GetColumnCount() const;
+#endif
 		const void InitEditor();
         const void InitTabs();
 #ifndef FREE
         const void SelectFirstEnabledTab();
 #endif
+		const void StretchColumns(const QTableView *pTableView) const;
 		const void UpdateEditor() const;
 		const void UpdateEditor(const QGridLayout *pGridLayout, const eEditorColumn &pControlsColumn) const;
 
