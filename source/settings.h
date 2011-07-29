@@ -11,8 +11,8 @@ class Settings
 
 		Settings();
 
-#ifndef FREE
         const bool GetAlwaysOnTop() const;
+#ifndef FREE
         const QString GetColorFlash() const;
         const bool GetHorizontalLayout() const;
         const bool GetMinimizeToTray() const;
@@ -37,8 +37,8 @@ class Settings
 		const int GetWindowY() const;
 #endif
         const int GetWordsFrequency() const;
-#ifndef FREE
         const void SetAlwaysOnTop(const bool &pEnable);
+#ifndef FREE
         const void SetColorFlash(const QString &pColor);
         const void SetHorizontalLayout(const bool &pEnable);
 		const void SetMinimizeToTray(const bool &pEnable);
