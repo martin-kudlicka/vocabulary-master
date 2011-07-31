@@ -45,17 +45,34 @@ const void VocabularySettingsDialog::FillSpeech(QComboBox *pComboBox, const QStr
     pComboBox->setItemData(pComboBox->count() - 1, _tvVoiceList.size() - 1);
 } // FillSpeech
 
-const void VocabularySettingsDialog::on_qpbFieldRemove_clicked(bool checked /* false */) const
+const void VocabularySettingsDialog::on_qpbFieldDown_clicked(bool checked /* false */)
 {
-	FieldsModel *fmFields = qobject_cast<FieldsModel *>(_qdvsdVocabularySettingsDialog.qtvFields->model());
+	QModelIndex qmiCurrent = _qdvsdVocabularySettingsDialog.qtvFields->currentIndex();
+	_fmFieldsModel.Swap(qmiCurrent.row(), qmiCurrent.row() + 1);
+
+	_qdvsdVocabularySettingsDialog.qtvFields->setCurrentIndex(_fmFieldsModel.index(qmiCurrent.row() + 1, qmiCurrent.column()));
+} // on_qpbFieldDown_clicked
+
+const void VocabularySettingsDialog::on_qpbFieldRemove_clicked(bool checked /* false */)
+{
 	const QItemSelectionModel *qismSelection = _qdvsdVocabularySettingsDialog.qtvFields->selectionModel();
-	fmFields->RemoveRow(qismSelection->currentIndex().row());
+	_fmFieldsModel.RemoveRow(qismSelection->currentIndex().row());
 } // on_qpbFieldRemove_clicked
+
+const void VocabularySettingsDialog::on_qpbFieldUp_clicked(bool checked /* false */)
+{
+	QModelIndex qmiCurrent = _qdvsdVocabularySettingsDialog.qtvFields->currentIndex();
+	_fmFieldsModel.Swap(qmiCurrent.row(), qmiCurrent.row() - 1);
+
+	_qdvsdVocabularySettingsDialog.qtvFields->setCurrentIndex(_fmFieldsModel.index(qmiCurrent.row() - 1, qmiCurrent.column()));
+} // on_qpbFieldUp_clicked
 
 const void VocabularySettingsDialog::on_qtvFieldsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
 	const QItemSelectionModel *qismSelection = _qdvsdVocabularySettingsDialog.qtvFields->selectionModel();
 
+	_qdvsdVocabularySettingsDialog.qpbFieldUp->setEnabled(qismSelection->hasSelection() && _qdvsdVocabularySettingsDialog.qtvFields->currentIndex().row() > 0);
+	_qdvsdVocabularySettingsDialog.qpbFieldDown->setEnabled(qismSelection->hasSelection() && _qdvsdVocabularySettingsDialog.qtvFields->currentIndex().row() < _qdvsdVocabularySettingsDialog.qtvFields->model()->rowCount() - 1);
 	_qdvsdVocabularySettingsDialog.qpbFieldRemove->setEnabled(qismSelection->hasSelection());
 } // on_qtvFieldsSelectionModel_selectionChanged
 

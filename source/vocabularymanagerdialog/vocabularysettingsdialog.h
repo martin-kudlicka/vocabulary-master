@@ -56,7 +56,9 @@ class VocabularySettingsDialog : public QDialog
 
 #ifndef FREE
 	private slots:
-		const void on_qpbFieldRemove_clicked(bool checked = false) const;
+		const void on_qpbFieldDown_clicked(bool checked = false);
+		const void on_qpbFieldRemove_clicked(bool checked = false);
+		const void on_qpbFieldUp_clicked(bool checked = false);
 		const void on_qtvFieldsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
 #endif
 }; // VocabularySettingsDialog

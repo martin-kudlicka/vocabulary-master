@@ -1,14 +1,49 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog/fieldsmodel.h"
 
-FieldsModel::FieldsModel(const Vocabulary *pVocabulary, QObject *pParent /* NULL */)
-{
-    _vVocabulary = pVocabulary;
-} // FieldsModel
-
 int FieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return ColumnCount;
 } // columnCount
+
+QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
+{
+	int iFieldId = _vVocabulary->GetFieldId(index.row());
+
+	switch (index.column()) {
+		case ColumnTemplateName:
+			switch (role) {
+		case Qt::DisplayRole:
+		case Qt::EditRole:
+			return _vVocabulary->GetFieldTemplateName(iFieldId);
+		default:
+			return QVariant();
+			} // switch
+		case ColumnName:
+			switch (role) {
+		case Qt::DisplayRole:
+		case Qt::EditRole:
+			return _vVocabulary->GetFieldName(iFieldId);
+		default:
+			return QVariant();
+			} // switch
+		case ColumnLanguage:
+			switch (role) {
+		case Qt::DisplayRole:
+			return _vVocabulary->GetLanguageName(_vVocabulary->GetFieldLanguage(iFieldId));
+		case Qt::EditRole:
+			return _vVocabulary->GetFieldLanguage(iFieldId);
+		default:
+			return QVariant();
+			} // switch
+		default:
+			return QVariant();
+	} // switch
+} // data
+
+FieldsModel::FieldsModel(const Vocabulary *pVocabulary, QObject *pParent /* NULL */) : QAbstractItemModel(pParent)
+{
+	_vVocabulary = pVocabulary;
+} // FieldsModel
 
 Qt::ItemFlags FieldsModel::flags(const QModelIndex &index) const
 {
@@ -32,40 +67,15 @@ QVariant FieldsModel::headerData(int section, Qt::Orientation orientation, int r
     } // switch
 } // headerData
 
-QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
+QModelIndex FieldsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
-	int iFieldId = _vVocabulary->GetFieldId(index.row());
+	return createIndex(row, column);
+} // index
 
-    switch (index.column()) {
-        case ColumnTemplateName:
-            switch (role) {
-                case Qt::DisplayRole:
-                case Qt::EditRole:
-                    return _vVocabulary->GetFieldTemplateName(iFieldId);
-                default:
-                    return QVariant();
-            } // switch
-        case ColumnName:
-            switch (role) {
-                case Qt::DisplayRole:
-                case Qt::EditRole:
-                    return _vVocabulary->GetFieldName(iFieldId);
-                default:
-                    return QVariant();
-            } // switch
-        case ColumnLanguage:
-            switch (role) {
-                case Qt::DisplayRole:
-                    return _vVocabulary->GetLanguageName(_vVocabulary->GetFieldLanguage(iFieldId));
-                case Qt::EditRole:
-                    return _vVocabulary->GetFieldLanguage(iFieldId);
-                default:
-                    return QVariant();
-            } // switch
-        default:
-            return QVariant();
-    } // switch
-} // data
+QModelIndex FieldsModel::parent(const QModelIndex &index) const
+{
+	return QModelIndex();
+} // parent
 
 const void FieldsModel::RemoveRow(const int &pRow)
 {
@@ -104,3 +114,13 @@ bool FieldsModel::setData(const QModelIndex &index, const QVariant &value, int r
     emit dataChanged(index, index);
     return true;
 } // setData
+
+const void FieldsModel::Swap(const int &pSourceRow, const int &pDestinationRow)
+{
+	int iSourceFieldId = _vVocabulary->GetFieldId(pSourceRow);
+	int iDestinationFieldId = _vVocabulary->GetFieldId(pDestinationRow);
+	_vVocabulary->SwapFields(iSourceFieldId, iDestinationFieldId);
+
+	emit dataChanged(index(pSourceRow, 0), index(pSourceRow, ColumnCount - 1));
+	emit dataChanged(index(pDestinationRow, 0), index(pDestinationRow, ColumnCount - 1));
+} // Swap

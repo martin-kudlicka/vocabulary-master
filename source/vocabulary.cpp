@@ -6,6 +6,9 @@
 #include <QtSql/QSqlRecord>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
+#ifndef FREE
+# include <QtSql/QSqlField>
+#endif
 
 const QString COLUMN_ATTRIBUTES = "attributes";
 const QString COLUMN_CATEGORYID = "category_id";
@@ -482,6 +485,46 @@ const void Vocabulary::SetSettings(const QString &pKey, const QString &pValue) c
 		_qsdDatabase.exec("UPDATE " + TABLE_SETTINGS + " SET " + COLUMN_VALUE + " = '" + pValue + "' WHERE " + COLUMN_KEY + " = '" + pKey + "'");
 	} // if else
 } // SetSettings
+
+#ifndef FREE
+const void Vocabulary::SwapFields(const int &pSourceId, const int &pDestinationId) const
+{
+	QSqlQuery qsqSource = _qsdDatabase.exec("SELECT * FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pSourceId));
+	QSqlQuery qsqDestination = _qsdDatabase.exec("SELECT * FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pDestinationId));
+
+	qsqSource.next();
+	qsqDestination.next();
+
+	Update(TABLE_FIELDS, pDestinationId, qsqSource.record());
+	Update(TABLE_FIELDS, pSourceId, qsqDestination.record());
+
+	_qsdDatabase.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_FIELDID + " = 0 WHERE " + COLUMN_FIELDID + " = " + QString::number(pSourceId));
+	_qsdDatabase.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_FIELDID + " = " + QString::number(pSourceId) + " WHERE " + COLUMN_FIELDID + " = " + QString::number(pDestinationId));
+	_qsdDatabase.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_FIELDID + " = " + QString::number(pDestinationId) + " WHERE " + COLUMN_FIELDID + " = 0");
+} // SwapFields
+
+const void Vocabulary::Update(const QString &pTable, const int &pColumnId, const QSqlRecord &pRecord) const
+{
+	QString qsQuery = "UPDATE " + pTable + " SET ";
+
+	int iSet = 0;
+	for (int iColumn = 0; iColumn < pRecord.count(); iColumn++) {
+		QSqlField qsfField = pRecord.field(iColumn);
+		if (qsfField.name() != COLUMN_ID) {
+			if (iSet > 0) {
+				qsQuery += ", ";
+			} // if
+
+			qsQuery += qsfField.name() + " = '" + qsfField.value().toString() + "'";
+			iSet++;
+		} // if
+	} // for
+
+	qsQuery += " WHERE " + COLUMN_ID + " = " + QString::number(pColumnId);
+
+	_qsdDatabase.exec(qsQuery);
+} // Update
+#endif
 
 Vocabulary::Vocabulary()
 {
