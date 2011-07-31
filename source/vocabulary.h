@@ -93,6 +93,9 @@ class Vocabulary
         const void SetFieldTemplateName(const int &pFieldId, const QString &pTemplateName) const;
 #endif
 		const void SetSettings(const QString &pKey, const QString &pValue) const;
+#ifndef FREE
+		const void SwapFields(const int &pSourceId, const int &pDestinationId) const;
+#endif
 
     private:
 		enum eColumnPosition {
@@ -111,6 +114,9 @@ class Vocabulary
 		const void Initialize() const;
 		const void OpenDatabase();
 		const void RemoveRecord(const int &pRecordId) const;
+#ifndef FREE
+		const void Update(const QString &pTable, const int &pColumnId, const QSqlRecord &pRecord) const;
+#endif
 }; // Vocabulary
 
 #endif // VOCABULARY_H
