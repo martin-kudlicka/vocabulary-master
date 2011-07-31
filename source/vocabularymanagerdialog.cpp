@@ -171,10 +171,11 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
 
 #ifndef FREE
 	int iOldColumnCount = GetColumnCount();
+#endif
 
     _vVocabulary->EndEdit();
     _vVocabulary->BeginEdit();
-#endif
+
     if (vsdSettings.exec() == QDialog::Accepted) {
 #ifndef FREE
 		if (iOldColumnCount != GetColumnCount()) {
@@ -189,10 +190,8 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
 		} // if
 #endif
 	} else {
-#ifndef FREE
         _vVocabulary->EndEdit(false);
         _vVocabulary->BeginEdit();
-#endif
     } // if else
 } // on_qpbVocabularySettings_clicked
 
