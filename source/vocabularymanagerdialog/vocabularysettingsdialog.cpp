@@ -140,8 +140,8 @@ VocabularySettingsDialog::VocabularySettingsDialog(const Vocabulary *pVocabulary
 	_qdvsdVocabularySettingsDialog.setupUi(this);
 #ifdef FREE
     delete _qdvsdVocabularySettingsDialog.qgbSpeech;
-	_qdvsdVocabularySettingsDialog.qtwTabs->removeTab(TabTemplates);
     _qdvsdVocabularySettingsDialog.qtwTabs->removeTab(TabFields);
+	_qdvsdVocabularySettingsDialog.qtwTabs->removeTab(TabTemplates);
 #else
     _qdvsdVocabularySettingsDialog.qtvFields->setModel(&_fmFieldsModel);
     _qdvsdVocabularySettingsDialog.qtvFields->setItemDelegateForColumn(FieldsModel::ColumnLanguage, &_lfdLanguageDelegate);
