@@ -266,6 +266,7 @@ const void MainWindow::on_qaNew_triggered(bool checked /* false */)
         _vVocabulary.New(qsFile);
 
         EnableControls();
+        RefreshStatusBar();
     } // if
 } // on_qaNew_triggered
 
@@ -282,6 +283,7 @@ const void MainWindow::on_qaOpen_triggered(bool checked /* false */)
         _vVocabulary.Open(qsFile);
 
         EnableControls();
+        RefreshStatusBar();
     } // if
 } // on_qaOpen_triggered
 
