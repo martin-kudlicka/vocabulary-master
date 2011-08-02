@@ -26,9 +26,7 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 		qsLang2 = _umwMainWindow.qlLanguage2->text();
 	} // if
 	if (!_qtTranslator.load(_sSettings.GetTranslation(), DIR_LANG)) {
-		if (!_sSettings.GetTranslation().isEmpty()) {
-			_qtTranslator.load(QLocale::system().name(), DIR_LANG);
-		} // if
+		_qtTranslator.load(QLocale::system().name(), DIR_LANG);
 	} // if
 	_umwMainWindow.retranslateUi(this);
 	if (_iTimerQuestion != 0) {
