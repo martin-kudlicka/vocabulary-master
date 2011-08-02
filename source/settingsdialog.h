@@ -6,6 +6,8 @@
 
 #include "settings.h"
 
+const QString LANG_SUFFIX = "qm";
+
 class SettingsDialog : public QDialog
 {
 	Q_OBJECT

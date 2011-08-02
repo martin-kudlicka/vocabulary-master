@@ -92,12 +92,12 @@ const void SettingsDialog::PrepareColorFlash()
 const void SettingsDialog::PrepareTranslations()
 {
     // add default language
-    _usdSettingsDialog.qcbLanguage->addItem(tr("English"));
+    _usdSettingsDialog.qcbLanguage->addItem(tr("English"), QLocale(QLocale::English).name() + '.' + LANG_SUFFIX);
 
     // get installed languages
     QDir qdDir;
     qdDir.cd(DIR_LANG);
-    QFileInfoList qfilFiles = qdDir.entryInfoList(QStringList() << "*.qm", QDir::Files);
+    QFileInfoList qfilFiles = qdDir.entryInfoList(QStringList() << "*." + LANG_SUFFIX, QDir::Files);
 
     foreach (QFileInfo qfiFile, qfilFiles) {
         QLocale qlLocale(qfiFile.completeBaseName());
