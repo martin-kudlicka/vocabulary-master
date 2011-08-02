@@ -1,15 +1,19 @@
 !include "MUI2.nsh"
 
+; constants
+!define PRODUCT_NAME "Vocabulary Master"
+!define REG_SOFTWARE_PRODUCT "Software\Isshou\Vocabulary Master"
+
 ; general settings
 InstallDir "$LOCALAPPDATA\Vocabulary Master"
-;InstallDirRegKey HKCU "Software\Isshou\Vocabulary Master" ""
-Name "Vocabulary Master"
+;InstallDirRegKey HKCU ${REG_SOFTWARE_PRODUCT} ""
+Name "${PRODUCT_NAME}"
 OutFile "..\output\Vocabulary Master FREE Setup.exe"
 RequestExecutionLevel user
 
 ; remember the installer language
 !define MUI_LANGDLL_REGISTRY_ROOT "HKCU" 
-!define MUI_LANGDLL_REGISTRY_KEY "Software\Isshou\Vocabulary Master" 
+!define MUI_LANGDLL_REGISTRY_KEY "${REG_SOFTWARE_PRODUCT}"
 !define MUI_LANGDLL_REGISTRY_VALUENAME "Installer Language"
 
 ; variables
@@ -53,10 +57,15 @@ Section "Install"
 	file /oname=sqldrivers\qsqlite4.dll \Programy\Qt\4.7.3\plugins\sqldrivers\qsqlite4.dll
 
 	; store installation folder
-	;WriteRegStr HKCU "Software\Isshou\Vocabulary Master" "" $INSTDIR
+	;WriteRegStr HKCU ${REG_SOFTWARE_PRODUCT} "" $INSTDIR
 
 	; create uninstaller
 	WriteUninstaller "$INSTDIR\Uninstall.exe"
+
+	; shortcuts
+	CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}"
+	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall.lnk" "$INSTDIR\Uninstall.exe" "" "$INSTDIR\Uninstall.exe" 0
+	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\${PRODUCT_NAME}.lnk" "$INSTDIR\Vocabulary Master.exe" "" "$INSTDIR\Vocabulary Master.exe" 0
 SectionEnd
 
 ; installer Functions
@@ -66,9 +75,10 @@ FunctionEnd
 
 ; uninstaller section
 Section "Uninstall"
+	RMDir /r "$SMPROGRAMS\${PRODUCT_NAME}"
 	RMDir /r "$INSTDIR"
 
-	DeleteRegKey HKCU "Software\Isshou\Vocabulary Master"
+	DeleteRegKey HKCU "${REG_SOFTWARE_PRODUCT}"
 SectionEnd
 
 ; uninstaller Functions
