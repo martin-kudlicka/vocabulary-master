@@ -4,7 +4,7 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="61"/>
+        <location filename="../mainwindow.cpp" line="62"/>
         <source>Exit</source>
         <translation>Ukončit</translation>
     </message>
@@ -19,30 +19,34 @@
         <translation>Vocabulary Master</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="216"/>
+        <location filename="../mainwindow.cpp" line="217"/>
         <source>About Vocabulary Master</source>
         <translation>O Vocabulary Master</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="255"/>
+        <location filename="../mainwindow.cpp" line="256"/>
         <source>Create new vocabulary</source>
         <translation>Vytvořit nový slovník</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="279"/>
+        <location filename="../mainwindow.cpp" line="281"/>
         <source>Open vocabulary</source>
         <translation>Otevřít slovník</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="340"/>
+        <location filename="../mainwindow.cpp" line="352"/>
+        <source>%1 records</source>
+        <translation>%1 záznamů</translation>
+    </message>
+    <message>
         <source>%1, %2/%3 records</source>
-        <translation>%1, %2/%3 záznamů</translation>
+        <translation type="obsolete">%1, %2/%3 záznamů</translation>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../settingsdialog.cpp" line="93"/>
+        <location filename="../settingsdialog.cpp" line="95"/>
         <source>English</source>
         <translation>Anglicky</translation>
     </message>
@@ -50,7 +54,12 @@
 <context>
     <name>Vocabulary</name>
     <message>
-        <location filename="../vocabulary.cpp" line="25"/>
+        <location filename="../vocabulary.cpp" line="28"/>
+        <source>Note</source>
+        <translation>Poznámka</translation>
+    </message>
+    <message>
+        <location filename="../vocabulary.cpp" line="29"/>
         <source>Word</source>
         <translation>Slovíčko</translation>
     </message>
@@ -58,17 +67,17 @@
 <context>
     <name>VocabularyManagerDialog</name>
     <message>
-        <location filename="../vocabularymanagerdialog.cpp" line="97"/>
+        <location filename="../vocabularymanagerdialog.cpp" line="112"/>
         <source>Add category</source>
         <translation>Přidat kategorii</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog.cpp" line="97"/>
+        <location filename="../vocabularymanagerdialog.cpp" line="112"/>
         <source>New category name</source>
         <translation>Název nové kategorie</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog.cpp" line="179"/>
+        <location filename="../vocabularymanagerdialog.cpp" line="223"/>
         <source>Import words</source>
         <translation>Importovat slovíčka</translation>
     </message>
@@ -88,7 +97,7 @@
         <translation>Neznámý</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.cpp" line="60"/>
+        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.cpp" line="91"/>
         <source>None</source>
         <translation>Žádný</translation>
     </message>
@@ -268,6 +277,11 @@
         <translation>Od&amp;ebrat</translation>
     </message>
     <message>
+        <location filename="../vocabularymanagerdialog.ui" line="109"/>
+        <source>&amp;Add</source>
+        <translation>&amp;Přidat</translation>
+    </message>
+    <message>
         <location filename="../vocabularymanagerdialog.ui" line="116"/>
         <source>&amp;Remove</source>
         <translation>&amp;Odebrat</translation>
@@ -305,9 +319,8 @@
         <translation type="obsolete">Odebrat</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog.ui" line="109"/>
         <source>&amp;Add...</source>
-        <translation>&amp;Přidat...</translation>
+        <translation type="obsolete">&amp;Přidat...</translation>
     </message>
     <message>
         <source>Import...</source>
@@ -350,12 +363,42 @@
         <translation>Tray ikona</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.ui" line="217"/>
+        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.ui" line="193"/>
+        <source>Fields</source>
+        <translation>Pole</translation>
+    </message>
+    <message>
+        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.ui" line="201"/>
+        <source>Type:</source>
+        <translation>Typ:</translation>
+    </message>
+    <message>
+        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.ui" line="221"/>
+        <source>Add</source>
+        <translation>Přidat</translation>
+    </message>
+    <message>
+        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.ui" line="244"/>
+        <source>Up</source>
+        <translation>Nahoru</translation>
+    </message>
+    <message>
+        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.ui" line="254"/>
+        <source>Down</source>
+        <translation>Dolů</translation>
+    </message>
+    <message>
+        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.ui" line="277"/>
+        <source>Remove</source>
+        <translation>Odebrat</translation>
+    </message>
+    <message>
+        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.ui" line="313"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.ui" line="224"/>
+        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.ui" line="320"/>
         <source>Cancel</source>
         <translation>Zrušit</translation>
     </message>

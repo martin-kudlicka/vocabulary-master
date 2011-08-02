@@ -106,7 +106,7 @@
         <item>
          <widget class="QPushButton" name="qpbWordAdd">
           <property name="text">
-           <string>&amp;Add...</string>
+           <string>&amp;Add</string>
           </property>
          </widget>
         </item>
