@@ -19,6 +19,7 @@ class FieldsModel : public QAbstractItemModel
 
         FieldsModel(const Vocabulary *pVocabulary, QObject *pParent = NULL);
 
+        const void AddRow();
 		QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
 		const void RemoveRow(const int &pRow);
 		const void Swap(const int &pSourceRow, const int &pDestinationRow);

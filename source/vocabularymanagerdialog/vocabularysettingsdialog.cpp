@@ -45,6 +45,11 @@ const void VocabularySettingsDialog::FillSpeech(QComboBox *pComboBox, const QStr
     pComboBox->setItemData(pComboBox->count() - 1, _tvVoiceList.size() - 1);
 } // FillSpeech
 
+const void VocabularySettingsDialog::on_qpbFieldAdd_clicked(bool checked /* false */)
+{
+    _fmFieldsModel.AddRow();
+} // on_qpbFieldAdd_clicked
+
 const void VocabularySettingsDialog::on_qpbFieldDown_clicked(bool checked /* false */)
 {
 	QModelIndex qmiCurrent = _qdvsdVocabularySettingsDialog.qtvFields->currentIndex();
@@ -75,6 +80,11 @@ const void VocabularySettingsDialog::on_qtvFieldsSelectionModel_selectionChanged
 	_qdvsdVocabularySettingsDialog.qpbFieldDown->setEnabled(qismSelection->hasSelection() && _qdvsdVocabularySettingsDialog.qtvFields->currentIndex().row() < _qdvsdVocabularySettingsDialog.qtvFields->model()->rowCount() - 1);
 	_qdvsdVocabularySettingsDialog.qpbFieldRemove->setEnabled(qismSelection->hasSelection());
 } // on_qtvFieldsSelectionModel_selectionChanged
+
+const void VocabularySettingsDialog::PrepareFields() const
+{
+    _qdvsdVocabularySettingsDialog.qcbFieldType->addItem(tr("Text"));
+} // PrepareFields
 
 const void VocabularySettingsDialog::PreparePlugins()
 {
@@ -148,6 +158,7 @@ VocabularySettingsDialog::VocabularySettingsDialog(const Vocabulary *pVocabulary
 	connect(_qdvsdVocabularySettingsDialog.qtvFields->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvFieldsSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 
 	PreparePlugins();
+    PrepareFields();
 #endif
 	FillOptions();
 } // VocabularySettingsDialog

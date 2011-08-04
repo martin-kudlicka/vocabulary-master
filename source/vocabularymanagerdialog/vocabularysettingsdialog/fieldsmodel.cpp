@@ -1,5 +1,12 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog/fieldsmodel.h"
 
+const void FieldsModel::AddRow()
+{
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    _vVocabulary->AddField();
+    endInsertRows();
+} // AddRow
+
 int FieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return ColumnCount;

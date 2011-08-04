@@ -46,6 +46,13 @@ const int Vocabulary::AddCategory(const QString &pName) const
     return qsqQuery.lastInsertId().toInt();
 } // AddCategory
 
+#ifndef FREE
+const void Vocabulary::AddField() const
+{
+    _qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " + COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + QT_TRANSLATE_NOOP("Vocabualay", "Field")+ "', '" + QT_TRANSLATE_NOOP("Vocabualay", "Name") + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
+} // AddField
+#endif
+
 const void Vocabulary::AddRecord(const int &pCategoryId) const
 {
 	// create new record
