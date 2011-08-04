@@ -49,6 +49,7 @@ class VocabularySettingsDialog : public QDialog
 		const void FillOptions();
 #ifndef FREE
 		const void FillSpeech(QComboBox *pComboBox, const QString &pSpeech, const QString &pVoice);
+        const void PrepareFields() const;
         const void PreparePlugins();
 		const void PrepareSpeechPlugins(QComboBox *pComboBox);
 #endif
@@ -56,6 +57,7 @@ class VocabularySettingsDialog : public QDialog
 
 #ifndef FREE
 	private slots:
+        const void on_qpbFieldAdd_clicked(bool checked = false);
 		const void on_qpbFieldDown_clicked(bool checked = false);
 		const void on_qpbFieldRemove_clicked(bool checked = false);
 		const void on_qpbFieldUp_clicked(bool checked = false);
