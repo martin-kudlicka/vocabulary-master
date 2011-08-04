@@ -54,6 +54,7 @@ class MainWindow : public QMainWindow
 #ifndef FREE
 		Plugins _pPlugins;
 		QAction *_qaTrayExit;
+        QAction *_qaTrayManage;
         QAction *_qaTraySettings;
 #endif
         QHash<int, int> _qhCurrentAnswer;

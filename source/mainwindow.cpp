@@ -61,6 +61,7 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 #ifndef FREE
 const void MainWindow::CreateTrayMenu()
 {
+    _qaTrayManage = _qmTray.addAction(tr("&Manage"));
     _qaTraySettings = _qmTray.addAction(tr("&Settings"));
 	_qaTrayExit = _qmTray.addAction(tr("&Exit"));
 
@@ -80,6 +81,9 @@ const void MainWindow::EnableControls()
 	_umwMainWindow.qaNext->setEnabled(_iTimerQuestion != 0);
 #ifndef FREE
     _umwMainWindow.qaAnswer->setEnabled(_iTimerAnswer != 0);
+
+    // tray
+    _qaTrayManage->setEnabled(_vVocabulary.IsOpen());
 #endif
 } // EnableControls
 
@@ -327,12 +331,16 @@ const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 #ifndef FREE
 const void MainWindow::on_qmTray_triggered(QAction *action)
 {
-    if (action == _qaTraySettings) {
-        on_qaSettings_triggered();
+    if (action == _qaTrayManage) {
+        on_qaManage_triggered();
     } else {
-	    if (action == _qaTrayExit) {
-		    close();
-	    } // if
+        if (action == _qaTraySettings) {
+            on_qaSettings_triggered();
+        } else {
+	        if (action == _qaTrayExit) {
+		        close();
+	        } // if
+        } // if else
     } // if else
 } // on_qmTray_triggered
 
