@@ -61,7 +61,8 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 #ifndef FREE
 const void MainWindow::CreateTrayMenu()
 {
-	_qaTrayExit = _qmTray.addAction(tr("Exit"));
+    _qaTraySettings = _qmTray.addAction(tr("&Settings"));
+	_qaTrayExit = _qmTray.addAction(tr("&Exit"));
 
 	connect(&_qmTray, SIGNAL(triggered(QAction *)), SLOT(on_qmTray_triggered(QAction *)));
 	_qstiTrayIcon.setContextMenu(&_qmTray);
@@ -326,9 +327,13 @@ const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 #ifndef FREE
 const void MainWindow::on_qmTray_triggered(QAction *action)
 {
-	if (action == _qaTrayExit) {
-		close();
-	} // if
+    if (action == _qaTraySettings) {
+        on_qaSettings_triggered();
+    } else {
+	    if (action == _qaTrayExit) {
+		    close();
+	    } // if
+    } // if else
 } // on_qmTray_triggered
 
 const void MainWindow::on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason reason)
