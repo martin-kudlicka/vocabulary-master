@@ -1,5 +1,12 @@
 #include "vocabularymanagerdialog/vocabularymodel.h"
 
+const void VocabularyModel::AddRow()
+{
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    _vVocabulary->AddRecord(_iCategoryId);
+    endInsertRows();
+} // AddRow
+
 int VocabularyModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return _vVocabulary->GetFieldCount();
@@ -28,13 +35,6 @@ QVariant VocabularyModel::headerData(int section, Qt::Orientation orientation, i
             return QVariant();
     } // switch
 } // headerData
-
-const void VocabularyModel::InsertRow(const int &pRow)
-{
-	beginInsertRows(QModelIndex(), pRow, pRow);
-	_vVocabulary->AddRecord(_iCategoryId);
-	endInsertRows();
-} // InsertRow
 
 const void VocabularyModel::RemoveRow(const int &pRow)
 {
