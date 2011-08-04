@@ -503,7 +503,7 @@ const void Vocabulary::SetFieldTemplateName(const int &pFieldId, const QString &
 
 const void Vocabulary::SetSettings(const QString &pKey, const QString &pValue) const
 {
-	if (GetSettings(pKey).isEmpty()) {
+	if (GetSettings(pKey).isNull()) {
 		_qsdDatabase.exec("INSERT INTO " + TABLE_SETTINGS + " (" + COLUMN_KEY + ", " + COLUMN_VALUE + ") VALUES ('" + pKey + "', '" + pValue + "')");
 	} else {
 		_qsdDatabase.exec("UPDATE " + TABLE_SETTINGS + " SET " + COLUMN_VALUE + " = '" + pValue + "' WHERE " + COLUMN_KEY + " = '" + pKey + "'");
