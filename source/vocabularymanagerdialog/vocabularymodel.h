@@ -11,8 +11,8 @@ class VocabularyModel : public QAbstractTableModel
     public:
         VocabularyModel(const Vocabulary *pVocabulary, const int &pCategoryId, QObject *pParent = NULL);
 
+        const void AddRow();
 		int columnCount(const QModelIndex &parent = QModelIndex()) const;
-		const void InsertRow(const int &pRow);
         const void RemoveRow(const int &pRow);
         int rowCount(const QModelIndex &parent = QModelIndex()) const;
 		bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);

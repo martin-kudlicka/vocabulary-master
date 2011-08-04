@@ -199,7 +199,7 @@ const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false 
 {
 	QTableView *qtvVocabularyView = qobject_cast<QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
     VocabularyModel *vmVocabularyModel = qobject_cast<VocabularyModel *>(qtvVocabularyView->model());
-    vmVocabularyModel->InsertRow(vmVocabularyModel->rowCount());
+    vmVocabularyModel->AddRow();
 
 	qtvVocabularyView->setCurrentIndex(vmVocabularyModel->index(vmVocabularyModel->rowCount() - 1, 0));
 	qtvVocabularyView->setFocus(Qt::OtherFocusReason);
