@@ -13,6 +13,7 @@ class FieldsModel : public QAbstractItemModel
         enum eColumn {
             ColumnTemplateName,
             ColumnName,
+            ColumnSpeech,
             ColumnLanguage,
             ColumnCount
         }; // eColumn

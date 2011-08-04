@@ -33,6 +33,17 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 				default:
 					return QVariant();
 			} // switch
+        case ColumnSpeech:
+            switch (role) {
+				case Qt::CheckStateRole:
+                    if (_vVocabulary->GetFieldAttributes(iFieldId) & Vocabulary::FieldAttributeSpeech) {
+                        return Qt::Checked;
+                    } else {
+                        return Qt::Unchecked;
+                    } // if else
+				default:
+					return QVariant();
+			} // switch
 		case ColumnLanguage:
 			switch (role) {
 				case Qt::DisplayRole:
@@ -54,7 +65,13 @@ FieldsModel::FieldsModel(const Vocabulary *pVocabulary, QObject *pParent /* NULL
 
 Qt::ItemFlags FieldsModel::flags(const QModelIndex &index) const
 {
-    return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
+    Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
+
+    if (index.column() == ColumnSpeech) {
+        ifFlags |= Qt::ItemIsUserCheckable;
+    } // if
+
+    return ifFlags;
 } // flags
 
 QVariant FieldsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
@@ -66,6 +83,8 @@ QVariant FieldsModel::headerData(int section, Qt::Orientation orientation, int r
                     return tr("Identifier");
                 case ColumnName:
                     return tr("Name");
+                case ColumnSpeech:
+                    return tr("Speech");
                 case ColumnLanguage:
                     return tr("Language");
             } // switch
@@ -103,7 +122,7 @@ int FieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 
 bool FieldsModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole*/)
 {
-    if (role != Qt::EditRole) {
+    if (role != Qt::EditRole && role != Qt::CheckStateRole) {
         return false;
     } // if
 
@@ -114,6 +133,12 @@ bool FieldsModel::setData(const QModelIndex &index, const QVariant &value, int r
         case ColumnName:
             _vVocabulary->SetFieldName(index.row() + 1, value.toString());
             break;
+        case ColumnSpeech:
+            {
+                Vocabulary::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(index.row() + 1);
+                faAttributes ^= Vocabulary::FieldAttributeSpeech;
+                _vVocabulary->SetFieldAttributes(index.row() + 1, faAttributes);
+            }
         case ColumnLanguage:
             _vVocabulary->SetFieldLanguage(index.row() + 1, static_cast<Vocabulary::eFieldLanguage>(value.toInt()));
     } // switch
