@@ -24,8 +24,16 @@ class Vocabulary
         typedef QList<int> tCategoryIdList;
 		typedef QList<int> tFieldIdList;
 
+        enum eFieldAttribute {
+            FieldAttributeNone
+#ifndef FREE
+            , FieldAttributeSpeech
+#endif
+        }; // eFieldAttribute
+        Q_DECLARE_FLAGS(FieldAttributes, eFieldAttribute)
+
 		enum eFieldLanguage {
-			FieldLanguageUknown,
+			FieldLanguageUnknown,
 			FieldLanguageLeft,
 			FieldLanguageRight
 #ifndef FREE
@@ -57,6 +65,9 @@ class Vocabulary
         const QString GetCategoryName(const int &pCategoryId) const;
 		const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
 		const QString GetDataText(const int &pRecordId, const int &pFieldId) const;
+#ifndef FREE
+        const FieldAttributes GetFieldAttributes(const int &pFieldId) const;
+#endif
 		const int GetFieldCount() const;
 		const int GetFieldId(const int &pPosition) const;
 		const tFieldIdList GetFieldIds() const;
@@ -91,6 +102,7 @@ class Vocabulary
 #endif
 		const void SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData) const;
 #ifndef FREE
+        const void SetFieldAttributes(const int &pFieldId, const FieldAttributes &pAttributes) const;
         const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage) const;
         const void SetFieldName(const int &pFieldId, const QString &pName) const;
         const void SetFieldTemplateName(const int &pFieldId, const QString &pTemplateName) const;
@@ -106,10 +118,6 @@ class Vocabulary
 			ColumnPosition2
 		}; // eColumnPosition
 
-		enum eFieldAttrbiute {
-			FieldAttributeNone
-		}; // eFieldAttrbiute
-
         QSqlDatabase _qsdDatabase;
         QString _qsVocabularyFile;
 
@@ -121,5 +129,7 @@ class Vocabulary
 		const void Update(const QString &pTable, const int &pColumnId, const QSqlRecord &pRecord) const;
 #endif
 }; // Vocabulary
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(Vocabulary::FieldAttributes)
 
 #endif // VOCABULARY_H

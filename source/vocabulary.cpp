@@ -132,6 +132,18 @@ const QString Vocabulary::GetDataText(const int &pRecordId, const int &pFieldId)
 	return qsqQuery.value(0).toString();
 } // GetDataText
 
+#ifndef FREE
+const Vocabulary::FieldAttributes Vocabulary::GetFieldAttributes(const int &pFieldId) const
+{
+    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ATTRIBUTES + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+    if (qsqQuery.next()) {
+        return qsqQuery.value(ColumnPosition1).toInt();
+    } // if
+
+    return FieldAttributeNone;
+} // GetFieldAttributes
+#endif
+
 const int Vocabulary::GetFieldCount() const
 {
 	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS);
@@ -176,7 +188,7 @@ const Vocabulary::eFieldLanguage Vocabulary::GetFieldLanguage(const int &pFieldI
 		return static_cast<eFieldLanguage>(qsqQuery.value(ColumnPosition1).toInt());
 	} // if
 
-	return FieldLanguageUknown;
+	return FieldLanguageUnknown;
 } // GetFieldLanguage
 
 const QString Vocabulary::GetFieldName(const int &pFieldId) const
@@ -468,6 +480,11 @@ const void Vocabulary::SetDataText(const int &pCategoryId, const int &pRow, cons
 } // SetDataText
 
 #ifndef FREE
+const void Vocabulary::SetFieldAttributes(const int &pFieldId, const FieldAttributes &pAttributes) const
+{
+    _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_ATTRIBUTES + " = '" + QString::number(pAttributes) + "' WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+} // SetFieldAttributes
+
 const void Vocabulary::SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage) const
 {
     _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_LANGUAGE + " = '" + QString::number(pLanguage) + "' WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
