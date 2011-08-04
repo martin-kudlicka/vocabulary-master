@@ -126,21 +126,23 @@ bool FieldsModel::setData(const QModelIndex &index, const QVariant &value, int r
         return false;
     } // if
 
+    int iFieldId = _vVocabulary->GetFieldId(index.row());
+
     switch (index.column()) {
         case ColumnTemplateName:
-            _vVocabulary->SetFieldTemplateName(index.row() + 1, value.toString());
+            _vVocabulary->SetFieldTemplateName(iFieldId, value.toString());
             break;
         case ColumnName:
-            _vVocabulary->SetFieldName(index.row() + 1, value.toString());
+            _vVocabulary->SetFieldName(iFieldId, value.toString());
             break;
         case ColumnSpeech:
             {
-                Vocabulary::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(index.row() + 1);
+                Vocabulary::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
                 faAttributes ^= Vocabulary::FieldAttributeSpeech;
-                _vVocabulary->SetFieldAttributes(index.row() + 1, faAttributes);
+                _vVocabulary->SetFieldAttributes(iFieldId, faAttributes);
             }
         case ColumnLanguage:
-            _vVocabulary->SetFieldLanguage(index.row() + 1, static_cast<Vocabulary::eFieldLanguage>(value.toInt()));
+            _vVocabulary->SetFieldLanguage(iFieldId, static_cast<Vocabulary::eFieldLanguage>(value.toInt()));
     } // switch
 
     emit dataChanged(index, index);
