@@ -359,24 +359,39 @@ const void MainWindow::RefreshStatusBar()
 const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
     if (!_sSettings.GetMute()) {
-	    QString qsSpeech, qsVoice;
+	    Vocabulary::eFieldLanguage eflLanguage;
+        QString qsSpeech, qsVoice;
 	    if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
-		    qsSpeech = KEY_SPEECH1;
-		    qsVoice = KEY_VOICE1;
+            qsSpeech = KEY_SPEECH1;
+            qsVoice = KEY_VOICE1;
+		    eflLanguage = Vocabulary::FieldLanguageLeft;
 	    } else {
-		    qsSpeech = KEY_SPEECH2;
-		    qsVoice = KEY_VOICE2;
+            qsSpeech = KEY_SPEECH2;
+            qsVoice = KEY_VOICE2;
+		    eflLanguage = Vocabulary::FieldLanguageRight;
 	    } // if else
 
-	    int iSpeech = _vVocabulary.GetSettings(qsSpeech).toInt();
-        qsVoice = _vVocabulary.GetSettings(qsVoice);
-	    if (iSpeech != TTSInterface::TTPluginNone) {
-		    TTSInterface *tiPlugin = _pPlugins.GetTTSPlugin(static_cast<TTSInterface::eTTSPlugin>(iSpeech));
-            if (tiPlugin) {
-				// TODO
-		        //tiPlugin->Say(qsVoice, _vVocabulary.GetWord(_iCurrentRecordId, GetLangColumn(pDirectionSwitched, pAnswer)));
+        // get text to speech
+        QString qsText;
+        foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
+            if (_vVocabulary.GetFieldLanguage(iFieldId) == eflLanguage && _vVocabulary.GetFieldAttributes(iFieldId) & Vocabulary::FieldAttributeSpeech) {
+                if (!qsText.isEmpty()) {
+                    qsText += ' ';
+                } // if
+                qsText += _vVocabulary.GetDataText(_iCurrentRecordId, iFieldId);
             } // if
-	    } // if
+        } // foreach
+
+        if (!qsText.isEmpty()) {
+	        int iSpeech = _vVocabulary.GetSettings(qsSpeech).toInt();
+            qsVoice = _vVocabulary.GetSettings(qsVoice);
+	        if (iSpeech != TTSInterface::TTPluginNone) {
+		        TTSInterface *tiPlugin = _pPlugins.GetTTSPlugin(static_cast<TTSInterface::eTTSPlugin>(iSpeech));
+                if (tiPlugin) {
+		            tiPlugin->Say(qsVoice, qsText);
+                } // if
+	        } // if
+        } // if
     } // if
 } // Say
 #endif
