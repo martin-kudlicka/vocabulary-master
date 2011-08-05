@@ -16,11 +16,12 @@ class SettingsDialog : public QDialog
 		SettingsDialog(Settings *pSettings, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 	private:
-#ifdef FREE
+#if defined(FREE) || defined(Q_WS_X11)
 		enum eTab {
 			TabGeneral,
 			TabLearning,
-			TabAppearance
+			TabAppearance,
+            TabHotkey
 		}; // eTab
 #endif
 

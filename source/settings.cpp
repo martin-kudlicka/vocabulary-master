@@ -13,6 +13,9 @@ const QString KEY_MUTE = "Mute";
 const QString KEY_NEWWORDFLASH = "NewWordFlash";
 const QString KEY_NEWWORDSOUND = "NewWordSound";
 const QString KEY_REMEMBERWINDOWPOSITION = "RememberWindowPosition";
+# ifndef Q_WS_X11
+const QString KEY_SHORTCUT = "Shortcut";
+# endif
 const QString KEY_SHOWWORDSINTRAYBALLOON = "ShowWordsInTrayBalloon";
 const QString KEY_STARTLEARNINGONSTARTUP = "StartLearningOnStartup";
 #endif
@@ -31,6 +34,12 @@ const QString KEY_WINDOWY = "WindowY";
 #endif
 const QString KEY_WORDSFREQUENCY = "WordsFrequency";
 const QString ORGANIZATION  = "Isshou";
+#if !defined(FREE) && !defined(Q_WS_X11)
+const QString SHORTCUT_ANSWER = "Answer";
+const QString SHORTCUT_MINIMIZE = "Minimize";
+const QString SHORTCUT_NEXT = "Next";
+const QString SHORTCUT_RESTORE = "Restore";
+#endif
 
 const bool Settings::GetAlwaysOnTop() const
 {
@@ -47,6 +56,36 @@ const bool Settings::GetHorizontalLayout() const
 {
     return _qsSettings.value(KEY_HORIZONTALLAYOUT, false).toBool();
 } // GetHorizontalLayout
+
+# ifndef Q_WS_X11
+const QString Settings::GetHotkey(const eHotkey &pType) const
+{
+    QString qsKey = GetHotkeyKey(pType);
+    return _qsSettings.value(qsKey).toString();
+} // GetHotkey
+
+const QString Settings::GetHotkeyKey(const eHotkey &pType) const
+{
+    QString qsKey = KEY_SHORTCUT;
+
+    switch (pType) {
+        case HotkeyAnswer:
+            qsKey += SHORTCUT_ANSWER;
+            break;
+        case HotkeyMinimize:
+            qsKey += SHORTCUT_MINIMIZE;
+            break;
+        case HotkeyNext:
+            qsKey += SHORTCUT_NEXT;
+            break;
+        case HotkeyRestore:
+            qsKey += SHORTCUT_RESTORE;
+            break;
+    } // switch
+
+    return qsKey;
+} // GetHotkeyKey
+# endif
 
 const bool Settings::GetMinimizeToTray() const
 {
@@ -157,6 +196,14 @@ const void Settings::SetHorizontalLayout(const bool &pEnable)
 {
     _qsSettings.setValue(KEY_HORIZONTALLAYOUT, pEnable);
 } // SetHorizontalLayout
+
+# ifndef Q_WS_X11
+const void Settings::SetHotkey(const eHotkey &pType, const QString &pHotkey)
+{
+    QString qsKey = GetHotkeyKey(pType);
+    _qsSettings.setValue(qsKey, pHotkey);
+} // SetHotkey
+# endif
 
 const void Settings::SetMinimizeToTray(const bool &pEnable)
 {
