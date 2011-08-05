@@ -85,6 +85,11 @@ const void MainWindow::EnableControls()
     // tray
     _qaTrayManage->setEnabled(_vVocabulary.IsOpen());
 #endif
+
+#ifndef FREE
+    // tray
+    _qaTrayManage->setEnabled(_vVocabulary.IsOpen());
+#endif
 } // EnableControls
 
 #ifndef FREE
