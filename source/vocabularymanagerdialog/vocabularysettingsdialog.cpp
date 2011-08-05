@@ -81,9 +81,17 @@ const void VocabularySettingsDialog::on_qtvFieldsSelectionModel_selectionChanged
 	_qdvsdVocabularySettingsDialog.qpbFieldRemove->setEnabled(qismSelection->hasSelection());
 } // on_qtvFieldsSelectionModel_selectionChanged
 
-const void VocabularySettingsDialog::PrepareFields() const
+const void VocabularySettingsDialog::PrepareFields()
 {
+    _qdvsdVocabularySettingsDialog.qtvFields->setModel(&_fmFieldsModel);
+    _qdvsdVocabularySettingsDialog.qtvFields->setItemDelegateForColumn(FieldsModel::ColumnLanguage, &_lfdLanguageDelegate);
+    connect(_qdvsdVocabularySettingsDialog.qtvFields->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvFieldsSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+
     _qdvsdVocabularySettingsDialog.qcbFieldType->addItem(tr("Text"));
+
+    for (int iColumn = 0; iColumn < _qdvsdVocabularySettingsDialog.qtvFields->header()->count(); iColumn++) {
+        _qdvsdVocabularySettingsDialog.qtvFields->header()->setResizeMode(iColumn, QHeaderView::Stretch);
+    } // for
 } // PrepareFields
 
 const void VocabularySettingsDialog::PreparePlugins()
@@ -153,9 +161,6 @@ VocabularySettingsDialog::VocabularySettingsDialog(const Vocabulary *pVocabulary
     _qdvsdVocabularySettingsDialog.qtwTabs->removeTab(TabFields);
 	_qdvsdVocabularySettingsDialog.qtwTabs->removeTab(TabTemplates);
 #else
-    _qdvsdVocabularySettingsDialog.qtvFields->setModel(&_fmFieldsModel);
-    _qdvsdVocabularySettingsDialog.qtvFields->setItemDelegateForColumn(FieldsModel::ColumnLanguage, &_lfdLanguageDelegate);
-	connect(_qdvsdVocabularySettingsDialog.qtvFields->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvFieldsSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 
 	PreparePlugins();
     PrepareFields();

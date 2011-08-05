@@ -49,7 +49,7 @@ class VocabularySettingsDialog : public QDialog
 		const void FillOptions();
 #ifndef FREE
 		const void FillSpeech(QComboBox *pComboBox, const QString &pSpeech, const QString &pVoice);
-        const void PrepareFields() const;
+        const void PrepareFields();
         const void PreparePlugins();
 		const void PrepareSpeechPlugins(QComboBox *pComboBox);
 #endif
