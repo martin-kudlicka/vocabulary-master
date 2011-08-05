@@ -6,7 +6,20 @@ const QString DIR_LANG = "lang";
 
 class Settings
 {
+#if !defined(FREE) && !defined(Q_WS_X11)
+    Q_ENUMS(eHotkey)
+#endif
+
 	public:
+#if !defined(FREE) && !defined(Q_WS_X11)
+        enum eHotkey {
+            HotkeyAnswer,
+            HotkeyMinimize,
+            HotkeyNext,
+            HotkeyRestore
+        }; // eHotkey
+#endif
+
 		static const int DEFAULT_DIMENSION = -1;
 
 		Settings();
@@ -15,6 +28,9 @@ class Settings
 #ifndef FREE
         const QString GetColorFlash() const;
         const bool GetHorizontalLayout() const;
+# ifndef Q_WS_X11
+        const QString GetHotkey(const eHotkey &pType) const;
+# endif
         const bool GetMinimizeToTray() const;
         const bool GetMute() const;
 		const bool GetNewWordFlash() const;
@@ -41,6 +57,9 @@ class Settings
 #ifndef FREE
         const void SetColorFlash(const QString &pColor);
         const void SetHorizontalLayout(const bool &pEnable);
+# ifndef Q_WS_X11
+        const void SetHotkey(const eHotkey &pType, const QString &pHotkey);
+# endif
 		const void SetMinimizeToTray(const bool &pEnable);
         const void SetMute(const bool &pEnable);
 		const void SetNewWordFlash(const bool &pEnable);
@@ -69,4 +88,8 @@ class Settings
 		static const int DEFAULT_WAIT = 0;
 
 		QSettings _qsSettings;
+
+#if !defined(FREE) && !defined(Q_WS_X11)
+        const QString GetHotkeyKey(const eHotkey &pType) const;
+#endif
 }; // Settings

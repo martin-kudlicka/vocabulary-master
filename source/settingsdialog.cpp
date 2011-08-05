@@ -56,6 +56,16 @@ const void SettingsDialog::FillOptions()
 #ifndef FREE
     // appearance
     FillColorFlash();
+
+# ifndef Q_WS_X11
+    // hotkeys
+    // learning
+    _usdSettingsDialog.qleHotkeyNext->setText(_sSettings->GetHotkey(Settings::HotkeyNext));
+    _usdSettingsDialog.qleHotkeyAnswer->setText(_sSettings->GetHotkey(Settings::HotkeyAnswer));
+    // window
+    _usdSettingsDialog.qleHotkeyMinimize->setText(_sSettings->GetHotkey(Settings::HotkeyMinimize));
+    _usdSettingsDialog.qleHotkeyRestore->setText(_sSettings->GetHotkey(Settings::HotkeyRestore));
+# endif
 #endif
 } // FillOptions
 
@@ -135,6 +145,16 @@ const void SettingsDialog::SaveOptions()
 #ifndef FREE
     // appearance
     _sSettings->SetColorFlash(_usdSettingsDialog.qcbColorFlash->itemData(_usdSettingsDialog.qcbColorFlash->currentIndex()).toString());
+
+    // hotkeys
+# ifndef Q_WS_X11
+    // learning
+    _sSettings->SetHotkey(Settings::HotkeyNext, _usdSettingsDialog.qleHotkeyNext->text());
+    _sSettings->SetHotkey(Settings::HotkeyAnswer, _usdSettingsDialog.qleHotkeyAnswer->text());
+    // window
+    _sSettings->SetHotkey(Settings::HotkeyMinimize, _usdSettingsDialog.qleHotkeyMinimize->text());
+    _sSettings->SetHotkey(Settings::HotkeyRestore, _usdSettingsDialog.qleHotkeyRestore->text());
+# endif
 #endif
 } // SaveOptions
 
@@ -159,7 +179,10 @@ SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */,
     delete _usdSettingsDialog.cbStartLearningOnStartup;
 
     // appearance
+    _usdSettingsDialog.qtwTabs->removeTab(TabHotkey);
     _usdSettingsDialog.qtwTabs->removeTab(TabAppearance);
+#elif defined Q_WS_X11
+    _usdSettingsDialog.qtwTabs->removeTab(TabHotkey);
 #else
 	_usdSettingsDialog.qcbColorFlash->setItemDelegate(new ColorDelegate(_usdSettingsDialog.qcbColorFlash));
 
