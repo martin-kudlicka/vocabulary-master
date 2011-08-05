@@ -351,6 +351,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\settingsdialog\hotkeylineedit.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\vocabularymanagerdialog\vocabularysettingsdialog\languagefielddelegate.cpp"
 				>
 				<FileConfiguration
@@ -525,6 +529,10 @@
 						Outputs="&quot;.\..\temp\$(ConfigurationName)\Vocabulary Master\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\settingsdialog\hotkeylineedit.h"
+				>
 			</File>
 			<File
 				RelativePath=".\vocabularymanagerdialog\vocabularysettingsdialog\languagefielddelegate.h"

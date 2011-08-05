@@ -307,7 +307,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="qleHotkeyNext"/>
+           <widget class="HotkeyLineEdit" name="qleHotkeyNext"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_4">
@@ -320,7 +320,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="qleHotkeyAnswer"/>
+           <widget class="HotkeyLineEdit" name="qleHotkeyAnswer"/>
           </item>
          </layout>
         </widget>
@@ -342,7 +342,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="qleHotkeyMinimize"/>
+           <widget class="HotkeyLineEdit" name="qleHotkeyMinimize"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_6">
@@ -355,7 +355,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="qleHotkeyRestore"/>
+           <widget class="HotkeyLineEdit" name="qleHotkeyRestore"/>
           </item>
          </layout>
         </widget>
@@ -421,6 +421,11 @@
    <class>ColorComboBox</class>
    <extends>QComboBox</extends>
    <header>settings/colorcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>HotkeyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>settingsdialog/hotkeylineedit.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
