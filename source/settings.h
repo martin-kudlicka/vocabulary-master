@@ -6,12 +6,12 @@ const QString DIR_LANG = "lang";
 
 class Settings
 {
-#if !defined(FREE) && !defined(Q_WS_X11)
+#if !defined(FREE) && defined(Q_WS_WIN)
     Q_ENUMS(eHotkey)
 #endif
 
 	public:
-#if !defined(FREE) && !defined(Q_WS_X11)
+#if !defined(FREE) && defined(Q_WS_WIN)
         enum eHotkey {
             HotkeyAnswer,
             HotkeyMinimize,
@@ -28,7 +28,7 @@ class Settings
 #ifndef FREE
         const QString GetColorFlash() const;
         const bool GetHorizontalLayout() const;
-# ifndef Q_WS_X11
+# ifdef Q_WS_WIN
         const QString GetHotkey(const eHotkey &pType) const;
 # endif
         const bool GetMinimizeToTray() const;
@@ -57,7 +57,7 @@ class Settings
 #ifndef FREE
         const void SetColorFlash(const QString &pColor);
         const void SetHorizontalLayout(const bool &pEnable);
-# ifndef Q_WS_X11
+# ifdef Q_WS_WIN
         const void SetHotkey(const eHotkey &pType, const QString &pHotkey);
 # endif
 		const void SetMinimizeToTray(const bool &pEnable);
@@ -89,7 +89,7 @@ class Settings
 
 		QSettings _qsSettings;
 
-#if !defined(FREE) && !defined(Q_WS_X11)
+#if !defined(FREE) && defined(Q_WS_WIN)
         const QString GetHotkeyKey(const eHotkey &pType) const;
 #endif
 }; // Settings
