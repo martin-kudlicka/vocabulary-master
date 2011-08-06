@@ -266,6 +266,9 @@
            <property name="text">
             <string>Flash color</string>
            </property>
+           <property name="buddy">
+            <cstring>qcbColorFlash</cstring>
+           </property>
           </widget>
          </item>
         </layout>
