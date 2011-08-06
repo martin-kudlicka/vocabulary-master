@@ -386,20 +386,24 @@ const void MainWindow::RegisterHotkeys() const
 	for (int iHotkey = 0; iHotkey < Settings::HotkeyCount - 1; iHotkey++) {
 		Settings::sHotKeyInfo shkiHotkey = _sSettings.GetHotkey(static_cast<Settings::eHotkey>(iHotkey));
 
-		UINT uiModifiers;
-		if (shkiHotkey.qsText.contains(MODIFIER_ALT)) {
-			uiModifiers = MOD_ALT;
+		if (shkiHotkey.qui32VirtualKey == SettingsDialog::VIRTUALKEY_NONE) {
+			UnregisterHotKey(winId(), iHotkey);
 		} else {
-			uiModifiers = 0;
-		} // if else
-		if (shkiHotkey.qsText.contains(MODIFIER_CTRL)) {
-			uiModifiers |= MOD_CONTROL;
-		} // if
-		if (shkiHotkey.qsText.contains(MODIFIER_SHIFT)) {
-			uiModifiers |= MOD_SHIFT;
-		} // if
+			UINT uiModifiers;
+			if (shkiHotkey.qsText.contains(MODIFIER_ALT)) {
+				uiModifiers = MOD_ALT;
+			} else {
+				uiModifiers = 0;
+			} // if else
+			if (shkiHotkey.qsText.contains(MODIFIER_CTRL)) {
+				uiModifiers |= MOD_CONTROL;
+			} // if
+			if (shkiHotkey.qsText.contains(MODIFIER_SHIFT)) {
+				uiModifiers |= MOD_SHIFT;
+			} // if
 
-		RegisterHotKey(winId(), iHotkey, uiModifiers, shkiHotkey.qui32VirtualKey);
+			RegisterHotKey(winId(), iHotkey, uiModifiers, shkiHotkey.qui32VirtualKey);
+		} // if else
 	} // for
 } // RegisterHotkeys
 #endif
