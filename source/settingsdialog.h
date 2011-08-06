@@ -32,7 +32,7 @@ class SettingsDialog : public QDialog
 		Settings *_sSettings;
 		Ui::qdUiSettings _usdSettingsDialog;
 
-        void accept();
+        virtual void accept();
 #ifndef FREE
 # ifdef Q_WS_WIN
 		const void ClearHotkey(HotkeyLineEdit *pControl) const;

@@ -12,12 +12,12 @@ class TTSSAPI : public QObject, private TTSInterface
     private:
         QHash<QString, QString> _qhVoices;
 
-        const eTTSPlugin GetPluginId() const;
-        const QString GetPluginName() const;
-		const tVoiceInfoList GetVoicesInfo() const;
-		const void Initialize();
-		const void Say(const QString &pVoice, const QString &pText);
-		const void Uninitialize();
+        virtual const eTTSPlugin GetPluginId() const;
+        virtual const QString GetPluginName() const;
+		virtual const tVoiceInfoList GetVoicesInfo() const;
+		virtual const void Initialize();
+		virtual const void Say(const QString &pVoice, const QString &pText);
+		virtual const void Uninitialize();
 }; // TTSSAPI
 
 #endif // TTSSAPI_H
