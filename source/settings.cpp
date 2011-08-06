@@ -13,7 +13,7 @@ const QString KEY_MUTE = "Mute";
 const QString KEY_NEWWORDFLASH = "NewWordFlash";
 const QString KEY_NEWWORDSOUND = "NewWordSound";
 const QString KEY_REMEMBERWINDOWPOSITION = "RememberWindowPosition";
-# ifndef Q_WS_X11
+# ifdef Q_WS_WIN
 const QString KEY_SHORTCUT = "Shortcut";
 # endif
 const QString KEY_SHOWWORDSINTRAYBALLOON = "ShowWordsInTrayBalloon";
@@ -34,7 +34,7 @@ const QString KEY_WINDOWY = "WindowY";
 #endif
 const QString KEY_WORDSFREQUENCY = "WordsFrequency";
 const QString ORGANIZATION  = "Isshou";
-#if !defined(FREE) && !defined(Q_WS_X11)
+#if !defined(FREE) && defined(Q_WS_WIN)
 const QString SHORTCUT_ANSWER = "Answer";
 const QString SHORTCUT_MINIMIZE = "Minimize";
 const QString SHORTCUT_NEXT = "Next";
@@ -57,7 +57,7 @@ const bool Settings::GetHorizontalLayout() const
     return _qsSettings.value(KEY_HORIZONTALLAYOUT, false).toBool();
 } // GetHorizontalLayout
 
-# ifndef Q_WS_X11
+# ifdef Q_WS_WIN
 const QString Settings::GetHotkey(const eHotkey &pType) const
 {
     QString qsKey = GetHotkeyKey(pType);
@@ -197,7 +197,7 @@ const void Settings::SetHorizontalLayout(const bool &pEnable)
     _qsSettings.setValue(KEY_HORIZONTALLAYOUT, pEnable);
 } // SetHorizontalLayout
 
-# ifndef Q_WS_X11
+# ifdef Q_WS_WIN
 const void Settings::SetHotkey(const eHotkey &pType, const QString &pHotkey)
 {
     QString qsKey = GetHotkeyKey(pType);
