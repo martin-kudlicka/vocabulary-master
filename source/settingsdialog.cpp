@@ -13,6 +13,14 @@ void SettingsDialog::accept()
 } // accept
 
 #ifndef FREE
+# ifdef Q_WS_WIN
+const void SettingsDialog::ClearHotkey(HotkeyLineEdit *pControl) const
+{
+	pControl->clear();
+	pControl->setProperty(PROPERTY_VIRTUALKEY, VIRTUALKEY_NONE);
+} // ClearHotkey
+# endif
+
 const void SettingsDialog::FillColorFlash()
 {
     for (int iI = 0; iI < _usdSettingsDialog.qcbColorFlash->count(); iI++) {
@@ -94,6 +102,28 @@ const void SettingsDialog::on_qcbSystemTrayIcon_stateChanged(int state)
 	_usdSettingsDialog.qcbMinimizeToTray->setEnabled(state == Qt::Checked);
 	_usdSettingsDialog.qcbShowWordsInTrayBalloon->setEnabled(state == Qt::Checked);
 } // on_qcbSystemTrayIcon_stateChanged
+
+# ifdef Q_WS_WIN
+const void SettingsDialog::on_qpbHotkeyAnswerClear_clicked(bool checked /* false */)
+{
+	ClearHotkey(_usdSettingsDialog.qleHotkeyAnswer);
+} // on_qpbHotkeyAnswerClear_clicked
+
+const void SettingsDialog::on_qpbHotkeyMinimizeClear_clicked(bool checked /* false */)
+{
+	ClearHotkey(_usdSettingsDialog.qleHotkeyMinimize);
+} // on_qpbHotkeyMinimizeClear_clicked
+
+const void SettingsDialog::on_qpbHotkeyNextClear_clicked(bool checked /* false */)
+{
+	ClearHotkey(_usdSettingsDialog.qleHotkeyNext);
+} // on_qpbHotkeyNextClear_clicked
+
+const void SettingsDialog::on_qpbHotkeyRestoreClear_clicked(bool checked /* false */)
+{
+	ClearHotkey(_usdSettingsDialog.qleHotkeyRestore);
+} // on_qpbHotkeyRestoreClear_clicked
+# endif
 
 const void SettingsDialog::on_qsbWordsFrequency_valueChanged(int i)
 {
