@@ -16,8 +16,14 @@ class Settings
             HotkeyAnswer,
             HotkeyMinimize,
             HotkeyNext,
-            HotkeyRestore
+            HotkeyRestore,
+			HotkeyCount
         }; // eHotkey
+
+		struct sHotKeyInfo {
+			QString qsText;
+			quint32 qui32VirtualKey;
+		}; // sHotKeyInfo
 #endif
 
 		static const int DEFAULT_DIMENSION = -1;
@@ -29,7 +35,7 @@ class Settings
         const QString GetColorFlash() const;
         const bool GetHorizontalLayout() const;
 # ifdef Q_WS_WIN
-        const QString GetHotkey(const eHotkey &pType) const;
+        const sHotKeyInfo GetHotkey(const eHotkey &pType) const;
 # endif
         const bool GetMinimizeToTray() const;
         const bool GetMute() const;
@@ -58,7 +64,7 @@ class Settings
         const void SetColorFlash(const QString &pColor);
         const void SetHorizontalLayout(const bool &pEnable);
 # ifdef Q_WS_WIN
-        const void SetHotkey(const eHotkey &pType, const QString &pHotkey);
+        const void SetHotkey(const eHotkey &pType, const sHotKeyInfo &pHotkey);
 # endif
 		const void SetMinimizeToTray(const bool &pEnable);
         const void SetMute(const bool &pEnable);
@@ -91,5 +97,7 @@ class Settings
 
 #if !defined(FREE) && defined(Q_WS_WIN)
         const QString GetHotkeyKey(const eHotkey &pType) const;
+		const QString GetHotkeyKeyText(const eHotkey &pType) const;
+		const QString GetHotkeyKeyVirtualKey(const eHotkey &pType) const;
 #endif
 }; // Settings

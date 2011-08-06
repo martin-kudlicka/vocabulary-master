@@ -31,6 +31,9 @@ class SettingsDialog : public QDialog
         void accept();
 #ifndef FREE
         const void FillColorFlash();
+# ifdef Q_WS_WIN
+		const void FillHotkey(HotkeyLineEdit *pControl, const Settings::eHotkey &pHotkey) const;
+# endif
 #endif
         const void FillOptions();
         const void FillTranslation();
@@ -38,6 +41,9 @@ class SettingsDialog : public QDialog
 		const void PrepareColorFlash();
 #endif
         const void PrepareTranslations();
+#if !defined(FREE) && defined(Q_WS_WIN)
+		const void SaveHotkey(const HotkeyLineEdit *pControl, const Settings::eHotkey &pHotkey) const;
+#endif
         const void SaveOptions();
 
 	private slots:
