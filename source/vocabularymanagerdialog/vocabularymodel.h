@@ -12,17 +12,17 @@ class VocabularyModel : public QAbstractTableModel
         VocabularyModel(const Vocabulary *pVocabulary, const int &pCategoryId, QObject *pParent = NULL);
 
         const void AddRow();
-		int columnCount(const QModelIndex &parent = QModelIndex()) const;
+		virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
         const void RemoveRow(const int &pRow);
-        int rowCount(const QModelIndex &parent = QModelIndex()) const;
-		bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+        virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
+		virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
 
     private:
         int _iCategoryId;
         const Vocabulary *_vVocabulary;
 
-        QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-        QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+        virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+        virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 }; // VocabularyModel
 
 #endif // VOCABULARYMODEL_H

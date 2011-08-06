@@ -12,8 +12,8 @@ class ImpAnki : public QObject, private ImpInterface
 	private:
         QSqlDatabase _qsdFile;
 
-		const QString GetFilter() const;
-		const bool Open(const QString &pFile);
+		virtual const QString GetFilter() const;
+		virtual const bool Open(const QString &pFile);
 }; // ImpAnki
 
 #endif // IMPANKI_H

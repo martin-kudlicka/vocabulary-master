@@ -11,7 +11,7 @@ class ColorComboBox : public QComboBox
 	private:
 		static const int BORDER_WIDTH = 2;
 
-		void paintEvent(QPaintEvent * e);
+		virtual void paintEvent(QPaintEvent * e);
 }; // ColorComboBox
 
 #endif // COLORCOMBOBOX_H

@@ -45,7 +45,7 @@ class VocabularySettingsDialog : public QDialog
 		Ui::qdVocabularySettingsDialog _qdvsdVocabularySettingsDialog;
 		const Vocabulary *_vVocabulary;
 
-		void accept();
+		virtual void accept();
 		const void FillOptions();
 #ifndef FREE
 		const void FillSpeech(QComboBox *pComboBox, const QString &pSpeech, const QString &pVoice);

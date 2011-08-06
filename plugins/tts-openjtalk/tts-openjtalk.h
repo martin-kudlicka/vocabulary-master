@@ -28,13 +28,13 @@ class TTSOpenJTalk : public QObject, private TTSInterface
 		JPCommon _jJpcommon;
 
 		const QString GetFileInSubdir(const QString &pFile, const QString &pDir) const;
-		const eTTSPlugin GetPluginId() const;
-		const QString GetPluginName() const;
-        const tVoiceInfoList GetVoicesInfo() const;
+		virtual const eTTSPlugin GetPluginId() const;
+		virtual const QString GetPluginName() const;
+        virtual const tVoiceInfoList GetVoicesInfo() const;
 		const QString GetSubdir(const QString &pDir) const;
-		const void Initialize();
-		const void Say(const QString &pVoice, const QString &pText);
-		const void Uninitialize();
+		virtual const void Initialize();
+		virtual const void Say(const QString &pVoice, const QString &pText);
+		virtual const void Uninitialize();
 }; // TTSOpenJTalk
 
 #endif // TTSOPENJTALK_H

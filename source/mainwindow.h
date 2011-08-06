@@ -111,7 +111,7 @@ class MainWindow : public QMainWindow
         const void RefreshStatusBar();
 #if !defined(FREE) && defined(Q_WS_WIN)
 		const void RegisterHotkeys() const;
-		bool winEvent(MSG *message, long *result);
+		virtual bool winEvent(MSG *message, long *result);
 #endif
 }; // MainWindow
 
