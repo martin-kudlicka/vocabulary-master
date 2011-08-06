@@ -8,14 +8,14 @@ const QString KEY_ALWAYSONTOP = "AlwaysOnTop";
 #ifndef FREE
 const QString KEY_COLORFLASH = "ColorFlash";
 const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
+# ifdef Q_WS_WIN
+const QString KEY_HOTKEY = "Hotkey";
+# endif
 const QString KEY_MINIMIZETOTRAY = "MinimizeToTray";
 const QString KEY_MUTE = "Mute";
 const QString KEY_NEWWORDFLASH = "NewWordFlash";
 const QString KEY_NEWWORDSOUND = "NewWordSound";
 const QString KEY_REMEMBERWINDOWPOSITION = "RememberWindowPosition";
-# ifdef Q_WS_WIN
-const QString KEY_SHORTCUT = "Shortcut";
-# endif
 const QString KEY_SHOWWORDSINTRAYBALLOON = "ShowWordsInTrayBalloon";
 const QString KEY_STARTLEARNINGONSTARTUP = "StartLearningOnStartup";
 #endif
@@ -58,15 +58,19 @@ const bool Settings::GetHorizontalLayout() const
 } // GetHorizontalLayout
 
 # ifdef Q_WS_WIN
-const QString Settings::GetHotkey(const eHotkey &pType) const
+const Settings::sHotKeyInfo Settings::GetHotkey(const eHotkey &pType) const
 {
-    QString qsKey = GetHotkeyKey(pType);
-    return _qsSettings.value(qsKey).toString();
+	sHotKeyInfo shkiHotKey;
+
+	shkiHotKey.qsText = _qsSettings.value(GetHotkeyKeyText(pType)).toString();
+	shkiHotKey.qui32VirtualKey = _qsSettings.value(GetHotkeyKeyVirtualKey(pType)).toUInt();
+
+    return shkiHotKey;
 } // GetHotkey
 
 const QString Settings::GetHotkeyKey(const eHotkey &pType) const
 {
-    QString qsKey = KEY_SHORTCUT;
+    QString qsKey = KEY_HOTKEY;
 
     switch (pType) {
         case HotkeyAnswer:
@@ -85,6 +89,16 @@ const QString Settings::GetHotkeyKey(const eHotkey &pType) const
 
     return qsKey;
 } // GetHotkeyKey
+
+const QString Settings::GetHotkeyKeyText(const eHotkey &pType) const
+{
+	return GetHotkeyKey(pType) + "Text";
+} // GetHotkeyKeyText
+
+const QString Settings::GetHotkeyKeyVirtualKey(const eHotkey &pType) const
+{
+	return GetHotkeyKey(pType) + "VirtualKey";
+} // GetHotkeyKeyVirtualKey
 # endif
 
 const bool Settings::GetMinimizeToTray() const
@@ -198,10 +212,10 @@ const void Settings::SetHorizontalLayout(const bool &pEnable)
 } // SetHorizontalLayout
 
 # ifdef Q_WS_WIN
-const void Settings::SetHotkey(const eHotkey &pType, const QString &pHotkey)
+const void Settings::SetHotkey(const eHotkey &pType, const sHotKeyInfo &pHotkey)
 {
-    QString qsKey = GetHotkeyKey(pType);
-    _qsSettings.setValue(qsKey, pHotkey);
+    _qsSettings.setValue(GetHotkeyKeyText(pType), pHotkey.qsText);
+	_qsSettings.setValue(GetHotkeyKeyVirtualKey(pType), pHotkey.qui32VirtualKey);
 } // SetHotkey
 # endif
 

@@ -22,6 +22,15 @@ const void SettingsDialog::FillColorFlash()
         } // if
     } // for
 } // FillColorFlash
+
+# ifdef Q_WS_WIN
+const void SettingsDialog::FillHotkey(HotkeyLineEdit *pControl, const Settings::eHotkey &pHotkey) const
+{
+	Settings::sHotKeyInfo shkiHotkey = _sSettings->GetHotkey(pHotkey);
+	pControl->setText(shkiHotkey.qsText);
+	pControl->setProperty(PROPERTY_VIRTUALKEY, shkiHotkey.qui32VirtualKey);
+} // FillHotkey
+# endif
 #endif
 
 const void SettingsDialog::FillOptions()
@@ -60,11 +69,11 @@ const void SettingsDialog::FillOptions()
 # ifdef Q_WS_WIN
     // hotkeys
     // learning
-    _usdSettingsDialog.qleHotkeyNext->setText(_sSettings->GetHotkey(Settings::HotkeyNext));
-    _usdSettingsDialog.qleHotkeyAnswer->setText(_sSettings->GetHotkey(Settings::HotkeyAnswer));
+	FillHotkey(_usdSettingsDialog.qleHotkeyNext, Settings::HotkeyNext);
+    FillHotkey(_usdSettingsDialog.qleHotkeyAnswer, Settings::HotkeyAnswer);
     // window
-    _usdSettingsDialog.qleHotkeyMinimize->setText(_sSettings->GetHotkey(Settings::HotkeyMinimize));
-    _usdSettingsDialog.qleHotkeyRestore->setText(_sSettings->GetHotkey(Settings::HotkeyRestore));
+	FillHotkey(_usdSettingsDialog.qleHotkeyMinimize, Settings::HotkeyMinimize);
+	FillHotkey(_usdSettingsDialog.qleHotkeyRestore, Settings::HotkeyRestore);
 # endif
 #endif
 } // FillOptions
@@ -115,6 +124,18 @@ const void SettingsDialog::PrepareTranslations()
     } // foreach
 } // PrepareTranslations
 
+#if !defined(FREE) && defined(Q_WS_WIN)
+const void SettingsDialog::SaveHotkey(const HotkeyLineEdit *pControl, const Settings::eHotkey &pHotkey) const
+{
+	Settings::sHotKeyInfo shkiHotkey;
+
+	shkiHotkey.qsText = pControl->text();
+	shkiHotkey.qui32VirtualKey = pControl->property(PROPERTY_VIRTUALKEY).toUInt();
+
+	_sSettings->SetHotkey(pHotkey, shkiHotkey);
+} // SaveHotkey
+#endif
+
 const void SettingsDialog::SaveOptions()
 {
     // general
@@ -149,11 +170,11 @@ const void SettingsDialog::SaveOptions()
 # ifdef Q_WS_WIN
 	// hotkeys
     // learning
-    _sSettings->SetHotkey(Settings::HotkeyNext, _usdSettingsDialog.qleHotkeyNext->text());
-    _sSettings->SetHotkey(Settings::HotkeyAnswer, _usdSettingsDialog.qleHotkeyAnswer->text());
+	SaveHotkey(_usdSettingsDialog.qleHotkeyNext, Settings::HotkeyNext);
+	SaveHotkey(_usdSettingsDialog.qleHotkeyAnswer, Settings::HotkeyAnswer);
     // window
-    _sSettings->SetHotkey(Settings::HotkeyMinimize, _usdSettingsDialog.qleHotkeyMinimize->text());
-    _sSettings->SetHotkey(Settings::HotkeyRestore, _usdSettingsDialog.qleHotkeyRestore->text());
+	SaveHotkey(_usdSettingsDialog.qleHotkeyMinimize, Settings::HotkeyMinimize);
+	SaveHotkey(_usdSettingsDialog.qleHotkeyRestore, Settings::HotkeyRestore);
 # endif
 #endif
 } // SaveOptions

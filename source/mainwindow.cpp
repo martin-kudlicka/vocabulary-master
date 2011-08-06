@@ -7,6 +7,9 @@
 #include <QtCore/QTime>
 #include <QTest>
 #include <QtGui/QMessageBox>
+#if !defined(FREE) && defined(Q_WS_WIN)
+# include <Windows.h>
+#endif
 
 #ifdef FREE
 const QString FREE_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " FREE");
@@ -55,6 +58,10 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 
 #ifndef FREE
     _qstiTrayIcon.setVisible(_sSettings.GetSystemTrayIcon());
+#endif
+
+#if !defined(FREE) && defined(Q_WS_WIN)
+	RegisterHotkeys();
 #endif
 } // ApplySettings
 
@@ -373,6 +380,30 @@ const void MainWindow::RefreshStatusBar()
     } // if else
 } // RefreshStatusBar
 
+#if !defined(FREE) && defined(Q_WS_WIN)
+const void MainWindow::RegisterHotkeys() const
+{
+	for (int iHotkey = 0; iHotkey < Settings::HotkeyCount - 1; iHotkey++) {
+		Settings::sHotKeyInfo shkiHotkey = _sSettings.GetHotkey(static_cast<Settings::eHotkey>(iHotkey));
+
+		UINT uiModifiers;
+		if (shkiHotkey.qsText.contains(MODIFIER_ALT)) {
+			uiModifiers = MOD_ALT;
+		} else {
+			uiModifiers = 0;
+		} // if else
+		if (shkiHotkey.qsText.contains(MODIFIER_CTRL)) {
+			uiModifiers |= MOD_CONTROL;
+		} // if
+		if (shkiHotkey.qsText.contains(MODIFIER_SHIFT)) {
+			uiModifiers |= MOD_SHIFT;
+		} // if
+
+		RegisterHotKey(winId(), iHotkey, uiModifiers, shkiHotkey.qui32VirtualKey);
+	} // for
+} // RegisterHotkeys
+#endif
+
 #ifndef FREE
 const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
@@ -573,3 +604,30 @@ void MainWindow::timerEvent(QTimerEvent *event)
         } // if
     } // if else
 } // timerEvent
+
+#if !defined(FREE) && defined(Q_WS_WIN)
+bool MainWindow::winEvent(MSG *message, long *result)
+{
+	if (message->message == WM_HOTKEY) {
+		switch (message->wParam) {
+			case Settings::HotkeyAnswer:
+				if (_umwMainWindow.qaAnswer->isEnabled()) {
+					on_qaAnswer_triggered();
+				} // if
+				break;
+			case Settings::HotkeyMinimize:
+				showMinimized();
+				break;
+			case Settings::HotkeyNext:
+				if (_umwMainWindow.qaNext->isEnabled()) {
+					on_qaNext_triggered();
+				} // if
+				break;
+			case Settings::HotkeyRestore:
+				showNormal();
+		} // switch
+	} // if
+
+	return false;
+} // winEvent
+#endif

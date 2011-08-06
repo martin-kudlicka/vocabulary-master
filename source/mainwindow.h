@@ -109,6 +109,10 @@ class MainWindow : public QMainWindow
 		const void on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason reason);
 #endif
         const void RefreshStatusBar();
+#if !defined(FREE) && defined(Q_WS_WIN)
+		const void RegisterHotkeys() const;
+		bool winEvent(MSG *message, long *result);
+#endif
 }; // MainWindow
 
 #endif // MAINWINDOW_H

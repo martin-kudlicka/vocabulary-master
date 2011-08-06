@@ -3,6 +3,12 @@
 
 #include <QtGui/QLineEdit>
 
+static const char *PROPERTY_VIRTUALKEY = "VirtualKey";
+const QChar MODIFIER_SEPARATOR = '+';
+const QString MODIFIER_ALT = "Alt";
+const QString MODIFIER_CTRL = "Ctrl";
+const QString MODIFIER_SHIFT = "Shift";
+
 class HotkeyLineEdit : public QLineEdit
 {
     public:
