@@ -21,7 +21,7 @@
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>Languages</string>
+       <string>&amp;Languages</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
@@ -33,7 +33,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label_3">
             <property name="text">
-             <string>Left:</string>
+             <string>L&amp;eft:</string>
             </property>
             <property name="buddy">
              <cstring>leLanguageLeft</cstring>
@@ -46,7 +46,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_4">
             <property name="text">
-             <string>Right:</string>
+             <string>&amp;Right:</string>
             </property>
             <property name="buddy">
              <cstring>leLanguageRight</cstring>
@@ -68,7 +68,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>Left:</string>
+             <string>Le&amp;ft:</string>
             </property>
             <property name="buddy">
              <cstring>qcbSpeechLeft</cstring>
@@ -88,7 +88,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Right:</string>
+             <string>R&amp;ight:</string>
             </property>
             <property name="buddy">
              <cstring>qcbSpeechRight</cstring>
@@ -125,7 +125,7 @@
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
-       <string>Templates</string>
+       <string>&amp;Templates</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
@@ -137,7 +137,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label_5">
             <property name="text">
-             <string>Left:</string>
+             <string>&amp;Left:</string>
             </property>
             <property name="buddy">
              <cstring>qteLearningLeft</cstring>
@@ -150,7 +150,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_6">
             <property name="text">
-             <string>Right:</string>
+             <string>&amp;Right:</string>
             </property>
             <property name="buddy">
              <cstring>qteLearningRight</cstring>
@@ -172,7 +172,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label_7">
             <property name="text">
-             <string>Left:</string>
+             <string>L&amp;eft:</string>
             </property>
             <property name="buddy">
              <cstring>qteTrayLeft</cstring>
@@ -188,7 +188,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_8">
             <property name="text">
-             <string>Right:</string>
+             <string>R&amp;ight:</string>
             </property>
             <property name="buddy">
              <cstring>qteTrayRight</cstring>
@@ -202,7 +202,7 @@
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
-       <string>Fields</string>
+       <string>&amp;Fields</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
@@ -210,7 +210,7 @@
          <item>
           <widget class="QLabel" name="label_9">
            <property name="text">
-            <string>Type:</string>
+            <string>&amp;Type:</string>
            </property>
            <property name="buddy">
             <cstring>qcbFieldType</cstring>
@@ -230,7 +230,7 @@
          <item>
           <widget class="QPushButton" name="qpbFieldAdd">
            <property name="text">
-            <string>Add</string>
+            <string>&amp;Add</string>
            </property>
           </widget>
          </item>
@@ -253,7 +253,7 @@
               <bool>false</bool>
              </property>
              <property name="text">
-              <string>Up</string>
+              <string>&amp;Up</string>
              </property>
             </widget>
            </item>
@@ -263,7 +263,7 @@
               <bool>false</bool>
              </property>
              <property name="text">
-              <string>Down</string>
+              <string>&amp;Down</string>
              </property>
             </widget>
            </item>
@@ -286,7 +286,7 @@
               <bool>false</bool>
              </property>
              <property name="text">
-              <string>Remove</string>
+              <string>&amp;Remove</string>
              </property>
             </widget>
            </item>
