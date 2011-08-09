@@ -1,21 +1,21 @@
-#ifndef DECKSMODEL_H
-#define DECKSMODEL_H
+#ifndef MODELSMODEL_H
+#define MODELSMODEL_H
 
 #include <QtCore/QAbstractItemModel>
 #include <QtSql/QSqlDatabase>
 
-class DecksModel : public QAbstractItemModel
+class ModelsModel : public QAbstractItemModel
 {
     public:
-        DecksModel(const QSqlDatabase *pAnki, QObject *pParent = NULL);
+        ModelsModel(const QSqlDatabase *pAnki, QObject *pParent = NULL);
 
-        const int GetDeckId(const int &pRow) const;
+        const void SetDeckId(const int &pDeckId);
 
     private:
         enum eColumn {
-            ColumnId,
+            ColumnTags,
+            ColumnName,
             ColumnDescription,
-            ColumnFacts,
             ColumnCount
         }; // eColumn
 
@@ -25,6 +25,7 @@ class DecksModel : public QAbstractItemModel
             ColumnPosition3
         }; // eColumnPosition
 
+        int _iDeckId;
         const QSqlDatabase *_qsdAnki;
 
         virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
@@ -33,6 +34,6 @@ class DecksModel : public QAbstractItemModel
         virtual QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
         virtual QModelIndex parent(const QModelIndex &index) const;
         virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
-}; // DecksModel
+}; // ModelsModel
 
-#endif // DECKSMODEL_H
+#endif // MODELSMODEL_H
