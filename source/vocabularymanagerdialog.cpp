@@ -222,7 +222,9 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
 	QString qsFilter;
 	QString qsFile = QFileDialog::getOpenFileName(this, tr("Import words"), QString(), qslFilters.join(";;"), &qsFilter);
 	if (!qsFile.isEmpty()) {
-		WordsImportDialog wiImport(qsFile, qsFilter, _vVocabulary, _pPlugins, this);
+        int iFilter = qslFilters.indexOf(qsFilter);
+        ImpInterface *iiPlugin = _pPlugins->GetImpPlugins().at(iFilter);
+		WordsImportDialog wiImport(qsFile, _vVocabulary, iiPlugin, this);
 		wiImport.exec();
 	} // if
 } // on_qpbWordImport_clicked
