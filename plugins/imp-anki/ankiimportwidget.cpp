@@ -1,18 +1,29 @@
 #include "ankiimportwidget.h"
 
-AnkiImportWidget::AnkiImportWidget(const QSqlDatabase *pAnki, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(pParent, pFlags), _dmDecksModel(pAnki)
+AnkiImportWidget::AnkiImportWidget(const QSqlDatabase *pAnki, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(pParent, pFlags), _dmDecksModel(pAnki), _mmModelsModel(pAnki)
 {
     _qsdAnki = pAnki;
 
     _qwaiAnkiImport.setupUi(this);
 
-    PrepareDecks();
+    // decks
+    PrepareTreeView(_qwaiAnkiImport.qtvDecks, &_dmDecksModel);
+    connect(_qwaiAnkiImport.qtvDecks->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvDecksSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+    // models
+    PrepareTreeView(_qwaiAnkiImport.qtvModels, &_mmModelsModel);
 } // AnkiImportWidget
 
-const void AnkiImportWidget::PrepareDecks()
+const void AnkiImportWidget::on_qtvDecksSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
-    _qwaiAnkiImport.qtvDecks->setModel(&_dmDecksModel);
-    for (int iColumn = 0; iColumn < _qwaiAnkiImport.qtvDecks->header()->count(); iColumn++) {
-        _qwaiAnkiImport.qtvDecks->header()->setResizeMode(iColumn, QHeaderView::Stretch);
+    int iDeckId = _dmDecksModel.GetDeckId(_qwaiAnkiImport.qtvDecks->currentIndex().row());
+    _mmModelsModel.SetDeckId(iDeckId);
+    _qwaiAnkiImport.qtvModels->reset();
+} // on_qtvDecksSelectionModel_selectionChanged
+
+const void AnkiImportWidget::PrepareTreeView(QTreeView *pTreeView, QAbstractItemModel *pItemModel) const
+{
+    pTreeView->setModel(pItemModel);
+    for (int iColumn = 0; iColumn < pTreeView->header()->count(); iColumn++) {
+        pTreeView->header()->setResizeMode(iColumn, QHeaderView::Stretch);
     } // for
-} // PrepareDecks
+} // PrepareTreeView

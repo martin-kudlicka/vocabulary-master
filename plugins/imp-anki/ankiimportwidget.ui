@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Deck</string>
+    <string>Decks</string>
    </property>
   </widget>
   <widget class="QTreeView" name="qtvDecks">
@@ -31,12 +31,38 @@
     <rect>
      <x>10</x>
      <y>30</y>
-     <width>256</width>
+     <width>151</width>
      <height>192</height>
     </rect>
    </property>
    <property name="rootIsDecorated">
     <bool>false</bool>
+   </property>
+   <attribute name="headerStretchLastSection">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>10</y>
+     <width>46</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Models</string>
+   </property>
+  </widget>
+  <widget class="QTreeView" name="qtvModels">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>30</y>
+     <width>190</width>
+     <height>192</height>
+    </rect>
    </property>
    <attribute name="headerStretchLastSection">
     <bool>false</bool>

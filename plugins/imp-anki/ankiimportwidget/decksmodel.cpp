@@ -39,6 +39,13 @@ DecksModel::DecksModel(const QSqlDatabase *pAnki, QObject *pParent /* NULL */) :
     _qsdAnki = pAnki;
 } // DecksModel
 
+const int DecksModel::GetDeckId(const int &pRow) const
+{
+    QSqlQuery qsqQuery = _qsdAnki->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DECKS);
+    qsqQuery.seek(pRow);
+    return qsqQuery.value(ColumnPosition1).toInt();
+} // GetDeckId
+
 QVariant DecksModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
     switch (role) {
