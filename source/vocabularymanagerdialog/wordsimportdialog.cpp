@@ -9,16 +9,17 @@ int WordsImportDialog::exec()
         return QDialog::Rejected;
     } // if
 
+    _qdwiWordsImport.setupUi(this);
+    _qdwiWordsImport.qtvCategories->setModel(&_cmCategoriesModel);
+
     _iiPlugin->SetupUI(this);
 
 	return QDialog::exec();
 } // exec
 
-WordsImportDialog::WordsImportDialog(const QString &pFile, const Vocabulary *pVocabulary, ImpInterface *pPlugin, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
+WordsImportDialog::WordsImportDialog(const QString &pFile, const Vocabulary *pVocabulary, ImpInterface *pPlugin, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags), _cmCategoriesModel(pVocabulary)
 {
 	_qsFile = pFile;
 	_vVocabulary = pVocabulary;
 	_iiPlugin = pPlugin;
-
-	_qdwiWordsImport.setupUi(this);
 } // WordsImportDialog

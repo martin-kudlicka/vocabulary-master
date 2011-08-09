@@ -89,12 +89,37 @@ const void Vocabulary::EndEdit(const bool &pSave /* true */)
 } // EndEdit
 
 #ifndef FREE
+const int Vocabulary::GetCategoryCount() const
+{
+    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_CATEGORIES);
+    if (qsqQuery.last()) {
+        return qsqQuery.at() + 1;
+    } else {
+        return 0;
+    } // if else
+} // GetCategoryCount
+
 const bool Vocabulary::GetCategoryEnabled(const int &pCategoryId) const
 {
     QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ENABLED + " FROM " + TABLE_CATEGORIES + " WHERE " + COLUMN_ID + " = " + QString::number(pCategoryId));
     qsqQuery.next();
     return qsqQuery.value(0).toBool();
 } // GetCategoryEnabled
+
+const int Vocabulary::GetCategoryId(const int &pRow) const
+{
+    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_CATEGORIES);
+    int iPosition = 0;
+    while (qsqQuery.next()) {
+        if (iPosition == pRow) {
+            return qsqQuery.value(ColumnPosition1).toInt();
+        } else {
+            iPosition++;
+        } // if else
+    } // while
+
+    return NOT_FOUND;
+} // GetCategoryId
 #endif
 
 const Vocabulary::tCategoryIdList Vocabulary::GetCategoryIds() const
