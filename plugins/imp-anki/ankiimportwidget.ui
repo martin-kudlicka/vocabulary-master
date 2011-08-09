@@ -13,61 +13,53 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>46</width>
-     <height>13</height>
-    </rect>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="margin">
+    <number>0</number>
    </property>
-   <property name="text">
-    <string>Decks</string>
-   </property>
-  </widget>
-  <widget class="QTreeView" name="qtvDecks">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>30</y>
-     <width>151</width>
-     <height>192</height>
-    </rect>
-   </property>
-   <property name="rootIsDecorated">
-    <bool>false</bool>
-   </property>
-   <attribute name="headerStretchLastSection">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>10</y>
-     <width>46</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Models</string>
-   </property>
-  </widget>
-  <widget class="QTreeView" name="qtvModels">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>30</y>
-     <width>190</width>
-     <height>192</height>
-    </rect>
-   </property>
-   <attribute name="headerStretchLastSection">
-    <bool>false</bool>
-   </attribute>
-  </widget>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Decks</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTreeView" name="qtvDecks">
+       <property name="rootIsDecorated">
+        <bool>false</bool>
+       </property>
+       <attribute name="headerStretchLastSection">
+        <bool>false</bool>
+       </attribute>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Models</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTreeView" name="qtvModels">
+       <property name="rootIsDecorated">
+        <bool>false</bool>
+       </property>
+       <attribute name="headerStretchLastSection">
+        <bool>false</bool>
+       </attribute>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

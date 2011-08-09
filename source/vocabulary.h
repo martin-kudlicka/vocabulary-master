@@ -59,7 +59,9 @@ class Vocabulary
         const void BeginEdit();
         const void EndEdit(const bool &pSave = true);
 #ifndef FREE
+        const int GetCategoryCount() const;
         const bool GetCategoryEnabled(const int &pCategoryId) const;
+        const int GetCategoryId(const int &pRow) const;
 #endif
         const tCategoryIdList GetCategoryIds() const;
         const QString GetCategoryName(const int &pCategoryId) const;

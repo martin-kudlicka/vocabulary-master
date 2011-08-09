@@ -3,8 +3,8 @@
 
 #include <ui_wordsimportdialog.h>
 
-#include "vocabulary.h"
 #include "../plugins/common/imp-interface.h"
+#include "vocabularymanagerdialog/wordsimportdialog/categoriesmodel.h"
 
 class WordsImportDialog : public QDialog
 {
@@ -16,6 +16,7 @@ class WordsImportDialog : public QDialog
 		int exec();
 
 	private:
+        CategoriesModel _cmCategoriesModel;
 		ImpInterface *_iiPlugin;
 		QString _qsFile;
 		Ui::qdWordsImport _qdwiWordsImport;
