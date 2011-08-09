@@ -3,16 +3,19 @@
 
 #include <ui_ankiimportwidget.h>
 
-#include <QtSql/QSqlDatabase>
+#include "ankiimportwidget/decksmodel.h"
 
 class AnkiImportWidget : public QWidget
 {
     public:
-        AnkiImportWidget(QSqlDatabase *pAnki, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+        AnkiImportWidget(const QSqlDatabase *pAnki, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
     private:
-        QSqlDatabase *_qsdAnki;
+        DecksModel _dmDecksModel;
+        const QSqlDatabase *_qsdAnki;
         Ui::qwAnkiImport _qwaiAnkiImport;
+
+        const void PrepareDecks();
 }; // AnkiImportWidget
 
 #endif // ANKIIMPORTWIDGET_H
