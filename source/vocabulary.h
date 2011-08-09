@@ -114,8 +114,7 @@ class Vocabulary
 
     private:
 		enum eColumnPosition {
-			ColumnPosition1,
-			ColumnPosition2
+			ColumnPosition1
 		}; // eColumnPosition
 
         QSqlDatabase _qsdDatabase;
