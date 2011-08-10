@@ -486,6 +486,26 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\vocabularymanagerdialog\wordsimportdialog\wordsimportfieldsmodel.cpp"
+				>
+				<FileConfiguration
+					Name="Debug FREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release FREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -932,6 +952,26 @@
 			</File>
 			<File
 				RelativePath=".\vocabularymanagerdialog\wordsimportdialog.h"
+				>
+				<FileConfiguration
+					Name="Debug FREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release FREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\vocabularymanagerdialog\wordsimportdialog\wordsimportfieldsmodel.h"
 				>
 				<FileConfiguration
 					Name="Debug FREE|Win32"

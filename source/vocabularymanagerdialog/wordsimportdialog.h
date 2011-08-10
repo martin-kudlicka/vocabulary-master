@@ -5,6 +5,7 @@
 
 #include "../plugins/common/imp-interface.h"
 #include "vocabularymanagerdialog/wordsimportdialog/categoriesmodel.h"
+#include "vocabularymanagerdialog/wordsimportdialog/wordsimportfieldsmodel.h"
 
 class WordsImportDialog : public QDialog
 {
@@ -21,6 +22,9 @@ class WordsImportDialog : public QDialog
 		QString _qsFile;
 		Ui::qdWordsImport _qdwiWordsImport;
 		const Vocabulary *_vVocabulary;
+        WordsImportFieldsModel _wifmFieldsModel;
+
+        const void CreateFieldEditors() const;
 }; // WordsImportDialog
 
 #endif // WORDSIMPORTDIALOG_H
