@@ -2,9 +2,7 @@
 
 #include <QtSql/QSqlQuery>
 
-const QString COLUMN_DESCRIPTION = "description";
 const QString COLUMN_ID = "id";
-const QString COLUMN_FACTCOUNT = "factCount";
 const QString TABLE_DECKS = "decks";
 
 int DecksModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
@@ -17,16 +15,12 @@ QVariant DecksModel::data(const QModelIndex &index, int role /* Qt::DisplayRole 
     switch (role) {
         case Qt::DisplayRole:
             {
-                QSqlQuery qsqQuery = _qsdAnki->exec("SELECT " + COLUMN_ID + ", " + COLUMN_DESCRIPTION + ", " + COLUMN_FACTCOUNT + " FROM " + TABLE_DECKS);
+                QSqlQuery qsqQuery = _qsdAnki->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DECKS);
                 qsqQuery.seek(index.row());
 
                 switch (index.column()) {
                     case ColumnId:
                         return qsqQuery.value(ColumnPosition1);
-                    case ColumnDescription:
-                        return qsqQuery.value(ColumnPosition2);
-                    case ColumnFacts:
-                        return qsqQuery.value(ColumnPosition3);
                 } // switch
             }
         default:
@@ -52,11 +46,7 @@ QVariant DecksModel::headerData(int section, Qt::Orientation orientation, int ro
         case Qt::DisplayRole:
             switch (section) {
                 case ColumnId:
-                    return "#";
-                case ColumnDescription:
-                    return tr("Description");
-                case ColumnFacts:
-                    return tr("Facts");
+                    return tr("Deck");
             } // switch
         default:
             return QVariant();

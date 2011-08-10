@@ -39,7 +39,7 @@ QVariant FieldsModel::headerData(int section, Qt::Orientation orientation, int r
 {
     switch (role) {
         case Qt::DisplayRole:
-            return tr("Name");
+            return tr("Field");
         default:
             return QVariant();
     } // switch

@@ -18,67 +18,34 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Decks</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QTreeView" name="qtvDecks">
-       <property name="rootIsDecorated">
-        <bool>false</bool>
-       </property>
-       <attribute name="headerStretchLastSection">
-        <bool>false</bool>
-       </attribute>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QTreeView" name="qtvDecks">
+     <property name="rootIsDecorated">
+      <bool>false</bool>
+     </property>
+     <attribute name="headerStretchLastSection">
+      <bool>false</bool>
+     </attribute>
+    </widget>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Models</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QTreeView" name="qtvModels">
-       <property name="rootIsDecorated">
-        <bool>false</bool>
-       </property>
-       <attribute name="headerStretchLastSection">
-        <bool>false</bool>
-       </attribute>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QTreeView" name="qtvModels">
+     <property name="rootIsDecorated">
+      <bool>false</bool>
+     </property>
+     <attribute name="headerStretchLastSection">
+      <bool>false</bool>
+     </attribute>
+    </widget>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
-     <item>
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Fields</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QTreeView" name="qtvFields">
-       <property name="rootIsDecorated">
-        <bool>false</bool>
-       </property>
-       <attribute name="headerStretchLastSection">
-        <bool>false</bool>
-       </attribute>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QTreeView" name="qtvFields">
+     <property name="rootIsDecorated">
+      <bool>false</bool>
+     </property>
+     <attribute name="headerStretchLastSection">
+      <bool>false</bool>
+     </attribute>
+    </widget>
    </item>
   </layout>
  </widget>
