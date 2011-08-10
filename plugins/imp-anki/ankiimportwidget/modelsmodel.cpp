@@ -3,10 +3,8 @@
 #include <QtSql/QSqlQuery>
 
 const QString COLUMN_DECKID = "deckId";
-const QString COLUMN_DESCRIPTION = "description";
 const QString COLUMN_ID = "id";
 const QString COLUMN_NAME = "name";
-const QString COLUMN_TAGS = "tags";
 const QString TABLE_MODELS = "models";
 
 int ModelsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
@@ -19,16 +17,12 @@ QVariant ModelsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
     switch (role) {
         case Qt::DisplayRole:
             {
-                QSqlQuery qsqQuery = _qsdAnki->exec("SELECT " + COLUMN_TAGS + ", " + COLUMN_NAME + ", " + COLUMN_DESCRIPTION + " FROM " + TABLE_MODELS + " WHERE " + COLUMN_DECKID + " = " + QString::number(_iDeckId));
+                QSqlQuery qsqQuery = _qsdAnki->exec("SELECT " + COLUMN_NAME + " FROM " + TABLE_MODELS + " WHERE " + COLUMN_DECKID + " = " + QString::number(_iDeckId));
                 qsqQuery.seek(index.row());
 
                 switch (index.column()) {
-                    case ColumnTags:
-                        return qsqQuery.value(ColumnPosition1);
                     case ColumnName:
-                        return qsqQuery.value(ColumnPosition2);
-                    case ColumnDescription:
-                        return qsqQuery.value(ColumnPosition3);
+                        return qsqQuery.value(ColumnPosition1);
                 } // switch
             }
         default:
@@ -55,12 +49,8 @@ QVariant ModelsModel::headerData(int section, Qt::Orientation orientation, int r
     switch (role) {
         case Qt::DisplayRole:
             switch (section) {
-                case ColumnTags:
-                    return tr("Tags");
                 case ColumnName:
-                    return tr("Name");
-                case ColumnDescription:
-                    return tr("Description");
+                    return tr("Model");
             } // switch
         default:
             return QVariant();

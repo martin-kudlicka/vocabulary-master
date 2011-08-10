@@ -14,15 +14,11 @@ class DecksModel : public QAbstractItemModel
     private:
         enum eColumn {
             ColumnId,
-            ColumnDescription,
-            ColumnFacts,
             ColumnCount
         }; // eColumn
 
         enum eColumnPosition {
-            ColumnPosition1,
-            ColumnPosition2,
-            ColumnPosition3
+            ColumnPosition1
         }; // eColumnPosition
 
         const QSqlDatabase *_qsdAnki;

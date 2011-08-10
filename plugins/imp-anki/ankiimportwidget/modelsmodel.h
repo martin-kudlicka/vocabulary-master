@@ -14,16 +14,12 @@ class ModelsModel : public QAbstractItemModel
 
     private:
         enum eColumn {
-            ColumnTags,
             ColumnName,
-            ColumnDescription,
             ColumnCount
         }; // eColumn
 
         enum eColumnPosition {
-            ColumnPosition1,
-            ColumnPosition2,
-            ColumnPosition3
+            ColumnPosition1
         }; // eColumnPosition
 
         int _iDeckId;
