@@ -170,6 +170,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ankiimportwidget\fieldsmodel.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\imp-anki.cpp"
 				>
 			</File>
@@ -211,6 +215,10 @@
 			</File>
 			<File
 				RelativePath=".\ankiimportwidget\decksmodel.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ankiimportwidget\fieldsmodel.h"
 				>
 			</File>
 			<File

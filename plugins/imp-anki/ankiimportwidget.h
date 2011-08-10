@@ -5,6 +5,7 @@
 
 #include "ankiimportwidget/decksmodel.h"
 #include "ankiimportwidget/modelsmodel.h"
+#include "ankiimportwidget/fieldsmodel.h"
 
 class AnkiImportWidget : public QWidget
 {
@@ -15,6 +16,7 @@ class AnkiImportWidget : public QWidget
 
     private:
         DecksModel _dmDecksModel;
+        FieldsModel _fmFieldsModel;
         ModelsModel _mmModelsModel;
         const QSqlDatabase *_qsdAnki;
         Ui::qwAnkiImport _qwaiAnkiImport;
@@ -23,6 +25,7 @@ class AnkiImportWidget : public QWidget
 
     private slots:
         const void on_qtvDecksSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+        const void on_qtvModelsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 }; // AnkiImportWidget
 
 #endif // ANKIIMPORTWIDGET_H
