@@ -1,32 +1,27 @@
-#ifndef MODELSMODEL_H
-#define MODELSMODEL_H
+#ifndef FIELDSMODEL_H
+#define FIELDSMODEL_H
 
 #include <QtCore/QAbstractItemModel>
 #include <QtSql/QSqlDatabase>
 
-class ModelsModel : public QAbstractItemModel
+class FieldsModel : public QAbstractItemModel
 {
     public:
-        ModelsModel(const QSqlDatabase *pAnki, QObject *pParent = NULL);
+        FieldsModel(const QSqlDatabase *pAnki, QObject *pParent = NULL);
 
-        const qlonglong GetModelId(const int &pRow) const;
-        const void SetDeckId(const int &pDeckId);
+        const void SetModelId(const qlonglong &pModelId);
 
     private:
         enum eColumn {
-            ColumnTags,
             ColumnName,
-            ColumnDescription,
             ColumnCount
         }; // eColumn
 
         enum eColumnPosition {
-            ColumnPosition1,
-            ColumnPosition2,
-            ColumnPosition3
+            ColumnPosition1
         }; // eColumnPosition
 
-        int _iDeckId;
+        qlonglong _qllModelId;
         const QSqlDatabase *_qsdAnki;
 
         virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
@@ -35,6 +30,6 @@ class ModelsModel : public QAbstractItemModel
         virtual QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
         virtual QModelIndex parent(const QModelIndex &index) const;
         virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
-}; // ModelsModel
+}; // FieldsModel
 
-#endif // MODELSMODEL_H
+#endif // FIELDSMODEL_H

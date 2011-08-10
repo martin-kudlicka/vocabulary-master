@@ -43,6 +43,13 @@ ModelsModel::ModelsModel(const QSqlDatabase *pAnki, QObject *pParent /* NULL */)
     _iDeckId = 0;
 } // DecksModel
 
+const qlonglong ModelsModel::GetModelId(const int &pRow) const
+{
+    QSqlQuery qsqQuery = _qsdAnki->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_MODELS + " WHERE " + COLUMN_DECKID + " = " + QString::number(_iDeckId));
+    qsqQuery.seek(pRow);
+    return qsqQuery.value(ColumnPosition1).toLongLong();
+} // GetModelId
+
 QVariant ModelsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
     switch (role) {
