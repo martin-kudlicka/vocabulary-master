@@ -9,6 +9,7 @@
 
 class WordsImportDialog : public QDialog
 {
+	Q_OBJECT
 	Q_ENUMS(eFileType)
 
 	public:
@@ -25,6 +26,10 @@ class WordsImportDialog : public QDialog
         WordsImportFieldsModel _wifmFieldsModel;
 
         const void CreateFieldEditors() const;
+		const void PreparePreviewColumns() const;
+
+	private slots:
+		const void on_qpbPreview_clicked(bool checked = false) const;
 }; // WordsImportDialog
 
 #endif // WORDSIMPORTDIALOG_H

@@ -1,12 +1,53 @@
 #include "imp-anki.h"
 
-#include "ankiimportwidget.h"
 #include <QtGui/QBoxLayout>
+#include <QtSql/QSqlQuery>
+
+const QString COLUMN_FACTID = "factId";
+const QString COLUMN_FIELDMODELID = "fieldModelId";
+const QString COLUMN_ID = "id";
+const QString COLUMN_VALUE = "value";
+const QString TABLE_FIELDS = "fields";
 
 const QString ImpAnki::GetFilter() const
 {
 	return "Anki (*.anki)";
 } // GetFilter
+
+const QStringList ImpAnki::GetMarks() const
+{
+	return _aiwWidget->GetMarks();
+} // GetMarks
+
+const int ImpAnki::GetRecordCount() const
+{
+	qlonglong qllFieldId = _aiwWidget->GetFieldId(FieldNum1);
+	QSqlQuery qsqQuery = _qsdAnki.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FIELDMODELID + " = " + QString::number(qllFieldId));
+	if (qsqQuery.last()) {
+		return qsqQuery.at() + 1;
+	} else {
+		return 0;
+	} // if else
+} // GetRecordCount
+
+const QString ImpAnki::GetRecordData(const int &pRecord, const QString &pMark) const
+{
+	// query records by first field ID to get always same sequence
+	qlonglong qllFieldId = _aiwWidget->GetFieldId(FieldNum1);
+	QSqlQuery qsqQuery = _qsdAnki.exec("SELECT " + COLUMN_FACTID + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FIELDMODELID + " = " + QString::number(qllFieldId));
+	qsqQuery.seek(pRecord);
+	qlonglong qllFactId = qsqQuery.value(ColumnPosition1).toLongLong();
+
+	// get mark ID
+	QStringList qslMarks = _aiwWidget->GetMarks();
+	int iIndex = qslMarks.indexOf(pMark);
+	qlonglong qllMarkId = _aiwWidget->GetFieldId(iIndex);
+
+	// get data
+	qsqQuery = _qsdAnki.exec("SELECT " + COLUMN_VALUE + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FACTID + " = " + QString::number(qllFactId) + " AND " + COLUMN_FIELDMODELID + " = " + QString::number(qllMarkId));
+	qsqQuery.next();
+	return qsqQuery.value(ColumnPosition1).toString();
+} // GetRecordData
 
 ImpAnki::ImpAnki() : ImpInterface()
 {
@@ -24,9 +65,9 @@ const bool ImpAnki::Open(const QString &pFile)
 
 const void ImpAnki::SetupUI(QGroupBox *pParent)
 {
-    AnkiImportWidget *aiwWidget = new AnkiImportWidget(&_qsdAnki, pParent);
+    _aiwWidget = new AnkiImportWidget(&_qsdAnki, pParent);
     QBoxLayout *pLayout = qobject_cast<QBoxLayout *>(pParent->layout());
-    pLayout->insertWidget(WIDGET_POSITION, aiwWidget);
+    pLayout->insertWidget(WIDGET_POSITION, _aiwWidget);
 } // SetupUI
 
 Q_EXPORT_PLUGIN2(imp-anki, ImpAnki)

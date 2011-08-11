@@ -40,6 +40,13 @@ FieldsModel::FieldsModel(const QSqlDatabase *pAnki, QObject *pParent /* NULL */)
     _qllModelId = 0;
 } // DecksModel
 
+const qlonglong FieldsModel::GetFieldId(const int &pRow) const
+{
+	QSqlQuery qsqQuery = _qsdAnki->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDMODELS + " ORDER BY " + COLUMN_ORDINAL);
+	qsqQuery.seek(pRow);
+	return qsqQuery.value(ColumnPosition1).toLongLong();
+} // GetFieldId
+
 QVariant FieldsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
     switch (role) {

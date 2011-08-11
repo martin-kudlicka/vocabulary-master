@@ -28,6 +28,8 @@ int WordsImportDialog::exec()
     _qdwiWordsImport.qtvFields->header()->setResizeMode(WordsImportFieldsModel::ColumnName, QHeaderView::ResizeToContents);
     _qdwiWordsImport.qtvFields->header()->setResizeMode(WordsImportFieldsModel::ColumnEditor, QHeaderView::Stretch);
     CreateFieldEditors();
+	// preview
+	PreparePreviewColumns();
 
     // plugin UI
     new QBoxLayout(QBoxLayout::LeftToRight, _qdwiWordsImport.qgbSource);
@@ -35,6 +37,37 @@ int WordsImportDialog::exec()
 
 	return QDialog::exec();
 } // exec
+
+const void WordsImportDialog::on_qpbPreview_clicked(bool checked /* false */) const
+{
+	QStringList qslMarks = _iiPlugin->GetMarks();
+	int iRecordCount = _iiPlugin->GetRecordCount();
+
+	for (int iRecord = 0; iRecord < iRecordCount; iRecord++) {
+		// get mark data
+		foreach (QString qsMark, qslMarks) {
+			QString qsData = _iiPlugin->GetRecordData(iRecord, qsMark);
+		} // foreach
+
+		for (int iColumn = 0; iColumn < _vVocabulary->GetFieldCount(); iColumn++) {
+			// TODO
+		} // for
+	} // for
+} // on_qpbPreview_clicked
+
+const void WordsImportDialog::PreparePreviewColumns() const
+{
+	QStringList qslColumns;
+	foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
+		qslColumns.append(_vVocabulary->GetFieldName(iFieldId));
+	} // foreach
+
+	_qdwiWordsImport.qtwPreview->setColumnCount(qslColumns.size());
+	_qdwiWordsImport.qtwPreview->setHorizontalHeaderLabels(qslColumns);
+	for (int iColumn = 0; iColumn < _qdwiWordsImport.qtwPreview->horizontalHeader()->count(); iColumn++) {
+		_qdwiWordsImport.qtwPreview->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Stretch);
+	} // for
+} // PreparePreviewColumns
 
 WordsImportDialog::WordsImportDialog(const QString &pFile, const Vocabulary *pVocabulary, ImpInterface *pPlugin, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags), _cmCategoriesModel(pVocabulary), _wifmFieldsModel(pVocabulary)
 {
