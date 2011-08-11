@@ -17,7 +17,7 @@ class ImpAnki : public QObject, private ImpInterface
 
 		virtual const QString GetFilter() const;
 		virtual const bool Open(const QString &pFile);
-        virtual const void SetupUI(QDialog *pParent);
+        virtual const void SetupUI(QGroupBox *pParent);
 }; // ImpAnki
 
 #endif // IMPANKI_H

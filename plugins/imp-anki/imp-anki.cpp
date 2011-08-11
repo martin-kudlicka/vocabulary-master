@@ -1,7 +1,7 @@
 #include "imp-anki.h"
 
 #include "ankiimportwidget.h"
-#include <QtGui/QVBoxLayout>
+#include <QtGui/QBoxLayout>
 
 const QString ImpAnki::GetFilter() const
 {
@@ -22,10 +22,10 @@ const bool ImpAnki::Open(const QString &pFile)
     return _qsdAnki.open();
 } // Open
 
-const void ImpAnki::SetupUI(QDialog *pParent)
+const void ImpAnki::SetupUI(QGroupBox *pParent)
 {
     AnkiImportWidget *aiwWidget = new AnkiImportWidget(&_qsdAnki, pParent);
-    QVBoxLayout *pLayout = qobject_cast<QVBoxLayout *>(pParent->layout());
+    QBoxLayout *pLayout = qobject_cast<QBoxLayout *>(pParent->layout());
     pLayout->insertWidget(WIDGET_POSITION, aiwWidget);
 } // SetupUI
 
