@@ -14,6 +14,9 @@ class AnkiImportWidget : public QWidget
     public:
         AnkiImportWidget(const QSqlDatabase *pAnki, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
+		const qlonglong GetFieldId(const int &pPosition) const;
+		const QStringList GetMarks() const;
+
     private:
         typedef QList<QLineEdit *> tFieldMarkEditorList;
 

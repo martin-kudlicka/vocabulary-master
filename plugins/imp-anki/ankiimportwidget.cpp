@@ -20,6 +20,23 @@ AnkiImportWidget::AnkiImportWidget(const QSqlDatabase *pAnki, QWidget *pParent /
     PrepareTreeView(_qwaiAnkiImport.qtvFields, &_fmFieldsModel);
 } // AnkiImportWidget
 
+const qlonglong AnkiImportWidget::GetFieldId(const int &pPosition) const
+{
+	return _fmFieldsModel.GetFieldId(pPosition);
+} // GetFieldId
+
+const QStringList AnkiImportWidget::GetMarks() const
+{
+	QStringList qslMarks;
+	for (int iI = 0; iI < _fmFieldsModel.rowCount(); iI++) {
+		QModelIndex qmiEditorIndex = _fmFieldsModel.index(iI, FieldsModel::ColumnMark);
+		const MarkLineEdit *mleEditor = qobject_cast<const MarkLineEdit *>(_qwaiAnkiImport.qtvFields->indexWidget(qmiEditorIndex));
+		qslMarks.append(mleEditor->text());
+	} // for
+
+	return qslMarks;
+} // GetMarks
+
 const void AnkiImportWidget::on_qtvDecksSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
     int iDeckId = _dmDecksModel.GetDeckId(_qwaiAnkiImport.qtvDecks->currentIndex().row());

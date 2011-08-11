@@ -18,6 +18,7 @@ class FieldsModel : public QAbstractItemModel
         FieldsModel(const QSqlDatabase *pAnki, QObject *pParent = NULL);
 
         virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+		const qlonglong GetFieldId(const int &pRow) const;
         virtual QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
         virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
         const void SetModelId(const qlonglong &pModelId);

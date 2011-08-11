@@ -5,6 +5,8 @@
 
 class MarkLineEdit : public QLineEdit
 {
+	Q_OBJECT
+
     public:
         MarkLineEdit(const QString &pContents, QWidget *pParent = NULL);
 
