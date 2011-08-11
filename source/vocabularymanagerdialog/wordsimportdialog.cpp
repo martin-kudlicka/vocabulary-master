@@ -30,7 +30,8 @@ int WordsImportDialog::exec()
     CreateFieldEditors();
 
     // plugin UI
-    _iiPlugin->SetupUI(this);
+    new QBoxLayout(QBoxLayout::LeftToRight, _qdwiWordsImport.qgbSource);
+    _iiPlugin->SetupUI(_qdwiWordsImport.qgbSource);
 
 	return QDialog::exec();
 } // exec
