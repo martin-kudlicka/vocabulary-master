@@ -15,6 +15,8 @@ class AnkiImportWidget : public QWidget
         AnkiImportWidget(const QSqlDatabase *pAnki, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
     private:
+        typedef QList<QLineEdit *> tFieldMarkEditorList;
+
         DecksModel _dmDecksModel;
         FieldsModel _fmFieldsModel;
         ModelsModel _mmModelsModel;
