@@ -178,6 +178,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ankiimportwidget\marklineedit.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ankiimportwidget\modelsmodel.cpp"
 				>
 			</File>
@@ -249,6 +253,10 @@
 			</File>
 			<File
 				RelativePath="..\common\imp-interface.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ankiimportwidget\marklineedit.h"
 				>
 			</File>
 			<File

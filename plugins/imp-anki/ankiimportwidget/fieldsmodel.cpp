@@ -17,12 +17,17 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 {
     switch (role) {
         case Qt::DisplayRole:
-            {
-                QSqlQuery qsqQuery = _qsdAnki->exec("SELECT " + COLUMN_NAME + " FROM " + TABLE_FIELDMODELS + " WHERE " + COLUMN_MODELID + " = " + QString::number(_qllModelId) + " ORDER BY " + COLUMN_ORDINAL);
-                qsqQuery.seek(index.row());
+            switch (index.column()) {
+                case ColumnName:
+                    {
+                        QSqlQuery qsqQuery = _qsdAnki->exec("SELECT " + COLUMN_NAME + " FROM " + TABLE_FIELDMODELS + " WHERE " + COLUMN_MODELID + " = " + QString::number(_qllModelId) + " ORDER BY " + COLUMN_ORDINAL);
+                        qsqQuery.seek(index.row());
 
-                return qsqQuery.value(ColumnPosition1);
-            }
+                        return qsqQuery.value(ColumnPosition1);
+                    }
+                default:
+                    return QVariant();
+            } // switch
         default:
             return QVariant();
     } // switch
@@ -39,7 +44,12 @@ QVariant FieldsModel::headerData(int section, Qt::Orientation orientation, int r
 {
     switch (role) {
         case Qt::DisplayRole:
-            return tr("Field");
+            switch (section) {
+                case ColumnName:
+                    return tr("Field");
+                case ColumnMark:
+                    return tr("Mark");
+            } // switch
         default:
             return QVariant();
     } // switch
