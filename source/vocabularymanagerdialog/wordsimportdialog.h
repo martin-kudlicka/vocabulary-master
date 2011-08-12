@@ -10,7 +10,6 @@
 class WordsImportDialog : public QDialog
 {
 	Q_OBJECT
-	Q_ENUMS(eFileType)
 
 	public:
 		WordsImportDialog(const QString &pFile, const Vocabulary *pVocabulary, ImpInterface *pPlugin, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
