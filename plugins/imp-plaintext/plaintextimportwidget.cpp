@@ -1,5 +1,16 @@
 #include "plaintextimportwidget.h"
 
+const int PlaintextImportWidget::GetLineCount() const
+{
+	int iFileLines = 0;
+	_pfFile->Seek(PlaintextFile::FILE_BEGIN);
+	while (!_pfFile->ReadLine().isNull()) {
+		iFileLines++;
+	} // while
+
+	return iFileLines;
+} // GetLineCount
+
 const int PlaintextImportWidget::GetLinesPerRecord() const
 {
 	return _qwpiPlaintextImport.qsbLinesPerRecord->value();
@@ -21,6 +32,7 @@ const void PlaintextImportWidget::on_qtvCodecsSelectionModel_selectionChanged(co
 	QString qsCodec = _cmCodecsModel.data(qmiIndex).toString();
 	_pfFile->SetCodecName(qsCodec);
 
+	_qwpiPlaintextImport.qsbLinesPerRecord->setMaximum(GetLineCount());
 	RefreshPreview();
 } // on_qtvCodecsSelectionModel_selectionChanged
 
@@ -34,6 +46,8 @@ PlaintextImportWidget::PlaintextImportWidget(PlaintextFile *pFile, QWidget *pPar
 	connect(_qwpiPlaintextImport.qtvCodecs->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvCodecsSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 
 	PreselectCodec();
+
+	_qwpiPlaintextImport.qsbLinesPerRecord->setMaximum(GetLineCount());
 } // PlaintextImportWidget
 
 const void PlaintextImportWidget::PreselectCodec() const
@@ -57,7 +71,7 @@ const void PlaintextImportWidget::RefreshPreview() const
 {
 	_pfFile->Seek(PlaintextFile::FILE_BEGIN);
 	QString qsText;
-	for (int iI = 0; iI < _qwpiPlaintextImport.qsbLinesPerRecord->value(); iI++) {
+	for (int iI = 0; iI < GetLinesPerRecord(); iI++) {
 		if (!qsText.isEmpty()) {
 			qsText += "\n";
 		} // if

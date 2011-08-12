@@ -13,6 +13,7 @@ class PlaintextImportWidget : public QWidget
     public:
         PlaintextImportWidget(PlaintextFile *pFile, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
+		const int GetLineCount() const;
 		const int GetLinesPerRecord() const;
 		const QString GetRegExp() const;
 

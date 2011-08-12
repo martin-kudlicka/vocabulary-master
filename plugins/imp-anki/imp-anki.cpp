@@ -20,7 +20,7 @@ const QStringList ImpAnki::GetMarks() const
 	return _aiwWidget->GetMarks();
 } // GetMarks
 
-const int ImpAnki::GetRecordCount()
+const int ImpAnki::GetRecordCount() const
 {
 	qlonglong qllFieldId = _aiwWidget->GetFieldId(FieldNum1);
 	QSqlQuery qsqQuery = _qsdAnki.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FIELDMODELID + " = " + QString::number(qllFieldId));
