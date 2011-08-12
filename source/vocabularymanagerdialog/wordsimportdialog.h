@@ -24,6 +24,7 @@ class WordsImportDialog : public QDialog
 		const Vocabulary *_vVocabulary;
         WordsImportFieldsModel _wifmFieldsModel;
 
+        virtual void accept();
         const void CreateFieldEditors() const;
         const void EnableControls() const;
 		const void PreparePreviewColumns() const;

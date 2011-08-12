@@ -3,6 +3,48 @@
 #include <QtGui/QMessageBox>
 #include <QtGui/QLineEdit>
 
+void WordsImportDialog::accept()
+{
+    // patterns
+    QStringList qslPatterns;
+    for (int iPattern = 0; iPattern < _vVocabulary->GetFieldCount(); iPattern++) {
+        QModelIndex qmiIndex = _wifmFieldsModel.index(iPattern, WordsImportFieldsModel::ColumnEditor);
+        const QLineEdit *qleEditor = qobject_cast<const QLineEdit *>(_qdwiWordsImport.qtvFields->indexWidget(qmiIndex));
+        qslPatterns.append(qleEditor->text());
+    } // for
+
+    QStringList qslMarks = _iiPlugin->GetMarks();
+    int iRecordCount = _iiPlugin->GetRecordCount();
+
+    QModelIndex qmiCategory = _qdwiWordsImport.qtvCategories->currentIndex();
+    int iCategoryId = _vVocabulary->GetCategoryId(qmiCategory.row());
+
+    for (int iRecord = 0; iRecord < iRecordCount; iRecord++) {
+        // get mark data
+        QStringList qslMarkData;
+        foreach (QString qsMark, qslMarks) {
+            QString qsData = _iiPlugin->GetRecordData(iRecord, qsMark);
+            qslMarkData.append(qsData);
+        } // foreach
+
+        int iNewRecord = _vVocabulary->AddRecord(iCategoryId);
+
+        // insert table columns
+        for (int iColumn = 0; iColumn < _vVocabulary->GetFieldCount(); iColumn++) {
+            QString qsText = qslPatterns.at(iColumn);
+
+            for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
+                qsText.replace(qslMarks.at(iMark), qslMarkData.at(iMark));
+            } // for
+
+            int iFieldId = _vVocabulary->GetFieldId(iColumn);
+            _vVocabulary->SetDataText(iNewRecord, iFieldId, qsText);
+        } // for
+    } // for
+
+    QDialog::accept();
+} // accept
+
 const void WordsImportDialog::CreateFieldEditors() const
 {
     for (int iRow = 0; iRow < _wifmFieldsModel.rowCount(); iRow++) {
@@ -77,6 +119,7 @@ const void WordsImportDialog::on_qpbPreviewRefresh_clicked(bool checked /* false
             } // for
 
             QTableWidgetItem *qtwiTableItem = new QTableWidgetItem(qsText);
+            qtwiTableItem->setFlags(qtwiTableItem->flags() ^ Qt::ItemIsEditable);
             _qdwiWordsImport.qtwPreview->setItem(iRecord, iColumn, qtwiTableItem);
 		} // for
 	} // for
