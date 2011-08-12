@@ -12,6 +12,13 @@ const void WordsImportDialog::CreateFieldEditors() const
     } // for
 } // CreateFieldEditors
 
+const void WordsImportDialog::EnableControls() const
+{
+    const QItemSelectionModel *qismCategorySelection = _qdwiWordsImport.qtvCategories->selectionModel();
+
+    _qdwiWordsImport.qpbOk->setEnabled(qismCategorySelection->hasSelection());
+} // EnableControls
+
 int WordsImportDialog::exec()
 {
     if (!_iiPlugin->Open(_qsFile)) {
@@ -23,6 +30,7 @@ int WordsImportDialog::exec()
     _qdwiWordsImport.setupUi(this);
     // categories
     _qdwiWordsImport.qtvCategories->setModel(&_cmCategoriesModel);
+    connect(_qdwiWordsImport.qtvCategories->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvCategoriesSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
     // fields
     _qdwiWordsImport.qtvFields->setModel(&_wifmFieldsModel);
     _qdwiWordsImport.qtvFields->header()->setResizeMode(WordsImportFieldsModel::ColumnName, QHeaderView::ResizeToContents);
@@ -73,6 +81,11 @@ const void WordsImportDialog::on_qpbPreviewRefresh_clicked(bool checked /* false
 		} // for
 	} // for
 } // on_qpbPreviewRefresh_clicked
+
+const void WordsImportDialog::on_qtvCategoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
+{
+    EnableControls();
+} // on_qtvCategoriesSelectionModel_selectionChanged
 
 const void WordsImportDialog::PreparePreviewColumns() const
 {

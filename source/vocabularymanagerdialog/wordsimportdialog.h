@@ -25,10 +25,12 @@ class WordsImportDialog : public QDialog
         WordsImportFieldsModel _wifmFieldsModel;
 
         const void CreateFieldEditors() const;
+        const void EnableControls() const;
 		const void PreparePreviewColumns() const;
 
 	private slots:
 		const void on_qpbPreviewRefresh_clicked(bool checked = false) const;
+        const void on_qtvCategoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
 }; // WordsImportDialog
 
 #endif // WORDSIMPORTDIALOG_H
