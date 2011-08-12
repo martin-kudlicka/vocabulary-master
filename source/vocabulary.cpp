@@ -53,7 +53,7 @@ const void Vocabulary::AddField() const
 } // AddField
 #endif
 
-const void Vocabulary::AddRecord(const int &pCategoryId) const
+const int Vocabulary::AddRecord(const int &pCategoryId) const
 {
 	// create new record
 	QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_RECORDS + " (" + COLUMN_CATEGORYID + ") VALUES ('" + QString::number(pCategoryId) + "')");
@@ -65,6 +65,8 @@ const void Vocabulary::AddRecord(const int &pCategoryId) const
 		qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(iFieldId) + "', '" + QString::number(iRecord) + "', '')");
 		qlDataList.append(qsqQuery.lastInsertId().toInt());
 	} // foreach
+
+    return iRecord;
 } // AddRecord
 
 const void Vocabulary::BeginEdit()
@@ -497,11 +499,16 @@ const void Vocabulary::SetDataText(const int &pCategoryId, const int &pRow, cons
 	qsqQuery.seek(pRow);
 	int iRecordId = qsqQuery.value(ColumnPosition1).toInt();
 
-	qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DATA + " WHERE " + COLUMN_RECORDID + " = " + QString::number(iRecordId) + " AND " + COLUMN_FIELDID + " = " + QString::number(pFieldId));
-	qsqQuery.next();
-	int iDataId = qsqQuery.value(ColumnPosition1).toInt();
+    SetDataText(iRecordId, pFieldId, pData);
+} // SetDataText
 
-	_qsdDatabase.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_TEXT + " = '" + pData + "' WHERE " + COLUMN_ID + " = " + QString::number(iDataId));
+const void Vocabulary::SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData) const
+{
+    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DATA + " WHERE " + COLUMN_RECORDID + " = " + QString::number(pRecordId) + " AND " + COLUMN_FIELDID + " = " + QString::number(pFieldId));
+    qsqQuery.next();
+    int iDataId = qsqQuery.value(ColumnPosition1).toInt();
+
+    _qsdDatabase.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_TEXT + " = '" + pData + "' WHERE " + COLUMN_ID + " = " + QString::number(iDataId));
 } // SetDataText
 
 #ifndef FREE

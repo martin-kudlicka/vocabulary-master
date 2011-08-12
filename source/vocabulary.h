@@ -55,7 +55,7 @@ class Vocabulary
 #ifndef FREE
         const void AddField() const;
 #endif
-		const void AddRecord(const int &pCategoryId) const;
+		const int AddRecord(const int &pCategoryId) const;
         const void BeginEdit();
         const void EndEdit(const bool &pSave = true);
 #ifndef FREE
@@ -103,6 +103,7 @@ class Vocabulary
         const void SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const;
 #endif
 		const void SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData) const;
+        const void SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData) const;
 #ifndef FREE
         const void SetFieldAttributes(const int &pFieldId, const FieldAttributes &pAttributes) const;
         const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage) const;
