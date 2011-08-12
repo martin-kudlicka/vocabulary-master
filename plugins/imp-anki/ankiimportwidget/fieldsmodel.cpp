@@ -42,7 +42,7 @@ FieldsModel::FieldsModel(const QSqlDatabase *pAnki, QObject *pParent /* NULL */)
 
 const qlonglong FieldsModel::GetFieldId(const int &pRow) const
 {
-	QSqlQuery qsqQuery = _qsdAnki->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDMODELS + " ORDER BY " + COLUMN_ORDINAL);
+	QSqlQuery qsqQuery = _qsdAnki->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDMODELS + " WHERE " + COLUMN_MODELID + " = " + QString::number(_qllModelId) + " ORDER BY " + COLUMN_ORDINAL);
 	qsqQuery.seek(pRow);
 	return qsqQuery.value(ColumnPosition1).toLongLong();
 } // GetFieldId
