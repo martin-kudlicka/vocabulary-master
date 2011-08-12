@@ -38,7 +38,7 @@ int WordsImportDialog::exec()
 	return QDialog::exec();
 } // exec
 
-const void WordsImportDialog::on_qpbPreview_clicked(bool checked /* false */) const
+const void WordsImportDialog::on_qpbPreviewRefresh_clicked(bool checked /* false */) const
 {
     // patterns
     QStringList qslPatterns;
@@ -66,13 +66,13 @@ const void WordsImportDialog::on_qpbPreview_clicked(bool checked /* false */) co
 
             for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
                 qsText.replace(qslMarks.at(iMark), qslMarkData.at(iMark));
-            } // foreach
+            } // for
 
             QTableWidgetItem *qtwiTableItem = new QTableWidgetItem(qsText);
             _qdwiWordsImport.qtwPreview->setItem(iRecord, iColumn, qtwiTableItem);
 		} // for
 	} // for
-} // on_qpbPreview_clicked
+} // on_qpbPreviewRefresh_clicked
 
 const void WordsImportDialog::PreparePreviewColumns() const
 {

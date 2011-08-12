@@ -84,9 +84,9 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="qpbPreview">
+         <widget class="QPushButton" name="qpbPreviewRefresh">
           <property name="text">
-           <string>&amp;Preview</string>
+           <string>&amp;Refresh</string>
           </property>
          </widget>
         </item>

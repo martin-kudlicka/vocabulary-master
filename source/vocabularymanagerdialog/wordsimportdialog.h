@@ -28,7 +28,7 @@ class WordsImportDialog : public QDialog
 		const void PreparePreviewColumns() const;
 
 	private slots:
-		const void on_qpbPreview_clicked(bool checked = false) const;
+		const void on_qpbPreviewRefresh_clicked(bool checked = false) const;
 }; // WordsImportDialog
 
 #endif // WORDSIMPORTDIALOG_H
