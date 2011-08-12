@@ -21,14 +21,9 @@ const QStringList ImpPlaintext::GetMarks() const
 	return qslMarks;
 } // GetMarks
 
-const int ImpPlaintext::GetRecordCount()
+const int ImpPlaintext::GetRecordCount() const
 {
-	int iFileLines = 0;
-	_pfPlaintext.Seek(PlaintextFile::FILE_BEGIN);
-	while (!_pfPlaintext.ReadLine().isNull()) {
-		iFileLines++;
-	} // while
-
+	int iFileLines = _piwWidget->GetLineCount();
 	int iLines = iFileLines / _piwWidget->GetLinesPerRecord();
 	if (iFileLines % _piwWidget->GetLinesPerRecord()) {
 		iLines++;
