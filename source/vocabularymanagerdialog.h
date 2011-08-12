@@ -45,6 +45,7 @@ class VocabularyManagerDialog : public QDialog
 		const void InitEditor();
         const void InitTabs();
 #ifndef FREE
+        const void ReassignModels() const;
         const void SelectFirstEnabledTab();
 #endif
 		const void StretchColumns(const QTableView *pTableView) const;
