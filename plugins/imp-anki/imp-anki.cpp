@@ -20,7 +20,7 @@ const QStringList ImpAnki::GetMarks() const
 	return _aiwWidget->GetMarks();
 } // GetMarks
 
-const int ImpAnki::GetRecordCount() const
+const int ImpAnki::GetRecordCount()
 {
 	qlonglong qllFieldId = _aiwWidget->GetFieldId(FieldNum1);
 	QSqlQuery qsqQuery = _qsdAnki.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FIELDMODELID + " = " + QString::number(qllFieldId));
@@ -31,7 +31,7 @@ const int ImpAnki::GetRecordCount() const
 	} // if else
 } // GetRecordCount
 
-const QString ImpAnki::GetRecordData(const int &pRecord, const QString &pMark) const
+const QString ImpAnki::GetRecordData(const int &pRecord, const QString &pMark)
 {
 	// query records by first field ID to get always same sequence
 	qlonglong qllFieldId = _aiwWidget->GetFieldId(FieldNum1);

@@ -2,7 +2,6 @@
 #define IMPANKI_H
 
 #include "../common/imp-interface.h"
-#include <QtSql/QSqlDatabase>
 #include "ankiimportwidget.h"
 
 class ImpAnki : public QObject, private ImpInterface
@@ -26,8 +25,8 @@ class ImpAnki : public QObject, private ImpInterface
 
 		virtual const QString GetFilter() const;
 		virtual const QStringList GetMarks() const;
-		virtual const int GetRecordCount() const;
-		virtual const QString GetRecordData(const int &pRecord, const QString &pMark) const;
+		virtual const int GetRecordCount();
+		virtual const QString GetRecordData(const int &pRecord, const QString &pMark);
 		virtual const bool Open(const QString &pFile);
         virtual const void SetupUI(QGroupBox *pParent);
 }; // ImpAnki

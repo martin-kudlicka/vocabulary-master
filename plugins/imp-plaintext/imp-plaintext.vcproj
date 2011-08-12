@@ -170,6 +170,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\plaintextimportwidget\plaintextfile.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\plaintextimportwidget.cpp"
 				>
 			</File>
@@ -212,6 +216,10 @@
 						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\plaintextimportwidget\plaintextfile.h"
+				>
 			</File>
 			<File
 				RelativePath=".\plaintextimportwidget.h"
