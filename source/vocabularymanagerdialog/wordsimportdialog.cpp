@@ -40,17 +40,36 @@ int WordsImportDialog::exec()
 
 const void WordsImportDialog::on_qpbPreview_clicked(bool checked /* false */) const
 {
+    // patterns
+    QStringList qslPatterns;
+    for (int iPattern = 0; iPattern < _vVocabulary->GetFieldCount(); iPattern++) {
+        QModelIndex qmiIndex = _wifmFieldsModel.index(iPattern, WordsImportFieldsModel::ColumnEditor);
+        const QLineEdit *qleEditor = qobject_cast<const QLineEdit *>(_qdwiWordsImport.qtvFields->indexWidget(qmiIndex));
+        qslPatterns.append(qleEditor->text());
+    } // for
+
 	QStringList qslMarks = _iiPlugin->GetMarks();
 	int iRecordCount = _iiPlugin->GetRecordCount();
+    _qdwiWordsImport.qtwPreview->setRowCount(iRecordCount);
 
 	for (int iRecord = 0; iRecord < iRecordCount; iRecord++) {
 		// get mark data
+        QStringList qslMarkData;
 		foreach (QString qsMark, qslMarks) {
 			QString qsData = _iiPlugin->GetRecordData(iRecord, qsMark);
+            qslMarkData.append(qsData);
 		} // foreach
 
+        // insert table columns
 		for (int iColumn = 0; iColumn < _vVocabulary->GetFieldCount(); iColumn++) {
-			// TODO
+			QString qsText = qslPatterns.at(iColumn);
+
+            for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
+                qsText.replace(qslMarks.at(iMark), qslMarkData.at(iMark));
+            } // foreach
+
+            QTableWidgetItem *qtwiTableItem = new QTableWidgetItem(qsText);
+            _qdwiWordsImport.qtwPreview->setItem(iRecord, iColumn, qtwiTableItem);
 		} // for
 	} // for
 } // on_qpbPreview_clicked
