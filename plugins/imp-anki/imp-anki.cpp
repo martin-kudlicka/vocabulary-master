@@ -3,6 +3,7 @@
 #include <QtGui/QBoxLayout>
 #include <QtSql/QSqlQuery>
 
+const QChar DATA_TAIL = ',';
 const QString COLUMN_FACTID = "factId";
 const QString COLUMN_FIELDMODELID = "fieldModelId";
 const QString COLUMN_ID = "id";
@@ -46,7 +47,12 @@ const QString ImpAnki::GetRecordData(const int &pRecord, const QString &pMark) c
 	// get data
 	qsqQuery = _qsdAnki.exec("SELECT " + COLUMN_VALUE + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FACTID + " = " + QString::number(qllFactId) + " AND " + COLUMN_FIELDMODELID + " = " + QString::number(qllMarkId));
 	qsqQuery.next();
-	return qsqQuery.value(ColumnPosition1).toString();
+    QString qsData = qsqQuery.value(ColumnPosition1).toString();
+    if (qsData.endsWith(DATA_TAIL)) {
+        qsData.chop(QString(DATA_TAIL).size());
+    } // if
+
+	return qsData;
 } // GetRecordData
 
 ImpAnki::ImpAnki() : ImpInterface()
