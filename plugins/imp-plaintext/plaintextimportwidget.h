@@ -4,17 +4,29 @@
 #include <ui_plaintextimportwidget.h>
 
 #include "plaintextimportwidget/codecsmodel.h"
+#include "plaintextimportwidget/plaintextfile.h"
 
 class PlaintextImportWidget : public QWidget
 {
     Q_OBJECT
 
     public:
-        PlaintextImportWidget(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+        PlaintextImportWidget(PlaintextFile *pFile, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+
+		const int GetLinesPerRecord() const;
+		const QString GetRegExp() const;
 
     private:
         CodecsModel _cmCodecsModel;
+		PlaintextFile *_pfFile;
         Ui::qwPlaintextImport _qwpiPlaintextImport;
+
+		const void PreselectCodec() const;
+		const void RefreshPreview() const;
+
+	private slots:
+		const void on_qsbLinesPerRecord_valueChanged(int i) const;
+		const void on_qtvCodecsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
 }; // PlaintextImportWidget
 
 #endif // PLAINTEXTIMPORTWIDGET_H

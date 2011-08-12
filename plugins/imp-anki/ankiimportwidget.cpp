@@ -1,8 +1,7 @@
 #include "ankiimportwidget.h"
 
 #include "ankiimportwidget/marklineedit.h"
-
-const QString TEMPLATE_MARK = "${%1}";
+#include "../common/imp-interface.h"
 
 AnkiImportWidget::AnkiImportWidget(const QSqlDatabase *pAnki, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(pParent, pFlags), _dmDecksModel(pAnki), _fmFieldsModel(pAnki), _mmModelsModel(pAnki)
 {
@@ -57,7 +56,7 @@ const void AnkiImportWidget::on_qtvModelsSelectionModel_selectionChanged(const Q
         QString qsName = _fmFieldsModel.data(qmiNameIndex).toString();
 
         QModelIndex qmiEditorIndex = _fmFieldsModel.index(iI, FieldsModel::ColumnMark);
-        MarkLineEdit *mleEditor = new MarkLineEdit(QString(TEMPLATE_MARK).arg(qsName), _qwaiAnkiImport.qtvFields);
+        MarkLineEdit *mleEditor = new MarkLineEdit(TEMPLATE_MARK.arg(qsName), _qwaiAnkiImport.qtvFields);
         _qwaiAnkiImport.qtvFields->setIndexWidget(qmiEditorIndex, mleEditor);
     } // for
 } // on_qtvModelsSelectionModel_selectionChanged

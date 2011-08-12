@@ -56,12 +56,12 @@
            <string>Source preview:</string>
           </property>
           <property name="buddy">
-           <cstring>qpteFile</cstring>
+           <cstring>qptePreview</cstring>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPlainTextEdit" name="qpteFile">
+         <widget class="QPlainTextEdit" name="qptePreview">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -94,7 +94,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QSpinBox" name="qsbRecordLines">
+      <widget class="QSpinBox" name="qsbLinesPerRecord">
        <property name="minimum">
         <number>1</number>
        </property>
@@ -112,7 +112,7 @@
         <string>&amp;Lines per record</string>
        </property>
        <property name="buddy">
-        <cstring>qsbRecordLines</cstring>
+        <cstring>qsbLinesPerRecord</cstring>
        </property>
       </widget>
      </item>

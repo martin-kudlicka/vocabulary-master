@@ -2,7 +2,7 @@
 #define IMPPLAINTEXT_H
 
 #include "../common/imp-interface.h"
-#include <QtCore/QFile>
+#include "plaintextimportwidget.h"
 
 class ImpPlaintext : public QObject, private ImpInterface
 {
@@ -10,12 +10,13 @@ class ImpPlaintext : public QObject, private ImpInterface
     Q_INTERFACES(ImpInterface)
 
     private:
-        QFile _qfPlaintext;
+		PlaintextFile _pfPlaintext;
+		PlaintextImportWidget *_piwWidget;
 
         virtual const QString GetFilter() const;
         virtual const QStringList GetMarks() const;
-        virtual const int GetRecordCount() const;
-        virtual const QString GetRecordData(const int &pRecord, const QString &pMark) const;
+        virtual const int GetRecordCount();
+        virtual const QString GetRecordData(const int &pRecord, const QString &pMark);
         virtual const bool Open(const QString &pFile);
         virtual const void SetupUI(QGroupBox *pParent);
 }; // ImpPlaintext
