@@ -179,14 +179,7 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
     if (vsdSettings.exec() == QDialog::Accepted) {
 #ifndef FREE
 		if (iOldColumnCount != GetColumnCount()) {
-			// reassign models to refresh column count
-			for (int iTab = 0; iTab < _qdvmVocabularyManager.vtwTabs->count(); iTab++) {
-				QTableView *qtvVocabularyView = qobject_cast<QTableView *>(_qdvmVocabularyManager.vtwTabs->widget(iTab));
-				VocabularyModel *vmVocabularyModel = qobject_cast<VocabularyModel *>(qtvVocabularyView->model());
-				qtvVocabularyView->setModel(NULL);
-				qtvVocabularyView->setModel(vmVocabularyModel);
-				StretchColumns(qtvVocabularyView);
-			} // for
+			ReassignModels();
 		} // if
 #endif
 	} else {
@@ -225,7 +218,10 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
         int iFilter = qslFilters.indexOf(qsFilter);
         ImpInterface *iiPlugin = _pPlugins->GetImpPlugins().at(iFilter);
 		WordsImportDialog wiImport(qsFile, _vVocabulary, iiPlugin, this);
-		wiImport.exec();
+
+        if (wiImport.exec() == QDialog::Accepted) {
+            ReassignModels();
+        } // if
 	} // if
 } // on_qpbWordImport_clicked
 #endif
@@ -254,6 +250,17 @@ const void VocabularyManagerDialog::on_vtwTabs_TabEnableChanged(const int &pInde
     _vVocabulary->SetCategoryEnabled(_qlCategories.at(pIndex), pState);
     _qdvmVocabularyManager.vtwTabs->setTabEnabled(pIndex, pState);
 } // on_vtwTabs_TabEnableChanged
+
+const void VocabularyManagerDialog::ReassignModels() const
+{
+    for (int iTab = 0; iTab < _qdvmVocabularyManager.vtwTabs->count(); iTab++) {
+        QTableView *qtvVocabularyView = qobject_cast<QTableView *>(_qdvmVocabularyManager.vtwTabs->widget(iTab));
+        VocabularyModel *vmVocabularyModel = qobject_cast<VocabularyModel *>(qtvVocabularyView->model());
+        qtvVocabularyView->setModel(NULL);
+        qtvVocabularyView->setModel(vmVocabularyModel);
+        StretchColumns(qtvVocabularyView);
+    } // for
+} // ReassignModels
 
 const void VocabularyManagerDialog::SelectFirstEnabledTab()
 {
