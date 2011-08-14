@@ -10,7 +10,7 @@ class ImpPlaintext : public QObject, private ImpInterface
     Q_INTERFACES(ImpInterface)
 
     private:
-		static const int CACHED_NONE = -1;
+		static const int CACHED_NONE = -2;
 
 		int _iCachedRecord;
 		PlaintextFile _pfPlaintext;

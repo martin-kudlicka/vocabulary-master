@@ -35,15 +35,17 @@ const int ImpPlaintext::GetRecordCount() const
 const QString ImpPlaintext::GetRecordData(const int &pRecord, const QString &pMark)
 {
 	if (_iCachedRecord != pRecord) {
-		// seek to record in file
-		int iLine = 0;
-		_pfPlaintext.Seek(PlaintextFile::FILE_BEGIN);
-		while (iLine != pRecord) {
-			for (int iI = 0; iI < _piwWidget->GetLinesPerRecord(); iI++) {
-				_pfPlaintext.ReadLine();
-			} // for
-			iLine++;
-		} // while
+		if (_iCachedRecord + 1 != pRecord) {
+			// seek to record in file
+			int iLine = 0;
+			_pfPlaintext.Seek(PlaintextFile::FILE_BEGIN);
+			while (iLine != pRecord) {
+				for (int iI = 0; iI < _piwWidget->GetLinesPerRecord(); iI++) {
+					_pfPlaintext.ReadLine();
+				} // for
+				iLine++;
+			} // while
+		} // if
 
 		// read record from file
 		QString qsLine;
