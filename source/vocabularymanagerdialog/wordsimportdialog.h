@@ -17,6 +17,11 @@ class WordsImportDialog : public QDialog
 		int exec();
 
 	private:
+		enum eTarget {
+			TargetPreview,
+			TargetVocabulary
+		}; // eTarget
+
         CategoriesModel _cmCategoriesModel;
 		ImpInterface *_iiPlugin;
 		QString _qsFile;
@@ -27,6 +32,7 @@ class WordsImportDialog : public QDialog
         virtual void accept();
         const void CreateFieldEditors() const;
         const void EnableControls() const;
+		const void ImportData(const eTarget &pTarget) const;
 		const void PreparePreviewColumns() const;
 
 	private slots:
