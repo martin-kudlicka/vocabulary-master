@@ -5,43 +5,7 @@
 
 void WordsImportDialog::accept()
 {
-    // patterns
-    QStringList qslPatterns;
-    for (int iPattern = 0; iPattern < _vVocabulary->GetFieldCount(); iPattern++) {
-        QModelIndex qmiIndex = _wifmFieldsModel.index(iPattern, WordsImportFieldsModel::ColumnEditor);
-        const QLineEdit *qleEditor = qobject_cast<const QLineEdit *>(_qdwiWordsImport.qtvFields->indexWidget(qmiIndex));
-        qslPatterns.append(qleEditor->text());
-    } // for
-
-    QStringList qslMarks = _iiPlugin->GetMarks();
-    int iRecordCount = _iiPlugin->GetRecordCount();
-
-    QModelIndex qmiCategory = _qdwiWordsImport.qtvCategories->currentIndex();
-    int iCategoryId = _vVocabulary->GetCategoryId(qmiCategory.row());
-
-    for (int iRecord = 0; iRecord < iRecordCount; iRecord++) {
-        // get mark data
-        QStringList qslMarkData;
-        foreach (QString qsMark, qslMarks) {
-            QString qsData = _iiPlugin->GetRecordData(iRecord, qsMark);
-            qslMarkData.append(qsData);
-        } // foreach
-
-        int iNewRecord = _vVocabulary->AddRecord(iCategoryId);
-
-        // insert table columns
-        for (int iColumn = 0; iColumn < _vVocabulary->GetFieldCount(); iColumn++) {
-            QString qsText = qslPatterns.at(iColumn);
-
-            for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
-                qsText.replace(qslMarks.at(iMark), qslMarkData.at(iMark));
-            } // for
-
-            int iFieldId = _vVocabulary->GetFieldId(iColumn);
-            _vVocabulary->SetDataText(iNewRecord, iFieldId, qsText);
-        } // for
-    } // for
-
+    ImportData(TargetVocabulary);
     QDialog::accept();
 } // accept
 
@@ -88,41 +52,83 @@ int WordsImportDialog::exec()
 	return QDialog::exec();
 } // exec
 
-const void WordsImportDialog::on_qpbPreviewRefresh_clicked(bool checked /* false */) const
+const void WordsImportDialog::ImportData(const eTarget &pTarget) const
 {
-    // patterns
-    QStringList qslPatterns;
-    for (int iPattern = 0; iPattern < _vVocabulary->GetFieldCount(); iPattern++) {
-        QModelIndex qmiIndex = _wifmFieldsModel.index(iPattern, WordsImportFieldsModel::ColumnEditor);
-        const QLineEdit *qleEditor = qobject_cast<const QLineEdit *>(_qdwiWordsImport.qtvFields->indexWidget(qmiIndex));
-        qslPatterns.append(qleEditor->text());
-    } // for
+	// patterns
+	QStringList qslPatterns;
+	for (int iPattern = 0; iPattern < _vVocabulary->GetFieldCount(); iPattern++) {
+		QModelIndex qmiIndex = _wifmFieldsModel.index(iPattern, WordsImportFieldsModel::ColumnEditor);
+		const QLineEdit *qleEditor = qobject_cast<const QLineEdit *>(_qdwiWordsImport.qtvFields->indexWidget(qmiIndex));
+		qslPatterns.append(qleEditor->text());
+	} // for
 
 	QStringList qslMarks = _iiPlugin->GetMarks();
 	int iRecordCount = _iiPlugin->GetRecordCount();
-    _qdwiWordsImport.qtwPreview->setRowCount(iRecordCount);
 
+	int iCategoryId;
+	switch (pTarget) {
+		case TargetPreview:
+			_qdwiWordsImport.qtwPreview->setRowCount(iRecordCount);
+			break;
+		case TargetVocabulary:
+			QModelIndex qmiCategory = _qdwiWordsImport.qtvCategories->currentIndex();
+			iCategoryId = _vVocabulary->GetCategoryId(qmiCategory.row());
+	} // switch
+
+	int iSkipCount = 0;
 	for (int iRecord = 0; iRecord < iRecordCount; iRecord++) {
 		// get mark data
-        QStringList qslMarkData;
+		bool bSkip = false;
+		QStringList qslMarkData;
 		foreach (QString qsMark, qslMarks) {
 			QString qsData = _iiPlugin->GetRecordData(iRecord, qsMark);
-            qslMarkData.append(qsData);
+			if (_qdwiWordsImport.qcbSkipPartialRecords->isChecked() && qsData.isEmpty()) {
+				bSkip = true;
+				iSkipCount++;
+				break;
+			} // if
+			qslMarkData.append(qsData);
 		} // foreach
+		if (bSkip) {
+			continue;
+		} // if
 
-        // insert table columns
+		int iNewRecordId;
+		if (pTarget == TargetVocabulary) {
+			iNewRecordId = _vVocabulary->AddRecord(iCategoryId);
+		} // if
+
+		// insert data into target
 		for (int iColumn = 0; iColumn < _vVocabulary->GetFieldCount(); iColumn++) {
 			QString qsText = qslPatterns.at(iColumn);
 
-            for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
-                qsText.replace(qslMarks.at(iMark), qslMarkData.at(iMark));
-            } // for
+			for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
+				qsText.replace(qslMarks.at(iMark), qslMarkData.at(iMark));
+			} // for
 
-            QTableWidgetItem *qtwiTableItem = new QTableWidgetItem(qsText);
-            qtwiTableItem->setFlags(qtwiTableItem->flags() ^ Qt::ItemIsEditable);
-            _qdwiWordsImport.qtwPreview->setItem(iRecord, iColumn, qtwiTableItem);
+			switch (pTarget) {
+				case TargetPreview:
+					{
+						QTableWidgetItem *qtwiTableItem = new QTableWidgetItem(qsText);
+						qtwiTableItem->setFlags(qtwiTableItem->flags() ^ Qt::ItemIsEditable);
+						_qdwiWordsImport.qtwPreview->setItem(iRecord - iSkipCount, iColumn, qtwiTableItem);
+					}
+					break;
+				case TargetVocabulary:
+					int iFieldId = _vVocabulary->GetFieldId(iColumn);
+					_vVocabulary->SetDataText(iNewRecordId, iFieldId, qsText);
+			} // switch
 		} // for
 	} // for
+
+	if (pTarget == TargetPreview && iSkipCount > 0) {
+		_qdwiWordsImport.qtwPreview->setRowCount(iRecordCount - iSkipCount);
+	} // if
+} // ImportData
+
+const void WordsImportDialog::on_qpbPreviewRefresh_clicked(bool checked /* false */) const
+{
+    ImportData(TargetPreview);
 } // on_qpbPreviewRefresh_clicked
 
 const void WordsImportDialog::on_qtvCategoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
