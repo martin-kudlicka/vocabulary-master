@@ -10,8 +10,12 @@ class ImpPlaintext : public QObject, private ImpInterface
     Q_INTERFACES(ImpInterface)
 
     private:
+		static const int CACHED_NONE = -1;
+
+		int _iCachedRecord;
 		PlaintextFile _pfPlaintext;
 		PlaintextImportWidget *_piwWidget;
+		QStringList _qslCachedCapture;
 
         virtual const QString GetFilter() const;
         virtual const QStringList GetMarks() const;
