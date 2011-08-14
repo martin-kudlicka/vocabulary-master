@@ -145,7 +145,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="cancelButton">
+      <widget class="QPushButton" name="qpbCancel">
        <property name="text">
         <string>Cancel</string>
        </property>
@@ -174,7 +174,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>cancelButton</sender>
+   <sender>qpbCancel</sender>
    <signal>clicked()</signal>
    <receiver>qdWordsImport</receiver>
    <slot>reject()</slot>

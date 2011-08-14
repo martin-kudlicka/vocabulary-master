@@ -18,11 +18,12 @@ const void WordsImportDialog::CreateFieldEditors() const
     } // for
 } // CreateFieldEditors
 
-const void WordsImportDialog::EnableControls() const
+const void WordsImportDialog::EnableControls(const bool &pImport) const
 {
     const QItemSelectionModel *qismCategorySelection = _qdwiWordsImport.qtvCategories->selectionModel();
 
-    _qdwiWordsImport.qpbOk->setEnabled(qismCategorySelection->hasSelection());
+    _qdwiWordsImport.qpbOk->setEnabled(!pImport && qismCategorySelection->hasSelection());
+	_qdwiWordsImport.qpbCancel->setEnabled(!pImport);
 } // EnableControls
 
 int WordsImportDialog::exec()
@@ -54,6 +55,8 @@ int WordsImportDialog::exec()
 
 const void WordsImportDialog::ImportData(const eTarget &pTarget) const
 {
+	EnableControls(true);
+
 	// setup progessbar
 	_qdwiWordsImport.qpbProgress->setMaximum(_iiPlugin->GetRecordCount());
 
@@ -133,6 +136,8 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget) const
 
 	// setup progessbar
 	_qdwiWordsImport.qpbProgress->setValue(0);
+
+	EnableControls(false);
 } // ImportData
 
 const void WordsImportDialog::on_qpbPreviewRefresh_clicked(bool checked /* false */) const
@@ -142,7 +147,7 @@ const void WordsImportDialog::on_qpbPreviewRefresh_clicked(bool checked /* false
 
 const void WordsImportDialog::on_qtvCategoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
-    EnableControls();
+    EnableControls(false);
 } // on_qtvCategoriesSelectionModel_selectionChanged
 
 const void WordsImportDialog::PreparePreviewColumns() const

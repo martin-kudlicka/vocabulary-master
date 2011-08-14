@@ -31,7 +31,7 @@ class WordsImportDialog : public QDialog
 
         virtual void accept();
         const void CreateFieldEditors() const;
-        const void EnableControls() const;
+        const void EnableControls(const bool &pImport) const;
 		const void ImportData(const eTarget &pTarget) const;
 		const void PreparePreviewColumns() const;
 
