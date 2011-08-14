@@ -54,6 +54,9 @@ int WordsImportDialog::exec()
 
 const void WordsImportDialog::ImportData(const eTarget &pTarget) const
 {
+	// setup progessbar
+	_qdwiWordsImport.qpbProgress->setMaximum(_iiPlugin->GetRecordCount());
+
 	// patterns
 	QStringList qslPatterns;
 	for (int iPattern = 0; iPattern < _vVocabulary->GetFieldCount(); iPattern++) {
@@ -119,11 +122,17 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget) const
 					_vVocabulary->SetDataText(iNewRecordId, iFieldId, qsText);
 			} // switch
 		} // for
+
+		// progress
+		_qdwiWordsImport.qpbProgress->setValue(iRecord);
 	} // for
 
 	if (pTarget == TargetPreview && iSkipCount > 0) {
 		_qdwiWordsImport.qtwPreview->setRowCount(iRecordCount - iSkipCount);
 	} // if
+
+	// setup progessbar
+	_qdwiWordsImport.qpbProgress->setValue(0);
 } // ImportData
 
 const void WordsImportDialog::on_qpbPreviewRefresh_clicked(bool checked /* false */) const
