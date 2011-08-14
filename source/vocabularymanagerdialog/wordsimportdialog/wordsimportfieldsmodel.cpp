@@ -20,6 +20,12 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
                         int iFieldId = _vVocabulary->GetFieldId(index.row());
                         return _vVocabulary->GetFieldName(iFieldId);
                     }
+				case ColumnLanguage:
+					{
+						int iFieldId = _vVocabulary->GetFieldId(index.row());
+						Vocabulary::eFieldLanguage eflLanguage = _vVocabulary->GetFieldLanguage(iFieldId);
+						return _vVocabulary->GetLanguageName(eflLanguage);
+					}
                 default:
                     return QVariant();
             } // switch
@@ -35,6 +41,8 @@ QVariant WordsImportFieldsModel::headerData(int section, Qt::Orientation orienta
             switch (section) {
                 case ColumnName:
                     return tr("Name");
+				case ColumnLanguage:
+					return tr("Language");
                 case ColumnEditor:
                     return tr("Pattern");
             } // switch
