@@ -60,7 +60,9 @@ const QString ImpPlaintext::GetRecordData(const int &pRecord, const QString &pMa
 		QRegExp qreRegExp(_piwWidget->GetRegExp());
 		if (qreRegExp.indexIn(qsLine) != -1) {
 			_qslCachedCapture = qreRegExp.capturedTexts();
-		} // if
+		} else {
+			_qslCachedCapture.clear();
+		} // if else
 
 		_iCachedRecord = pRecord;
 	} // if
