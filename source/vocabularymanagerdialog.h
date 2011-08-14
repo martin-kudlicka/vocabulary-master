@@ -39,6 +39,8 @@ class VocabularyManagerDialog : public QDialog
         Vocabulary *_vVocabulary;
 
         const void AddTab(const int &pCategoryId);
+		const void EnableTabControls() const;
+		const void EnableWordControls() const;
 #ifndef FREE
 		const int GetColumnCount() const;
 #endif
