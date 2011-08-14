@@ -34,39 +34,45 @@ const int ImpPlaintext::GetRecordCount() const
 
 const QString ImpPlaintext::GetRecordData(const int &pRecord, const QString &pMark)
 {
-	// seek to record in file
-	int iLine = 0;
-	_pfPlaintext.Seek(PlaintextFile::FILE_BEGIN);
-	while (iLine != pRecord) {
-		for (int iI = 0; iI < _piwWidget->GetLinesPerRecord(); iI++) {
-			_pfPlaintext.ReadLine();
-		} // for
-		iLine++;
-	} // while
+	if (_iCachedRecord != pRecord) {
+		// seek to record in file
+		int iLine = 0;
+		_pfPlaintext.Seek(PlaintextFile::FILE_BEGIN);
+		while (iLine != pRecord) {
+			for (int iI = 0; iI < _piwWidget->GetLinesPerRecord(); iI++) {
+				_pfPlaintext.ReadLine();
+			} // for
+			iLine++;
+		} // while
 
-	// read record from file
-	QString qsLine;
-	for (int iI = 0; iI < _piwWidget->GetLinesPerRecord() && !_pfPlaintext.AtEnd(); iI++) {
-		if (!qsLine.isEmpty()) {
-			qsLine += ' ';
+		// read record from file
+		QString qsLine;
+		for (int iI = 0; iI < _piwWidget->GetLinesPerRecord() && !_pfPlaintext.AtEnd(); iI++) {
+			if (!qsLine.isEmpty()) {
+				qsLine += ' ';
+			} // if
+			qsLine += _pfPlaintext.ReadLine();
+		} // for
+
+		// get capture
+		QRegExp qreRegExp(_piwWidget->GetRegExp());
+		if (qreRegExp.indexIn(qsLine) != -1) {
+			_qslCachedCapture = qreRegExp.capturedTexts();
 		} // if
-		qsLine += _pfPlaintext.ReadLine();
-	} // for
+
+		_iCachedRecord = pRecord;
+	} // if
 
 	// get mark ID
 	QStringList qslMarks = GetMarks();
 	int iIndex = qslMarks.indexOf(pMark);
 
 	// get data
-	QRegExp qreRegExp(_piwWidget->GetRegExp());
-	if (qreRegExp.indexIn(qsLine) != -1) {
-		QStringList qslCaptured = qreRegExp.capturedTexts();
-		if (qslCaptured.size() > iIndex + 1) {
-			return qslCaptured.at(iIndex + 1);
-		} // if
-	} // if
-
-	return QString();
+	if (_qslCachedCapture.size() > iIndex + 1) {
+		return _qslCachedCapture.at(iIndex + 1);
+	} else {
+		return QString();
+	} // if else
 } // GetRecordData
 
 const bool ImpPlaintext::Open(const QString &pFile)
@@ -74,6 +80,7 @@ const bool ImpPlaintext::Open(const QString &pFile)
     if (_pfPlaintext.IsOpen()) {
         _pfPlaintext.Close();
     } // if
+	_iCachedRecord = CACHED_NONE;
     return _pfPlaintext.Open(pFile);
 } // Open
 
