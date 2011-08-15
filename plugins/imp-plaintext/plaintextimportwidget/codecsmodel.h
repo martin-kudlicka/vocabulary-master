@@ -20,6 +20,8 @@ class CodecsModel : public QAbstractItemModel
 		virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
     private:
+        QList<QByteArray> _qlCodecs;
+
         virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
         virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
         virtual QModelIndex parent(const QModelIndex &index) const;
