@@ -139,6 +139,7 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
 
 		// progress
 		_qdwiWordsImport.qpbProgress->setValue(iRecord);
+		QCoreApplication::processEvents();
 	} // for
 
 	if (pTarget == TargetPreview && iSkipCount > 0) {
