@@ -3,6 +3,11 @@
 #include <QtGui/QMessageBox>
 #include <QtGui/QLineEdit>
 
+WordsImportDialog::~WordsImportDialog()
+{
+    _iiPlugin->Close();
+} // ~WordsImportDialog
+
 void WordsImportDialog::accept()
 {
     ImportData(TargetVocabulary);

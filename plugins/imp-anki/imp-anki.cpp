@@ -10,6 +10,13 @@ const QString COLUMN_ID = "id";
 const QString COLUMN_VALUE = "value";
 const QString TABLE_FIELDS = "fields";
 
+const void ImpAnki::Close()
+{
+    if (_qsdAnki.isOpen()) {
+        _qsdAnki.close();
+    } // if
+} // Close
+
 const QString ImpAnki::GetFilter() const
 {
 	return "Anki (*.anki)";
@@ -62,9 +69,7 @@ ImpAnki::ImpAnki() : ImpInterface()
 
 const bool ImpAnki::Open(const QString &pFile)
 {
-    if (_qsdAnki.isOpen()) {
-        _qsdAnki.close();
-    } // if
+    Close();
     _qsdAnki.setDatabaseName(pFile);
     return _qsdAnki.open();
 } // Open

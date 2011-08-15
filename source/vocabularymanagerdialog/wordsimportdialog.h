@@ -12,6 +12,7 @@ class WordsImportDialog : public QDialog
 	Q_OBJECT
 
 	public:
+        ~WordsImportDialog();
 		WordsImportDialog(const QString &pFile, const Vocabulary *pVocabulary, ImpInterface *pPlugin, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 		int exec();

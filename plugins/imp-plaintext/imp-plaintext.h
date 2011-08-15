@@ -17,6 +17,7 @@ class ImpPlaintext : public QObject, private ImpInterface
 		PlaintextImportWidget *_piwWidget;
 		QStringList _qslCachedCapture;
 
+        virtual const void Close();
         virtual const QString GetFilter() const;
         virtual const QStringList GetMarks() const;
         virtual const int GetRecordCount() const;
