@@ -60,10 +60,8 @@ const int Vocabulary::AddRecord(const int &pCategoryId) const
 	int iRecord = qsqQuery.lastInsertId().toInt();
 
 	// create new empty data
-	QList<int> qlDataList;
 	foreach (int iFieldId, GetFieldIds()) {
 		qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(iFieldId) + "', '" + QString::number(iRecord) + "', '')");
-		qlDataList.append(qsqQuery.lastInsertId().toInt());
 	} // foreach
 
     return iRecord;
