@@ -240,9 +240,15 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
         ImpInterface *iiPlugin = _pPlugins->GetImpPlugins().at(iFilter);
 		WordsImportDialog wiImport(qsFile, _vVocabulary, iiPlugin, this);
 
+		_vVocabulary->EndEdit();
+		_vVocabulary->BeginEdit();
+
         if (wiImport.exec() == QDialog::Accepted) {
             ReassignModels();
-        } // if
+		} else {
+			_vVocabulary->EndEdit(false);
+			_vVocabulary->BeginEdit();
+		} // if else
 	} // if
 } // on_qpbWordImport_clicked
 #endif
