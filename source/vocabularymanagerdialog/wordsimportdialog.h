@@ -23,6 +23,8 @@ class WordsImportDialog : public QDialog
 			TargetVocabulary
 		}; // eTarget
 
+        bool _bImporting;
+        bool _bInterrupt;
         CategoriesModel _cmCategoriesModel;
 		ImpInterface *_iiPlugin;
 		QString _qsFile;
@@ -32,12 +34,13 @@ class WordsImportDialog : public QDialog
 
         virtual void accept();
         const void CreateFieldEditors() const;
-        const void EnableControls(const bool &pImport) const;
-		const void ImportData(const eTarget &pTarget) const;
+        const void EnableControls() const;
+		const void ImportData(const eTarget &pTarget);
 		const void PreparePreviewColumns() const;
+        virtual void reject();
 
 	private slots:
-		const void on_qpbPreviewRefresh_clicked(bool checked = false) const;
+		const void on_qpbPreviewRefresh_clicked(bool checked = false);
         const void on_qtvCategoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
 }; // WordsImportDialog
 
