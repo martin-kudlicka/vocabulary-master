@@ -53,7 +53,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>Source preview:</string>
+           <string>Source record preview:</string>
           </property>
           <property name="buddy">
            <cstring>qptePreview</cstring>
