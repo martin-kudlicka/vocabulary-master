@@ -2,6 +2,13 @@
 
 #include <QtGui/QBoxLayout>
 
+const void ImpPlaintext::Close()
+{
+    if (_pfPlaintext.IsOpen()) {
+        _pfPlaintext.Close();
+    } // if
+} // Close
+
 const QString ImpPlaintext::GetFilter() const
 {
     return tr("plaintext (*.txt)");
@@ -81,9 +88,7 @@ const QString ImpPlaintext::GetRecordData(const int &pRecord, const QString &pMa
 
 const bool ImpPlaintext::Open(const QString &pFile)
 {
-    if (_pfPlaintext.IsOpen()) {
-        _pfPlaintext.Close();
-    } // if
+    Close();
 	_iCachedRecord = CACHED_NONE;
     return _pfPlaintext.Open(pFile);
 } // Open

@@ -23,6 +23,7 @@ class ImpAnki : public QObject, private ImpInterface
 		AnkiImportWidget *_aiwWidget;
         QSqlDatabase _qsdAnki;
 
+        virtual const void Close();
 		virtual const QString GetFilter() const;
 		virtual const QStringList GetMarks() const;
 		virtual const int GetRecordCount() const;

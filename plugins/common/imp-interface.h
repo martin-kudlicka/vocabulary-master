@@ -13,6 +13,7 @@ class ImpInterface
 	public:
         static const int WIDGET_POSITION = 0;
 
+        virtual const void Close() = 0;
 		virtual const QString GetFilter() const = 0;
 		virtual const QStringList GetMarks() const = 0;
 		virtual const int GetRecordCount() const = 0;
