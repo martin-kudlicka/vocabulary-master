@@ -53,19 +53,33 @@ const void Vocabulary::AddField() const
 } // AddField
 #endif
 
-const int Vocabulary::AddRecord(const int &pCategoryId) const
+const void Vocabulary::AddRecord(const int &pCategoryId) const
 {
 	// create new record
 	QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_RECORDS + " (" + COLUMN_CATEGORYID + ") VALUES ('" + QString::number(pCategoryId) + "')");
-	int iRecord = qsqQuery.lastInsertId().toInt();
+	int iRecordId = qsqQuery.lastInsertId().toInt();
 
 	// create new empty data
 	foreach (int iFieldId, GetFieldIds()) {
-		qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(iFieldId) + "', '" + QString::number(iRecord) + "', '')");
+		qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(iFieldId) + "', '" + QString::number(iRecordId) + "', '')");
 	} // foreach
-
-    return iRecord;
 } // AddRecord
+
+#ifndef FREE
+const void Vocabulary::AddRecord(const int &pCategoryId, const QStringList &pData) const
+{
+    // create new record
+    QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_RECORDS + " (" + COLUMN_CATEGORYID + ") VALUES ('" + QString::number(pCategoryId) + "')");
+    int iRecordId = qsqQuery.lastInsertId().toInt();
+
+    // create new data
+    int iData = 0;
+    foreach (int iFieldId, GetFieldIds()) {
+        qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(iFieldId) + "', '" + QString::number(iRecordId) + "', '" + pData.at(iData) + "')");
+        iData++;
+    } // foreach
+} // AddRecord
+#endif
 
 const void Vocabulary::BeginEdit()
 {
