@@ -110,30 +110,29 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
 			continue;
 		} // if
 
-		int iNewRecordId;
-		if (pTarget == TargetVocabulary) {
-			iNewRecordId = _vVocabulary->AddRecord(iCategoryId);
-		} // if
-
-		// insert data into target
+        // get data
+        QStringList qslData;
 		for (int iColumn = 0; iColumn < _vVocabulary->GetFieldCount(); iColumn++) {
 			QString qsText = qslPatterns.at(iColumn);
 
 			for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
 				qsText.replace(qslMarks.at(iMark), qslMarkData.at(iMark));
 			} // for
+            qslData.append(qsText);
+        } // for
 
+        // insert data into target
+        for (int iColumn = 0; iColumn < _vVocabulary->GetFieldCount(); iColumn++) {
 			switch (pTarget) {
 				case TargetPreview:
 					{
-						QTableWidgetItem *qtwiTableItem = new QTableWidgetItem(qsText);
+						QTableWidgetItem *qtwiTableItem = new QTableWidgetItem(qslData.at(iColumn));
 						qtwiTableItem->setFlags(qtwiTableItem->flags() ^ Qt::ItemIsEditable);
 						_qdwiWordsImport.qtwPreview->setItem(iRecord - iSkipCount, iColumn, qtwiTableItem);
 					}
 					break;
 				case TargetVocabulary:
-					int iFieldId = _vVocabulary->GetFieldId(iColumn);
-					_vVocabulary->SetDataText(iNewRecordId, iFieldId, qsText);
+					_vVocabulary->AddRecord(iCategoryId, qslData);
 			} // switch
 		} // for
 

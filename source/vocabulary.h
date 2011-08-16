@@ -55,7 +55,10 @@ class Vocabulary
 #ifndef FREE
         const void AddField() const;
 #endif
-		const int AddRecord(const int &pCategoryId) const;
+		const void AddRecord(const int &pCategoryId) const;
+#ifndef FREE
+        const void AddRecord(const int &pCategoryId, const QStringList &pData) const;
+#endif
         const void BeginEdit();
         const void EndEdit(const bool &pSave = true);
 #ifndef FREE
