@@ -435,6 +435,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\vocabulary\vocabularydatabase.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\vocabularymanagerdialog.cpp"
 				>
 			</File>
@@ -740,6 +744,10 @@
 			</File>
 			<File
 				RelativePath=".\vocabulary.h"
+				>
+			</File>
+			<File
+				RelativePath=".\vocabulary\vocabularydatabase.h"
 				>
 			</File>
 			<File
@@ -2057,13 +2065,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="Release FREE|Win32"
 						ExcludedFromBuild="true"
 						>
@@ -2304,13 +2305,6 @@
 					<FileConfiguration
 						Name="Debug FREE|Win32"
 						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"

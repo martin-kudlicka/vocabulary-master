@@ -1,5 +1,5 @@
-#ifndef VOCABULARY_H
-#define VOCABULARY_H
+#ifndef VOCABULARYDATABASE_H
+#define VOCABULARYDATABASE_H
 
 #include <QtSql/QSqlDatabase>
 #include <QtCore/QList>
@@ -18,7 +18,7 @@ const QString KEY_VOICE2 = "voice2";
 #endif
 const QString VARIABLE_MARK = "$";
 
-class Vocabulary
+class VocabularyDatabase
 {
     public:
         typedef QList<int> tCategoryIdList;
@@ -48,8 +48,8 @@ class Vocabulary
 
         static const int NOT_FOUND = -1;
 
-		~Vocabulary();
-        Vocabulary();
+		~VocabularyDatabase();
+        VocabularyDatabase();
 
         const int AddCategory(const QString &pName) const;
 #ifndef FREE
@@ -85,9 +85,9 @@ class Vocabulary
 #endif
         const QString GetName() const;
 		const int GetRecordCategory(const int &pRecordId) const;
-		const int GetRecordCount() const;
+		//const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
-        const int GetRecordCount(const bool &pEnabled) const;
+        //const int GetRecordCount(const bool &pEnabled) const;
 		const int GetRecordId(const int &pRow) const;
 		const int GetRecordId(const int &pCategoryId, const int &pRow) const;
 		const int GetRow(const int &pRecordId, const int &pCategoryId) const;
@@ -133,8 +133,8 @@ class Vocabulary
 #ifndef FREE
 		const void Update(const QString &pTable, const int &pColumnId, const QSqlRecord &pRecord) const;
 #endif
-}; // Vocabulary
+}; // VocabularyDatabase
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(Vocabulary::FieldAttributes)
+Q_DECLARE_OPERATORS_FOR_FLAGS(VocabularyDatabase::FieldAttributes)
 
-#endif // VOCABULARY_H
+#endif // VOCABULARYDATABASE_H
