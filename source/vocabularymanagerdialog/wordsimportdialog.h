@@ -13,7 +13,7 @@ class WordsImportDialog : public QDialog
 
 	public:
         ~WordsImportDialog();
-		WordsImportDialog(const QString &pFile, const Vocabulary *pVocabulary, ImpInterface *pPlugin, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+		WordsImportDialog(const QString &pFile, Vocabulary *pVocabulary, ImpInterface *pPlugin, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 		int exec();
 
@@ -29,7 +29,7 @@ class WordsImportDialog : public QDialog
 		ImpInterface *_iiPlugin;
 		QString _qsFile;
 		Ui::qdWordsImport _qdwiWordsImport;
-		const Vocabulary *_vVocabulary;
+		Vocabulary *_vVocabulary;
         WordsImportFieldsModel _wifmFieldsModel;
 
         virtual void accept();

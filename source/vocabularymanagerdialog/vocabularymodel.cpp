@@ -61,7 +61,7 @@ bool VocabularyModel::setData(const QModelIndex &index, const QVariant &value, i
 	return true;
 } // setData
 
-VocabularyModel::VocabularyModel(const Vocabulary *pVocabulary, const int &pCategoryId, QObject *pParent /* NULL */) : QAbstractTableModel(pParent)
+VocabularyModel::VocabularyModel(Vocabulary *pVocabulary, const int &pCategoryId, QObject *pParent /* NULL */) : QAbstractTableModel(pParent)
 {
     _vVocabulary = pVocabulary;
     _iCategoryId = pCategoryId;
