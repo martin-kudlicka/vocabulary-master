@@ -244,6 +244,9 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
 		_vVocabulary->BeginEdit();
 
         if (wiImport.exec() == QDialog::Accepted) {
+            _vVocabulary->EndEdit();
+            _vVocabulary->Open(_vVocabulary->GetVocabularyFile());
+            _vVocabulary->BeginEdit();
             ReassignModels();
 		} else {
 			_vVocabulary->EndEdit(false);

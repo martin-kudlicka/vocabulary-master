@@ -20,7 +20,7 @@ const void Vocabulary::AddRecord(const int &pCategoryId)
 const void Vocabulary::AddRecord(const int &pCategoryId, const QStringList &pData)
 {
 	int iRecordId = VocabularyDatabase::AddRecord(pCategoryId, pData);
-	_qhCategoryRecords[pCategoryId].append(iRecordId);
+	/*_qhCategoryRecords[pCategoryId].append(iRecordId);
 
     // insert data to cache
     int iData = 0;
@@ -28,7 +28,7 @@ const void Vocabulary::AddRecord(const int &pCategoryId, const QStringList &pDat
     foreach (int iFieldId, GetFieldIds()) {
         tfdhFieldData->insert(iFieldId, pData.at(iData));
         iData++;
-    } // foreach
+    } // foreach*/
 } // AddRecord
 #endif
 
