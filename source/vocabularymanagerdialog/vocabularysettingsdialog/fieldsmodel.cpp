@@ -58,7 +58,7 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 	} // switch
 } // data
 
-FieldsModel::FieldsModel(const Vocabulary *pVocabulary, QObject *pParent /* NULL */) : QAbstractItemModel(pParent)
+FieldsModel::FieldsModel(Vocabulary *pVocabulary, QObject *pParent /* NULL */) : QAbstractItemModel(pParent)
 {
 	_vVocabulary = pVocabulary;
 } // FieldsModel

@@ -16,7 +16,7 @@ class VocabularySettingsDialog : public QDialog
 	Q_OBJECT
 
 	public:
-		VocabularySettingsDialog(const Vocabulary *pVocabulary,
+		VocabularySettingsDialog(Vocabulary *pVocabulary,
 #ifndef FREE
             const Plugins *pPlugins,
 #endif

@@ -3,6 +3,7 @@
 
 #include <QtSql/QSqlDatabase>
 #include <QtCore/QList>
+#include <QtCore/QHash>
 
 const QString KEY_LANGUAGE1 = "language1";
 const QString KEY_LANGUAGE2 = "language2";
@@ -84,16 +85,9 @@ class VocabularyDatabase
 		const QString GetSettings(const QString &pKey) const;
         const QString &GetVocabularyFile() const;
         const bool IsOpen() const;
-#ifndef FREE
-		const void RemoveField(const int &pFieldId) const;
-#endif
 		const int Search(const QString &pWord, const int &pStartId) const;
 #ifndef FREE
         const void SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const;
-#endif
-		const void SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData) const;
-        const void SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData) const;
-#ifndef FREE
         const void SetFieldAttributes(const int &pFieldId, const FieldAttributes &pAttributes) const;
         const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage) const;
         const void SetFieldName(const int &pFieldId, const QString &pName) const;
@@ -105,6 +99,8 @@ class VocabularyDatabase
 #endif
 
     protected:
+        typedef QHash<int, QString> tFieldDataHash;
+        typedef QHash<int, tFieldDataHash> tRecordDataHash;
         typedef QList<int> tRecordIdList;
 
         const int AddCategory(const QString &pName) const;
@@ -112,8 +108,9 @@ class VocabularyDatabase
 #ifndef FREE
         const int AddRecord(const int &pCategoryId, const QStringList &pData) const;
 #endif
-        //const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
-        const QString GetDataText(const int &pRecordId, const int &pFieldId) const;
+        /*const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
+        const QString GetDataText(const int &pRecordId, const int &pFieldId) const;*/
+        tRecordDataHash GetDataText() const;
         /*const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
         const int GetRecordCount(const bool &pEnabled) const;*/
@@ -121,11 +118,18 @@ class VocabularyDatabase
         const void New(const QString &pFilePath);
         const void Open(const QString &pFilePath);
         const void RemoveCategory(const int &pCategoryId) const;
+#ifndef FREE
+        const void RemoveField(const int &pFieldId) const;
+#endif
         const void RemoveRecord(const int &pCategoryId, const int &pRow) const;
+        //const void SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData) const;
+        const void SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData) const;
 
     private:
 		enum eColumnPosition {
-			ColumnPosition1
+			ColumnPosition1,
+            ColumnPosition2,
+            ColumnPosition3
 		}; // eColumnPosition
 
         QSqlDatabase _qsdDatabase;

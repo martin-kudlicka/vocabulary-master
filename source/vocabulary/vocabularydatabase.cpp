@@ -161,7 +161,7 @@ const QString VocabularyDatabase::GetCategoryName(const int &pCategoryId) const
 	int iRecordId = qsqQuery.value(ColumnPosition1).toInt();
 
 	return GetDataText(iRecordId, pFieldId);
-} // GetDataText*/
+} // GetDataText
 
 const QString VocabularyDatabase::GetDataText(const int &pRecordId, const int &pFieldId) const
 {
@@ -171,6 +171,19 @@ const QString VocabularyDatabase::GetDataText(const int &pRecordId, const int &p
     } else {
         return QString();
     } // if else
+} // GetDataText*/
+
+VocabularyDatabase::tRecordDataHash VocabularyDatabase::GetDataText() const
+{
+    tRecordDataHash trdhRecordData;
+
+    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + " FROM " + TABLE_DATA);
+    while (qsqQuery.next()) {
+        tFieldDataHash *tfdhFieldData = &trdhRecordData[qsqQuery.value(ColumnPosition2).toInt()];
+        tfdhFieldData->insert(qsqQuery.value(ColumnPosition1).toInt(), qsqQuery.value(ColumnPosition3).toString());
+    } // while
+
+    return trdhRecordData;
 } // GetDataText
 
 #ifndef FREE
@@ -530,7 +543,7 @@ const void VocabularyDatabase::SetCategoryEnabled(const int &pCategoryId, const 
 } // SetCategoryEnabled
 #endif
 
-const void VocabularyDatabase::SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData) const
+/*const void VocabularyDatabase::SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData) const
 {
 	// find data record
 	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
@@ -538,7 +551,7 @@ const void VocabularyDatabase::SetDataText(const int &pCategoryId, const int &pR
 	int iRecordId = qsqQuery.value(ColumnPosition1).toInt();
 
     SetDataText(iRecordId, pFieldId, pData);
-} // SetDataText
+} // SetDataText*/
 
 const void VocabularyDatabase::SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData) const
 {
