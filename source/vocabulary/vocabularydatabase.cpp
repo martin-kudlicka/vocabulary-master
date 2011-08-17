@@ -154,14 +154,14 @@ const QString VocabularyDatabase::GetCategoryName(const int &pCategoryId) const
     return qsqQuery.value(ColumnPosition1).toString();
 } // GetCategoryName
 
-const QString VocabularyDatabase::GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const
+/*const QString VocabularyDatabase::GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const
 {
 	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
 	qsqQuery.seek(pRow);
 	int iRecordId = qsqQuery.value(ColumnPosition1).toInt();
 
 	return GetDataText(iRecordId, pFieldId);
-} // GetDataText
+} // GetDataText*/
 
 const QString VocabularyDatabase::GetDataText(const int &pRecordId, const int &pFieldId) const
 {
