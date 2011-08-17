@@ -2,7 +2,6 @@
 
 #include <QtCore/QStringList>
 #include "vocabulary/clearcacheworker.h"
-#include <QtCore/QThreadPool>
 
 const int Vocabulary::AddCategory(const QString &pName)
 {
@@ -40,7 +39,7 @@ const void Vocabulary::ClearCache()
     // clear large cache in background
     if (_trdhRecordData) {
         ClearCacheWorker *ccwClearCacheWorker = new ClearCacheWorker(_trdhRecordData);
-        QThreadPool::globalInstance()->start(ccwClearCacheWorker);
+        ccwClearCacheWorker->start(QThread::LowPriority);
         _trdhRecordData = NULL;
     } // if
 } // ClearCache

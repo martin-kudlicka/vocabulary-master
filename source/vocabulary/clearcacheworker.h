@@ -1,10 +1,10 @@
 #ifndef CLEARCACHEWORKER_H
 #define CLEARCACHEWORKER_H
 
-#include <QtCore/QRunnable>
+#include <QtCore/QThread>
 #include "vocabulary/vocabularydatabase.h"
 
-class ClearCacheWorker : public QRunnable
+class ClearCacheWorker : public QThread
 {
     public:
         ClearCacheWorker(VocabularyDatabase::tRecordDataHash *pRecordData);
