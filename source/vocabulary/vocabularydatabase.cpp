@@ -49,13 +49,7 @@ const int VocabularyDatabase::AddCategory(const QString &pName) const
 #ifndef FREE
 const void VocabularyDatabase::AddField() const
 {
-    QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " + COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + QT_TRANSLATE_NOOP("Vocabualay", "Field")+ "', '" + QT_TRANSLATE_NOOP("Vocabualay", "Name") + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
-    int iFieldId = qsqQuery.lastInsertId().toInt();
-
-    tRecordIdList trilRecordIds = GetRecordIds();
-    foreach (int iRecordId, trilRecordIds) {
-        _qsdDatabase.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(iFieldId) + "', '" + QString::number(iRecordId) + "', '')");
-    } // foreach
+    _qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " + COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + QT_TRANSLATE_NOOP("Vocabualay", "Field")+ "', '" + QT_TRANSLATE_NOOP("Vocabualay", "Name") + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
 } // AddField
 #endif
 
@@ -64,11 +58,6 @@ const int VocabularyDatabase::AddRecord(const int &pCategoryId) const
 	// create new record
 	QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_RECORDS + " (" + COLUMN_CATEGORYID + ") VALUES ('" + QString::number(pCategoryId) + "')");
 	int iRecordId = qsqQuery.lastInsertId().toInt();
-
-	// create new empty data
-	foreach (int iFieldId, GetFieldIds()) {
-		_qsdDatabase.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(iFieldId) + "', '" + QString::number(iRecordId) + "', '')");
-	} // foreach
 
     return iRecordId;
 } // AddRecord
@@ -177,8 +166,11 @@ const QString VocabularyDatabase::GetDataText(const int &pCategoryId, const int 
 const QString VocabularyDatabase::GetDataText(const int &pRecordId, const int &pFieldId) const
 {
 	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_TEXT + " FROM " + TABLE_DATA + " WHERE " + COLUMN_RECORDID + " = " + QString::number(pRecordId) + " AND " + COLUMN_FIELDID + " = " + QString::number(pFieldId));
-	qsqQuery.next();
-	return qsqQuery.value(ColumnPosition1).toString();
+    if (qsqQuery.next()) {
+	    return qsqQuery.value(ColumnPosition1).toString();
+    } else {
+        return QString();
+    } // if else
 } // GetDataText
 
 #ifndef FREE
@@ -340,7 +332,7 @@ const int VocabularyDatabase::GetRecordId(const int &pCategoryId, const int &pRo
 	return qsqQuery.value(ColumnPosition1).toInt();
 } // GetRecordId
 
-#ifndef FREE
+/*#ifndef FREE
 const VocabularyDatabase::tRecordIdList VocabularyDatabase::GetRecordIds() const
 {
     tRecordIdList trilRecordIds;
@@ -351,7 +343,7 @@ const VocabularyDatabase::tRecordIdList VocabularyDatabase::GetRecordIds() const
 
     return trilRecordIds;
 } // GetRecordIds
-#endif
+#endif*/
 
 const VocabularyDatabase::tRecordIdList VocabularyDatabase::GetRecordIds(const int &pCategoryId) const
 {
