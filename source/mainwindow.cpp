@@ -272,7 +272,7 @@ const void MainWindow::on_qaMute_toggled(bool checked)
 
 const void MainWindow::on_qaNew_triggered(bool checked /* false */)
 {
-    QFileDialog qfdNew(this, tr("Create new vocabulary"), QString(), VOCABULARY_FILTER);
+    QFileDialog qfdNew(this, tr("Create new vocabulary"), QFileInfo(_vVocabulary.GetVocabularyFile()).absolutePath(), VOCABULARY_FILTER);
     qfdNew.setAcceptMode(QFileDialog::AcceptSave);
     if (qfdNew.exec() == QDialog::Accepted) {
         QFileInfo qfiFile(qfdNew.selectedFiles().at(0));
@@ -297,7 +297,7 @@ const void MainWindow::on_qaNext_triggered(bool checked /* false */)
 
 const void MainWindow::on_qaOpen_triggered(bool checked /* false */)
 {
-    QString qsFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), QString(), VOCABULARY_FILTER);
+    QString qsFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), QFileInfo(_vVocabulary.GetVocabularyFile()).absolutePath(), VOCABULARY_FILTER);
     if (!qsFile.isEmpty()) {
         _vVocabulary.Open(qsFile);
 
