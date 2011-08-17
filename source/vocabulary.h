@@ -12,6 +12,8 @@ class Vocabulary : public VocabularyDatabase
 #ifndef FREE
 		const void AddRecord(const int &pCategoryId, const QStringList &pData);
 #endif
+        const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
+        const QString GetDataText(const int &pRecordId, const int &pFieldId) const;
 		const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
 		const int GetRecordCount(const bool &pEnabled) const;
@@ -21,7 +23,7 @@ class Vocabulary : public VocabularyDatabase
 		const void RemoveRecord(const int &pCategoryId, const int &pRow);
 
 	private:
-		QHash<int, int> _qhCategoryRecordCount;
+		QHash<int, tRecordIdList> _qhCategoryRecords;
 
 		const void ClearCache();
 		const void InitCache();

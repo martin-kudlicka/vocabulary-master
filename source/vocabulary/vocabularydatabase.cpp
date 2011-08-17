@@ -53,7 +53,7 @@ const void VocabularyDatabase::AddField() const
 } // AddField
 #endif
 
-const void VocabularyDatabase::AddRecord(const int &pCategoryId) const
+const int VocabularyDatabase::AddRecord(const int &pCategoryId) const
 {
 	// create new record
 	QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_RECORDS + " (" + COLUMN_CATEGORYID + ") VALUES ('" + QString::number(pCategoryId) + "')");
@@ -63,10 +63,12 @@ const void VocabularyDatabase::AddRecord(const int &pCategoryId) const
 	foreach (int iFieldId, GetFieldIds()) {
 		qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(iFieldId) + "', '" + QString::number(iRecordId) + "', '')");
 	} // foreach
+
+    return iRecordId;
 } // AddRecord
 
 #ifndef FREE
-const void VocabularyDatabase::AddRecord(const int &pCategoryId, const QStringList &pData) const
+const int VocabularyDatabase::AddRecord(const int &pCategoryId, const QStringList &pData) const
 {
     // create new record
     QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_RECORDS + " (" + COLUMN_CATEGORYID + ") VALUES ('" + QString::number(pCategoryId) + "')");
@@ -78,6 +80,8 @@ const void VocabularyDatabase::AddRecord(const int &pCategoryId, const QStringLi
         qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(iFieldId) + "', '" + QString::number(iRecordId) + "', '" + pData.at(iData) + "')");
         iData++;
     } // foreach
+
+    return iRecordId;
 } // AddRecord
 #endif
 
@@ -294,7 +298,7 @@ const int VocabularyDatabase::GetRecordCategory(const int &pRecordId) const
 	} else {
 		return 0;
 	} // if else
-} // GetRecordCount*/
+} // GetRecordCount
 
 const int VocabularyDatabase::GetRecordCount(const int &pCategoryId) const
 {
@@ -306,7 +310,7 @@ const int VocabularyDatabase::GetRecordCount(const int &pCategoryId) const
 	} // if else
 } // GetRecordCount
 
-/*const int VocabularyDatabase::GetRecordCount(const bool &pEnabled) const
+const int VocabularyDatabase::GetRecordCount(const bool &pEnabled) const
 {
     QSqlQuery qsqQuery("SELECT " + TABLE_RECORDS + '.' + COLUMN_ID + " FROM " + TABLE_RECORDS + " JOIN " + TABLE_CATEGORIES + " ON " + TABLE_RECORDS + '.' + COLUMN_CATEGORYID + " = " + TABLE_CATEGORIES + '.' + COLUMN_ID + " WHERE " + TABLE_CATEGORIES + '.' + COLUMN_ENABLED + " = " + QString::number(pEnabled));
     if (qsqQuery.last()) {
@@ -329,6 +333,17 @@ const int VocabularyDatabase::GetRecordId(const int &pCategoryId, const int &pRo
 	qsqQuery.seek(pRow);
 	return qsqQuery.value(ColumnPosition1).toInt();
 } // GetRecordId
+
+const VocabularyDatabase::tRecordIdList VocabularyDatabase::GetRecordIds(const int &pCategoryId) const
+{
+    tRecordIdList trilRecordIds;
+    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
+    while (qsqQuery.next()) {
+        trilRecordIds.append(qsqQuery.value(ColumnPosition1).toInt());
+    } // while
+
+    return trilRecordIds;
+} // GetRecordIds
 
 const int VocabularyDatabase::GetRow(const int &pRecordId, const int &pCategoryId) const
 {
