@@ -6,6 +6,8 @@
 class Vocabulary : public VocabularyDatabase
 {
 	public:
+        Vocabulary();
+
 		const int AddCategory(const QString &pName);
 		const void AddRecord(const int &pCategoryId);
 #ifndef FREE
@@ -27,7 +29,7 @@ class Vocabulary : public VocabularyDatabase
 
 	private:
 		QHash<int, tRecordIdList> _qhCategoryRecords;
-        tRecordDataHash _trdhRecordData;
+        tRecordDataHash *_trdhRecordData;
 
 		const void ClearCache();
 		const void InitCache();

@@ -170,13 +170,13 @@ const QString VocabularyDatabase::GetDataText(const int &pRecordId, const int &p
     } // if else
 } // GetDataText*/
 
-VocabularyDatabase::tRecordDataHash VocabularyDatabase::GetDataText() const
+VocabularyDatabase::tRecordDataHash *VocabularyDatabase::GetDataText() const
 {
-    tRecordDataHash trdhRecordData;
+    tRecordDataHash *trdhRecordData = new tRecordDataHash();
 
     QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + " FROM " + TABLE_DATA);
     while (qsqQuery.next()) {
-        tFieldDataHash *tfdhFieldData = &trdhRecordData[qsqQuery.value(ColumnPosition2).toInt()];
+        tFieldDataHash *tfdhFieldData = &trdhRecordData->operator[](qsqQuery.value(ColumnPosition2).toInt());
         tfdhFieldData->insert(qsqQuery.value(ColumnPosition1).toInt(), qsqQuery.value(ColumnPosition3).toString());
     } // while
 

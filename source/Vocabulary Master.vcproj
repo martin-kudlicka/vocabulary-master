@@ -327,6 +327,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\vocabulary\clearcacheworker.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\settings\colorcombobox.cpp"
 				>
 			</File>
@@ -519,6 +523,10 @@
 						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\vocabulary\clearcacheworker.h"
+				>
 			</File>
 			<File
 				RelativePath=".\settings\colorcombobox.h"
