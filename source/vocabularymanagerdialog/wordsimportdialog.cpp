@@ -122,19 +122,17 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
         } // for
 
         // insert data into target
-        for (int iColumn = 0; iColumn < _vVocabulary->GetFieldCount(); iColumn++) {
-			switch (pTarget) {
-				case TargetPreview:
-					{
-						QTableWidgetItem *qtwiTableItem = new QTableWidgetItem(qslData.at(iColumn));
-						qtwiTableItem->setFlags(qtwiTableItem->flags() ^ Qt::ItemIsEditable);
-						_qdwiWordsImport.qtwPreview->setItem(iRecord - iSkipCount, iColumn, qtwiTableItem);
-					}
-					break;
-				case TargetVocabulary:
-					_vVocabulary->AddRecord(iCategoryId, qslData);
-			} // switch
-		} // for
+        switch (pTarget) {
+            case TargetPreview:
+                for (int iColumn = 0; iColumn < _vVocabulary->GetFieldCount(); iColumn++) {
+					QTableWidgetItem *qtwiTableItem = new QTableWidgetItem(qslData.at(iColumn));
+					qtwiTableItem->setFlags(qtwiTableItem->flags() ^ Qt::ItemIsEditable);
+					_qdwiWordsImport.qtwPreview->setItem(iRecord - iSkipCount, iColumn, qtwiTableItem);
+				} // for
+				break;
+			case TargetVocabulary:
+				_vVocabulary->AddRecord(iCategoryId, qslData);
+		} // switch
 
 		// progress
 		_qdwiWordsImport.qpbProgress->setValue(iRecord);
