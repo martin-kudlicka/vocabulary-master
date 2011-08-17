@@ -112,7 +112,7 @@ class VocabularyDatabase
 #ifndef FREE
         const int AddRecord(const int &pCategoryId, const QStringList &pData) const;
 #endif
-        const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
+        //const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
         const QString GetDataText(const int &pRecordId, const int &pFieldId) const;
         /*const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
