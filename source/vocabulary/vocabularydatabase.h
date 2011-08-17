@@ -132,9 +132,9 @@ class VocabularyDatabase
         QString _qsVocabularyFile;
 
 		const void CloseDatabase();
-#ifndef FREE
+/*#ifndef FREE
         const tRecordIdList GetRecordIds() const;
-#endif
+#endif*/
 		const void Initialize() const;
 		const void OpenDatabase();
 		const void RemoveRecord(const int &pRecordId) const;
