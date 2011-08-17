@@ -22,6 +22,8 @@ const QString VARIABLE_MARK = "$";
 class VocabularyDatabase
 {
     public:
+        typedef QHash<int, QString> tFieldDataHash;
+        typedef QHash<int, tFieldDataHash> tRecordDataHash;
         typedef QList<int> tCategoryIdList;
 		typedef QList<int> tFieldIdList;
 
@@ -99,8 +101,6 @@ class VocabularyDatabase
 #endif
 
     protected:
-        typedef QHash<int, QString> tFieldDataHash;
-        typedef QHash<int, tFieldDataHash> tRecordDataHash;
         typedef QList<int> tRecordIdList;
 
         const int AddCategory(const QString &pName) const;
@@ -110,7 +110,7 @@ class VocabularyDatabase
 #endif
         /*const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
         const QString GetDataText(const int &pRecordId, const int &pFieldId) const;*/
-        tRecordDataHash GetDataText() const;
+        tRecordDataHash *GetDataText() const;
         /*const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
         const int GetRecordCount(const bool &pEnabled) const;*/

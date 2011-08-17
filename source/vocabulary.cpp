@@ -1,6 +1,8 @@
 #include "vocabulary.h"
 
 #include <QtCore/QStringList>
+#include "vocabulary/clearcacheworker.h"
+#include <QtCore/QThreadPool>
 
 const int Vocabulary::AddCategory(const QString &pName)
 {
@@ -23,7 +25,7 @@ const void Vocabulary::AddRecord(const int &pCategoryId, const QStringList &pDat
 
     // insert data to cache
     int iData = 0;
-    tFieldDataHash *tfdhFieldData = &_trdhRecordData[iRecordId];
+    tFieldDataHash *tfdhFieldData = &_trdhRecordData->operator[](iRecordId);
     foreach (int iFieldId, GetFieldIds()) {
         tfdhFieldData->insert(iFieldId, pData.at(iData));
         iData++;
@@ -34,6 +36,13 @@ const void Vocabulary::AddRecord(const int &pCategoryId, const QStringList &pDat
 const void Vocabulary::ClearCache()
 {
 	_qhCategoryRecords.clear();
+
+    // clear large cache in background
+    if (_trdhRecordData) {
+        ClearCacheWorker *ccwClearCacheWorker = new ClearCacheWorker(_trdhRecordData);
+        QThreadPool::globalInstance()->start(ccwClearCacheWorker);
+        _trdhRecordData = NULL;
+    } // if
 } // ClearCache
 
 const QString Vocabulary::GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const
@@ -44,7 +53,7 @@ const QString Vocabulary::GetDataText(const int &pCategoryId, const int &pRow, c
 
 const QString Vocabulary::GetDataText(const int &pRecordId, const int &pFieldId) const
 {
-    return _trdhRecordData.value(pRecordId).value(pFieldId);
+    return _trdhRecordData->value(pRecordId).value(pFieldId);
 } // GetDataText
 
 const int Vocabulary::GetRecordCount() const
@@ -87,6 +96,7 @@ const void Vocabulary::InitCache()
 		} // foreach
 
         // records
+        _trdhRecordData = new tRecordDataHash();
         _trdhRecordData = VocabularyDatabase::GetDataText();
 	} // if
 } // InitCache
@@ -109,7 +119,7 @@ const void Vocabulary::RemoveCategory(const int &pCategoryId)
 {
     tRecordIdList trilRecords = _qhCategoryRecords.value(pCategoryId);
     foreach (int iRecordId, trilRecords) {
-        _trdhRecordData.remove(iRecordId);
+        _trdhRecordData->remove(iRecordId);
     } // foreach
 	_qhCategoryRecords.remove(pCategoryId);
 
@@ -119,7 +129,7 @@ const void Vocabulary::RemoveCategory(const int &pCategoryId)
 #ifndef FREE
 const void Vocabulary::RemoveField(const int &pFieldId)
 {
-    for (tRecordDataHash::iterator iFieldData = _trdhRecordData.begin(); iFieldData != _trdhRecordData.end(); iFieldData++) {
+    for (tRecordDataHash::iterator iFieldData = _trdhRecordData->begin(); iFieldData != _trdhRecordData->end(); iFieldData++) {
         iFieldData->remove(pFieldId);
     } // for
 
@@ -129,7 +139,7 @@ const void Vocabulary::RemoveField(const int &pFieldId)
 
 const void Vocabulary::RemoveRecord(const int &pCategoryId, const int &pRow)
 {
-    _trdhRecordData.remove(_qhCategoryRecords.value(pCategoryId).at(pRow));
+    _trdhRecordData->remove(_qhCategoryRecords.value(pCategoryId).at(pRow));
     _qhCategoryRecords[pCategoryId].removeAt(pRow);
 
 	VocabularyDatabase::RemoveRecord(pCategoryId, pRow);
@@ -143,6 +153,11 @@ const void Vocabulary::SetDataText(const int &pCategoryId, const int &pRow, cons
 
 const void Vocabulary::SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData)
 {
-    _trdhRecordData[pRecordId].operator[](pFieldId) = pData;
+    _trdhRecordData->operator[](pRecordId).operator[](pFieldId) = pData;
     VocabularyDatabase::SetDataText(pRecordId, pFieldId, pData);
 } // SetDataText
+
+Vocabulary::Vocabulary()
+{
+    _trdhRecordData = NULL;
+} // Vocabulary
