@@ -51,13 +51,8 @@ class VocabularyDatabase
 		~VocabularyDatabase();
         VocabularyDatabase();
 
-        const int AddCategory(const QString &pName) const;
 #ifndef FREE
         const void AddField() const;
-#endif
-		const int AddRecord(const int &pCategoryId) const;
-#ifndef FREE
-        const int AddRecord(const int &pCategoryId, const QStringList &pData) const;
 #endif
         const void BeginEdit();
         const void EndEdit(const bool &pSave = true);
@@ -68,8 +63,6 @@ class VocabularyDatabase
 #endif
         const tCategoryIdList GetCategoryIds() const;
         const QString GetCategoryName(const int &pCategoryId) const;
-		const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
-		const QString GetDataText(const int &pRecordId, const int &pFieldId) const;
 #ifndef FREE
         const FieldAttributes GetFieldAttributes(const int &pFieldId) const;
 #endif
@@ -85,22 +78,15 @@ class VocabularyDatabase
 #endif
         const QString GetName() const;
 		const int GetRecordCategory(const int &pRecordId) const;
-		/*const int GetRecordCount() const;
-		const int GetRecordCount(const int &pCategoryId) const;
-        const int GetRecordCount(const bool &pEnabled) const;*/
 		const int GetRecordId(const int &pRow) const;
 		const int GetRecordId(const int &pCategoryId, const int &pRow) const;
 		const int GetRow(const int &pRecordId, const int &pCategoryId) const;
 		const QString GetSettings(const QString &pKey) const;
         const QString &GetVocabularyFile() const;
         const bool IsOpen() const;
-		const void New(const QString &pFilePath);
-        const void Open(const QString &pFilePath);
-        const void RemoveCategory(const int &pCategoryId) const;
 #ifndef FREE
 		const void RemoveField(const int &pFieldId) const;
 #endif
-		const void RemoveRecord(const int &pCategoryId, const int &pRow) const;
 		const int Search(const QString &pWord, const int &pStartId) const;
 #ifndef FREE
         const void SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const;
@@ -121,7 +107,21 @@ class VocabularyDatabase
     protected:
         typedef QList<int> tRecordIdList;
 
+        const int AddCategory(const QString &pName) const;
+        const int AddRecord(const int &pCategoryId) const;
+#ifndef FREE
+        const int AddRecord(const int &pCategoryId, const QStringList &pData) const;
+#endif
+        const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
+        const QString GetDataText(const int &pRecordId, const int &pFieldId) const;
+        /*const int GetRecordCount() const;
+		const int GetRecordCount(const int &pCategoryId) const;
+        const int GetRecordCount(const bool &pEnabled) const;*/
         const tRecordIdList GetRecordIds(const int &pCategoryId) const;
+        const void New(const QString &pFilePath);
+        const void Open(const QString &pFilePath);
+        const void RemoveCategory(const int &pCategoryId) const;
+        const void RemoveRecord(const int &pCategoryId, const int &pRow) const;
 
     private:
 		enum eColumnPosition {
