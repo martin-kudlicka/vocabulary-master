@@ -24,7 +24,6 @@ class Vocabulary : public VocabularyDatabase
 #endif
 		const void RemoveRecord(const int &pCategoryId, const int &pRow);
         const void SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData);
-        const void SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData);
 
 	private:
 		QHash<int, tRecordIdList> _qhCategoryRecords;
@@ -32,6 +31,7 @@ class Vocabulary : public VocabularyDatabase
 
 		const void ClearCache();
 		const void InitCache();
+        const void SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData);
 }; // VocabularyDatabase
 
 #endif // VOCABULARY_H
