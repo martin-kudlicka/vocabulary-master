@@ -55,9 +55,9 @@ class VocabularyDatabase
 #ifndef FREE
         const void AddField() const;
 #endif
-		const void AddRecord(const int &pCategoryId) const;
+		const int AddRecord(const int &pCategoryId) const;
 #ifndef FREE
-        const void AddRecord(const int &pCategoryId, const QStringList &pData) const;
+        const int AddRecord(const int &pCategoryId, const QStringList &pData) const;
 #endif
         const void BeginEdit();
         const void EndEdit(const bool &pSave = true);
@@ -85,9 +85,9 @@ class VocabularyDatabase
 #endif
         const QString GetName() const;
 		const int GetRecordCategory(const int &pRecordId) const;
-		//const int GetRecordCount() const;
+		/*const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
-        //const int GetRecordCount(const bool &pEnabled) const;
+        const int GetRecordCount(const bool &pEnabled) const;*/
 		const int GetRecordId(const int &pRow) const;
 		const int GetRecordId(const int &pCategoryId, const int &pRow) const;
 		const int GetRow(const int &pRecordId, const int &pCategoryId) const;
@@ -117,6 +117,11 @@ class VocabularyDatabase
 #ifndef FREE
 		const void SwapFields(const int &pSourceId, const int &pDestinationId) const;
 #endif
+
+    protected:
+        typedef QList<int> tRecordIdList;
+
+        const tRecordIdList GetRecordIds(const int &pCategoryId) const;
 
     private:
 		enum eColumnPosition {
