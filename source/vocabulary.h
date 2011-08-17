@@ -2,7 +2,6 @@
 #define VOCABULARY_H
 
 #include "vocabulary/vocabularydatabase.h"
-#include <QtCore/QHash>
 
 class Vocabulary : public VocabularyDatabase
 {
@@ -20,10 +19,16 @@ class Vocabulary : public VocabularyDatabase
 		const void New(const QString &pFilePath);
 		const void Open(const QString &pFilePath);
 		const void RemoveCategory(const int &pCategoryId);
+#ifndef FREE
+        const void RemoveField(const int &pFieldId);
+#endif
 		const void RemoveRecord(const int &pCategoryId, const int &pRow);
+        const void SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData);
+        const void SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData);
 
 	private:
 		QHash<int, tRecordIdList> _qhCategoryRecords;
+        tRecordDataHash _trdhRecordData;
 
 		const void ClearCache();
 		const void InitCache();

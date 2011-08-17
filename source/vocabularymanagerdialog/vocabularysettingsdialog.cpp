@@ -141,7 +141,7 @@ const void VocabularySettingsDialog::SaveOptions()
 #endif
 } // SaveOptions
 
-VocabularySettingsDialog::VocabularySettingsDialog(const Vocabulary *pVocabulary,
+VocabularySettingsDialog::VocabularySettingsDialog(Vocabulary *pVocabulary,
 #ifndef FREE
     const Plugins *pPlugins,
 #endif

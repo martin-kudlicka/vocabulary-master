@@ -18,7 +18,7 @@ class FieldsModel : public QAbstractItemModel
             ColumnCount
         }; // eColumn
 
-        FieldsModel(const Vocabulary *pVocabulary, QObject *pParent = NULL);
+        FieldsModel(Vocabulary *pVocabulary, QObject *pParent = NULL);
 
         const void AddRow();
 		virtual QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
@@ -26,7 +26,7 @@ class FieldsModel : public QAbstractItemModel
 		const void Swap(const int &pSourceRow, const int &pDestinationRow);
 
     private:
-        const Vocabulary *_vVocabulary;
+        Vocabulary *_vVocabulary;
 
         virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
         virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;

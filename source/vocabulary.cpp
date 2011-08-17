@@ -1,5 +1,7 @@
 #include "vocabulary.h"
 
+#include <QtCore/QStringList>
+
 const int Vocabulary::AddCategory(const QString &pName)
 {
 	int iCategoryId = VocabularyDatabase::AddCategory(pName);
@@ -18,6 +20,14 @@ const void Vocabulary::AddRecord(const int &pCategoryId, const QStringList &pDat
 {
 	int iRecordId = VocabularyDatabase::AddRecord(pCategoryId, pData);
 	_qhCategoryRecords[pCategoryId].append(iRecordId);
+
+    // insert data to cache
+    int iData = 0;
+    tFieldDataHash *tfdhFieldData = &_trdhRecordData[iRecordId];
+    foreach (int iFieldId, GetFieldIds()) {
+        tfdhFieldData->insert(iFieldId, pData.at(iData));
+        iData++;
+    } // foreach
 } // AddRecord
 #endif
 
@@ -34,7 +44,7 @@ const QString Vocabulary::GetDataText(const int &pCategoryId, const int &pRow, c
 
 const QString Vocabulary::GetDataText(const int &pRecordId, const int &pFieldId) const
 {
-    return VocabularyDatabase::GetDataText(pRecordId, pFieldId);
+    return _trdhRecordData.value(pRecordId).value(pFieldId);
 } // GetDataText
 
 const int Vocabulary::GetRecordCount() const
@@ -75,6 +85,9 @@ const void Vocabulary::InitCache()
 			tRecordIdList tdilRecordIds = GetRecordIds(iCategoryId);
 			_qhCategoryRecords.insert(iCategoryId, tdilRecordIds);
 		} // foreach
+
+        // records
+        _trdhRecordData = VocabularyDatabase::GetDataText();
 	} // if
 } // InitCache
 
@@ -94,12 +107,42 @@ const void Vocabulary::Open(const QString &pFilePath)
 
 const void Vocabulary::RemoveCategory(const int &pCategoryId)
 {
+    tRecordIdList trilRecords = _qhCategoryRecords.value(pCategoryId);
+    foreach (int iRecordId, trilRecords) {
+        _trdhRecordData.remove(iRecordId);
+    } // foreach
 	_qhCategoryRecords.remove(pCategoryId);
+
 	VocabularyDatabase::RemoveCategory(pCategoryId);
 } // RemoveCategory
 
+#ifndef FREE
+const void Vocabulary::RemoveField(const int &pFieldId)
+{
+    for (tRecordDataHash::iterator iFieldData = _trdhRecordData.begin(); iFieldData != _trdhRecordData.end(); iFieldData++) {
+        iFieldData->remove(pFieldId);
+    } // for
+
+    VocabularyDatabase::RemoveField(pFieldId);
+} // RemoveField
+#endif
+
 const void Vocabulary::RemoveRecord(const int &pCategoryId, const int &pRow)
 {
+    _trdhRecordData.remove(_qhCategoryRecords.value(pCategoryId).at(pRow));
+    _qhCategoryRecords[pCategoryId].removeAt(pRow);
+
 	VocabularyDatabase::RemoveRecord(pCategoryId, pRow);
-	_qhCategoryRecords[pCategoryId].removeAt(pRow);
 } // RemoveRecord
+
+const void Vocabulary::SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData)
+{
+    int iRecordId = _qhCategoryRecords.value(pCategoryId).at(pRow);
+    SetDataText(iRecordId, pFieldId, pData);
+} // SetDataText
+
+const void Vocabulary::SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData)
+{
+    _trdhRecordData[pRecordId].operator[](pFieldId) = pData;
+    VocabularyDatabase::SetDataText(pRecordId, pFieldId, pData);
+} // SetDataText
