@@ -63,7 +63,9 @@ class VocabularyDatabase : public QObject
         const void EndEdit(const bool &pSave = true);
 #ifndef FREE
         const int GetCategoryCount() const;
+#endif
         const bool GetCategoryEnabled(const int &pCategoryId) const;
+#ifndef FREE
         const int GetCategoryId(const int &pRow) const;
 #endif
         const tCategoryIdList GetCategoryIds() const;
