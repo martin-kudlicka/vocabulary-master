@@ -111,6 +111,7 @@ const int VocabularyDatabase::GetCategoryCount() const
         return 0;
     } // if else
 } // GetCategoryCount
+#endif
 
 const bool VocabularyDatabase::GetCategoryEnabled(const int &pCategoryId) const
 {
@@ -119,6 +120,7 @@ const bool VocabularyDatabase::GetCategoryEnabled(const int &pCategoryId) const
     return qsqQuery.value(ColumnPosition1).toBool();
 } // GetCategoryEnabled
 
+#ifndef FREE
 const int VocabularyDatabase::GetCategoryId(const int &pRow) const
 {
     QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_CATEGORIES);
