@@ -79,26 +79,23 @@ const void VocabularyManagerDialog::InitEditor()
 		int iColumn, iRow;
 
 		// get field language
-		QGridLayout *qglGrid;
 		if (_vVocabulary->GetFieldLanguage(iFieldId) == Vocabulary::FieldLanguageLeft) {
-			qglGrid = _qdvmVocabularyManager.qglLeft;
 			iRow = iFieldsLeft++;
 			iColumn = EditorColumnLeftLabel;
 		} else {
-			qglGrid = _qdvmVocabularyManager.qglRight;
 			iRow = iFieldsRight++;
 			iColumn = EditorColumnRightLabel;
 		} // if else
 
 		// label
 		QLabel *qlLabel = new QLabel(_vVocabulary->GetFieldName(iFieldId) + ':', _qdvmVocabularyManager.qgbEditor);
-		qglGrid->addWidget(qlLabel, iRow, iColumn);
+		_qdvmVocabularyManager.qglEditor->addWidget(qlLabel, iRow, iColumn);
 
 		// control
 		QLineEdit *qleControl = new QLineEdit(_qdvmVocabularyManager.qgbEditor);
 		qleControl->setProperty(PROPERTY_COLUMN, iFieldsLeft + iFieldsRight - 1);
 		connect(qleControl, SIGNAL(textEdited(const QString &)), SLOT(on_qleControl_textEdited(const QString &)));
-		qglGrid->addWidget(qleControl, iRow, iColumn + 1);
+		_qdvmVocabularyManager.qglEditor->addWidget(qleControl, iRow, iColumn + 1);
 	} // foreach
 } // InitEditor
 
@@ -204,6 +201,8 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
 #ifndef FREE
 		if (iOldColumnCount != GetColumnCount()) {
 			ReassignModels();
+            UninitEditor();
+            InitEditor();
 		} // if
 #endif
 	} else {
@@ -221,8 +220,8 @@ const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false 
 	qtvVocabularyView->setCurrentIndex(vmVocabularyModel->index(vmVocabularyModel->rowCount() - 1, 0));
 	qtvVocabularyView->setFocus(Qt::OtherFocusReason);
 
-    if (!_qdvmVocabularyManager.qglLeft->isEmpty()) {
-        QLayoutItem *qliControl = _qdvmVocabularyManager.qglLeft->itemAtPosition(0, EditorColumnLeftControl);
+    if (!_qdvmVocabularyManager.qglEditor->isEmpty()) {
+        QLayoutItem *qliControl = _qdvmVocabularyManager.qglEditor->itemAtPosition(0, EditorColumnLeftControl);
         qliControl->widget()->setFocus(Qt::OtherFocusReason);
     } // if
 } // on_qpbWordAdd_clicked
@@ -323,6 +322,16 @@ const void VocabularyManagerDialog::StretchColumns(const QTableView *pTableView)
 	} // for
 } // StretchColumns
 
+#ifndef FREE
+const void VocabularyManagerDialog::UninitEditor() const
+{
+    QLayoutItem *qliItem;
+    while ((qliItem = _qdvmVocabularyManager.qglEditor->takeAt(0)) != NULL) {
+        qliItem->widget()->deleteLater();
+    } // while
+} // UninitEditor
+#endif
+
 const void VocabularyManagerDialog::UpdateEditor() const
 {
 	const QTableView *qtvVocabularyView = qobject_cast<const QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
@@ -334,14 +343,14 @@ const void VocabularyManagerDialog::UpdateEditor() const
 	} // if else
 	_qdvmVocabularyManager.qgbEditor->setEnabled(qismSelection && qismSelection->hasSelection());
 
-	UpdateEditor(_qdvmVocabularyManager.qglLeft, EditorColumnLeftControl);
-	UpdateEditor(_qdvmVocabularyManager.qglRight, EditorColumnRightControl);
+	UpdateEditor(EditorColumnLeftControl);
+	UpdateEditor(EditorColumnRightControl);
 } // UpdateEditor
 
-const void VocabularyManagerDialog::UpdateEditor(const QGridLayout *pGridLayout, const eEditorColumn &pControlsColumn) const
+const void VocabularyManagerDialog::UpdateEditor(const eEditorColumn &pControlsColumn) const
 {
-	for (int iI = 0; iI <  pGridLayout->rowCount(); iI++) {
-		QLayoutItem *qliItem = pGridLayout->itemAtPosition(iI, pControlsColumn);
+	for (int iI = 0; iI <  _qdvmVocabularyManager.qglEditor->rowCount(); iI++) {
+		QLayoutItem *qliItem = _qdvmVocabularyManager.qglEditor->itemAtPosition(iI, pControlsColumn);
 		if (qliItem) {
 			QWidget *qwWidget = qliItem->widget();
 			QLineEdit *qleControl = qobject_cast<QLineEdit *>(qwWidget);
