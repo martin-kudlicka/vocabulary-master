@@ -7,6 +7,9 @@
 # include "vocabularymanagerdialog/wordsimportdialog.h"
 #endif
 #include <QtGui/QFileDialog>
+#ifndef FREE
+# include "common/vocabularyopenprogressdialog.h"
+#endif
 
 const char *PROPERTY_COLUMN = "Column";
 
@@ -245,7 +248,12 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
 
         if (wiImport.exec() == QDialog::Accepted) {
             _vVocabulary->EndEdit();
+
+            VocabularyOpenProgressDialog vopdOpenProgress(_vVocabulary, this);
+            vopdOpenProgress.show();
             _vVocabulary->Open(_vVocabulary->GetVocabularyFile());
+            vopdOpenProgress.hide();
+
             _vVocabulary->BeginEdit();
             ReassignModels();
 		} else {

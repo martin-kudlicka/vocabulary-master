@@ -10,6 +10,7 @@
 #if !defined(FREE) && defined(Q_WS_WIN)
 # include <Windows.h>
 #endif
+#include "common/vocabularyopenprogressdialog.h"
 
 #ifdef FREE
 const QString FREE_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " FREE");
@@ -213,7 +214,10 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     // settings
     ApplySettings(true);
 
+	VocabularyOpenProgressDialog vopdOpenProgress(&_vVocabulary, this);
+    vopdOpenProgress.show();
     _vVocabulary.Open(_sSettings.GetVocabularyFile());
+    vopdOpenProgress.hide();
     RefreshStatusBar();
 
     // controls
@@ -299,7 +303,10 @@ const void MainWindow::on_qaOpen_triggered(bool checked /* false */)
 {
     QString qsFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), QFileInfo(_vVocabulary.GetVocabularyFile()).absolutePath(), VOCABULARY_FILTER);
     if (!qsFile.isEmpty()) {
+        VocabularyOpenProgressDialog vopdOpenProgress(&_vVocabulary, this);
+        vopdOpenProgress.show();
         _vVocabulary.Open(qsFile);
+        vopdOpenProgress.hide();
 
         EnableControls();
         RefreshStatusBar();
