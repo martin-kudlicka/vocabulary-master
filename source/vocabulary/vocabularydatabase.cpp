@@ -175,10 +175,24 @@ VocabularyDatabase::tRecordDataHash *VocabularyDatabase::GetDataText() const
     tRecordDataHash *trdhRecordData = new tRecordDataHash();
 
     QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + " FROM " + TABLE_DATA);
-    while (qsqQuery.next()) {
-        tFieldDataHash *tfdhFieldData = &trdhRecordData->operator[](qsqQuery.value(ColumnPosition2).toInt());
-        tfdhFieldData->insert(qsqQuery.value(ColumnPosition1).toInt(), qsqQuery.value(ColumnPosition3).toString());
-    } // while
+
+	// set progress maximum
+	if (qsqQuery.last()) {
+		emit SetOpenProgressMax(qsqQuery.at() + 1);
+	} // if
+
+	if (qsqQuery.first()) {
+		int iProgress = 0;
+		do {
+			tFieldDataHash *tfdhFieldData = &trdhRecordData->operator[](qsqQuery.value(ColumnPosition2).toInt());
+			tfdhFieldData->insert(qsqQuery.value(ColumnPosition1).toInt(), qsqQuery.value(ColumnPosition3).toString());
+
+            if (iProgress % OPENPROGRESS_REFRESHINTERVAL == 0) {
+			    emit SetOpenProgressValue(iProgress);
+            } // if
+            iProgress++;
+		} while (qsqQuery.next());
+	} // if
 
     return trdhRecordData;
 } // GetDataText
@@ -461,6 +475,7 @@ const void VocabularyDatabase::Open(const QString &pFilePath)
         return;
     } // if
 
+	emit SetVocabularyName(QFileInfo(pFilePath).completeBaseName());
     _qsVocabularyFile = pFilePath;
 
     CloseDatabase();

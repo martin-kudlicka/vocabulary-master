@@ -19,8 +19,10 @@ const QString KEY_VOICE2 = "voice2";
 #endif
 const QString VARIABLE_MARK = "$";
 
-class VocabularyDatabase
+class VocabularyDatabase : public QObject
 {
+	Q_OBJECT
+
     public:
         typedef QHash<int, QString> tFieldDataHash;
         typedef QHash<int, tFieldDataHash> tRecordDataHash;
@@ -126,6 +128,8 @@ class VocabularyDatabase
         const void SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData) const;
 
     private:
+        static const int OPENPROGRESS_REFRESHINTERVAL = 100;
+
 		enum eColumnPosition {
 			ColumnPosition1,
             ColumnPosition2,
@@ -145,6 +149,11 @@ class VocabularyDatabase
 #ifndef FREE
 		const void Update(const QString &pTable, const int &pColumnId, const QSqlRecord &pRecord) const;
 #endif
+
+	signals:
+		void SetOpenProgressValue(const int &pValue) const;
+		void SetOpenProgressMax(const int &pMax) const;
+		void SetVocabularyName(const QString &pName) const;
 }; // VocabularyDatabase
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(VocabularyDatabase::FieldAttributes)
