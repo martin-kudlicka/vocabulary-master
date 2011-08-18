@@ -80,7 +80,11 @@ class MainWindow : public QMainWindow
         const QString GetLanguageText(const bool &pDirectionSwitched, const bool &pAnswer) const;
 		const bool GetLearningDirection() const;
         const QString GetLearningText(const eTemplate &pTemplate, const bool &pDirectionSwitched, const bool &pAnswer) const;
+        const void RefreshStatusBar();
 #ifndef FREE
+# ifdef Q_WS_WIN
+        const void RegisterHotkeys() const;
+# endif
 		const void Say(const bool &pDirectionSwitched, const bool &pAnswer) const;
 #endif
         const void SetLayout();
@@ -108,9 +112,7 @@ class MainWindow : public QMainWindow
 		const void on_qmTray_triggered(QAction *action);
 		const void on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason reason);
 #endif
-        const void RefreshStatusBar();
 #if !defined(FREE) && defined(Q_WS_WIN)
-		const void RegisterHotkeys() const;
 		virtual bool winEvent(MSG *message, long *result);
 #endif
 }; // MainWindow
