@@ -57,19 +57,6 @@ const void VocabularyManagerDialog::EnableWordControls() const
 	_qdvmVocabularyManager.qpbWordRemove->setEnabled(qismSelection && qtvVocabularyView->isEnabled() && qismSelection->hasSelection());
 } // EnableWordControls
 
-#ifndef FREE
-const int VocabularyManagerDialog::GetColumnCount() const
-{
-	QTableView *qtvVocabularyView = qobject_cast<QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
-	if (qtvVocabularyView) {
-		const VocabularyModel *vmVocabularyModel = qobject_cast<VocabularyModel *>(qtvVocabularyView->model());
-		return vmVocabularyModel->columnCount();
-	} else {
-		return COLUMNS_NONE;
-	} // if else
-} // GetColumnCount
-#endif
-
 const void VocabularyManagerDialog::InitEditor()
 {
 	int iFieldsLeft = 0;
@@ -191,7 +178,7 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
         this);
 
 #ifndef FREE
-	int iOldColumnCount = GetColumnCount();
+	int iOldColumnCount = _vVocabulary->GetFieldCount();
 #endif
 
     _vVocabulary->EndEdit();
@@ -199,10 +186,11 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
 
     if (vsdSettings.exec() == QDialog::Accepted) {
 #ifndef FREE
-		if (iOldColumnCount != GetColumnCount()) {
+		if (iOldColumnCount != _vVocabulary->GetFieldCount()) {
 			ReassignModels();
             UninitEditor();
             InitEditor();
+            UpdateEditor();
 		} // if
 #endif
 	} else {
