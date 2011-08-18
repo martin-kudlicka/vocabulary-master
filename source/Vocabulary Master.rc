@@ -55,6 +55,46 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDI_ICON1               ICON                    "res\\main.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,183,0
+ PRODUCTVERSION 1,0,183,0
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040504b0"
+        BEGIN
+            VALUE "CompanyName", "Isshou"
+            VALUE "FileDescription", "Vocabulary Master"
+            VALUE "FileVersion", "1, 0, 183, 0"
+            VALUE "InternalName", "Vocabulary Master"
+            VALUE "LegalCopyright", "Isshou Copyright (C) 2011"
+            VALUE "LegalTrademarks", "Isshou"
+            VALUE "OriginalFilename", "Vocabulary Master.exe"
+            VALUE "ProductName", "Vocabulary Master"
+            VALUE "ProductVersion", "1, 0, 183, 0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x405, 1200
+    END
+END
+
 #endif    // Czech resources
 /////////////////////////////////////////////////////////////////////////////
 
