@@ -51,8 +51,11 @@ class VocabularyManagerDialog : public QDialog
         const void SelectFirstEnabledTab();
 #endif
 		const void StretchColumns(const QTableView *pTableView) const;
+#ifndef FREE
+        const void UninitEditor() const;
+#endif
 		const void UpdateEditor() const;
-		const void UpdateEditor(const QGridLayout *pGridLayout, const eEditorColumn &pControlsColumn) const;
+		const void UpdateEditor(const eEditorColumn &pControlsColumn) const;
 
     private slots:
 		const void on_qleControl_textEdited(const QString &pText) const;

@@ -28,12 +28,9 @@
        <property name="title">
         <string>Editor</string>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <layout class="QGridLayout" name="qglLeft"/>
-        </item>
-        <item>
-         <layout class="QGridLayout" name="qglRight"/>
+         <layout class="QGridLayout" name="qglEditor"/>
         </item>
        </layout>
       </widget>
