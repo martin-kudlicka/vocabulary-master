@@ -23,12 +23,7 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 {
     SetLayout();
 
-	// retranslate
-	QString qsLang1, qsLang2;
-	if (_iTimerQuestion != 0) {
-		qsLang1 = _umwMainWindow.qlLanguage1->text();
-		qsLang2 = _umwMainWindow.qlLanguage2->text();
-	} // if
+	// change translation
 	if (!_qtTranslator.load(_sSettings.GetTranslation(), DIR_LANG)) {
 		if (_sSettings.GetTranslation().isEmpty()) {
             if (_qtTranslator.load(QLocale::system().name(), DIR_LANG)) {
@@ -36,14 +31,6 @@ const void MainWindow::ApplySettings(const bool &pStartup)
             } // if
 		} // if
 	} // if
-	_umwMainWindow.retranslateUi(this);
-	if (_iTimerQuestion != 0) {
-		_umwMainWindow.qlLanguage1->setText(qsLang1);
-		_umwMainWindow.qlLanguage2->setText(qsLang2);
-	} // if
-#ifdef FREE
-	setWindowTitle(windowTitle() + FREE_SUFFIX);
-#endif
 
     if (_sSettings.GetAlwaysOnTop()) {
         setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
@@ -103,11 +90,29 @@ const void MainWindow::EnableControls()
 #ifndef FREE
 bool MainWindow::event(QEvent *event)
 {
-	if (event->type() == QEvent::WindowStateChange) {
-		if (isMinimized() && _sSettings.GetSystemTrayIcon() && _sSettings.GetMinimizeToTray()) {
-			setWindowFlags(windowFlags() | Qt::CustomizeWindowHint); // just add some flag to hide window
-		} // if
-	} // if
+    switch (event->type()) {
+        case QEvent::LanguageChange:
+            {
+                QString qsLang1, qsLang2;
+                if (_iTimerQuestion != 0) {
+                    qsLang1 = _umwMainWindow.qlLanguage1->text();
+                    qsLang2 = _umwMainWindow.qlLanguage2->text();
+                } // if
+                _umwMainWindow.retranslateUi(this);
+                if (_iTimerQuestion != 0) {
+                    _umwMainWindow.qlLanguage1->setText(qsLang1);
+                    _umwMainWindow.qlLanguage2->setText(qsLang2);
+                } // if
+            }
+#ifdef FREE
+            setWindowTitle(windowTitle() + FREE_SUFFIX);
+#endif
+            break;
+        case QEvent::WindowStateChange:
+		    if (isMinimized() && _sSettings.GetSystemTrayIcon() && _sSettings.GetMinimizeToTray()) {
+			    setWindowFlags(windowFlags() | Qt::CustomizeWindowHint); // just add some flag to hide window
+		    } // if
+	} // switch
 
 	return QMainWindow::event(event);
 } // event
