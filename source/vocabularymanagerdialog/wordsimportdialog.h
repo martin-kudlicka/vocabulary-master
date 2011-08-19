@@ -18,6 +18,8 @@ class WordsImportDialog : public QDialog
 		int exec();
 
 	private:
+        static const int IMPORT_REFRESHINTERVAL = 50;
+
 		enum eTarget {
 			TargetPreview,
 			TargetVocabulary
