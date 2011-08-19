@@ -315,6 +315,10 @@ const void MainWindow::on_qaOpen_triggered(bool checked /* false */)
 
         EnableControls();
         RefreshStatusBar();
+
+        if (_iTimerQuestion != 0) {
+            on_qaNext_triggered();
+        } // if
     } // if
 } // on_qaOpen_triggered
 
