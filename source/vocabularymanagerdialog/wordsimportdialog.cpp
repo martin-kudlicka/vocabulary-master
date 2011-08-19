@@ -148,8 +148,8 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
 	// setup progessbar
 	_qdwiWordsImport.qpbProgress->setValue(0);
 
-	EnableControls();
     _bImporting = false;
+    EnableControls();
 } // ImportData
 
 const void WordsImportDialog::on_qpbPreviewRefresh_clicked(bool checked /* false */)
