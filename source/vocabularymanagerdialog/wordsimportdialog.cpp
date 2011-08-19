@@ -11,7 +11,9 @@ WordsImportDialog::~WordsImportDialog()
 void WordsImportDialog::accept()
 {
     ImportData(TargetVocabulary);
-    QDialog::accept();
+    if (!_bInterrupt) {
+        QDialog::accept();
+    } // if
 } // accept
 
 const void WordsImportDialog::CreateFieldEditors() const
