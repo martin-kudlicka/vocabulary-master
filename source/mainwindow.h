@@ -74,9 +74,7 @@ class MainWindow : public QMainWindow
 		const void CreateTrayMenu();
 #endif
         const void EnableControls();
-#ifndef FREE
-		bool event(QEvent *event);
-#endif
+		virtual bool event(QEvent *event);
         const QString GetLanguageText(const bool &pDirectionSwitched, const bool &pAnswer) const;
 		const bool GetLearningDirection() const;
         const QString GetLearningText(const eTemplate &pTemplate, const bool &pDirectionSwitched, const bool &pAnswer) const;

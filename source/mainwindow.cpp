@@ -87,7 +87,6 @@ const void MainWindow::EnableControls()
 #endif
 } // EnableControls
 
-#ifndef FREE
 bool MainWindow::event(QEvent *event)
 {
     switch (event->type()) {
@@ -108,15 +107,16 @@ bool MainWindow::event(QEvent *event)
             setWindowTitle(windowTitle() + FREE_SUFFIX);
 #endif
             break;
+#ifndef FREE
         case QEvent::WindowStateChange:
 		    if (isMinimized() && _sSettings.GetSystemTrayIcon() && _sSettings.GetMinimizeToTray()) {
 			    setWindowFlags(windowFlags() | Qt::CustomizeWindowHint); // just add some flag to hide window
 		    } // if
+#endif
 	} // switch
 
 	return QMainWindow::event(event);
 } // event
-#endif
 
 const QString MainWindow::GetLanguageText(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
@@ -246,7 +246,7 @@ const void MainWindow::on_qaAbout_triggered(bool checked /* false */)
 #ifdef FREE
         + FREE_SUFFIX
 #endif
-        + "</b></center><center>Version 1.0</center><br />Copyright (C) 2011 Isshou");
+        + "</b></center><center>Version 1.0.272</center><br />Copyright (C) 2011 Isshou");
 } // on_qaAbout_triggered
 
 #ifndef FREE
