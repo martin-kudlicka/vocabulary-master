@@ -9,6 +9,11 @@ TTSInterface *Plugins::GetTTSPlugin(const TTSInterface::eTTSPlugin &pPluginId) c
 	return _qhTTSPlugins.value(pPluginId);
 } // GetTTSPlugin
 
+const Plugins::tExpPluginList &Plugins::GetExpPlugins() const
+{
+	return _teplExpPlugins;
+} // GetExpPlugins
+
 const Plugins::tImpPluginList &Plugins::GetImpPlugins() const
 {
 	return _tiplImpPlugins;
@@ -41,10 +46,17 @@ const void Plugins::Load()
 					_qhTTSPlugins.insert(tiPlugin->GetPluginId(), tiPlugin);
 				} // if
 			} else {
-				ImpInterface *iiPlugin = qobject_cast<ImpInterface *>(qplLoader.instance());
-				if (iiPlugin) {
-					_tiplImpPlugins.append(iiPlugin);
-				} // if
+				if (qsFileName.startsWith("imp-")) {
+					ImpInterface *iiPlugin = qobject_cast<ImpInterface *>(qplLoader.instance());
+					if (iiPlugin) {
+						_tiplImpPlugins.append(iiPlugin);
+					} // if
+				} else {
+					ExpInterface *eiPlugin = qobject_cast<ExpInterface *>(qplLoader.instance());
+					if (eiPlugin) {
+						_teplExpPlugins.append(eiPlugin);
+					} // if
+				} // if else
 			} // if else
 		} // if
 	} // foreach
