@@ -124,6 +124,13 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QPushButton" name="qpbWordExport">
+          <property name="text">
+           <string>&amp;Export...</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </item>

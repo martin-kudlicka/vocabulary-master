@@ -9,6 +9,7 @@
 #include <QtGui/QFileDialog>
 #ifndef FREE
 # include "common/vocabularyopenprogressdialog.h"
+# include "vocabularymanagerdialog/wordsexportdialog.h"
 #endif
 
 const char *PROPERTY_COLUMN = "Column";
@@ -215,6 +216,12 @@ const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false 
 } // on_qpbWordAdd_clicked
 
 #ifndef FREE
+const void VocabularyManagerDialog::on_qpbWordExport_clicked(bool checked /* false */)
+{
+	WordsExportDialog wedExport(_vVocabulary, _pPlugins->GetExpPlugins(), this);
+	wedExport.exec();
+} // on_qpbWordExport_clicked
+
 const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* false */)
 {
 	// prepare filter
@@ -228,12 +235,12 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
 	if (!qsFile.isEmpty()) {
         int iFilter = qslFilters.indexOf(qsFilter);
         ImpInterface *iiPlugin = _pPlugins->GetImpPlugins().at(iFilter);
-		WordsImportDialog wiImport(qsFile, _vVocabulary, iiPlugin, this);
+		WordsImportDialog widImport(qsFile, _vVocabulary, iiPlugin, this);
 
 		_vVocabulary->EndEdit();
 		_vVocabulary->BeginEdit();
 
-        if (wiImport.exec() == QDialog::Accepted) {
+        if (widImport.exec() == QDialog::Accepted) {
             _vVocabulary->EndEdit();
 
             VocabularyOpenProgressDialog vopdOpenProgress(_vVocabulary, this);
@@ -377,6 +384,7 @@ VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *pVocabulary,
     _qdvmVocabularyManager.setupUi(this);
 #ifdef FREE
     delete _qdvmVocabularyManager.qpbWordImport;
+	delete _qdvmVocabularyManager.qpbWordExport;
 #endif
 
     InitTabs();
