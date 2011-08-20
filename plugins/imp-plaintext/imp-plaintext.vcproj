@@ -38,7 +38,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;.&quot;;&quot;.\..\..\temp\$(ConfigurationName)\imp-anki&quot;;&quot;.\..\..\temp&quot;;&quot;$(QTDIR)\include\QtGui&quot;"
+				AdditionalIncludeDirectories="&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;.&quot;;&quot;.\..\..\temp&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot;"
 				PreprocessorDefinitions=",UNICODE,WIN32,QT_LARGEFILE_SUPPORT;QT_NO_DEBUG,NDEBUG;QT_CORE_LIB;IMP-PLAINTEXT_LIB;QT_GUI_LIB"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="false"
@@ -107,7 +107,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;.&quot;;&quot;.\..\..\temp\$(ConfigurationName)\imp-anki&quot;;&quot;.\..\..\temp&quot;;&quot;$(QTDIR)\include\QtGui&quot;"
+				AdditionalIncludeDirectories="&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;.&quot;;&quot;.\..\..\temp&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot;"
 				PreprocessorDefinitions=",UNICODE,WIN32,QT_LARGEFILE_SUPPORT;QT_CORE_LIB;IMP-PLAINTEXT_LIB;QT_GUI_LIB"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
@@ -200,9 +200,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL  &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-anki&quot; &quot;-I.\..\..\temp&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;.\imp-plaintext.h&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -211,9 +211,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL  &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-anki&quot; &quot;-I.\..\..\temp&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;.\imp-plaintext.h&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
 			</File>
@@ -230,9 +230,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL  &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-anki&quot; &quot;-I.\..\..\temp&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;.\plaintextimportwidget.h&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -241,9 +241,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL  &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-anki&quot; &quot;-I.\..\..\temp&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;.\plaintextimportwidget.h&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
 			</File>
@@ -303,7 +303,7 @@
 				SourceControlFiles="false"
 				>
 				<File
-					RelativePath="..\..\temp\Release\imp-anki\moc_imp-plaintext.cpp"
+					RelativePath="..\..\temp\Release\imp-plaintext\moc_imp-plaintext.cpp"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -315,7 +315,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\..\temp\Release\imp-anki\moc_plaintextimportwidget.cpp"
+					RelativePath="..\..\temp\Release\imp-plaintext\moc_plaintextimportwidget.cpp"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -333,7 +333,7 @@
 				SourceControlFiles="false"
 				>
 				<File
-					RelativePath="..\..\temp\Debug\imp-anki\moc_imp-plaintext.cpp"
+					RelativePath="..\..\temp\Debug\imp-plaintext\moc_imp-plaintext.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -345,7 +345,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\..\temp\Debug\imp-anki\moc_plaintextimportwidget.cpp"
+					RelativePath="..\..\temp\Debug\imp-plaintext\moc_plaintextimportwidget.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -374,7 +374,7 @@
 		/>
 		<Global
 			Name="MocDir"
-			Value=".\..\..\temp\$(ConfigurationName)\imp-anki"
+			Value=".\..\..\temp\$(ConfigurationName)\imp-plaintext"
 		/>
 		<Global
 			Name="MocOptions"
