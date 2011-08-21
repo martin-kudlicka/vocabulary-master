@@ -1,4 +1,4 @@
-#include "vocabularymanagerdialog/wordsimportdialog/categoriesmodel.h"
+#include "common/categoriesmodel.h"
 
 CategoriesModel::CategoriesModel(const Vocabulary *pVocabulary, QObject *pParent /* NULL */)
 {
