@@ -5,6 +5,9 @@
 
 class ExpPlaintext : public QObject, private ExpInterface
 {
+	Q_OBJECT
+	Q_INTERFACES(ExpInterface)
+
 	private:
 		virtual const QString GetPluginName() const;
 		virtual const void SetupUI(QGroupBox *pParent);
