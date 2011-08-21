@@ -49,7 +49,11 @@ const int VocabularyDatabase::AddCategory(const QString &pName) const
 #ifndef FREE
 const void VocabularyDatabase::AddField() const
 {
-    _qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " + COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + QT_TRANSLATE_NOOP("Vocabualay", "Field")+ "', '" + QT_TRANSLATE_NOOP("Vocabualay", "Name") + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
+	int iNum = GetFieldCount() + 1;
+	QString qsTemplate = tr("Field") + QString::number(iNum);
+	QString qsName = tr("Name") + QString::number(iNum);
+
+    _qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " + COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + qsTemplate + "', '" + qsName + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
 } // AddField
 #endif
 
