@@ -10,8 +10,8 @@ class WordsImportFieldsModel : public QAbstractItemModel
 
     public:
         enum eColumn {
-            ColumnName,
 			ColumnLanguage,
+            ColumnName,
             ColumnEditor,
             ColumnCount
         }; // eColumn
