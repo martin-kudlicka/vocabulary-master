@@ -54,7 +54,7 @@ class VocabularyDatabase : public QObject
         static const int NOT_FOUND = -1;
 
 		~VocabularyDatabase();
-        VocabularyDatabase();
+        VocabularyDatabase(QObject *pParent = NULL);
 
 #ifndef FREE
         const void AddField() const;
