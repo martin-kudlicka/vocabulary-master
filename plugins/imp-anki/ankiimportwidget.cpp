@@ -1,6 +1,6 @@
 #include "ankiimportwidget.h"
 
-#include "ankiimportwidget/marklineedit.h"
+#include "../../common/marklineedit.h"
 #include "../common/imp-interface.h"
 
 AnkiImportWidget::AnkiImportWidget(const QSqlDatabase *pAnki, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(pParent, pFlags), _dmDecksModel(pAnki), _fmFieldsModel(pAnki), _mmModelsModel(pAnki)

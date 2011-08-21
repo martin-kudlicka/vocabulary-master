@@ -1,5 +1,7 @@
 #include "vocabularymanagerdialog/wordsexportdialog.h"
 
+#include "../../common/marklineedit.h"
+
 const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
 	QModelIndex qmiIndex = _qdweWordsExport.qtvExpPlugins->currentIndex();
@@ -22,6 +24,18 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
 	} // if else
 } // on_qtvExpPluginsSelectionModel_selectionChanged
 
+const void WordsExportDialog::PrepareMarks() const
+{
+	for (int iI = 0; iI < _wefmFieldsModel.rowCount(); iI++) {
+		QModelIndex qmiNameIndex = _wefmFieldsModel.index(iI, WordsExportFieldsModel::ColumnName);
+		QString qsName = _wefmFieldsModel.data(qmiNameIndex).toString();
+
+		QModelIndex qmiEditorIndex = _wefmFieldsModel.index(iI, WordsExportFieldsModel::ColumnMark);
+		MarkLineEdit *mleEditor = new MarkLineEdit(TEMPLATE_MARK.arg(qsName), _qdweWordsExport.qtvFields);
+		_qdweWordsExport.qtvFields->setIndexWidget(qmiEditorIndex, mleEditor);
+	} // for
+} // PrepareMarks
+
 WordsExportDialog::WordsExportDialog(const Vocabulary *pVocabulary, const Plugins::tExpPluginList &pExpPlugins, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags), _cmCategoriesModel(pVocabulary), _epmExpPluginsModel(&pExpPlugins), _wefmFieldsModel(pVocabulary)
 {
 	_vVocabulary = pVocabulary;
@@ -40,7 +54,7 @@ WordsExportDialog::WordsExportDialog(const Vocabulary *pVocabulary, const Plugin
 	for (int iColumn = 0; iColumn < _qdweWordsExport.qtvFields->header()->count(); iColumn++) {
 		_qdweWordsExport.qtvFields->header()->setResizeMode(iColumn, QHeaderView::Stretch);
 	} // for
+	PrepareMarks();
 
 	_qdweWordsExport.qtvCategories->selectAll();
-	_qdweWordsExport.qtvFields->selectAll();
 } // WordsExportDialog

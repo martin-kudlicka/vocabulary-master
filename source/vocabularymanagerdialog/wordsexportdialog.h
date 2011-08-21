@@ -23,6 +23,8 @@ class WordsExportDialog : public QDialog
 		const Vocabulary *_vVocabulary;
 		WordsExportFieldsModel _wefmFieldsModel;
 
+		const void PrepareMarks() const;
+
 	private slots:
 		const void on_qtvExpPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 }; // WordsExportDialog

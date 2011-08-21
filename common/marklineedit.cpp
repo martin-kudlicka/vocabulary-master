@@ -1,4 +1,4 @@
-#include "ankiimportwidget/marklineedit.h"
+#include "marklineedit.h"
 
 #include <QtGui/QFocusEvent>
 
