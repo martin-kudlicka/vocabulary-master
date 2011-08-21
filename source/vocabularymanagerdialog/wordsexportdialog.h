@@ -19,8 +19,12 @@ class WordsExportDialog : public QDialog
 		ExpPluginsModel _epmExpPluginsModel;
 		Plugins::tExpPluginList _teplExpPlugins;
 		Ui::qdWordsExport _qdweWordsExport;
+		QHash<int, int> _qhExpPluginPage;
 		const Vocabulary *_vVocabulary;
 		WordsExportFieldsModel _wefmFieldsModel;
+
+	private slots:
+		const void on_qtvExpPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 }; // WordsExportDialog
 
 #endif // WORDSEXPORTDIALOG_H

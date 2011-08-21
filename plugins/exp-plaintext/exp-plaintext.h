@@ -10,7 +10,7 @@ class ExpPlaintext : public QObject, private ExpInterface
 
 	private:
 		virtual const QString GetPluginName() const;
-		virtual const void SetupUI(QGroupBox *pParent);
+		virtual const void SetupUI(QWidget *pParent);
 }; // ExpPlaintext
 
 #endif // EXP_PLAINTEXT_H
