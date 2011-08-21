@@ -38,7 +38,7 @@ const void Vocabulary::ClearCache()
 
     // clear large cache in background
     if (_trdhRecordData) {
-        ClearCacheWorker *ccwClearCacheWorker = new ClearCacheWorker(_trdhRecordData);
+        ClearCacheWorker *ccwClearCacheWorker = new ClearCacheWorker(_trdhRecordData, this);
         ccwClearCacheWorker->start(QThread::LowPriority);
         _trdhRecordData = NULL;
     } // if

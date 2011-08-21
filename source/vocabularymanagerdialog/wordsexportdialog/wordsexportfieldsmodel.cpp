@@ -1,6 +1,6 @@
 #include "vocabularymanagerdialog/wordsexportdialog/wordsexportfieldsmodel.h"
 
-WordsExportFieldsModel::WordsExportFieldsModel(const Vocabulary *pVocabulary, QObject *pParent /* NULL */)
+WordsExportFieldsModel::WordsExportFieldsModel(const Vocabulary *pVocabulary, QObject *pParent /* NULL */) : QAbstractItemModel(pParent)
 {
     _vVocabulary = pVocabulary;
 } // WordsExportFieldsModel

@@ -1,6 +1,6 @@
 #include "vocabulary/clearcacheworker.h"
 
-ClearCacheWorker::ClearCacheWorker(VocabularyDatabase::tRecordDataHash *pRecordData)
+ClearCacheWorker::ClearCacheWorker(VocabularyDatabase::tRecordDataHash *pRecordData, QObject *pParent /* NULL */) : QThread(pParent)
 {
     _trdhRecordData = pRecordData;
 
