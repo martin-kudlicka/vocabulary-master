@@ -307,7 +307,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\vocabularymanagerdialog\wordsimportdialog\categoriesmodel.cpp"
+				RelativePath=".\common\categoriesmodel.cpp"
 				>
 				<FileConfiguration
 					Name="Debug FREE|Win32"
@@ -483,6 +483,26 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\vocabularymanagerdialog\wordsexportdialog\wordsexportfieldsmodel.cpp"
+				>
+				<FileConfiguration
+					Name="Debug FREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release FREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\vocabularymanagerdialog\wordsimportdialog.cpp"
 				>
 				<FileConfiguration
@@ -529,7 +549,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\vocabularymanagerdialog\wordsimportdialog\categoriesmodel.h"
+				RelativePath=".\common\categoriesmodel.h"
 				>
 				<FileConfiguration
 					Name="Debug FREE|Win32"
@@ -1111,6 +1131,26 @@
 						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\..\temp\$(ConfigurationName)\Vocabulary Master\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_DLL -DQT_SQL_LIB -DFREE &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include\QtSql&quot; &quot;-I$(QTDIR)\include\QtTest&quot; &quot;-I.\..\temp&quot; &quot;-I.\..\temp\$(ConfigurationName)\Vocabulary Master&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\..\temp\$(ConfigurationName)\Vocabulary Master\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\vocabularymanagerdialog\wordsexportdialog\wordsexportfieldsmodel.h"
+				>
+				<FileConfiguration
+					Name="Debug FREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release FREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
 			</File>
@@ -2565,13 +2605,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="Release FREE|Win32"
 						ExcludedFromBuild="true"
 						>
@@ -2904,13 +2937,6 @@
 					<FileConfiguration
 						Name="Debug FREE|Win32"
 						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
