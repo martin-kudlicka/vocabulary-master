@@ -3,10 +3,9 @@
 
 #include <ui_wordsexportdialog.h>
 
-#include "vocabulary.h"
-#include "plugins.h"
 #include "common/categoriesmodel.h"
 #include "vocabularymanagerdialog/wordsexportdialog/wordsexportfieldsmodel.h"
+#include "vocabularymanagerdialog/wordsexportdialog/exppluginsmodel.h"
 
 class WordsExportDialog : public QDialog
 {
@@ -17,6 +16,7 @@ class WordsExportDialog : public QDialog
 
 	private:
 		CategoriesModel _cmCategoriesModel;
+		ExpPluginsModel _epmExpPluginsModel;
 		Plugins::tExpPluginList _teplExpPlugins;
 		Ui::qdWordsExport _qdweWordsExport;
 		const Vocabulary *_vVocabulary;
