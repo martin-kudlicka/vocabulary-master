@@ -27,8 +27,8 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
 const void WordsExportDialog::PrepareMarks() const
 {
 	for (int iI = 0; iI < _wefmFieldsModel.rowCount(); iI++) {
-		QModelIndex qmiNameIndex = _wefmFieldsModel.index(iI, WordsExportFieldsModel::ColumnName);
-		QString qsName = _wefmFieldsModel.data(qmiNameIndex).toString();
+		int iFieldId = _vVocabulary->GetFieldId(iI);
+		QString qsName = _vVocabulary->GetFieldTemplateName(iFieldId);
 
 		QModelIndex qmiEditorIndex = _wefmFieldsModel.index(iI, WordsExportFieldsModel::ColumnMark);
 		MarkLineEdit *mleEditor = new MarkLineEdit(TEMPLATE_MARK.arg(qsName), _qdweWordsExport.qtvFields);
