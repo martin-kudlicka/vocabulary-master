@@ -52,6 +52,7 @@ int WordsImportDialog::exec()
     // fields
     _qdwiWordsImport.qtvFields->setModel(&_wifmFieldsModel);
     _qdwiWordsImport.qtvFields->header()->setResizeMode(WordsImportFieldsModel::ColumnName, QHeaderView::ResizeToContents);
+	_qdwiWordsImport.qtvFields->header()->setResizeMode(WordsImportFieldsModel::ColumnLanguage, QHeaderView::ResizeToContents);
     _qdwiWordsImport.qtvFields->header()->setResizeMode(WordsImportFieldsModel::ColumnEditor, QHeaderView::Stretch);
     CreateFieldEditors();
 	// preview
