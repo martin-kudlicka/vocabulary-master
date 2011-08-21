@@ -4,7 +4,7 @@
 #include <ui_wordsimportdialog.h>
 
 #include "../plugins/common/imp-interface.h"
-#include "vocabularymanagerdialog/wordsimportdialog/categoriesmodel.h"
+#include "common/categoriesmodel.h"
 #include "vocabularymanagerdialog/wordsimportdialog/wordsimportfieldsmodel.h"
 
 class WordsImportDialog : public QDialog

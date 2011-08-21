@@ -5,6 +5,7 @@
 
 #include "vocabulary.h"
 #include "plugins.h"
+#include "common/categoriesmodel.h"
 
 class WordsExportDialog : public QDialog
 {
@@ -14,6 +15,7 @@ class WordsExportDialog : public QDialog
 		WordsExportDialog(const Vocabulary *pVocabulary, const Plugins::tExpPluginList &pExpPlugins, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 	private:
+		CategoriesModel _cmCategoriesModel;
 		Plugins::tExpPluginList _teplExpPlugins;
 		Ui::qdWordsExport _qdweWordsExport;
 		const Vocabulary *_vVocabulary;
