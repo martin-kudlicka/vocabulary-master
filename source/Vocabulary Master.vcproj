@@ -2566,7 +2566,6 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug FREE|Win32"
-						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -2912,7 +2911,6 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release FREE|Win32"
-						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
