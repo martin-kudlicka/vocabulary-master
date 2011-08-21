@@ -15,17 +15,17 @@ QVariant WordsExportFieldsModel::data(const QModelIndex &index, int role /* Qt::
     switch (role) {
         case Qt::DisplayRole:
             switch (index.column()) {
-                case ColumnName:
-                    {
-                        int iFieldId = _vVocabulary->GetFieldId(index.row());
-                        return _vVocabulary->GetFieldName(iFieldId);
-                    }
 				case ColumnLanguage:
 					{
 						int iFieldId = _vVocabulary->GetFieldId(index.row());
 						Vocabulary::eFieldLanguage eflLanguage = _vVocabulary->GetFieldLanguage(iFieldId);
 						return _vVocabulary->GetLanguageName(eflLanguage);
 					}
+                case ColumnName:
+                    {
+                        int iFieldId = _vVocabulary->GetFieldId(index.row());
+                        return _vVocabulary->GetFieldName(iFieldId);
+                    }
                 default:
                     return QVariant();
             } // switch
@@ -39,10 +39,12 @@ QVariant WordsExportFieldsModel::headerData(int section, Qt::Orientation orienta
     switch (role) {
         case Qt::DisplayRole:
             switch (section) {
-                case ColumnName:
-                    return tr("Name");
 				case ColumnLanguage:
 					return tr("Language");
+                case ColumnName:
+                    return tr("Name");
+				case ColumnMark:
+					return tr("Mark");
             } // switch
         default:
             return QVariant();
