@@ -27,6 +27,16 @@ const void WordsExportDialog::on_eiPlugin_VocabularyGetMarks(QStringList *pMarks
     } // for
 } // on_eiPlugin_VocabularyGetMarks
 
+const void WordsExportDialog::on_eiPlugin_VocabularyGetMarkText(const int &pRecordId, const QString &pMark, QString *pText) const
+{
+    QStringList qslMarks;
+    on_eiPlugin_VocabularyGetMarks(&qslMarks);
+    int iMark = qslMarks.indexOf(pMark);
+    int iFieldId = _vVocabulary->GetFieldId(iMark);
+
+    *pText = _vVocabulary->GetDataText(pRecordId, iFieldId);
+} // on_eiPlugin_VocabularyGetMarkText
+
 const void WordsExportDialog::on_eiPlugin_VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const
 {
     *pRecordIds = _vVocabulary->GetRecordIds(pCategoryId);
@@ -56,6 +66,7 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
         connect(eiPlugin, SIGNAL(VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)), SLOT(on_eiPlugin_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)));
         connect(eiPlugin, SIGNAL(VocabularyGetCategoryName(const int &, QString *)), SLOT(on_eiPlugin_VocabularyGetCategoryName(const int &, QString *)));
         connect(eiPlugin, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_eiPlugin_VocabularyGetMarks(QStringList *)));
+        connect(eiPlugin, SIGNAL(VocabularyGetMarkText(const int &, const QString &, QString *)), SLOT(on_eiPlugin_VocabularyGetMarkText(const int &, const QString &, QString *)));
         connect(eiPlugin, SIGNAL(VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)), SLOT(on_eiPlugin_VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)));
 	} // if else
 } // on_qtvExpPluginsSelectionModel_selectionChanged

@@ -19,6 +19,7 @@ class PlaintextExportWidget : public QWidget
         void VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *pCategoryIds) const;
         void VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const;
         void VocabularyGetMarks(QStringList *pMarks) const;
+        void VocabularyGetMarkText(const int &pRecordId, const QString &pMark, QString *pText) const;
         void VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const;
 
     private slots:

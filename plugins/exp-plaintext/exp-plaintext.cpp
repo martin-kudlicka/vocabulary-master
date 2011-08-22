@@ -22,6 +22,11 @@ const void ExpPlaintext::on_pewWidget_VocabularyGetMarks(QStringList *pMarks) co
     emit VocabularyGetMarks(pMarks);
 } // on_pewWidget_VocabularyGetMarks
 
+const void ExpPlaintext::on_pewWidget_VocabularyGetMarkText(const int &pRecordId, const QString &pMark, QString *pText) const
+{
+    emit VocabularyGetMarkText(pRecordId, pMark, pText);
+} // on_pewWidget_VocabularyGetMarkText
+
 const void ExpPlaintext::on_pewWidget_VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const
 {
     emit VocabularyGetRecordIds(pCategoryId, pRecordIds);
@@ -36,6 +41,7 @@ const void ExpPlaintext::SetupUI(QWidget *pParent)
     connect(pewWidget, SIGNAL(VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)), SLOT(on_pewWidget_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)));
     connect(pewWidget, SIGNAL(VocabularyGetCategoryName(const int &, QString *)), SLOT(on_pewWidget_VocabularyGetCategoryName(const int &, QString *)));
     connect(pewWidget, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_pewWidget_VocabularyGetMarks(QStringList *)));
+    connect(pewWidget, SIGNAL(VocabularyGetMarkText(const int &, const QString &, QString *)), SLOT(on_pewWidget_VocabularyGetMarkText(const int &, const QString &, QString *)));
     connect(pewWidget, SIGNAL(VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)), SLOT(on_pewWidget_VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)));
 } // SetupUI
 
