@@ -12,6 +12,12 @@ class PlaintextExportWidget : public QWidget
 
 	private:
 		Ui::qwPlaintextExport _qwpePlaintextExport;
+
+    signals:
+        void VocabularyGetMarks(QStringList *pMarks) const;
+
+    private slots:
+        const void on_qpbPlainRefresh_clicked(bool checked = false) const;
 }; // PlaintextExportWidget
 
 #endif // PLAINTEXTEXPORTWIDGET_H
