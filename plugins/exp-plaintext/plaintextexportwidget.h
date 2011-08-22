@@ -12,6 +12,9 @@ class PlaintextExportWidget : public QWidget
 	public:
 		PlaintextExportWidget(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
+        const QString GetText() const;
+        const void Refresh() const;
+
 	private:
 		Ui::qwPlaintextExport _qwpePlaintextExport;
 

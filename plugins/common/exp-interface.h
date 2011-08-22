@@ -15,6 +15,7 @@ class ExpInterface : public QObject
 
 		static const int WIDGET_POSITION = 0;
 
+        virtual const bool BeginExport() const = 0;
 		virtual const QString GetPluginName() const = 0;
 		virtual const void SetupUI(QWidget *pParent) = 0;
 

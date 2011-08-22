@@ -23,6 +23,7 @@ class WordsExportDialog : public QDialog
 		const Vocabulary *_vVocabulary;
 		WordsExportFieldsModel _wefmFieldsModel;
 
+        virtual void accept();
 		const void PrepareMarks() const;
 
 	private slots:

@@ -1,6 +1,30 @@
 #include "exp-plaintext.h"
 
-#include "plaintextexportwidget.h"
+#include <QtGui/QFileDialog>
+#include <QtCore/QTextStream>
+
+const bool ExpPlaintext::BeginExport() const
+{
+    // get filename
+    QString qsFile = QFileDialog::getSaveFileName(_pewWidget, QString(), QString(), tr("plaintext (*.txt)"));
+    if (qsFile.isEmpty()) {
+        return false;
+    } // if
+
+    // open file
+    QFile qfFile(qsFile);
+    qfFile.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream qtsTextStream(&qfFile);
+
+    // process export
+    _pewWidget->setUpdatesEnabled(false);
+    _pewWidget->Refresh();
+
+    // save result to file
+    qtsTextStream << _pewWidget->GetText();
+
+    return true;
+} // BeginExport
 
 const QString ExpPlaintext::GetPluginName() const
 {
@@ -49,18 +73,18 @@ const void ExpPlaintext::on_pewWidget_VocabularyGetRecordIds(const int &pCategor
 
 const void ExpPlaintext::SetupUI(QWidget *pParent)
 {
-	PlaintextExportWidget *pewWidget = new PlaintextExportWidget(pParent);
+	_pewWidget = new PlaintextExportWidget(pParent);
 	QBoxLayout *pLayout = qobject_cast<QBoxLayout *>(pParent->layout());
-	pLayout->insertWidget(WIDGET_POSITION, pewWidget);
+	pLayout->insertWidget(WIDGET_POSITION, _pewWidget);
 
-    connect(pewWidget, SIGNAL(ProgressExportSetMax(const int &)), SLOT(on_pewWidget_ProgressExportSetMax(const int &)));
-    connect(pewWidget, SIGNAL(ProgressExportSetValue(const int &)), SLOT(on_pewWidget_ProgressExportSetValue(const int &)));
-    connect(pewWidget, SIGNAL(VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)), SLOT(on_pewWidget_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)));
-    connect(pewWidget, SIGNAL(VocabularyGetCategoryName(const int &, QString *)), SLOT(on_pewWidget_VocabularyGetCategoryName(const int &, QString *)));
-    connect(pewWidget, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_pewWidget_VocabularyGetMarks(QStringList *)));
-    connect(pewWidget, SIGNAL(VocabularyGetMarkText(const int &, const QString &, QString *)), SLOT(on_pewWidget_VocabularyGetMarkText(const int &, const QString &, QString *)));
-    connect(pewWidget, SIGNAL(VocabularyGetRecordCount(const int &, int *)), SLOT(on_pewWidget_VocabularyGetRecordCount(const int &, int *)));
-    connect(pewWidget, SIGNAL(VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)), SLOT(on_pewWidget_VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)));
+    connect(_pewWidget, SIGNAL(ProgressExportSetMax(const int &)), SLOT(on_pewWidget_ProgressExportSetMax(const int &)));
+    connect(_pewWidget, SIGNAL(ProgressExportSetValue(const int &)), SLOT(on_pewWidget_ProgressExportSetValue(const int &)));
+    connect(_pewWidget, SIGNAL(VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)), SLOT(on_pewWidget_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)));
+    connect(_pewWidget, SIGNAL(VocabularyGetCategoryName(const int &, QString *)), SLOT(on_pewWidget_VocabularyGetCategoryName(const int &, QString *)));
+    connect(_pewWidget, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_pewWidget_VocabularyGetMarks(QStringList *)));
+    connect(_pewWidget, SIGNAL(VocabularyGetMarkText(const int &, const QString &, QString *)), SLOT(on_pewWidget_VocabularyGetMarkText(const int &, const QString &, QString *)));
+    connect(_pewWidget, SIGNAL(VocabularyGetRecordCount(const int &, int *)), SLOT(on_pewWidget_VocabularyGetRecordCount(const int &, int *)));
+    connect(_pewWidget, SIGNAL(VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)), SLOT(on_pewWidget_VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)));
 } // SetupUI
 
 Q_EXPORT_PLUGIN2(exp-plaintext, ExpPlaintext)

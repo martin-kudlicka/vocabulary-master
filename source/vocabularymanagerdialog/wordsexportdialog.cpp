@@ -2,6 +2,15 @@
 
 #include "../../common/marklineedit.h"
 
+void WordsExportDialog::accept()
+{
+    QModelIndex qmiIndex = _qdweWordsExport.qtvExpPlugins->currentIndex();
+    ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row());
+    if (eiPlugin->BeginExport()) {
+        QDialog::accept();
+    } // if
+} // accept
+
 const void WordsExportDialog::on_eiPlugin_ProgressExportSetMax(const int &pMax) const
 {
     _qdweWordsExport.qpbProgress->setMaximum(pMax);
