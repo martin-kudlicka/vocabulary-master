@@ -19,10 +19,13 @@ class ExpInterface : public QObject
 		virtual const void SetupUI(QWidget *pParent) = 0;
 
     signals:
+        void ProgressExportSetMax(const int &pMax) const;
+        void ProgressExportSetValue(const int &pValue) const;
         void VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *pCategoryIds) const;
         void VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const;
         void VocabularyGetMarks(QStringList *pMarks) const;
         void VocabularyGetMarkText(const int &pRecordId, const QString &pMark, QString *pText) const;
+        void VocabularyGetRecordCount(const int &pCategoryId, int *pCount) const;
         void VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const;
 }; // ExpInterface
 

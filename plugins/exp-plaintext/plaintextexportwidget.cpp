@@ -4,13 +4,25 @@ const void PlaintextExportWidget::on_qpbPlainRefresh_clicked(bool checked /* fal
 {
     _qwpePlaintextExport.qptePlainPreview->clear();
 
+    // categories
+    ExpInterface::tCategoryIdList tcilCategoryIds;
+    emit VocabularyGetCategoryIds(&tcilCategoryIds);
+
+    // total record count for progress
+    int iTotalRecords = 0;
+    foreach (int iCategoryId, tcilCategoryIds) {
+        int iRecords;
+        emit VocabularyGetRecordCount(iCategoryId, &iRecords);
+        iTotalRecords += iRecords;
+    } // foreach
+    emit ProgressExportSetMax(iTotalRecords);
+
     QStringList qslMarks;
     emit VocabularyGetMarks(&qslMarks);
 
-    // categories
+    // preview
     bool bFirstLine = true;
-    ExpInterface::tCategoryIdList tcilCategoryIds;
-    emit VocabularyGetCategoryIds(&tcilCategoryIds);
+    int iRecords = 0;
     foreach (int iCategoryId, tcilCategoryIds) {
         if (bFirstLine) {
             bFirstLine = false;
@@ -37,8 +49,13 @@ const void PlaintextExportWidget::on_qpbPlainRefresh_clicked(bool checked /* fal
             } // foreach
 
             _qwpePlaintextExport.qptePlainPreview->appendPlainText(qsTemplate);
+
+            iRecords++;
+            emit ProgressExportSetValue(iRecords);
         } // foreach
     } // foreach
+
+    emit ProgressExportSetValue(0);
 } // on_qpbPlainRefresh_clicked
 
 PlaintextExportWidget::PlaintextExportWidget(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(pParent, pFlags)
