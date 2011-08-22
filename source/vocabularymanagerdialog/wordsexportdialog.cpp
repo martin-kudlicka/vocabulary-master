@@ -2,6 +2,15 @@
 
 #include "../../common/marklineedit.h"
 
+const void WordsExportDialog::on_eiPlugin_VocabularyGetMarks(QStringList *pMarks) const
+{
+    for (int iI = 0; iI < _wefmFieldsModel.rowCount(); iI++) {
+        QModelIndex qmiEditorIndex = _wefmFieldsModel.index(iI, WordsExportFieldsModel::ColumnMark);
+        const MarkLineEdit *mleEditor = qobject_cast<const MarkLineEdit *>(_qdweWordsExport.qtvFields->indexWidget(qmiEditorIndex));
+        pMarks->append(mleEditor->text());
+    } // for
+} // on_eiPlugin_VocabularyGetMarks
+
 const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
 	QModelIndex qmiIndex = _qdweWordsExport.qtvExpPlugins->currentIndex();
@@ -21,6 +30,9 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
 		// setup page
 		ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row());
 		eiPlugin->SetupUI(qwExpPlugin);
+
+        // connections
+        connect(eiPlugin, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_eiPlugin_VocabularyGetMarks(QStringList *)));
 	} // if else
 } // on_qtvExpPluginsSelectionModel_selectionChanged
 
