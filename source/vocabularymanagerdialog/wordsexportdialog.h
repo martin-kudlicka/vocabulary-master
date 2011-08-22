@@ -26,6 +26,7 @@ class WordsExportDialog : public QDialog
 		const void PrepareMarks() const;
 
 	private slots:
+        const void on_eiPlugin_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *pCategoryIds) const;
         const void on_eiPlugin_VocabularyGetMarks(QStringList *pMarks) const;
 		const void on_qtvExpPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 }; // WordsExportDialog

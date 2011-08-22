@@ -3,6 +3,8 @@
 
 #include <ui_plaintextexportwidget.h>
 
+#include "../common/exp-interface.h"
+
 class PlaintextExportWidget : public QWidget
 {
 	Q_OBJECT
@@ -14,6 +16,7 @@ class PlaintextExportWidget : public QWidget
 		Ui::qwPlaintextExport _qwpePlaintextExport;
 
     signals:
+        void VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *pCategoryIds) const;
         void VocabularyGetMarks(QStringList *pMarks) const;
 
     private slots:
