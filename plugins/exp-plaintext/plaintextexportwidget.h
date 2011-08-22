@@ -18,6 +18,11 @@ class PlaintextExportWidget : public QWidget
         const void Refresh() const;
 
 	private:
+		enum eStyle {
+			StylePlain,
+			StyleTable
+		}; // eStyle
+
         CodecsModel _cmCodecsModel;
 		Ui::qwPlaintextExport _qwpePlaintextExport;
 
@@ -35,6 +40,8 @@ class PlaintextExportWidget : public QWidget
 
     private slots:
         const void on_qpbPlainRefresh_clicked(bool checked = false) const;
+		const void on_qrbStylePlain_clicked(bool checked = false) const;
+		const void on_qrbStyleTable_clicked(bool checked = false) const;
 }; // PlaintextExportWidget
 
 #endif // PLAINTEXTEXPORTWIDGET_H
