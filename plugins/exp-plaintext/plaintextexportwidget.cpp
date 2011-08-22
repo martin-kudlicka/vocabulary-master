@@ -2,6 +2,8 @@
 
 const void PlaintextExportWidget::on_qpbPlainRefresh_clicked(bool checked /* false */) const
 {
+    _qwpePlaintextExport.qptePlainPreview->clear();
+
     QStringList qslMarks;
     emit VocabularyGetMarks(&qslMarks);
     ExpInterface::tCategoryIdList tcilCategoryIds;
@@ -10,6 +12,8 @@ const void PlaintextExportWidget::on_qpbPlainRefresh_clicked(bool checked /* fal
     foreach (int iCategoryId, tcilCategoryIds) {
         QString qsCategoryName;
         emit VocabularyGetCategoryName(iCategoryId, &qsCategoryName);
+
+        _qwpePlaintextExport.qptePlainPreview->appendPlainText(qsCategoryName);
     } // foreach
 } // on_qpbPlainRefresh_clicked
 
