@@ -17,7 +17,7 @@ const bool ExpPlaintext::BeginExport() const
 
     // text stream
     QTextStream qtsTextStream(&qfFile);
-    qtsTextStream.setCodec("UTF-8");
+    qtsTextStream.setCodec(_pewWidget->GetCodec().toLocal8Bit());
 
     // process export
     _pewWidget->setUpdatesEnabled(false);

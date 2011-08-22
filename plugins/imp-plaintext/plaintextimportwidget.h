@@ -3,7 +3,7 @@
 
 #include <ui_plaintextimportwidget.h>
 
-#include "plaintextimportwidget/codecsmodel.h"
+#include "../common/codecsmodel.h"
 #include "plaintextimportwidget/plaintextfile.h"
 
 class PlaintextImportWidget : public QWidget
