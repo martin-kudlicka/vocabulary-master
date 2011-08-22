@@ -16,6 +16,16 @@ const void PlaintextExportWidget::on_qpbPlainRefresh_clicked(bool checked /* fal
     Refresh();
 } // on_qpbPlainRefresh_clicked
 
+const void PlaintextExportWidget::on_qrbStylePlain_clicked(bool checked /* false */) const
+{
+	_qwpePlaintextExport.qswStyles->setCurrentIndex(StylePlain);
+} // on_qrbStylePlain_clicked
+
+const void PlaintextExportWidget::on_qrbStyleTable_clicked(bool checked /* false */) const
+{
+	_qwpePlaintextExport.qswStyles->setCurrentIndex(StyleTable);
+} // on_qrbStyleTable_clicked
+
 PlaintextExportWidget::PlaintextExportWidget(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(pParent, pFlags)
 {
     _qwpePlaintextExport.setupUi(this);
