@@ -12,6 +12,11 @@ void ExpPlaintext::on_pewWidget_VocabularyGetCategoryIds(ExpInterface::tCategory
     emit VocabularyGetCategoryIds(pCategoryIds);
 } // on_pewWidget_VocabularyGetCategoryIds
 
+void ExpPlaintext::on_pewWidget_VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const
+{
+    emit VocabularyGetCategoryName(pCategoryId, pName);
+} // on_pewWidget_VocabularyGetCategoryName
+
 void ExpPlaintext::on_pewWidget_VocabularyGetMarks(QStringList *pMarks) const
 {
     emit VocabularyGetMarks(pMarks);
@@ -24,6 +29,7 @@ const void ExpPlaintext::SetupUI(QWidget *pParent)
 	pLayout->insertWidget(WIDGET_POSITION, pewWidget);
 
     connect(pewWidget, SIGNAL(VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)), SLOT(on_pewWidget_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)));
+    connect(pewWidget, SIGNAL(VocabularyGetCategoryName(const int &, QString *)), SLOT(on_pewWidget_VocabularyGetCategoryName(const int &, QString *)));
     connect(pewWidget, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_pewWidget_VocabularyGetMarks(QStringList *)));
 } // SetupUI
 
