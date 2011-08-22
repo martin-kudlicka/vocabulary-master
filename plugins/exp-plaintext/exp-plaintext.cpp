@@ -14,7 +14,10 @@ const bool ExpPlaintext::BeginExport() const
     // open file
     QFile qfFile(qsFile);
     qfFile.open(QIODevice::WriteOnly | QIODevice::Text);
+
+    // text stream
     QTextStream qtsTextStream(&qfFile);
+    qtsTextStream.setCodec("UTF-8");
 
     // process export
     _pewWidget->setUpdatesEnabled(false);
