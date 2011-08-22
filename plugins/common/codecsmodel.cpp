@@ -1,4 +1,4 @@
-#include "plaintextimportwidget/codecsmodel.h"
+#include "codecsmodel.h"
 
 #include <QtCore/QTextCodec>
 

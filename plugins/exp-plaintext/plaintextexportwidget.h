@@ -4,6 +4,7 @@
 #include <ui_plaintextexportwidget.h>
 
 #include "../common/exp-interface.h"
+#include "../common/codecsmodel.h"
 
 class PlaintextExportWidget : public QWidget
 {
@@ -12,11 +13,15 @@ class PlaintextExportWidget : public QWidget
 	public:
 		PlaintextExportWidget(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
+        const QString GetCodec() const;
         const QString GetText() const;
         const void Refresh() const;
 
 	private:
+        CodecsModel _cmCodecsModel;
 		Ui::qwPlaintextExport _qwpePlaintextExport;
+
+        const void PreselectCodec(const QString &pCodec) const;
 
     signals:
         void ProgressExportSetMax(const int &pMax) const;
