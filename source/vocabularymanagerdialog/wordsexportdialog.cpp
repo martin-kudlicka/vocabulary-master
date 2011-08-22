@@ -2,6 +2,17 @@
 
 #include "../../common/marklineedit.h"
 
+const void WordsExportDialog::on_eiPlugin_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *pCategoryIds) const
+{
+    const QItemSelectionModel *qismSelection = _qdweWordsExport.qtvCategories->selectionModel();
+    QModelIndexList qmilSelected = qismSelection->selectedRows();
+
+    foreach (QModelIndex qmiIndex, qmilSelected) {
+        int iCategoryId = _vVocabulary->GetCategoryId(qmiIndex.row());
+        pCategoryIds->append(iCategoryId);
+    } // foreach
+} // on_eiPlugin_VocabularyGetCategoryIds
+
 const void WordsExportDialog::on_eiPlugin_VocabularyGetMarks(QStringList *pMarks) const
 {
     for (int iI = 0; iI < _wefmFieldsModel.rowCount(); iI++) {
@@ -32,6 +43,7 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
 		eiPlugin->SetupUI(qwExpPlugin);
 
         // connections
+        connect(eiPlugin, SIGNAL(VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)), SLOT(on_eiPlugin_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)));
         connect(eiPlugin, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_eiPlugin_VocabularyGetMarks(QStringList *)));
 	} // if else
 } // on_qtvExpPluginsSelectionModel_selectionChanged
