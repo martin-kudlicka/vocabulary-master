@@ -1,6 +1,21 @@
 #include "plaintextexportwidget.h"
 
+const QString PlaintextExportWidget::GetText() const
+{
+    return _qwpePlaintextExport.qptePlainPreview->toPlainText();
+} // GetText
+
 const void PlaintextExportWidget::on_qpbPlainRefresh_clicked(bool checked /* false */) const
+{
+    Refresh();
+} // on_qpbPlainRefresh_clicked
+
+PlaintextExportWidget::PlaintextExportWidget(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(pParent, pFlags)
+{
+    _qwpePlaintextExport.setupUi(this);
+} // PlaintextExportWidget
+
+const void PlaintextExportWidget::Refresh() const
 {
     _qwpePlaintextExport.qptePlainPreview->clear();
 
@@ -56,9 +71,4 @@ const void PlaintextExportWidget::on_qpbPlainRefresh_clicked(bool checked /* fal
     } // foreach
 
     emit ProgressExportSetValue(0);
-} // on_qpbPlainRefresh_clicked
-
-PlaintextExportWidget::PlaintextExportWidget(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(pParent, pFlags)
-{
-    _qwpePlaintextExport.setupUi(this);
-} // PlaintextExportWidget
+} // Refresh

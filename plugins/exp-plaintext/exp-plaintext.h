@@ -1,7 +1,7 @@
 #ifndef EXP_PLAINTEXT_H
 #define EXP_PLAINTEXT_H
 
-#include "../common/exp-interface.h"
+#include "plaintextexportwidget.h"
 
 class ExpPlaintext : public ExpInterface
 {
@@ -9,6 +9,9 @@ class ExpPlaintext : public ExpInterface
 	Q_INTERFACES(ExpInterface)
 
 	private:
+        PlaintextExportWidget *_pewWidget;
+
+        virtual const bool BeginExport() const;
 		virtual const QString GetPluginName() const;
 		virtual const void SetupUI(QWidget *pParent);
 
