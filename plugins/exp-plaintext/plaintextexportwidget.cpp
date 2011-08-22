@@ -6,6 +6,11 @@ const void PlaintextExportWidget::on_qpbPlainRefresh_clicked(bool checked /* fal
     emit VocabularyGetMarks(&qslMarks);
     ExpInterface::tCategoryIdList tcilCategoryIds;
     emit VocabularyGetCategoryIds(&tcilCategoryIds);
+
+    foreach (int iCategoryId, tcilCategoryIds) {
+        QString qsCategoryName;
+        emit VocabularyGetCategoryName(iCategoryId, &qsCategoryName);
+    } // foreach
 } // on_qpbPlainRefresh_clicked
 
 PlaintextExportWidget::PlaintextExportWidget(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(pParent, pFlags)

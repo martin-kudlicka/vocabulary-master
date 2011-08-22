@@ -14,6 +14,7 @@ class ExpPlaintext : public ExpInterface
 
     private slots:
         void on_pewWidget_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *pCategoryIds) const;
+        void on_pewWidget_VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const;
         void on_pewWidget_VocabularyGetMarks(QStringList *pMarks) const;
 }; // ExpPlaintext
 

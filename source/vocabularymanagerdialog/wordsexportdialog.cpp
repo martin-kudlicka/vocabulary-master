@@ -13,6 +13,11 @@ const void WordsExportDialog::on_eiPlugin_VocabularyGetCategoryIds(ExpInterface:
     } // foreach
 } // on_eiPlugin_VocabularyGetCategoryIds
 
+const void WordsExportDialog::on_eiPlugin_VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const
+{
+    *pName = _vVocabulary->GetCategoryName(pCategoryId);
+} // on_eiPlugin_VocabularyGetCategoryName
+
 const void WordsExportDialog::on_eiPlugin_VocabularyGetMarks(QStringList *pMarks) const
 {
     for (int iI = 0; iI < _wefmFieldsModel.rowCount(); iI++) {
@@ -44,6 +49,7 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
 
         // connections
         connect(eiPlugin, SIGNAL(VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)), SLOT(on_eiPlugin_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)));
+        connect(eiPlugin, SIGNAL(VocabularyGetCategoryName(const int &, QString *)), SLOT(on_eiPlugin_VocabularyGetCategoryName(const int &, QString *)));
         connect(eiPlugin, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_eiPlugin_VocabularyGetMarks(QStringList *)));
 	} // if else
 } // on_qtvExpPluginsSelectionModel_selectionChanged

@@ -19,6 +19,7 @@ class ExpInterface : public QObject
 
     signals:
         void VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *pCategoryIds) const;
+        void VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const;
         void VocabularyGetMarks(QStringList *pMarks) const;
 }; // ExpInterface
 
