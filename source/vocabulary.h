@@ -18,6 +18,7 @@ class Vocabulary : public VocabularyDatabase
 		const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
 		const int GetRecordCount(const bool &pEnabled) const;
+        const tRecordIdList GetRecordIds(const int &pCategoryId) const;
 		const void New(const QString &pFilePath);
 		const void Open(const QString &pFilePath);
 		const void RemoveCategory(const int &pCategoryId);

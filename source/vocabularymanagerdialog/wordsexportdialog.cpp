@@ -27,6 +27,11 @@ const void WordsExportDialog::on_eiPlugin_VocabularyGetMarks(QStringList *pMarks
     } // for
 } // on_eiPlugin_VocabularyGetMarks
 
+const void WordsExportDialog::on_eiPlugin_VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const
+{
+    *pRecordIds = _vVocabulary->GetRecordIds(pCategoryId);
+} // on_eiPlugin_VocabularyGetRecordCount
+
 const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
 	QModelIndex qmiIndex = _qdweWordsExport.qtvExpPlugins->currentIndex();
@@ -51,6 +56,7 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
         connect(eiPlugin, SIGNAL(VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)), SLOT(on_eiPlugin_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)));
         connect(eiPlugin, SIGNAL(VocabularyGetCategoryName(const int &, QString *)), SLOT(on_eiPlugin_VocabularyGetCategoryName(const int &, QString *)));
         connect(eiPlugin, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_eiPlugin_VocabularyGetMarks(QStringList *)));
+        connect(eiPlugin, SIGNAL(VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)), SLOT(on_eiPlugin_VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)));
 	} // if else
 } // on_qtvExpPluginsSelectionModel_selectionChanged
 

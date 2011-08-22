@@ -13,9 +13,10 @@ class ExpPlaintext : public ExpInterface
 		virtual const void SetupUI(QWidget *pParent);
 
     private slots:
-        void on_pewWidget_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *pCategoryIds) const;
-        void on_pewWidget_VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const;
-        void on_pewWidget_VocabularyGetMarks(QStringList *pMarks) const;
+        const void on_pewWidget_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *pCategoryIds) const;
+        const void on_pewWidget_VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const;
+        const void on_pewWidget_VocabularyGetMarks(QStringList *pMarks) const;
+        const void on_pewWidget_VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const;
 }; // ExpPlaintext
 
 #endif // EXP_PLAINTEXT_H

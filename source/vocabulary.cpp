@@ -84,13 +84,18 @@ const int Vocabulary::GetRecordCount(const bool &pEnabled) const
 	return iRecordCount;
 } // GetRecordCount
 
+const VocabularyDatabase::tRecordIdList Vocabulary::GetRecordIds(const int &pCategoryId) const
+{
+    return _qhCategoryRecords.value(pCategoryId);
+} // GetRecordIds
+
 const void Vocabulary::InitCache()
 {
 	if (IsOpen()) {
 		// categories
 		tCategoryIdList tcilCategoryIds = GetCategoryIds();
 		foreach (int iCategoryId, tcilCategoryIds) {
-			tRecordIdList tdilRecordIds = GetRecordIds(iCategoryId);
+            tRecordIdList tdilRecordIds = VocabularyDatabase::GetRecordIds(iCategoryId);
 			_qhCategoryRecords.insert(iCategoryId, tdilRecordIds);
 		} // foreach
 

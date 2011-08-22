@@ -11,6 +11,7 @@ class ExpInterface : public QObject
 
 	public:
         typedef QList<int> tCategoryIdList;
+        typedef QList<int> tRecordIdList;
 
 		static const int WIDGET_POSITION = 0;
 
@@ -21,6 +22,7 @@ class ExpInterface : public QObject
         void VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *pCategoryIds) const;
         void VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const;
         void VocabularyGetMarks(QStringList *pMarks) const;
+        void VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const;
 }; // ExpInterface
 
 Q_DECLARE_INTERFACE(ExpInterface, EXP_INTERFACE);
