@@ -11,6 +11,19 @@ const QString PlaintextExportWidget::GetText() const
     return _qwpePlaintextExport.qptePlainPreview->toPlainText();
 } // GetText
 
+const void PlaintextExportWidget::InitTableColumns()
+{
+    for (int iColumn = 0; iColumn < _qwpePlaintextExport.qsbTableColums->value(); iColumn++) {
+        sTableColumn stcColumn;
+        stcColumn.qleHeader = new QLineEdit(_qwpePlaintextExport.qwPageTable);
+        stcColumn.qleTemplate = new QLineEdit(_qwpePlaintextExport.qwPageTable);
+        _qlTableColumns.append(stcColumn);
+
+        _qwpePlaintextExport.qglTableColumns->addWidget(stcColumn.qleHeader, TableRowHeader, iColumn + 1);
+        _qwpePlaintextExport.qglTableColumns->addWidget(stcColumn.qleTemplate, TableRowTemplate, iColumn + 1);
+    } // for
+} // InitTableColumns
+
 const void PlaintextExportWidget::on_qpbPlainRefresh_clicked(bool checked /* false */) const
 {
     Refresh();
@@ -32,6 +45,8 @@ PlaintextExportWidget::PlaintextExportWidget(QWidget *pParent /* NULL */, Qt::Wi
 
     _qwpePlaintextExport.qtvCodecs->setModel(&_cmCodecsModel);
     PreselectCodec("UTF-8");
+
+    InitTableColumns();
 } // PlaintextExportWidget
 
 const void PlaintextExportWidget::PreselectCodec(const QString &pCodec) const
