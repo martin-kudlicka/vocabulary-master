@@ -1,5 +1,16 @@
 #include "plaintextexportwidget.h"
 
+const void PlaintextExportWidget::AddTableColumn()
+{
+    sTableColumn stcColumn;
+    stcColumn.qleHeader = new QLineEdit(_qwpePlaintextExport.qwPageTable);
+    stcColumn.qleTemplate = new QLineEdit(_qwpePlaintextExport.qwPageTable);
+    _qlTableColumns.append(stcColumn);
+
+    _qwpePlaintextExport.qglTableColumns->addWidget(stcColumn.qleHeader, TableRowHeader, _qlTableColumns.size() + 1);
+    _qwpePlaintextExport.qglTableColumns->addWidget(stcColumn.qleTemplate, TableRowTemplate, _qlTableColumns.size() + 1);
+} // AddTableColumn
+
 const QString PlaintextExportWidget::GetCodec() const
 {
     QModelIndex qmiIndex = _qwpePlaintextExport.qtvCodecs->currentIndex();
@@ -14,13 +25,7 @@ const QString PlaintextExportWidget::GetText() const
 const void PlaintextExportWidget::InitTableColumns()
 {
     for (int iColumn = 0; iColumn < _qwpePlaintextExport.qsbTableColums->value(); iColumn++) {
-        sTableColumn stcColumn;
-        stcColumn.qleHeader = new QLineEdit(_qwpePlaintextExport.qwPageTable);
-        stcColumn.qleTemplate = new QLineEdit(_qwpePlaintextExport.qwPageTable);
-        _qlTableColumns.append(stcColumn);
-
-        _qwpePlaintextExport.qglTableColumns->addWidget(stcColumn.qleHeader, TableRowHeader, iColumn + 1);
-        _qwpePlaintextExport.qglTableColumns->addWidget(stcColumn.qleTemplate, TableRowTemplate, iColumn + 1);
+        AddTableColumn();
     } // for
 } // InitTableColumns
 
@@ -38,6 +43,15 @@ const void PlaintextExportWidget::on_qrbStyleTable_clicked(bool checked /* false
 {
 	_qwpePlaintextExport.qswStyles->setCurrentIndex(StyleTable);
 } // on_qrbStyleTable_clicked
+
+const void PlaintextExportWidget::on_qsbTableColums_valueChanged(int i)
+{
+    if (i < _qlTableColumns.size()) {
+        RemoveTableColumn();
+    } else {
+        AddTableColumn();
+    } // if else
+} // on_qsbTableColums_valueChanged
 
 PlaintextExportWidget::PlaintextExportWidget(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(pParent, pFlags)
 {
@@ -117,3 +131,10 @@ const void PlaintextExportWidget::Refresh() const
 
     emit ProgressExportSetValue(0);
 } // Refresh
+
+const void PlaintextExportWidget::RemoveTableColumn()
+{
+    sTableColumn stcColumn = _qlTableColumns.takeLast();
+    stcColumn.qleHeader->deleteLater();
+    stcColumn.qleTemplate->deleteLater();
+} // RemoveTableColumn
