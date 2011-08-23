@@ -22,10 +22,21 @@ class PlaintextExportWidget : public QWidget
 			StylePlain,
 			StyleTable
 		}; // eStyle
+        enum eTableRow {
+            TableRowHeader,
+            TableRowTemplate
+        }; // eTableRow
+
+        struct sTableColumn {
+            QLineEdit *qleHeader;
+            QLineEdit *qleTemplate;
+        }; // sTableColumn
 
         CodecsModel _cmCodecsModel;
+        QList<sTableColumn> _qlTableColumns;
 		Ui::qwPlaintextExport _qwpePlaintextExport;
 
+        const void InitTableColumns();
         const void PreselectCodec(const QString &pCodec) const;
 
     signals:
