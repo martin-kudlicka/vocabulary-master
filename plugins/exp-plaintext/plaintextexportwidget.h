@@ -36,8 +36,10 @@ class PlaintextExportWidget : public QWidget
         QList<sTableColumn> _qlTableColumns;
 		Ui::qwPlaintextExport _qwpePlaintextExport;
 
+        const void AddTableColumn();
         const void InitTableColumns();
         const void PreselectCodec(const QString &pCodec) const;
+        const void RemoveTableColumn();
 
     signals:
         void ProgressExportSetMax(const int &pMax) const;
@@ -53,6 +55,7 @@ class PlaintextExportWidget : public QWidget
         const void on_qpbPlainRefresh_clicked(bool checked = false) const;
 		const void on_qrbStylePlain_clicked(bool checked = false) const;
 		const void on_qrbStyleTable_clicked(bool checked = false) const;
+        const void on_qsbTableColums_valueChanged(int i);
 }; // PlaintextExportWidget
 
 #endif // PLAINTEXTEXPORTWIDGET_H
