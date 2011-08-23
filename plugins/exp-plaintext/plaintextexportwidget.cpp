@@ -1,5 +1,7 @@
 #include "plaintextexportwidget.h"
 
+#include <QtGui/QScrollBar>
+
 const QString PlaintextExportWidget::GetCodec() const
 {
     QModelIndex qmiIndex = _qwpePlaintextExport.qtvCodecs->currentIndex();
@@ -88,6 +90,8 @@ const void PlaintextExportWidget::Refresh() const
             emit ProgressExportSetValue(iRecords);
         } // foreach
     } // foreach
+
+    _qwpePlaintextExport.qptePlainPreview->verticalScrollBar()->setValue(0);
 
     emit ProgressExportSetValue(0);
 } // Refresh
