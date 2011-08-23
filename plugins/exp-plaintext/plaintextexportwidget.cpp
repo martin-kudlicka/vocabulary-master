@@ -1,5 +1,7 @@
 #include "plaintextexportwidget.h"
 
+#include <QtGui/QTextTable>
+
 const void PlaintextExportWidget::AddTableColumn()
 {
     sTableColumn stcColumn;
@@ -7,9 +9,16 @@ const void PlaintextExportWidget::AddTableColumn()
     stcColumn.qleTemplate = new QLineEdit(_qwpePlaintextExport.qwPageTable);
     _qlTableColumns.append(stcColumn);
 
-    _qwpePlaintextExport.qglTableColumns->addWidget(stcColumn.qleHeader, TableRowHeader, _qlTableColumns.size() + 1);
-    _qwpePlaintextExport.qglTableColumns->addWidget(stcColumn.qleTemplate, TableRowTemplate, _qlTableColumns.size() + 1);
+    _qwpePlaintextExport.qglTableColumns->addWidget(stcColumn.qleHeader, TableRowHeader, _qlTableColumns.size() + LABEL_COLUMN);
+    _qwpePlaintextExport.qglTableColumns->addWidget(stcColumn.qleTemplate, TableRowTemplate, _qlTableColumns.size() + LABEL_COLUMN);
 } // AddTableColumn
+
+QTextTable *PlaintextExportWidget::CreateTable() const
+{
+    QTextCursor qtcCursor = _qwpePlaintextExport.qteTablePreview->textCursor();
+    QTextTableFormat qttfTableFormat;
+    return qtcCursor.insertTable(HEADER_ROW + 1, _qlTableColumns.size(), qttfTableFormat);
+} // CreateTable
 
 const QString PlaintextExportWidget::GetCodec() const
 {
@@ -29,10 +38,22 @@ const void PlaintextExportWidget::InitTableColumns()
     } // for
 } // InitTableColumns
 
+const void PlaintextExportWidget::InsertTableText(const QTextTable *pTablePreview, const int &pRow, const int &pColumn, const QString &pText) const
+{
+    QTextTableCell qttcCell = pTablePreview->cellAt(pRow, pColumn);
+    QTextCursor qtcCursor = qttcCell.firstCursorPosition();
+    qtcCursor.insertText(pText);
+} // InsertTableText
+
 const void PlaintextExportWidget::on_qpbPlainRefresh_clicked(bool checked /* false */) const
 {
-    Refresh();
+    RefreshPlain();
 } // on_qpbPlainRefresh_clicked
+
+const void PlaintextExportWidget::on_qpbTableRefresh_clicked(bool checked /* false */) const
+{
+    RefreshTable();
+} // on_qpbTableRefresh_clicked
 
 const void PlaintextExportWidget::on_qrbStylePlain_clicked(bool checked /* false */) const
 {
@@ -75,6 +96,15 @@ const void PlaintextExportWidget::PreselectCodec(const QString &pCodec) const
 } // PreselectCodec
 
 const void PlaintextExportWidget::Refresh() const
+{
+    if (_qwpePlaintextExport.qrbStylePlain->isChecked()) {
+        RefreshPlain();
+    } else {
+        RefreshTable();
+    } // if else
+} // Refresh
+
+const void PlaintextExportWidget::RefreshPlain() const
 {
     _qwpePlaintextExport.qptePlainPreview->clear();
 
@@ -130,7 +160,72 @@ const void PlaintextExportWidget::Refresh() const
     } // foreach
 
     emit ProgressExportSetValue(0);
-} // Refresh
+} // RefreshPlain
+
+const void PlaintextExportWidget::RefreshTable() const
+{
+    // prepare table
+    _qwpePlaintextExport.qteTablePreview->clear();
+    QTextTable *qttTablePreview = CreateTable();
+
+    // header labels
+    for (int iI = 0; iI < _qlTableColumns.size(); iI++) {
+        InsertTableText(qttTablePreview, HEADER_ROW, iI, _qlTableColumns.at(iI).qleHeader->text());
+    } // for
+
+    // categories
+    ExpInterface::tCategoryIdList tcilCategoryIds;
+    emit VocabularyGetCategoryIds(&tcilCategoryIds);
+
+    // total record count for progress
+    int iTotalRecords = 0;
+    foreach (int iCategoryId, tcilCategoryIds) {
+        int iRecords;
+        emit VocabularyGetRecordCount(iCategoryId, &iRecords);
+        iTotalRecords += iRecords;
+    } // foreach
+    emit ProgressExportSetMax(iTotalRecords);
+
+    QStringList qslMarks;
+    emit VocabularyGetMarks(&qslMarks);
+
+    // preview
+    int iRecords = 0;
+    foreach (int iCategoryId, tcilCategoryIds) {
+        QString qsCategoryName;
+        emit VocabularyGetCategoryName(iCategoryId, &qsCategoryName);
+        qttTablePreview->appendRows(1);
+        int iTableRow = qttTablePreview->rows() - 1;
+        qttTablePreview->mergeCells(iTableRow, 0, 1, _qlTableColumns.size());
+        InsertTableText(qttTablePreview, iTableRow, 0, qsCategoryName);
+
+        // records
+        ExpInterface::tRecordIdList trilRecordIds;
+        emit VocabularyGetRecordIds(iCategoryId, &trilRecordIds);
+        foreach (int iRecordId, trilRecordIds) {
+            qttTablePreview->appendRows(1);
+            iTableRow = qttTablePreview->rows() - 1;
+
+            for (int iColumn = 0; iColumn < _qlTableColumns.size(); iColumn++) {
+                QString qsTemplate = _qlTableColumns.at(iColumn).qleTemplate->text();
+
+                // replace marks for data
+                foreach (QString qsMark, qslMarks) {
+                    QString qsData;
+                    emit VocabularyGetMarkText(iRecordId, qsMark, &qsData);
+                    qsTemplate.replace(qsMark, qsData);
+                } // foreach
+
+                InsertTableText(qttTablePreview, iTableRow, iColumn, qsTemplate);
+            } // for
+
+            iRecords++;
+            emit ProgressExportSetValue(iRecords);
+        } // foreach
+    } // foreach
+
+    emit ProgressExportSetValue(0);
+} // RefreshTable
 
 const void PlaintextExportWidget::RemoveTableColumn()
 {

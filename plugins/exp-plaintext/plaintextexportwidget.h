@@ -32,13 +32,20 @@ class PlaintextExportWidget : public QWidget
             QLineEdit *qleTemplate;
         }; // sTableColumn
 
+        static const int HEADER_ROW = 0;
+        static const int LABEL_COLUMN = 1;
+
         CodecsModel _cmCodecsModel;
         QList<sTableColumn> _qlTableColumns;
 		Ui::qwPlaintextExport _qwpePlaintextExport;
 
         const void AddTableColumn();
+        QTextTable *CreateTable() const;
         const void InitTableColumns();
+        const void InsertTableText(const QTextTable *pTablePreview, const int &pRow, const int &pColumn, const QString &pText) const;
         const void PreselectCodec(const QString &pCodec) const;
+        const void RefreshPlain() const;
+        const void RefreshTable() const;
         const void RemoveTableColumn();
 
     signals:
@@ -53,6 +60,7 @@ class PlaintextExportWidget : public QWidget
 
     private slots:
         const void on_qpbPlainRefresh_clicked(bool checked = false) const;
+        const void on_qpbTableRefresh_clicked(bool checked = false) const;
 		const void on_qrbStylePlain_clicked(bool checked = false) const;
 		const void on_qrbStyleTable_clicked(bool checked = false) const;
         const void on_qsbTableColums_valueChanged(int i);
