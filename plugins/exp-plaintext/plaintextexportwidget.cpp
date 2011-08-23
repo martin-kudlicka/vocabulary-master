@@ -21,7 +21,11 @@ const QString PlaintextExportWidget::GetCodec() const
 
 const QString PlaintextExportWidget::GetText() const
 {
-    return _qwpePlaintextExport.qptePlainPreview->toPlainText();
+    if (_qwpePlaintextExport.qrbStylePlain->isChecked()) {
+        return _qwpePlaintextExport.qptePlainPreview->toPlainText();
+    } else {
+        return _qwpePlaintextExport.qteTablePreview->toPlainText();
+    } // if else
 } // GetText
 
 const void PlaintextExportWidget::InitTableColumns()
