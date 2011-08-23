@@ -13,13 +13,6 @@ const void PlaintextExportWidget::AddTableColumn()
     _qwpePlaintextExport.qglTableColumns->addWidget(stcColumn.qleTemplate, TableRowTemplate, _qlTableColumns.size() + LABEL_COLUMN);
 } // AddTableColumn
 
-QTextTable *PlaintextExportWidget::CreateTable() const
-{
-    QTextCursor qtcCursor = _qwpePlaintextExport.qteTablePreview->textCursor();
-    QTextTableFormat qttfTableFormat;
-    return qtcCursor.insertTable(HEADER_ROW + 1, _qlTableColumns.size(), qttfTableFormat);
-} // CreateTable
-
 const QString PlaintextExportWidget::GetCodec() const
 {
     QModelIndex qmiIndex = _qwpePlaintextExport.qtvCodecs->currentIndex();
@@ -166,7 +159,11 @@ const void PlaintextExportWidget::RefreshTable() const
 {
     // prepare table
     _qwpePlaintextExport.qteTablePreview->clear();
-    QTextTable *qttTablePreview = CreateTable();
+    QTextCursor qtcCursor = _qwpePlaintextExport.qteTablePreview->textCursor();
+    QTextTableFormat qttfTableFormat;
+    QTextTable *qttTablePreview = qtcCursor.insertTable(HEADER_ROW + 1, _qlTableColumns.size(), qttfTableFormat);
+
+    qtcCursor.beginEditBlock();
 
     // header labels
     for (int iI = 0; iI < _qlTableColumns.size(); iI++) {
@@ -185,6 +182,7 @@ const void PlaintextExportWidget::RefreshTable() const
         iTotalRecords += iRecords;
     } // foreach
     emit ProgressExportSetMax(iTotalRecords);
+    QCoreApplication::processEvents();  // to avoid crash
 
     QStringList qslMarks;
     emit VocabularyGetMarks(&qslMarks);
@@ -223,6 +221,8 @@ const void PlaintextExportWidget::RefreshTable() const
             emit ProgressExportSetValue(iRecords);
         } // foreach
     } // foreach
+
+    qtcCursor.endEditBlock();
 
     emit ProgressExportSetValue(0);
 } // RefreshTable

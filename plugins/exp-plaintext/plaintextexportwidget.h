@@ -40,7 +40,6 @@ class PlaintextExportWidget : public QWidget
 		Ui::qwPlaintextExport _qwpePlaintextExport;
 
         const void AddTableColumn();
-        QTextTable *CreateTable() const;
         const void InitTableColumns();
         const void InsertTableText(const QTextTable *pTablePreview, const int &pRow, const int &pColumn, const QString &pText) const;
         const void PreselectCodec(const QString &pCodec) const;
