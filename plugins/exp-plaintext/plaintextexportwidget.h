@@ -18,34 +18,10 @@ class PlaintextExportWidget : public QWidget
         const void Refresh() const;
 
 	private:
-		enum eStyle {
-			StylePlain,
-			StyleTable
-		}; // eStyle
-        enum eTableRow {
-            TableRowHeader,
-            TableRowTemplate
-        }; // eTableRow
-
-        struct sTableColumn {
-            QLineEdit *qleHeader;
-            QLineEdit *qleTemplate;
-        }; // sTableColumn
-
-        static const int HEADER_ROW = 0;
-        static const int LABEL_COLUMN = 1;
-
         CodecsModel _cmCodecsModel;
-        QList<sTableColumn> _qlTableColumns;
 		Ui::qwPlaintextExport _qwpePlaintextExport;
 
-        const void AddTableColumn();
-        const void InitTableColumns();
-        const void InsertTableText(const QTextTable *pTablePreview, const int &pRow, const int &pColumn, const QString &pText) const;
         const void PreselectCodec(const QString &pCodec) const;
-        const void RefreshPlain() const;
-        const void RefreshTable() const;
-        const void RemoveTableColumn();
 
     signals:
         void ProgressExportSetMax(const int &pMax) const;
@@ -58,11 +34,7 @@ class PlaintextExportWidget : public QWidget
         void VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const;
 
     private slots:
-        const void on_qpbPlainRefresh_clicked(bool checked = false) const;
-        const void on_qpbTableRefresh_clicked(bool checked = false) const;
-		const void on_qrbStylePlain_clicked(bool checked = false) const;
-		const void on_qrbStyleTable_clicked(bool checked = false) const;
-        const void on_qsbTableColums_valueChanged(int i);
+        const void on_qpbRefresh_clicked(bool checked = false) const;
 }; // PlaintextExportWidget
 
 #endif // PLAINTEXTEXPORTWIDGET_H
