@@ -125,7 +125,6 @@ const void PlaintextExportWidget::RefreshPlain() const
             bFirstLine = false;
         } else {
             _qwpePlaintextExport.qptePlainPreview->appendPlainText("");
-            bFirstLine = false;
         } // if
 
         QString qsCategoryName;
@@ -188,8 +187,16 @@ const void PlaintextExportWidget::RefreshTable() const
     emit VocabularyGetMarks(&qslMarks);
 
     // preview
+    bool bFirstLine = true;
     int iRecords = 0;
     foreach (int iCategoryId, tcilCategoryIds) {
+        if (bFirstLine) {
+            bFirstLine = false;
+        } else {
+            qttTablePreview->appendRows(1);
+            qttTablePreview->mergeCells(qttTablePreview->rows() - 1, 0, 1, _qlTableColumns.size());
+        } // if
+
         QString qsCategoryName;
         emit VocabularyGetCategoryName(iCategoryId, &qsCategoryName);
         qttTablePreview->appendRows(1);
