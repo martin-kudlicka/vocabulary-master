@@ -49,6 +49,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "imp-plaintext", "plugins\im
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "exp-plaintext", "plugins\exp-plaintext\exp-plaintext.vcproj", "{DC56D3C1-990B-4A01-9996-7F0DAE58CFA3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "exp-html", "plugins\exp-html\exp-html.vcproj", "{126992EA-BB05-4BF9-8133-750407CB98CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug FREE|Win32 = Debug FREE|Win32
@@ -173,6 +175,12 @@ Global
 		{DC56D3C1-990B-4A01-9996-7F0DAE58CFA3}.Release FREE|Win32.ActiveCfg = Release|Win32
 		{DC56D3C1-990B-4A01-9996-7F0DAE58CFA3}.Release|Win32.ActiveCfg = Release|Win32
 		{DC56D3C1-990B-4A01-9996-7F0DAE58CFA3}.Release|Win32.Build.0 = Release|Win32
+		{126992EA-BB05-4BF9-8133-750407CB98CC}.Debug FREE|Win32.ActiveCfg = Debug|Win32
+		{126992EA-BB05-4BF9-8133-750407CB98CC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{126992EA-BB05-4BF9-8133-750407CB98CC}.Debug|Win32.Build.0 = Debug|Win32
+		{126992EA-BB05-4BF9-8133-750407CB98CC}.Release FREE|Win32.ActiveCfg = Release|Win32
+		{126992EA-BB05-4BF9-8133-750407CB98CC}.Release|Win32.ActiveCfg = Release|Win32
+		{126992EA-BB05-4BF9-8133-750407CB98CC}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -199,5 +207,6 @@ Global
 		{C78EFA28-4AC0-4D84-9A42-2F4E8F4232E7} = {16B0AC46-7D8F-44D3-B60B-0EAF796DB86B}
 		{ADFA0A4B-2E2B-4237-906D-3402F57E1785} = {16B0AC46-7D8F-44D3-B60B-0EAF796DB86B}
 		{DC56D3C1-990B-4A01-9996-7F0DAE58CFA3} = {16B0AC46-7D8F-44D3-B60B-0EAF796DB86B}
+		{126992EA-BB05-4BF9-8133-750407CB98CC} = {16B0AC46-7D8F-44D3-B60B-0EAF796DB86B}
 	EndGlobalSection
 EndGlobal
