@@ -13,7 +13,7 @@ QValidator::State FieldIdentifierValidator::validate(QString &input, int &pos) c
 			QModelIndex qmiIndex = _fmModel->index(iRow, FieldsModel::ColumnTemplateName);
 			QString qsIdentifier = _fmModel->data(qmiIndex).toString();
 			if (input == qsIdentifier) {
-				return Invalid;
+				return Intermediate;
 			} // if
 		} // if
 	} // for
