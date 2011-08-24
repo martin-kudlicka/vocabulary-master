@@ -1,10 +1,10 @@
 #ifndef LANGUAGEFIELDDELEGATE_H
 #define LANGUAGEFIELDDELEGATE_H
 
-#include <QtGui/QItemDelegate>
+#include <QtGui/QStyledItemDelegate>
 #include "vocabulary.h"
 
-class LanguageFieldDelegate : public QItemDelegate
+class LanguageFieldDelegate : public QStyledItemDelegate
 {
     public:
         LanguageFieldDelegate(const Vocabulary *pVocabulary, QObject *pParent = NULL);
