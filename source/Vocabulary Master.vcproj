@@ -375,6 +375,26 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\vocabularymanagerdialog\vocabularysettingsdialog\lineeditpersistentdelegate\fieldidentifiervalidator.cpp"
+				>
+				<FileConfiguration
+					Name="Debug FREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release FREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\vocabularymanagerdialog\vocabularysettingsdialog\lineeditpersistentdelegate\fieldlineedit.cpp"
 				>
 				<FileConfiguration
@@ -698,6 +718,26 @@
 			</File>
 			<File
 				RelativePath=".\vocabularymanagerdialog\wordsexportdialog\exppluginsmodel.h"
+				>
+				<FileConfiguration
+					Name="Debug FREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release FREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\vocabularymanagerdialog\vocabularysettingsdialog\lineeditpersistentdelegate\fieldidentifiervalidator.h"
 				>
 				<FileConfiguration
 					Name="Debug FREE|Win32"
