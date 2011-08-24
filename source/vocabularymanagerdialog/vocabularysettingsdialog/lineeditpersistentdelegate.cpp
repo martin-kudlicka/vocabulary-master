@@ -1,10 +1,10 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate.h"
 
-#include <QtGui/QLineEdit>
+#include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate/fieldlineedit.h"
 
 QWidget *LineEditPersistentDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    return new QLineEdit(parent);
+    return new FieldLineEdit(parent);
 } // createEditor
 
 LineEditPersistentDelegate::LineEditPersistentDelegate(QObject *pParent /* NULL */) : QStyledItemDelegate(pParent)
@@ -13,6 +13,6 @@ LineEditPersistentDelegate::LineEditPersistentDelegate(QObject *pParent /* NULL 
 
 void LineEditPersistentDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-    QLineEdit *qleEditor = qobject_cast<QLineEdit *>(editor);
+    FieldLineEdit *qleEditor = qobject_cast<FieldLineEdit *>(editor);
     qleEditor->setText(index.model()->data(index).toString());
 } // setEditorData
