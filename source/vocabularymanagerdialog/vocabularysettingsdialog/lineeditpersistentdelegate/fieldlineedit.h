@@ -11,7 +11,12 @@ class FieldLineEdit : public QLineEdit
 		FieldLineEdit(QWidget *pParent = NULL);
 
 	private:
+		QString _qsDefaultSheet;
+
 		virtual void showEvent(QShowEvent *event);
+
+	private slots:
+		const void on_textEdited(const QString &text);
 }; // FieldLineEdit
 
 #endif // FIELDLINEEDIT_H
