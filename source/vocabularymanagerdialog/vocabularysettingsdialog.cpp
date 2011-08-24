@@ -84,13 +84,19 @@ const void VocabularySettingsDialog::on_qtvFieldsSelectionModel_selectionChanged
 const void VocabularySettingsDialog::PrepareFields()
 {
     _qdvsdVocabularySettingsDialog.qtvFields->setModel(&_fmFieldsModel);
+    _qdvsdVocabularySettingsDialog.qtvFields->setItemDelegateForColumn(FieldsModel::ColumnTemplateName, &_lepdLineEditDelegate);
+    _qdvsdVocabularySettingsDialog.qtvFields->setItemDelegateForColumn(FieldsModel::ColumnName, &_lepdLineEditDelegate);
     _qdvsdVocabularySettingsDialog.qtvFields->setItemDelegateForColumn(FieldsModel::ColumnLanguage, &_lfdLanguageDelegate);
     connect(_qdvsdVocabularySettingsDialog.qtvFields->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvFieldsSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 
     _qdvsdVocabularySettingsDialog.qcbFieldType->addItem(tr("Text"));
 
     for (int iRow = 0; iRow < _fmFieldsModel.rowCount(); iRow++) {
-        QModelIndex qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnLanguage);
+        QModelIndex qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnTemplateName);
+        _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
+        qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnName);
+        _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
+        qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnLanguage);
         _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
     } // for
     for (int iColumn = 0; iColumn < _qdvsdVocabularySettingsDialog.qtvFields->header()->count(); iColumn++) {

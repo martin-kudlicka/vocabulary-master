@@ -9,6 +9,7 @@
 # include "vocabularymanagerdialog/vocabularysettingsdialog/fieldsmodel.h"
 # include "plugins.h"
 # include "vocabularymanagerdialog/vocabularysettingsdialog/languagefielddelegate.h"
+# include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate.h"
 #endif
 
 class VocabularySettingsDialog : public QDialog
@@ -39,6 +40,7 @@ class VocabularySettingsDialog : public QDialog
 
         FieldsModel _fmFieldsModel;
         LanguageFieldDelegate _lfdLanguageDelegate;
+        LineEditPersistentDelegate _lepdLineEditDelegate;
 		const Plugins *_pPlugins;
 		tVoices _tvVoiceList;
 #endif
