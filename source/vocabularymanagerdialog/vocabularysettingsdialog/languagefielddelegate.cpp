@@ -13,7 +13,7 @@ QWidget *LanguageFieldDelegate::createEditor(QWidget *parent, const QStyleOption
     return qcbEditor;
 } // createEditor
 
-LanguageFieldDelegate::LanguageFieldDelegate(const Vocabulary *pVocabulary, QObject *pParent /* NULL */) : QItemDelegate(pParent)
+LanguageFieldDelegate::LanguageFieldDelegate(const Vocabulary *pVocabulary, QObject *pParent /* NULL */) : QStyledItemDelegate(pParent)
 {
     _vVocabulary = pVocabulary;
 } // LanguageFieldDelegate
