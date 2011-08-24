@@ -89,13 +89,12 @@ const void VocabularySettingsDialog::PrepareFields()
 
     _qdvsdVocabularySettingsDialog.qcbFieldType->addItem(tr("Text"));
 
-    for (int iColumn = 0; iColumn < _qdvsdVocabularySettingsDialog.qtvFields->header()->count(); iColumn++) {
-        _qdvsdVocabularySettingsDialog.qtvFields->header()->setResizeMode(iColumn, QHeaderView::Stretch);
-    } // for
-
     for (int iRow = 0; iRow < _fmFieldsModel.rowCount(); iRow++) {
         QModelIndex qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnLanguage);
         _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
+    } // for
+    for (int iColumn = 0; iColumn < _qdvsdVocabularySettingsDialog.qtvFields->header()->count(); iColumn++) {
+        _qdvsdVocabularySettingsDialog.qtvFields->header()->setResizeMode(iColumn, QHeaderView::Stretch);
     } // for
 } // PrepareFields
 
