@@ -1,5 +1,7 @@
 #include "vocabularymanagerdialog/wordsexportdialog/wordsexportfieldsmodel.h"
 
+const QString TEMPLATE_MARK = "${%1}";
+
 WordsExportFieldsModel::WordsExportFieldsModel(const Vocabulary *pVocabulary, QObject *pParent /* NULL */) : QAbstractItemModel(pParent)
 {
     _vVocabulary = pVocabulary;
@@ -26,8 +28,10 @@ QVariant WordsExportFieldsModel::data(const QModelIndex &index, int role /* Qt::
                         int iFieldId = _vVocabulary->GetFieldId(index.row());
                         return _vVocabulary->GetFieldName(iFieldId);
                     }
-                default:
-                    return QVariant();
+                case ColumnMark:
+                    int iFieldId = _vVocabulary->GetFieldId(index.row());
+                    QString qsTemplate = _vVocabulary->GetFieldTemplateName(iFieldId);
+                    return TEMPLATE_MARK.arg(qsTemplate);
             } // switch
         default:
             return QVariant();

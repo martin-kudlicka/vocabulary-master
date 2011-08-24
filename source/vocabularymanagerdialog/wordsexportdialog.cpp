@@ -98,18 +98,6 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
     _qdweWordsExport.qswExpPlugins->setCurrentIndex(_qhExpPluginPage.value(qmiIndex.row()));
 } // on_qtvExpPluginsSelectionModel_selectionChanged
 
-const void WordsExportDialog::PrepareMarks() const
-{
-	for (int iI = 0; iI < _wefmFieldsModel.rowCount(); iI++) {
-		int iFieldId = _vVocabulary->GetFieldId(iI);
-		QString qsName = _vVocabulary->GetFieldTemplateName(iFieldId);
-
-		QModelIndex qmiEditorIndex = _wefmFieldsModel.index(iI, WordsExportFieldsModel::ColumnMark);
-		MarkLineEdit *mleEditor = new MarkLineEdit(TEMPLATE_MARK.arg(qsName), _qdweWordsExport.qtvFields);
-		_qdweWordsExport.qtvFields->setIndexWidget(qmiEditorIndex, mleEditor);
-	} // for
-} // PrepareMarks
-
 WordsExportDialog::WordsExportDialog(const Vocabulary *pVocabulary, const Plugins::tExpPluginList &pExpPlugins, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags), _cmCategoriesModel(pVocabulary), _epmExpPluginsModel(&pExpPlugins), _wefmFieldsModel(pVocabulary)
 {
 	_vVocabulary = pVocabulary;
@@ -125,10 +113,14 @@ WordsExportDialog::WordsExportDialog(const Vocabulary *pVocabulary, const Plugin
 	_qdweWordsExport.qtvCategories->setModel(&_cmCategoriesModel);
 	// fields
 	_qdweWordsExport.qtvFields->setModel(&_wefmFieldsModel);
+    _qdweWordsExport.qtvFields->setItemDelegateForColumn(WordsExportFieldsModel::ColumnMark, &_mlepdMarkDelegate);
+    for (int iRow = 0; iRow < _wefmFieldsModel.rowCount(); iRow++) {
+        QModelIndex qmiIndex = _wefmFieldsModel.index(iRow, WordsExportFieldsModel::ColumnMark);
+        _qdweWordsExport.qtvFields->openPersistentEditor(qmiIndex);
+    } // for
 	for (int iColumn = 0; iColumn < _qdweWordsExport.qtvFields->header()->count(); iColumn++) {
 		_qdweWordsExport.qtvFields->header()->setResizeMode(iColumn, QHeaderView::Stretch);
 	} // for
-	PrepareMarks();
 
 	_qdweWordsExport.qtvCategories->selectAll();
 } // WordsExportDialog

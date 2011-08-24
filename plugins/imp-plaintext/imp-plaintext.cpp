@@ -2,6 +2,8 @@
 
 #include <QtGui/QBoxLayout>
 
+const QString TEMPLATE_MARK = "${%1}";
+
 const void ImpPlaintext::Close()
 {
     if (_pfPlaintext.IsOpen()) {
