@@ -92,6 +92,11 @@ const void VocabularySettingsDialog::PrepareFields()
     for (int iColumn = 0; iColumn < _qdvsdVocabularySettingsDialog.qtvFields->header()->count(); iColumn++) {
         _qdvsdVocabularySettingsDialog.qtvFields->header()->setResizeMode(iColumn, QHeaderView::Stretch);
     } // for
+
+    for (int iRow = 0; iRow < _fmFieldsModel.rowCount(); iRow++) {
+        QModelIndex qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnLanguage);
+        _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
+    } // for
 } // PrepareFields
 
 const void VocabularySettingsDialog::PreparePlugins()
