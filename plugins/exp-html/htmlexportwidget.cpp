@@ -186,6 +186,9 @@ const void HtmlExportWidget::RefreshText() const
 {
     _qwheHtmlExport.qteTextPreview->clear();
 
+    QTextCursor qtcCursor = _qwheHtmlExport.qteTextPreview->textCursor();
+    qtcCursor.beginEditBlock();
+
     // categories
     ExpInterface::tCategoryIdList tcilCategoryIds;
     emit VocabularyGetCategoryIds(&tcilCategoryIds);
@@ -235,6 +238,8 @@ const void HtmlExportWidget::RefreshText() const
             emit ProgressExportSetValue(iRecords);
         } // foreach
     } // foreach
+
+    qtcCursor.endEditBlock();
 
     _qwheHtmlExport.qteTextPreview->verticalScrollBar()->setValue(0);
 
