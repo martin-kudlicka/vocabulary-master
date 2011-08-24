@@ -7,6 +7,7 @@ const QString COLUMN_MODELID = "modelId";
 const QString COLUMN_NAME = "name";
 const QString COLUMN_ORDINAL = "ordinal";
 const QString TABLE_FIELDMODELS = "fieldModels";
+const QString TEMPLATE_MARK = "${%1}";
 
 int FieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
@@ -25,8 +26,10 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 
                         return qsqQuery.value(ColumnPosition1);
                     }
-                default:
-                    return QVariant();
+                case ColumnMark:
+                    QModelIndex qmiNameIndex = this->index(index.row(), ColumnName);
+                    QString qsName = data(qmiNameIndex).toString();
+                    return TEMPLATE_MARK.arg(qsName);
             } // switch
         default:
             return QVariant();

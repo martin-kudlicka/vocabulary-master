@@ -50,20 +50,16 @@ const void AnkiImportWidget::on_qtvModelsSelectionModel_selectionChanged(const Q
 
     _qwaiAnkiImport.qtvFields->reset();
 
-    // assign editors
-    for (int iI = 0; iI < _fmFieldsModel.rowCount(); iI++) {
-        QModelIndex qmiNameIndex = _fmFieldsModel.index(iI, FieldsModel::ColumnName);
-        QString qsName = _fmFieldsModel.data(qmiNameIndex).toString();
-
-        QModelIndex qmiEditorIndex = _fmFieldsModel.index(iI, FieldsModel::ColumnMark);
-        MarkLineEdit *mleEditor = new MarkLineEdit(TEMPLATE_MARK.arg(qsName), _qwaiAnkiImport.qtvFields);
-        _qwaiAnkiImport.qtvFields->setIndexWidget(qmiEditorIndex, mleEditor);
+    for (int iRow = 0; iRow < _fmFieldsModel.rowCount(); iRow++) {
+        QModelIndex qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnMark);
+        _qwaiAnkiImport.qtvFields->openPersistentEditor(qmiIndex);
     } // for
 } // on_qtvModelsSelectionModel_selectionChanged
 
-const void AnkiImportWidget::PrepareTreeView(QTreeView *pTreeView, QAbstractItemModel *pItemModel) const
+const void AnkiImportWidget::PrepareTreeView(QTreeView *pTreeView, QAbstractItemModel *pItemModel)
 {
     pTreeView->setModel(pItemModel);
+    pTreeView->setItemDelegateForColumn(FieldsModel::ColumnMark, &_mlepdMarkDelegate);
     for (int iColumn = 0; iColumn < pTreeView->header()->count(); iColumn++) {
         pTreeView->header()->setResizeMode(iColumn, QHeaderView::Stretch);
     } // for

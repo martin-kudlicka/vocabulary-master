@@ -6,6 +6,7 @@
 #include "ankiimportwidget/decksmodel.h"
 #include "ankiimportwidget/modelsmodel.h"
 #include "ankiimportwidget/fieldsmodel.h"
+#include "../../common/marklineeditpersistentdelegate.h"
 
 class AnkiImportWidget : public QWidget
 {
@@ -22,11 +23,12 @@ class AnkiImportWidget : public QWidget
 
         DecksModel _dmDecksModel;
         FieldsModel _fmFieldsModel;
+        MarkLineEditPersistentDelegate _mlepdMarkDelegate;
         ModelsModel _mmModelsModel;
         const QSqlDatabase *_qsdAnki;
         Ui::qwAnkiImport _qwaiAnkiImport;
 
-        const void PrepareTreeView(QTreeView *pTreeView, QAbstractItemModel *pItemModel) const;
+        const void PrepareTreeView(QTreeView *pTreeView, QAbstractItemModel *pItemModel);
 
     private slots:
         const void on_qtvDecksSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);

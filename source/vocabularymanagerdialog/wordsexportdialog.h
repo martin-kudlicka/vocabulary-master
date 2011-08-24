@@ -6,6 +6,7 @@
 #include "common/categoriesmodel.h"
 #include "vocabularymanagerdialog/wordsexportdialog/wordsexportfieldsmodel.h"
 #include "vocabularymanagerdialog/wordsexportdialog/exppluginsmodel.h"
+#include "../../common/marklineeditpersistentdelegate.h"
 
 class WordsExportDialog : public QDialog
 {
@@ -17,6 +18,7 @@ class WordsExportDialog : public QDialog
 	private:
 		CategoriesModel _cmCategoriesModel;
 		ExpPluginsModel _epmExpPluginsModel;
+        MarkLineEditPersistentDelegate _mlepdMarkDelegate;
 		Plugins::tExpPluginList _teplExpPlugins;
 		Ui::qdWordsExport _qdweWordsExport;
 		QHash<int, int> _qhExpPluginPage;
@@ -24,7 +26,6 @@ class WordsExportDialog : public QDialog
 		WordsExportFieldsModel _wefmFieldsModel;
 
         virtual void accept();
-		const void PrepareMarks() const;
 
 	private slots:
         const void on_eiPlugin_ProgressExportSetMax(const int &pMax) const;

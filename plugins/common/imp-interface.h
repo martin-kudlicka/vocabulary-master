@@ -6,7 +6,6 @@
 #include <QtGui/QGroupBox>
 
 static const char *IMP_INTERFACE = "Imp Interface 1.0";
-const QString TEMPLATE_MARK = "${%1}";
 
 class ImpInterface
 {

@@ -182,6 +182,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\common\marklineeditpersistentdelegate.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ankiimportwidget\modelsmodel.cpp"
 				>
 			</File>
@@ -280,6 +284,10 @@
 						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-anki\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\common\marklineeditpersistentdelegate.h"
+				>
 			</File>
 			<File
 				RelativePath=".\ankiimportwidget\modelsmodel.h"
