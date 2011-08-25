@@ -214,7 +214,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
 #ifndef FREE
     // license
-    _lLicense = new License(_sSettings.GetLicense());
+    _lLicense = new License(&_sSettings);
 
     // plugins
 	_pPlugins.Load();
@@ -268,7 +268,7 @@ const void MainWindow::on_qaAnswer_triggered(bool checked /* false */)
 
 const void MainWindow::on_qaLicense_triggered(bool checked /* false */)
 {
-    LicenseDialog ldLicenseDialog(_lLicense, this);
+    LicenseDialog ldLicenseDialog(_lLicense, &_sSettings, this);
     ldLicenseDialog.exec();
 } // on_qaLicense_triggered
 #endif

@@ -67,6 +67,7 @@ class Settings
 # ifdef Q_WS_WIN
         const void SetHotkey(const eHotkey &pType, const sHotKeyInfo &pHotkey);
 # endif
+		const void SetLicense(const QByteArray &pLicense);
 		const void SetMinimizeToTray(const bool &pEnable);
         const void SetMute(const bool &pEnable);
 		const void SetNewWordFlash(const bool &pEnable);
