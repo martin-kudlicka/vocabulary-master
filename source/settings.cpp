@@ -11,6 +11,7 @@ const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
 # ifdef Q_WS_WIN
 const QString KEY_HOTKEY = "Hotkey";
 # endif
+const QString KEY_LICENSE = "License";
 const QString KEY_MINIMIZETOTRAY = "MinimizeToTray";
 const QString KEY_MUTE = "Mute";
 const QString KEY_NEWWORDFLASH = "NewWordFlash";
@@ -100,6 +101,11 @@ const QString Settings::GetHotkeyKeyVirtualKey(const eHotkey &pType) const
 	return GetHotkeyKey(pType) + "VirtualKey";
 } // GetHotkeyKeyVirtualKey
 # endif
+
+const QByteArray Settings::GetLicense() const
+{
+    return _qsSettings.value(KEY_LICENSE).toByteArray();
+} // GetLicense
 
 const bool Settings::GetMinimizeToTray() const
 {

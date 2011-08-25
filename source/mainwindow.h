@@ -14,6 +14,9 @@
 # include <QtGui/QSystemTrayIcon>
 #endif
 #include <QtCore/QTranslator>
+#ifndef FREE
+# include "license.h"
+#endif
 
 class MainWindow : public QMainWindow
 {
@@ -52,6 +55,7 @@ class MainWindow : public QMainWindow
         int _iTimerAnswer;
 		int _iTimerQuestion;
 #ifndef FREE
+        License *_lLicense;
 		Plugins _pPlugins;
 		QAction *_qaTrayExit;
         QAction *_qaTrayManage;

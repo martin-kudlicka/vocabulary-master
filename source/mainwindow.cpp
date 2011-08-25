@@ -11,6 +11,9 @@
 # include <Windows.h>
 #endif
 #include "common/vocabularyopenprogressdialog.h"
+#ifndef FREE
+# include "licensedialog.h"
+#endif
 
 #ifdef FREE
 const QString FREE_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " FREE");
@@ -185,6 +188,7 @@ MainWindow::~MainWindow()
     _sSettings.SetWindowWidth(geometry().width());
 
 	_pPlugins.Uninitialize();
+    delete _lLicense;
 #endif
 } // ~MainWindow
 
@@ -208,6 +212,9 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     _umwMainWindow.qsbStatusBar->addWidget(&_qlVocabularyStatus);
 
 #ifndef FREE
+    // license
+    _lLicense = new License(_sSettings.GetLicense());
+
     // plugins
 	_pPlugins.Load();
 	_pPlugins.Initialize();
