@@ -99,6 +99,7 @@ class MainWindow : public QMainWindow
         const void on_qaAbout_triggered(bool checked = false);
 #ifndef FREE
         const void on_qaAnswer_triggered(bool checked = false);
+        const void on_qaLicense_triggered(bool checked = false);
 #endif
         const void on_qaManage_triggered(bool checked = false);
 #ifndef FREE
