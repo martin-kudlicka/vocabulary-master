@@ -225,6 +225,11 @@ const void Settings::SetHotkey(const eHotkey &pType, const sHotKeyInfo &pHotkey)
 } // SetHotkey
 # endif
 
+const void Settings::SetLicense(const QByteArray &pLicense)
+{
+	_qsSettings.setValue(KEY_LICENSE, pLicense);
+} // SetLicense
+
 const void Settings::SetMinimizeToTray(const bool &pEnable)
 {
 	_qsSettings.setValue(KEY_MINIMIZETOTRAY, pEnable);

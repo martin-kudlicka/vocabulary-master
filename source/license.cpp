@@ -28,12 +28,18 @@ const QUuid &License::GetUid() const
 	return _quIdentifier;
 } // GetUid
 
-License::License(const QByteArray &pLicenseData)
+License::License(const Settings *pSettings)
 {
-    // parse license
-    QXmlStreamReader qxsrXmlReader(pLicenseData);
-    while (!qxsrXmlReader.atEnd()) {
-        QXmlStreamReader::TokenType ttType = qxsrXmlReader.readNext();
+	_sSettings = pSettings;
+
+    RefreshLicense();
+} // License
+
+const void License::RefreshLicense()
+{
+	QXmlStreamReader qxsrXmlReader(_sSettings->GetLicense());
+	while (!qxsrXmlReader.atEnd()) {
+		QXmlStreamReader::TokenType ttType = qxsrXmlReader.readNext();
 		if (ttType != QXmlStreamReader::StartElement) {
 			continue;
 		} // if
@@ -56,5 +62,5 @@ License::License(const QByteArray &pLicenseData)
 			_qsLastName = qxsrXmlReader.readElementText();
 			continue;
 		} // if
-    } // while
-} // License
+	} // while
+} // RefreshLicense
