@@ -51,6 +51,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "exp-plaintext", "plugins\ex
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "exp-html", "plugins\exp-html\exp-html.vcproj", "{126992EA-BB05-4BF9-8133-750407CB98CC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1stparty", "1stparty", "{7519547E-1AF2-499D-B2C8-7B43EF1554E9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "license creator", "1stparty\license creator\license creator.vcproj", "{489DCBCB-C60D-4D20-9A1C-4F6ACA0D2C91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug FREE|Win32 = Debug FREE|Win32
@@ -181,6 +185,12 @@ Global
 		{126992EA-BB05-4BF9-8133-750407CB98CC}.Release FREE|Win32.ActiveCfg = Release|Win32
 		{126992EA-BB05-4BF9-8133-750407CB98CC}.Release|Win32.ActiveCfg = Release|Win32
 		{126992EA-BB05-4BF9-8133-750407CB98CC}.Release|Win32.Build.0 = Release|Win32
+		{489DCBCB-C60D-4D20-9A1C-4F6ACA0D2C91}.Debug FREE|Win32.ActiveCfg = Debug|Win32
+		{489DCBCB-C60D-4D20-9A1C-4F6ACA0D2C91}.Debug|Win32.ActiveCfg = Debug|Win32
+		{489DCBCB-C60D-4D20-9A1C-4F6ACA0D2C91}.Debug|Win32.Build.0 = Debug|Win32
+		{489DCBCB-C60D-4D20-9A1C-4F6ACA0D2C91}.Release FREE|Win32.ActiveCfg = Release|Win32
+		{489DCBCB-C60D-4D20-9A1C-4F6ACA0D2C91}.Release|Win32.ActiveCfg = Release|Win32
+		{489DCBCB-C60D-4D20-9A1C-4F6ACA0D2C91}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -208,5 +218,6 @@ Global
 		{ADFA0A4B-2E2B-4237-906D-3402F57E1785} = {16B0AC46-7D8F-44D3-B60B-0EAF796DB86B}
 		{DC56D3C1-990B-4A01-9996-7F0DAE58CFA3} = {16B0AC46-7D8F-44D3-B60B-0EAF796DB86B}
 		{126992EA-BB05-4BF9-8133-750407CB98CC} = {16B0AC46-7D8F-44D3-B60B-0EAF796DB86B}
+		{489DCBCB-C60D-4D20-9A1C-4F6ACA0D2C91} = {7519547E-1AF2-499D-B2C8-7B43EF1554E9}
 	EndGlobalSection
 EndGlobal
