@@ -37,6 +37,7 @@ class Settings
 # ifdef Q_WS_WIN
         const sHotKeyInfo GetHotkey(const eHotkey &pType) const;
 # endif
+        const QByteArray GetLicense() const;
         const bool GetMinimizeToTray() const;
         const bool GetMute() const;
 		const bool GetNewWordFlash() const;
