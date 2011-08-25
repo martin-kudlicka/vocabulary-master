@@ -40,20 +40,20 @@ License::License(const QByteArray &pLicenseData)
 
 		// general
 		if (qxsrXmlReader.name() == ELEM_UID) {
-			_quIdentifier = qxsrXmlReader.text().toString();
+			_quIdentifier = qxsrXmlReader.readElementText();
 			continue;
 		} // if
 		if (qxsrXmlReader.name() == ELEM_VALIDTO) {
-			_qdValidTo = QDate::fromString(qxsrXmlReader.text().toString());
+			_qdValidTo = QDate::fromString(qxsrXmlReader.readElementText(), Qt::ISODate);
 			continue;
 		} // if
 		// personal
 		if (qxsrXmlReader.name() == ELEM_FIRSTNAME) {
-			_qsFirstName = qxsrXmlReader.text().toString();
+			_qsFirstName = qxsrXmlReader.readElementText();
 			continue;
 		} // if
 		if (qxsrXmlReader.name() == ELEM_LASTNAME) {
-			_qsLastName = qxsrXmlReader.text().toString();
+			_qsLastName = qxsrXmlReader.readElementText();
 			continue;
 		} // if
     } // while
