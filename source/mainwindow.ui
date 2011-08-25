@@ -111,6 +111,7 @@
     <property name="title">
      <string>&amp;Help</string>
     </property>
+    <addaction name="qaLicense"/>
     <addaction name="qaAbout"/>
    </widget>
    <addaction name="menu_File"/>
@@ -239,6 +240,11 @@
    </property>
    <property name="text">
     <string>&amp;About...</string>
+   </property>
+  </action>
+  <action name="qaLicense">
+   <property name="text">
+    <string>&amp;License...</string>
    </property>
   </action>
  </widget>

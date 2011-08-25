@@ -206,6 +206,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 #ifdef FREE
     _umwMainWindow.qaAnswer->setVisible(false);
     _umwMainWindow.qaMute->setVisible(false);
+    _umwMainWindow.qaLicense->setVisible(false);
 #else
 	CreateTrayMenu();
 #endif
@@ -264,6 +265,12 @@ const void MainWindow::on_qaAnswer_triggered(bool checked /* false */)
 #endif*/
     timerEvent(&QTimerEvent(_qhCurrentAnswer.value(_iCurrentRecordId)));
 } // on_qaAnswer_triggered
+
+const void MainWindow::on_qaLicense_triggered(bool checked /* false */)
+{
+    LicenseDialog ldLicenseDialog(_lLicense, this);
+    ldLicenseDialog.exec();
+} // on_qaLicense_triggered
 #endif
 
 const void MainWindow::on_qaManage_triggered(bool checked /* false */)
