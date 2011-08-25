@@ -859,6 +859,22 @@
 			<File
 				RelativePath=".\settingsdialog\hotkeylineedit.h"
 				>
+				<FileConfiguration
+					Name="Debug FREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release FREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\vocabularymanagerdialog\vocabularysettingsdialog\languagefielddelegate.h"
@@ -1413,6 +1429,7 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug FREE|Win32"
+					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1424,6 +1441,7 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release FREE|Win32"
+					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
