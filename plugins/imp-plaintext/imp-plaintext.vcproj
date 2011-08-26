@@ -38,7 +38,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;.&quot;;&quot;.\..\..\temp&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot;"
+				AdditionalIncludeDirectories="&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;.&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot;"
 				PreprocessorDefinitions=",UNICODE,WIN32,QT_LARGEFILE_SUPPORT;QT_NO_DEBUG,NDEBUG;QT_CORE_LIB;IMP-PLAINTEXT_LIB;QT_GUI_LIB"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="false"
@@ -107,7 +107,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;.&quot;;&quot;.\..\..\temp&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot;"
+				AdditionalIncludeDirectories="&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;.&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot;"
 				PreprocessorDefinitions=",UNICODE,WIN32,QT_LARGEFILE_SUPPORT;QT_CORE_LIB;IMP-PLAINTEXT_LIB;QT_GUI_LIB"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
@@ -200,7 +200,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL  &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot; &quot;.\imp-plaintext.h&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;"
 					/>
@@ -211,7 +211,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL  &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot; &quot;.\imp-plaintext.h&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;"
 					/>
@@ -230,7 +230,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL  &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot; &quot;.\plaintextimportwidget.h&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;"
 					/>
@@ -241,7 +241,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DIMP-PLAINTEXT_LIB -DQT_GUI_LIB -D_WINDLL  &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\imp-plaintext&quot; &quot;.\plaintextimportwidget.h&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\moc_$(InputName).cpp&quot;"
 					/>
@@ -262,9 +262,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\..\..\temp\ui_$(InputName).h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\ui_$(InputName).h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QTDIR)\bin\uic.exe"
-						Outputs="&quot;.\..\..\temp\ui_$(InputName).h&quot;"
+						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\ui_$(InputName).h&quot;"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -273,9 +273,9 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Uic&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\..\..\temp\ui_$(InputName).h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\ui_$(InputName).h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="$(QTDIR)\bin\uic.exe"
-						Outputs="&quot;.\..\..\temp\ui_$(InputName).h&quot;"
+						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\imp-plaintext\ui_$(InputName).h&quot;"
 					/>
 				</FileConfiguration>
 			</File>
@@ -294,7 +294,7 @@
 			SourceControlFiles="false"
 			>
 			<File
-				RelativePath="..\..\temp\ui_plaintextimportwidget.h"
+				RelativePath="..\..\temp\$(ConfigurationName)\imp-plaintext\ui_plaintextimportwidget.h"
 				>
 			</File>
 			<Filter
@@ -386,11 +386,11 @@
 		/>
 		<Global
 			Name="RccDir"
-			Value=".\..\..\temp"
+			Value=".\..\..\temp\$(ConfigurationName)\imp-plaintext"
 		/>
 		<Global
 			Name="UicDir"
-			Value=".\..\..\temp"
+			Value=".\..\..\temp\$(ConfigurationName)\imp-plaintext"
 		/>
 	</Globals>
 </VisualStudioProject>
