@@ -39,14 +39,31 @@ License::License(const Settings *pSettings)
 
 const void License::RefreshLicense()
 {
-	// get RSA private key
-	QFile qfPrivateKey(":/MainWindow/res/license/encryptprivate.der");
-	qfPrivateKey.open(QIODevice::ReadOnly);
-	QByteArray qbaPrivateKey = qfPrivateKey.readAll();
+	// split license into content and signature
+	QByteArray qbaLicense = _sSettings->GetLicense();
+	qint16 qi16Size = *reinterpret_cast<const qint16 *>(qbaLicense.left(sizeof(qi16Size)).constData());
+	QByteArray qbaContent = qbaLicense.mid(sizeof(qi16Size), qi16Size);
+	QByteArray qbaSignature = qbaLicense.mid(sizeof(qi16Size) + qi16Size);
+
+	// get sign key
+	QFile qfSignKey(":/MainWindow/res/license/signpublic.der");
+	qfSignKey.open(QIODevice::ReadOnly);
+	QByteArray qbaSignKey = qfSignKey.readAll();
+
+	// verify license
+	RSA rRSA;
+	bool bVerify = rRSA.Verify(qbaSignKey, qbaContent, qbaSignature);
+	if (!bVerify) {
+		return;
+	} // if
+
+	// get decrypt key
+	QFile qfDecryptKey(":/MainWindow/res/license/encryptprivate.der");
+	qfDecryptKey.open(QIODevice::ReadOnly);
+	QByteArray qbaDecryptKey = qfDecryptKey.readAll();
 
 	// decrypt license
-	RSA rRSA;
-	QByteArray qbaDecrypted = rRSA.Decrypt(qbaPrivateKey, _sSettings->GetLicense());
+	QByteArray qbaDecrypted = rRSA.Decrypt(qbaDecryptKey, qbaContent);
 
 	QXmlStreamReader qxsrXmlReader(qbaDecrypted);
 	while (!qxsrXmlReader.atEnd()) {

@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="MainWindow">
     <file>res/mainwindow/encryptpublic.der</file>
+	<file>res/mainwindow/signprivate.der</file>
   </qresource>
 </RCC>
