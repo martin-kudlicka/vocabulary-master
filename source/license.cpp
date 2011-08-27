@@ -2,6 +2,8 @@
 
 #include <QtCore/QString>
 #include <QtCore/QXmlStreamReader>
+#include <QtCore/QFile>
+#include "../common/rsa.h"
 
 const QString ELEM_FIRSTNAME = "FirstName";
 const QString ELEM_LASTNAME = "LastName";
@@ -37,7 +39,16 @@ License::License(const Settings *pSettings)
 
 const void License::RefreshLicense()
 {
-	QXmlStreamReader qxsrXmlReader(_sSettings->GetLicense());
+	// get RSA private key
+	QFile qfPrivateKey(":/MainWindow/res/license/private.der");
+	qfPrivateKey.open(QIODevice::ReadOnly);
+	QByteArray qbaPrivateKey = qfPrivateKey.readAll();
+
+	// decrypt license
+	RSA rRSA;
+	QByteArray qbaDecrypted = rRSA.Decrypt(qbaPrivateKey, _sSettings->GetLicense());
+
+	QXmlStreamReader qxsrXmlReader(qbaDecrypted);
 	while (!qxsrXmlReader.atEnd()) {
 		QXmlStreamReader::TokenType ttType = qxsrXmlReader.readNext();
 		if (ttType != QXmlStreamReader::StartElement) {
