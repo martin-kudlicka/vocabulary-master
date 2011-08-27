@@ -1,16 +1,17 @@
 #include "../../common/rsa.h"
 
-#include <QtCore/QString>
+#include "../../3rdparty/Crypto++/source/rsa.h"
 #include "../../3rdparty/Crypto++/source/osrng.h"
 #include <string>
 
-const QByteArray RSA::Encrypt(const QString &pString) const
+const QByteArray RSA::Encrypt(const QByteArray &pPublicKey, const QByteArray &pContent) const
 {
-	CryptoPP::AutoSeededRandomPool asrpRandomPool;
-	CryptoPP::RSAES_OAEP_SHA_Encryptor roseEncryptor(_pkPrivateKey);
-	std::string sEnrypted;
+	CryptoPP::ArraySource asKey(reinterpret_cast<const byte *>(pPublicKey.constData()), pPublicKey.size(), true);
+	CryptoPP::RSAES_OAEP_SHA_Encryptor roseEncryptor(asKey);
 
-	CryptoPP::StringSource(pString.toLocal8Bit(), true, new CryptoPP::PK_EncryptorFilter(asrpRandomPool, roseEncryptor, new CryptoPP::StringSink(sEnrypted)));
+	CryptoPP::AutoSeededRandomPool asrpRandomPool;
+	std::string sEnrypted;
+	CryptoPP::ArraySource(reinterpret_cast<const byte *>(pContent.constData()), pContent.size(), true, new CryptoPP::PK_EncryptorFilter(asrpRandomPool, roseEncryptor, new CryptoPP::StringSink(sEnrypted)));
 
 	return sEnrypted.c_str();
     /*////////////////////////////////////////////////
@@ -47,13 +48,3 @@ const QByteArray RSA::Encrypt(const QString &pString) const
 
     cout << "Recovered plain text" << endl;*/
 } // Encrypt
-
-const void RSA::SetPrivateKey(const CryptoPP::RSA::PrivateKey &pKey)
-{
-    _pkPrivateKey = pKey;
-} // SetPrivateKey
-
-const void RSA::SetPublicKey(const CryptoPP::RSA::PublicKey &pKey)
-{
-    _pkPublicKey = pKey;
-} // SetPublicKey

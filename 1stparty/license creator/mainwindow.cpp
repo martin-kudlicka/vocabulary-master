@@ -2,6 +2,9 @@
 
 #include <QtGui/QFileDialog>
 #include <QtCore/QUuid>
+#include <QtCore/QBuffer>
+#include "../../common/rsa.h"
+#include <QtGui/QMessageBox>
 
 MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags)
 {
@@ -21,11 +24,30 @@ const void MainWindow::on_qpbCreate_clicked(bool checked /* false */)
 		return;
 	} // if
 
+	// buffer
+	QBuffer qbLicense;
+	qbLicense.open(QIODevice::WriteOnly);
+	_qxswXmlWriter.setDevice(&qbLicense);
+
+	// write license
+	WriteLicense();
+	qbLicense.close();
+
+	// get RSA private key
+	QFile qfPublicKey(":/MainWindow/res/mainwindow/public.der");
+	qfPublicKey.open(QIODevice::ReadOnly);
+	QByteArray qbaPublicKey = qfPublicKey.readAll();
+
+	// encrypt license
+	RSA rRSA;
+	QByteArray qbaEncrypted = rRSA.Encrypt(qbaPublicKey, qbLicense.data());
+
+	// write license to file
 	QFile qfFile(qsFile);
 	qfFile.open(QIODevice::WriteOnly);
-	_qxswXmlWriter.setDevice(&qfFile);
+	qfFile.write(qbaEncrypted);
 
-	WriteLicense();
+	QMessageBox::information(this, windowTitle(), tr("License created and encrypted."));
 } // on_qpbCreate_clicked
 
 const void MainWindow::on_qpbGenerateUid_clicked(bool checked /* false */)
