@@ -41,6 +41,16 @@ const QDate &License::GetValidTo() const
 	return _qdValidTo;
 } // GetValidTo
 
+const bool License::IsLoaded() const
+{
+	return _esStatus == StatusOk || _esStatus == StatusExpired;
+} // IsLoaded
+
+const bool License::IsOk() const
+{
+	return _esStatus == StatusOk;
+} // IsOk
+
 License::License(const Settings *pSettings)
 {
 	_sSettings = pSettings;

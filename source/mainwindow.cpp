@@ -41,14 +41,14 @@ const void MainWindow::ApplySettings(const bool &pStartup)
         setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint);
     } // if else
 #ifndef FREE
-    if (pStartup && _sSettings.GetWindowX() != Settings::DEFAULT_DIMENSION) {
+    if (_lLicense->IsOk() && pStartup && _sSettings.GetWindowX() != Settings::DEFAULT_DIMENSION) {
         setGeometry(_sSettings.GetWindowX(), _sSettings.GetWindowY(), _sSettings.GetWindowWidth(), _sSettings.GetWindowHeight());
     } // if
 #endif
     show();
 
 #ifndef FREE
-    _qstiTrayIcon.setVisible(_sSettings.GetSystemTrayIcon());
+    _qstiTrayIcon.setVisible(_lLicense->IsOk() && _sSettings.GetSystemTrayIcon());
 #endif
 
 #if !defined(FREE) && defined(Q_WS_WIN)
@@ -71,20 +71,30 @@ const void MainWindow::CreateTrayMenu()
 const void MainWindow::EnableControls()
 {
 	// menu
-    _umwMainWindow.qmVocabulary->setEnabled(_vVocabulary.IsOpen());
+#ifndef FREE
+	_umwMainWindow.qaNew->setEnabled(_lLicense->IsLoaded());
+	_umwMainWindow.qaOpen->setEnabled(_lLicense->IsLoaded());
+#endif
+    _umwMainWindow.qmVocabulary->setEnabled(
+#ifndef FREE
+		_lLicense->IsLoaded() &&
+#endif
+		_vVocabulary.IsOpen());
+#ifndef FREE
+	_umwMainWindow.qmOptions->setEnabled(_lLicense->IsLoaded());
+#endif
 
 	// tool bar
-	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimerQuestion == 0 && _vVocabulary.GetRecordCount(true) > 0);
+	_umwMainWindow.qaStart->setEnabled(
+#ifndef FREE
+		_lLicense->IsLoaded() &&
+#endif
+		_vVocabulary.IsOpen() && _iTimerQuestion == 0 && _vVocabulary.GetRecordCount(true) > 0);
 	_umwMainWindow.qaStop->setEnabled(_iTimerQuestion != 0);
 	_umwMainWindow.qaNext->setEnabled(_iTimerQuestion != 0);
 #ifndef FREE
-    _umwMainWindow.qaAnswer->setEnabled(_iTimerAnswer != 0);
+    _umwMainWindow.qaAnswer->setEnabled(_lLicense->IsOk() && _iTimerAnswer != 0);
 
-    // tray
-    _qaTrayManage->setEnabled(_vVocabulary.IsOpen());
-#endif
-
-#ifndef FREE
     // tray
     _qaTrayManage->setEnabled(_vVocabulary.IsOpen());
 #endif
@@ -239,7 +249,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     _umwMainWindow.qaMute->setChecked(_sSettings.GetMute());
 
     // learning
-	if (_sSettings.GetStartLearningOnStartup() && _vVocabulary.IsOpen()) {
+	if (_sSettings.GetStartLearningOnStartup() && _vVocabulary.IsOpen() && _lLicense->IsOk()) {
 		on_qaStart_triggered();
 	} // if
 
@@ -269,7 +279,10 @@ const void MainWindow::on_qaAnswer_triggered(bool checked /* false */)
 const void MainWindow::on_qaLicense_triggered(bool checked /* false */)
 {
     LicenseDialog ldLicenseDialog(_lLicense, &_sSettings, this);
-    ldLicenseDialog.exec();
+	if (ldLicenseDialog.exec() == QDialog::Accepted) {
+		ApplySettings(false);
+		EnableControls();
+	} // if
 } // on_qaLicense_triggered
 #endif
 
@@ -600,7 +613,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 
 #ifndef FREE
             // answer
-            _umwMainWindow.qaAnswer->setEnabled(true);
+            _umwMainWindow.qaAnswer->setEnabled(_lLicense->IsOk() && true);
 #endif
         } // if else
     } else {
