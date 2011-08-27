@@ -26,6 +26,11 @@ const QString &License::GetLastName() const
 	return _qsLastName;
 } // GetLastName
 
+const License::eStatus &License::GetStatus() const
+{
+	return _esStatus;
+} // GetStatus
+
 const QUuid &License::GetUid() const
 {
 	return _quIdentifier;
@@ -51,6 +56,11 @@ const void License::RefreshLicense()
 	QByteArray qbaContent = qbaLicense.mid(sizeof(qi16Size), qi16Size);
 	QByteArray qbaSignature = qbaLicense.mid(sizeof(qi16Size) + qi16Size);
 
+	if (qbaLicense.isEmpty()) {
+		_esStatus = StatusNone;
+		return;
+	} // if
+
 	// get sign key
 	QFile qfSignKey(":/MainWindow/res/license/signpublic.der");
 	qfSignKey.open(QIODevice::ReadOnly);
@@ -60,6 +70,7 @@ const void License::RefreshLicense()
 	RSA rRSA;
 	bool bVerify = rRSA.Verify(qbaSignKey, qbaContent, qbaSignature);
 	if (!bVerify) {
+		_esStatus = StatusInvalid;
 		return;
 	} // if
 
@@ -101,4 +112,10 @@ const void License::RefreshLicense()
 			continue;
 		} // if
 	} // while
+
+	if (QDate::currentDate() > _qdValidTo) {
+		_esStatus = StatusExpired;
+	} else {
+		_esStatus = StatusOk;
+	} // if
 } // RefreshLicense
