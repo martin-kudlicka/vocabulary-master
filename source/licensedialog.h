@@ -15,6 +15,7 @@ class LicenseDialog : public QDialog
 		LicenseDialog(License *pLicense, Settings *pSettings, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
     private:
+		bool _bRefreshed;
         License *_lLicense;
 		Settings *_sSettings;
         Ui::qdLicense _qdlLicenseDialog;
@@ -23,6 +24,7 @@ class LicenseDialog : public QDialog
 
 	private slots:
 		const void on_qpbLoad_clicked(bool checked = false);
+		const void on_qpbOk_clicked(bool checked = false);
 }; // LicenseDialog
 
 #endif // LICENSEDIALOG_H

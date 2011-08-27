@@ -43,6 +43,8 @@ LicenseDialog::LicenseDialog(License *pLicense, Settings *pSettings, QWidget *pP
     _lLicense = pLicense;
 	_sSettings = pSettings;
 
+	_bRefreshed = false;
+
     _qdlLicenseDialog.setupUi(this);
 
     FillLicenseInfo();
@@ -63,4 +65,15 @@ const void LicenseDialog::on_qpbLoad_clicked(bool checked /* false */)
 	_lLicense->RefreshLicense();
 
 	FillLicenseInfo();
+
+	_bRefreshed = true;
 } // on_qpbLoad_clicked
+
+const void LicenseDialog::on_qpbOk_clicked(bool checked /* false */)
+{
+	if (_bRefreshed) {
+		accept();
+	} else {
+		reject();
+	} // if else
+} // on_qpbOk_clicked
