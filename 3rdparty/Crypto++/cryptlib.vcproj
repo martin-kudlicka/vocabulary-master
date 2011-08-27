@@ -52,7 +52,7 @@
 				OmitFramePointers="true"
 				PreprocessorDefinitions="NDEBUG;_WINDOWS;USE_PRECOMPILED_HEADERS;WIN32"
 				StringPooling="true"
-				RuntimeLibrary="0"
+				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="pch.h"
