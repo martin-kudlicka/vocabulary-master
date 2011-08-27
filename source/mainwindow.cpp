@@ -94,6 +94,7 @@ const void MainWindow::EnableControls()
 	_umwMainWindow.qaNext->setEnabled(_iTimerQuestion != 0);
 #ifndef FREE
     _umwMainWindow.qaAnswer->setEnabled(_lLicense->IsOk() && _iTimerAnswer != 0);
+	_umwMainWindow.qaMute->setEnabled(_lLicense->IsOk() && _iTimerAnswer != 0);
 
     // tray
     _qaTrayManage->setEnabled(_vVocabulary.IsOpen());
@@ -192,10 +193,12 @@ MainWindow::~MainWindow()
 {
     _sSettings.SetVocabularyFile(_vVocabulary.GetVocabularyFile());
 #ifndef FREE
-    _sSettings.SetWindowX(geometry().x());
-    _sSettings.SetWindowY(geometry().y());
-    _sSettings.SetWindowHeight(geometry().height());
-    _sSettings.SetWindowWidth(geometry().width());
+	if (_lLicense->IsOk()) {
+		_sSettings.SetWindowX(geometry().x());
+		_sSettings.SetWindowY(geometry().y());
+		_sSettings.SetWindowHeight(geometry().height());
+		_sSettings.SetWindowWidth(geometry().width());
+	} // if
 
 	_pPlugins.Uninitialize();
     delete _lLicense;
