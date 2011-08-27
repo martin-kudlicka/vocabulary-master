@@ -1,6 +1,6 @@
 <RCC>
   <qresource prefix="MainWindow">
-    <file>res/license/private.der</file>
+    <file>res/license/encryptprivate.der</file>
     <file>res/mainwindow/toolbar/next.png</file>
     <file>res/mainwindow/toolbar/answer.png</file>
     <file>res/mainwindow/toolbar/mute.png</file>

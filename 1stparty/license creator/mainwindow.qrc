@@ -1,5 +1,5 @@
 <RCC>
   <qresource prefix="MainWindow">
-    <file>res/mainwindow/public.der</file>
+    <file>res/mainwindow/encryptpublic.der</file>
   </qresource>
 </RCC>
