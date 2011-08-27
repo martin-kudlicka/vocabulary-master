@@ -157,7 +157,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug FREE|Win32"
+			Name="DebugFREE|Win32"
 			OutputDirectory="..\output\$(ConfigurationName)"
 			IntermediateDirectory="..\temp\$(ConfigurationName)\VocabularyMaster"
 			ConfigurationType="1"
@@ -228,7 +228,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release FREE|Win32"
+			Name="ReleaseFREE|Win32"
 			OutputDirectory="..\output\$(ConfigurationName)"
 			IntermediateDirectory="..\temp\$(ConfigurationName)\VocabularyMaster"
 			ConfigurationType="1"
@@ -310,7 +310,7 @@
 				RelativePath=".\common\categoriesmodel.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -318,7 +318,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -338,7 +338,7 @@
 				RelativePath=".\settings\colordelegate.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -346,7 +346,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -358,7 +358,7 @@
 				RelativePath=".\vocabularymanagerdialog\wordsexportdialog\exppluginsmodel.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -366,7 +366,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -378,7 +378,7 @@
 				RelativePath=".\vocabularymanagerdialog\vocabularysettingsdialog\lineeditpersistentdelegate\fieldidentifiervalidator.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -386,7 +386,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -398,7 +398,7 @@
 				RelativePath=".\vocabularymanagerdialog\vocabularysettingsdialog\lineeditpersistentdelegate\fieldlineedit.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -406,7 +406,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -418,7 +418,7 @@
 				RelativePath=".\vocabularymanagerdialog\vocabularysettingsdialog\fieldsmodel.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -426,7 +426,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -442,7 +442,7 @@
 				RelativePath=".\vocabularymanagerdialog\vocabularysettingsdialog\languagefielddelegate.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -450,7 +450,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -462,7 +462,7 @@
 				RelativePath=".\license.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -470,7 +470,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -482,7 +482,7 @@
 				RelativePath=".\licensedialog.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -490,7 +490,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -502,7 +502,7 @@
 				RelativePath=".\vocabularymanagerdialog\vocabularysettingsdialog\lineeditpersistentdelegate.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -510,7 +510,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -530,7 +530,7 @@
 				RelativePath="..\common\marklineedit.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -538,7 +538,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -550,7 +550,7 @@
 				RelativePath="..\common\marklineeditpersistentdelegate.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -558,7 +558,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -570,7 +570,7 @@
 				RelativePath=".\plugins.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -578,7 +578,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -626,7 +626,7 @@
 				RelativePath=".\vocabularymanagerdialog\wordsexportdialog.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -634,7 +634,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -646,7 +646,7 @@
 				RelativePath=".\vocabularymanagerdialog\wordsexportdialog\wordsexportfieldsmodel.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -654,7 +654,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -666,7 +666,7 @@
 				RelativePath=".\vocabularymanagerdialog\wordsimportdialog.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -674,7 +674,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -686,7 +686,7 @@
 				RelativePath=".\vocabularymanagerdialog\wordsimportdialog\wordsimportfieldsmodel.cpp"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -694,7 +694,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -712,7 +712,7 @@
 				RelativePath=".\common\categoriesmodel.h"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -720,7 +720,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -740,7 +740,7 @@
 				RelativePath=".\settings\colordelegate.h"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -748,7 +748,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -760,7 +760,7 @@
 				RelativePath=".\vocabularymanagerdialog\wordsexportdialog\exppluginsmodel.h"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -768,7 +768,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -780,7 +780,7 @@
 				RelativePath=".\vocabularymanagerdialog\vocabularysettingsdialog\lineeditpersistentdelegate\fieldidentifiervalidator.h"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -788,7 +788,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -822,7 +822,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -834,7 +834,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -872,7 +872,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -884,7 +884,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -900,7 +900,7 @@
 				RelativePath=".\settingsdialog\hotkeylineedit.h"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -908,7 +908,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -920,7 +920,7 @@
 				RelativePath=".\vocabularymanagerdialog\vocabularysettingsdialog\languagefielddelegate.h"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -928,7 +928,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -940,7 +940,7 @@
 				RelativePath=".\license.h"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -948,7 +948,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -982,7 +982,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -994,7 +994,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1010,7 +1010,7 @@
 				RelativePath=".\vocabularymanagerdialog\vocabularysettingsdialog\lineeditpersistentdelegate.h"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1018,7 +1018,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1052,7 +1052,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1063,7 +1063,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1100,7 +1100,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1112,7 +1112,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1128,7 +1128,7 @@
 				RelativePath="..\common\marklineeditpersistentdelegate.h"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1136,7 +1136,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1148,7 +1148,7 @@
 				RelativePath=".\plugins.h"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1156,7 +1156,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1198,7 +1198,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1209,7 +1209,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1250,7 +1250,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1261,7 +1261,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1298,7 +1298,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1309,7 +1309,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1346,7 +1346,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1357,7 +1357,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1394,7 +1394,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1405,7 +1405,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1442,7 +1442,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1453,7 +1453,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1490,7 +1490,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1501,7 +1501,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1538,7 +1538,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1550,7 +1550,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1566,7 +1566,7 @@
 				RelativePath=".\vocabularymanagerdialog\wordsexportdialog\wordsexportfieldsmodel.h"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1574,7 +1574,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1608,7 +1608,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1620,7 +1620,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1636,7 +1636,7 @@
 				RelativePath=".\vocabularymanagerdialog\wordsimportdialog\wordsimportfieldsmodel.h"
 				>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1644,7 +1644,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1684,7 +1684,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1696,7 +1696,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1734,7 +1734,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1745,7 +1745,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1782,7 +1782,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1793,7 +1793,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1830,7 +1830,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1841,7 +1841,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1878,7 +1878,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1889,7 +1889,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1926,7 +1926,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1937,7 +1937,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1974,7 +1974,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1986,7 +1986,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2024,7 +2024,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2036,7 +2036,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2075,7 +2075,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2083,7 +2083,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2111,7 +2111,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2119,7 +2119,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2147,7 +2147,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2155,7 +2155,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2183,7 +2183,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2191,7 +2191,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2225,7 +2225,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -2236,7 +2236,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -2267,7 +2267,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2275,7 +2275,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2303,7 +2303,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2311,7 +2311,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2339,7 +2339,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2347,7 +2347,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2375,7 +2375,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2383,7 +2383,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2411,7 +2411,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2419,7 +2419,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2447,7 +2447,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2455,7 +2455,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2483,7 +2483,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2491,7 +2491,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2519,7 +2519,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2527,7 +2527,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2562,7 +2562,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug FREE|Win32"
+					Name="DebugFREE|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2570,7 +2570,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release FREE|Win32"
+					Name="ReleaseFREE|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2627,7 +2627,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2635,7 +2635,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2655,7 +2655,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2663,7 +2663,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2683,7 +2683,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2691,7 +2691,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2711,7 +2711,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2719,7 +2719,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2739,7 +2739,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2747,7 +2747,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2767,7 +2767,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2775,7 +2775,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2795,7 +2795,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2803,7 +2803,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2823,7 +2823,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2831,7 +2831,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2851,7 +2851,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2859,7 +2859,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2879,7 +2879,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2887,7 +2887,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2907,7 +2907,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2915,7 +2915,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2935,7 +2935,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2943,7 +2943,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2963,7 +2963,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2971,7 +2971,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2991,7 +2991,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2999,7 +2999,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3025,7 +3025,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3033,7 +3033,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3053,7 +3053,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3061,7 +3061,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3081,7 +3081,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3089,7 +3089,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3109,7 +3109,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3117,7 +3117,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3137,7 +3137,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3145,7 +3145,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3165,7 +3165,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3173,7 +3173,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3193,7 +3193,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3201,7 +3201,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3221,7 +3221,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3229,7 +3229,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3249,7 +3249,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3257,7 +3257,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3277,7 +3277,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3285,7 +3285,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3305,7 +3305,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3313,7 +3313,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3333,7 +3333,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3341,7 +3341,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3361,7 +3361,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3369,7 +3369,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3389,7 +3389,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3397,453 +3397,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-			</Filter>
-			<Filter
-				Name="Debug FREE"
-				Filter="cpp;moc"
-				SourceControlFiles="false"
-				>
-				<File
-					RelativePath="..\temp\Debug FREE\VocabularyMaster\moc_fieldlineedit.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\temp\Debug FREE\VocabularyMaster\moc_fieldsmodel.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\temp\Debug FREE\VocabularyMaster\moc_licensedialog.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\temp\Debug FREE\VocabularyMaster\moc_mainwindow.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\temp\Debug FREE\VocabularyMaster\moc_marklineedit.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\temp\Debug FREE\VocabularyMaster\moc_settingsdialog.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\temp\Debug FREE\VocabularyMaster\moc_vocabularydatabase.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\temp\Debug FREE\VocabularyMaster\moc_vocabularymanagerdialog.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\temp\Debug FREE\VocabularyMaster\moc_vocabularymodel.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\temp\Debug FREE\VocabularyMaster\moc_vocabularyopenprogressdialog.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\temp\Debug FREE\VocabularyMaster\moc_vocabularysettingsdialog.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\temp\Debug FREE\VocabularyMaster\moc_vocabularytabwidget.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\temp\Debug FREE\VocabularyMaster\moc_wordsexportdialog.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\temp\Debug FREE\VocabularyMaster\moc_wordsimportdialog.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug FREE|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3853,12 +3407,12 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Release FREE"
+				Name="DebugFREE"
 				Filter="cpp;moc"
 				SourceControlFiles="false"
 				>
 				<File
-					RelativePath="..\temp\Release FREE\VocabularyMaster\moc_fieldlineedit.cpp"
+					RelativePath="..\temp\DebugFREE\VocabularyMaster\moc_fieldlineedit.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -3877,7 +3431,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3885,7 +3439,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3894,7 +3448,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\temp\Release FREE\VocabularyMaster\moc_fieldsmodel.cpp"
+					RelativePath="..\temp\DebugFREE\VocabularyMaster\moc_fieldsmodel.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -3913,7 +3467,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3921,7 +3475,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3930,7 +3484,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\temp\Release FREE\VocabularyMaster\moc_licensedialog.cpp"
+					RelativePath="..\temp\DebugFREE\VocabularyMaster\moc_licensedialog.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -3949,7 +3503,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3957,7 +3511,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3966,7 +3520,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\temp\Release FREE\VocabularyMaster\moc_mainwindow.cpp"
+					RelativePath="..\temp\DebugFREE\VocabularyMaster\moc_mainwindow.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -3985,7 +3539,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3994,7 +3548,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\temp\Release FREE\VocabularyMaster\moc_marklineedit.cpp"
+					RelativePath="..\temp\DebugFREE\VocabularyMaster\moc_marklineedit.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -4013,7 +3567,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4021,7 +3575,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4030,7 +3584,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\temp\Release FREE\VocabularyMaster\moc_settingsdialog.cpp"
+					RelativePath="..\temp\DebugFREE\VocabularyMaster\moc_settingsdialog.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -4049,7 +3603,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4058,7 +3612,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\temp\Release FREE\VocabularyMaster\moc_vocabularydatabase.cpp"
+					RelativePath="..\temp\DebugFREE\VocabularyMaster\moc_vocabularydatabase.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -4077,7 +3631,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4086,7 +3640,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\temp\Release FREE\VocabularyMaster\moc_vocabularymanagerdialog.cpp"
+					RelativePath="..\temp\DebugFREE\VocabularyMaster\moc_vocabularymanagerdialog.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -4105,7 +3659,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4114,7 +3668,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\temp\Release FREE\VocabularyMaster\moc_vocabularymodel.cpp"
+					RelativePath="..\temp\DebugFREE\VocabularyMaster\moc_vocabularymodel.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -4133,7 +3687,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4142,7 +3696,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\temp\Release FREE\VocabularyMaster\moc_vocabularyopenprogressdialog.cpp"
+					RelativePath="..\temp\DebugFREE\VocabularyMaster\moc_vocabularyopenprogressdialog.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -4161,7 +3715,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4170,7 +3724,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\temp\Release FREE\VocabularyMaster\moc_vocabularysettingsdialog.cpp"
+					RelativePath="..\temp\DebugFREE\VocabularyMaster\moc_vocabularysettingsdialog.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -4189,7 +3743,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4198,7 +3752,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\temp\Release FREE\VocabularyMaster\moc_vocabularytabwidget.cpp"
+					RelativePath="..\temp\DebugFREE\VocabularyMaster\moc_vocabularytabwidget.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -4217,7 +3771,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4226,7 +3780,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\temp\Release FREE\VocabularyMaster\moc_wordsexportdialog.cpp"
+					RelativePath="..\temp\DebugFREE\VocabularyMaster\moc_wordsexportdialog.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -4245,7 +3799,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4253,7 +3807,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4262,7 +3816,7 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\temp\Release FREE\VocabularyMaster\moc_wordsimportdialog.cpp"
+					RelativePath="..\temp\DebugFREE\VocabularyMaster\moc_wordsimportdialog.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
@@ -4281,7 +3835,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Debug FREE|Win32"
+						Name="DebugFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4289,7 +3843,453 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="Release FREE|Win32"
+						Name="ReleaseFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+			</Filter>
+			<Filter
+				Name="ReleaseFREE"
+				Filter="cpp;moc"
+				SourceControlFiles="false"
+				>
+				<File
+					RelativePath="..\temp\ReleaseFREE\VocabularyMaster\moc_fieldlineedit.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\temp\ReleaseFREE\VocabularyMaster\moc_fieldsmodel.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\temp\ReleaseFREE\VocabularyMaster\moc_licensedialog.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\temp\ReleaseFREE\VocabularyMaster\moc_mainwindow.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\temp\ReleaseFREE\VocabularyMaster\moc_marklineedit.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\temp\ReleaseFREE\VocabularyMaster\moc_settingsdialog.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\temp\ReleaseFREE\VocabularyMaster\moc_vocabularydatabase.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\temp\ReleaseFREE\VocabularyMaster\moc_vocabularymanagerdialog.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\temp\ReleaseFREE\VocabularyMaster\moc_vocabularymodel.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\temp\ReleaseFREE\VocabularyMaster\moc_vocabularyopenprogressdialog.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\temp\ReleaseFREE\VocabularyMaster\moc_vocabularysettingsdialog.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\temp\ReleaseFREE\VocabularyMaster\moc_vocabularytabwidget.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\temp\ReleaseFREE\VocabularyMaster\moc_wordsexportdialog.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\temp\ReleaseFREE\VocabularyMaster\moc_wordsimportdialog.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugFREE|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseFREE|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
