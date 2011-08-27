@@ -88,4 +88,5 @@ const void MainWindow::WriteLicensePersonal()
 {
 	_qxswXmlWriter.writeTextElement("FirstName", _umwMainWindow.qleFirstName->text());
 	_qxswXmlWriter.writeTextElement("LastName", _umwMainWindow.qleLastName->text());
+	_qxswXmlWriter.writeTextElement("Email", _umwMainWindow.qleEmail->text());
 } // WriteLicensePersonal

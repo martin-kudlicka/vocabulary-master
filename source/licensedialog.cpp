@@ -6,6 +6,7 @@ const void LicenseDialog::FillLicenseInfo() const
 {
     _qdlLicenseDialog.qlFirstName->setText(_lLicense->GetFirstName());
 	_qdlLicenseDialog.qlLastName->setText(_lLicense->GetLastName());
+	_qdlLicenseDialog.qlEmail->setText(_lLicense->GetEmail());
 	_qdlLicenseDialog.qlValidTo->setText(_lLicense->GetValidTo().toString(Qt::DefaultLocaleLongDate));
 } // FillLicenseInfo
 

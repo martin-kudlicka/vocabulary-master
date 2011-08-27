@@ -10,15 +10,17 @@ class License
     public:
         License(const Settings *pSettings);
 
-		const QDate &GetValidTo() const;
+		const QString &GetEmail() const;
         const QString &GetFirstName() const;
 		const QString &GetLastName() const;
 		const QUuid &GetUid() const;
+		const QDate &GetValidTo() const;
 		const void RefreshLicense();
 
     private:
 		QDate _qdValidTo;
 		const Settings *_sSettings;
+		QString _qsEmail;
 		QString _qsFirstName;
 		QString _qsLastName;
 		QUuid _quIdentifier;

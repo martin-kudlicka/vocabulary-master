@@ -5,15 +5,16 @@
 #include <QtCore/QFile>
 #include "../common/rsa.h"
 
+const QString ELEM_EMAIL = "Email";
 const QString ELEM_FIRSTNAME = "FirstName";
 const QString ELEM_LASTNAME = "LastName";
 const QString ELEM_UID = "UId";
 const QString ELEM_VALIDTO = "ValidTo";
 
-const QDate &License::GetValidTo() const
+const QString &License::GetEmail() const
 {
-	return _qdValidTo;
-} // GetValidTo
+	return _qsEmail;
+} // GetEmail
 
 const QString &License::GetFirstName() const
 {
@@ -29,6 +30,11 @@ const QUuid &License::GetUid() const
 {
 	return _quIdentifier;
 } // GetUid
+
+const QDate &License::GetValidTo() const
+{
+	return _qdValidTo;
+} // GetValidTo
 
 License::License(const Settings *pSettings)
 {
@@ -88,6 +94,10 @@ const void License::RefreshLicense()
 		} // if
 		if (qxsrXmlReader.name() == ELEM_LASTNAME) {
 			_qsLastName = qxsrXmlReader.readElementText();
+			continue;
+		} // if
+		if (qxsrXmlReader.name() == ELEM_EMAIL) {
+			_qsEmail = qxsrXmlReader.readElementText();
 			continue;
 		} // if
 	} // while
