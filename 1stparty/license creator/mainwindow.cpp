@@ -33,21 +33,33 @@ const void MainWindow::on_qpbCreate_clicked(bool checked /* false */)
 	WriteLicense();
 	qbLicense.close();
 
-	// get RSA public key
-	QFile qfPublicKey(":/MainWindow/res/mainwindow/encryptpublic.der");
-	qfPublicKey.open(QIODevice::ReadOnly);
-	QByteArray qbaPublicKey = qfPublicKey.readAll();
+	// get encrypt key
+	QFile qfEncryptKey(":/MainWindow/res/mainwindow/encryptpublic.der");
+	qfEncryptKey.open(QIODevice::ReadOnly);
+	QByteArray qbaEncryptKey = qfEncryptKey.readAll();
 
 	// encrypt license
 	RSA rRSA;
-	QByteArray qbaEncrypted = rRSA.Encrypt(qbaPublicKey, qbLicense.data());
+	QByteArray qbaEncrypted = rRSA.Encrypt(qbaEncryptKey, qbLicense.data());
+
+	// get sign key
+	QFile qfSignKey(":/MainWindow/res/mainwindow/signprivate.der");
+	qfSignKey.open(QIODevice::ReadOnly);
+	QByteArray qbaSignKey = qfSignKey.readAll();
+
+	// sign encrypted license
+	QByteArray qbaSigned = rRSA.Sign(qbaSignKey, qbaEncrypted);
+
+	// get size of encrypted data
+	qint16 qi16Size = qbaEncrypted.size();
+	QByteArray qbaEncryptedSize(reinterpret_cast<const char *>(&qi16Size), sizeof(qi16Size));
 
 	// write license to file
 	QFile qfFile(qsFile);
 	qfFile.open(QIODevice::WriteOnly);
-	qfFile.write(qbaEncrypted);
+	qfFile.write(qbaEncryptedSize + qbaEncrypted + qbaSigned);
 
-	QMessageBox::information(this, windowTitle(), tr("License created and encrypted."));
+	QMessageBox::information(this, windowTitle(), tr("License created, encrypted and signed."));
 } // on_qpbCreate_clicked
 
 const void MainWindow::on_qpbGenerateUid_clicked(bool checked /* false */)
