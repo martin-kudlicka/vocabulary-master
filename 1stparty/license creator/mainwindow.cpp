@@ -33,8 +33,8 @@ const void MainWindow::on_qpbCreate_clicked(bool checked /* false */)
 	WriteLicense();
 	qbLicense.close();
 
-	// get RSA private key
-	QFile qfPublicKey(":/MainWindow/res/mainwindow/public.der");
+	// get RSA public key
+	QFile qfPublicKey(":/MainWindow/res/mainwindow/encryptpublic.der");
 	qfPublicKey.open(QIODevice::ReadOnly);
 	QByteArray qbaPublicKey = qfPublicKey.readAll();
 

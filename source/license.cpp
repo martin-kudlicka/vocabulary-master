@@ -40,7 +40,7 @@ License::License(const Settings *pSettings)
 const void License::RefreshLicense()
 {
 	// get RSA private key
-	QFile qfPrivateKey(":/MainWindow/res/license/private.der");
+	QFile qfPrivateKey(":/MainWindow/res/license/encryptprivate.der");
 	qfPrivateKey.open(QIODevice::ReadOnly);
 	QByteArray qbaPrivateKey = qfPrivateKey.readAll();
 
