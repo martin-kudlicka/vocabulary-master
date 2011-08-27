@@ -12,6 +12,7 @@ class
 	RSA
 {
     public:
+		const QByteArray Decrypt(const QByteArray &pPrivateKey, const QByteArray &pContent) const;
         const QByteArray Encrypt(const QByteArray &pPublicKey, const QByteArray &pContent) const;
 }; // RSA
 
