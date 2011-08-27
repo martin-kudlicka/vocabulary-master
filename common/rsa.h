@@ -2,7 +2,6 @@
 #define RSA_H
 
 #include <QtCore/QByteArray>
-#include "../../3rdparty/Crypto++/source/rsa.h"
 
 class
 # ifdef RSA_LIB
@@ -13,13 +12,7 @@ class
 	RSA
 {
     public:
-        const QByteArray Encrypt(const QString &pString) const;
-        const void SetPrivateKey(const CryptoPP::RSA::PrivateKey &pKey);
-        const void SetPublicKey(const CryptoPP::RSA::PublicKey &pKey);
-
-    private:
-        CryptoPP::RSA::PrivateKey _pkPrivateKey;
-        CryptoPP::RSA::PublicKey _pkPublicKey;
+        const QByteArray Encrypt(const QByteArray &pPublicKey, const QByteArray &pContent) const;
 }; // RSA
 
 #endif // RSA_H
