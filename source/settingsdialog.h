@@ -5,6 +5,9 @@
 #include <ui_settingsdialog.h>
 
 #include "settings.h"
+#ifndef FREE
+# include "settingsdialog/pluginsmodel.h"
+#endif
 
 const QString LANG_SUFFIX = "qm";
 
@@ -17,7 +20,11 @@ class SettingsDialog : public QDialog
 		static const quint32 VIRTUALKEY_NONE = 0;
 #endif
 
-		SettingsDialog(Settings *pSettings, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+		SettingsDialog(
+#ifndef FREE
+            const Plugins *pPlugins,
+#endif
+            Settings *pSettings, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 	private:
 #if defined(FREE) || !defined(Q_WS_WIN)
@@ -25,10 +32,17 @@ class SettingsDialog : public QDialog
 			TabGeneral,
 			TabLearning,
 			TabAppearance,
-            TabHotkey
+            TabHotkey,
+            TabPlugins
 		}; // eTab
 #endif
 
+#ifndef FREE
+        const Plugins *_pPlugins;
+        PluginsModel _pmExpPlugins;
+        PluginsModel _pmImpPlugins;
+        PluginsModel _pmTTSPlugins;
+#endif
 		Settings *_sSettings;
 		Ui::qdUiSettings _usdSettingsDialog;
 
@@ -46,6 +60,7 @@ class SettingsDialog : public QDialog
         const void FillTranslation();
 #ifndef FREE
 		const void PrepareColorFlash();
+        const void PreparePlugins(QTreeView *pTreeView, PluginsModel *pModel) const;
 #endif
         const void PrepareTranslations();
 #if !defined(FREE) && defined(Q_WS_WIN)
@@ -62,6 +77,7 @@ class SettingsDialog : public QDialog
 		const void on_qpbHotkeyNextClear_clicked(bool checked = false);
 		const void on_qpbHotkeyRestoreClear_clicked(bool checked = false);
 # endif
+        const void on_qpbShowLicense_clicked(bool checked = false);
 		const void on_qsbWordsFrequency_valueChanged(int i);
 #endif
 }; // MainWindow

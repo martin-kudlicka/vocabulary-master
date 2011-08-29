@@ -352,7 +352,11 @@ const void MainWindow::on_qaOpen_triggered(bool checked /* false */)
 
 const void MainWindow::on_qaSettings_triggered(bool checked /* false */)
 {
-	SettingsDialog sdDialog(&_sSettings, this);
+	SettingsDialog sdDialog(
+#ifndef FREE
+        &_pPlugins,
+#endif
+        &_sSettings, this);
     if (sdDialog.exec() == QDialog::Accepted) {
         ApplySettings(false);
     } // if
