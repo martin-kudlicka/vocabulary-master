@@ -55,7 +55,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib rsa.lib"
+				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib cryptlib.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="$(QTDIR)\lib;..\..\output\$(ConfigurationName)"
 				GenerateDebugInformation="false"
@@ -124,7 +124,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib rsa.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib cryptlib.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="$(QTDIR)\lib;..\..\output\$(ConfigurationName)"
 				GenerateDebugInformation="true"

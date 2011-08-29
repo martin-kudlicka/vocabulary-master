@@ -3,7 +3,8 @@
 #include <QtGui/QFileDialog>
 #include <QtCore/QUuid>
 #include <QtCore/QBuffer>
-#include "../../common/rsa.h"
+#include "../../3rdparty/Crypto++/source/rsa.h"
+#include "../../3rdparty/Crypto++/source/osrng.h"
 #include <QtGui/QMessageBox>
 
 MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags)
@@ -39,8 +40,12 @@ const void MainWindow::on_qpbCreate_clicked(bool checked /* false */)
 	QByteArray qbaEncryptKey = qfEncryptKey.readAll();
 
 	// encrypt license
-	RSA rRSA;
-	QByteArray qbaEncrypted = rRSA.Encrypt(qbaEncryptKey, qbLicense.data());
+    CryptoPP::ArraySource asEncryptKey(reinterpret_cast<const byte *>(qbaEncryptKey.constData()), qbaEncryptKey.size(), true);
+    CryptoPP::RSAES_OAEP_SHA_Encryptor roseEncryptor(asEncryptKey);
+    CryptoPP::AutoSeededRandomPool asrpRandomPool;
+    std::string sEncrypted;
+    CryptoPP::ArraySource asEncrypt(reinterpret_cast<const byte *>(qbLicense.data().constData()), qbLicense.size(), true, new CryptoPP::PK_EncryptorFilter(asrpRandomPool, roseEncryptor, new CryptoPP::StringSink(sEncrypted)));
+    QByteArray qbaEncrypted = QByteArray(sEncrypted.c_str(), sEncrypted.size());
 
 	// get sign key
 	QFile qfSignKey(":/MainWindow/res/mainwindow/signprivate.der");
@@ -48,7 +53,11 @@ const void MainWindow::on_qpbCreate_clicked(bool checked /* false */)
 	QByteArray qbaSignKey = qfSignKey.readAll();
 
 	// sign encrypted license
-	QByteArray qbaSigned = rRSA.Sign(qbaSignKey, qbaEncrypted);
+    CryptoPP::ArraySource asSignKey(reinterpret_cast<const byte *>(qbaSignKey.constData()), qbaSignKey.size(), true);
+    CryptoPP::RSASS<CryptoPP::PKCS1v15, CryptoPP::SHA>::Signer sSigner(asSignKey);
+    std::string sSigned;
+    CryptoPP::ArraySource asSign(reinterpret_cast<const byte *>(qbaEncrypted.constData()), qbaEncrypted.size(), true, new CryptoPP::SignerFilter(asrpRandomPool, sSigner, new CryptoPP::StringSink(sSigned)));
+    QByteArray qbaSigned = QByteArray(sSigned.c_str(), sSigned.size());
 
 	// get size of encrypted data
 	qint16 qi16Size = qbaEncrypted.size();
