@@ -13,8 +13,6 @@ class
 {
     public:
 		const QByteArray Decrypt(const QByteArray &pPrivateKey, const QByteArray &pContent) const;
-        const QByteArray Encrypt(const QByteArray &pPublicKey, const QByteArray &pContent) const;
-		const QByteArray Sign(const QByteArray &pPrivateKey, const QByteArray &pContent) const;
 		const bool Verify(const QByteArray &pPublicKey, const QByteArray &pContent, const QByteArray &pSignature) const;
 }; // RSA
 
