@@ -5,6 +5,11 @@
 #include <sapi.h>
 #include <sphelper.h>
 
+const QString TTSSAPI::GetLicenseText() const
+{
+    return QString();
+} // GetLicenseText
+
 const TTSInterface::eTTSPlugin TTSSAPI::GetPluginId() const
 {
     return TTSInterface::TTSPluginSAPI;

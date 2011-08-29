@@ -27,6 +27,7 @@ class TTSInterface
 
         typedef QList<sVoiceInfo> tVoiceInfoList;
 
+        virtual const QString GetLicenseText() const = 0;
 		virtual const eTTSPlugin GetPluginId() const = 0;
 		virtual const QString GetPluginName() const = 0;
         virtual const tVoiceInfoList GetVoicesInfo() const = 0;
