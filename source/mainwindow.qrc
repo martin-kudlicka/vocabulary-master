@@ -1,16 +1,16 @@
 <RCC>
-    <qresource prefix="/MainWindow">
-        <file>res/mainwindow/toolbar/next.png</file>
-        <file>res/mainwindow/toolbar/answer.png</file>
-        <file>res/mainwindow/toolbar/mute.png</file>
-        <file>res/mainwindow/toolbar/stop.png</file>
-        <file>res/mainwindow/toolbar/play.png</file>
-        <file>res/mainwindow/menubar/about.png</file>
-        <file>res/mainwindow/menubar/manage.png</file>
-        <file>res/mainwindow/menubar/open.png</file>
-        <file>res/mainwindow/menubar/new.png</file>
-        <file>res/mainwindow/menubar/settings.png</file>
-        <file>res/mainwindow/menubar/exit.png</file>
-        <file>res/mainwindow/mainwindow.png</file>
-    </qresource>
+  <qresource prefix="/">
+    <file>res/mainwindow/toolbar/next.png</file>
+    <file>res/mainwindow/toolbar/answer.png</file>
+    <file>res/mainwindow/toolbar/mute.png</file>
+    <file>res/mainwindow/toolbar/stop.png</file>
+    <file>res/mainwindow/toolbar/play.png</file>
+    <file>res/mainwindow/menubar/about.png</file>
+    <file>res/mainwindow/menubar/manage.png</file>
+    <file>res/mainwindow/menubar/open.png</file>
+    <file>res/mainwindow/menubar/new.png</file>
+    <file>res/mainwindow/menubar/settings.png</file>
+    <file>res/mainwindow/menubar/exit.png</file>
+    <file>res/mainwindow/mainwindow.png</file>
+  </qresource>
 </RCC>
