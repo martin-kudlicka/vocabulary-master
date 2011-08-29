@@ -83,6 +83,11 @@ const void SettingsDialog::FillOptions()
 	FillHotkey(_usdSettingsDialog.qleHotkeyMinimize, Settings::HotkeyMinimize);
 	FillHotkey(_usdSettingsDialog.qleHotkeyRestore, Settings::HotkeyRestore);
 # endif
+
+    // plugins
+    PreparePlugins(_usdSettingsDialog.qtvPluginsImp, &_pmImpPlugins);
+    PreparePlugins(_usdSettingsDialog.qtvPluginsExp, &_pmExpPlugins);
+    PreparePlugins(_usdSettingsDialog.qtvPluginsTTS, &_pmTTSPlugins);
 #endif
 } // FillOptions
 
@@ -123,6 +128,36 @@ const void SettingsDialog::on_qpbHotkeyRestoreClear_clicked(bool checked /* fals
 {
 	ClearHotkey(_usdSettingsDialog.qleHotkeyRestore);
 } // on_qpbHotkeyRestoreClear_clicked
+
+const void SettingsDialog::on_qpbShowLicense_clicked(bool checked /* false */)
+{
+    const QPushButton *qpbButton = qobject_cast<const QPushButton *>(sender());
+    const QTreeView *qtvTreeView = qobject_cast<const QTreeView *>(qpbButton->parent()->parent());
+
+    // find plugin
+    int iRow;
+    const PluginsModel *pmModel = qobject_cast<const PluginsModel *>(qtvTreeView->model());
+    for (iRow = 0; iRow < pmModel->rowCount(); iRow++) {
+        QModelIndex qmiIndex = pmModel->index(iRow, PluginsModel::ColumnLicense);
+        if (qtvTreeView->indexWidget(qmiIndex) == qpbButton) {
+            break;
+        } // if
+    } // for
+
+    // license
+    QString qsLicense;
+    if (qtvTreeView == _usdSettingsDialog.qtvPluginsTTS) {
+        const Plugins::sTTSPlugin stpPlugin = _pPlugins->GetTTSPlugins().at(iRow);
+        qsLicense = stpPlugin.tiInterface->GetLicenseText();
+    } // if
+
+    // name
+    QModelIndex qmiIndex = pmModel->index(iRow, PluginsModel::ColumnName);
+    QString qsTitle = pmModel->data(qmiIndex).toString();
+
+    // show license
+    // TODO
+} // on_qpbShowLicense_clicked
 # endif
 
 const void SettingsDialog::on_qsbWordsFrequency_valueChanged(int i)
@@ -136,6 +171,21 @@ const void SettingsDialog::PrepareColorFlash()
 		_usdSettingsDialog.qcbColorFlash->addItem(QString(), qsColor);
 	} // foreach
 } // PrepareColorFlash
+
+const void SettingsDialog::PreparePlugins(QTreeView *pTreeView, PluginsModel *pModel) const
+{
+    pTreeView->setModel(pModel);
+    for (int iRow = 0; iRow < pModel->rowCount(); iRow++) {
+        QModelIndex qmiIndex = pModel->index(iRow, PluginsModel::ColumnLicense);
+
+        QPushButton *qpbShow = new QPushButton(tr("Show"), pTreeView);
+        pTreeView->setIndexWidget(qmiIndex, qpbShow);
+
+        connect(qpbShow, SIGNAL(clicked(bool)), SLOT(on_qpbShowLicense_clicked(bool)));
+    } // for
+    pTreeView->header()->setResizeMode(PluginsModel::ColumnName, QHeaderView::Stretch);
+    pTreeView->header()->setResizeMode(PluginsModel::ColumnLicense, QHeaderView::ResizeToContents);
+} // PreparePlugins
 #endif
 
 const void SettingsDialog::PrepareTranslations()
@@ -209,8 +259,18 @@ const void SettingsDialog::SaveOptions()
 #endif
 } // SaveOptions
 
-SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
+SettingsDialog::SettingsDialog(
+#ifndef FREE
+    const Plugins *pPlugins,
+#endif
+    Settings *pSettings, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
+#ifndef FREE
+    , _pmExpPlugins(pPlugins, PluginsModel::PluginTypeExp), _pmImpPlugins(pPlugins, PluginsModel::PluginTypeImp), _pmTTSPlugins(pPlugins, PluginsModel::PluginTypeTTS)
+#endif
 {
+#ifndef FREE
+    _pPlugins = pPlugins;
+#endif
 	_sSettings = pSettings;
 
 	_usdSettingsDialog.setupUi(this);
@@ -232,6 +292,9 @@ SettingsDialog::SettingsDialog(Settings *pSettings, QWidget *pParent /* NULL */,
     // appearance
     _usdSettingsDialog.qtwTabs->removeTab(TabHotkey);
     _usdSettingsDialog.qtwTabs->removeTab(TabAppearance);
+
+    // plugins
+    _usdSettingsDialog.qtwTabs->removeTab(TabPlugins);
 #elif !defined(Q_WS_WIN)
     _usdSettingsDialog.qtwTabs->removeTab(TabHotkey);
 #else

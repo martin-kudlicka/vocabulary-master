@@ -5,7 +5,7 @@
 void WordsExportDialog::accept()
 {
     QModelIndex qmiIndex = _qdweWordsExport.qtvExpPlugins->currentIndex();
-    ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row());
+    ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row()).eiInterface;
     if (eiPlugin->BeginExport()) {
         QDialog::accept();
     } // if
@@ -80,7 +80,7 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
 		_qhExpPluginPage.insert(qmiIndex.row(), iPage);
 
 		// setup page
-		ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row());
+		ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row()).eiInterface;
 		eiPlugin->SetupUI(qwExpPlugin);
 
         // connections

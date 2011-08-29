@@ -9,9 +9,25 @@
 class Plugins
 {
 	public:
-		typedef QList<ExpInterface *> tExpPluginList;
-		typedef QList<ImpInterface *> tImpPluginList;
-		typedef QList<TTSInterface *> tTTSPluginList;
+        struct sPluginInfo {
+            QString qsLibraryName;
+        }; // sPluginInfo
+        struct sExpPlugin {
+            sPluginInfo spiInfo;
+            ExpInterface *eiInterface;
+        }; // sExpPlugin
+        struct sImpPlugin {
+            sPluginInfo spiInfo;
+            ImpInterface *iiInterface;
+        }; // sImpPlugin
+        struct sTTSPlugin {
+            sPluginInfo spiInfo;
+            TTSInterface *tiInterface;
+        }; // sTTSPlugin
+
+		typedef QList<sExpPlugin> tExpPluginList;
+		typedef QList<sImpPlugin> tImpPluginList;
+		typedef QList<sTTSPlugin> tTTSPluginList;
 
 		TTSInterface *GetTTSPlugin(const TTSInterface::eTTSPlugin &pPluginId) const;
 		const tExpPluginList &GetExpPlugins() const;
@@ -22,7 +38,7 @@ class Plugins
 		const void Uninitialize();
 
 	private:
-		QHash<TTSInterface::eTTSPlugin, TTSInterface *> _qhTTSPlugins;
+		QHash<TTSInterface::eTTSPlugin, sTTSPlugin> _qhTTSPlugins;
 		tExpPluginList _teplExpPlugins;
 		tImpPluginList _tiplImpPlugins;
 }; // Plugins
