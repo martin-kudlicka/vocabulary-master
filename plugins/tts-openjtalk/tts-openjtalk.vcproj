@@ -172,6 +172,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\..\common\licensecommon.h"
+				>
+			</File>
+			<File
 				RelativePath="..\common\tts-interface.h"
 				>
 			</File>

@@ -3,6 +3,7 @@
 
 #include <QtCore/QString>
 #include <QtPlugin>
+#include "../../common/licensecommon.h"
 
 static const char *TTS_INTERFACE = "TTS Interface 1.0";
 #ifndef _DEBUG
@@ -27,7 +28,7 @@ class TTSInterface
 
         typedef QList<sVoiceInfo> tVoiceInfoList;
 
-        virtual const QString GetLicenseText() const = 0;
+        virtual const LicenseCommon::tLicenseContentList GetLicenseText() const = 0;
 		virtual const eTTSPlugin GetPluginId() const = 0;
 		virtual const QString GetPluginName() const = 0;
         virtual const tVoiceInfoList GetVoicesInfo() const = 0;
