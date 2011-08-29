@@ -574,10 +574,12 @@ const void VocabularyDatabase::SetCategoryEnabled(const int &pCategoryId, const 
 const void VocabularyDatabase::SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData) const
 {
     QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DATA + " WHERE " + COLUMN_RECORDID + " = " + QString::number(pRecordId) + " AND " + COLUMN_FIELDID + " = " + QString::number(pFieldId));
-    qsqQuery.next();
-    int iDataId = qsqQuery.value(ColumnPosition1).toInt();
-
-    _qsdDatabase.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_TEXT + " = '" + pData + "' WHERE " + COLUMN_ID + " = " + QString::number(iDataId));
+    if (qsqQuery.next()) {
+        int iDataId = qsqQuery.value(ColumnPosition1).toInt();
+        _qsdDatabase.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_TEXT + " = '" + pData + "' WHERE " + COLUMN_ID + " = " + QString::number(iDataId));
+    } else {
+        qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(pFieldId) + "', '" + QString::number(pRecordId) + "', '" + pData + "')");
+    } // if else
 } // SetDataText
 
 #ifndef FREE
