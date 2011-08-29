@@ -4,6 +4,9 @@
 # include "settings/colordelegate.h"
 #endif
 #include <QtCore/QDir>
+#ifndef FREE
+# include "common/licensetextdialog.h"
+#endif
 
 void SettingsDialog::accept()
 {
@@ -151,12 +154,13 @@ const void SettingsDialog::on_qpbShowLicense_clicked(bool checked /* false */)
         qsLicense = stpPlugin.tiInterface->GetLicenseText();
     } // if
 
-    // name
+    /*// name
     QModelIndex qmiIndex = pmModel->index(iRow, PluginsModel::ColumnName);
-    QString qsTitle = pmModel->data(qmiIndex).toString();
+    QString qsTitle = pmModel->data(qmiIndex).toString();*/
 
     // show license
-    // TODO
+    LicenseTextDialog ltdLicense(qsLicense, this);
+    ltdLicense.exec();
 } // on_qpbShowLicense_clicked
 # endif
 
@@ -297,6 +301,7 @@ SettingsDialog::SettingsDialog(
     _usdSettingsDialog.qtwTabs->removeTab(TabPlugins);
 #elif !defined(Q_WS_WIN)
     _usdSettingsDialog.qtwTabs->removeTab(TabHotkey);
+    _usdSettingsDialog.qtwTabs->removeTab(TabPlugins);
 #else
 	_usdSettingsDialog.qcbColorFlash->setItemDelegate(new ColorDelegate(_usdSettingsDialog.qcbColorFlash));
 
