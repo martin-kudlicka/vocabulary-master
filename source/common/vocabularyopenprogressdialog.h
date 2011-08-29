@@ -1,5 +1,5 @@
-#ifndef VOCABULARYOPENPROGRESSWIDGET_H
-#define VOCABULARYOPENPROGRESSWIDGET_H
+#ifndef VOCABULARYOPENPROGRESSDIALOG_H
+#define VOCABULARYOPENPROGRESSDIALOG_H
 
 #include <ui_vocabularyopenprogressdialog.h>
 
@@ -22,4 +22,4 @@ class VocabularyOpenProgressDialog : public QDialog
 		const void on_vVocabulary_SetVocabularyName(const QString &pName) const;
 }; // VocabularyOpenProgressDialog
 
-#endif // VOCABULARYOPENPROGRESSWIDGET_H
+#endif // VOCABULARYOPENPROGRESSDIALOG_H
