@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/hts_engine API/COPYING</file>
+        <file>res/Open JTalk/COPYING</file>
+    </qresource>
+</RCC>
