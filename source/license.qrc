@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/license/encryptprivate.der</file>
+        <file>res/license/signpublic.der</file>
+    </qresource>
+</RCC>

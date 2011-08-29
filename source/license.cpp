@@ -72,7 +72,7 @@ const void License::RefreshLicense()
 	} // if
 
 	// get sign key
-	QFile qfSignKey(":/MainWindow/res/license/signpublic.der");
+	QFile qfSignKey(":/res/license/signpublic.der");
 	qfSignKey.open(QIODevice::ReadOnly);
 	QByteArray qbaSignKey = qfSignKey.readAll();
 
@@ -85,7 +85,7 @@ const void License::RefreshLicense()
 	} // if
 
 	// get decrypt key
-	QFile qfDecryptKey(":/MainWindow/res/license/encryptprivate.der");
+	QFile qfDecryptKey(":/res/license/encryptprivate.der");
 	qfDecryptKey.open(QIODevice::ReadOnly);
 	QByteArray qbaDecryptKey = qfDecryptKey.readAll();
 
