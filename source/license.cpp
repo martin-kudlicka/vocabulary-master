@@ -46,10 +46,10 @@ const bool License::IsLoaded() const
 	return _esStatus == StatusOk || _esStatus == StatusExpired;
 } // IsLoaded
 
-const bool License::IsOk() const
+/*const bool License::IsOk() const
 {
 	return _esStatus == StatusOk;
-} // IsOk
+} // IsOk*/
 
 License::License(const Settings *pSettings)
 {

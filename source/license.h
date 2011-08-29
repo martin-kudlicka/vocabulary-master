@@ -25,7 +25,7 @@ class License
 		const QUuid &GetUid() const;
 		const QDate &GetValidTo() const;
 		const bool IsLoaded() const;
-		const bool IsOk() const;
+		//const bool IsOk() const;
 		const void RefreshLicense();
 
     private:

@@ -41,14 +41,14 @@ const void MainWindow::ApplySettings(const bool &pStartup)
         setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint);
     } // if else
 #ifndef FREE
-    if (_lLicense->IsOk() && pStartup && _sSettings.GetWindowX() != Settings::DEFAULT_DIMENSION) {
+    if (pStartup && _sSettings.GetWindowX() != Settings::DEFAULT_DIMENSION) {
         setGeometry(_sSettings.GetWindowX(), _sSettings.GetWindowY(), _sSettings.GetWindowWidth(), _sSettings.GetWindowHeight());
     } // if
 #endif
     show();
 
 #ifndef FREE
-    _qstiTrayIcon.setVisible(_lLicense->IsOk() && _sSettings.GetSystemTrayIcon());
+    _qstiTrayIcon.setVisible(_sSettings.GetSystemTrayIcon());
 #endif
 
 #if !defined(FREE) && defined(Q_WS_WIN)
@@ -93,8 +93,8 @@ const void MainWindow::EnableControls()
 	_umwMainWindow.qaStop->setEnabled(_iTimerQuestion != 0);
 	_umwMainWindow.qaNext->setEnabled(_iTimerQuestion != 0);
 #ifndef FREE
-    _umwMainWindow.qaAnswer->setEnabled(_lLicense->IsOk() && _iTimerAnswer != 0);
-	_umwMainWindow.qaMute->setEnabled(_lLicense->IsOk() && _iTimerAnswer != 0);
+    _umwMainWindow.qaAnswer->setEnabled(_iTimerAnswer != 0);
+	_umwMainWindow.qaMute->setEnabled(_iTimerAnswer != 0);
 
     // tray
     _qaTrayManage->setEnabled(_vVocabulary.IsOpen());
@@ -193,12 +193,10 @@ MainWindow::~MainWindow()
 {
     _sSettings.SetVocabularyFile(_vVocabulary.GetVocabularyFile());
 #ifndef FREE
-	if (_lLicense->IsOk()) {
-		_sSettings.SetWindowX(geometry().x());
-		_sSettings.SetWindowY(geometry().y());
-		_sSettings.SetWindowHeight(geometry().height());
-		_sSettings.SetWindowWidth(geometry().width());
-	} // if
+	_sSettings.SetWindowX(geometry().x());
+	_sSettings.SetWindowY(geometry().y());
+	_sSettings.SetWindowHeight(geometry().height());
+	_sSettings.SetWindowWidth(geometry().width());
 
 	_pPlugins.Uninitialize();
     delete _lLicense;
@@ -252,7 +250,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     _umwMainWindow.qaMute->setChecked(_sSettings.GetMute());
 
     // learning
-	if (_sSettings.GetStartLearningOnStartup() && _vVocabulary.IsOpen() && _lLicense->IsOk()) {
+	if (_lLicense->IsLoaded() && _sSettings.GetStartLearningOnStartup() && _vVocabulary.IsOpen()) {
 		on_qaStart_triggered();
 	} // if
 
@@ -616,7 +614,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 
 #ifndef FREE
             // answer
-            _umwMainWindow.qaAnswer->setEnabled(_lLicense->IsOk() && true);
+            _umwMainWindow.qaAnswer->setEnabled(true);
 #endif
         } // if else
     } else {
