@@ -997,6 +997,26 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\common\licensecommon.h"
+				>
+				<FileConfiguration
+					Name="DebugFREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseFREE|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\licensedialog.h"
 				>
 				<FileConfiguration

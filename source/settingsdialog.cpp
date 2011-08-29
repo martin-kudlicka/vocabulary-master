@@ -148,18 +148,14 @@ const void SettingsDialog::on_qpbShowLicense_clicked(bool checked /* false */)
     } // for
 
     // license
-    QString qsLicense;
+    LicenseCommon::tLicenseContentList tlclLicenses;
     if (qtvTreeView == _usdSettingsDialog.qtvPluginsTTS) {
         const Plugins::sTTSPlugin stpPlugin = _pPlugins->GetTTSPlugins().at(iRow);
-        qsLicense = stpPlugin.tiInterface->GetLicenseText();
+        tlclLicenses = stpPlugin.tiInterface->GetLicenseText();
     } // if
 
-    /*// name
-    QModelIndex qmiIndex = pmModel->index(iRow, PluginsModel::ColumnName);
-    QString qsTitle = pmModel->data(qmiIndex).toString();*/
-
     // show license
-    LicenseTextDialog ltdLicense(qsLicense, this);
+    LicenseTextDialog ltdLicense(tlclLicenses, this);
     ltdLicense.exec();
 } // on_qpbShowLicense_clicked
 # endif

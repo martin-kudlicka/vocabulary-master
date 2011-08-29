@@ -46,20 +46,25 @@ const QString TTSOpenJTalk::GetFileInSubdir(const QString &pFile, const QString 
 	return GetSubdir(pDir) + QDir::separator() + pFile;
 } // GetFileInSubdir
 
-const QString TTSOpenJTalk::GetLicenseText() const
+const LicenseCommon::tLicenseContentList TTSOpenJTalk::GetLicenseText() const
 {
+    LicenseCommon::tLicenseContentList tlclLicenses;
+    LicenseCommon::sLicenseContent slcContent;
+
+    slcContent.qsTitle = "hts_engine API";
     QFile qfLicense(":/res/hts_engine API/COPYING");
     qfLicense.open(QIODevice::ReadOnly);
-    QString qsLicense = qfLicense.readAll();
+    slcContent.qsText = qfLicense.readAll();
+    tlclLicenses.append(slcContent);
     qfLicense.close();
 
-    qsLicense += '\n';
-
+    slcContent.qsTitle = "Open JTalk";
     qfLicense.setFileName(":/res/Open JTalk/COPYING");
     qfLicense.open(QIODevice::ReadOnly);
-    qsLicense += qfLicense.readAll();
+    slcContent.qsText = qfLicense.readAll();
+    tlclLicenses.append(slcContent);
 
-    return qsLicense;
+    return tlclLicenses;
 } // GetLicenseText
 
 const TTSInterface::eTTSPlugin TTSOpenJTalk::GetPluginId() const
