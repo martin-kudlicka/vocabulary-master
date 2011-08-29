@@ -28,6 +28,7 @@ class TTSOpenJTalk : public QObject, private TTSInterface
 		JPCommon _jJpcommon;
 
 		const QString GetFileInSubdir(const QString &pFile, const QString &pDir) const;
+        virtual const QString GetLicenseText() const;
 		virtual const eTTSPlugin GetPluginId() const;
 		virtual const QString GetPluginName() const;
         virtual const tVoiceInfoList GetVoicesInfo() const;

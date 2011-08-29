@@ -12,6 +12,7 @@ class TTSSAPI : public QObject, private TTSInterface
     private:
         QHash<QString, QString> _qhVoices;
 
+        virtual const QString GetLicenseText() const;
         virtual const eTTSPlugin GetPluginId() const;
         virtual const QString GetPluginName() const;
 		virtual const tVoiceInfoList GetVoicesInfo() const;

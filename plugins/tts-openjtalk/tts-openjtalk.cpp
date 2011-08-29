@@ -46,6 +46,22 @@ const QString TTSOpenJTalk::GetFileInSubdir(const QString &pFile, const QString 
 	return GetSubdir(pDir) + QDir::separator() + pFile;
 } // GetFileInSubdir
 
+const QString TTSOpenJTalk::GetLicenseText() const
+{
+    QFile qfLicense(":/res/hts_engine API/COPYING");
+    qfLicense.open(QIODevice::ReadOnly);
+    QString qsLicense = qfLicense.readAll();
+    qfLicense.close();
+
+    qsLicense += '\n';
+
+    qfLicense.setFileName(":/res/Open JTalk/COPYING");
+    qfLicense.open(QIODevice::ReadOnly);
+    qsLicense += qfLicense.readAll();
+
+    return qsLicense;
+} // GetLicenseText
+
 const TTSInterface::eTTSPlugin TTSOpenJTalk::GetPluginId() const
 {
 	return TTSPluginOpenJTalk;
