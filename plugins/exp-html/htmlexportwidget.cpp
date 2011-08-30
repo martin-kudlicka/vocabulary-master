@@ -5,12 +5,24 @@
 
 const void HtmlExportWidget::AddTableColumn()
 {
+    // controls
     sTableColumn stcColumn;
     stcColumn.qleHeader = new QLineEdit(_qwheHtmlExport.qwPageTable);
     stcColumn.qleTemplate = new QLineEdit(_qwheHtmlExport.qwPageTable);
+    stcColumn.qsbWidth = new QSpinBox(_qwheHtmlExport.qwPageTable);
+    stcColumn.qsbWidth->setMaximum(COLUMN_MAX_WIDTH);
+    stcColumn.qsbWidth->setValue(COLUMN_DEFAULTWIDTH);
+    stcColumn.qwHeader = new QWidget(_qwheHtmlExport.qwPageTable);
     _qlTableColumns.append(stcColumn);
 
-    _qwheHtmlExport.qglTableColumns->addWidget(stcColumn.qleHeader, TableRowHeader, _qlTableColumns.size() + LABEL_COLUMN);
+    // header
+    QHBoxLayout *qhblHeader = new QHBoxLayout(stcColumn.qwHeader);
+    qhblHeader->setContentsMargins(QMargins());
+    qhblHeader->addWidget(stcColumn.qleHeader);
+    qhblHeader->addWidget(stcColumn.qsbWidth);
+    stcColumn.qwHeader->setLayout(qhblHeader);
+    _qwheHtmlExport.qglTableColumns->addWidget(stcColumn.qwHeader, TableRowHeader, _qlTableColumns.size() + LABEL_COLUMN);
+    // template
     _qwheHtmlExport.qglTableColumns->addWidget(stcColumn.qleTemplate, TableRowTemplate, _qlTableColumns.size() + LABEL_COLUMN);
 } // AddTableColumn
 
@@ -107,7 +119,13 @@ const void HtmlExportWidget::RefreshTable() const
     // prepare table
     _qwheHtmlExport.qteTablePreview->clear();
     QTextCursor qtcCursor = _qwheHtmlExport.qteTablePreview->textCursor();
+    // format
     QTextTableFormat qttfTableFormat;
+    QVector<QTextLength> qvWidths;
+    foreach (sTableColumn stcColumn, _qlTableColumns) {
+        qvWidths.append(QTextLength(QTextLength::FixedLength, stcColumn.qsbWidth->value()));
+    } // foreach
+    qttfTableFormat.setColumnWidthConstraints(qvWidths);
     QTextTable *qttTablePreview = qtcCursor.insertTable(HEADER_ROW + 1, _qlTableColumns.size(), qttfTableFormat);
 
     qtcCursor.beginEditBlock();
@@ -249,6 +267,10 @@ const void HtmlExportWidget::RefreshText() const
 const void HtmlExportWidget::RemoveTableColumn()
 {
     sTableColumn stcColumn = _qlTableColumns.takeLast();
+    // header
     stcColumn.qleHeader->deleteLater();
+    stcColumn.qsbWidth->deleteLater();
+    stcColumn.qwHeader->deleteLater();
+    // template
     stcColumn.qleTemplate->deleteLater();
 } // RemoveTableColumn
