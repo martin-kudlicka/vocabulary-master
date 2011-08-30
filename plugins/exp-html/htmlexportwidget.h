@@ -28,10 +28,14 @@ class HtmlExportWidget : public QWidget
         }; // eTableRow
 
         struct sTableColumn {
+            QWidget *qwHeader;
             QLineEdit *qleHeader;
+            QSpinBox *qsbWidth;
             QLineEdit *qleTemplate;
         }; // sTableColumn
 
+        static const int COLUMN_DEFAULTWIDTH = 100;
+        static const int COLUMN_MAX_WIDTH = 999;
         static const int HEADER_ROW = 0;
         static const int LABEL_COLUMN = 1;
 
