@@ -20,7 +20,11 @@ class Vocabulary : public VocabularyDatabase
 		const int GetRecordCount(const bool &pEnabled) const;
         const tRecordIdList GetRecordIds(const int &pCategoryId) const;
 		const void New(const QString &pFilePath);
+#ifndef TRY
 		const void Open(const QString &pFilePath);
+#else
+        const void OpenMemory();
+#endif
 		const void RemoveCategory(const int &pCategoryId);
 #ifndef FREE
         const void RemoveField(const int &pFieldId);

@@ -55,7 +55,9 @@ class MainWindow : public QMainWindow
         int _iTimerAnswer;
 		int _iTimerQuestion;
 #ifndef FREE
+# ifndef TRY
         License *_lLicense;
+# endif
 		Plugins _pPlugins;
 		QAction *_qaTrayExit;
         QAction *_qaTrayManage;
@@ -99,7 +101,9 @@ class MainWindow : public QMainWindow
         const void on_qaAbout_triggered(bool checked = false);
 #ifndef FREE
         const void on_qaAnswer_triggered(bool checked = false);
+# ifndef TRY
         const void on_qaLicense_triggered(bool checked = false);
+# endif
 #endif
         const void on_qaManage_triggered(bool checked = false);
 #ifndef FREE
@@ -107,7 +111,9 @@ class MainWindow : public QMainWindow
 #endif
         const void on_qaNew_triggered(bool checked = false);
 		const void on_qaNext_triggered(bool checked = false);
+#ifndef TRY
         const void on_qaOpen_triggered(bool checked = false);
+#endif
 		const void on_qaSettings_triggered(bool checked = false);
 		const void on_qaStart_triggered(bool checked = false);
 		const void on_qaStop_triggered(bool checked = false);

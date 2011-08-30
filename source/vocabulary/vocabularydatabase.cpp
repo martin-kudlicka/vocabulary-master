@@ -475,6 +475,7 @@ const void VocabularyDatabase::New(const QString &pFilePath)
 	Initialize();
 } // New
 
+#ifndef TRY
 const void VocabularyDatabase::Open(const QString &pFilePath)
 {
     if (!QFile::exists(pFilePath)) {
@@ -487,10 +488,15 @@ const void VocabularyDatabase::Open(const QString &pFilePath)
     CloseDatabase();
     OpenDatabase();
 } // Open
+#endif
 
 const void VocabularyDatabase::OpenDatabase()
 {
+#ifdef TRY
+    _qsdDatabase.setDatabaseName(":memory:");
+#else
 	_qsdDatabase.setDatabaseName(_qsVocabularyFile);
+#endif
 	_qsdDatabase.open();
 } // OpenDatabase
 

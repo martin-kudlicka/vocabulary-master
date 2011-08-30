@@ -160,10 +160,12 @@ const QString Settings::GetTranslation() const
     return _qsSettings.value(KEY_TRANSLATION).toString();
 } // GetTranslation
 
+#ifndef TRY
 const QString Settings::GetVocabularyFile() const
 {
 	return _qsSettings.value(KEY_VOCABULARYFILE).toString();
 } // GetVocabularyFile
+#endif
 
 const int Settings::GetWaitForAnswer() const
 {
@@ -287,10 +289,12 @@ const void Settings::SetTranslation(const QString &pTranslation)
     _qsSettings.setValue(KEY_TRANSLATION, pTranslation);
 } // SetTranslation
 
+#ifndef TRY
 const void Settings::SetVocabularyFile(const QString &pFile)
 {
 	_qsSettings.setValue(KEY_VOCABULARYFILE, pFile);
 } // SetVocabularyFile
+#endif
 
 #ifndef FREE
 const void Settings::SetWaitForAnswer(const int &pTime)
