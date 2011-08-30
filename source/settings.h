@@ -51,7 +51,9 @@ class Settings
         const bool GetSystemTrayIcon() const;
 #endif
         const QString GetTranslation() const;
+#ifndef TRY
 		const QString GetVocabularyFile() const;
+#endif
 		const int GetWaitForAnswer() const;
 #ifndef FREE
 		const int GetWindowHeight() const;
@@ -81,7 +83,9 @@ class Settings
         const void SetSystemTrayIcon(const bool &pEnable);
 #endif
         const void SetTranslation(const QString &pTranslation);
+#ifndef TRY
 		const void SetVocabularyFile(const QString &pFile);
+#endif
 #ifndef FREE
 		const void SetWaitForAnswer(const int &pTime);
 		const void SetWindowHeight(const int &pHeight);

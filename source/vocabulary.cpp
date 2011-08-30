@@ -112,12 +112,21 @@ const void Vocabulary::New(const QString &pFilePath)
 	InitCache();
 } // New
 
+#ifndef TRY
 const void Vocabulary::Open(const QString &pFilePath)
 {
 	ClearCache();
 	VocabularyDatabase::Open(pFilePath);
 	InitCache();
 } // Open
+#else
+
+const void Vocabulary::OpenMemory()
+{
+    ClearCache();
+    InitCache();
+} // OpenMemory
+#endif
 
 const void Vocabulary::RemoveCategory(const int &pCategoryId)
 {

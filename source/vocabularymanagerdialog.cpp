@@ -246,7 +246,11 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
 
             VocabularyOpenProgressDialog vopdOpenProgress(_vVocabulary, this);
             vopdOpenProgress.show();
+# ifdef TRY
+            _vVocabulary->OpenMemory();
+# else
             _vVocabulary->Open(_vVocabulary->GetVocabularyFile());
+# endif
             vopdOpenProgress.hide();
 
             _vVocabulary->BeginEdit();

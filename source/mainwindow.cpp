@@ -11,12 +11,15 @@
 # include <Windows.h>
 #endif
 #include "common/vocabularyopenprogressdialog.h"
-#ifndef FREE
+#if !defined(FREE) && !defined(TRY)
 # include "licensedialog.h"
 #endif
 
 #ifdef FREE
 const QString FREE_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " FREE");
+#endif
+#ifdef TRY
+const QString TRY_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " TRY");
 #endif
 const QString VOCABULARY_SUFFIX = "sl3";
 const QString VOCABULARY_FILTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary (*." + VOCABULARY_SUFFIX + ")");
@@ -71,22 +74,22 @@ const void MainWindow::CreateTrayMenu()
 const void MainWindow::EnableControls()
 {
 	// menu
-#ifndef FREE
+#if !defined(FREE) && !defined(TRY)
 	_umwMainWindow.qaNew->setEnabled(_lLicense->IsLoaded());
 	_umwMainWindow.qaOpen->setEnabled(_lLicense->IsLoaded());
 #endif
     _umwMainWindow.qmVocabulary->setEnabled(
-#ifndef FREE
+#if !defined(FREE) && !defined(TRY)
 		_lLicense->IsLoaded() &&
 #endif
 		_vVocabulary.IsOpen());
-#ifndef FREE
+#if !defined(FREE) && !defined(TRY)
 	_umwMainWindow.qmOptions->setEnabled(_lLicense->IsLoaded());
 #endif
 
 	// tool bar
 	_umwMainWindow.qaStart->setEnabled(
-#ifndef FREE
+#if !defined(FREE) && !defined(TRY)
 		_lLicense->IsLoaded() &&
 #endif
 		_vVocabulary.IsOpen() && _iTimerQuestion == 0 && _vVocabulary.GetRecordCount(true) > 0);
@@ -119,6 +122,9 @@ bool MainWindow::event(QEvent *event)
             }
 #ifdef FREE
             setWindowTitle(windowTitle() + FREE_SUFFIX);
+#endif
+#ifdef TRY
+            setWindowTitle(windowTitle() + TRY_SUFFIX);
 #endif
             break;
 #ifndef FREE
@@ -191,7 +197,9 @@ const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool
 
 MainWindow::~MainWindow()
 {
+#ifndef TRY
     _sSettings.SetVocabularyFile(_vVocabulary.GetVocabularyFile());
+#endif
 #ifndef FREE
 	_sSettings.SetWindowX(geometry().x());
 	_sSettings.SetWindowY(geometry().y());
@@ -199,7 +207,9 @@ MainWindow::~MainWindow()
 	_sSettings.SetWindowWidth(geometry().width());
 
 	_pPlugins.Uninitialize();
+# ifndef TRY
     delete _lLicense;
+# endif
 #endif
 } // ~MainWindow
 
@@ -219,13 +229,19 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     _umwMainWindow.qaMute->setVisible(false);
     _umwMainWindow.qaLicense->setVisible(false);
 #else
+# ifdef TRY
+    _umwMainWindow.qaOpen->setVisible(false);
+    _umwMainWindow.qaLicense->setVisible(false);
+# endif
 	CreateTrayMenu();
 #endif
     _umwMainWindow.qsbStatusBar->addWidget(&_qlVocabularyStatus);
 
 #ifndef FREE
+# ifndef TRY
     // license
     _lLicense = new License(&_sSettings);
+# endif
 
     // plugins
 	_pPlugins.Load();
@@ -238,10 +254,12 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     // settings
     ApplySettings(true);
 
+#ifndef TRY
 	VocabularyOpenProgressDialog vopdOpenProgress(&_vVocabulary, this);
     vopdOpenProgress.show();
     _vVocabulary.Open(_sSettings.GetVocabularyFile());
     vopdOpenProgress.hide();
+#endif
     RefreshStatusBar();
 
     // controls
@@ -250,7 +268,11 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     _umwMainWindow.qaMute->setChecked(_sSettings.GetMute());
 
     // learning
-	if (_lLicense->IsLoaded() && _sSettings.GetStartLearningOnStartup() && _vVocabulary.IsOpen()) {
+	if (
+# ifndef TRY
+        _lLicense->IsLoaded() &&
+# endif
+        _sSettings.GetStartLearningOnStartup() && _vVocabulary.IsOpen()) {
 		on_qaStart_triggered();
 	} // if
 
@@ -265,6 +287,9 @@ const void MainWindow::on_qaAbout_triggered(bool checked /* false */)
 #ifdef FREE
         + FREE_SUFFIX
 #endif
+#ifdef TRY
+        + TRY_SUFFIX
+#endif
         + "</b></center><center>Version 1.0.272</center><br />Copyright (C) 2011 Isshou");
 } // on_qaAbout_triggered
 
@@ -277,6 +302,7 @@ const void MainWindow::on_qaAnswer_triggered(bool checked /* false */)
     timerEvent(&QTimerEvent(_qhCurrentAnswer.value(_iCurrentRecordId)));
 } // on_qaAnswer_triggered
 
+# ifndef TRY
 const void MainWindow::on_qaLicense_triggered(bool checked /* false */)
 {
     LicenseDialog ldLicenseDialog(_lLicense, &_sSettings, this);
@@ -285,6 +311,7 @@ const void MainWindow::on_qaLicense_triggered(bool checked /* false */)
 		EnableControls();
 	} // if
 } // on_qaLicense_triggered
+# endif
 #endif
 
 const void MainWindow::on_qaManage_triggered(bool checked /* false */)
@@ -309,6 +336,7 @@ const void MainWindow::on_qaMute_toggled(bool checked)
 
 const void MainWindow::on_qaNew_triggered(bool checked /* false */)
 {
+#ifndef TRY
     QFileDialog qfdNew(this, tr("Create new vocabulary"), QFileInfo(_vVocabulary.GetVocabularyFile()).absolutePath(), VOCABULARY_FILTER);
     qfdNew.setAcceptMode(QFileDialog::AcceptSave);
     if (qfdNew.exec() == QDialog::Accepted) {
@@ -320,10 +348,15 @@ const void MainWindow::on_qaNew_triggered(bool checked /* false */)
 			qsFile = qfdNew.selectedFiles().at(0);
 		} // if else
         _vVocabulary.New(qsFile);
+#else
+        _vVocabulary.New(QString());
+#endif
 
         EnableControls();
         RefreshStatusBar();
+#ifndef TRY
     } // if
+#endif
 } // on_qaNew_triggered
 
 const void MainWindow::on_qaNext_triggered(bool checked /* false */)
@@ -332,6 +365,7 @@ const void MainWindow::on_qaNext_triggered(bool checked /* false */)
 	on_qaStart_triggered();
 } // on_qaNext_triggered
 
+#ifndef TRY
 const void MainWindow::on_qaOpen_triggered(bool checked /* false */)
 {
     QString qsFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), QFileInfo(_vVocabulary.GetVocabularyFile()).absolutePath(), VOCABULARY_FILTER);
@@ -349,6 +383,7 @@ const void MainWindow::on_qaOpen_triggered(bool checked /* false */)
         } // if
     } // if
 } // on_qaOpen_triggered
+#endif
 
 const void MainWindow::on_qaSettings_triggered(bool checked /* false */)
 {
@@ -415,17 +450,23 @@ const void MainWindow::on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReas
 
 const void MainWindow::RefreshStatusBar()
 {
+#ifndef TRY
     if (_vVocabulary.GetName().isEmpty()) {
         _qlVocabularyStatus.setText("");
     } else {
+#endif
         QString qsInfo;
 #ifdef FREE
         qsInfo = QString("%1, %2").arg(_vVocabulary.GetName()).arg(_vVocabulary.GetRecordCount());
+#elif defined TRY
+        qsInfo = tr("memory, %2/%3").arg(_vVocabulary.GetRecordCount(true)).arg(_vVocabulary.GetRecordCount());
 #else
         qsInfo = QString("%1, %2/%3").arg(_vVocabulary.GetName()).arg(_vVocabulary.GetRecordCount(true)).arg(_vVocabulary.GetRecordCount());
 #endif
         _qlVocabularyStatus.setText(tr("%1 records").arg(qsInfo));
+#ifndef TRY
     } // if else
+#endif
 } // RefreshStatusBar
 
 #if !defined(FREE) && defined(Q_WS_WIN)
