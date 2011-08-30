@@ -300,6 +300,7 @@ const void VocabularyManagerDialog::ReassignModels() const
         VocabularyModel *vmVocabularyModel = qobject_cast<VocabularyModel *>(qtvVocabularyView->model());
         qtvVocabularyView->setModel(NULL);
         qtvVocabularyView->setModel(vmVocabularyModel);
+        connect(qtvVocabularyView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvTableViewSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
         StretchColumns(qtvVocabularyView);
     } // for
 } // ReassignModels
