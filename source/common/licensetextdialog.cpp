@@ -17,6 +17,7 @@ const void LicenseTextDialog::ShowLicenses(const LicenseCommon::tLicenseContentL
 
     foreach (LicenseCommon::sLicenseContent slcLicense, pLicenses) {
         QPlainTextEdit *qpteLicense = new QPlainTextEdit(slcLicense.qsText, _qdltLicenseText.qtwTabs);
+        qpteLicense->setReadOnly(true);
         int iNewTab = _qdltLicenseText.qtwTabs->addTab(qpteLicense, slcLicense.qsTitle);
         if (iTab == TAB_INVALID) {
             iTab = iNewTab;
