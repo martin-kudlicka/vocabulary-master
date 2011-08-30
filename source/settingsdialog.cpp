@@ -155,7 +155,7 @@ const void SettingsDialog::on_qpbShowLicense_clicked(bool checked /* false */)
     } // if
 
     // show license
-    LicenseTextDialog ltdLicense(tlclLicenses, this);
+    LicenseTextDialog ltdLicense(tlclLicenses, _sSettings, this);
     ltdLicense.exec();
 } // on_qpbShowLicense_clicked
 # endif

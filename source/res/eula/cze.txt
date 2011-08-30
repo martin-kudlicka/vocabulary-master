@@ -1,0 +1,29 @@
+Licenèní smlouva s koncovım uivatelem
+
+POZNÁMKA PRO UIVATELE: PØEÈTÌTE SI TUTO LICENÈNÍ SMLOUVU DÙKLADNÌ. POUITÍ SOFTWARU, K NÌMU JE TATO SMLOUVA PØIPOJENA (DÁLE JEN "SOFTWARE"),  PØEDPOKLÁDÁ VAŠE PØIJETÍ TÌCHTO USTANOVENÍ. POKUD NESOUHLASÍTE S JEJÍMI USTANOVENÍMI, OKAMITÌ VRATE SOFTWARE A VŠE DODANÉ S NÍM (VÈETNÌ JAKİCHKOLIV PSANİCH MATERIÁLÙ A OBALÙ) TAM, KDE JSTE SOFTWARE ZÍSKALI, A BUDE VÁM VRÁCENA JEHO PLNÁ CENA.
+
+
+1. UDÌLENÍ LICENCE. Isshou Vám udìluje nevıhradní, nepøenosné právo pouívat SOFTWARE na maximálním poètu uivatelskıch poèítaèù, které nepøesahuje mnoství uvedené v prodejní smlouvì.
+Toto právo pouívat SOFTWARE je podmínìno Vaším souhlasem s ustanoveními této smlouvy. Souhlasíte s tím, e budete kopírovat SOFTWARE pouze do strojnì èitelné nebo tištìné formy tak, jak to bude zapotøebí pro jeho pouití v souladu s touto licenèní smlouvou, anebo jak to bude nutné pro zálohovací úèely pro podporu pouití tohoto SOFTWARE. 
+
+2. UKONÈENÍ. Tato licence je platná do doby, ne bude ukonèena. Mùete ji ukonèit kdykoliv tím, e znièíte SOFTWARE spolu se všemi jeho kopiemi. Isshou má monost ukonèit platnost licence, jestlie porušíte jakékoliv ustanovení této smlouvy. Souhlasíte s tím, e po takovém ukonèení platnosti licence znièíte SOFTWARE spoleènì se všemi jeho kopiemi.
+
+3. COPYRIGHT. SOFTWARE je chránìn zákonem o autorském právu a mezinárodními smlouvami tıkajícími se autorského práva. Uznáváte, e na Vás nepøechází ádná práva tıkající se intelektuálního vlastnictví SOFTWARU. Dále uznáváte, e plná práva a autorství SOFTWARU zùstávají vıhradním vlastnictvím Isshou nebo jeho dodavatelù, a Vy si nebudete pøisvojovat ádná práva k SOFTWARU, s vıjimkou tìch, která jsou Vám vıhradnì udìlena touto licenèní smlouvou. Souhlasíte s tím, aby kopie SOFTWARU vdy obsahovaly stejnou poznámku o vlastnictví, jaká se objevuje v SOFTWARU.
+
+4. ZPÌTNÉ INENİRSTVÍ. Souhlasíte s tím, e se nebudete pokoušet o zpìtné inenırství, nebudete kompilovat, modifikovat, pøekládat nebo rozkládat SOFTWARE jako celek, ani ádné jeho èásti.
+
+5. OMEZENÁ ZÁRUKA. Isshou zaruèuje, e média, na kterıch je SOFTWARE nahrán, jsou bez závad z hlediska materiálu a zpracování, a to po dobu šesti (6) mìsícù od data koupì. Jakékoliv implikované záruky vztahující se k médiím jsou omezeny na šest (6) mìsícù. Omezená záruka nebude platná, jestlie k selhání médií došlo v dùsledku nehody, zneuití nebo nesprávného pouití.
+ 
+ádné ústní nebo psané informace nebo rady dávané Isshou, jeho dealery, distributory, agenty nebo zamìstnanci nevytváøí ádnou záruku ani ádnım zpùsobem nerozšiøují rozsah této záruky.
+
+6. ÁDNÉ DALŠÍ ZÁRUKY. Isshou NEZARUÈUJE, E SOFTWARE JE BEZ ZÁVAD. SOFTWARE JE POSKYTOVÁN "TAK, JAK JE". S VİJIMKOU VYJÁDØENÉ OMEZENÉ ZÁRUKY V ÈÁSTI 5 ("OMEZENÁ ZÁRUKA"), Isshou ODMÍTÁ VŠECHNY ZÁRUKY TİKAJÍCÍ SE SOFTWARU, A VYJÁDØENÉ NEBO IMPLIKOVANÉ, VÈETNÌ, ALE NE POUZE OMEZENÌ NA ZÁRUKU PRODEJNOSTI, ZPÙSOBILOSTI K DANÉMU ÚÈELU A RUŠIVÉHO ZÁSAHU DO PRÁV TØETÍ STRANY. NÌKTERÉ PRÁVNÍ SYSTÉMY NEDOVOLUJÍ VYJMUTÍ IMPLIKOVANÉ ZÁRUKY NEBO JEJÍ OMEZENÍ NA URÈITOU DOBU, PØÍPADNÉ VYJMUTÍ NEBO OMEZENÍ ŠKOD ZPÙSOBENİCH NEHODOU NEBO V DÙSLEDKU NEHODY, TAKE VİŠE UVEDENÁ OMEZENÍ A VYJMUTÍ SE VÁS NEMUSÍ TİKAT. TATO ZÁRUKA VÁM DÁVÁ URÈITÁ ZÁKONNÁ PRÁVA A MÙETE MÍT I JINÁ PRÁVA, KTERÁ SE BUDOU LIŠIT OD JEDNOHO PRÁVNÍHO SYSTÉMU K DRUHÉMU.
+
+7. ZRUŠITELNOST. V pøípadì neplatnosti jakéhokoliv ustanovení této smlouvy, strany souhlasí s tím, e taková neplatnost neovlivní platnost zbıvajících èástí této licenèní smlouvy.
+
+8. ÁDNÉ RUÈENÍ ZA NÁSLEDNÉ ŠKODY. V ÁDNÉM PØÍPADÌ NEBUDOU Isshou ANI JEHO DODAVATELÉ ZODPOVÌDNI ZA JAKÉKOLIV VAŠE NÁSLEDNÉ, SPECIÁLNÍ, NÁHODNÉ NEBO NEPØÍMÉ ŠKODY JAKÉHOKOLIV TYPU, VZNIKLÉ Z DODÁNÍ, VİKONU NEBO POUITÍ SOFTWARU, DOKONCE ANI TEHDY, KDY Isshou BYL INFORMOVÁN O TAKOVİCH MONİCH ŠKODÁCH. V ÁDNÉM PØÍPADÌ NEBUDE Isshou ZODPOVÌDNİ ZA JAKÉKOLIV PROHLÁŠENÍ, KONTRAKT, KØIVDU ANI NEPONESE JAKOUKOLIV JINOU ZODPOVÌDNOST, JEJÍ VİŠE BY PØESÁHLA VİŠI VÁMI ZAPLACENÉHO LICENÈNÍHO POPLATKU, POKUD BYL NÌJAKİ ZAPLACEN.
+
+9. ØÍDÍCÍ PRÁVO.  Tato licenèní smlouva se øídí právy Èeské republiky.
+ 
+10.  LOKÁLNÍ OMEZENÍ. Dritel licence souhlasí s tím, e bude ve svém konání v souladu s lokálními omezeními, tıkajícími se pouití a exportu urèitıch technologií.
+
+11. CELÁ SMLOUVA. Toto je celá smlouva mezi Vámi a Isshou, která zneplatòuje jakékoliv pøedchozí smlouvy nebo dohody, a u psané nebo ústní, tıkající se pøedmìtu této licence.

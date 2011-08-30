@@ -1,0 +1,30 @@
+End-User License agreement
+
+NOTICE TO USERS: CAREFULLY READ THE FOLLOWING LEGAL AGREEMENT. USE OF THE SOFTWARE PROVIDED WITH THIS AGREEMENT (THE "SOFTWARE") CONSTITUTES YOUR ACCEPTANCE OF THESE TERMS. IF YOU DO NOT AGREE TO THE TERMS OF THIS AGREEMENT, PROMPTLY RETURN THE SOFTWARE AND THE ACCOMPANYING ITEMS (INCLUDING ANY WRITTEN MATERIALS AND PACKAGING) TO THE LOCATION WHERE YOU OBTAINED THEM FOR A FULL REFUND.
+
+1. LICENCE GRANT. Isshou grants to you a non-exclusive, non-transferable right to use the SOFTWARE on a maximum number of user computers, not exceeding the number specified on the Sales Agreement.
+This right to use the SOFTWARE is conditioned upon your compliance with the terms of this Agreement. You agree you will only copy the SOFTWARE into any machine-readable or printed form as necessary to use it in accordance with this license or for back-up purposes in support of your use of the SOFTWARE.
+
+2. TERMINATION. This License is effective until terminated. You may terminate it at any point by destroying the SOFTWARE together with all copies of the SOFTWARE. Isshou has the option to terminate if you fail to comply with any term or condition of this Agreement. You agree upon such termination to destroy the SOFTWARE together with all copies of the SOFTWARE.
+
+3. COPYRIGHT. The SOFTWARE is protected by copyright law and international treaty provisions. You acknowledge that no title to the intellectual property in the SOFTWARE is transferred to you. You further acknowledge that title and full ownership rights to the SOFTWARE will remain the exclusive property of Isshou or its suppliers, and you will not acquire any rights to the SOFTWARE except as expressly set forth in this license. You agree that any copies of the SOFTWARE will contain the same proprietary notices, which appear on and in the SOFTWARE.
+
+4. REVERSE ENGINEERING. You agree that you will not attempt to reverse, compile, modify, translate, or disassemble the SOFTWARE in whole or in part.
+
+5. LIMITED WARRANTY. Isshou warrants that the media on which the SOFTWARE is recorded is free of defects in materials and workmanship for a period of six (6) months from the date of purchase. Any implied warranties relating to the media are limited to six (6) months. The Limited Warranty is void if failure of the media has resulted from accident, abuse, or misapplication.
+ 
+No oral or written information or advice given by Isshou, its dealers, distributors, agents, or employees will create a warranty or in any way increase the scope of this warranty.
+
+6. NO OTHER WARRANTIES. Isshou DOES NOT WARRANT THAT THE SOFTWARE IS ERROR FREE. THE SOFTWARE IS PROVIDED "AS IS". EXCEPT FOR THE EXPRESS LIMITED WARRANTY IN SECTION 5 ("LIMITED WARRANTY"), Isshou DISCLAIMS ALL WARRANTIES WITH RESPECT TO THE SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT OF THIRD PARTY RIGHTS. SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES OR LIMITATIONS ON HOW LONG AN IMPLIED WARRANTY MAY LAST, OR THE EXCLUSION OR LIMITATION OF INCIDENTAL OR CONSEQUENTAL DAMAGES, SO THE ABOVE LIMITATIONS OR EXCLUSIONS MAY NOT APPLY TO YOU. THIS WARRANTY GIVES YOU SPECIFIC LEGAL RIGHTS AND YOU MAY ALSO HAVE OTHER RIGHTS, WHICH VARY FROM JURISDICTION TO JURISDICTION.
+
+7. SEVERABILITY. In the event of invalidity of any provision of this license, the parties agree that such invalidity will not affect the validity of the remaining portions of this license.
+
+8. NO LIABILITY FOR CONSEQUENTIAL DAMAGES. IN NO EVENT SHALL Isshou OR ITS SUPPLIERS BE LIABLE TO YOU FOR ANY CONSEQUENTIAL, SPECIAL, INCIDENTAL OR INDIRECT DAMAGES OF ANY KIND ARISING OUT OF THE DELIVERY, PERFORMANCE, OR USE OF THE SOFTWARE, EVEN IF Isshou HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. IN NO EVENT WILL Isshou'S LIABILITY FOR ANY CLAIM, WHETHER IN CONTRACT, TORT, OR ANY OTHER THEORY OF LIABILITY, EXCEED THE LICENCE FEE PAID BY YOU, IF ANY.
+
+9. GOVERNING LAW. This license is governed by the laws of the Czech Republic.
+ 
+10. LOCAL RESTRICTION. The Licensee agrees to comply with the local regulations regulating the use and export of some technologies.
+
+11. ENTIRE AGREEMENT. This is the entire agreement between you and Isshou, which supersedes any prior agreement or understanding, whether written or oral, relating to the subject matter of this license.
+
+12. END USE DECLARATION. Hereby you declare that this SOFTWARE supplied by Isshou is for your own use on condition that you accept the commitments of this declaration as binding for yourself and on condition that your person/company is known to be trustworthy and reliable in the observance of such commitments. You certify that this SOFTWARE will not be used for military purposes or any purpose connected with chemical, biological or nuclear weapons or missiles capable of delivering such weapons, nor they will be reexported or otherwise resold or transferred if it is known or suspected that they are intended or likely to be used for such purposes or terrorism-related activity. Reexport of this SOFTWARE without the agreement of the MIT of the Czech Republic is excluded.
