@@ -10,4 +10,5 @@ ClearCacheWorker::ClearCacheWorker(VocabularyDatabase::tRecordDataHash *pRecordD
 void ClearCacheWorker::run()
 {
     _trdhRecordData->clear();
+    delete _trdhRecordData;
  } // run
