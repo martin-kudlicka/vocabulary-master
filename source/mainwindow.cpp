@@ -96,6 +96,7 @@ const void MainWindow::EnableControls()
 	_umwMainWindow.qaStop->setEnabled(_iTimerQuestion != 0);
 	_umwMainWindow.qaNext->setEnabled(_iTimerQuestion != 0);
 #ifndef FREE
+	_umwMainWindow.qaFindInVocabulary->setEnabled(_iTimerQuestion != 0);
     _umwMainWindow.qaAnswer->setEnabled(_iTimerAnswer != 0);
 
     // tray
