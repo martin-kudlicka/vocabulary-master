@@ -133,8 +133,8 @@
     <bool>false</bool>
    </attribute>
    <addaction name="qaStart"/>
-   <addaction name="qaStop"/>
    <addaction name="qaNext"/>
+   <addaction name="qaStop"/>
    <addaction name="separator"/>
    <addaction name="qaAnswer"/>
    <addaction name="qaFindInVocabulary"/>
