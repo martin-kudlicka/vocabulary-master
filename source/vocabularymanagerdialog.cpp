@@ -58,6 +58,36 @@ const void VocabularyManagerDialog::EnableWordControls() const
 	_qdvmVocabularyManager.qpbWordRemove->setEnabled(qismSelection && qtvVocabularyView->isEnabled() && qismSelection->hasSelection());
 } // EnableWordControls
 
+#ifndef FREE
+int VocabularyManagerDialog::ExecOnRecord(const int &pRecordId)
+{
+    FocusOnRecord(pRecordId);
+    return exec();
+} // ExecOnRecord
+#endif
+
+const void VocabularyManagerDialog::FocusOnRecord(const int &pRecordId) const
+{
+    // get found word category
+    int iCategory = _vVocabulary->GetRecordCategory(pRecordId);
+
+    // get tab for category
+    int iTab;
+    for (iTab = 0; iTab < _qdvmVocabularyManager.vtwTabs->count(); iTab++) {
+        if (_qlCategories.at(iTab) == iCategory) {
+            break;
+        } // if
+    } // for
+
+    // switch tabs
+    _qdvmVocabularyManager.vtwTabs->setCurrentIndex(iTab);
+
+    // focus on word
+    QTableView *qtvVocabularyView = qobject_cast<QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
+    const VocabularyModel *vmVocabularyModel = qobject_cast<const VocabularyModel *>(qtvVocabularyView->model());
+    qtvVocabularyView->setCurrentIndex(vmVocabularyModel->index(_vVocabulary->GetRow(pRecordId, iCategory), 0));
+} // FocusOnRecord
+
 const void VocabularyManagerDialog::InitEditor()
 {
 	int iFieldsLeft = 0;
@@ -150,24 +180,7 @@ const void VocabularyManagerDialog::on_qpbSearch_clicked(bool checked /* false *
         return;
     } // if
 
-    // get found word category
-    int iCategory = _vVocabulary->GetRecordCategory(iRecordId);
-
-    // get tab for category
-    int iTab;
-    for (iTab = 0; iTab < _qdvmVocabularyManager.vtwTabs->count(); iTab++) {
-        if (_qlCategories.at(iTab) == iCategory) {
-            break;
-        } // if
-    } // for
-
-    // switch tabs
-    _qdvmVocabularyManager.vtwTabs->setCurrentIndex(iTab);
-
-    // focus on word
-    qtvVocabularyView = qobject_cast<QTableView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
-    vmVocabularyModel = qobject_cast<const VocabularyModel *>(qtvVocabularyView->model());
-    qtvVocabularyView->setCurrentIndex(vmVocabularyModel->index(_vVocabulary->GetRow(iRecordId, iCategory), 0));
+    FocusOnRecord(iRecordId);
 } // on_qpbSearch_clicked
 
 const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checked /* false */)
