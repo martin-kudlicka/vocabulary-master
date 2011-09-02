@@ -34,42 +34,50 @@ const void Plugins::Initialize()
 
 const void Plugins::Load()
 {
+#ifdef _DEBUG
+	QDir qdPluginDir(QCoreApplication::applicationDirPath());
+#else
 	QDir qdPlugins(QCoreApplication::applicationDirPath());
-#ifndef _DEBUG
 	qdPlugins.cd(DIR_PLUGINS);
+
+	foreach (QFileInfo qfiPluginDir, qdPlugins.entryInfoList(QDir::Dirs)) {
+		QDir qdPluginDir(qfiPluginDir.filePath());
 #endif
-	foreach (QString qsFileName, qdPlugins.entryList(QDir::Files)) {
-		QPluginLoader qplLoader(qdPlugins.absoluteFilePath(qsFileName));
-		if (qplLoader.instance()) {
-			if (qsFileName.startsWith("tts-")) {
-				TTSInterface *tiPlugin = qobject_cast<TTSInterface *>(qplLoader.instance());
-				if (tiPlugin) {
-                    sTTSPlugin stpPlugin;
-                    stpPlugin.spiInfo.qsLibraryName = QFileInfo(qplLoader.fileName()).fileName();
-                    stpPlugin.tiInterface = tiPlugin;
-					_qhTTSPlugins.insert(tiPlugin->GetPluginId(), stpPlugin);
-				} // if
-			} else {
-				if (qsFileName.startsWith("imp-")) {
-					ImpInterface *iiPlugin = qobject_cast<ImpInterface *>(qplLoader.instance());
-					if (iiPlugin) {
-                        sImpPlugin sipPlugin;
-                        sipPlugin.spiInfo.qsLibraryName = QFileInfo(qplLoader.fileName()).fileName();
-                        sipPlugin.iiInterface = iiPlugin;
-						_tiplImpPlugins.append(sipPlugin);
+		foreach (QFileInfo qfiPlugin, qdPluginDir.entryInfoList(QDir::Files)) {
+			QPluginLoader qplLoader(qfiPlugin.filePath());
+			if (qplLoader.instance()) {
+				if (qfiPlugin.fileName().startsWith("tts-")) {
+					TTSInterface *tiPlugin = qobject_cast<TTSInterface *>(qplLoader.instance());
+					if (tiPlugin) {
+						sTTSPlugin stpPlugin;
+						stpPlugin.spiInfo.qsLibraryName = qfiPlugin.fileName();
+						stpPlugin.tiInterface = tiPlugin;
+						_qhTTSPlugins.insert(tiPlugin->GetPluginId(), stpPlugin);
 					} // if
 				} else {
-					ExpInterface *eiPlugin = qobject_cast<ExpInterface *>(qplLoader.instance());
-					if (eiPlugin) {
-                        sExpPlugin sepPlugin;
-                        sepPlugin.spiInfo.qsLibraryName = QFileInfo(qplLoader.fileName()).fileName();
-                        sepPlugin.eiInterface = eiPlugin;
-						_teplExpPlugins.append(sepPlugin);
-					} // if
+					if (qfiPlugin.fileName().startsWith("imp-")) {
+						ImpInterface *iiPlugin = qobject_cast<ImpInterface *>(qplLoader.instance());
+						if (iiPlugin) {
+							sImpPlugin sipPlugin;
+							sipPlugin.spiInfo.qsLibraryName = qfiPlugin.fileName();
+							sipPlugin.iiInterface = iiPlugin;
+							_tiplImpPlugins.append(sipPlugin);
+						} // if
+					} else {
+						ExpInterface *eiPlugin = qobject_cast<ExpInterface *>(qplLoader.instance());
+						if (eiPlugin) {
+							sExpPlugin sepPlugin;
+							sepPlugin.spiInfo.qsLibraryName = qfiPlugin.fileName();
+							sepPlugin.eiInterface = eiPlugin;
+							_teplExpPlugins.append(sepPlugin);
+						} // if
+					} // if else
 				} // if else
-			} // if else
-		} // if
+			} // if
+		} // foreach
+#ifndef _DEBUG
 	} // foreach
+#endif
 } // Load
 
 const void Plugins::Uninitialize()
