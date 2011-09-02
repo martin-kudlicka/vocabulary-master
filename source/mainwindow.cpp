@@ -108,15 +108,17 @@ bool MainWindow::event(QEvent *event)
     switch (event->type()) {
         case QEvent::LanguageChange:
             {
-                QString qsLang1, qsLang2;
+                QString qsCategory, qsLang1, qsLang2;
                 if (_iTimerQuestion != 0) {
                     qsLang1 = _umwMainWindow.qlLanguage1->text();
                     qsLang2 = _umwMainWindow.qlLanguage2->text();
+                    qsCategory = _umwMainWindow.qlCategory->text();
                 } // if
                 _umwMainWindow.retranslateUi(this);
                 if (_iTimerQuestion != 0) {
                     _umwMainWindow.qlLanguage1->setText(qsLang1);
                     _umwMainWindow.qlLanguage2->setText(qsLang2);
+                    _umwMainWindow.qlCategory->setText(qsCategory);
                 } // if
             }
 #ifdef FREE
@@ -221,16 +223,17 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
     // gui
 	_umwMainWindow.setupUi(this);
-    _umwMainWindow.qlLanguage1->setVisible(false);
-    _umwMainWindow.qlLanguage2->setVisible(false);
+    _umwMainWindow.qlLanguage1->hide();
+    _umwMainWindow.qlLanguage2->hide();
+    _umwMainWindow.qlCategory->hide();
 #ifdef FREE
-    _umwMainWindow.qaAnswer->setVisible(false);
-    _umwMainWindow.qaMute->setVisible(false);
-    _umwMainWindow.qaLicense->setVisible(false);
+    _umwMainWindow.qaAnswer->hide();
+    _umwMainWindow.qaMute->hide();
+    _umwMainWindow.qaLicense->hide();
 #else
 # ifdef TRY
-    _umwMainWindow.qaOpen->setVisible(false);
-    _umwMainWindow.qaLicense->setVisible(false);
+    _umwMainWindow.qaOpen->hide();
+    _umwMainWindow.qaLicense->hide();
 # endif
 	CreateTrayMenu();
 #endif
@@ -398,6 +401,7 @@ const void MainWindow::on_qaStart_triggered(bool checked /* false */)
 	_iTimerQuestion = startTimer(_sSettings.GetWordsFrequency() * MILISECONDS_PER_SECOND);
 
 	EnableControls();
+    _umwMainWindow.qlCategory->show();
 
     _iCurrentRecordId = RECORD_NONE;
 	timerEvent(&QTimerEvent(_iTimerQuestion));
@@ -413,10 +417,11 @@ const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 	_iTimerQuestion = 0;
 	EnableControls();
 
-    _umwMainWindow.qlLanguage1->setVisible(false);
+    _umwMainWindow.qlLanguage1->hide();
 	_umwMainWindow.qtbWindow1->clear();
-    _umwMainWindow.qlLanguage2->setVisible(false);
+    _umwMainWindow.qlLanguage2->hide();
 	_umwMainWindow.qtbWindow2->clear();
+    _umwMainWindow.qlCategory->hide();
 } // on_qaStop_triggered
 
 #ifndef FREE
@@ -577,7 +582,19 @@ const void MainWindow::SetLayout()
     } // if else
 #endif
 
+#ifndef FREE
+    if (_sSettings.GetHorizontalLayout()) {
+        qblLayout->addWidget(_umwMainWindow.qlCategory);
+    } // if
+#endif
     qblLayout->addWidget(_umwMainWindow.qvblQuestion->parentWidget());
+#ifndef FREE
+    if (!_sSettings.GetHorizontalLayout()) {
+#endif
+        qblLayout->addWidget(_umwMainWindow.qlCategory);
+#ifndef FREE
+    } // if
+#endif
     qblLayout->addWidget(_umwMainWindow.qvblAnswer->parentWidget());
 } // SetLayout
 
@@ -599,10 +616,11 @@ void MainWindow::timerEvent(QTimerEvent *event)
         if (_vVocabulary.GetRecordCount(true) == 0) {
             on_qaStop_triggered();
         } else {
+            int iCategoryId;
             int iLastRecordId = _iCurrentRecordId;
             while (true) {
 	            _iCurrentRecordId = _vVocabulary.GetRecordId(qrand() % _vVocabulary.GetRecordCount());
-                int iCategoryId = _vVocabulary.GetRecordCategory(_iCurrentRecordId);
+                iCategoryId = _vVocabulary.GetRecordCategory(_iCurrentRecordId);
 #ifndef FREE
                 if (_vVocabulary.GetCategoryEnabled(iCategoryId) && (_vVocabulary.GetRecordCount(true) == 1 || _iCurrentRecordId != iLastRecordId)) {
 #endif
@@ -623,20 +641,21 @@ void MainWindow::timerEvent(QTimerEvent *event)
             // gui
 		    QString qsLang1 = GetLanguageText(saAnswer.bDirectionSwitched, false);
 		    if (qsLang1.isEmpty()) {
-			    _umwMainWindow.qlLanguage1->setVisible(false);
+			    _umwMainWindow.qlLanguage1->hide();
 		    } else {
-			    _umwMainWindow.qlLanguage1->setVisible(true);
+			    _umwMainWindow.qlLanguage1->show();
 			    _umwMainWindow.qlLanguage1->setText(qsLang1);
 		    } // if else
 		    QString qsLang2 = GetLanguageText(saAnswer.bDirectionSwitched, true);
 		    if (qsLang2.isEmpty()) {
-			    _umwMainWindow.qlLanguage2->setVisible(false);
+			    _umwMainWindow.qlLanguage2->hide();
 		    } else {
-			    _umwMainWindow.qlLanguage2->setVisible(true);
+			    _umwMainWindow.qlLanguage2->show();
 			    _umwMainWindow.qlLanguage2->setText(qsLang2);
 		    } // if else
 	        _umwMainWindow.qtbWindow1->setText(GetLearningText(TemplateLearning, saAnswer.bDirectionSwitched, false));
 	        _umwMainWindow.qtbWindow2->clear();
+            _umwMainWindow.qlCategory->setText(_vVocabulary.GetCategoryName(iCategoryId));
 
 #ifndef FREE
 		    // tray
