@@ -301,6 +301,11 @@ const void MainWindow::on_qaAnswer_triggered(bool checked /* false */)
     timerEvent(&QTimerEvent(_qhCurrentAnswer.value(_iCurrentRecordId)));
 } // on_qaAnswer_triggered
 
+const void MainWindow::on_qaFindInVocabulary_triggered(bool checked /* false */)
+{
+    OpenVocabulary(true);
+} // on_qaFindInVocabulary_triggered
+
 # ifndef TRY
 const void MainWindow::on_qaLicense_triggered(bool checked /* false */)
 {
@@ -315,15 +320,7 @@ const void MainWindow::on_qaLicense_triggered(bool checked /* false */)
 
 const void MainWindow::on_qaManage_triggered(bool checked /* false */)
 {
-    VocabularyManagerDialog vmdManager(&_vVocabulary,
-#ifndef FREE
-        &_pPlugins,
-#endif
-        this);
-    vmdManager.exec();
-
-	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimerQuestion == 0 && _vVocabulary.GetRecordCount() > 0);
-    RefreshStatusBar();
+    OpenVocabulary(false);
 } // on_qaManage_triggered
 
 #ifndef FREE
@@ -446,6 +443,31 @@ const void MainWindow::on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReas
 	} // if
 } // on_qstiTrayIcon_activated
 #endif
+
+const void MainWindow::OpenVocabulary(
+#ifndef FREE
+    const bool &pCurrentRecord
+#endif
+    )
+{
+    VocabularyManagerDialog vmdManager(&_vVocabulary,
+#ifndef FREE
+        &_pPlugins,
+#endif
+        this);
+#ifndef FREE
+    if (pCurrentRecord) {
+        vmdManager.ExecOnRecord(_iCurrentRecordId);
+    } else {
+#endif
+        vmdManager.exec();
+#ifndef FREE
+    } // if else
+#endif
+
+	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimerQuestion == 0 && _vVocabulary.GetRecordCount() > 0);
+    RefreshStatusBar();
+} // OpenVocabulary
 
 const void MainWindow::RefreshStatusBar()
 {

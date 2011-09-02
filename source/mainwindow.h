@@ -84,6 +84,11 @@ class MainWindow : public QMainWindow
         const QString GetLanguageText(const bool &pDirectionSwitched, const bool &pAnswer) const;
 		const bool GetLearningDirection() const;
         const QString GetLearningText(const eTemplate &pTemplate, const bool &pDirectionSwitched, const bool &pAnswer) const;
+        const void OpenVocabulary(
+#ifndef FREE
+            const bool &pCurrentRecord
+#endif
+            );
         const void RefreshStatusBar();
 #ifndef FREE
 # ifdef Q_WS_WIN
@@ -101,6 +106,7 @@ class MainWindow : public QMainWindow
         const void on_qaAbout_triggered(bool checked = false);
 #ifndef FREE
         const void on_qaAnswer_triggered(bool checked = false);
+        const void on_qaFindInVocabulary_triggered(bool checked = false);
 # ifndef TRY
         const void on_qaLicense_triggered(bool checked = false);
 # endif

@@ -135,7 +135,9 @@
    <addaction name="qaStart"/>
    <addaction name="qaStop"/>
    <addaction name="qaNext"/>
+   <addaction name="separator"/>
    <addaction name="qaAnswer"/>
+   <addaction name="qaFindInVocabulary"/>
    <addaction name="separator"/>
    <addaction name="qaMute"/>
   </widget>
@@ -245,6 +247,11 @@
   <action name="qaLicense">
    <property name="text">
     <string>&amp;License...</string>
+   </property>
+  </action>
+  <action name="qaFindInVocabulary">
+   <property name="text">
+    <string>Find in vocabulary</string>
    </property>
   </action>
  </widget>

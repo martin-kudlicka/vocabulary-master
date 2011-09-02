@@ -21,6 +21,10 @@ class VocabularyManagerDialog : public QDialog
 #endif
             QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
+#ifndef FREE
+        int ExecOnRecord(const int &pRecordId);
+#endif
+
     private:
 		enum eEditorColumn {
 			EditorColumnLeftLabel,
@@ -41,6 +45,7 @@ class VocabularyManagerDialog : public QDialog
         const void AddTab(const int &pCategoryId);
 		const void EnableTabControls() const;
 		const void EnableWordControls() const;
+        const void FocusOnRecord(const int &pRecordId) const;
 		const void InitEditor();
         const void InitTabs();
 #ifndef FREE
