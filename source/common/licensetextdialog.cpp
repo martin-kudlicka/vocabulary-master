@@ -33,6 +33,7 @@ const void LicenseTextDialog::ShowMainLicense(const Settings *pSettings) const
 {
     LicenseCommon::tLicenseContentList tlclLicenses;
 
+	// EULA
     LicenseCommon::sLicenseContent slcLicense;
     slcLicense.qsTitle = "Vocabulary Master";
     QFile qfLicense;
@@ -43,7 +44,15 @@ const void LicenseTextDialog::ShowMainLicense(const Settings *pSettings) const
     } // if else
     qfLicense.open(QIODevice::ReadOnly);
     slcLicense.qsText = qfLicense.readAll();
+	qfLicense.close();
     tlclLicenses.append(slcLicense);
+
+	// fugue-icons
+	slcLicense.qsTitle = "Fugue Icons";
+	qfLicense.setFileName(":/res/eula/fugue-icons/README.txt");
+	qfLicense.open(QIODevice::ReadOnly);
+	slcLicense.qsText = qfLicense.readAll();
+	tlclLicenses.append(slcLicense);
 
     ShowLicenses(tlclLicenses);
 } // ShowMainLicense

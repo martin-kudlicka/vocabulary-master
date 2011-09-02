@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>res/eula/cze.txt</file>
         <file>res/eula/eng.txt</file>
+        <file>res/eula/fugue-icons/README.txt</file>
     </qresource>
 </RCC>
