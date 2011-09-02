@@ -52,7 +52,6 @@ Section "Install"
 	file \Programy\Qt\4.7.3\bin\QtCore4.dll
 	file \Programy\Qt\4.7.3\bin\QtGui4.dll
 	file \Programy\Qt\4.7.3\bin\QtSql4.dll
-	file \Programy\Qt\4.7.3\bin\QtTest4.dll
 	CreateDirectory "$INSTDIR\sqldrivers"
 	file /oname=sqldrivers\qsqlite4.dll \Programy\Qt\4.7.3\plugins\sqldrivers\qsqlite4.dll
 
