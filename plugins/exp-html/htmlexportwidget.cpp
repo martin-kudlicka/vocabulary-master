@@ -20,7 +20,6 @@ const void HtmlExportWidget::AddTableColumn()
     qhblHeader->setContentsMargins(QMargins());
     qhblHeader->addWidget(stcColumn.qleHeader);
     qhblHeader->addWidget(stcColumn.qsbWidth);
-    stcColumn.qwHeader->setLayout(qhblHeader);
     _qwheHtmlExport.qglTableColumns->addWidget(stcColumn.qwHeader, TableRowHeader, _qlTableColumns.size() + LABEL_COLUMN);
     // template
     _qwheHtmlExport.qglTableColumns->addWidget(stcColumn.qleTemplate, TableRowTemplate, _qlTableColumns.size() + LABEL_COLUMN);
