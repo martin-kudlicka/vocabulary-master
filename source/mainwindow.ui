@@ -261,11 +261,19 @@
    </property>
   </action>
   <action name="qaLicense">
+   <property name="icon">
+    <iconset resource="mainwindow.qrc">
+     <normaloff>:/res/mainwindow/menubar/license.png</normaloff>:/res/mainwindow/menubar/license.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;License...</string>
    </property>
   </action>
   <action name="qaFindInVocabulary">
+   <property name="icon">
+    <iconset resource="mainwindow.qrc">
+     <normaloff>:/res/mainwindow/toolbar/findinvocabulary.png</normaloff>:/res/mainwindow/toolbar/findinvocabulary.png</iconset>
+   </property>
    <property name="text">
     <string>Find in vocabulary</string>
    </property>
