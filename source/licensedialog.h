@@ -23,6 +23,7 @@ class LicenseDialog : public QDialog
         const void FillLicenseInfo() const;
 
 	private slots:
+		const void on_qpbEULA_clicked(bool checked = false);
 		const void on_qpbLoad_clicked(bool checked = false);
 		const void on_qpbOk_clicked(bool checked = false);
 }; // LicenseDialog

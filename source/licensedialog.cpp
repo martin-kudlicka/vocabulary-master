@@ -1,6 +1,7 @@
 #include "licensedialog.h"
 
 #include <QtGui/QFileDialog>
+#include "common/licensetextdialog.h"
 
 const void LicenseDialog::FillLicenseInfo() const
 {
@@ -49,6 +50,12 @@ LicenseDialog::LicenseDialog(License *pLicense, Settings *pSettings, QWidget *pP
 
     FillLicenseInfo();
 } // LicenseDialog
+
+const void LicenseDialog::on_qpbEULA_clicked(bool checked /* false */)
+{
+	LicenseTextDialog ltdEula(LicenseCommon::tLicenseContentList(), _sSettings, this);
+	ltdEula.exec();
+} // on_qpbEULA_clicked
 
 const void LicenseDialog::on_qpbLoad_clicked(bool checked /* false */)
 {
