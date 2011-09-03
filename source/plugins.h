@@ -35,6 +35,7 @@ class Plugins
 		const tTTSPluginList GetTTSPlugins() const;
 		const void Initialize();
 		const void Load();
+		const void SetLanguage(const QString &pLanguage) const;
 		const void Uninitialize();
 
 	private:

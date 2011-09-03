@@ -2,10 +2,11 @@
 #define EXPINTERFACE_H
 
 #include <QtPlugin>
+#include "translationhandler.h"
 
 static const char *EXP_INTERFACE = "Exp Interface 1.0";
 
-class ExpInterface : public QObject
+class ExpInterface : public QObject, public TranslationHandler
 {
     Q_OBJECT
 

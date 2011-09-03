@@ -80,6 +80,13 @@ const void Plugins::Load()
 #endif
 } // Load
 
+const void Plugins::SetLanguage(const QString &pLanguage) const
+{
+	foreach (sExpPlugin sepPlugin, _teplExpPlugins) {
+		sepPlugin.eiInterface->SetLanguage(pLanguage);
+	} // foreach
+} // SetLanguage
+
 const void Plugins::Uninitialize()
 {
 	foreach (sTTSPlugin stpPlugin, _qhTTSPlugins.values()) {
