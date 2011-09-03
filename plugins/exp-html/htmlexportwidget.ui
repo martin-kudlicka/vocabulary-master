@@ -76,7 +76,7 @@
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>&amp;Template</string>
+            <string>&amp;Template:</string>
            </property>
            <property name="buddy">
             <cstring>qleTextEdit</cstring>
