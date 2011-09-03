@@ -37,6 +37,9 @@ const void MainWindow::ApplySettings(const bool &pStartup)
             } // if
 		} // if
 	} // if
+#ifndef FREE
+	_pPlugins.SetLanguage(_sSettings.GetTranslation());
+#endif
 
     if (_sSettings.GetAlwaysOnTop()) {
         setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
