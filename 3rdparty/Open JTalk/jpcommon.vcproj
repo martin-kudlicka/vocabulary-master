@@ -6,6 +6,7 @@
 	ProjectGUID="{F3FAA179-BC8A-4F70-8AEE-20265CDB2825}"
 	RootNamespace="jpcommon"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="0"
 	>
 	<Platforms>
 		<Platform
@@ -45,7 +46,7 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="2"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -104,7 +105,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;CHARSET_UTF_8;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="2"
 				DebugInformationFormat="3"
 			/>
 			<Tool

@@ -6,6 +6,7 @@
 	ProjectGUID="{C928F8F4-9BEB-420C-B3CA-14D0778D1F7B}"
 	RootNamespace="njd_set_accent_phrase"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="0"
 	>
 	<Platforms>
 		<Platform
@@ -46,7 +47,7 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="4"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -106,7 +107,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;CHARSET_UTF_8"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="4"
 				DebugInformationFormat="3"
 			/>
 			<Tool
