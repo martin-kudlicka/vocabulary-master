@@ -3,7 +3,7 @@
 const int PlaintextImportWidget::GetLineCount() const
 {
 	int iFileLines = 0;
-	_pfFile->Seek(PlaintextFile::FILE_BEGIN);
+	_pfFile->Seek(PlaintextFile::PFILE_BEGIN);
 	while (!_pfFile->ReadLine().isNull()) {
 		iFileLines++;
 	} // while
@@ -69,7 +69,7 @@ const void PlaintextImportWidget::PreselectCodec() const
 
 const void PlaintextImportWidget::RefreshPreview() const
 {
-	_pfFile->Seek(PlaintextFile::FILE_BEGIN);
+	_pfFile->Seek(PlaintextFile::PFILE_BEGIN);
 	QString qsText;
 	for (int iI = 0; iI < GetLinesPerRecord(); iI++) {
 		if (!qsText.isEmpty()) {

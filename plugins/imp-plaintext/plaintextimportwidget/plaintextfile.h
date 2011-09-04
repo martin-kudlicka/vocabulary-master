@@ -8,7 +8,7 @@
 class PlaintextFile
 {
 	public:
-		static const qint64 FILE_BEGIN = 0;
+		static const qint64 PFILE_BEGIN = 0;
 
 		const bool AtEnd() const;
 		const void Close();

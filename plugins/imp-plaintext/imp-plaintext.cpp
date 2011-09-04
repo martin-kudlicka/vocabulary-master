@@ -47,7 +47,7 @@ const QString ImpPlaintext::GetRecordData(const int &pRecord, const QString &pMa
 		if (_iCachedRecord + 1 != pRecord) {
 			// seek to record in file
 			int iLine = 0;
-			_pfPlaintext.Seek(PlaintextFile::FILE_BEGIN);
+			_pfPlaintext.Seek(PlaintextFile::PFILE_BEGIN);
 			while (iLine != pRecord) {
 				for (int iI = 0; iI < _piwWidget->GetLinesPerRecord(); iI++) {
 					_pfPlaintext.ReadLine();
