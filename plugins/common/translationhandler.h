@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TRANSLATIONHANDLER_H
+#define TRANSLATIONHANDLER_H
 
 #include <QtCore/QString>
 #include <QtCore/QTranslator>
@@ -23,3 +24,5 @@ class TranslationHandler
 #endif
 		QTranslator _qtTranslator;
 }; // TranslationHandler
+
+#endif // TRANSLATIONHANDLER_H
