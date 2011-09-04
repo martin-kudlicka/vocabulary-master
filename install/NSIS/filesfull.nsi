@@ -22,9 +22,9 @@ file ..\plugins\imp-plaintext\lang\cs_CZ.qm
 SetOutPath "$INSTDIR\plugins\tts-openjtalk"
 file ..\output\Release\tts-openjtalk.dll
 SetOutPath "$INSTDIR\plugins\tts-openjtalk\hts_voice_nitech_jp_atr503_m001"
-file /r "..\3rdparty\HTS Voice NIT ATR503 M001\*.*"
+file "..\3rdparty\HTS Voice NIT ATR503 M001\*.*"
 SetOutPath "$INSTDIR\plugins\tts-openjtalk\open_jtalk_dic_utf_8"
-file /r "..\3rdparty\Open JTalk dictionary UTF-8\*.*"
+file "..\3rdparty\Open JTalk dictionary UTF-8\*.*"
 ; tts-sapi plugin
 SetOutPath "$INSTDIR\plugins\tts-sapi"
 file ..\output\Release\tts-sapi.dll
