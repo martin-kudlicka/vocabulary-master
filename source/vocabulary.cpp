@@ -71,6 +71,7 @@ const int Vocabulary::GetRecordCount(const int &pCategoryId) const
 	return _qhCategoryRecords.value(pCategoryId).size();
 } // GetRecordCount
 
+#ifndef FREE
 const int Vocabulary::GetRecordCount(const bool &pEnabled) const
 {
 	int iRecordCount = 0;
@@ -83,6 +84,7 @@ const int Vocabulary::GetRecordCount(const bool &pEnabled) const
 
 	return iRecordCount;
 } // GetRecordCount
+#endif
 
 const VocabularyDatabase::tRecordIdList Vocabulary::GetRecordIds(const int &pCategoryId) const
 {

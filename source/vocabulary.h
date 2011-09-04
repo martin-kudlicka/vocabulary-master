@@ -17,7 +17,9 @@ class Vocabulary : public VocabularyDatabase
         const QString GetDataText(const int &pRecordId, const int &pFieldId) const;
 		const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
+#ifndef FREE
 		const int GetRecordCount(const bool &pEnabled) const;
+#endif
         const tRecordIdList GetRecordIds(const int &pCategoryId) const;
 		const void New(const QString &pFilePath);
 #ifndef TRY
