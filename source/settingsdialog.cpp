@@ -289,15 +289,14 @@ SettingsDialog::SettingsDialog(
     delete _usdSettingsDialog.cbNewWordFlash;
     delete _usdSettingsDialog.cbStartLearningOnStartup;
 
+	// plugins
+	_usdSettingsDialog.qtwTabs->removeTab(TabPlugins);
+
     // appearance
     _usdSettingsDialog.qtwTabs->removeTab(TabHotkey);
     _usdSettingsDialog.qtwTabs->removeTab(TabAppearance);
-
-    // plugins
-    _usdSettingsDialog.qtwTabs->removeTab(TabPlugins);
 #elif !defined(Q_WS_WIN)
     _usdSettingsDialog.qtwTabs->removeTab(TabHotkey);
-    _usdSettingsDialog.qtwTabs->removeTab(TabPlugins);
 #else
 	_usdSettingsDialog.qcbColorFlash->setItemDelegate(new ColorDelegate(_usdSettingsDialog.qcbColorFlash));
 
