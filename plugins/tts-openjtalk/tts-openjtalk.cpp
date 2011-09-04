@@ -121,38 +121,38 @@ const void TTSOpenJTalk::Initialize()
 	char *cPath5 = static_cast<char *>(malloc(MAX_PATH + 1));
 
 	Mecab_load(&_mMecab, GetSubdir(DIC_DIR).toLocal8Bit().data());
-	strcpy(cPath1, GetFileInSubdir(FN_MS_DUR, VOICE_DIR).toLocal8Bit().data());
-	strcpy(cPath2, GetFileInSubdir(FN_TS_DUR, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath1, MAX_PATH + 1, GetFileInSubdir(FN_MS_DUR, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath2, MAX_PATH + 1, GetFileInSubdir(FN_TS_DUR, VOICE_DIR).toLocal8Bit().data());
 	HTS_Engine_load_duration_from_fn(&_heEngine, &cPath1, &cPath2, 1);
-	strcpy(cPath1, GetFileInSubdir(FN_MS_MGC, VOICE_DIR).toLocal8Bit().data());
-	strcpy(cPath2, GetFileInSubdir(FN_TS_MGC, VOICE_DIR).toLocal8Bit().data());
-	strcpy(cPath3, GetFileInSubdir(FN_WS_MGC_1, VOICE_DIR).toLocal8Bit().data());
-	strcpy(cPath4, GetFileInSubdir(FN_WS_MGC_2, VOICE_DIR).toLocal8Bit().data());
-	strcpy(cPath5, GetFileInSubdir(FN_WS_MGC_3, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath1, MAX_PATH + 1, GetFileInSubdir(FN_MS_MGC, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath2, MAX_PATH + 1, GetFileInSubdir(FN_TS_MGC, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath3, MAX_PATH + 1, GetFileInSubdir(FN_WS_MGC_1, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath4, MAX_PATH + 1, GetFileInSubdir(FN_WS_MGC_2, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath5, MAX_PATH + 1, GetFileInSubdir(FN_WS_MGC_3, VOICE_DIR).toLocal8Bit().data());
 	cPaths[0] = cPath3;
 	cPaths[1] = cPath4;
 	cPaths[2] = cPath5;
 	HTS_Engine_load_parameter_from_fn(&_heEngine, &cPath1, &cPath2, cPaths, 0, FALSE, NUM_WS_MGC, 1);
-	strcpy(cPath1, GetFileInSubdir(FN_MS_LF0, VOICE_DIR).toLocal8Bit().data());
-	strcpy(cPath2, GetFileInSubdir(FN_TS_LF0, VOICE_DIR).toLocal8Bit().data());
-	strcpy(cPath3, GetFileInSubdir(FN_WS_LF0_1, VOICE_DIR).toLocal8Bit().data());
-	strcpy(cPath4, GetFileInSubdir(FN_WS_LF0_2, VOICE_DIR).toLocal8Bit().data());
-	strcpy(cPath5, GetFileInSubdir(FN_WS_LF0_3, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath1, MAX_PATH + 1, GetFileInSubdir(FN_MS_LF0, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath2, MAX_PATH + 1, GetFileInSubdir(FN_TS_LF0, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath3, MAX_PATH + 1, GetFileInSubdir(FN_WS_LF0_1, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath4, MAX_PATH + 1, GetFileInSubdir(FN_WS_LF0_2, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath5, MAX_PATH + 1, GetFileInSubdir(FN_WS_LF0_3, VOICE_DIR).toLocal8Bit().data());
 	cPaths[0] = cPath3;
 	cPaths[1] = cPath4;
 	cPaths[2] = cPath5;
 	HTS_Engine_load_parameter_from_fn(&_heEngine, &cPath1, &cPath2, cPaths, 1, TRUE, NUM_WS_LF0, 1);
 	if (HTS_Engine_get_nstream(&_heEngine) == 3) {
-		strcpy(cPath1, GetFileInSubdir(FN_MS_LPF, VOICE_DIR).toLocal8Bit().data());
-		strcpy(cPath2, GetFileInSubdir(FN_TS_LPF, VOICE_DIR).toLocal8Bit().data());
-		strcpy(cPath3, GetFileInSubdir(FN_WS_LPF, VOICE_DIR).toLocal8Bit().data());
+		strcpy_s(cPath1, MAX_PATH + 1, GetFileInSubdir(FN_MS_LPF, VOICE_DIR).toLocal8Bit().data());
+		strcpy_s(cPath2, MAX_PATH + 1, GetFileInSubdir(FN_TS_LPF, VOICE_DIR).toLocal8Bit().data());
+		strcpy_s(cPath3, MAX_PATH + 1, GetFileInSubdir(FN_WS_LPF, VOICE_DIR).toLocal8Bit().data());
 		HTS_Engine_load_parameter_from_fn(&_heEngine, &cPath1, &cPath2, &cPath3, 2, FALSE, NUM_WS_LPF, 1);
 	} // if
-	strcpy(cPath1, GetFileInSubdir(FN_MS_GVM, VOICE_DIR).toLocal8Bit().data());
-	strcpy(cPath2, GetFileInSubdir(FN_TS_GVM, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath1, MAX_PATH + 1, GetFileInSubdir(FN_MS_GVM, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath2, MAX_PATH + 1, GetFileInSubdir(FN_TS_GVM, VOICE_DIR).toLocal8Bit().data());
 	HTS_Engine_load_gv_from_fn(&_heEngine, &cPath1, &cPath2, 0, 1);
-	strcpy(cPath1, GetFileInSubdir(FN_MS_GV1, VOICE_DIR).toLocal8Bit().data());
-	strcpy(cPath2, GetFileInSubdir(FN_TS_GV1, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath1, MAX_PATH + 1, GetFileInSubdir(FN_MS_GV1, VOICE_DIR).toLocal8Bit().data());
+	strcpy_s(cPath2, MAX_PATH + 1, GetFileInSubdir(FN_TS_GV1, VOICE_DIR).toLocal8Bit().data());
 	HTS_Engine_load_gv_from_fn(&_heEngine, &cPath1, &cPath2, 1, 1);
 	HTS_Engine_load_gv_switch_from_fn(&_heEngine, GetFileInSubdir(FN_GV_SWITCH, VOICE_DIR).toLocal8Bit().data());
 
