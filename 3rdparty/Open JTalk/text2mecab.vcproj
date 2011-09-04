@@ -6,6 +6,7 @@
 	ProjectGUID="{29FB2828-2A74-4843-B31A-F7E3318D39BB}"
 	RootNamespace="text2mecab"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="0"
 	>
 	<Platforms>
 		<Platform
@@ -45,7 +46,7 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="4"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -104,7 +105,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;CHARSET_UTF_8"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="4"
 				DebugInformationFormat="3"
 			/>
 			<Tool

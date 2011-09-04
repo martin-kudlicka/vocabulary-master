@@ -6,6 +6,7 @@
 	ProjectGUID="{0AF3D1A2-4028-4AC2-941E-983B685B5282}"
 	RootNamespace="mecab"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="0"
 	>
 	<Platforms>
 		<Platform
@@ -45,7 +46,7 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="0"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -104,7 +105,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;HAVE_WINDOWS_H;_CRT_SECURE_NO_WARNINGS;DIC_VERSION=102;PACKAGE=\&quot;open_jtalk\&quot;;VERSION=\&quot;1.03\&quot;;_SCL_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="0"
 				DebugInformationFormat="3"
 			/>
 			<Tool
