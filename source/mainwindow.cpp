@@ -231,6 +231,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     _umwMainWindow.qlLanguage2->hide();
     _umwMainWindow.qlCategory->hide();
 #ifdef FREE
+	_umwMainWindow.qaFindInVocabulary->setVisible(false);
     _umwMainWindow.qaAnswer->setVisible(false);
     _umwMainWindow.qaMute->setVisible(false);
     _umwMainWindow.qaLicense->setVisible(false);
