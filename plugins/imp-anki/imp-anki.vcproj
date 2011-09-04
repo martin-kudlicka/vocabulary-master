@@ -189,6 +189,10 @@
 				RelativePath=".\ankiimportwidget\modelsmodel.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\common\translationhandler.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -291,6 +295,10 @@
 			</File>
 			<File
 				RelativePath=".\ankiimportwidget\modelsmodel.h"
+				>
+			</File>
+			<File
+				RelativePath="..\common\translationhandler.h"
 				>
 			</File>
 		</Filter>
@@ -427,6 +435,17 @@
 					</FileConfiguration>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Translation Files"
+			Filter="ts"
+			UniqueIdentifier="{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}"
+			ParseFiles="false"
+			>
+			<File
+				RelativePath=".\lang\cs_CZ.ts"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
