@@ -493,7 +493,7 @@ const void MainWindow::RefreshStatusBar()
 #ifdef FREE
         qsInfo = QString("%1, %2").arg(_vVocabulary.GetName()).arg(_vVocabulary.GetRecordCount());
 #elif defined TRY
-        qsInfo = tr("memory, %2/%3").arg(_vVocabulary.GetRecordCount(true)).arg(_vVocabulary.GetRecordCount());
+        qsInfo = tr("memory, %1/%2").arg(_vVocabulary.GetRecordCount(true)).arg(_vVocabulary.GetRecordCount());
 #else
         qsInfo = QString("%1, %2/%3").arg(_vVocabulary.GetName()).arg(_vVocabulary.GetRecordCount(true)).arg(_vVocabulary.GetRecordCount());
 #endif
