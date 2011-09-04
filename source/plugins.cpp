@@ -82,6 +82,9 @@ const void Plugins::Load()
 
 const void Plugins::SetLanguage(const QString &pLanguage) const
 {
+	foreach (sImpPlugin sipPlugin, _tiplImpPlugins) {
+		sipPlugin.iiInterface->SetLanguage(pLanguage);
+	} // foreach
 	foreach (sExpPlugin sepPlugin, _teplExpPlugins) {
 		sepPlugin.eiInterface->SetLanguage(pLanguage);
 	} // foreach

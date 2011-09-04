@@ -4,10 +4,11 @@
 #include <QtCore/QString>
 #include <QtPlugin>
 #include <QtGui/QGroupBox>
+#include "translationhandler.h"
 
 static const char *IMP_INTERFACE = "Imp Interface 1.0";
 
-class ImpInterface
+class ImpInterface : public TranslationHandler
 {
 	public:
         static const int WIDGET_POSITION = 0;
