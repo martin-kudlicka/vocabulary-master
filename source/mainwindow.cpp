@@ -235,6 +235,12 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     _umwMainWindow.qaAnswer->setVisible(false);
     _umwMainWindow.qaMute->setVisible(false);
     _umwMainWindow.qaLicense->setVisible(false);
+	foreach (QObject *qoObject, _umwMainWindow.qtbToolBar->children()) {
+		QAction *qaAction = qobject_cast<QAction *>(qoObject);
+		if (qaAction && qaAction->isSeparator()) {
+			qaAction->deleteLater();
+		} // if
+	} // foreach
 #else
 # ifdef TRY
     _umwMainWindow.qaOpen->setVisible(false);
