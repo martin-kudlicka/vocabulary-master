@@ -236,8 +236,8 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     _umwMainWindow.qaLicense->setVisible(false);
 #else
 # ifdef TRY
-    _umwMainWindow.qaOpen->hide();
-    _umwMainWindow.qaLicense->hide();
+    _umwMainWindow.qaOpen->setVisible(false);
+    _umwMainWindow.qaLicense->setVisible(false);
 # endif
 	CreateTrayMenu();
 #endif
