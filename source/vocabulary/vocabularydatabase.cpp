@@ -25,9 +25,12 @@ const QString COLUMN_TEXT = "text";
 //const QString COLUMN_TYPE = "type";
 const QString COLUMN_VALUE = "value";
 #ifdef FREE
-const QString FIELD_NOTE = QT_TRANSLATE_NOOP("VocabularyDatabase", "Note");
-const QString FIELD_WORD = QT_TRANSLATE_NOOP("VocabularyDatabase", "Word");
-const QString LEARNING_TEMPLATE = "<center style=\"font-size:20px\">" + VARIABLE_MARK + FIELD_WORD + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + FIELD_NOTE + "</center>";
+const QString FIELD_NOTE1 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Note1");
+const QString FIELD_NOTE2 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Note2");
+const QString FIELD_WORD1 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Word1");
+const QString FIELD_WORD2 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Word2");
+const QString LEARNING_TEMPLATE1 = "<center style=\"font-size:20px\">" + VARIABLE_MARK + FIELD_WORD1 + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + FIELD_NOTE1 + "</center>";
+const QString LEARNING_TEMPLATE2 = "<center style=\"font-size:20px\">" + VARIABLE_MARK + FIELD_WORD2 + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + FIELD_NOTE2 + "</center>";
 #endif
 const QString TABLE_CATEGORIES = "categories";
 const QString TABLE_DATA = "data";
@@ -447,10 +450,10 @@ const void VocabularyDatabase::Initialize() const
 
 #ifdef FREE
 	// fill default data
-	_qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_WORD + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_WORD + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
-	_qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_NOTE + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_NOTE + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
-	_qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_WORD + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_WORD + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageRight) + "')");
-	_qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_NOTE + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_NOTE + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageRight) + "')");
+	_qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_WORD1 + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_WORD1 + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
+	_qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_NOTE1 + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_NOTE1 + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
+	_qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_WORD2 + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_WORD2 + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageRight) + "')");
+	_qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_NOTE2 + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_NOTE2 + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageRight) + "')");
 	_qsdDatabase.exec("INSERT INTO " + TABLE_SETTINGS + " VALUES ('" + KEY_LEARNINGTEMPLATE1 + "', '" + LEARNING_TEMPLATE + "')");
 	_qsdDatabase.exec("INSERT INTO " + TABLE_SETTINGS + " VALUES ('" + KEY_LEARNINGTEMPLATE2 + "', '" + LEARNING_TEMPLATE + "')");
 #endif
