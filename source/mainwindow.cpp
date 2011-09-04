@@ -231,9 +231,9 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     _umwMainWindow.qlLanguage2->hide();
     _umwMainWindow.qlCategory->hide();
 #ifdef FREE
-    _umwMainWindow.qaAnswer->hide();
-    _umwMainWindow.qaMute->hide();
-    _umwMainWindow.qaLicense->hide();
+    _umwMainWindow.qaAnswer->setVisible(false);
+    _umwMainWindow.qaMute->setVisible(false);
+    _umwMainWindow.qaLicense->setVisible(false);
 #else
 # ifdef TRY
     _umwMainWindow.qaOpen->hide();
@@ -327,7 +327,11 @@ const void MainWindow::on_qaLicense_triggered(bool checked /* false */)
 
 const void MainWindow::on_qaManage_triggered(bool checked /* false */)
 {
-    OpenVocabulary(false);
+    OpenVocabulary(
+#ifndef FREE
+		false
+#endif
+		);
 } // on_qaManage_triggered
 
 #ifndef FREE
