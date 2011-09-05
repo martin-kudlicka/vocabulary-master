@@ -491,11 +491,9 @@ const void MainWindow::OpenVocabulary(
 
 const void MainWindow::RefreshStatusBar()
 {
-#ifndef TRY
-    if (_vVocabulary.GetName().isEmpty()) {
+    if (!_vVocabulary.IsOpen()) {
         _qlVocabularyStatus.setText("");
     } else {
-#endif
         QString qsInfo;
 #ifdef FREE
         qsInfo = QString("%1, %2").arg(_vVocabulary.GetName()).arg(_vVocabulary.GetRecordCount());
@@ -505,9 +503,7 @@ const void MainWindow::RefreshStatusBar()
         qsInfo = QString("%1, %2/%3").arg(_vVocabulary.GetName()).arg(_vVocabulary.GetRecordCount(true)).arg(_vVocabulary.GetRecordCount());
 #endif
         _qlVocabularyStatus.setText(tr("%1 records").arg(qsInfo));
-#ifndef TRY
     } // if else
-#endif
 } // RefreshStatusBar
 
 #if !defined(FREE) && defined(Q_WS_WIN)
