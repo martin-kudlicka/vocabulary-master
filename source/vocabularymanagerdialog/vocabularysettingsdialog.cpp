@@ -45,6 +45,16 @@ const void VocabularySettingsDialog::FillSpeech(QComboBox *pComboBox, const QStr
     pComboBox->setItemData(pComboBox->count() - 1, _tvVoiceList.size() - 1);
 } // FillSpeech
 
+const void VocabularySettingsDialog::on_leLanguageLeft_textEdited(const QString &text) const
+{
+    RefreshLanguageNameFields();
+} // on_leLanguageLeft_textEdited
+
+const void VocabularySettingsDialog::on_leLanguageRight_textEdited(const QString &text) const
+{
+    RefreshLanguageNameFields();
+} // on_leLanguageRight_textEdited
+
 const void VocabularySettingsDialog::on_qpbFieldAdd_clicked(bool checked /* false */)
 {
     _fmFieldsModel.AddRow();
@@ -136,14 +146,27 @@ const void VocabularySettingsDialog::PrepareSpeechPlugins(QComboBox *pComboBox)
 		} // foreach
 	} // foreach
 } // PrepareSpeechPlugins
+
+const void VocabularySettingsDialog::RefreshLanguageNameFields() const
+{
+    for (int iRow = 0; iRow < _fmFieldsModel.rowCount(); iRow++) {
+        _vVocabulary->SetSettings(KEY_LANGUAGE1, _qdvsdVocabularySettingsDialog.leLanguageLeft->text());
+        _vVocabulary->SetSettings(KEY_LANGUAGE2, _qdvsdVocabularySettingsDialog.leLanguageRight->text());
+
+        QModelIndex qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnLanguage);
+        _qdvsdVocabularySettingsDialog.qtvFields->closePersistentEditor(qmiIndex);
+        _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
+    } // for
+} // RefreshLanguageNameFields
 #endif
 
 const void VocabularySettingsDialog::SaveOptions()
 {
     // languages
+#ifdef FREE
     _vVocabulary->SetSettings(KEY_LANGUAGE1, _qdvsdVocabularySettingsDialog.leLanguageLeft->text());
     _vVocabulary->SetSettings(KEY_LANGUAGE2, _qdvsdVocabularySettingsDialog.leLanguageRight->text());
-#ifndef FREE
+#else
 	sSpeechVoice spvVoice = _tvVoiceList.at(_qdvsdVocabularySettingsDialog.qcbSpeechLeft->itemData(_qdvsdVocabularySettingsDialog.qcbSpeechLeft->currentIndex()).toInt());
 	_vVocabulary->SetSettings(KEY_SPEECH1, QString::number(spvVoice.etpPlugin));
 	_vVocabulary->SetSettings(KEY_VOICE1, spvVoice.qsVoiceId);
