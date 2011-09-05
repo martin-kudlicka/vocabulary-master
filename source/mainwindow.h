@@ -64,6 +64,9 @@ class MainWindow : public QMainWindow
         QAction *_qaTraySettings;
 #endif
         QHash<int, int> _qhCurrentAnswer;
+#ifndef FREE
+        QHBoxLayout *_qhblInner;
+#endif
         QLabel _qlVocabularyStatus;
 #ifndef FREE
 		QMenu _qmTray;

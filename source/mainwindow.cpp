@@ -228,6 +228,9 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 {
     _iTimerAnswer = 0;
 	_iTimerQuestion = 0;
+#ifndef FREE
+    _qhblInner = NULL;
+#endif
 
 	qsrand(QTime::currentTime().msec());
 
@@ -587,36 +590,32 @@ const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) 
 
 const void MainWindow::SetLayout()
 {
-    QBoxLayout *qblLayout;
-
+#ifndef FREE
+    if (_qhblInner) {
+        _qhblInner->deleteLater();
+        _qhblInner = NULL;
+    } // if
+#endif
     if (_umwMainWindow.qwCentral->layout()) {
         delete _umwMainWindow.qwCentral->layout();
     } // if
 
+    QBoxLayout *qblMain = new QVBoxLayout(_umwMainWindow.qwCentral);
 #ifndef FREE
     if (_sSettings.GetHorizontalLayout()) {
-        qblLayout = new QHBoxLayout(_umwMainWindow.qwCentral);
+        qblMain->addWidget(_umwMainWindow.qlCategory);
+        QHBoxLayout *qhblInner = new QHBoxLayout;
+        qhblInner->addWidget(_umwMainWindow.qvblQuestion->parentWidget());
+        qhblInner->addWidget(_umwMainWindow.qvblAnswer->parentWidget());
+        qblMain->addLayout(qhblInner);
     } else {
 #endif
-        qblLayout = new QVBoxLayout(_umwMainWindow.qwCentral);
+        qblMain->addWidget(_umwMainWindow.qvblQuestion->parentWidget());
+        qblMain->addWidget(_umwMainWindow.qlCategory);
+        qblMain->addWidget(_umwMainWindow.qvblAnswer->parentWidget());
 #ifndef FREE
     } // if else
 #endif
-
-#ifndef FREE
-    if (_sSettings.GetHorizontalLayout()) {
-        qblLayout->addWidget(_umwMainWindow.qlCategory);
-    } // if
-#endif
-    qblLayout->addWidget(_umwMainWindow.qvblQuestion->parentWidget());
-#ifndef FREE
-    if (!_sSettings.GetHorizontalLayout()) {
-#endif
-        qblLayout->addWidget(_umwMainWindow.qlCategory);
-#ifndef FREE
-    } // if
-#endif
-    qblLayout->addWidget(_umwMainWindow.qvblAnswer->parentWidget());
 } // SetLayout
 
 #ifndef FREE
