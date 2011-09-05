@@ -66,8 +66,12 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 const void MainWindow::CreateTrayMenu()
 {
     _qaTrayManage = _qmTray.addAction(tr("&Manage"));
+    _qaTrayManage->setIcon(QIcon(":/res/mainwindow/menubar/manage.png"));
     _qaTraySettings = _qmTray.addAction(tr("&Settings"));
+    _qaTraySettings->setIcon(QIcon(":/res/mainwindow/menubar/settings.png"));
+    _qmTray.addSeparator();
 	_qaTrayExit = _qmTray.addAction(tr("&Exit"));
+    _qaTrayExit->setIcon(QIcon(":/res/mainwindow/menubar/exit.png"));
 
 	connect(&_qmTray, SIGNAL(triggered(QAction *)), SLOT(on_qmTray_triggered(QAction *)));
 	_qstiTrayIcon.setContextMenu(&_qmTray);
@@ -259,6 +263,10 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     // plugins
 	_pPlugins.Load();
 	_pPlugins.Initialize();
+
+    // system tray icon
+    QIcon qiTrayIcon(":/res/mainwindow/mainwindow.png");
+    _qstiTrayIcon.setIcon(qiTrayIcon);
 #endif
 
 	// translator
