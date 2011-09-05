@@ -6,6 +6,8 @@
 
 class ExpPluginsModel : public QAbstractItemModel
 {
+    Q_OBJECT
+
     public:
         ExpPluginsModel(const Plugins::tExpPluginList *pExpPlugins, QObject *pParent = NULL);
 
