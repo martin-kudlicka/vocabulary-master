@@ -6,6 +6,7 @@
 
 class WordsImportFieldsModel : public QAbstractItemModel
 {
+    Q_OBJECT
     Q_ENUMS(eColumn)
 
     public:
