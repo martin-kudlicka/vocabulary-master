@@ -64,7 +64,7 @@
     <message>
         <location filename="htmlexportwidget.ui" line="152"/>
         <source> columns</source>
-        <translation>sloupců</translation>
+        <translation> sloupců</translation>
     </message>
     <message>
         <location filename="htmlexportwidget.ui" line="164"/>
