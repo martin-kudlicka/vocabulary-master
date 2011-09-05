@@ -141,6 +141,7 @@ bool FieldsModel::setData(const QModelIndex &index, const QVariant &value, int r
                 faAttributes ^= Vocabulary::FieldAttributeSpeech;
                 _vVocabulary->SetFieldAttributes(iFieldId, faAttributes);
             }
+            break;
         case ColumnLanguage:
             _vVocabulary->SetFieldLanguage(iFieldId, static_cast<Vocabulary::eFieldLanguage>(value.toInt()));
     } // switch
