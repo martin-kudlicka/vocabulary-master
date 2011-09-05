@@ -7,7 +7,6 @@
 ; general settings
 InstallDir "$LOCALAPPDATA\Vocabulary Master"
 ;InstallDirRegKey HKCU ${REG_SOFTWARE_PRODUCT} ""
-Name "${PRODUCT_NAME}"
 RequestExecutionLevel user
 
 ; remember the installer language

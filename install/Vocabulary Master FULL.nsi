@@ -2,6 +2,7 @@
 
 ; general settings
 OutFile "..\output\Vocabulary Master FULL Setup.exe"
+Name "${PRODUCT_NAME} FULL"
 
 ; installer sections
 Section "Install"

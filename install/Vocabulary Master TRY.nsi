@@ -2,6 +2,7 @@
 
 ; general settings
 OutFile "..\output\Vocabulary Master TRY Setup.exe"
+Name "${PRODUCT_NAME} TRY"
 
 ; installer sections
 Section "Install"
