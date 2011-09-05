@@ -4,40 +4,34 @@
 <context>
     <name>CategoriesModel</name>
     <message>
-        <location filename="../common/categoriesmodel.cpp" line="30"/>
         <source>Category</source>
-        <translation>Kategorie</translation>
+        <translation type="obsolete">Kategorie</translation>
     </message>
 </context>
 <context>
     <name>ExpPluginsModel</name>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsexportdialog/exppluginsmodel.cpp" line="27"/>
         <source>Plugin</source>
-        <translation>Modul</translation>
+        <translation type="obsolete">Modul</translation>
     </message>
 </context>
 <context>
     <name>FieldsModel</name>
     <message>
-        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog/fieldsmodel.cpp" line="83"/>
         <source>Identifier</source>
-        <translation>Identifikátor</translation>
+        <translation type="obsolete">Identifikátor</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog/fieldsmodel.cpp" line="85"/>
         <source>Name</source>
-        <translation>Název</translation>
+        <translation type="obsolete">Název</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog/fieldsmodel.cpp" line="87"/>
         <source>Speech</source>
-        <translation>Řeč</translation>
+        <translation type="obsolete">Řeč</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog/fieldsmodel.cpp" line="89"/>
         <source>Language</source>
-        <translation>Jazyk</translation>
+        <translation type="obsolete">Jazyk</translation>
     </message>
 </context>
 <context>
@@ -62,42 +56,42 @@
         <translation>Vocabulary Master</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="68"/>
+        <location filename="../mainwindow.cpp" line="70"/>
         <source>&amp;Manage</source>
         <translation>&amp;Spravovat</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="69"/>
+        <location filename="../mainwindow.cpp" line="72"/>
         <source>&amp;Settings</source>
         <translation>&amp;Nastavení</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="70"/>
+        <location filename="../mainwindow.cpp" line="75"/>
         <source>&amp;Exit</source>
         <translation>&amp;Ukončit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="292"/>
+        <location filename="../mainwindow.cpp" line="312"/>
         <source>About Vocabulary Master</source>
         <translation>O Vocabulary Master</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="347"/>
+        <location filename="../mainwindow.cpp" line="367"/>
         <source>Create new vocabulary</source>
         <translation>Vytvořit nový slovník</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="378"/>
+        <location filename="../mainwindow.cpp" line="398"/>
         <source>Open vocabulary</source>
         <translation>Otevřít slovník</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="496"/>
+        <location filename="../mainwindow.cpp" line="514"/>
         <source>memory, %1/%2</source>
         <translation>paměť, %1/%2</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="500"/>
+        <location filename="../mainwindow.cpp" line="518"/>
         <source>%1 records</source>
         <translation>%1 záznamů</translation>
     </message>
@@ -109,14 +103,12 @@
 <context>
     <name>PluginsModel</name>
     <message>
-        <location filename="../settingsdialog/pluginsmodel.cpp" line="43"/>
         <source>Name</source>
-        <translation>Název</translation>
+        <translation type="obsolete">Název</translation>
     </message>
     <message>
-        <location filename="../settingsdialog/pluginsmodel.cpp" line="45"/>
         <source>License</source>
-        <translation>Licence</translation>
+        <translation type="obsolete">Licence</translation>
     </message>
 </context>
 <context>
@@ -194,21 +186,31 @@
         <source>Name</source>
         <translation>Název</translation>
     </message>
+    <message>
+        <location filename="../vocabulary/vocabularydatabase.cpp" line="460"/>
+        <source>Language1</source>
+        <translation>Jazyk1</translation>
+    </message>
+    <message>
+        <location filename="../vocabulary/vocabularydatabase.cpp" line="461"/>
+        <source>Language2</source>
+        <translation>Jazyk2</translation>
+    </message>
 </context>
 <context>
     <name>VocabularyManagerDialog</name>
     <message>
-        <location filename="../vocabularymanagerdialog.cpp" line="149"/>
+        <location filename="../vocabularymanagerdialog.cpp" line="154"/>
         <source>Add category</source>
         <translation>Přidat kategorii</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog.cpp" line="149"/>
+        <location filename="../vocabularymanagerdialog.cpp" line="154"/>
         <source>New category name</source>
         <translation>Název nové kategorie</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog.cpp" line="248"/>
+        <location filename="../vocabularymanagerdialog.cpp" line="253"/>
         <source>Import words</source>
         <translation>Importovat slovíčka</translation>
     </message>
@@ -236,12 +238,12 @@
         <translation>Neznámý</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.cpp" line="92"/>
+        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.cpp" line="102"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.cpp" line="123"/>
+        <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.cpp" line="133"/>
         <source>None</source>
         <translation>Žádný</translation>
     </message>
@@ -249,73 +251,61 @@
 <context>
     <name>WordsExportFieldsModel</name>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsexportdialog/wordsexportfieldsmodel.cpp" line="47"/>
         <source>Language</source>
-        <translation>Jazyk</translation>
+        <translation type="obsolete">Jazyk</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsexportdialog/wordsexportfieldsmodel.cpp" line="49"/>
         <source>Name</source>
-        <translation>Název</translation>
+        <translation type="obsolete">Název</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsexportdialog/wordsexportfieldsmodel.cpp" line="51"/>
         <source>Mark</source>
-        <translation>Značka</translation>
+        <translation type="obsolete">Značka</translation>
     </message>
 </context>
 <context>
     <name>WordsImportDialog</name>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsimportdialog.cpp" line="34"/>
         <source>Stop</source>
-        <translation>Zastavit</translation>
+        <translation type="obsolete">Zastavit</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsimportdialog.cpp" line="36"/>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation type="obsolete">Zrušit</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsimportdialog.cpp" line="43"/>
         <source>Words import</source>
-        <translation>Import slovíček</translation>
+        <translation type="obsolete">Import slovíček</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsimportdialog.cpp" line="43"/>
         <source>Can&apos;t import data from selected file.</source>
-        <translation>Slovíčka nelze z vybraného souboru importovat.</translation>
+        <translation type="obsolete">Slovíčka nelze z vybraného souboru importovat.</translation>
     </message>
 </context>
 <context>
     <name>WordsImportFieldsModel</name>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsimportdialog/wordsimportfieldsmodel.cpp" line="43"/>
         <source>Language</source>
-        <translation>Jazyk</translation>
+        <translation type="obsolete">Jazyk</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsimportdialog/wordsimportfieldsmodel.cpp" line="45"/>
         <source>Name</source>
-        <translation>Název</translation>
+        <translation type="obsolete">Název</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsimportdialog/wordsimportfieldsmodel.cpp" line="47"/>
         <source>Pattern</source>
-        <translation>Vzor</translation>
+        <translation type="obsolete">Vzor</translation>
     </message>
 </context>
 <context>
     <name>qdLicenseText</name>
     <message>
-        <location filename="../common/licensetextdialog.ui" line="14"/>
         <source>License</source>
-        <translation>Licence</translation>
+        <translation type="obsolete">Licence</translation>
     </message>
     <message>
-        <location filename="../common/licensetextdialog.ui" line="44"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
 </context>
 <context>
@@ -842,72 +832,59 @@
 <context>
     <name>qdWordsExport</name>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsexportdialog.ui" line="14"/>
         <source>Words Export</source>
-        <translation>Export slovíček</translation>
+        <translation type="obsolete">Export slovíček</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsexportdialog.ui" line="38"/>
         <source>Vocabulary</source>
-        <translation>Slovník</translation>
+        <translation type="obsolete">Slovník</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsexportdialog.ui" line="101"/>
         <source>Target</source>
-        <translation>Cíl</translation>
+        <translation type="obsolete">Cíl</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsexportdialog.ui" line="144"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsexportdialog.ui" line="151"/>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation type="obsolete">Zrušit</translation>
     </message>
 </context>
 <context>
     <name>qdWordsImport</name>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsimportdialog.ui" line="14"/>
         <source>Words Import</source>
-        <translation>Import slovíček</translation>
+        <translation type="obsolete">Import slovíček</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsimportdialog.ui" line="20"/>
         <source>Source</source>
-        <translation>Zdroj</translation>
+        <translation type="obsolete">Zdroj</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsimportdialog.ui" line="27"/>
         <source>Vocabulary</source>
-        <translation>Slovník</translation>
+        <translation type="obsolete">Slovník</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsimportdialog.ui" line="66"/>
         <source>&amp;Skip partial records</source>
-        <translation>&amp;Přeskočit částečné záznamy</translation>
+        <translation type="obsolete">&amp;Přeskočit částečné záznamy</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsimportdialog.ui" line="76"/>
         <source>Preview</source>
-        <translation>Náhled</translation>
+        <translation type="obsolete">Náhled</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsimportdialog.ui" line="100"/>
         <source>&amp;Refresh</source>
-        <translation>&amp;Obnovit</translation>
+        <translation type="obsolete">&amp;Obnovit</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsimportdialog.ui" line="143"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location filename="../vocabularymanagerdialog/wordsimportdialog.ui" line="150"/>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation type="obsolete">Zrušit</translation>
     </message>
 </context>
 <context>
