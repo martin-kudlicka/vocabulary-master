@@ -247,9 +247,12 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 			qaAction->deleteLater();
 		} // if
 	} // foreach
-#elif defined TRY
+#else
+# ifdef TRY
     _umwMainWindow.qaOpen->setVisible(false);
     _umwMainWindow.qaLicense->setVisible(false);
+# endif
+	_qstiTrayIcon.setToolTip("Vocabulary Master");
 #endif
     _umwMainWindow.qsbStatusBar->addWidget(&_qlVocabularyStatus);
 
