@@ -6,6 +6,8 @@
 
 class DecksModel : public QAbstractItemModel
 {
+    Q_OBJECT
+
     public:
         DecksModel(const QSqlDatabase *pAnki, QObject *pParent = NULL);
 
