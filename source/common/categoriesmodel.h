@@ -6,6 +6,8 @@
 
 class CategoriesModel : public QAbstractItemModel
 {
+    Q_OBJECT
+
     public:
         CategoriesModel(const Vocabulary *pVocabulary, QObject *pParent = NULL);
 
