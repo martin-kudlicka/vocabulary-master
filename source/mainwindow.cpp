@@ -39,6 +39,8 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 	} // if
 #ifndef FREE
 	_pPlugins.SetLanguage(_sSettings.GetTranslation());
+    _qmTray.clear();
+    CreateTrayMenu();
 #endif
 
     if (_sSettings.GetAlwaysOnTop()) {
@@ -245,12 +247,9 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 			qaAction->deleteLater();
 		} // if
 	} // foreach
-#else
-# ifdef TRY
+#elif defined TRY
     _umwMainWindow.qaOpen->setVisible(false);
     _umwMainWindow.qaLicense->setVisible(false);
-# endif
-	CreateTrayMenu();
 #endif
     _umwMainWindow.qsbStatusBar->addWidget(&_qlVocabularyStatus);
 
