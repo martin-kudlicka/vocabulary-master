@@ -316,7 +316,7 @@ const void MainWindow::on_qaAbout_triggered(bool checked /* false */)
 #ifdef TRY
         + TRY_SUFFIX
 #endif
-        + "</b></center><center>Version 1.0.272</center><br />Copyright (C) 2011 Isshou");
+        + "</b></center><center>Version 1.1.0.424</center><br />Copyright (C) 2011 Isshou");
 } // on_qaAbout_triggered
 
 #ifndef FREE
