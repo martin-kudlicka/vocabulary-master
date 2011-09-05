@@ -2,6 +2,7 @@
 
 ; general settings
 OutFile "..\output\Vocabulary Master FREE Setup.exe"
+Name "${PRODUCT_NAME} FREE"
 
 ; installer sections
 Section "Install"
