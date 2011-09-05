@@ -448,8 +448,8 @@ const void VocabularyDatabase::Initialize() const
 					  /*+ COLUMN_PRIORITY + " INTEGER,"
 					  + COLUMN_ENABLED + " INTEGER)"*/);
 
+    // fill default data
 #ifdef FREE
-	// fill default data
 	_qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_WORD1 + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_WORD1 + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
 	_qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_NOTE1 + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_NOTE1 + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
 	_qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_WORD2 + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_WORD2 + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageRight) + "')");
@@ -457,6 +457,8 @@ const void VocabularyDatabase::Initialize() const
 	_qsdDatabase.exec("INSERT INTO " + TABLE_SETTINGS + " VALUES ('" + KEY_LEARNINGTEMPLATE1 + "', '" + LEARNING_TEMPLATE1 + "')");
 	_qsdDatabase.exec("INSERT INTO " + TABLE_SETTINGS + " VALUES ('" + KEY_LEARNINGTEMPLATE2 + "', '" + LEARNING_TEMPLATE2 + "')");
 #endif
+    SetSettings(KEY_LANGUAGE1, tr("Language1"));
+    SetSettings(KEY_LANGUAGE2, tr("Language2"));
 } // Initialize
 
 const bool VocabularyDatabase::IsOpen() const
