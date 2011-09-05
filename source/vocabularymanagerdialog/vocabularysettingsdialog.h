@@ -54,11 +54,14 @@ class VocabularySettingsDialog : public QDialog
         const void PrepareFields();
         const void PreparePlugins();
 		const void PrepareSpeechPlugins(QComboBox *pComboBox);
+        const void RefreshLanguageNameFields() const;
 #endif
 		const void SaveOptions();
 
 #ifndef FREE
 	private slots:
+        const void on_leLanguageLeft_textEdited(const QString &text) const;
+        const void on_leLanguageRight_textEdited(const QString &text) const;
         const void on_qpbFieldAdd_clicked(bool checked = false);
 		const void on_qpbFieldDown_clicked(bool checked = false);
 		const void on_qpbFieldRemove_clicked(bool checked = false);
