@@ -6,6 +6,8 @@
 
 class ModelsModel : public QAbstractItemModel
 {
+    Q_OBJECT
+
     public:
         ModelsModel(const QSqlDatabase *pAnki, QObject *pParent = NULL);
 
