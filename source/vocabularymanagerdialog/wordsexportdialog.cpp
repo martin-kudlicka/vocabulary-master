@@ -96,6 +96,8 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
 
     // set plugin page
     _qdweWordsExport.qswExpPlugins->setCurrentIndex(_qhExpPluginPage.value(qmiIndex.row()));
+
+    _qdweWordsExport.qpbOk->setEnabled(true);
 } // on_qtvExpPluginsSelectionModel_selectionChanged
 
 WordsExportDialog::WordsExportDialog(const Vocabulary *pVocabulary, const Plugins::tExpPluginList &pExpPlugins, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags), _cmCategoriesModel(pVocabulary), _epmExpPluginsModel(&pExpPlugins), _wefmFieldsModel(pVocabulary)

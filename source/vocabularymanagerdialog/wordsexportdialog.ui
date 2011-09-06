@@ -139,7 +139,10 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="okButton">
+      <widget class="QPushButton" name="qpbOk">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>OK</string>
        </property>
@@ -159,7 +162,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>okButton</sender>
+   <sender>qpbOk</sender>
    <signal>clicked()</signal>
    <receiver>qdWordsExport</receiver>
    <slot>accept()</slot>
