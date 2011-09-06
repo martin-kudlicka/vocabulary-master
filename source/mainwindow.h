@@ -4,8 +4,9 @@
 #include <QtGui/QMainWindow>
 #include <ui_mainwindow.h>
 
-#include "settings.h"
-#ifndef FREE
+#ifdef FREE
+# include "settings.h"
+#else
 # include <QtGui/QBoxLayout>
 #endif
 #include "vocabulary.h"
