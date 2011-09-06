@@ -244,6 +244,22 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
+        <widget class="QGroupBox" name="groupBox_6">
+         <property name="title">
+          <string>Vocabulary Manager</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_11">
+          <item>
+           <widget class="QCheckBox" name="qcbVocabularyManagerCategoryEnable">
+            <property name="text">
+             <string>Enable/disable categories</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
           <widget class="ColorComboBox" name="qcbColorFlash">

@@ -75,6 +75,7 @@ const void SettingsDialog::FillOptions()
 
 #ifndef FREE
     // appearance
+    _usdSettingsDialog.qcbVocabularyManagerCategoryEnable->setChecked(_sSettings->GetCanEnableCategories());
     FillColorFlash();
 
 # ifdef Q_WS_WIN
@@ -245,6 +246,7 @@ const void SettingsDialog::SaveOptions()
 
 #ifndef FREE
     // appearance
+    _sSettings->SetCanEnableCategories(_usdSettingsDialog.qcbVocabularyManagerCategoryEnable->isChecked());
     _sSettings->SetColorFlash(_usdSettingsDialog.qcbColorFlash->itemData(_usdSettingsDialog.qcbColorFlash->currentIndex()).toString());
 
 # ifdef Q_WS_WIN

@@ -485,6 +485,7 @@ const void MainWindow::OpenVocabulary(
 {
     VocabularyManagerDialog vmdManager(&_vVocabulary,
 #ifndef FREE
+        &_sSettings,
         &_pPlugins,
 #endif
         this);

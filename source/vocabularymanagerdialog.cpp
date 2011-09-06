@@ -124,8 +124,10 @@ const void VocabularyManagerDialog::InitEditor()
 
 const void VocabularyManagerDialog::InitTabs()
 {
-    Vocabulary::tCategoryIdList tcilCategories = _vVocabulary->GetCategoryIds();
+    VocabularyTabWidget *vtwTabs = _qdvmVocabularyManager.vtwTabs;
+    vtwTabs->SetShowEnabled(_sSettings->GetCanEnableCategories());
 
+    Vocabulary::tCategoryIdList tcilCategories = _vVocabulary->GetCategoryIds();
     Vocabulary::tCategoryIdList::const_iterator ciCategoryId;
     for (ciCategoryId = tcilCategories.constBegin(); ciCategoryId != tcilCategories.constEnd(); ciCategoryId++) {
         AddTab(*ciCategoryId);
@@ -401,12 +403,14 @@ const void VocabularyManagerDialog::UpdateEditor(const eEditorColumn &pControlsC
 
 VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *pVocabulary,
 #ifndef FREE
+    const Settings *pSettings,
     const Plugins *pPlugins,
 #endif
     QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
 {
     _vVocabulary = pVocabulary;
 #ifndef FREE
+    _sSettings = pSettings;
 	_pPlugins = pPlugins;
 #endif
 

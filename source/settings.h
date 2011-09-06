@@ -32,6 +32,7 @@ class Settings
 
         const bool GetAlwaysOnTop() const;
 #ifndef FREE
+        const bool GetCanEnableCategories() const;
         const QString GetColorFlash() const;
         const bool GetHorizontalLayout() const;
 # ifdef Q_WS_WIN
@@ -64,6 +65,7 @@ class Settings
         const int GetWordsFrequency() const;
         const void SetAlwaysOnTop(const bool &pEnable);
 #ifndef FREE
+        const void SetCanEnableCategories(const bool &pEnable);
         const void SetColorFlash(const QString &pColor);
         const void SetHorizontalLayout(const bool &pEnable);
 # ifdef Q_WS_WIN
