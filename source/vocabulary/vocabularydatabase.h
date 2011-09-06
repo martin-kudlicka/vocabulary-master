@@ -157,7 +157,9 @@ class VocabularyDatabase : public QObject
 #ifndef FREE
 		const void Update(const QString &pTable, const int &pColumnId, const QSqlRecord &pRecord) const;
 #endif
+#ifndef TRY
         const void UpdateDatabase() const;
+#endif
 
 	signals:
 		void SetOpenProgressValue(const int &pValue) const;
