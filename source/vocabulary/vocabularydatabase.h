@@ -63,14 +63,13 @@ class VocabularyDatabase : public QObject
         const void EndEdit(const bool &pSave = true);
 #ifndef FREE
         const int GetCategoryCount() const;
-#endif
         const bool GetCategoryEnabled(const int &pCategoryId) const;
-#ifndef FREE
         const int GetCategoryId(const int &pRow) const;
 #endif
         const tCategoryIdList GetCategoryIds() const;
         const QString GetCategoryName(const int &pCategoryId) const;
 #ifndef FREE
+		const int GetCategoryPriority(const int &pCategoryId) const;
         const FieldAttributes GetFieldAttributes(const int &pFieldId) const;
 #endif
 		const int GetFieldCount() const;
@@ -94,6 +93,7 @@ class VocabularyDatabase : public QObject
 		const int Search(const QString &pWord, const int &pStartId) const;
 #ifndef FREE
         const void SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const;
+		const void SetCategoryPriority(const int &pCategoryId, const int &pPriority) const;
         const void SetFieldAttributes(const int &pFieldId, const FieldAttributes &pAttributes) const;
         const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage) const;
         const void SetFieldName(const int &pFieldId, const QString &pName) const;
@@ -139,6 +139,10 @@ class VocabularyDatabase : public QObject
             ColumnPosition2,
             ColumnPosition3
 		}; // eColumnPosition
+        enum eVersion {
+            Version1,
+            Version2,
+        }; // eVersion
 
         QSqlDatabase _qsdDatabase;
         QString _qsVocabularyFile;
@@ -153,6 +157,7 @@ class VocabularyDatabase : public QObject
 #ifndef FREE
 		const void Update(const QString &pTable, const int &pColumnId, const QSqlRecord &pRecord) const;
 #endif
+        const void UpdateDatabase() const;
 
 	signals:
 		void SetOpenProgressValue(const int &pValue) const;

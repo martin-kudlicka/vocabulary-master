@@ -76,6 +76,7 @@ class VocabularyManagerDialog : public QDialog
 		const void on_vtwTabs_currentChanged(int index) const;
 #ifndef FREE
         const void on_vtwTabs_TabEnableChanged(const int &pIndex, const Qt::CheckState &pState) const;
+		const void on_vtwTabs_TabPriorityChanged(const int &pIndex, const int &pValue) const;
 #endif
 }; // VocabularyManagerDialog
 
