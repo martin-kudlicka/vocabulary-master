@@ -256,6 +256,13 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QCheckBox" name="qcbVocabularyManagerCategoryPriority">
+            <property name="text">
+             <string>Change category priority</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>

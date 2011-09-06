@@ -76,6 +76,7 @@ const void SettingsDialog::FillOptions()
 #ifndef FREE
     // appearance
     _usdSettingsDialog.qcbVocabularyManagerCategoryEnable->setChecked(_sSettings->GetCanEnableCategories());
+	_usdSettingsDialog.qcbVocabularyManagerCategoryPriority->setChecked(_sSettings->GetCanChangeCategoryPriority());
     FillColorFlash();
 
 # ifdef Q_WS_WIN
@@ -247,6 +248,7 @@ const void SettingsDialog::SaveOptions()
 #ifndef FREE
     // appearance
     _sSettings->SetCanEnableCategories(_usdSettingsDialog.qcbVocabularyManagerCategoryEnable->isChecked());
+	_sSettings->SetCanChangeCategoryPriority(_usdSettingsDialog.qcbVocabularyManagerCategoryPriority->isChecked());
     _sSettings->SetColorFlash(_usdSettingsDialog.qcbColorFlash->itemData(_usdSettingsDialog.qcbColorFlash->currentIndex()).toString());
 
 # ifdef Q_WS_WIN

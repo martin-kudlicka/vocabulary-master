@@ -17,12 +17,14 @@ int VocabularyTabWidget::addTab(QWidget *page, const QString &label, const bool 
     } // if
 
 	// priority
-	QSpinBox *qsbPriority = new QSpinBox(this);
-	qsbPriority->setMinimum(CATEGORY_PRIORITY_MIN);
-	qsbPriority->setMaximum(CATEGORY_PRIORITY_MAX);
-	qsbPriority->setValue(pPriority);
-	tabBar()->setTabButton(iTab, POSITION_BUTTON_PRIORITY, qsbPriority);
-	connect(qsbPriority, SIGNAL(valueChanged(int)), SLOT(on_qsbPriority_valueChanged(int)));
+	if (_bShowPriorities) {
+		QSpinBox *qsbPriority = new QSpinBox(this);
+		qsbPriority->setMinimum(CATEGORY_PRIORITY_MIN);
+		qsbPriority->setMaximum(CATEGORY_PRIORITY_MAX);
+		qsbPriority->setValue(pPriority);
+		tabBar()->setTabButton(iTab, POSITION_BUTTON_PRIORITY, qsbPriority);
+		connect(qsbPriority, SIGNAL(valueChanged(int)), SLOT(on_qsbPriority_valueChanged(int)));
+	} // if
 
     return iTab;
 } // addTab
@@ -51,11 +53,17 @@ const void VocabularyTabWidget::SetShowEnabled(const bool &pEnabled)
 {
     _bShowEnabled = pEnabled;
 } // SetShowEnabled
+
+const void VocabularyTabWidget::SetShowPriorities(const bool &pEnabled)
+{
+	_bShowPriorities = pEnabled;
+} // SetShowPriorities
 #endif
 
 VocabularyTabWidget::VocabularyTabWidget(QWidget *pParent /* NULL */) : QTabWidget(pParent)
 {
 #ifndef FREE
-    _bShowEnabled = false;
+    _bShowEnabled = true;
+	_bShowPriorities = true;
 #endif
 } // VocabularyTabWidget

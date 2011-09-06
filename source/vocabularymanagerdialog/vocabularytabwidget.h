@@ -22,6 +22,7 @@ class VocabularyTabWidget : public QTabWidget
 #ifndef FREE
         int addTab(QWidget *page, const QString &label, const bool &pEnabled, const int &pPriority);
         const void SetShowEnabled(const bool &pEnabled);
+		const void SetShowPriorities(const bool &pEnabled);
 
     private:
 		static const int CATEGORY_PRIORITY_MIN = 1;
@@ -29,6 +30,7 @@ class VocabularyTabWidget : public QTabWidget
 		static const QTabBar::ButtonPosition POSITION_BUTTON_PRIORITY = QTabBar::RightSide;
 
         bool _bShowEnabled;
+		bool _bShowPriorities;
 
     signals:
         void TabEnableChanged(const int &pIndex, const Qt::CheckState &pState) const;
