@@ -21,11 +21,14 @@ class VocabularyTabWidget : public QTabWidget
 
 #ifndef FREE
         int addTab(QWidget *page, const QString &label, const bool &pEnabled, const int &pPriority);
+        const void SetShowEnabled(const bool &pEnabled);
 
     private:
 		static const int CATEGORY_PRIORITY_MIN = 1;
         static const QTabBar::ButtonPosition POSITION_BUTTON_ENABLED = QTabBar::LeftSide;
 		static const QTabBar::ButtonPosition POSITION_BUTTON_PRIORITY = QTabBar::RightSide;
+
+        bool _bShowEnabled;
 
     signals:
         void TabEnableChanged(const int &pIndex, const Qt::CheckState &pState) const;

@@ -5,6 +5,7 @@
 
 #include "vocabulary.h"
 #ifndef FREE
+# include "settings.h"
 # include "plugins.h"
 #endif
 #include <QtGui/QTableView>
@@ -17,6 +18,7 @@ class VocabularyManagerDialog : public QDialog
         ~VocabularyManagerDialog();
         VocabularyManagerDialog(Vocabulary *pVocabulary,
 #ifndef FREE
+            const Settings *pSettings,
             const Plugins *pPlugins,
 #endif
             QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
@@ -39,6 +41,9 @@ class VocabularyManagerDialog : public QDialog
 		const Plugins *_pPlugins;
 #endif
         QList<int> _qlCategories;
+#ifndef FREE
+        const Settings *_sSettings;
+#endif
         Ui::qdVocabularyManager _qdvmVocabularyManager;
         Vocabulary *_vVocabulary;
 

@@ -9,10 +9,12 @@ int VocabularyTabWidget::addTab(QWidget *page, const QString &label, const bool 
     int iTab = QTabWidget::addTab(page, label);
 
 	// enabled/disabled
-    QCheckBox *qcbEnabled = new QCheckBox(this);
-    qcbEnabled->setCheckState(pEnabled ? Qt::Checked : Qt::Unchecked);
-    tabBar()->setTabButton(iTab, POSITION_BUTTON_ENABLED, qcbEnabled);
-    connect(qcbEnabled, SIGNAL(stateChanged(int)), SLOT(on_qcbEnabled_stateChanged(int)));
+    if (_bShowEnabled) {
+        QCheckBox *qcbEnabled = new QCheckBox(this);
+        qcbEnabled->setCheckState(pEnabled ? Qt::Checked : Qt::Unchecked);
+        tabBar()->setTabButton(iTab, POSITION_BUTTON_ENABLED, qcbEnabled);
+        connect(qcbEnabled, SIGNAL(stateChanged(int)), SLOT(on_qcbEnabled_stateChanged(int)));
+    } // if
 
 	// priority
 	QSpinBox *qsbPriority = new QSpinBox(this);
@@ -44,8 +46,16 @@ const void VocabularyTabWidget::on_qsbPriority_valueChanged(int i) const
 		} // if
 	} // for
 } // on_qsbPriority_valueChanged
+
+const void VocabularyTabWidget::SetShowEnabled(const bool &pEnabled)
+{
+    _bShowEnabled = pEnabled;
+} // SetShowEnabled
 #endif
 
 VocabularyTabWidget::VocabularyTabWidget(QWidget *pParent /* NULL */) : QTabWidget(pParent)
 {
+#ifndef FREE
+    _bShowEnabled = false;
+#endif
 } // VocabularyTabWidget

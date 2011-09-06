@@ -6,6 +6,7 @@ const QString DEFAULT_COLORFLASH = "chartreuse";
 #endif
 const QString KEY_ALWAYSONTOP = "AlwaysOnTop";
 #ifndef FREE
+const QString KEY_CANENABLECATEGORIES = "CanEnableCategories";
 const QString KEY_COLORFLASH = "ColorFlash";
 const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
 # ifdef Q_WS_WIN
@@ -48,6 +49,11 @@ const bool Settings::GetAlwaysOnTop() const
 } // GetAlwaysOnTop
 
 #ifndef FREE
+const bool Settings::GetCanEnableCategories() const
+{
+    return _qsSettings.value(KEY_CANENABLECATEGORIES, true).toBool();
+} // GetCanEnableCategories
+
 const QString Settings::GetColorFlash() const
 {
     return _qsSettings.value(KEY_COLORFLASH, DEFAULT_COLORFLASH).toString();
@@ -209,6 +215,11 @@ const void Settings::SetAlwaysOnTop(const bool &pEnable)
 } // SetAlwaysOnTop
 
 #ifndef FREE
+const void Settings::SetCanEnableCategories(const bool &pEnable)
+{
+    _qsSettings.setValue(KEY_CANENABLECATEGORIES, pEnable);
+} // SetCanEnableCategories
+
 const void Settings::SetColorFlash(const QString &pColor)
 {
     _qsSettings.setValue(KEY_COLORFLASH, pColor);
