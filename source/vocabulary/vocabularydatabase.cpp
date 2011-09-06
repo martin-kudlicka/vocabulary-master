@@ -30,7 +30,9 @@ const QString FIELD_NOTE2 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Note2");
 const QString FIELD_WORD1 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Word1");
 const QString FIELD_WORD2 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Word2");
 #endif
+#ifndef TRY
 const QString KEY_VERSION = "version";
+#endif
 #ifdef FREE
 const QString LEARNING_TEMPLATE1 = "<center style=\"font-size:20px\">" + VARIABLE_MARK + FIELD_WORD1 + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + FIELD_NOTE1 + "</center>";
 const QString LEARNING_TEMPLATE2 = "<center style=\"font-size:20px\">" + VARIABLE_MARK + FIELD_WORD2 + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + FIELD_NOTE2 + "</center>";
@@ -680,6 +682,7 @@ const void VocabularyDatabase::Update(const QString &pTable, const int &pColumnI
 } // Update
 #endif
 
+#ifndef TRY
 const void VocabularyDatabase::UpdateDatabase() const
 {
     QString qsVersion = GetSettings(KEY_VERSION);
@@ -696,6 +699,7 @@ const void VocabularyDatabase::UpdateDatabase() const
         SetSettings(KEY_VERSION, QString::number(Version2));
     } // if
 } // UpdateDatabase
+#endif
 
 VocabularyDatabase::VocabularyDatabase(QObject *pParent /* NULL */) : QObject(pParent)
 {
