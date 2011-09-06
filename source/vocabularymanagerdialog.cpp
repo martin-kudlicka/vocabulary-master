@@ -31,7 +31,7 @@ const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
     VocabularyTabWidget *vtwTabs = _qdvmVocabularyManager.vtwTabs;
     int iTab = vtwTabs->addTab(qtvTableView, _vVocabulary->GetCategoryName(pCategoryId)
 #ifndef FREE
-        , _vVocabulary->GetCategoryEnabled(pCategoryId)
+        , _vVocabulary->GetCategoryEnabled(pCategoryId), _vVocabulary->GetCategoryPriority(pCategoryId)
 #endif
         );
 #ifndef FREE
@@ -311,6 +311,11 @@ const void VocabularyManagerDialog::on_vtwTabs_TabEnableChanged(const int &pInde
 	EnableWordControls();
 } // on_vtwTabs_TabEnableChanged
 
+const void VocabularyManagerDialog::on_vtwTabs_TabPriorityChanged(const int &pIndex, const int &pValue) const
+{
+	_vVocabulary->SetCategoryPriority(_qlCategories.at(pIndex), pValue);
+} // on_vtwTabs_TabPriorityChanged
+
 const void VocabularyManagerDialog::ReassignModels() const
 {
     for (int iTab = 0; iTab < _qdvmVocabularyManager.vtwTabs->count(); iTab++) {
@@ -419,7 +424,10 @@ VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *pVocabulary,
 
 	EnableTabControls();
 
+#ifndef FREE
     connect(_qdvmVocabularyManager.vtwTabs, SIGNAL(TabEnableChanged(const int &, const Qt::CheckState &)), SLOT(on_vtwTabs_TabEnableChanged(const int &, const Qt::CheckState &)));
+	connect(_qdvmVocabularyManager.vtwTabs, SIGNAL(TabPriorityChanged(const int &, const int &)), SLOT(on_vtwTabs_TabPriorityChanged(const int &, const int &)));
+#endif
 
     pVocabulary->BeginEdit();
 } // VocabularyManagerDialog

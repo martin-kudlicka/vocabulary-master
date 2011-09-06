@@ -18,7 +18,7 @@ const QString COLUMN_ID = "id";
 const QString COLUMN_KEY = "key";
 const QString COLUMN_LANGUAGE = "language";
 const QString COLUMN_NAME = "name";
-//const QString COLUMN_PRIORITY = "priority";
+const QString COLUMN_PRIORITY = "priority";
 const QString COLUMN_RECORDID = "record_id";
 const QString COLUMN_TEMPLATENAME = "template_name";
 const QString COLUMN_TEXT = "text";
@@ -29,9 +29,13 @@ const QString FIELD_NOTE1 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Note1");
 const QString FIELD_NOTE2 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Note2");
 const QString FIELD_WORD1 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Word1");
 const QString FIELD_WORD2 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Word2");
+#endif
+const QString KEY_VERSION = "version";
+#ifdef FREE
 const QString LEARNING_TEMPLATE1 = "<center style=\"font-size:20px\">" + VARIABLE_MARK + FIELD_WORD1 + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + FIELD_NOTE1 + "</center>";
 const QString LEARNING_TEMPLATE2 = "<center style=\"font-size:20px\">" + VARIABLE_MARK + FIELD_WORD2 + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + FIELD_NOTE2 + "</center>";
 #endif
+const int PRIORITY_DEFAULT = 1;
 const QString TABLE_CATEGORIES = "categories";
 const QString TABLE_DATA = "data";
 const QString TABLE_FIELDS = "fields";
@@ -45,7 +49,7 @@ VocabularyDatabase::~VocabularyDatabase()
 
 const int VocabularyDatabase::AddCategory(const QString &pName) const
 {
-    QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_CATEGORIES + " (" + COLUMN_NAME + ", " + COLUMN_ENABLED + ") VALUES ('" + pName + "', '" + QString::number(true) + "')");
+	QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_CATEGORIES + " (" + COLUMN_NAME + ", " + COLUMN_PRIORITY +  ", " + COLUMN_ENABLED + ") VALUES ('" + pName + "', '" + QString::number(PRIORITY_DEFAULT) + "', '" + QString::number(true) + "')");
     return qsqQuery.lastInsertId().toInt();
 } // AddCategory
 
@@ -118,7 +122,6 @@ const int VocabularyDatabase::GetCategoryCount() const
         return 0;
     } // if else
 } // GetCategoryCount
-#endif
 
 const bool VocabularyDatabase::GetCategoryEnabled(const int &pCategoryId) const
 {
@@ -127,7 +130,6 @@ const bool VocabularyDatabase::GetCategoryEnabled(const int &pCategoryId) const
     return qsqQuery.value(ColumnPosition1).toBool();
 } // GetCategoryEnabled
 
-#ifndef FREE
 const int VocabularyDatabase::GetCategoryId(const int &pRow) const
 {
     QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_CATEGORIES);
@@ -207,6 +209,13 @@ VocabularyDatabase::tRecordDataHash *VocabularyDatabase::GetDataText() const
 } // GetDataText
 
 #ifndef FREE
+const int VocabularyDatabase::GetCategoryPriority(const int &pCategoryId) const
+{
+	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_PRIORITY + " FROM " + TABLE_CATEGORIES + " WHERE " + COLUMN_ID + " = " + QString::number(pCategoryId));
+	qsqQuery.next();
+	return qsqQuery.value(ColumnPosition1).toInt();
+} // GetCategoryPriority
+
 const VocabularyDatabase::FieldAttributes VocabularyDatabase::GetFieldAttributes(const int &pFieldId) const
 {
     QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ATTRIBUTES + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
@@ -428,7 +437,7 @@ const void VocabularyDatabase::Initialize() const
     _qsdDatabase.exec("CREATE TABLE " + TABLE_CATEGORIES + " ("
 					  + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 					  + COLUMN_NAME + " TEXT NOT NULL,"
-					  //+ COLUMN_PRIORITY + " INTEGER,"
+					  + COLUMN_PRIORITY + " INTEGER,"
 					  + COLUMN_ENABLED + " INTEGER NOT NULL)");
 	_qsdDatabase.exec("CREATE TABLE " + TABLE_FIELDS + " ("
 					  + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -492,6 +501,8 @@ const void VocabularyDatabase::Open(const QString &pFilePath)
 
     CloseDatabase();
     OpenDatabase();
+
+    UpdateDatabase();
 } // Open
 #endif
 
@@ -570,6 +581,11 @@ const void VocabularyDatabase::SetCategoryEnabled(const int &pCategoryId, const 
 {
     _qsdDatabase.exec("UPDATE " + TABLE_CATEGORIES + " SET " + COLUMN_ENABLED + " = " + QString::number(pEnabled) + " WHERE " + COLUMN_ID + " = " + QString::number(pCategoryId));
 } // SetCategoryEnabled
+
+const void VocabularyDatabase::SetCategoryPriority(const int &pCategoryId, const int &pPriority) const
+{
+	_qsdDatabase.exec("UPDATE " + TABLE_CATEGORIES + " SET " + COLUMN_PRIORITY + " = " + QString::number(pPriority) + " WHERE " + COLUMN_ID + " = " + QString::number(pCategoryId));
+} // SetCategoryPriority
 #endif
 
 /*const void VocabularyDatabase::SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData) const
@@ -663,6 +679,23 @@ const void VocabularyDatabase::Update(const QString &pTable, const int &pColumnI
 	_qsdDatabase.exec(qsQuery);
 } // Update
 #endif
+
+const void VocabularyDatabase::UpdateDatabase() const
+{
+    QString qsVersion = GetSettings(KEY_VERSION);
+    eVersion evCurrent;
+    if (qsVersion.isEmpty()) {
+        evCurrent = Version1;
+    } else {
+        evCurrent = static_cast<eVersion>(qsVersion.toInt());
+    } // if else
+
+    if (evCurrent < Version2) {
+        _qsdDatabase.exec("ALTER TABLE " + TABLE_CATEGORIES + " ADD " + COLUMN_PRIORITY + " INTEGER");
+        _qsdDatabase.exec("UPDATE " + TABLE_CATEGORIES + " SET " + COLUMN_PRIORITY + " = " + QString::number(PRIORITY_DEFAULT));
+        SetSettings(KEY_VERSION, QString::number(Version2));
+    } // if
+} // UpdateDatabase
 
 VocabularyDatabase::VocabularyDatabase(QObject *pParent /* NULL */) : QObject(pParent)
 {

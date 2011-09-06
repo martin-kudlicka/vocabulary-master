@@ -642,7 +642,8 @@ void MainWindow::timerEvent(QTimerEvent *event)
 	            _iCurrentRecordId = _vVocabulary.GetRecordId(qrand() % _vVocabulary.GetRecordCount());
                 iCategoryId = _vVocabulary.GetRecordCategory(_iCurrentRecordId);
 #ifndef FREE
-                if (_vVocabulary.GetCategoryEnabled(iCategoryId) && (_vVocabulary.GetRecordCount(true) == 1 || _iCurrentRecordId != iLastRecordId)) {
+                int iMaxPriority = qrand() % VocabularyTabWidget::CATEGORY_PRIORITY_MAX + 1;
+                if (_vVocabulary.GetCategoryEnabled(iCategoryId) && _vVocabulary.GetCategoryPriority(iCategoryId) <= iMaxPriority  && (_vVocabulary.GetRecordCount(true) == 1 || _iCurrentRecordId != iLastRecordId)) {
 #endif
                     break;
 #ifndef FREE
