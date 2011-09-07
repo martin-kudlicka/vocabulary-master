@@ -6,6 +6,7 @@
 #include <QtCore/QDir>
 #ifndef FREE
 # include "common/licensetextdialog.h"
+# include <QtGui/QFileDialog>
 #endif
 
 void SettingsDialog::accept()
@@ -65,17 +66,23 @@ const void SettingsDialog::FillOptions()
 #ifndef FREE
 	_usdSettingsDialog.qsbWaitForAnswer->setMaximum(_sSettings->GetWordsFrequency() - 1);
 	_usdSettingsDialog.qsbWaitForAnswer->setValue(_sSettings->GetWaitForAnswer());
-	_usdSettingsDialog.cbNewWordSound->setChecked(_sSettings->GetNewWordSound());
-	_usdSettingsDialog.cbNewWordFlash->setChecked(_sSettings->GetNewWordFlash());
+	_usdSettingsDialog.qcbNewWordSound->setChecked(_sSettings->GetNewWordSound());
+    if (_sSettings->GetNewWordSoundType() == Settings::NewWordSoundTypeSystem) {
+        _usdSettingsDialog.qrbSoundSystem->click();
+    } else {
+        _usdSettingsDialog.qrbSoundCustom->click();
+    } // if else
+    _usdSettingsDialog.qleSoundCustom->setText(_sSettings->GetNewWordSoundFile());
+	_usdSettingsDialog.qcbNewWordFlash->setChecked(_sSettings->GetNewWordFlash());
 #endif
-	_usdSettingsDialog.cbSwitchLearningDirection->setCheckState(_sSettings->GetSwitchLearningDirection());
+	_usdSettingsDialog.qcbSwitchLearningDirection->setCheckState(_sSettings->GetSwitchLearningDirection());
 #ifndef FREE
-	_usdSettingsDialog.cbStartLearningOnStartup->setChecked(_sSettings->GetStartLearningOnStartup());
+	_usdSettingsDialog.qcbStartLearningOnStartup->setChecked(_sSettings->GetStartLearningOnStartup());
 #endif
 
 #ifndef FREE
     // appearance
-    _usdSettingsDialog.qcbVocabularyManagerCategoryEnable->setChecked(_sSettings->GetCanEnableCategories());
+    _usdSettingsDialog.qcbVocabularyManagerCategoriesEnable->setChecked(_sSettings->GetCanEnableCategories());
 	_usdSettingsDialog.qcbVocabularyManagerCategoryPriority->setChecked(_sSettings->GetCanChangeCategoryPriority());
     FillColorFlash();
 
@@ -107,29 +114,36 @@ const void SettingsDialog::FillTranslation()
 } // FillTranslation
 
 #ifndef FREE
-const void SettingsDialog::on_qcbSystemTrayIcon_stateChanged(int state)
+const void SettingsDialog::on_qcbNewWordSound_stateChanged(int state) const
+{
+    _usdSettingsDialog.qrbSoundSystem->setEnabled(state == Qt::Checked);
+    _usdSettingsDialog.qrbSoundCustom->setEnabled(state == Qt::Checked);
+    on_qrbSoundCustom_clicked(state == Qt::Checked && _usdSettingsDialog.qrbSoundCustom->isChecked());
+} // on_qcbNewWordSound_stateChanged
+
+const void SettingsDialog::on_qcbSystemTrayIcon_stateChanged(int state) const
 {
 	_usdSettingsDialog.qcbMinimizeToTray->setEnabled(state == Qt::Checked);
 	_usdSettingsDialog.qcbShowWordsInTrayBalloon->setEnabled(state == Qt::Checked);
 } // on_qcbSystemTrayIcon_stateChanged
 
 # ifdef Q_WS_WIN
-const void SettingsDialog::on_qpbHotkeyAnswerClear_clicked(bool checked /* false */)
+const void SettingsDialog::on_qpbHotkeyAnswerClear_clicked(bool checked /* false */) const
 {
 	ClearHotkey(_usdSettingsDialog.qleHotkeyAnswer);
 } // on_qpbHotkeyAnswerClear_clicked
 
-const void SettingsDialog::on_qpbHotkeyMinimizeClear_clicked(bool checked /* false */)
+const void SettingsDialog::on_qpbHotkeyMinimizeClear_clicked(bool checked /* false */) const
 {
 	ClearHotkey(_usdSettingsDialog.qleHotkeyMinimize);
 } // on_qpbHotkeyMinimizeClear_clicked
 
-const void SettingsDialog::on_qpbHotkeyNextClear_clicked(bool checked /* false */)
+const void SettingsDialog::on_qpbHotkeyNextClear_clicked(bool checked /* false */) const
 {
 	ClearHotkey(_usdSettingsDialog.qleHotkeyNext);
 } // on_qpbHotkeyNextClear_clicked
 
-const void SettingsDialog::on_qpbHotkeyRestoreClear_clicked(bool checked /* false */)
+const void SettingsDialog::on_qpbHotkeyRestoreClear_clicked(bool checked /* false */) const
 {
 	ClearHotkey(_usdSettingsDialog.qleHotkeyRestore);
 } // on_qpbHotkeyRestoreClear_clicked
@@ -162,7 +176,31 @@ const void SettingsDialog::on_qpbShowLicense_clicked(bool checked /* false */)
 } // on_qpbShowLicense_clicked
 # endif
 
-const void SettingsDialog::on_qsbWordsFrequency_valueChanged(int i)
+const void SettingsDialog::on_qbpSoundBrowse_clicked(bool checked /* false */)
+{
+    QString qsOldFile = _sSettings->GetNewWordSoundFile();
+    QString qsFile = QFileDialog::getOpenFileName(this, tr("Sound file"), QFileInfo(qsOldFile).path()
+#ifdef Q_WS_WIN
+        , tr("sound files (*.wav)")
+#endif
+        );
+    if (!qsFile.isEmpty()) {
+        _usdSettingsDialog.qleSoundCustom->setText(qsFile);
+    } // if
+} // on_qbpSoundBrowse_clicked
+
+const void SettingsDialog::on_qrbSoundCustom_clicked(bool checked /* false */) const
+{
+    _usdSettingsDialog.qleSoundCustom->setEnabled(checked);
+    _usdSettingsDialog.qbpSoundBrowse->setEnabled(checked);
+} // on_qrbSoundCustom_clicked
+
+const void SettingsDialog::on_qrbSoundSystem_clicked(bool checked /* false */) const
+{
+    on_qrbSoundCustom_clicked(false);
+} // on_qrbSoundSystem_clicked
+
+const void SettingsDialog::on_qsbWordsFrequency_valueChanged(int i) const
 {
 	_usdSettingsDialog.qsbWaitForAnswer->setMaximum(i - 1);
 } // on_qsbWordsFrequency_valueChanged
@@ -237,17 +275,23 @@ const void SettingsDialog::SaveOptions()
     _sSettings->SetWordsFrequency(_usdSettingsDialog.qsbWordsFrequency->value());
 #ifndef FREE
 	_sSettings->SetWaitForAnswer(_usdSettingsDialog.qsbWaitForAnswer->value());
-	_sSettings->SetNewWordSound(_usdSettingsDialog.cbNewWordSound->isChecked());
-	_sSettings->SetNewWordFlash(_usdSettingsDialog.cbNewWordFlash->isChecked());
+	_sSettings->SetNewWordSound(_usdSettingsDialog.qcbNewWordSound->isChecked());
+    if (_usdSettingsDialog.qrbSoundSystem->isChecked()) {
+        _sSettings->SetNewWordSoundType(Settings::NewWordSoundTypeSystem);
+    } else {
+        _sSettings->SetNewWordSoundType(Settings::NewWordSoundTypeCustom);
+    } // if else
+    _sSettings->SetNewWordSoundFile(_usdSettingsDialog.qleSoundCustom->text());
+	_sSettings->SetNewWordFlash(_usdSettingsDialog.qcbNewWordFlash->isChecked());
 #endif
-	_sSettings->SetSwitchLearningDirection(_usdSettingsDialog.cbSwitchLearningDirection->checkState());
+	_sSettings->SetSwitchLearningDirection(_usdSettingsDialog.qcbSwitchLearningDirection->checkState());
 #ifndef FREE
-	_sSettings->SetStartLearningOnStartup(_usdSettingsDialog.cbStartLearningOnStartup->isChecked());
+	_sSettings->SetStartLearningOnStartup(_usdSettingsDialog.qcbStartLearningOnStartup->isChecked());
 #endif
 
 #ifndef FREE
     // appearance
-    _sSettings->SetCanEnableCategories(_usdSettingsDialog.qcbVocabularyManagerCategoryEnable->isChecked());
+    _sSettings->SetCanEnableCategories(_usdSettingsDialog.qcbVocabularyManagerCategoriesEnable->isChecked());
 	_sSettings->SetCanChangeCategoryPriority(_usdSettingsDialog.qcbVocabularyManagerCategoryPriority->isChecked());
     _sSettings->SetColorFlash(_usdSettingsDialog.qcbColorFlash->itemData(_usdSettingsDialog.qcbColorFlash->currentIndex()).toString());
 
@@ -289,9 +333,13 @@ SettingsDialog::SettingsDialog(
     // learning
     delete _usdSettingsDialog.qlWaitForAnswer;
     delete _usdSettingsDialog.qsbWaitForAnswer;
-    delete _usdSettingsDialog.cbNewWordSound;
-    delete _usdSettingsDialog.cbNewWordFlash;
-    delete _usdSettingsDialog.cbStartLearningOnStartup;
+    delete _usdSettingsDialog.qcbNewWordSound;
+    delete _usdSettingsDialog.qrbSoundSystem;
+    delete _usdSettingsDialog.qrbSoundCustom;
+    delete _usdSettingsDialog.qleSoundCustom;
+    delete _usdSettingsDialog.qbpSoundBrowse;
+    delete _usdSettingsDialog.qcbNewWordFlash;
+    delete _usdSettingsDialog.qcbStartLearningOnStartup;
 
 	// plugins
 	_usdSettingsDialog.qtwTabs->removeTab(TabPlugins);

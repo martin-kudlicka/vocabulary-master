@@ -14,6 +14,9 @@
 #if !defined(FREE) && !defined(TRY)
 # include "licensedialog.h"
 #endif
+#ifndef FREE
+# include <QtGui/QSound>
+#endif
 
 #ifdef FREE
 const QString FREE_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " FREE");
@@ -687,7 +690,11 @@ void MainWindow::timerEvent(QTimerEvent *event)
 
             // sound
 	        if (_sSettings.GetNewWordSound() && !_sSettings.GetMute()) {
-		        QApplication::beep();
+                if (_sSettings.GetNewWordSoundType() == Settings::NewWordSoundTypeSystem) {
+		            QApplication::beep();
+                } else {
+                    QSound::play(_sSettings.GetNewWordSoundFile());
+                } // if else
 	        } // if
 
             // flash
