@@ -44,6 +44,17 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 				default:
 					return QVariant();
 			} // switch
+        case ColumnShow:
+            switch (role) {
+                case Qt::CheckStateRole:
+                    if (_vVocabulary->GetFieldAttributes(iFieldId) & Vocabulary::FieldAttributeShow) {
+                        return Qt::Checked;
+                    } else {
+                        return Qt::Unchecked;
+                    } // if else
+				default:
+					return QVariant();
+			} // switch
 		case ColumnLanguage:
 			switch (role) {
 				case Qt::DisplayRole:
@@ -67,7 +78,7 @@ Qt::ItemFlags FieldsModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
 
-    if (index.column() == ColumnSpeech) {
+    if (index.column() == ColumnSpeech || index.column() == ColumnShow) {
         ifFlags |= Qt::ItemIsUserCheckable;
     } // if
 
@@ -85,6 +96,8 @@ QVariant FieldsModel::headerData(int section, Qt::Orientation orientation, int r
                     return tr("Name");
                 case ColumnSpeech:
                     return tr("Speech");
+                case ColumnShow:
+                    return tr("Show");
                 case ColumnLanguage:
                     return tr("Language");
             } // switch
@@ -139,6 +152,13 @@ bool FieldsModel::setData(const QModelIndex &index, const QVariant &value, int r
             {
                 Vocabulary::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
                 faAttributes ^= Vocabulary::FieldAttributeSpeech;
+                _vVocabulary->SetFieldAttributes(iFieldId, faAttributes);
+            }
+            break;
+        case ColumnShow:
+            {
+                Vocabulary::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+                faAttributes ^= Vocabulary::FieldAttributeShow;
                 _vVocabulary->SetFieldAttributes(iFieldId, faAttributes);
             }
             break;
