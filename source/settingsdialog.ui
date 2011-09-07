@@ -193,21 +193,56 @@
         </layout>
        </item>
        <item>
-        <widget class="QCheckBox" name="cbNewWordSound">
+        <widget class="QCheckBox" name="qcbNewWordSound">
          <property name="text">
           <string>Play &amp;sound with new word</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="cbNewWordFlash">
+        <layout class="QVBoxLayout" name="verticalLayout_12">
+         <property name="leftMargin">
+          <number>15</number>
+         </property>
+         <item>
+          <widget class="QRadioButton" name="qrbSoundSystem">
+           <property name="text">
+            <string>System</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QRadioButton" name="qrbSoundCustom">
+             <property name="text">
+              <string>Custom</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="qleSoundCustom"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="qbpSoundBrowse">
+             <property name="text">
+              <string>Browse...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="qcbNewWordFlash">
          <property name="text">
           <string>F&amp;lash with new word</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="cbSwitchLearningDirection">
+        <widget class="QCheckBox" name="qcbSwitchLearningDirection">
          <property name="text">
           <string>Switch learning &amp;direction</string>
          </property>
@@ -217,7 +252,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="cbStartLearningOnStartup">
+        <widget class="QCheckBox" name="qcbStartLearningOnStartup">
          <property name="text">
           <string>Start learning on s&amp;tartup</string>
          </property>
@@ -250,7 +285,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_11">
           <item>
-           <widget class="QCheckBox" name="qcbVocabularyManagerCategoryEnable">
+           <widget class="QCheckBox" name="qcbVocabularyManagerCategoriesEnable">
             <property name="text">
              <string>Enable/disable categories</string>
             </property>
@@ -557,10 +592,10 @@
   <tabstop>qcbLanguage</tabstop>
   <tabstop>qsbWordsFrequency</tabstop>
   <tabstop>qsbWaitForAnswer</tabstop>
-  <tabstop>cbNewWordSound</tabstop>
-  <tabstop>cbNewWordFlash</tabstop>
-  <tabstop>cbSwitchLearningDirection</tabstop>
-  <tabstop>cbStartLearningOnStartup</tabstop>
+  <tabstop>qcbNewWordSound</tabstop>
+  <tabstop>qcbNewWordFlash</tabstop>
+  <tabstop>qcbSwitchLearningDirection</tabstop>
+  <tabstop>qcbStartLearningOnStartup</tabstop>
   <tabstop>qcbColorFlash</tabstop>
   <tabstop>qpbOk</tabstop>
   <tabstop>qpbCancel</tabstop>

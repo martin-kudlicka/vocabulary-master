@@ -6,12 +6,16 @@ const QString DIR_LANG = "lang";
 
 class Settings
 {
-#if !defined(FREE) && defined(Q_WS_WIN)
+#ifndef FREE
+# ifdef Q_WS_WIN
     Q_ENUMS(eHotkey)
+# endif
+	Q_ENUMS(eNewWordSoundType)
 #endif
 
 	public:
-#if !defined(FREE) && defined(Q_WS_WIN)
+#ifndef FREE
+# ifdef Q_WS_WIN
         enum eHotkey {
             HotkeyAnswer,
             HotkeyMinimize,
@@ -19,11 +23,18 @@ class Settings
             HotkeyRestore,
 			HotkeyCount
         }; // eHotkey
+# endif
+        enum eNewWordSoundType {
+            NewWordSoundTypeSystem,
+            NewWordSoundTypeCustom
+        }; // eNewWordSoundType
+# ifdef Q_WS_WIN
 
 		struct sHotKeyInfo {
 			QString qsText;
 			quint32 qui32VirtualKey;
 		}; // sHotKeyInfo
+# endif
 #endif
 
 		static const int DEFAULT_DIMENSION = -1;
@@ -44,6 +55,8 @@ class Settings
         const bool GetMute() const;
 		const bool GetNewWordFlash() const;
 		const bool GetNewWordSound() const;
+        const QString GetNewWordSoundFile() const;
+        const eNewWordSoundType GetNewWordSoundType() const;
         const bool GetRememberWindowPosition() const;
 		const bool GetShowWordsInTrayBalloon() const;
 		const bool GetStartLearningOnStartup() const;
@@ -78,6 +91,8 @@ class Settings
         const void SetMute(const bool &pEnable);
 		const void SetNewWordFlash(const bool &pEnable);
 		const void SetNewWordSound(const bool &pEnable);
+        const void SetNewWordSoundFile(const QString &pFile);
+        const void SetNewWordSoundType(const eNewWordSoundType &pType);
         const void SetRememberWindowPosition(const bool &pEnable);
 		const void SetShowWordsInTrayBalloon(const bool &pEnable);
 		const void SetStartLearningOnStartup(const bool &pEnable);

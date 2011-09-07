@@ -18,6 +18,8 @@ const QString KEY_MINIMIZETOTRAY = "MinimizeToTray";
 const QString KEY_MUTE = "Mute";
 const QString KEY_NEWWORDFLASH = "NewWordFlash";
 const QString KEY_NEWWORDSOUND = "NewWordSound";
+const QString KEY_NEWWORDSOUNDFILE = "NewWordSoundFile";
+const QString KEY_NEWWORDSOUNDTYPE = "NewWordSoundType";
 const QString KEY_REMEMBERWINDOWPOSITION = "RememberWindowPosition";
 const QString KEY_SHOWWORDSINTRAYBALLOON = "ShowWordsInTrayBalloon";
 const QString KEY_STARTLEARNINGONSTARTUP = "StartLearningOnStartup";
@@ -138,6 +140,16 @@ const bool Settings::GetNewWordSound() const
 {
 	return _qsSettings.value(KEY_NEWWORDSOUND, true).toBool();
 } // GetNewWordSound
+
+const QString Settings::GetNewWordSoundFile() const
+{
+    return _qsSettings.value(KEY_NEWWORDSOUNDFILE).toString();
+} // GetNewWordSoundFile
+
+const Settings::eNewWordSoundType Settings::GetNewWordSoundType() const
+{
+    return static_cast<eNewWordSoundType>(_qsSettings.value(KEY_NEWWORDSOUNDTYPE, NewWordSoundTypeSystem).toInt());
+} // GetNewWordSoundType
 
 const bool Settings::GetRememberWindowPosition() const
 {
@@ -273,6 +285,16 @@ const void Settings::SetNewWordSound(const bool &pEnable)
 {
 	_qsSettings.setValue(KEY_NEWWORDSOUND, pEnable);
 } // SetNewWordSound
+
+const void Settings::SetNewWordSoundFile(const QString &pFile)
+{
+    _qsSettings.setValue(KEY_NEWWORDSOUNDFILE, pFile);
+} // SetNewWordSoundFile
+
+const void Settings::SetNewWordSoundType(const eNewWordSoundType &pType)
+{
+    _qsSettings.setValue(KEY_NEWWORDSOUNDTYPE, pType);
+} // SetNewWordSoundType
 
 const void Settings::SetRememberWindowPosition(const bool &pEnable)
 {
