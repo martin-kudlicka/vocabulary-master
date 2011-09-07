@@ -32,7 +32,8 @@ class VocabularyDatabase : public QObject
         enum eFieldAttribute {
             FieldAttributeNone
 #ifndef FREE
-            , FieldAttributeSpeech
+            , FieldAttributeSpeech,
+            FieldAttributeShow
 #endif
         }; // eFieldAttribute
         Q_DECLARE_FLAGS(FieldAttributes, eFieldAttribute)

@@ -694,8 +694,18 @@ const void VocabularyDatabase::UpdateDatabase() const
     } // if else
 
     if (evCurrent < Version2) {
+        // add priority column to categories table
         _qsdDatabase.exec("ALTER TABLE " + TABLE_CATEGORIES + " ADD " + COLUMN_PRIORITY + " INTEGER");
         _qsdDatabase.exec("UPDATE " + TABLE_CATEGORIES + " SET " + COLUMN_PRIORITY + " = " + QString::number(PRIORITY_DEFAULT));
+
+        // add show attribute to fields
+        tFieldIdList tfilFieldIds = GetFieldIds();
+        foreach (int iFieldId, tfilFieldIds) {
+            FieldAttributes faAttributes = GetFieldAttributes(iFieldId);
+            iFieldId |= FieldAttributeShow;
+            SetFieldAttributes(iFieldId, faAttributes);
+        } // foreach
+
         SetSettings(KEY_VERSION, QString::number(Version2));
     } // if
 } // UpdateDatabase
