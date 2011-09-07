@@ -14,6 +14,7 @@ class FieldsModel : public QAbstractItemModel
             ColumnTemplateName,
             ColumnName,
             ColumnSpeech,
+            ColumnShow,
             ColumnLanguage,
             ColumnCount
         }; // eColumn
