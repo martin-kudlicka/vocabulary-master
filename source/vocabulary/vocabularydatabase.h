@@ -4,24 +4,17 @@
 #include <QtSql/QSqlDatabase>
 #include <QtCore/QList>
 #include <QtCore/QHash>
-
-const QString KEY_LANGUAGE1 = "language1";
-const QString KEY_LANGUAGE2 = "language2";
-const QString KEY_LEARNINGTEMPLATE1 = "learningtemplate1";
-const QString KEY_LEARNINGTEMPLATE2 = "learningtemplate2";
 #ifndef FREE
-const QString KEY_SPEECH1 = "speech1";
-const QString KEY_SPEECH2 = "speech2";
-const QString KEY_TRAYTEMPLATE1 = "traytemplate1";
-const QString KEY_TRAYTEMPLATE2 = "traytemplate2";
-const QString KEY_VOICE1 = "voice1";
-const QString KEY_VOICE2 = "voice2";
+# include "../plugins/common/tts-interface.h"
 #endif
+
 const QString VARIABLE_MARK = "$";
 
 class VocabularyDatabase : public QObject
 {
 	Q_OBJECT
+    Q_ENUMS(eFieldAttribute)
+    Q_ENUMS(eFieldLanguage)
 
     public:
         typedef QHash<int, QString> tFieldDataHash;
@@ -80,8 +73,12 @@ class VocabularyDatabase : public QObject
 		const QString GetFieldName(const int &pFieldId) const;
         const QString GetFieldTemplateName(const int &pFieldId) const;
 		//const eFieldType GetFieldType(const int &pFieldId) const;
+        const QString GetLanguageLearningTemplate(const int &pLanguageId) const;
+        const QString GetLanguageName(const int &pLanguageId) const;
 #ifndef FREE
-        const QString GetLanguageName(const eFieldLanguage &pLanguage) const;
+        const TTSInterface::eTTSPlugin GetLanguageSpeech(const int &pLanguageId) const;
+		const QString GetLanguageTrayTemplate(const int &pLanguageId) const;
+        const QString GetLanguageVoice(const int &pLanguageId) const;
 #endif
         const QString GetName() const;
 		const int GetRecordCategory(const int &pRecordId) const;
@@ -99,6 +96,12 @@ class VocabularyDatabase : public QObject
         const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage) const;
         const void SetFieldName(const int &pFieldId, const QString &pName) const;
         const void SetFieldTemplateName(const int &pFieldId, const QString &pTemplateName) const;
+        const void SetLanguageLearningTemplate(const int &pLanguageId, const QString &pTemplate) const;
+#endif
+        const void SetLanguageName(const int &pLanguageId, const QString &pName) const;
+#ifndef FREE
+        const void SetLanguageSpeech(const int &pLanguageId, const TTSInterface::eTTSPlugin &pSpeech) const;
+        const void SetLanguageVoice(const int &pLanguageId, const QString &pVoice) const;
 #endif
 		const void SetSettings(const QString &pKey, const QString &pValue) const;
 #ifndef FREE
@@ -148,6 +151,11 @@ class VocabularyDatabase : public QObject
         QSqlDatabase _qsdDatabase;
         QString _qsVocabularyFile;
 
+        const void AddLanguage(const QString &pName, const QString &pLearningTemplate
+#ifndef FREE
+            , const QString &pTrayTemplate, const TTSInterface::eTTSPlugin &pTTSPlugin, const QString &pVoice
+#endif
+            ) const;
 		const void CloseDatabase();
 /*#ifndef FREE
         const tRecordIdList GetRecordIds() const;
