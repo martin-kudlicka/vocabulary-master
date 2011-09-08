@@ -155,9 +155,9 @@ bool MainWindow::event(QEvent *event)
 const QString MainWindow::GetLanguageText(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
     if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
-        return _vVocabulary.GetSettings(KEY_LANGUAGE1);
+		return _vVocabulary.GetLanguageName(VocabularyDatabase::FieldLanguageLeft);
     } else {
-        return _vVocabulary.GetSettings(KEY_LANGUAGE2);
+        return _vVocabulary.GetLanguageName(VocabularyDatabase::FieldLanguageRight);
     } // if else
 } // GetLanguageText
 
@@ -176,21 +176,21 @@ const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool
 	Vocabulary::eFieldLanguage eflLanguage;
 	if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
 		if (pTemplate == TemplateLearning) {
-			qsTemplate = _vVocabulary.GetSettings(KEY_LEARNINGTEMPLATE1);
+			qsTemplate = _vVocabulary.GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageLeft);
 		}
 #ifndef FREE
 		else {
-			qsTemplate = _vVocabulary.GetSettings(KEY_TRAYTEMPLATE1);
+			qsTemplate = _vVocabulary.GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageLeft);
 		} // if else
 #endif
 		eflLanguage = Vocabulary::FieldLanguageLeft;
 	} else {
 		if (pTemplate == TemplateLearning) {
-			qsTemplate = _vVocabulary.GetSettings(KEY_LEARNINGTEMPLATE2);
+			qsTemplate = _vVocabulary.GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageRight);
 		}
 #ifndef FREE
 		else {
-			qsTemplate = _vVocabulary.GetSettings(KEY_TRAYTEMPLATE2);
+			qsTemplate = _vVocabulary.GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageRight);
 		} // if else
 #endif
 		eflLanguage = Vocabulary::FieldLanguageRight;
@@ -556,14 +556,9 @@ const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) 
 {
     if (!_sSettings.GetMute()) {
 	    Vocabulary::eFieldLanguage eflLanguage;
-        QString qsSpeech, qsVoice;
 	    if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
-            qsSpeech = KEY_SPEECH1;
-            qsVoice = KEY_VOICE1;
 		    eflLanguage = Vocabulary::FieldLanguageLeft;
 	    } else {
-            qsSpeech = KEY_SPEECH2;
-            qsVoice = KEY_VOICE2;
 		    eflLanguage = Vocabulary::FieldLanguageRight;
 	    } // if else
 
@@ -579,11 +574,11 @@ const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) 
         } // foreach
 
         if (!qsText.isEmpty()) {
-	        int iSpeech = _vVocabulary.GetSettings(qsSpeech).toInt();
-            qsVoice = _vVocabulary.GetSettings(qsVoice);
-	        if (iSpeech != TTSInterface::TTPluginNone) {
-		        TTSInterface *tiPlugin = _pPlugins.GetTTSPlugin(static_cast<TTSInterface::eTTSPlugin>(iSpeech));
+			TTSInterface::eTTSPlugin etpSpeech = _vVocabulary.GetLanguageSpeech(eflLanguage);
+	        if (etpSpeech != TTSInterface::TTPluginNone) {
+		        TTSInterface *tiPlugin = _pPlugins.GetTTSPlugin(etpSpeech);
                 if (tiPlugin) {
+					QString qsVoice = _vVocabulary.GetLanguageVoice(eflLanguage);
 		            tiPlugin->Say(qsVoice, qsText);
                 } // if
 	        } // if

@@ -17,18 +17,34 @@ const QString COLUMN_FIELDID = "field_id";
 const QString COLUMN_ID = "id";
 const QString COLUMN_KEY = "key";
 const QString COLUMN_LANGUAGE = "language";
+const QString COLUMN_LEARNINGTEMPLATE = "learning_template";
 const QString COLUMN_NAME = "name";
 const QString COLUMN_PRIORITY = "priority";
 const QString COLUMN_RECORDID = "record_id";
+const QString COLUMN_SPEECH = "speech";
 const QString COLUMN_TEMPLATENAME = "template_name";
 const QString COLUMN_TEXT = "text";
+const QString COLUMN_TRAYTEMPLATE = "tray_template";
 //const QString COLUMN_TYPE = "type";
 const QString COLUMN_VALUE = "value";
+const QString COLUMN_VOICE = "voice";
 #ifdef FREE
 const QString FIELD_NOTE1 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Note1");
 const QString FIELD_NOTE2 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Note2");
 const QString FIELD_WORD1 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Word1");
 const QString FIELD_WORD2 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Word2");
+#endif
+const QString KEY_LANGUAGE1 = "language1";
+const QString KEY_LANGUAGE2 = "language2";
+const QString KEY_LEARNINGTEMPLATE1 = "learningtemplate1";
+const QString KEY_LEARNINGTEMPLATE2 = "learningtemplate2";
+#ifndef FREE
+const QString KEY_SPEECH1 = "speech1";
+const QString KEY_SPEECH2 = "speech2";
+const QString KEY_TRAYTEMPLATE1 = "traytemplate1";
+const QString KEY_TRAYTEMPLATE2 = "traytemplate2";
+const QString KEY_VOICE1 = "voice1";
+const QString KEY_VOICE2 = "voice2";
 #endif
 #ifndef TRY
 const QString KEY_VERSION = "version";
@@ -41,6 +57,7 @@ const int PRIORITY_DEFAULT = 1;
 const QString TABLE_CATEGORIES = "categories";
 const QString TABLE_DATA = "data";
 const QString TABLE_FIELDS = "fields";
+const QString TABLE_LANGUAGES = "languages";
 const QString TABLE_RECORDS = "records";
 const QString TABLE_SETTINGS = "settings";
 
@@ -65,6 +82,29 @@ const void VocabularyDatabase::AddField() const
     _qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " + COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + qsTemplate + "', '" + qsName + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
 } // AddField
 #endif
+
+const void VocabularyDatabase::AddLanguage(const QString &pName, const QString &pLearningTemplate
+#ifndef FREE
+    , const QString &pTrayTemplate, const TTSInterface::eTTSPlugin &pTTSPlugin, const QString &pVoice
+#endif
+    ) const
+{
+    _qsdDatabase.exec("INSERT INTO " + TABLE_LANGUAGES + " (" + COLUMN_NAME + ", " + COLUMN_LEARNINGTEMPLATE + ", " + COLUMN_TRAYTEMPLATE + ", " + COLUMN_SPEECH + ", " + COLUMN_VOICE + ") VALUES ('" + pName + "', '" + pLearningTemplate + "', '" +
+#ifndef FREE
+        pTrayTemplate +
+#endif
+        "', '" +
+#ifdef FREE
+        QString::number(TTSInterface::TTPluginNone)
+#else
+        QString::number(pTTSPlugin)
+#endif
+        + "', '" +
+#ifndef FREE
+        pVoice +
+#endif
+        "')");
+} // AddLanguage
 
 const int VocabularyDatabase::AddRecord(const int &pCategoryId) const
 {
@@ -306,18 +346,56 @@ const QString VocabularyDatabase::GetFieldTemplateName(const int &pFieldId) cons
 	return FieldTypeUnknown;
 } // GetFieldType*/
 
-#ifndef FREE
-const QString VocabularyDatabase::GetLanguageName(const eFieldLanguage &pLanguage) const
+const QString VocabularyDatabase::GetLanguageLearningTemplate(const int &pLanguageId) const
 {
-    switch (pLanguage) {
-        case FieldLanguageLeft:
-            return GetSettings(KEY_LANGUAGE1);
-        case FieldLanguageRight:
-            return GetSettings(KEY_LANGUAGE2);
-        default:
-            return QString();
-    } // switch
+    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_LEARNINGTEMPLATE + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
+    if (qsqQuery.next()) {
+        return qsqQuery.value(ColumnPosition1).toString();
+    } // while
+
+    return QString();
+} // GetLanguageLearningTemplate
+
+const QString VocabularyDatabase::GetLanguageName(const int &pLanguageId) const
+{
+    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_NAME + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
+    if (qsqQuery.next()) {
+        return qsqQuery.value(ColumnPosition1).toString();
+    } // while
+
+    return QString();
 } // GetLanguageName
+
+#ifndef FREE
+const TTSInterface::eTTSPlugin VocabularyDatabase::GetLanguageSpeech(const int &pLanguageId) const
+{
+    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_SPEECH + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
+    if (qsqQuery.next()) {
+        return static_cast<const TTSInterface::eTTSPlugin>(qsqQuery.value(ColumnPosition1).toInt());
+    } // while
+
+    return TTSInterface::TTPluginNone;
+} // GetLanguageSpeech
+
+const QString VocabularyDatabase::GetLanguageTrayTemplate(const int &pLanguageId) const
+{
+	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_TRAYTEMPLATE + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
+	if (qsqQuery.next()) {
+		return qsqQuery.value(ColumnPosition1).toString();
+	} // while
+
+	return QString();
+} // GetLanguageTrayTemplate
+
+const QString VocabularyDatabase::GetLanguageVoice(const int &pLanguageId) const
+{
+    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_VOICE + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
+    if (qsqQuery.next()) {
+        return qsqQuery.value(ColumnPosition1).toString();
+    } // while
+
+    return TTSInterface::TTPluginNone;
+} // GetLanguageVoice
 #endif
 
 const QString VocabularyDatabase::GetName() const
@@ -441,13 +519,20 @@ const void VocabularyDatabase::Initialize() const
 					  + COLUMN_NAME + " TEXT NOT NULL,"
 					  + COLUMN_PRIORITY + " INTEGER,"
 					  + COLUMN_ENABLED + " INTEGER NOT NULL)");
+    _qsdDatabase.exec("CREATE TABLE " + TABLE_LANGUAGES + " ("
+                      + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                      + COLUMN_NAME + " TEXT NOT NULL,"
+                      + COLUMN_LEARNINGTEMPLATE + " TEXT NOT NULL,"
+                      + COLUMN_TRAYTEMPLATE + " TEXT NOT NULL,"
+                      + COLUMN_SPEECH + " INTEGER NOT NULL,"
+                      + COLUMN_VOICE + " TEXT NOT NULL)");
 	_qsdDatabase.exec("CREATE TABLE " + TABLE_FIELDS + " ("
 					  + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 					  + COLUMN_TEMPLATENAME + " TEXT NOT NULL,"
 					  //+ COLUMN_TYPE + " INTEGER NOT NULL,"
 					  + COLUMN_NAME + " TEXT NOT NULL,"
 					  + COLUMN_ATTRIBUTES + " INTEGER NOT NULL,"
-					  + COLUMN_LANGUAGE + " INTEGER NOT NULL)");
+					  + COLUMN_LANGUAGE + " INTEGER REFERENCES " + TABLE_LANGUAGES + " ON DELETE CASCADE)");
 	_qsdDatabase.exec("CREATE TABLE " + TABLE_RECORDS + " ("
 					  + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 					  + COLUMN_CATEGORYID + " INTEGER REFERENCES " + TABLE_CATEGORIES + " ON DELETE CASCADE)");
@@ -460,16 +545,26 @@ const void VocabularyDatabase::Initialize() const
 					  + COLUMN_ENABLED + " INTEGER)"*/);
 
     // fill default data
+    AddLanguage(tr("Language1"),
+#ifdef FREE
+        LEARNING_TEMPLATE1
+#else
+        QString(), QString(), TTSInterface::TTPluginNone, QString()
+#endif
+        );
+    AddLanguage(tr("Language2"),
+#ifdef FREE
+        LEARNING_TEMPLATE2
+#else
+        QString(), QString(), TTSInterface::TTPluginNone, QString()
+#endif
+        );
 #ifdef FREE
 	_qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_WORD1 + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_WORD1 + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
 	_qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_NOTE1 + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_NOTE1 + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageLeft) + "')");
 	_qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_WORD2 + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_WORD2 + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageRight) + "')");
 	_qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " /*+ COLUMN_TYPE + ", " */+ COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_LANGUAGE + ") VALUES ('" + FIELD_NOTE2 + "', '" /*+ QString::number(FieldTypeTextEdit) + "', '" */+ FIELD_NOTE2 + "', '" + QString::number(FieldAttributeNone) + "', '" + QString::number(FieldLanguageRight) + "')");
-	_qsdDatabase.exec("INSERT INTO " + TABLE_SETTINGS + " VALUES ('" + KEY_LEARNINGTEMPLATE1 + "', '" + LEARNING_TEMPLATE1 + "')");
-	_qsdDatabase.exec("INSERT INTO " + TABLE_SETTINGS + " VALUES ('" + KEY_LEARNINGTEMPLATE2 + "', '" + LEARNING_TEMPLATE2 + "')");
 #endif
-    SetSettings(KEY_LANGUAGE1, tr("Language1"));
-    SetSettings(KEY_LANGUAGE2, tr("Language2"));
 } // Initialize
 
 const bool VocabularyDatabase::IsOpen() const
@@ -631,6 +726,28 @@ const void VocabularyDatabase::SetFieldTemplateName(const int &pFieldId, const Q
 {
     _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_TEMPLATENAME + " = '" + pTemplateName + "' WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
 } // SetFieldTemplateName
+
+const void VocabularyDatabase::SetLanguageLearningTemplate(const int &pLanguageId, const QString &pTemplate) const
+{
+    _qsdDatabase.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_LEARNINGTEMPLATE + " = '" + pTemplate + "' WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
+} // SetLanguageLearningTemplateconst
+#endif
+
+const void VocabularyDatabase::SetLanguageName(const int &pLanguageId, const QString &pName) const
+{
+    _qsdDatabase.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_NAME + " = '" + pName + "' WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
+} // SetLanguageName
+
+#ifndef FREE
+const void VocabularyDatabase::SetLanguageSpeech(const int &pLanguageId, const TTSInterface::eTTSPlugin &pSpeech) const
+{
+    _qsdDatabase.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_SPEECH + " = '" + QString::number(pSpeech)+ "' WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
+} // SetLanguageSpeech
+
+const void VocabularyDatabase::SetLanguageVoice(const int &pLanguageId, const QString &pVoice) const
+{
+    _qsdDatabase.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_VOICE + " = '" + pVoice + "' WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
+} // SetLanguageVoice
 #endif
 
 const void VocabularyDatabase::SetSettings(const QString &pKey, const QString &pValue) const
@@ -705,6 +822,39 @@ const void VocabularyDatabase::UpdateDatabase() const
             iFieldId |= FieldAttributeShow;
             SetFieldAttributes(iFieldId, faAttributes);
         } // foreach
+
+        // create language table
+        _qsdDatabase.exec("CREATE TABLE " + TABLE_LANGUAGES + " ("
+                          + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                          + COLUMN_NAME + " TEXT NOT NULL,"
+                          + COLUMN_LEARNINGTEMPLATE + " TEXT NOT NULL,"
+                          + COLUMN_TRAYTEMPLATE + " TEXT NOT NULL,"
+                          + COLUMN_SPEECH + " INTEGER NOT NULL,"
+                          + COLUMN_VOICE + " TEXT NOT NULL)");
+        // copy existing language settings values to language table
+        AddLanguage(GetSettings(KEY_LANGUAGE1), GetSettings(KEY_LEARNINGTEMPLATE1)
+#ifndef FREE
+            , GetSettings(KEY_TRAYTEMPLATE1), static_cast<TTSInterface::eTTSPlugin>(GetSettings(KEY_SPEECH1).toInt()), GetSettings(KEY_VOICE1)
+#endif
+            );
+        AddLanguage(GetSettings(KEY_LANGUAGE2), GetSettings(KEY_LEARNINGTEMPLATE2)
+#ifndef FREE
+            , GetSettings(KEY_TRAYTEMPLATE2), static_cast<TTSInterface::eTTSPlugin>(GetSettings(KEY_SPEECH2).toInt()), GetSettings(KEY_VOICE2)
+#endif
+            );
+        // delete old language settings
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_LANGUAGE1 + "'");
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_LEARNINGTEMPLATE1 + "'");
+#ifndef FREE
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_SPEECH1 + "'");
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_VOICE1 + "'");
+#endif
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_LANGUAGE2 + "'");
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_LEARNINGTEMPLATE2 + "'");
+#ifndef FREE
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_SPEECH2 + "'");
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_VOICE2 + "'");
+#endif
 
         SetSettings(KEY_VERSION, QString::number(Version2));
     } // if
