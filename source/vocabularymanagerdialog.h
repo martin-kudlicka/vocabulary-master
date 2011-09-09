@@ -56,6 +56,7 @@ class VocabularyManagerDialog : public QDialog
 #ifndef FREE
         const void ReassignModels() const;
         const void SelectFirstEnabledTab();
+        const void ShowHideColumns(QTableView *pTableView) const;
 #endif
 		const void StretchColumns(const QTableView *pTableView) const;
 #ifndef FREE
