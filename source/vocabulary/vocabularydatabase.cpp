@@ -847,7 +847,7 @@ const void VocabularyDatabase::UpdateDatabase() const
         tFieldIdList tfilFieldIds = GetFieldIds();
         foreach (int iFieldId, tfilFieldIds) {
             FieldAttributes faAttributes = GetFieldAttributes(iFieldId);
-            iFieldId |= FieldAttributeShow;
+            faAttributes |= FieldAttributeShow;
             SetFieldAttributes(iFieldId, faAttributes);
         } // foreach
 
@@ -871,21 +871,21 @@ const void VocabularyDatabase::UpdateDatabase() const
 #endif
             );
         // delete old language settings
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_LANGUAGE1 + "'");
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_LEARNINGTEMPLATE1 + "'");
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_LANGUAGE1 + "'");
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_LEARNINGTEMPLATE1 + "'");
 #ifndef FREE
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_SPEECH1 + "'");
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_VOICE1 + "'");
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_SPEECH1 + "'");
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_VOICE1 + "'");
 #endif
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_LANGUAGE2 + "'");
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_LEARNINGTEMPLATE2 + "'");
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_LANGUAGE2 + "'");
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_LEARNINGTEMPLATE2 + "'");
 #ifndef FREE
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_SPEECH2 + "'");
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_VALUE + " = '" + KEY_VOICE2 + "'");
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_SPEECH2 + "'");
+        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_VOICE2 + "'");
 #endif
 
         // add builtin column to fields table
-        _qsdDatabase.exec("ALTER TABLE " + TABLE_FIELDS + " ADD " + COLUMN_BUILTIN + " INTEGER NOT NULL");
+        _qsdDatabase.exec("ALTER TABLE " + TABLE_FIELDS + " ADD " + COLUMN_BUILTIN + " INTEGER");
         _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_BUILTIN + " = " + QString::number(FieldBuiltInNone));
 
         // add enable/disable field
