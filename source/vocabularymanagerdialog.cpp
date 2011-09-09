@@ -129,6 +129,12 @@ const void VocabularyManagerDialog::InitEditor()
 	foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
 		int iColumn, iRow;
 
+		// check for builtin field
+		VocabularyDatabase::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+		if (faAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+			continue;
+		} // if
+
 		// get field language
 		if (_vVocabulary->GetFieldLanguage(iFieldId) == Vocabulary::FieldLanguageLeft) {
 			iRow = iFieldsLeft++;
