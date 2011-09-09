@@ -136,7 +136,7 @@ const void VocabularyManagerDialog::InitEditor()
 		} // if
 
 		// get field language
-		if (_vVocabulary->GetFieldLanguage(iFieldId) == Vocabulary::FieldLanguageLeft) {
+		if (_vVocabulary->GetFieldLanguage(iFieldId) == VocabularyDatabase::FieldLanguageLeft) {
 			iRow = iFieldsLeft++;
 			iColumn = EditorColumnLeftLabel;
 		} else {
@@ -162,8 +162,8 @@ const void VocabularyManagerDialog::InitTabs()
     vtwTabs->SetShowEnabled(_sSettings->GetCanEnableCategories());
 	vtwTabs->SetShowPriorities(_sSettings->GetCanChangeCategoryPriority());
 
-    Vocabulary::tCategoryIdList tcilCategories = _vVocabulary->GetCategoryIds();
-    Vocabulary::tCategoryIdList::const_iterator ciCategoryId;
+    VocabularyDatabase::tCategoryIdList tcilCategories = _vVocabulary->GetCategoryIds();
+    VocabularyDatabase::tCategoryIdList::const_iterator ciCategoryId;
     for (ciCategoryId = tcilCategories.constBegin(); ciCategoryId != tcilCategories.constEnd(); ciCategoryId++) {
         AddTab(*ciCategoryId);
         _qlCategories.append(*ciCategoryId);
@@ -218,7 +218,7 @@ const void VocabularyManagerDialog::on_qpbSearch_clicked(bool checked /* false *
 
     // search for next word
     int iRecordId = _vVocabulary->Search(_qdvmVocabularyManager.qleSearch->text(), iCurrentRecord + 1);
-    if (iRecordId == Vocabulary::NOT_FOUND) {
+    if (iRecordId == VocabularyDatabase::NOT_FOUND) {
         return;
     } // if
 
