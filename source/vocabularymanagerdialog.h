@@ -51,12 +51,14 @@ class VocabularyManagerDialog : public QDialog
 		const void EnableTabControls() const;
 		const void EnableWordControls() const;
         const void FocusOnRecord(const int &pRecordId) const;
+#ifndef FREE
+		const void HideColumns(QTableView *pTableView) const;
+#endif
 		const void InitEditor();
         const void InitTabs();
 #ifndef FREE
         const void ReassignModels() const;
         const void SelectFirstEnabledTab();
-        const void ShowHideColumns(QTableView *pTableView) const;
 #endif
 		const void StretchColumns(const QTableView *pTableView) const;
 #ifndef FREE
