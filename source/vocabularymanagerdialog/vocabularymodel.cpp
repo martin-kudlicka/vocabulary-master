@@ -14,13 +14,46 @@ int VocabularyModel::columnCount(const QModelIndex &parent /* QModelIndex() */) 
 
 QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
-    switch (role) {
-        case Qt::DisplayRole:
-            return _vVocabulary->GetDataText(_iCategoryId, index.row(), _vVocabulary->GetFieldId(index.column()));
-        default:
-            return QVariant();
-    } // switch
+	int iFieldId = _vVocabulary->GetFieldId(index.column());
+	VocabularyDatabase::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+
+	if (faAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+		VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
+		if (efbBuiltIn == VocabularyDatabase::FieldBuiltInEnabled) {
+			switch (role) {
+				case Qt::CheckStateRole:
+					return _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
+				default:
+					return QVariant();
+			} // switch
+		} // if
+	} else {
+		switch (role) {
+			case Qt::DisplayRole:
+				return _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
+			default:
+				return QVariant();
+		} // switch
+	} // if else
+
+	return QVariant();
 } // data
+
+Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
+{
+	Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index);
+
+	int iFieldId = _vVocabulary->GetFieldId(index.column());
+	VocabularyDatabase::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+	if (faAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+		VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
+		if (efbBuiltIn == VocabularyDatabase::FieldBuiltInEnabled) {
+			ifFlags |= Qt::ItemIsEditable | Qt::ItemIsUserCheckable;
+		} // if
+	} // if
+
+	return ifFlags;
+} // flags
 
 QVariant VocabularyModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
@@ -50,10 +83,6 @@ int VocabularyModel::rowCount(const QModelIndex &parent /* QModelIndex() */) con
 
 bool VocabularyModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)
 {
-	if (role != Qt::EditRole) {
-		return false;
-	} // if
-
 	int iFieldId = _vVocabulary->GetFieldId(index.column());
 	_vVocabulary->SetDataText(_iCategoryId, index.row(), iFieldId, value.toString());
 
