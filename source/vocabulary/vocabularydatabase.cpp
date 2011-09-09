@@ -83,9 +83,10 @@ const void VocabularyDatabase::AddField() const
     AddField(qsTemplate, qsName, FieldAttributeShow, FieldBuiltInNone, FieldLanguageLeft);
 } // AddField
 
-const void VocabularyDatabase::AddField(const QString &pTemplate, const QString &pName, const FieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const
+const int VocabularyDatabase::AddField(const QString &pTemplate, const QString &pName, const FieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const
 {
-    _qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " + COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_BUILTIN + ", " + COLUMN_LANGUAGE + ") VALUES ('" + pTemplate + "', '" + pName + "', '" + QString::number(pAttributes) + "', '" + QString::number(pBuiltIn) + "', '" + QString::number(pLanguage) + "')");
+    QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " + COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_BUILTIN + ", " + COLUMN_LANGUAGE + ") VALUES ('" + pTemplate + "', '" + pName + "', '" + QString::number(pAttributes) + "', '" + QString::number(pBuiltIn) + "', '" + QString::number(pLanguage) + "')");
+	return qsqQuery.lastInsertId().toInt();
 } // AddField
 #endif
 
@@ -273,6 +274,16 @@ const VocabularyDatabase::FieldAttributes VocabularyDatabase::GetFieldAttributes
 
     return FieldAttributeNone;
 } // GetFieldAttributes
+
+const VocabularyDatabase::eFieldBuiltIn VocabularyDatabase::GetFieldBuiltIn(const int &pFieldId) const
+{
+	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_BUILTIN + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+	if (qsqQuery.next()) {
+		return static_cast<eFieldBuiltIn>(qsqQuery.value(ColumnPosition1).toInt());
+	} // if
+
+	return FieldBuiltInNone;
+} // GetFieldBuiltIn
 #endif
 
 const int VocabularyDatabase::GetFieldCount() const
@@ -475,7 +486,7 @@ const int VocabularyDatabase::GetRecordId(const int &pCategoryId, const int &pRo
 	return qsqQuery.value(ColumnPosition1).toInt();
 } // GetRecordId
 
-/*#ifndef FREE
+#ifndef FREE
 const VocabularyDatabase::tRecordIdList VocabularyDatabase::GetRecordIds() const
 {
     tRecordIdList trilRecordIds;
@@ -486,7 +497,7 @@ const VocabularyDatabase::tRecordIdList VocabularyDatabase::GetRecordIds() const
 
     return trilRecordIds;
 } // GetRecordIds
-#endif*/
+#endif
 
 const VocabularyDatabase::tRecordIdList VocabularyDatabase::GetRecordIds(const int &pCategoryId) const
 {
@@ -828,7 +839,7 @@ const void VocabularyDatabase::Update(const QString &pTable, const int &pColumnI
 #endif
 
 #ifndef TRY
-const void VocabularyDatabase::UpdateDatabase() const
+const void VocabularyDatabase::UpdateDatabase()
 {
     QString qsVersion = GetSettings(KEY_VERSION);
     eVersion evCurrent;
@@ -837,6 +848,8 @@ const void VocabularyDatabase::UpdateDatabase() const
     } else {
         evCurrent = static_cast<eVersion>(qsVersion.toInt());
     } // if else
+
+	BeginEdit();
 
     if (evCurrent < Version2) {
         // add priority column to categories table
@@ -887,12 +900,17 @@ const void VocabularyDatabase::UpdateDatabase() const
         // add builtin column to fields table
         _qsdDatabase.exec("ALTER TABLE " + TABLE_FIELDS + " ADD " + COLUMN_BUILTIN + " INTEGER");
         _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_BUILTIN + " = " + QString::number(FieldBuiltInNone));
-
         // add enable/disable field
-        AddField(tr("Enabled"), tr("Enabled"), FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
+        int iEnableFieldId = AddField(tr("Enabled"), tr("Enabled"), FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
+		// enable all data
+		foreach (int iRecordId, GetRecordIds()) {
+			SetDataText(iRecordId, iEnableFieldId, QString::number(Qt::Checked));
+		} // foreach
 
         SetSettings(KEY_VERSION, QString::number(Version2));
     } // if
+
+	EndEdit(true);
 } // UpdateDatabase
 #endif
 

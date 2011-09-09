@@ -74,6 +74,7 @@ class VocabularyDatabase : public QObject
 #ifndef FREE
 		const int GetCategoryPriority(const int &pCategoryId) const;
         const FieldAttributes GetFieldAttributes(const int &pFieldId) const;
+		const eFieldBuiltIn GetFieldBuiltIn(const int &pFieldId) const;
 #endif
 		const int GetFieldCount() const;
 		const int GetFieldId(const int &pPosition) const;
@@ -165,7 +166,7 @@ class VocabularyDatabase : public QObject
         QString _qsVocabularyFile;
 
 #ifndef FREE
-        const void AddField(const QString &pTemplate, const QString &pName, const FieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const;
+        const int AddField(const QString &pTemplate, const QString &pName, const FieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const;
 #endif
         const void AddLanguage(const QString &pName, const QString &pLearningTemplate
 #ifndef FREE
@@ -173,9 +174,9 @@ class VocabularyDatabase : public QObject
 #endif
             ) const;
 		const void CloseDatabase();
-/*#ifndef FREE
+#ifndef FREE
         const tRecordIdList GetRecordIds() const;
-#endif*/
+#endif
 		const void Initialize() const;
 		const void OpenDatabase();
 		const void RemoveRecord(const int &pRecordId) const;
@@ -183,7 +184,7 @@ class VocabularyDatabase : public QObject
 		const void Update(const QString &pTable, const int &pColumnId, const QSqlRecord &pRecord) const;
 #endif
 #ifndef TRY
-        const void UpdateDatabase() const;
+        const void UpdateDatabase();
 #endif
 
 	signals:
