@@ -24,7 +24,7 @@ const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
     QTableView *qtvTableView = new QTableView(_qdvmVocabularyManager.vtwTabs);
 	qtvTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     qtvTableView->setModel(new VocabularyModel(_vVocabulary, pCategoryId, qtvTableView));
-    ShowHideColumns(qtvTableView);
+    HideColumns(qtvTableView);
 	connect(qtvTableView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvTableViewSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 
     StretchColumns(qtvTableView);
@@ -93,6 +93,21 @@ const void VocabularyManagerDialog::FocusOnRecord(const int &pRecordId) const
     const VocabularyModel *vmVocabularyModel = qobject_cast<const VocabularyModel *>(qtvVocabularyView->model());
     qtvVocabularyView->setCurrentIndex(vmVocabularyModel->index(_vVocabulary->GetRow(pRecordId, iCategory), 0));
 } // FocusOnRecord
+
+#ifndef FREE
+const void VocabularyManagerDialog::HideColumns(QTableView *pTableView) const
+{
+	int iColumn = 0;
+	foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
+		VocabularyDatabase::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+		if (!(faAttributes & VocabularyDatabase::FieldAttributeShow)) {
+			pTableView->hideColumn(iColumn);
+		} // if
+
+		iColumn++;
+	} // foreach
+} // HideColumns
+#endif
 
 const void VocabularyManagerDialog::InitEditor()
 {
@@ -327,7 +342,7 @@ const void VocabularyManagerDialog::ReassignModels() const
         VocabularyModel *vmVocabularyModel = qobject_cast<VocabularyModel *>(qtvVocabularyView->model());
         qtvVocabularyView->setModel(NULL);
         qtvVocabularyView->setModel(vmVocabularyModel);
-        ShowHideColumns(qtvVocabularyView);
+        HideColumns(qtvVocabularyView);
         StretchColumns(qtvVocabularyView);
         connect(qtvVocabularyView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvTableViewSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
     } // for
@@ -342,21 +357,6 @@ const void VocabularyManagerDialog::SelectFirstEnabledTab()
         } // if
     } // for
 } // SelectFirstEnabledTab
-
-const void VocabularyManagerDialog::ShowHideColumns(QTableView *pTableView) const
-{
-    int iColumn = 0;
-    foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
-        VocabularyDatabase::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-        if (faAttributes & VocabularyDatabase::FieldAttributeShow) {
-            pTableView->hideColumn(iColumn);
-        } else {
-            pTableView->showColumn(iColumn);
-        } // if else
-
-        iColumn++;
-    } // foreach
-} // ShowHideColumns
 #endif
 
 const void VocabularyManagerDialog::StretchColumns(const QTableView *pTableView) const
