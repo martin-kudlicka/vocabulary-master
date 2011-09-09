@@ -150,16 +150,16 @@ bool FieldsModel::setData(const QModelIndex &index, const QVariant &value, int r
             break;
         case ColumnSpeech:
             {
-                Vocabulary::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-                faAttributes ^= Vocabulary::FieldAttributeSpeech;
-                _vVocabulary->SetFieldAttributes(iFieldId, faAttributes);
+                Vocabulary::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+                qfaAttributes ^= Vocabulary::FieldAttributeSpeech;
+                _vVocabulary->SetFieldAttributes(iFieldId, qfaAttributes);
             }
             break;
         case ColumnShow:
             {
-                Vocabulary::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-                faAttributes ^= Vocabulary::FieldAttributeShow;
-                _vVocabulary->SetFieldAttributes(iFieldId, faAttributes);
+                Vocabulary::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+                qfaAttributes ^= Vocabulary::FieldAttributeShow;
+                _vVocabulary->SetFieldAttributes(iFieldId, qfaAttributes);
             }
             break;
         case ColumnLanguage:
