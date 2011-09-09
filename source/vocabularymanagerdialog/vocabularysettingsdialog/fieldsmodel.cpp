@@ -76,7 +76,7 @@ FieldsModel::FieldsModel(Vocabulary *pVocabulary, QObject *pParent /* NULL */) :
 
 Qt::ItemFlags FieldsModel::flags(const QModelIndex &index) const
 {
-    Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
+    Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index);
 
     if (index.column() == ColumnSpeech || index.column() == ColumnShow) {
         ifFlags |= Qt::ItemIsUserCheckable;
