@@ -14,6 +14,7 @@ class VocabularyDatabase : public QObject
 {
 	Q_OBJECT
     Q_ENUMS(eFieldAttribute)
+    Q_ENUMS(eFieldBuiltIn)
     Q_ENUMS(eFieldLanguage)
 
     public:
@@ -26,9 +27,16 @@ class VocabularyDatabase : public QObject
             FieldAttributeNone
 #ifndef FREE
             , FieldAttributeSpeech,
-            FieldAttributeShow
+            FieldAttributeShow,
+            FieldAttributeBuiltIn = 4
 #endif
         }; // eFieldAttribute
+#ifndef FREE
+        enum eFieldBuiltIn {
+            FieldBuiltInNone,
+            FieldBuiltInEnabled
+        }; // eFieldBuiltIn
+#endif
         Q_DECLARE_FLAGS(FieldAttributes, eFieldAttribute)
 
 		enum eFieldLanguage {
@@ -36,7 +44,8 @@ class VocabularyDatabase : public QObject
 			FieldLanguageLeft,
 			FieldLanguageRight
 #ifndef FREE
-            , FieldLanguageCount
+            , FieldLanguageCount,
+            FieldLanguageAll = INT_MAX
 #endif
 		}; // eFieldLanguage
 
@@ -151,6 +160,9 @@ class VocabularyDatabase : public QObject
         QSqlDatabase _qsdDatabase;
         QString _qsVocabularyFile;
 
+#ifndef FREE
+        const void AddField(const QString &pTemplate, const QString &pName, const FieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const;
+#endif
         const void AddLanguage(const QString &pName, const QString &pLearningTemplate
 #ifndef FREE
             , const QString &pTrayTemplate, const TTSInterface::eTTSPlugin &pTTSPlugin, const QString &pVoice

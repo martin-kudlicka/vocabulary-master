@@ -85,10 +85,15 @@ const void VocabularySettingsDialog::on_qpbFieldUp_clicked(bool checked /* false
 const void VocabularySettingsDialog::on_qtvFieldsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
 	const QItemSelectionModel *qismSelection = _qdvsdVocabularySettingsDialog.qtvFields->selectionModel();
+    bool bBuiltIn;
+    if (qismSelection->hasSelection()) {
+        int iFieldId = _vVocabulary->GetFieldId(_qdvsdVocabularySettingsDialog.qtvFields->currentIndex().row());
+        bBuiltIn = _vVocabulary->GetFieldAttributes(iFieldId) & VocabularyDatabase::FieldAttributeBuiltIn;
+    } // if
 
 	_qdvsdVocabularySettingsDialog.qpbFieldUp->setEnabled(qismSelection->hasSelection() && _qdvsdVocabularySettingsDialog.qtvFields->currentIndex().row() > 0);
 	_qdvsdVocabularySettingsDialog.qpbFieldDown->setEnabled(qismSelection->hasSelection() && _qdvsdVocabularySettingsDialog.qtvFields->currentIndex().row() < _qdvsdVocabularySettingsDialog.qtvFields->model()->rowCount() - 1);
-	_qdvsdVocabularySettingsDialog.qpbFieldRemove->setEnabled(qismSelection->hasSelection());
+	_qdvsdVocabularySettingsDialog.qpbFieldRemove->setEnabled(qismSelection->hasSelection() && !bBuiltIn);
 } // on_qtvFieldsSelectionModel_selectionChanged
 
 const void VocabularySettingsDialog::PrepareFields()
