@@ -486,7 +486,7 @@ const int VocabularyDatabase::GetRecordId(const int &pCategoryId, const int &pRo
 	return qsqQuery.value(ColumnPosition1).toInt();
 } // GetRecordId
 
-#ifndef FREE
+#ifndef TRY
 const VocabularyDatabase::tRecordIdList VocabularyDatabase::GetRecordIds() const
 {
     tRecordIdList trilRecordIds;

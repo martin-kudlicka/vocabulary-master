@@ -174,7 +174,7 @@ class VocabularyDatabase : public QObject
 #endif
             ) const;
 		const void CloseDatabase();
-#ifndef FREE
+#ifndef TRY
         const tRecordIdList GetRecordIds() const;
 #endif
 		const void Initialize() const;
