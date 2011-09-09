@@ -19,6 +19,8 @@ const void VocabularySettingsDialog::FillOptions()
 	// templates
 	_qdvsdVocabularySettingsDialog.qteLearningLeft->setPlainText(_vVocabulary->GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageLeft));
 	_qdvsdVocabularySettingsDialog.qteLearningRight->setPlainText(_vVocabulary->GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageRight));
+    _qdvsdVocabularySettingsDialog.qteTrayLeft->setPlainText(_vVocabulary->GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageLeft));
+    _qdvsdVocabularySettingsDialog.qteTrayRight->setPlainText(_vVocabulary->GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageRight));
 #endif
 } // FillOptions
 
@@ -182,6 +184,8 @@ const void VocabularySettingsDialog::SaveOptions()
 	// templates
 	_vVocabulary->SetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageLeft, _qdvsdVocabularySettingsDialog.qteLearningLeft->toPlainText());
 	_vVocabulary->SetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageRight, _qdvsdVocabularySettingsDialog.qteLearningRight->toPlainText());
+    _vVocabulary->SetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageLeft, _qdvsdVocabularySettingsDialog.qteTrayLeft->toPlainText());
+    _vVocabulary->SetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageRight, _qdvsdVocabularySettingsDialog.qteTrayRight->toPlainText());
 #endif
 } // SaveOptions
 
