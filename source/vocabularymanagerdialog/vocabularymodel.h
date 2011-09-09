@@ -22,7 +22,9 @@ class VocabularyModel : public QAbstractTableModel
         Vocabulary *_vVocabulary;
 
         virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+#ifndef FREE
 		virtual Qt::ItemFlags flags(const QModelIndex &index) const;
+#endif
         virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 }; // VocabularyModel
 

@@ -24,7 +24,9 @@ const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
     QTableView *qtvTableView = new QTableView(_qdvmVocabularyManager.vtwTabs);
 	qtvTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     qtvTableView->setModel(new VocabularyModel(_vVocabulary, pCategoryId, qtvTableView));
+#ifndef FREE
     HideColumns(qtvTableView);
+#endif
 	connect(qtvTableView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvTableViewSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 
     StretchColumns(qtvTableView);

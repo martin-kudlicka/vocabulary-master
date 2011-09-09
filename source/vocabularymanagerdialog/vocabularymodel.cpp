@@ -15,6 +15,7 @@ int VocabularyModel::columnCount(const QModelIndex &parent /* QModelIndex() */) 
 QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
 	int iFieldId = _vVocabulary->GetFieldId(index.column());
+#ifndef FREE
 	VocabularyDatabase::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
 
 	if (faAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
@@ -28,17 +29,21 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 			} // switch
 		} // if
 	} else {
+#endif
 		switch (role) {
 			case Qt::DisplayRole:
 				return _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
 			default:
 				return QVariant();
 		} // switch
+#ifndef FREE
 	} // if else
+#endif
 
 	return QVariant();
 } // data
 
+#ifndef FREE
 Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
 {
 	Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index);
@@ -54,6 +59,7 @@ Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
 
 	return ifFlags;
 } // flags
+#endif
 
 QVariant VocabularyModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
