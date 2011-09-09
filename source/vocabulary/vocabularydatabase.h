@@ -22,6 +22,7 @@ class VocabularyDatabase : public QObject
         typedef QHash<int, tFieldDataHash> tRecordDataHash;
         typedef QList<int> tCategoryIdList;
 		typedef QList<int> tFieldIdList;
+        typedef QList<int> tLanguageIdList;
 
         enum eFieldAttribute {
             FieldAttributeNone
@@ -44,8 +45,7 @@ class VocabularyDatabase : public QObject
 			FieldLanguageLeft,
 			FieldLanguageRight
 #ifndef FREE
-            , FieldLanguageCount,
-            FieldLanguageAll = INT_MAX
+            , FieldLanguageAll = INT_MAX
 #endif
 		}; // eFieldLanguage
 
@@ -82,6 +82,9 @@ class VocabularyDatabase : public QObject
 		const QString GetFieldName(const int &pFieldId) const;
         const QString GetFieldTemplateName(const int &pFieldId) const;
 		//const eFieldType GetFieldType(const int &pFieldId) const;
+#ifndef FREE
+        const tLanguageIdList GetLanguageIds() const;
+#endif
         const QString GetLanguageLearningTemplate(const int &pLanguageId) const;
         const QString GetLanguageName(const int &pLanguageId) const;
 #ifndef FREE
