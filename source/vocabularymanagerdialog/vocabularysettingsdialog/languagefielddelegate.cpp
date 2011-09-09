@@ -6,9 +6,9 @@ QWidget *LanguageFieldDelegate::createEditor(QWidget *parent, const QStyleOption
 {
     QComboBox *qcbEditor = new QComboBox(parent);
 
-    for (int iI = Vocabulary::FieldLanguageLeft; iI < Vocabulary::FieldLanguageCount; iI++) {
-        qcbEditor->addItem(_vVocabulary->GetLanguageName(static_cast<Vocabulary::eFieldLanguage>(iI)));
-    } // for
+    foreach (int iLanguageId, _vVocabulary->GetLanguageIds()) {
+        qcbEditor->addItem(_vVocabulary->GetLanguageName(iLanguageId));
+    } // foreach
 
     return qcbEditor;
 } // createEditor
@@ -21,11 +21,20 @@ LanguageFieldDelegate::LanguageFieldDelegate(const Vocabulary *pVocabulary, QObj
 void LanguageFieldDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
     QComboBox *qcbLanguage = qobject_cast<QComboBox *>(editor);
-    qcbLanguage->setCurrentIndex(index.model()->data(index, Qt::EditRole).toInt() - 1);
+    int iLanguageId = index.model()->data(index, Qt::EditRole).toInt();
+    if (iLanguageId == VocabularyDatabase::FieldLanguageAll) {
+        qcbLanguage->setCurrentIndex(qcbLanguage->count() - 1);
+    } else {
+        qcbLanguage->setCurrentIndex(iLanguageId - 1);
+    } // if else
 } // setEditorData
 
 void LanguageFieldDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     QComboBox *qcbLanguage = qobject_cast<QComboBox *>(editor);
-    model->setData(index, qcbLanguage->currentIndex() + 1, Qt::EditRole);
+    if (qcbLanguage->currentIndex() == qcbLanguage->count() - 1) {
+        model->setData(index, VocabularyDatabase::FieldLanguageAll, Qt::EditRole);
+    } else {
+        model->setData(index, qcbLanguage->currentIndex() + 1, Qt::EditRole);
+    } // if else
 } // setModelData

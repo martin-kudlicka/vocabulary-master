@@ -352,6 +352,21 @@ const QString VocabularyDatabase::GetFieldTemplateName(const int &pFieldId) cons
 	return FieldTypeUnknown;
 } // GetFieldType*/
 
+#ifndef FREE
+const VocabularyDatabase::tLanguageIdList VocabularyDatabase::GetLanguageIds() const
+{
+    tLanguageIdList tlilIds;
+
+    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_LANGUAGES);
+    while (qsqQuery.next()) {
+        tlilIds.append(qsqQuery.value(ColumnPosition1).toInt());
+    } // while
+    tlilIds.append(FieldLanguageAll);
+
+    return tlilIds;
+} // GetLanguageIds
+#endif
+
 const QString VocabularyDatabase::GetLanguageLearningTemplate(const int &pLanguageId) const
 {
     QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_LEARNINGTEMPLATE + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
@@ -367,9 +382,9 @@ const QString VocabularyDatabase::GetLanguageName(const int &pLanguageId) const
     QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_NAME + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
     if (qsqQuery.next()) {
         return qsqQuery.value(ColumnPosition1).toString();
-    } // while
-
-    return QString();
+    } else {
+        return tr("All");
+    } // if else
 } // GetLanguageName
 
 #ifndef FREE
