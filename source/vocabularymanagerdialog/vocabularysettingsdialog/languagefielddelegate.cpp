@@ -4,9 +4,18 @@
 
 QWidget *LanguageFieldDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QComboBox *qcbEditor = new QComboBox(parent);
+	int iFieldId = _vVocabulary->GetFieldId(index.row());
+	VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
 
-    foreach (int iLanguageId, _vVocabulary->GetLanguageIds()) {
+	VocabularyDatabase::tLanguageIdList tlilIds;
+	if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+		tlilIds = _vVocabulary->GetLanguageIds(VocabularyDatabase::LanguageIdsAllOnly);
+	} else {
+		tlilIds = _vVocabulary->GetLanguageIds(VocabularyDatabase::LanguageIdsUserDefined);
+	} // if else
+
+	QComboBox *qcbEditor = new QComboBox(parent);
+    foreach (int iLanguageId, tlilIds) {
         qcbEditor->addItem(_vVocabulary->GetLanguageName(iLanguageId));
     } // foreach
 

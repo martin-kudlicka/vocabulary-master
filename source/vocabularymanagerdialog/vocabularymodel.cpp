@@ -16,9 +16,9 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 {
 	int iFieldId = _vVocabulary->GetFieldId(index.column());
 #ifndef FREE
-	VocabularyDatabase::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+	VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
 
-	if (faAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+	if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
 		VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
 		if (efbBuiltIn == VocabularyDatabase::FieldBuiltInEnabled) {
 			switch (role) {
@@ -49,8 +49,8 @@ Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
 	Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index);
 
 	int iFieldId = _vVocabulary->GetFieldId(index.column());
-	VocabularyDatabase::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-	if (faAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+	VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+	if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
 		VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
 		if (efbBuiltIn == VocabularyDatabase::FieldBuiltInEnabled) {
 			ifFlags |= Qt::ItemIsUserCheckable;

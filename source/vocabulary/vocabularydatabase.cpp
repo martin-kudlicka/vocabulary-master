@@ -83,7 +83,7 @@ const void VocabularyDatabase::AddField() const
     AddField(qsTemplate, qsName, FieldAttributeShow, FieldBuiltInNone, FieldLanguageLeft);
 } // AddField
 
-const int VocabularyDatabase::AddField(const QString &pTemplate, const QString &pName, const FieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const
+const int VocabularyDatabase::AddField(const QString &pTemplate, const QString &pName, const qfFieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const
 {
     QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " + COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_BUILTIN + ", " + COLUMN_LANGUAGE + ") VALUES ('" + pTemplate + "', '" + pName + "', '" + QString::number(pAttributes) + "', '" + QString::number(pBuiltIn) + "', '" + QString::number(pLanguage) + "')");
 	return qsqQuery.lastInsertId().toInt();
@@ -265,7 +265,7 @@ const int VocabularyDatabase::GetCategoryPriority(const int &pCategoryId) const
 	return qsqQuery.value(ColumnPosition1).toInt();
 } // GetCategoryPriority
 
-const VocabularyDatabase::FieldAttributes VocabularyDatabase::GetFieldAttributes(const int &pFieldId) const
+const VocabularyDatabase::qfFieldAttributes VocabularyDatabase::GetFieldAttributes(const int &pFieldId) const
 {
     QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ATTRIBUTES + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
     if (qsqQuery.next()) {
@@ -364,15 +364,20 @@ const QString VocabularyDatabase::GetFieldTemplateName(const int &pFieldId) cons
 } // GetFieldType*/
 
 #ifndef FREE
-const VocabularyDatabase::tLanguageIdList VocabularyDatabase::GetLanguageIds() const
+const VocabularyDatabase::tLanguageIdList VocabularyDatabase::GetLanguageIds(const qfLanguageIds &pType) const
 {
     tLanguageIdList tlilIds;
 
-    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_LANGUAGES);
-    while (qsqQuery.next()) {
-        tlilIds.append(qsqQuery.value(ColumnPosition1).toInt());
-    } // while
-    tlilIds.append(FieldLanguageAll);
+	if (pType & LanguageIdsUserDefined) {
+		QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_LANGUAGES);
+		while (qsqQuery.next()) {
+			tlilIds.append(qsqQuery.value(ColumnPosition1).toInt());
+		} // while
+	} // if
+
+	if (pType & LanguageIdsAllOnly) {
+		tlilIds.append(FieldLanguageAll);
+	} // if
 
     return tlilIds;
 } // GetLanguageIds
@@ -741,7 +746,7 @@ const void VocabularyDatabase::SetDataText(const int &pRecordId, const int &pFie
 } // SetDataText
 
 #ifndef FREE
-const void VocabularyDatabase::SetFieldAttributes(const int &pFieldId, const FieldAttributes &pAttributes) const
+const void VocabularyDatabase::SetFieldAttributes(const int &pFieldId, const qfFieldAttributes &pAttributes) const
 {
     _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_ATTRIBUTES + " = '" + QString::number(pAttributes) + "' WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
 } // SetFieldAttributes
@@ -859,9 +864,9 @@ const void VocabularyDatabase::UpdateDatabase()
         // add show attribute to fields
         tFieldIdList tfilFieldIds = GetFieldIds();
         foreach (int iFieldId, tfilFieldIds) {
-            FieldAttributes faAttributes = GetFieldAttributes(iFieldId);
-            faAttributes |= FieldAttributeShow;
-            SetFieldAttributes(iFieldId, faAttributes);
+            qfFieldAttributes qfaAttributes = GetFieldAttributes(iFieldId);
+            qfaAttributes |= FieldAttributeShow;
+            SetFieldAttributes(iFieldId, qfaAttributes);
         } // foreach
 
         // create language table

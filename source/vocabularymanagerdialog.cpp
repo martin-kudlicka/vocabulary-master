@@ -109,8 +109,8 @@ const void VocabularyManagerDialog::HideColumns(QTableView *pTableView) const
 {
 	int iColumn = 0;
 	foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
-		VocabularyDatabase::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-		if (faAttributes & VocabularyDatabase::FieldAttributeShow) {
+		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+		if (qfaAttributes & VocabularyDatabase::FieldAttributeShow) {
 			pTableView->showColumn(iColumn);
 		} else {
 			pTableView->hideColumn(iColumn);
@@ -130,8 +130,8 @@ const void VocabularyManagerDialog::InitEditor()
 		int iColumn, iRow;
 
 		// check for builtin field
-		VocabularyDatabase::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-		if (faAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+		if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
 			continue;
 		} // if
 
