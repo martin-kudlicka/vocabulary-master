@@ -173,7 +173,7 @@ const bool MainWindow::GetLearningDirection() const
 const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool &pDirectionSwitched, const bool &pAnswer) const
 {
 	QString qsTemplate;
-	Vocabulary::eFieldLanguage eflLanguage;
+	VocabularyDatabase::eFieldLanguage eflLanguage;
 	if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
 		if (pTemplate == TemplateLearning) {
 			qsTemplate = _vVocabulary.GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageLeft);
@@ -183,7 +183,7 @@ const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool
 			qsTemplate = _vVocabulary.GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageLeft);
 		} // if else
 #endif
-		eflLanguage = Vocabulary::FieldLanguageLeft;
+		eflLanguage = VocabularyDatabase::FieldLanguageLeft;
 	} else {
 		if (pTemplate == TemplateLearning) {
 			qsTemplate = _vVocabulary.GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageRight);
@@ -193,7 +193,7 @@ const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool
 			qsTemplate = _vVocabulary.GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageRight);
 		} // if else
 #endif
-		eflLanguage = Vocabulary::FieldLanguageRight;
+		eflLanguage = VocabularyDatabase::FieldLanguageRight;
 	} // if else
 
 	// substitute variables in template
@@ -555,17 +555,17 @@ const void MainWindow::RegisterHotkeys() const
 const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
     if (!_sSettings.GetMute()) {
-	    Vocabulary::eFieldLanguage eflLanguage;
+	    VocabularyDatabase::eFieldLanguage eflLanguage;
 	    if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
-		    eflLanguage = Vocabulary::FieldLanguageLeft;
+		    eflLanguage = VocabularyDatabase::FieldLanguageLeft;
 	    } else {
-		    eflLanguage = Vocabulary::FieldLanguageRight;
+		    eflLanguage = VocabularyDatabase::FieldLanguageRight;
 	    } // if else
 
         // get text to speech
         QString qsText;
         foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
-            if (_vVocabulary.GetFieldLanguage(iFieldId) == eflLanguage && _vVocabulary.GetFieldAttributes(iFieldId) & Vocabulary::FieldAttributeSpeech) {
+            if (_vVocabulary.GetFieldLanguage(iFieldId) == eflLanguage && _vVocabulary.GetFieldAttributes(iFieldId) & VocabularyDatabase::FieldAttributeSpeech) {
                 if (!qsText.isEmpty()) {
                     qsText += ' ';
                 } // if

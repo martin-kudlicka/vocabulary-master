@@ -36,7 +36,7 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
         case ColumnSpeech:
             switch (role) {
 				case Qt::CheckStateRole:
-                    if (_vVocabulary->GetFieldAttributes(iFieldId) & Vocabulary::FieldAttributeSpeech) {
+                    if (_vVocabulary->GetFieldAttributes(iFieldId) & VocabularyDatabase::FieldAttributeSpeech) {
                         return Qt::Checked;
                     } else {
                         return Qt::Unchecked;
@@ -47,7 +47,7 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
         case ColumnShow:
             switch (role) {
                 case Qt::CheckStateRole:
-                    if (_vVocabulary->GetFieldAttributes(iFieldId) & Vocabulary::FieldAttributeShow) {
+                    if (_vVocabulary->GetFieldAttributes(iFieldId) & VocabularyDatabase::FieldAttributeShow) {
                         return Qt::Checked;
                     } else {
                         return Qt::Unchecked;
@@ -150,20 +150,20 @@ bool FieldsModel::setData(const QModelIndex &index, const QVariant &value, int r
             break;
         case ColumnSpeech:
             {
-                Vocabulary::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-                qfaAttributes ^= Vocabulary::FieldAttributeSpeech;
+                VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+                qfaAttributes ^= VocabularyDatabase::FieldAttributeSpeech;
                 _vVocabulary->SetFieldAttributes(iFieldId, qfaAttributes);
             }
             break;
         case ColumnShow:
             {
-                Vocabulary::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-                qfaAttributes ^= Vocabulary::FieldAttributeShow;
+                VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+                qfaAttributes ^= VocabularyDatabase::FieldAttributeShow;
                 _vVocabulary->SetFieldAttributes(iFieldId, qfaAttributes);
             }
             break;
         case ColumnLanguage:
-            _vVocabulary->SetFieldLanguage(iFieldId, static_cast<Vocabulary::eFieldLanguage>(value.toInt()));
+            _vVocabulary->SetFieldLanguage(iFieldId, static_cast<VocabularyDatabase::eFieldLanguage>(value.toInt()));
     } // switch
 
     emit dataChanged(index, index);
