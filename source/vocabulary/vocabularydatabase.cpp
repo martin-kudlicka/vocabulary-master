@@ -752,6 +752,11 @@ const void VocabularyDatabase::SetLanguageSpeech(const int &pLanguageId, const T
     _qsdDatabase.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_SPEECH + " = '" + QString::number(pSpeech)+ "' WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
 } // SetLanguageSpeech
 
+const void VocabularyDatabase::SetLanguageTrayTemplate(const int &pLanguageId, const QString &pTemplate) const
+{
+    _qsdDatabase.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_TRAYTEMPLATE + " = '" + pTemplate + "' WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
+} // SetLanguageTrayTemplate
+
 const void VocabularyDatabase::SetLanguageVoice(const int &pLanguageId, const QString &pVoice) const
 {
     _qsdDatabase.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_VOICE + " = '" + pVoice + "' WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));

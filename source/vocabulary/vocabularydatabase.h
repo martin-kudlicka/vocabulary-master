@@ -110,6 +110,7 @@ class VocabularyDatabase : public QObject
         const void SetLanguageName(const int &pLanguageId, const QString &pName) const;
 #ifndef FREE
         const void SetLanguageSpeech(const int &pLanguageId, const TTSInterface::eTTSPlugin &pSpeech) const;
+        const void SetLanguageTrayTemplate(const int &pLanguageId, const QString &pTemplate) const;
         const void SetLanguageVoice(const int &pLanguageId, const QString &pVoice) const;
 #endif
 		const void SetSettings(const QString &pKey, const QString &pValue) const;
