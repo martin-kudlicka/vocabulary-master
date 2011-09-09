@@ -52,6 +52,7 @@ class VocabularyManagerDialog : public QDialog
 		const void EnableWordControls() const;
         const void FocusOnRecord(const int &pRecordId) const;
 #ifndef FREE
+		const void HideColumns() const;
 		const void HideColumns(QTableView *pTableView) const;
 #endif
 		const void InitEditor();
