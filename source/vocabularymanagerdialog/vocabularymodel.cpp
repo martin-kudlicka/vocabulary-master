@@ -48,7 +48,7 @@ Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
 	if (faAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
 		VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
 		if (efbBuiltIn == VocabularyDatabase::FieldBuiltInEnabled) {
-			ifFlags |= Qt::ItemIsEditable | Qt::ItemIsUserCheckable;
+			ifFlags |= Qt::ItemIsUserCheckable;
 		} // if
 	} // if
 
