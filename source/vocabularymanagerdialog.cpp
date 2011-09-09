@@ -97,14 +97,24 @@ const void VocabularyManagerDialog::FocusOnRecord(const int &pRecordId) const
 } // FocusOnRecord
 
 #ifndef FREE
+const void VocabularyManagerDialog::HideColumns() const
+{
+	for (int iTab = 0; iTab < _qdvmVocabularyManager.vtwTabs->count(); iTab++) {
+		QTableView *qtvVocabularyView = qobject_cast<QTableView *>(_qdvmVocabularyManager.vtwTabs->widget(iTab));
+		HideColumns(qtvVocabularyView);
+	} // for
+} // HideColumns
+
 const void VocabularyManagerDialog::HideColumns(QTableView *pTableView) const
 {
 	int iColumn = 0;
 	foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
 		VocabularyDatabase::FieldAttributes faAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-		if (!(faAttributes & VocabularyDatabase::FieldAttributeShow)) {
+		if (faAttributes & VocabularyDatabase::FieldAttributeShow) {
+			pTableView->showColumn(iColumn);
+		} else {
 			pTableView->hideColumn(iColumn);
-		} // if
+		} // if else
 
 		iColumn++;
 	} // foreach
@@ -232,6 +242,7 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
             InitEditor();
             UpdateEditor();
 		} // if
+		HideColumns();
 #endif
 	} else {
         _vVocabulary->EndEdit(false);
@@ -294,6 +305,7 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
 
             _vVocabulary->BeginEdit();
             ReassignModels();
+			HideColumns();
 		} else {
 			_vVocabulary->EndEdit(false);
 			_vVocabulary->BeginEdit();
@@ -344,7 +356,6 @@ const void VocabularyManagerDialog::ReassignModels() const
         VocabularyModel *vmVocabularyModel = qobject_cast<VocabularyModel *>(qtvVocabularyView->model());
         qtvVocabularyView->setModel(NULL);
         qtvVocabularyView->setModel(vmVocabularyModel);
-        HideColumns(qtvVocabularyView);
         StretchColumns(qtvVocabularyView);
         connect(qtvVocabularyView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvTableViewSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
     } // for
