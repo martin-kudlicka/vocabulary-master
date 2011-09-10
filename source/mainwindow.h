@@ -93,6 +93,9 @@ class MainWindow : public QMainWindow
             const bool &pCurrentRecord
 #endif
             );
+#ifndef FREE
+		const bool RecordEnabled() const;
+#endif
         const void RefreshStatusBar();
 #ifndef FREE
 # ifdef Q_WS_WIN
