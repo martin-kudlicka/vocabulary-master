@@ -513,9 +513,10 @@ const bool MainWindow::RecordEnabled() const
 		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary.GetFieldAttributes(iFieldId);
 		if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
 			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary.GetFieldBuiltIn(iFieldId);
-			if (efbBuiltIn == VocabularyDatabase::FieldBuiltInEnabled) {
-				return _vVocabulary.GetDataText(_iCurrentRecordId, iFieldId).toInt();
-			} // if
+			switch (efbBuiltIn) {
+				case VocabularyDatabase::FieldBuiltInEnabled:
+					return _vVocabulary.GetDataText(_iCurrentRecordId, iFieldId).toInt();
+			} // switch
 		} // if
 	} // foreach
 
