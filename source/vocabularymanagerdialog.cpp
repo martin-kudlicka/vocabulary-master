@@ -414,13 +414,18 @@ const void VocabularyManagerDialog::SetPriorityDelegate(QTableView *pTableView)
 const void VocabularyManagerDialog::StretchColumns(const QTableView *pTableView) const
 {
 	for (int iColumn = 0; iColumn < pTableView->horizontalHeader()->count(); iColumn++) {
+#ifndef FREE
 		int iFieldId = _vVocabulary->GetFieldId(iColumn);
 		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
 		if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
-			pTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::ResizeToContents);
+			pTableView->horizontalHeader()->resizeSection(iColumn, BUILTIN_COLUMN_SIZE);
+			pTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Fixed);
 		} else {
+#endif
 			pTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Stretch);
+#ifndef FREE
 		} // if else
+#endif
 	} // for
 } // StretchColumns
 

@@ -39,6 +39,7 @@ class VocabularyManagerDialog : public QDialog
 		}; // eEditorColumn
 
 #ifndef FREE
+		static const int BUILTIN_COLUMN_SIZE = 50;
 		static const int COLUMNS_NONE = -1;
 
 		const Plugins *_pPlugins;
