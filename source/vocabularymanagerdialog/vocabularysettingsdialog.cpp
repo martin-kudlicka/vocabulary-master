@@ -117,7 +117,7 @@ const void VocabularySettingsDialog::PrepareFields()
         _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
     } // for
     for (int iColumn = 0; iColumn < _qdvsdVocabularySettingsDialog.qtvFields->header()->count(); iColumn++) {
-        if (iColumn == FieldsModel::ColumnSpeech) {
+        if (iColumn == FieldsModel::ColumnSpeech || iColumn == FieldsModel::ColumnShow) {
             _qdvsdVocabularySettingsDialog.qtvFields->header()->setResizeMode(iColumn, QHeaderView::ResizeToContents);
         } else {
             _qdvsdVocabularySettingsDialog.qtvFields->header()->setResizeMode(iColumn, QHeaderView::Stretch);
