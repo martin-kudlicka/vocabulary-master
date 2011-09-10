@@ -54,7 +54,6 @@ const QString KEY_VERSION = "version";
 const QString LEARNING_TEMPLATE1 = "<center style=\"font-size:20px\">" + VARIABLE_MARK + FIELD_WORD1 + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + FIELD_NOTE1 + "</center>";
 const QString LEARNING_TEMPLATE2 = "<center style=\"font-size:20px\">" + VARIABLE_MARK + FIELD_WORD2 + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + FIELD_NOTE2 + "</center>";
 #endif
-const int PRIORITY_DEFAULT = 1;
 const QString TABLE_CATEGORIES = "categories";
 const QString TABLE_DATA = "data";
 const QString TABLE_FIELDS = "fields";
@@ -909,11 +908,19 @@ const void VocabularyDatabase::UpdateDatabase()
         // add builtin column to fields table
         _qsdDatabase.exec("ALTER TABLE " + TABLE_FIELDS + " ADD " + COLUMN_BUILTIN + " INTEGER");
         _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_BUILTIN + " = " + QString::number(FieldBuiltInNone));
+
         // add enable/disable field
-        int iEnableFieldId = AddField(tr("Enabled"), tr("Enabled"), FieldTypeCheckBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
+        int iNewFieldId = AddField(tr("Enabled"), tr("Enabled"), FieldTypeCheckBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
 		// enable all data
 		foreach (int iRecordId, GetRecordIds()) {
-			SetDataText(iRecordId, iEnableFieldId, QString::number(Qt::Checked));
+			SetDataText(iRecordId, iNewFieldId, QString::number(Qt::Checked));
+		} // foreach
+
+		// add priority field
+		iNewFieldId = AddField(tr("Priority"), tr("Priority"), FieldTypeSpinBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInPriority, FieldLanguageAll);
+		// default priority to all data
+		foreach (int iRecordId, GetRecordIds()) {
+			SetDataText(iRecordId, iNewFieldId, QString::number(PRIORITY_DEFAULT));
 		} // foreach
 
         SetSettings(KEY_VERSION, QString::number(Version2));
