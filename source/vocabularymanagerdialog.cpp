@@ -381,7 +381,17 @@ const void VocabularyManagerDialog::SelectFirstEnabledTab()
 const void VocabularyManagerDialog::StretchColumns(const QTableView *pTableView) const
 {
 	for (int iColumn = 0; iColumn < pTableView->horizontalHeader()->count(); iColumn++) {
-		pTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Stretch);
+		int iFieldId = _vVocabulary->GetFieldId(iColumn);
+		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+		if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
+			switch (efbBuiltIn) {
+				case VocabularyDatabase::FieldBuiltInEnabled:
+					pTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::ResizeToContents);
+			} // switch
+		} else {
+			pTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Stretch);
+		} // if else
 	} // for
 } // StretchColumns
 
