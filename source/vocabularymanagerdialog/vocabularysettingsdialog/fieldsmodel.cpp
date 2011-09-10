@@ -79,7 +79,19 @@ Qt::ItemFlags FieldsModel::flags(const QModelIndex &index) const
     Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index);
 
     if (index.column() == ColumnSpeech || index.column() == ColumnShow) {
-        ifFlags |= Qt::ItemIsUserCheckable;
+		bool bCanSpeech = true;
+
+		if (index.column() == ColumnSpeech) {
+			int iFieldId = _vVocabulary->GetFieldId(index.row());
+			VocabularyDatabase::eFieldType eftType = _vVocabulary->GetFieldType(iFieldId);
+			if (eftType == VocabularyDatabase::FieldTypeCheckBox) {
+				bCanSpeech = false;
+			} // if
+		} // if
+
+		if (bCanSpeech) {
+			ifFlags |= Qt::ItemIsUserCheckable;
+		} // if
     } // if
 
     return ifFlags;
