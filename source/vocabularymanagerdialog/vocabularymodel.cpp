@@ -20,14 +20,15 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 
 	if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
 		VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
-		if (efbBuiltIn == VocabularyDatabase::FieldBuiltInEnabled) {
-			switch (role) {
-				case Qt::CheckStateRole:
-					return _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
-				default:
-					return QVariant();
-			} // switch
-		} // if
+		switch (efbBuiltIn) {
+			case VocabularyDatabase::FieldBuiltInEnabled:
+				switch (role) {
+					case Qt::CheckStateRole:
+						return _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
+					default:
+						return QVariant();
+				} // switch
+		} // switch
 	} else {
 #endif
 		switch (role) {
@@ -52,9 +53,10 @@ Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
 	VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
 	if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
 		VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
-		if (efbBuiltIn == VocabularyDatabase::FieldBuiltInEnabled) {
-			ifFlags |= Qt::ItemIsUserCheckable;
-		} // if
+		switch (efbBuiltIn) {
+			case VocabularyDatabase::FieldBuiltInEnabled:
+				ifFlags |= Qt::ItemIsUserCheckable;
+		} // switch
 	} // if
 
 	return ifFlags;
