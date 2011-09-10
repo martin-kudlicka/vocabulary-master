@@ -37,7 +37,8 @@ class VocabularyDatabase : public QObject
 #ifndef FREE
         enum eFieldBuiltIn {
             FieldBuiltInNone,
-            FieldBuiltInEnabled
+            FieldBuiltInEnabled,
+			FieldBuiltInPriority
         }; // eFieldBuiltIn
 #endif
         Q_DECLARE_FLAGS(qfFieldAttributes, eFieldAttribute)
@@ -54,7 +55,8 @@ class VocabularyDatabase : public QObject
 		enum eFieldType {
 			FieldTypeUnknown,
 			FieldTypeLineEdit,
-			FieldTypeCheckBox
+			FieldTypeCheckBox,
+			FieldTypeSpinBox
 		}; // eFieldType
 
 #ifndef FREE
@@ -163,8 +165,6 @@ class VocabularyDatabase : public QObject
         const void SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData) const;
 
     private:
-        static const int OPENPROGRESS_REFRESHINTERVAL = 100;
-
 		enum eColumnPosition {
 			ColumnPosition1,
             ColumnPosition2,
@@ -174,6 +174,9 @@ class VocabularyDatabase : public QObject
             Version1,
             Version2,
         }; // eVersion
+
+		static const int OPENPROGRESS_REFRESHINTERVAL = 100;
+		static const int PRIORITY_DEFAULT = 1;
 
         QSqlDatabase _qsdDatabase;
         QString _qsVocabularyFile;
