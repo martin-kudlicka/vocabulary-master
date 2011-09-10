@@ -26,6 +26,7 @@ const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
     qtvTableView->setModel(new VocabularyModel(_vVocabulary, pCategoryId, qtvTableView));
 #ifndef FREE
     HideColumns(qtvTableView);
+	SetPriorityDelegate(qtvTableView);
 #endif
 	connect(qtvTableView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvTableViewSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 
@@ -244,6 +245,7 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
 #ifndef FREE
 		if (iOldColumnCount != _vVocabulary->GetFieldCount()) {
 			ReassignModels();
+			SetPriorityDelegate();
             UninitEditor();
             InitEditor();
             UpdateEditor();
@@ -311,6 +313,7 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
 
             _vVocabulary->BeginEdit();
             ReassignModels();
+			SetPriorityDelegate();
 			HideColumns();
 		} else {
 			_vVocabulary->EndEdit(false);
@@ -376,6 +379,36 @@ const void VocabularyManagerDialog::SelectFirstEnabledTab()
         } // if
     } // for
 } // SelectFirstEnabledTab
+
+const void VocabularyManagerDialog::SetPriorityDelegate()
+{
+	for (int iTab = 0; iTab < _qdvmVocabularyManager.vtwTabs->count(); iTab++) {
+		QTableView *qtvVocabularyView = qobject_cast<QTableView *>(_qdvmVocabularyManager.vtwTabs->widget(iTab));
+		SetPriorityDelegate(qtvVocabularyView);
+	} // for
+} // SetPriorityDelegate
+
+const void VocabularyManagerDialog::SetPriorityDelegate(QTableView *pTableView)
+{
+	for (int iColumn = 0; iColumn < pTableView->horizontalHeader()->count(); iColumn++) {
+		int iFieldId = _vVocabulary->GetFieldId(iColumn);
+		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+		if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
+			if (efbBuiltIn == VocabularyDatabase::FieldBuiltInPriority) {
+				pTableView->setItemDelegateForColumn(iColumn, &_sbpdPriorityDelegate);
+
+				const VocabularyModel *vmModel = qobject_cast<const VocabularyModel *>(pTableView->model());
+				for (int iRow = 0; iRow < vmModel->rowCount(); iRow++) {
+					QModelIndex qmiIndex = vmModel->index(iRow, iColumn);
+					pTableView->openPersistentEditor(qmiIndex);
+				} // for
+
+				return;
+			} // if
+		} // if
+	} // for
+} // SetPriorityDelegate
 #endif
 
 const void VocabularyManagerDialog::StretchColumns(const QTableView *pTableView) const
@@ -384,11 +417,7 @@ const void VocabularyManagerDialog::StretchColumns(const QTableView *pTableView)
 		int iFieldId = _vVocabulary->GetFieldId(iColumn);
 		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
 		if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
-			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
-			switch (efbBuiltIn) {
-				case VocabularyDatabase::FieldBuiltInEnabled:
-					pTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::ResizeToContents);
-			} // switch
+			pTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::ResizeToContents);
 		} else {
 			pTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Stretch);
 		} // if else

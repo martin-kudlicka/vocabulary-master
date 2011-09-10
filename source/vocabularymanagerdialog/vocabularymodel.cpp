@@ -28,6 +28,14 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 					default:
 						return QVariant();
 				} // switch
+			case VocabularyDatabase::FieldBuiltInPriority:
+				switch (role) {
+					case Qt::DisplayRole:
+					case Qt::EditRole:
+						return _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId).toInt();
+					default:
+						return QVariant();
+				} // switch
 		} // switch
 	} else {
 #endif
