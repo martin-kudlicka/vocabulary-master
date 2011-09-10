@@ -26,7 +26,7 @@ const QString COLUMN_SPEECH = "speech";
 const QString COLUMN_TEMPLATENAME = "template_name";
 const QString COLUMN_TEXT = "text";
 const QString COLUMN_TRAYTEMPLATE = "tray_template";
-//const QString COLUMN_TYPE = "type";
+const QString COLUMN_TYPE = "type";
 const QString COLUMN_VALUE = "value";
 const QString COLUMN_VOICE = "voice";
 #ifdef FREE
@@ -80,12 +80,12 @@ const void VocabularyDatabase::AddField() const
 	QString qsTemplate = tr("Field") + QString::number(iNum);
 	QString qsName = tr("Name") + QString::number(iNum);
 
-    AddField(qsTemplate, qsName, FieldAttributeShow, FieldBuiltInNone, FieldLanguageLeft);
+    AddField(qsTemplate, qsName, FieldTypeLineEdit, FieldAttributeShow, FieldBuiltInNone, FieldLanguageLeft);
 } // AddField
 
-const int VocabularyDatabase::AddField(const QString &pTemplate, const QString &pName, const qfFieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const
+const int VocabularyDatabase::AddField(const QString &pTemplate, const QString &pName, const eFieldType &pType, const qfFieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const
 {
-    QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " + COLUMN_NAME + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_BUILTIN + ", " + COLUMN_LANGUAGE + ") VALUES ('" + pTemplate + "', '" + pName + "', '" + QString::number(pAttributes) + "', '" + QString::number(pBuiltIn) + "', '" + QString::number(pLanguage) + "')");
+    QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " + COLUMN_NAME + ", " + COLUMN_TYPE + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_BUILTIN + ", " + COLUMN_LANGUAGE + ") VALUES ('" + pTemplate + "', '" + pName + "', '" + QString::number(pType) + "', '" + QString::number(pAttributes) + "', '" + QString::number(pBuiltIn) + "', '" + QString::number(pLanguage) + "')");
 	return qsqQuery.lastInsertId().toInt();
 } // AddField
 #endif
@@ -353,7 +353,8 @@ const QString VocabularyDatabase::GetFieldTemplateName(const int &pFieldId) cons
     return QString();
 } // GetFieldTemplateName
 
-/*const VocabularyDatabase::eFieldType VocabularyDatabase::GetFieldType(const int &pFieldId) const
+#ifndef FREE
+const VocabularyDatabase::eFieldType VocabularyDatabase::GetFieldType(const int &pFieldId) const
 {
 	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_TYPE + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
 	if (qsqQuery.next()) {
@@ -361,9 +362,8 @@ const QString VocabularyDatabase::GetFieldTemplateName(const int &pFieldId) cons
 	} // if
 
 	return FieldTypeUnknown;
-} // GetFieldType*/
+} // GetFieldType
 
-#ifndef FREE
 const VocabularyDatabase::tLanguageIdList VocabularyDatabase::GetLanguageIds(const qfLanguageIds &pType) const
 {
     tLanguageIdList tlilIds;
@@ -566,8 +566,8 @@ const void VocabularyDatabase::Initialize() const
 	_qsdDatabase.exec("CREATE TABLE " + TABLE_FIELDS + " ("
 					  + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 					  + COLUMN_TEMPLATENAME + " TEXT NOT NULL,"
-					  //+ COLUMN_TYPE + " INTEGER NOT NULL,"
 					  + COLUMN_NAME + " TEXT NOT NULL,"
+					  + COLUMN_TYPE + " INTEGER NOT NULL,"
 					  + COLUMN_ATTRIBUTES + " INTEGER NOT NULL,"
                       + COLUMN_BUILTIN + " INTEGER NOT NULL,"
 					  + COLUMN_LANGUAGE + " INTEGER REFERENCES " + TABLE_LANGUAGES + " ON DELETE CASCADE)");
@@ -597,12 +597,12 @@ const void VocabularyDatabase::Initialize() const
         QString(), QString(), TTSInterface::TTPluginNone, QString()
 #endif
         );
-    AddField(tr("Enabled"), tr("Enabled"), FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
+    AddField(tr("Enabled"), tr("Enabled"), FieldTypeCheckBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
 #ifdef FREE
-    AddField(FIELD_WORD1,/*QString::number(FieldTypeTextEdit),*/ FIELD_WORD1, QString::number(FieldAttributeNone), FieldBuiltInNone, QString::number(FieldLanguageLeft));
-    AddField(FIELD_NOTE1,/*QString::number(FieldTypeTextEdit),*/ FIELD_NOTE1, QString::number(FieldAttributeNone), FieldBuiltInNone, QString::number(FieldLanguageLeft));
-    AddField(FIELD_WORD2,/*QString::number(FieldTypeTextEdit),*/ FIELD_WORD2, QString::number(FieldAttributeNone), FieldBuiltInNone, QString::number(FieldLanguageRight));
-    AddField(FIELD_NOTE2,/*QString::number(FieldTypeTextEdit),*/ FIELD_NOTE2, QString::number(FieldAttributeNone), FieldBuiltInNone, QString::number(FieldLanguageRight));
+    AddField(FIELD_WORD1, FIELD_WORD1, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageLeft);
+    AddField(FIELD_NOTE1, FIELD_NOTE1, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageLeft);
+    AddField(FIELD_WORD2, FIELD_WORD2, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageRight);
+    AddField(FIELD_NOTE2, FIELD_NOTE2, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageRight);
 #endif
 } // Initialize
 
@@ -902,11 +902,15 @@ const void VocabularyDatabase::UpdateDatabase()
         _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_VOICE2 + "'");
 #endif
 
+		// add type column to fields table
+		_qsdDatabase.exec("ALTER TABLE " + TABLE_FIELDS + " ADD " + COLUMN_TYPE + " INTEGER");
+		_qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_TYPE + " = " + QString::number(FieldTypeLineEdit));
+
         // add builtin column to fields table
         _qsdDatabase.exec("ALTER TABLE " + TABLE_FIELDS + " ADD " + COLUMN_BUILTIN + " INTEGER");
         _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_BUILTIN + " = " + QString::number(FieldBuiltInNone));
         // add enable/disable field
-        int iEnableFieldId = AddField(tr("Enabled"), tr("Enabled"), FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
+        int iEnableFieldId = AddField(tr("Enabled"), tr("Enabled"), FieldTypeCheckBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
 		// enable all data
 		foreach (int iRecordId, GetRecordIds()) {
 			SetDataText(iRecordId, iEnableFieldId, QString::number(Qt::Checked));
