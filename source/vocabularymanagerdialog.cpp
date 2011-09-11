@@ -10,7 +10,7 @@
 #ifndef FREE
 # include "common/vocabularyopenprogressdialog.h"
 # include "vocabularymanagerdialog/wordsexportdialog.h"
-# include "vocabularymanagerdialog/spinboxpersistentdeleage.h"
+# include "vocabularymanagerdialog/spinboxdelegate.h"
 #endif
 
 const char *PROPERTY_COLUMN = "Column";
@@ -397,7 +397,7 @@ const void VocabularyManagerDialog::SetPriorityDelegate(QTableView *pTableView)
 		if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
 			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
 			if (efbBuiltIn == VocabularyDatabase::FieldBuiltInPriority) {
-				SpinBoxPersistentDelegate *sbpdPriorityDelegate = new SpinBoxPersistentDelegate(pTableView);
+				SpinBoxDelegate *sbpdPriorityDelegate = new SpinBoxDelegate(pTableView);
 				pTableView->setItemDelegateForColumn(iColumn, sbpdPriorityDelegate);
 
 				return;

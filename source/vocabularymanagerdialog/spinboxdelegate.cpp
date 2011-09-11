@@ -1,9 +1,9 @@
-#include "vocabularymanagerdialog/spinboxpersistentdeleage.h"
+#include "vocabularymanagerdialog/spinboxdelegate.h"
 
 #include <QtGui/QSpinBox>
 #include <QtGui/QApplication>
 
-QWidget *SpinBoxPersistentDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
+QWidget *SpinBoxDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	QSpinBox *qsbEditor = new QSpinBox(parent);
 	qsbEditor->setFrame(false);
@@ -13,7 +13,7 @@ QWidget *SpinBoxPersistentDelegate::createEditor(QWidget *parent, const QStyleOp
 	return qsbEditor;
 } // createEditor
 
-void SpinBoxPersistentDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+void SpinBoxDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	QStyledItemDelegate::paint(painter, option, index);
 
@@ -24,17 +24,17 @@ void SpinBoxPersistentDelegate::paint(QPainter *painter, const QStyleOptionViewI
 	QApplication::style()->drawComplexControl(QStyle::CC_SpinBox, &qsosbSpinBox, painter);
 } // paint
 
-SpinBoxPersistentDelegate::SpinBoxPersistentDelegate(QObject *pParent /* NULL */) : QStyledItemDelegate(pParent)
+SpinBoxDelegate::SpinBoxDelegate(QObject *pParent /* NULL */) : QStyledItemDelegate(pParent)
 {
-} // SpinBoxPersistentDelegate
+} // SpinBoxDelegate
 
-void SpinBoxPersistentDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+void SpinBoxDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
 	QSpinBox *qsbEditor = qobject_cast<QSpinBox *>(editor);
 	qsbEditor->setValue(index.model()->data(index).toInt());
 } // setEditorData
 
-/*void SpinBoxPersistentDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
+/*void SpinBoxDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
 	FieldLineEdit *qleEditor = qobject_cast<FieldLineEdit *>(editor);
 	if (qleEditor->hasAcceptableInput()) {

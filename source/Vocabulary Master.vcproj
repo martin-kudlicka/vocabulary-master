@@ -814,7 +814,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\vocabularymanagerdialog\spinboxpersistentdeleage.cpp"
+				RelativePath=".\vocabularymanagerdialog\spinboxdelegate.cpp"
 				>
 				<FileConfiguration
 					Name="DebugFREE|Win32"
@@ -1826,7 +1826,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\vocabularymanagerdialog\spinboxpersistentdeleage.h"
+				RelativePath=".\vocabularymanagerdialog\spinboxdelegate.h"
 				>
 				<FileConfiguration
 					Name="DebugFREE|Win32"
