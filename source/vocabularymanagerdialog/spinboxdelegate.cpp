@@ -33,11 +33,3 @@ void SpinBoxDelegate::setEditorData(QWidget *editor, const QModelIndex &index) c
 	QSpinBox *qsbEditor = qobject_cast<QSpinBox *>(editor);
 	qsbEditor->setValue(index.model()->data(index).toInt());
 } // setEditorData
-
-/*void SpinBoxDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
-{
-	FieldLineEdit *qleEditor = qobject_cast<FieldLineEdit *>(editor);
-	if (qleEditor->hasAcceptableInput()) {
-		QStyledItemDelegate::setModelData(editor, model, index);
-	} // if
-} // setModelData*/
