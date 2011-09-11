@@ -9,9 +9,6 @@
 # include "plugins.h"
 #endif
 #include <QtGui/QTableView>
-#ifndef FREE
-# include "vocabularymanagerdialog/spinboxpersistentdeleage.h"
-#endif
 
 class VocabularyManagerDialog : public QDialog
 {
@@ -47,7 +44,6 @@ class VocabularyManagerDialog : public QDialog
         QList<int> _qlCategories;
 #ifndef FREE
         const Settings *_sSettings;
-		SpinBoxPersistentDelegate _sbpdPriorityDelegate;
 #endif
         Ui::qdVocabularyManager _qdvmVocabularyManager;
         Vocabulary *_vVocabulary;

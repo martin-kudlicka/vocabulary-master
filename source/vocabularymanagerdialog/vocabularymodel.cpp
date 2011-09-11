@@ -64,6 +64,9 @@ Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
 		switch (efbBuiltIn) {
 			case VocabularyDatabase::FieldBuiltInEnabled:
 				ifFlags |= Qt::ItemIsUserCheckable;
+				break;
+			case VocabularyDatabase::FieldBuiltInPriority:
+				ifFlags |= Qt::ItemIsEditable;
 		} // switch
 	} // if
 
