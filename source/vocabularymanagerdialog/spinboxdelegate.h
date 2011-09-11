@@ -1,12 +1,12 @@
-#ifndef SPINBOXPERSISTENTDELEGATE_H
-#define SPINBOXPERSISTENTDELEGATE_H
+#ifndef SPINBOXDELEGATE_H
+#define SPINBOXDELEGATE_H
 
 #include <QtGui/QStyledItemDelegate>
 
-class SpinBoxPersistentDelegate : public QStyledItemDelegate
+class SpinBoxDelegate : public QStyledItemDelegate
 {
 	public:
-		SpinBoxPersistentDelegate(QObject *pParent = NULL);
+		SpinBoxDelegate(QObject *pParent = NULL);
 
 	private:
 		static const int RECORD_PRIORITY_MAX = 9;
@@ -16,6 +16,6 @@ class SpinBoxPersistentDelegate : public QStyledItemDelegate
 		virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 		virtual void setEditorData(QWidget *editor, const QModelIndex &index) const;
 		//virtual void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
-}; // SpinBoxPersistentDelegate
+}; // SpinBoxDelegate
 
-#endif // SPINBOXPERSISTENTDELEGATE_H
+#endif // SPINBOXDELEGATE_H
