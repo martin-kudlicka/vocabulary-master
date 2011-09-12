@@ -10,6 +10,16 @@ const int Vocabulary::AddCategory(const QString &pName)
 	return iCategoryId;
 } // AddCategory
 
+#ifndef FREE
+const void Vocabulary::AddField()
+{
+    int iFieldId = VocabularyDatabase::AddField();
+
+    sFieldData sfdFieldData = GetFieldData(iFieldId);
+    _tfdmFieldData.insert(iFieldId, sfdFieldData);
+} // AddField
+#endif
+
 const void Vocabulary::AddRecord(const int &pCategoryId)
 {
 	int iRecordId = VocabularyDatabase::AddRecord(pCategoryId);
@@ -60,6 +70,80 @@ const QString Vocabulary::GetDataText(const int &pRecordId, const int &pFieldId)
     return _trdhRecordData->value(pRecordId).value(pFieldId);
 } // GetDataText
 
+const VocabularyDatabase::qfFieldAttributes Vocabulary::GetFieldAttributes(const int &pFieldId) const
+{
+    return _tfdmFieldData.value(pFieldId).qfaAttributes;
+} // GetFieldAttributes
+
+#ifndef FREE
+const VocabularyDatabase::eFieldBuiltIn Vocabulary::GetFieldBuiltIn(const int &pFieldId) const
+{
+    return _tfdmFieldData.value(pFieldId).efbBuiltIn;
+} // GetFieldBuiltIn
+#endif
+
+const int Vocabulary::GetFieldCount() const
+{
+    return _tfdmFieldData.size();
+} // GetFieldCount
+
+const Vocabulary::sFieldData Vocabulary::GetFieldData(const int &pFieldId) const
+{
+    sFieldData sfdFieldData;
+
+    sfdFieldData.qsTemplateName = VocabularyDatabase::GetFieldTemplateName(pFieldId);
+    sfdFieldData.qsName = VocabularyDatabase::GetFieldName(pFieldId);
+#ifndef FREE
+    sfdFieldData.eftType = VocabularyDatabase::GetFieldType(pFieldId);
+    sfdFieldData.qfaAttributes = VocabularyDatabase::GetFieldAttributes(pFieldId);
+    sfdFieldData.efbBuiltIn = VocabularyDatabase::GetFieldBuiltIn(pFieldId);
+#endif
+    sfdFieldData.eflLanguage = VocabularyDatabase::GetFieldLanguage(pFieldId);
+
+    return sfdFieldData;
+} // GetFieldData
+
+const int Vocabulary::GetFieldId(const int &pPosition) const
+{
+    int iPos = 0;
+    for (tFieldDataMap::const_iterator ciFieldId = _tfdmFieldData.constBegin(); ciFieldId != _tfdmFieldData.constEnd(); ciFieldId++) {
+        if (iPos == pPosition) {
+            return ciFieldId.key();
+        } else {
+            iPos++;
+        } // if else
+    } // for
+
+    return NOT_FOUND;
+} // GetFieldId
+
+const VocabularyDatabase::tFieldIdList Vocabulary::GetFieldIds() const
+{
+    return _tfdmFieldData.keys();
+} // GetFieldIds
+
+const VocabularyDatabase::eFieldLanguage Vocabulary::GetFieldLanguage(const int &pFieldId) const
+{
+    return _tfdmFieldData.value(pFieldId).eflLanguage;
+} // GetFieldLanguage
+
+const QString Vocabulary::GetFieldName(const int &pFieldId) const
+{
+    return _tfdmFieldData.value(pFieldId).qsName;
+} // GetFieldName
+
+const QString Vocabulary::GetFieldTemplateName(const int &pFieldId) const
+{
+    return _tfdmFieldData.value(pFieldId).qsTemplateName;
+} // GetFieldTemplateName
+
+#ifndef FREE
+const VocabularyDatabase::eFieldType Vocabulary::GetFieldType(const int &pFieldId) const
+{
+    return _tfdmFieldData.value(pFieldId).eftType;
+} // GetFieldType
+#endif
+
 const int Vocabulary::GetRecordCount() const
 {
 	int iRecordCount = 0;
@@ -99,6 +183,13 @@ const VocabularyDatabase::tRecordIdList Vocabulary::GetRecordIds(const int &pCat
 const void Vocabulary::InitCache()
 {
 	if (IsOpen()) {
+        // fields
+        tFieldIdList tfilFieldIds = VocabularyDatabase::GetFieldIds();
+        foreach (int iFieldId, tfilFieldIds) {
+            sFieldData sfdFieldData = GetFieldData(iFieldId);
+            _tfdmFieldData.insert(iFieldId, sfdFieldData);
+        } // foreach
+
 		// categories
 		tCategoryIdList tcilCategoryIds = VocabularyDatabase::GetCategoryIds();
 		foreach (int iCategoryId, tcilCategoryIds) {
@@ -176,6 +267,41 @@ const void Vocabulary::SetDataText(const int &pRecordId, const int &pFieldId, co
     _trdhRecordData->operator[](pRecordId).operator[](pFieldId) = pData;
     VocabularyDatabase::SetDataText(pRecordId, pFieldId, pData);
 } // SetDataText
+
+const void Vocabulary::SetFieldAttributes(const int &pFieldId, const VocabularyDatabase::qfFieldAttributes &pAttributes)
+{
+    _tfdmFieldData[pFieldId].qfaAttributes = pAttributes;
+    VocabularyDatabase::SetFieldAttributes(pFieldId, pAttributes);
+} // SetFieldAttributes
+
+#ifndef FREE
+const void Vocabulary::SetFieldLanguage(const int &pFieldId, const VocabularyDatabase::eFieldLanguage &pLanguage)
+{
+    _tfdmFieldData[pFieldId].eflLanguage = pLanguage;
+    VocabularyDatabase::SetFieldLanguage(pFieldId, pLanguage);
+} // SetFieldLanguage
+
+const void Vocabulary::SetFieldName(const int &pFieldId, const QString &pName)
+{
+    _tfdmFieldData[pFieldId].qsName = pName;
+    VocabularyDatabase::SetFieldName(pFieldId, pName);
+} // SetFieldName
+
+const void Vocabulary::SetFieldTemplateName(const int &pFieldId, const QString &pTemplateName)
+{
+    _tfdmFieldData[pFieldId].qsTemplateName = pTemplateName;
+    VocabularyDatabase::SetFieldTemplateName(pFieldId, pTemplateName);
+} // SetFieldTemplateName
+
+const void Vocabulary::SwapFields(const int &pSourceId, const int &pDestinationId)
+{
+    sFieldData sfdFieldTemp = _tfdmFieldData.value(pSourceId);
+    _tfdmFieldData[pSourceId] = _tfdmFieldData.value(pDestinationId);
+    _tfdmFieldData[pDestinationId] = sfdFieldTemp;
+
+    VocabularyDatabase::SwapFields(pSourceId, pDestinationId);
+} // SwapFields
+#endif
 
 Vocabulary::Vocabulary()
 {

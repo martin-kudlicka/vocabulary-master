@@ -75,13 +75,13 @@ const int VocabularyDatabase::AddCategory(const QString &pName) const
 } // AddCategory
 
 #ifndef FREE
-const void VocabularyDatabase::AddField() const
+const int VocabularyDatabase::AddField() const
 {
 	int iNum = GetFieldCount() + 1;
 	QString qsTemplate = tr("Field") + QString::number(iNum);
 	QString qsName = tr("Name") + QString::number(iNum);
 
-    AddField(qsTemplate, qsName, FieldTypeLineEdit, FieldAttributeShow, FieldBuiltInNone, FieldLanguageLeft);
+    return AddField(qsTemplate, qsName, FieldTypeLineEdit, FieldAttributeShow, FieldBuiltInNone, FieldLanguageLeft);
 } // AddField
 #endif
 
@@ -245,8 +245,8 @@ VocabularyDatabase::tRecordDataHash *VocabularyDatabase::GetDataText() const
 	if (qsqQuery.first()) {
 		int iProgress = 0;
 		do {
-			tFieldDataHash *tfdhFieldData = &trdhRecordData->operator[](qsqQuery.value(ColumnPosition2).toInt());
-			tfdhFieldData->insert(qsqQuery.value(ColumnPosition1).toInt(), qsqQuery.value(ColumnPosition3).toString());
+			tDataHash *tdhData = &trdhRecordData->operator[](qsqQuery.value(ColumnPosition2).toInt());
+			tdhData->insert(qsqQuery.value(ColumnPosition1).toInt(), qsqQuery.value(ColumnPosition3).toString());
 
             if (iProgress % OPENPROGRESS_REFRESHINTERVAL == 0) {
 			    emit SetOpenProgressValue(iProgress);
@@ -287,7 +287,6 @@ const VocabularyDatabase::eFieldBuiltIn VocabularyDatabase::GetFieldBuiltIn(cons
 
 	return FieldBuiltInNone;
 } // GetFieldBuiltIn
-#endif
 
 const int VocabularyDatabase::GetFieldCount() const
 {
@@ -298,8 +297,9 @@ const int VocabularyDatabase::GetFieldCount() const
 		return 0;
 	} // if else
 } // GetFieldCount
+#endif
 
-const int VocabularyDatabase::GetFieldId(const int &pPosition) const
+/*const int VocabularyDatabase::GetFieldId(const int &pPosition) const
 {
 	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS);
 	int iPosition = 0;
@@ -312,7 +312,7 @@ const int VocabularyDatabase::GetFieldId(const int &pPosition) const
 	} // while
 
 	return NOT_FOUND;
-} // GetFieldId
+} // GetFieldId*/
 
 const VocabularyDatabase::tFieldIdList VocabularyDatabase::GetFieldIds() const
 {
