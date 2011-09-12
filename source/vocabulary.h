@@ -79,7 +79,7 @@ class Vocabulary : public VocabularyDatabase
         tFieldDataMap _tfdmFieldData;
         tFieldDataMap _tfdmFieldDataBackup;
         tRecordDataHash *_trdhRecordData;
-        tRecordDataHash *_trdhRecordDataBackup;
+        tRecordDataHash _trdhRecordDataBackup;
 
 		const void ClearCache();
         const sFieldData GetFieldData(const int &pFieldId) const;
