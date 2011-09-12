@@ -45,7 +45,7 @@ const void Vocabulary::AddRecord(const int &pCategoryId, const QStringList &pDat
 const void Vocabulary::BeginEdit()
 {
     _tfdmFieldDataBackup = _tfdmFieldData;
-    _trdhRecordDataBackup = _trdhRecordData;
+    _trdhRecordDataBackup = *_trdhRecordData;
 
     VocabularyDatabase::BeginEdit();
 } // BeginEdit
@@ -54,7 +54,7 @@ const void Vocabulary::EndEdit(const bool &pSave /* true */)
 {
     if (!pSave) {
         _tfdmFieldData = _tfdmFieldDataBackup;
-        _trdhRecordData = _trdhRecordDataBackup;
+        *_trdhRecordData = _trdhRecordDataBackup;
     } // if
 
     VocabularyDatabase::EndEdit(pSave);
