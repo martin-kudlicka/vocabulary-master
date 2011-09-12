@@ -7,6 +7,29 @@ void VocabularySettingsDialog::accept()
 	QDialog::accept();
 } // accept
 
+const void VocabularySettingsDialog::ActualizeFieldsEditor() const
+{
+    for (int iRow = 0; iRow < _fmFieldsModel.rowCount(); iRow++) {
+        int iFieldId = _vVocabulary->GetFieldId(iRow);
+        VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+
+        QModelIndex qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnTemplateName);
+        _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
+        qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnName);
+        if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+            _qdvsdVocabularySettingsDialog.qtvFields->closePersistentEditor(qmiIndex);
+        } else {
+            _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
+        } // if else
+        qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnLanguage);
+        if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+            _qdvsdVocabularySettingsDialog.qtvFields->closePersistentEditor(qmiIndex);
+        } else {
+            _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
+        } // if else
+    } // for
+} // ActualizeFieldsEditor
+
 const void VocabularySettingsDialog::FillOptions()
 {
     // languages
@@ -66,6 +89,7 @@ const void VocabularySettingsDialog::on_qpbFieldDown_clicked(bool checked /* fal
 {
 	QModelIndex qmiCurrent = _qdvsdVocabularySettingsDialog.qtvFields->currentIndex();
 	_fmFieldsModel.Swap(qmiCurrent.row(), qmiCurrent.row() + 1);
+    ActualizeFieldsEditor();
 
 	_qdvsdVocabularySettingsDialog.qtvFields->setCurrentIndex(_fmFieldsModel.index(qmiCurrent.row() + 1, qmiCurrent.column()));
 } // on_qpbFieldDown_clicked
@@ -74,12 +98,14 @@ const void VocabularySettingsDialog::on_qpbFieldRemove_clicked(bool checked /* f
 {
 	const QItemSelectionModel *qismSelection = _qdvsdVocabularySettingsDialog.qtvFields->selectionModel();
 	_fmFieldsModel.RemoveRow(qismSelection->currentIndex().row());
+    ActualizeFieldsEditor();
 } // on_qpbFieldRemove_clicked
 
 const void VocabularySettingsDialog::on_qpbFieldUp_clicked(bool checked /* false */)
 {
 	QModelIndex qmiCurrent = _qdvsdVocabularySettingsDialog.qtvFields->currentIndex();
 	_fmFieldsModel.Swap(qmiCurrent.row(), qmiCurrent.row() - 1);
+    ActualizeFieldsEditor();
 
 	_qdvsdVocabularySettingsDialog.qtvFields->setCurrentIndex(_fmFieldsModel.index(qmiCurrent.row() - 1, qmiCurrent.column()));
 } // on_qpbFieldUp_clicked
@@ -108,19 +134,8 @@ const void VocabularySettingsDialog::PrepareFields()
 
     _qdvsdVocabularySettingsDialog.qcbFieldType->addItem(tr("Text"));
 
-    for (int iRow = 0; iRow < _fmFieldsModel.rowCount(); iRow++) {
-        int iFieldId = _vVocabulary->GetFieldId(iRow);
-        VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+    ActualizeFieldsEditor();
 
-        QModelIndex qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnTemplateName);
-        _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
-        if (!(qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn)) {
-            qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnName);
-            _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
-            qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnLanguage);
-            _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
-        } // if
-    } // for
     for (int iColumn = 0; iColumn < _qdvsdVocabularySettingsDialog.qtvFields->header()->count(); iColumn++) {
         if (iColumn == FieldsModel::ColumnSpeech || iColumn == FieldsModel::ColumnShow) {
             _qdvsdVocabularySettingsDialog.qtvFields->header()->setResizeMode(iColumn, QHeaderView::ResizeToContents);
