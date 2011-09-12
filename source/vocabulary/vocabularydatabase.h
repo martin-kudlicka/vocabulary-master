@@ -20,8 +20,8 @@ class VocabularyDatabase : public QObject
 	Q_ENUMS(eLanguageIds)
 
     public:
-        typedef QHash<int, QString> tFieldDataHash;
-        typedef QHash<int, tFieldDataHash> tRecordDataHash;
+        typedef QHash<int, QString> tDataHash;
+        typedef QHash<int, tDataHash> tRecordDataHash;
         typedef QList<int> tCategoryIdList;
 		typedef QList<int> tFieldIdList;
         typedef QList<int> tLanguageIdList;
@@ -34,12 +34,12 @@ class VocabularyDatabase : public QObject
             FieldAttributeShow = 2,
             FieldAttributeBuiltIn = 4
         }; // eFieldAttribute
+        Q_DECLARE_FLAGS(qfFieldAttributes, eFieldAttribute)
         enum eFieldBuiltIn {
             FieldBuiltInNone,
             FieldBuiltInEnabled,
 			FieldBuiltInPriority
         }; // eFieldBuiltIn
-        Q_DECLARE_FLAGS(qfFieldAttributes, eFieldAttribute)
 		enum eFieldLanguage {
 			FieldLanguageUnknown,
 			FieldLanguageLeft,
@@ -67,9 +67,6 @@ class VocabularyDatabase : public QObject
 		~VocabularyDatabase();
         VocabularyDatabase(QObject *pParent = NULL);
 
-#ifndef FREE
-        const void AddField() const;
-#endif
         const void BeginEdit();
         const void EndEdit(const bool &pSave = true);
 #ifndef FREE
@@ -80,19 +77,6 @@ class VocabularyDatabase : public QObject
         const QString GetCategoryName(const int &pCategoryId) const;
 #ifndef FREE
 		const int GetCategoryPriority(const int &pCategoryId) const;
-#endif
-        const qfFieldAttributes GetFieldAttributes(const int &pFieldId) const;
-#ifndef FREE
-		const eFieldBuiltIn GetFieldBuiltIn(const int &pFieldId) const;
-#endif
-		const int GetFieldCount() const;
-		const int GetFieldId(const int &pPosition) const;
-		const tFieldIdList GetFieldIds() const;
-		const eFieldLanguage GetFieldLanguage(const int &pFieldId) const;
-		const QString GetFieldName(const int &pFieldId) const;
-        const QString GetFieldTemplateName(const int &pFieldId) const;
-#ifndef FREE
-		const eFieldType GetFieldType(const int &pFieldId) const;
         const tLanguageIdList GetLanguageIds(const qfLanguageIds &pType) const;
 #endif
         const QString GetLanguageLearningTemplate(const int &pLanguageId) const;
@@ -114,12 +98,6 @@ class VocabularyDatabase : public QObject
 #ifndef FREE
         const void SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const;
 		const void SetCategoryPriority(const int &pCategoryId, const int &pPriority) const;
-#endif
-        const void SetFieldAttributes(const int &pFieldId, const qfFieldAttributes &pAttributes) const;
-#ifndef FREE
-        const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage) const;
-        const void SetFieldName(const int &pFieldId, const QString &pName) const;
-        const void SetFieldTemplateName(const int &pFieldId, const QString &pTemplateName) const;
         const void SetLanguageLearningTemplate(const int &pLanguageId, const QString &pTemplate) const;
 #endif
         const void SetLanguageName(const int &pLanguageId, const QString &pName) const;
@@ -129,14 +107,14 @@ class VocabularyDatabase : public QObject
         const void SetLanguageVoice(const int &pLanguageId, const QString &pVoice) const;
 #endif
 		const void SetSettings(const QString &pKey, const QString &pValue) const;
-#ifndef FREE
-		const void SwapFields(const int &pSourceId, const int &pDestinationId) const;
-#endif
 
     protected:
         typedef QList<int> tRecordIdList;
 
         const int AddCategory(const QString &pName) const;
+#ifndef FREE
+        const int AddField() const;
+#endif
         const int AddRecord(const int &pCategoryId) const;
 #ifndef FREE
         const int AddRecord(const int &pCategoryId, const QStringList &pData) const;
@@ -145,6 +123,19 @@ class VocabularyDatabase : public QObject
         /*const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
         const QString GetDataText(const int &pRecordId, const int &pFieldId) const;*/
         tRecordDataHash *GetDataText() const;
+        const qfFieldAttributes GetFieldAttributes(const int &pFieldId) const;
+#ifndef FREE
+        const eFieldBuiltIn GetFieldBuiltIn(const int &pFieldId) const;
+        const int GetFieldCount() const;
+#endif
+        //const int GetFieldId(const int &pPosition) const;
+        const tFieldIdList GetFieldIds() const;
+        const eFieldLanguage GetFieldLanguage(const int &pFieldId) const;
+        const QString GetFieldName(const int &pFieldId) const;
+        const QString GetFieldTemplateName(const int &pFieldId) const;
+#ifndef FREE
+        const eFieldType GetFieldType(const int &pFieldId) const;
+#endif
         /*const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
         const int GetRecordCount(const bool &pEnabled) const;*/
@@ -160,6 +151,13 @@ class VocabularyDatabase : public QObject
         const void RemoveRecord(const int &pCategoryId, const int &pRow) const;
         //const void SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData) const;
         const void SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData) const;
+        const void SetFieldAttributes(const int &pFieldId, const qfFieldAttributes &pAttributes) const;
+#ifndef FREE
+        const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage) const;
+        const void SetFieldName(const int &pFieldId, const QString &pName) const;
+        const void SetFieldTemplateName(const int &pFieldId, const QString &pTemplateName) const;
+        const void SwapFields(const int &pSourceId, const int &pDestinationId) const;
+#endif
 
     private:
 		enum eColumnPosition {
