@@ -141,11 +141,13 @@ const void VocabularyManagerDialog::InitEditor()
             iFieldsRight++;
         } // if else
 
+#ifndef FREE
 		// check if visible or builtin field
 		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
         if (!(qfaAttributes & VocabularyDatabase::FieldAttributeShow) || qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
 			continue;
 		} // if
+#endif
 
         // get field language
         if (_vVocabulary->GetFieldLanguage(iFieldId) == VocabularyDatabase::FieldLanguageLeft) {
@@ -171,8 +173,10 @@ const void VocabularyManagerDialog::InitEditor()
 const void VocabularyManagerDialog::InitTabs()
 {
     VocabularyTabWidget *vtwTabs = _qdvmVocabularyManager.vtwTabs;
+#ifndef FREE
     vtwTabs->SetShowEnabled(_sSettings->GetCanEnableCategories());
 	vtwTabs->SetShowPriorities(_sSettings->GetCanChangeCategoryPriority());
+#endif
 
     VocabularyDatabase::tCategoryIdList tcilCategories = _vVocabulary->GetCategoryIds();
     VocabularyDatabase::tCategoryIdList::const_iterator ciCategoryId;
