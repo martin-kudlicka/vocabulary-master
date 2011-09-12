@@ -260,8 +260,8 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
 #ifndef FREE
 		if (iOldColumnCount != _vVocabulary->GetFieldCount()) {
 			ReassignModels();
-			SetPriorityDelegate();
 		} // if
+        SetPriorityDelegate();
         StretchColumns();
         UninitEditor();
         InitEditor();
@@ -414,10 +414,12 @@ const void VocabularyManagerDialog::SetPriorityDelegate(QTableView *pTableView)
 			if (efbBuiltIn == VocabularyDatabase::FieldBuiltInPriority) {
 				SpinBoxDelegate *sbpdPriorityDelegate = new SpinBoxDelegate(pTableView);
 				pTableView->setItemDelegateForColumn(iColumn, sbpdPriorityDelegate);
-
-				return;
-			} // if
-		} // if
+            } else {
+                pTableView->setItemDelegateForColumn(iColumn, NULL);
+            } // if else
+        } else {
+            pTableView->setItemDelegateForColumn(iColumn, NULL);
+        } // if else
 	} // for
 } // SetPriorityDelegate
 
