@@ -27,38 +27,31 @@ class VocabularyDatabase : public QObject
         typedef QList<int> tLanguageIdList;
 
         enum eFieldAttribute {
-            FieldAttributeNone
+            FieldAttributeNone,
 #ifndef FREE
-            , FieldAttributeSpeech,
-            FieldAttributeShow,
-            FieldAttributeBuiltIn = 4
+            FieldAttributeSpeech,
 #endif
+            FieldAttributeShow = 2,
+            FieldAttributeBuiltIn = 4
         }; // eFieldAttribute
-#ifndef FREE
         enum eFieldBuiltIn {
             FieldBuiltInNone,
             FieldBuiltInEnabled,
 			FieldBuiltInPriority
         }; // eFieldBuiltIn
-#endif
         Q_DECLARE_FLAGS(qfFieldAttributes, eFieldAttribute)
-
 		enum eFieldLanguage {
 			FieldLanguageUnknown,
 			FieldLanguageLeft,
-			FieldLanguageRight
-#ifndef FREE
-            , FieldLanguageAll = INT_MAX
-#endif
+			FieldLanguageRight,
+            FieldLanguageAll = INT_MAX
 		}; // eFieldLanguage
-
 		enum eFieldType {
 			FieldTypeUnknown,
 			FieldTypeLineEdit,
 			FieldTypeCheckBox,
 			FieldTypeSpinBox
 		}; // eFieldType
-
 #ifndef FREE
 		enum eLanguageIds {
 			LanguageIdsNone,
@@ -88,7 +81,9 @@ class VocabularyDatabase : public QObject
         const QString GetCategoryName(const int &pCategoryId) const;
 #ifndef FREE
 		const int GetCategoryPriority(const int &pCategoryId) const;
+#endif
         const qfFieldAttributes GetFieldAttributes(const int &pFieldId) const;
+#ifndef FREE
 		const eFieldBuiltIn GetFieldBuiltIn(const int &pFieldId) const;
 #endif
 		const int GetFieldCount() const;
@@ -120,7 +115,9 @@ class VocabularyDatabase : public QObject
 #ifndef FREE
         const void SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const;
 		const void SetCategoryPriority(const int &pCategoryId, const int &pPriority) const;
+#endif
         const void SetFieldAttributes(const int &pFieldId, const qfFieldAttributes &pAttributes) const;
+#ifndef FREE
         const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage) const;
         const void SetFieldName(const int &pFieldId, const QString &pName) const;
         const void SetFieldTemplateName(const int &pFieldId, const QString &pTemplateName) const;
@@ -181,9 +178,7 @@ class VocabularyDatabase : public QObject
         QSqlDatabase _qsdDatabase;
         QString _qsVocabularyFile;
 
-#ifndef FREE
         const int AddField(const QString &pTemplate, const QString &pName, const eFieldType &pType, const qfFieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const;
-#endif
         const void AddLanguage(const QString &pName, const QString &pLearningTemplate
 #ifndef FREE
             , const QString &pTrayTemplate, const TTSInterface::eTTSPlugin &pTTSPlugin, const QString &pVoice
