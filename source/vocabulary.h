@@ -17,6 +17,8 @@ class Vocabulary : public VocabularyDatabase
 #ifndef FREE
 		const void AddRecord(const int &pCategoryId, const QStringList &pData);
 #endif
+        const void BeginEdit();
+        const void EndEdit(const bool &pSave = true);
         const tCategoryIdList GetCategoryIds() const;
         const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
         const QString GetDataText(const int &pRecordId, const int &pFieldId) const;
@@ -75,7 +77,9 @@ class Vocabulary : public VocabularyDatabase
 
 		QHash<int, tRecordIdList> _qhCategoryRecords;
         tFieldDataMap _tfdmFieldData;
+        tFieldDataMap _tfdmFieldDataBackup;
         tRecordDataHash *_trdhRecordData;
+        tRecordDataHash *_trdhRecordDataBackup;
 
 		const void ClearCache();
         const sFieldData GetFieldData(const int &pFieldId) const;

@@ -67,8 +67,6 @@ class VocabularyDatabase : public QObject
 		~VocabularyDatabase();
         VocabularyDatabase(QObject *pParent = NULL);
 
-        const void BeginEdit();
-        const void EndEdit(const bool &pSave = true);
 #ifndef FREE
         const int GetCategoryCount() const;
         const bool GetCategoryEnabled(const int &pCategoryId) const;
@@ -119,6 +117,8 @@ class VocabularyDatabase : public QObject
 #ifndef FREE
         const int AddRecord(const int &pCategoryId, const QStringList &pData) const;
 #endif
+        const void BeginEdit();
+        const void EndEdit(const bool &pSave = true);
         const tCategoryIdList GetCategoryIds() const;
         /*const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
         const QString GetDataText(const int &pRecordId, const int &pFieldId) const;*/

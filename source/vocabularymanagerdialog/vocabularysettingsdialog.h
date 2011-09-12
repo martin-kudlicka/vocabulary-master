@@ -48,6 +48,9 @@ class VocabularySettingsDialog : public QDialog
 		const Vocabulary *_vVocabulary;
 
 		virtual void accept();
+#ifndef FREE
+        const void ActualizeFieldsEditor() const;
+#endif
 		const void FillOptions();
 #ifndef FREE
 		const void FillSpeech(QComboBox *pComboBox, const QString &pSpeech, const QString &pVoice);
