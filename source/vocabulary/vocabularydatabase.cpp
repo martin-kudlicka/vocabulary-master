@@ -596,7 +596,8 @@ const void VocabularyDatabase::Initialize() const
         QString(), QString(), TTSInterface::TTPluginNone, QString()
 #endif
         );
-    AddField(tr("Enabled"), tr("Enabled"), FieldTypeCheckBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
+    AddField(tr("Enabled"), "", FieldTypeCheckBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
+    AddField(tr("Priority"), "", FieldTypeSpinBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInPriority, FieldLanguageAll);
 #ifdef FREE
     AddField(FIELD_WORD1, FIELD_WORD1, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageLeft);
     AddField(FIELD_NOTE1, FIELD_NOTE1, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageLeft);
@@ -910,14 +911,14 @@ const void VocabularyDatabase::UpdateDatabase()
         _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_BUILTIN + " = " + QString::number(FieldBuiltInNone));
 
         // add enable/disable field
-        int iNewFieldId = AddField(tr("Enabled"), tr("Enabled"), FieldTypeCheckBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
+        int iNewFieldId = AddField(tr("Enabled"), "", FieldTypeCheckBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
 		// enable all data
 		foreach (int iRecordId, GetRecordIds()) {
 			SetDataText(iRecordId, iNewFieldId, QString::number(Qt::Checked));
 		} // foreach
 
 		// add priority field
-		iNewFieldId = AddField(tr("Priority"), tr("Priority"), FieldTypeSpinBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInPriority, FieldLanguageAll);
+		iNewFieldId = AddField(tr("Priority"), "", FieldTypeSpinBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInPriority, FieldLanguageAll);
 		// default priority to all data
 		foreach (int iRecordId, GetRecordIds()) {
 			SetDataText(iRecordId, iNewFieldId, QString::number(PRIORITY_DEFAULT));
