@@ -604,6 +604,8 @@ const void VocabularyDatabase::Initialize() const
     AddField(FIELD_WORD2, FIELD_WORD2, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageRight);
     AddField(FIELD_NOTE2, FIELD_NOTE2, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageRight);
 #endif
+
+    SetSettings(KEY_VERSION, QString::number(Version2));
 } // Initialize
 
 const bool VocabularyDatabase::IsOpen() const
