@@ -295,9 +295,19 @@ const void Vocabulary::SetFieldTemplateName(const int &pFieldId, const QString &
 
 const void Vocabulary::SwapFields(const int &pSourceId, const int &pDestinationId)
 {
+    // swap in fields table
     sFieldData sfdFieldTemp = _tfdmFieldData.value(pSourceId);
     _tfdmFieldData[pSourceId] = _tfdmFieldData.value(pDestinationId);
     _tfdmFieldData[pDestinationId] = sfdFieldTemp;
+
+    // swap in data table
+    for (tRecordDataHash::iterator iRecord = _trdhRecordData->begin(); iRecord != _trdhRecordData->end(); iRecord++) {
+        tDataHash *tdhData = iRecord.operator->();
+
+        QString qsDataTemp = tdhData->value(pSourceId);
+        tdhData->operator[](pSourceId) = tdhData->value(pDestinationId);
+        tdhData->operator[](pDestinationId) = qsDataTemp;
+    } // for
 
     VocabularyDatabase::SwapFields(pSourceId, pDestinationId);
 } // SwapFields
