@@ -439,8 +439,8 @@ const void VocabularyManagerDialog::StretchColumns(const QTableView *pTableView)
 		int iFieldId = _vVocabulary->GetFieldId(iColumn);
 		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
 		if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
-			pTableView->horizontalHeader()->resizeSection(iColumn, BUILTIN_COLUMN_SIZE);
 			pTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Fixed);
+            pTableView->horizontalHeader()->resizeSection(iColumn, BUILTIN_COLUMN_SIZE);
 		} else {
 #endif
 			pTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Stretch);
