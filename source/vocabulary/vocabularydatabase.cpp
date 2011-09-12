@@ -577,9 +577,7 @@ const void VocabularyDatabase::Initialize() const
 					  + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 					  + COLUMN_FIELDID + " INTEGER REFERENCES " + TABLE_FIELDS + " ON DELETE CASCADE,"
 					  + COLUMN_RECORDID + " INTEGER REFERENCES " + TABLE_RECORDS + " ON DELETE CASCADE,"
-					  + COLUMN_TEXT + " TEXT NOT NULL)"
-					  /*+ COLUMN_PRIORITY + " INTEGER,"
-					  + COLUMN_ENABLED + " INTEGER)"*/);
+					  + COLUMN_TEXT + " TEXT NOT NULL)");
 
     // fill default data
     AddLanguage(tr("Language1"),
