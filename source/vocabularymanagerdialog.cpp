@@ -262,6 +262,7 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
 			ReassignModels();
 			SetPriorityDelegate();
 		} // if
+        StretchColumns();
         UninitEditor();
         InitEditor();
         UpdateEditor();
@@ -329,6 +330,7 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
             _vVocabulary->BeginEdit();
             ReassignModels();
 			SetPriorityDelegate();
+            StretchColumns();
 			HideColumns();
 		} else {
 			_vVocabulary->EndEdit(false);
@@ -380,7 +382,6 @@ const void VocabularyManagerDialog::ReassignModels() const
         VocabularyModel *vmVocabularyModel = qobject_cast<VocabularyModel *>(qtvVocabularyView->model());
         qtvVocabularyView->setModel(NULL);
         qtvVocabularyView->setModel(vmVocabularyModel);
-        StretchColumns(qtvVocabularyView);
         connect(qtvVocabularyView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvTableViewSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
     } // for
 } // ReassignModels
@@ -419,6 +420,14 @@ const void VocabularyManagerDialog::SetPriorityDelegate(QTableView *pTableView)
 		} // if
 	} // for
 } // SetPriorityDelegate
+
+const void VocabularyManagerDialog::StretchColumns() const
+{
+    for (int iTab = 0; iTab < _qdvmVocabularyManager.vtwTabs->count(); iTab++) {
+        const QTableView *qtvVocabularyView = qobject_cast<const QTableView *>(_qdvmVocabularyManager.vtwTabs->widget(iTab));
+        StretchColumns(qtvVocabularyView);
+    } // for
+} // StretchColumns
 #endif
 
 const void VocabularyManagerDialog::StretchColumns(const QTableView *pTableView) const

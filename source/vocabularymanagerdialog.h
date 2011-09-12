@@ -63,6 +63,7 @@ class VocabularyManagerDialog : public QDialog
         const void SelectFirstEnabledTab();
 		const void SetPriorityDelegate();
 		const void SetPriorityDelegate(QTableView *pTableView);
+        const void StretchColumns() const;
 #endif
 		const void StretchColumns(const QTableView *pTableView) const;
 #ifndef FREE
