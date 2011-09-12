@@ -28,6 +28,7 @@ const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
 #ifndef FREE
     HideColumns(qtvTableView);
 	SetPriorityDelegate(qtvTableView);
+    qtvTableView->setEditTriggers(QAbstractItemView::AllEditTriggers);
 #endif
 	connect(qtvTableView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvTableViewSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 
