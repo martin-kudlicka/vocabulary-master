@@ -13,6 +13,7 @@ class Vocabulary : public VocabularyDatabase
 #ifndef FREE
 		const void AddRecord(const int &pCategoryId, const QStringList &pData);
 #endif
+        const tCategoryIdList GetCategoryIds() const;
         const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
         const QString GetDataText(const int &pRecordId, const int &pFieldId) const;
 		const int GetRecordCount() const;
