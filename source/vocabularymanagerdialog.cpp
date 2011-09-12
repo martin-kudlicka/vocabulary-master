@@ -128,24 +128,33 @@ const void VocabularyManagerDialog::InitEditor()
 {
 	int iFieldsLeft = 0;
 	int iFieldsRight = 0;
+    int iPosLeft = 0;
+    int iPosRight = 0;
 
 	foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
 		int iColumn, iRow;
 
-		// check for builtin field
+        // update field count
+        if (_vVocabulary->GetFieldLanguage(iFieldId) == VocabularyDatabase::FieldLanguageLeft) {
+            iFieldsLeft++;
+        } else {
+            iFieldsRight++;
+        } // if else
+
+		// check if visible or builtin field
 		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-		if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+        if (!(qfaAttributes & VocabularyDatabase::FieldAttributeShow) || qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
 			continue;
 		} // if
 
-		// get field language
-		if (_vVocabulary->GetFieldLanguage(iFieldId) == VocabularyDatabase::FieldLanguageLeft) {
-			iRow = iFieldsLeft++;
-			iColumn = EditorColumnLeftLabel;
-		} else {
-			iRow = iFieldsRight++;
-			iColumn = EditorColumnRightLabel;
-		} // if else
+        // get field language
+        if (_vVocabulary->GetFieldLanguage(iFieldId) == VocabularyDatabase::FieldLanguageLeft) {
+            iRow = iPosLeft++;
+            iColumn = EditorColumnLeftLabel;
+        } else {
+            iRow = iPosRight++;
+            iColumn = EditorColumnRightLabel;
+        } // if else
 
 		// label
 		QLabel *qlLabel = new QLabel(_vVocabulary->GetFieldName(iFieldId) + ':', _qdvmVocabularyManager.qgbEditor);
@@ -248,10 +257,10 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
 		if (iOldColumnCount != _vVocabulary->GetFieldCount()) {
 			ReassignModels();
 			SetPriorityDelegate();
-            UninitEditor();
-            InitEditor();
-            UpdateEditor();
 		} // if
+        UninitEditor();
+        InitEditor();
+        UpdateEditor();
 		HideColumns();
 #endif
 	} else {
