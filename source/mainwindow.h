@@ -88,14 +88,15 @@ class MainWindow : public QMainWindow
         const QString GetLanguageText(const bool &pDirectionSwitched, const bool &pAnswer) const;
 		const bool GetLearningDirection() const;
         const QString GetLearningText(const eTemplate &pTemplate, const bool &pDirectionSwitched, const bool &pAnswer) const;
+#ifndef FREE
+        const bool GetRecordEnabled() const;
+        const int GetRecordPriority() const;
+#endif
         const void OpenVocabulary(
 #ifndef FREE
             const bool &pCurrentRecord
 #endif
             );
-#ifndef FREE
-		const bool RecordEnabled() const;
-#endif
         const void RefreshStatusBar();
 #ifndef FREE
 # ifdef Q_WS_WIN

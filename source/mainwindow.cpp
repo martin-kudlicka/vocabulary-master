@@ -16,6 +16,7 @@
 #endif
 #ifndef FREE
 # include <QtGui/QSound>
+# include "vocabularymanagerdialog/spinboxdelegate.h"
 #endif
 
 #ifdef FREE
@@ -208,6 +209,40 @@ const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool
 
 	return qsTemplate;
 } // GetLearningText
+
+#ifndef FREE
+const bool MainWindow::GetRecordEnabled() const
+{
+    foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
+        VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary.GetFieldAttributes(iFieldId);
+        if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+            VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary.GetFieldBuiltIn(iFieldId);
+            switch (efbBuiltIn) {
+                case VocabularyDatabase::FieldBuiltInEnabled:
+                    return _vVocabulary.GetDataText(_iCurrentRecordId, iFieldId).toInt();
+            } // switch
+        } // if
+    } // foreach
+
+    return false;
+} // GetRecordEnabled
+
+const int MainWindow::GetRecordPriority() const
+{
+    foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
+        VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary.GetFieldAttributes(iFieldId);
+        if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+            VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary.GetFieldBuiltIn(iFieldId);
+            switch (efbBuiltIn) {
+                case VocabularyDatabase::FieldBuiltInPriority:
+                    return _vVocabulary.GetDataText(_iCurrentRecordId, iFieldId).toInt();
+            } // switch
+        } // if
+    } // foreach
+
+    return SpinBoxDelegate::RECORD_PRIORITY_MIN;
+} // GetRecordPriority
+#endif
 
 MainWindow::~MainWindow()
 {
@@ -506,24 +541,6 @@ const void MainWindow::OpenVocabulary(
     RefreshStatusBar();
 } // OpenVocabulary
 
-#ifndef FREE
-const bool MainWindow::RecordEnabled() const
-{
-	foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
-		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary.GetFieldAttributes(iFieldId);
-		if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
-			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary.GetFieldBuiltIn(iFieldId);
-			switch (efbBuiltIn) {
-				case VocabularyDatabase::FieldBuiltInEnabled:
-					return _vVocabulary.GetDataText(_iCurrentRecordId, iFieldId).toInt();
-			} // switch
-		} // if
-	} // foreach
-
-	return false;
-} // RecordEnabled
-#endif
-
 const void MainWindow::RefreshStatusBar()
 {
     if (!_vVocabulary.IsOpen()) {
@@ -656,19 +673,20 @@ void MainWindow::timerEvent(QTimerEvent *event)
             int iCategoryId;
             int iLastRecordId = _iCurrentRecordId;
 #ifndef FREE
-			int iMaxPriority = qrand() % VocabularyTabWidget::CATEGORY_PRIORITY_MAX + 1;
+			int iMaxCategoryPriority = qrand() % VocabularyTabWidget::CATEGORY_PRIORITY_MAX + 1;
+            int iMaxRecordPriority = qrand() % SpinBoxDelegate::RECORD_PRIORITY_MAX + 1;
 #endif
             while (true) {
 	            _iCurrentRecordId = _vVocabulary.GetRecordId(qrand() % _vVocabulary.GetRecordCount());
 #ifndef FREE
-				if (!RecordEnabled()) {
+				if (!GetRecordEnabled() || GetRecordPriority() > iMaxRecordPriority) {
 					continue;
 				} // if
 #endif
 
                 iCategoryId = _vVocabulary.GetRecordCategory(_iCurrentRecordId);
 #ifndef FREE
-                if (_vVocabulary.GetCategoryEnabled(iCategoryId) && _vVocabulary.GetCategoryPriority(iCategoryId) <= iMaxPriority  && (_vVocabulary.GetRecordCount(true) == 1 || _iCurrentRecordId != iLastRecordId)) {
+                if (_vVocabulary.GetCategoryEnabled(iCategoryId) && _vVocabulary.GetCategoryPriority(iCategoryId) <= iMaxCategoryPriority  && (_vVocabulary.GetRecordCount(true) == 1 || _iCurrentRecordId != iLastRecordId)) {
 #endif
                     break;
 #ifndef FREE
