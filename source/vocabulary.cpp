@@ -44,6 +44,11 @@ const void Vocabulary::ClearCache()
     } // if
 } // ClearCache
 
+const VocabularyDatabase::tCategoryIdList Vocabulary::GetCategoryIds() const
+{
+    return _qhCategoryRecords.keys();
+} // GetCategoryIds
+
 const QString Vocabulary::GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const
 {
     int iRecordId = _qhCategoryRecords.value(pCategoryId).at(pRow);
@@ -95,7 +100,7 @@ const void Vocabulary::InitCache()
 {
 	if (IsOpen()) {
 		// categories
-		tCategoryIdList tcilCategoryIds = GetCategoryIds();
+		tCategoryIdList tcilCategoryIds = VocabularyDatabase::GetCategoryIds();
 		foreach (int iCategoryId, tcilCategoryIds) {
             tRecordIdList tdilRecordIds = VocabularyDatabase::GetRecordIds(iCategoryId);
 			_qhCategoryRecords.insert(iCategoryId, tdilRecordIds);

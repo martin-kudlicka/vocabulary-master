@@ -77,7 +77,6 @@ class VocabularyDatabase : public QObject
         const bool GetCategoryEnabled(const int &pCategoryId) const;
         const int GetCategoryId(const int &pRow) const;
 #endif
-        const tCategoryIdList GetCategoryIds() const;
         const QString GetCategoryName(const int &pCategoryId) const;
 #ifndef FREE
 		const int GetCategoryPriority(const int &pCategoryId) const;
@@ -142,6 +141,7 @@ class VocabularyDatabase : public QObject
 #ifndef FREE
         const int AddRecord(const int &pCategoryId, const QStringList &pData) const;
 #endif
+        const tCategoryIdList GetCategoryIds() const;
         /*const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
         const QString GetDataText(const int &pRecordId, const int &pFieldId) const;*/
         tRecordDataHash *GetDataText() const;
