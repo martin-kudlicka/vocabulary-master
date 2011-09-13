@@ -118,6 +118,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="qpbWordCopyMove">
+          <property name="text">
+           <string>&amp;Copy/Move...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="qpbWordImport">
           <property name="text">
            <string>&amp;Import...</string>

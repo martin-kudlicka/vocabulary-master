@@ -80,6 +80,7 @@ class VocabularyManagerDialog : public QDialog
 		const void on_qpbVocabularySettings_clicked(bool checked = false);
         const void on_qpbWordAdd_clicked(bool checked = false);
 #ifndef FREE
+		const void on_qpbWordCopyMove_clicked(bool checked = false);
 		const void on_qpbWordExport_clicked(bool checked = false);
 		const void on_qpbWordImport_clicked(bool checked = false);
 #endif
