@@ -5,6 +5,36 @@
 #include <QtGui/QSpinBox>
 #include <QtCore/QCoreApplication>
 
+bool VocabularyView::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == viewport() && event->type() == QEvent::Leave) {
+        update(_qmiMoveOld);
+        _qmiMoveOld = QModelIndex();
+    } // if
+
+    return QTableView::eventFilter(watched, event);
+} // eventFilter
+
+void VocabularyView::mouseMoveEvent(QMouseEvent *event)
+{
+    QModelIndex qmiMouse = indexAt(event->pos());
+    if (_qmiMoveOld.isValid() && _qmiMoveOld != qmiMouse) {
+        update(_qmiMoveOld);
+    } // if
+    _qmiMoveOld = qmiMouse;
+
+    int iFieldId = _vVocabulary->GetFieldId(qmiMouse.column());
+    VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+    if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+        VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
+        if (efbBuiltIn == VocabularyDatabase::FieldBuiltInPriority) {
+            update(qmiMouse);
+        } // if
+    } // if
+
+    QTableView::mouseMoveEvent(event);
+} // mouseMoveEvent
+
 void VocabularyView::mousePressEvent(QMouseEvent *event)
 {
     QModelIndex qmiOld = currentIndex();
@@ -38,5 +68,8 @@ VocabularyView::VocabularyView(
 {
 #ifndef FREE
     _vVocabulary = pVocabulary;
+
+    setMouseTracking(true);
+    viewport()->installEventFilter(this);
 #endif
 } // VocabularyView
