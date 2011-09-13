@@ -3,12 +3,11 @@
 
 #include <ui_vocabularymanagerdialog.h>
 
-#include "vocabulary.h"
 #ifndef FREE
 # include "settings.h"
 # include "plugins.h"
 #endif
-#include <QtGui/QTableView>
+#include "vocabularymanagerdialog/vocabularyview.h"
 
 class VocabularyManagerDialog : public QDialog
 {
@@ -54,7 +53,7 @@ class VocabularyManagerDialog : public QDialog
         const void FocusOnRecord(const int &pRecordId) const;
 #ifndef FREE
 		const void HideColumns() const;
-		const void HideColumns(QTableView *pTableView) const;
+		const void HideColumns(VocabularyView *pTableView) const;
 #endif
 		const void InitEditor();
         const void InitTabs();
@@ -62,10 +61,10 @@ class VocabularyManagerDialog : public QDialog
         const void ReassignModels() const;
         const void SelectFirstEnabledTab();
 		const void SetPriorityDelegate();
-		const void SetPriorityDelegate(QTableView *pTableView);
+		const void SetPriorityDelegate(VocabularyView *pTableView);
         const void StretchColumns() const;
 #endif
-		const void StretchColumns(const QTableView *pTableView) const;
+		const void StretchColumns(const VocabularyView *pTableView) const;
 #ifndef FREE
         const void UninitEditor() const;
 #endif
@@ -85,12 +84,12 @@ class VocabularyManagerDialog : public QDialog
 		const void on_qpbWordImport_clicked(bool checked = false);
 #endif
         const void on_qpbWordRemove_clicked(bool checked = false);
-		const void on_qtvTableViewSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
 		const void on_vtwTabs_currentChanged(int index) const;
 #ifndef FREE
         const void on_vtwTabs_TabEnableChanged(const int &pIndex, const Qt::CheckState &pState) const;
 		const void on_vtwTabs_TabPriorityChanged(const int &pIndex, const int &pValue) const;
 #endif
+        const void on_vvVocabularyViewSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
 }; // VocabularyManagerDialog
 
 #endif // VOCABULARYMANAGERDIALOG_H
