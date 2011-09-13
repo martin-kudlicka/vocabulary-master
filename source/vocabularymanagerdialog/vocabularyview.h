@@ -17,8 +17,11 @@ class VocabularyView : public QTableView
 
 #ifndef FREE
     private:
+        virtual bool eventFilter(QObject *watched, QEvent *event);
+        virtual void mouseMoveEvent(QMouseEvent *event);
         virtual void mousePressEvent(QMouseEvent *event);
 
+        QModelIndex _qmiMoveOld;
         const Vocabulary *_vVocabulary;
 #endif
 }; // VocabularyView
