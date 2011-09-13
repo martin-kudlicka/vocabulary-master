@@ -11,6 +11,7 @@
 # include "common/vocabularyopenprogressdialog.h"
 # include "vocabularymanagerdialog/wordsexportdialog.h"
 # include "vocabularymanagerdialog/spinboxdelegate.h"
+# include "vocabularymanagerdialog/wordcopymovedialog.h"
 #endif
 
 const char *PROPERTY_COLUMN = "Column";
@@ -67,6 +68,9 @@ const void VocabularyManagerDialog::EnableWordControls() const
 	} // if else
 
 	_qdvmVocabularyManager.qpbWordRemove->setEnabled(qismSelection && qtvVocabularyView->isEnabled() && qismSelection->hasSelection());
+#ifndef FREE
+	_qdvmVocabularyManager.qpbWordCopyMove->setEnabled(qismSelection && qtvVocabularyView->isEnabled() && qismSelection->hasSelection());
+#endif
 } // EnableWordControls
 
 #ifndef FREE
@@ -290,6 +294,12 @@ const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false 
 } // on_qpbWordAdd_clicked
 
 #ifndef FREE
+const void VocabularyManagerDialog::on_qpbWordCopyMove_clicked(bool checked /* false */)
+{
+	WordsCopyMoveDialog wcmdCopyMove(_vVocabulary, this);
+	wcmdCopyMove.exec();
+} // on_qpbWordCopyMove_clicked
+
 const void VocabularyManagerDialog::on_qpbWordExport_clicked(bool checked /* false */)
 {
 	WordsExportDialog wedExport(_vVocabulary, _pPlugins->GetExpPlugins(), this);
@@ -520,6 +530,7 @@ VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *pVocabulary,
 
     _qdvmVocabularyManager.setupUi(this);
 #ifdef FREE
+	delete _qdvmVocabularyManager.qpbWordCopyMove;
     delete _qdvmVocabularyManager.qpbWordImport;
 	delete _qdvmVocabularyManager.qpbWordExport;
 #endif
