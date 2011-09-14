@@ -156,6 +156,7 @@ class VocabularyDatabase : public QObject
         const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage) const;
         const void SetFieldName(const int &pFieldId, const QString &pName) const;
         const void SetFieldTemplateName(const int &pFieldId, const QString &pTemplateName) const;
+		const void SetRecordCategory(const int &pRecordId, const int &pCategoryId) const;
         const void SwapFields(const int &pSourceId, const int &pDestinationId) const;
 #endif
 

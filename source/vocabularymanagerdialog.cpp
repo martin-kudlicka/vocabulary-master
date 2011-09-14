@@ -296,8 +296,22 @@ const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false 
 #ifndef FREE
 const void VocabularyManagerDialog::on_qpbWordCopyMove_clicked(bool checked /* false */)
 {
-	WordsCopyMoveDialog wcmdCopyMove(_vVocabulary, this);
-	wcmdCopyMove.exec();
+	// get selected records
+	WordsCopyMoveDialog::tRowNumList trnlRowNums;
+	const VocabularyView *qtvVocabularyView = qobject_cast<const VocabularyView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
+	const VocabularyModel *vmVocabularyModel = qobject_cast<const VocabularyModel *>(qtvVocabularyView->model());
+	const QItemSelectionModel *qismSelection = qtvVocabularyView->selectionModel();
+	foreach (QModelIndex qmiIndex, qismSelection->selectedRows()) {
+		trnlRowNums.append(qmiIndex.row());
+	} // foreach
+
+	// copy/move dialog
+	WordsCopyMoveDialog wcmdCopyMove(_qlCategories.at(_qdvmVocabularyManager.vtwTabs->currentIndex()), trnlRowNums, _vVocabulary, this);
+    if (wcmdCopyMove.exec() == QDialog::Accepted) {
+        ReassignModels();
+        StretchColumns();
+        HideColumns();
+    } // if
 } // on_qpbWordCopyMove_clicked
 
 const void VocabularyManagerDialog::on_qpbWordExport_clicked(bool checked /* false */)
@@ -339,7 +353,6 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
 
             _vVocabulary->BeginEdit();
             ReassignModels();
-			SetPriorityDelegate();
             StretchColumns();
 			HideColumns();
 		} else {
