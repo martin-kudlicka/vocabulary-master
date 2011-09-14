@@ -796,6 +796,11 @@ const void VocabularyDatabase::SetLanguageVoice(const int &pLanguageId, const QS
 {
     _qsdDatabase.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_VOICE + " = '" + pVoice + "' WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
 } // SetLanguageVoice
+
+const void VocabularyDatabase::SetRecordCategory(const int &pRecordId, const int &pCategoryId) const
+{
+	_qsdDatabase.exec("UPDATE " + TABLE_RECORDS + " SET " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId) + " WHERE " + COLUMN_ID + " = " + QString::number(pRecordId));
+} // SetRecordCategory
 #endif
 
 const void VocabularyDatabase::SetSettings(const QString &pKey, const QString &pValue) const

@@ -58,6 +58,7 @@ class Vocabulary : public VocabularyDatabase
         const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage);
         const void SetFieldName(const int &pFieldId, const QString &pName);
         const void SetFieldTemplateName(const int &pFieldId, const QString &pTemplateName);
+		const void SetRecordByRowCategory(const int &pOldCategoryId, const int &pRecordRow, const int &pNewCategoryId);
         const void SwapFields(const int &pSourceId, const int &pDestinationId);
 #endif
 

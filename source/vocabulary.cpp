@@ -311,6 +311,16 @@ const void Vocabulary::SetFieldTemplateName(const int &pFieldId, const QString &
     VocabularyDatabase::SetFieldTemplateName(pFieldId, pTemplateName);
 } // SetFieldTemplateName
 
+const void Vocabulary::SetRecordByRowCategory(const int &pOldCategoryId, const int &pRecordRow, const int &pNewCategoryId)
+{
+    int iRecordId = _qhCategoryRecords[pOldCategoryId].takeAt(pRecordRow);
+    tRecordIdList *trilRecordIds = &_qhCategoryRecords[pNewCategoryId];
+    tRecordIdList::iterator iLowerBound = qLowerBound(trilRecordIds->begin(), trilRecordIds->end(), iRecordId);
+    trilRecordIds->insert(iLowerBound, iRecordId);
+
+    VocabularyDatabase::SetRecordCategory(iRecordId, pNewCategoryId);
+} // SetRecordByRowCategory
+
 const void Vocabulary::SwapFields(const int &pSourceId, const int &pDestinationId)
 {
     // swap in fields table
