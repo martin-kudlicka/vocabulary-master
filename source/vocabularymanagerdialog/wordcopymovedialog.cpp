@@ -5,10 +5,17 @@ void WordsCopyMoveDialog::accept()
     QModelIndex qmiIndex = _qdwcmCopyMove.qtvCategories->currentIndex();
     int iNewCategoryId = _vVocabulary->GetCategoryId(qmiIndex.row());
 
-    for (tRowNumList::const_iterator ciRow = _trnlRowNums.constEnd(); ciRow != _trnlRowNums.constBegin();) {
-        ciRow--;
-        _vVocabulary->SetRecordByRowCategory(_iOldCategoryId, *ciRow, iNewCategoryId);
-    } // for
+    if (_qdwcmCopyMove.qrbCopy->isChecked()) {
+        for (tRowNumList::const_iterator ciRow = _trnlRowNums.constBegin(); ciRow != _trnlRowNums.constEnd(); ciRow++) {
+            QStringList qslData = _vVocabulary->GetRecord(*ciRow);
+            _vVocabulary->AddRecord(iNewCategoryId, qslData);
+        } // for
+    } else {
+        for (tRowNumList::const_iterator ciRow = _trnlRowNums.constEnd(); ciRow != _trnlRowNums.constBegin();) {
+            ciRow--;
+            _vVocabulary->SetRecordByRowCategory(_iOldCategoryId, *ciRow, iNewCategoryId);
+        } // for
+    } // if else
 
     QDialog::accept();
 } // accept

@@ -34,6 +34,7 @@ class Vocabulary : public VocabularyDatabase
         const QString GetFieldTemplateName(const int &pFieldId) const;
 #ifndef FREE
         const eFieldType GetFieldType(const int &pFieldId) const;
+        const QStringList GetRecord(const int &pRecordId) const;
 #endif
 		const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
