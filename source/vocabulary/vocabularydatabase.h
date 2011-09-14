@@ -85,9 +85,6 @@ class VocabularyDatabase : public QObject
         const QString GetLanguageVoice(const int &pLanguageId) const;
 #endif
         const QString GetName() const;
-		const int GetRecordCategory(const int &pRecordId) const;
-		const int GetRecordId(const int &pRow) const;
-		const int GetRecordId(const int &pCategoryId, const int &pRow) const;
 		const int GetRow(const int &pRecordId, const int &pCategoryId) const;
 		const QString GetSettings(const QString &pKey) const;
         const QString &GetVocabularyFile() const;
@@ -136,9 +133,12 @@ class VocabularyDatabase : public QObject
 #ifndef FREE
         const eFieldType GetFieldType(const int &pFieldId) const;
 #endif
-        /*const int GetRecordCount() const;
+        /*const int GetRecordCategory(const int &pRecordId) const;
+        const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
-        const int GetRecordCount(const bool &pEnabled) const;*/
+        const int GetRecordCount(const bool &pEnabled) const;
+        const int GetRecordId(const int &pRow) const;
+        const int GetRecordId(const int &pCategoryId, const int &pRow) const;*/
         const tRecordIdList GetRecordIds(const int &pCategoryId) const;
         const void New(const QString &pFilePath);
 #ifndef TRY

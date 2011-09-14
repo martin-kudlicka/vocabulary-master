@@ -6,7 +6,7 @@
 const int Vocabulary::AddCategory(const QString &pName)
 {
 	int iCategoryId = VocabularyDatabase::AddCategory(pName);
-	_qhCategoryRecords.insert(iCategoryId, tRecordIdList());
+	_tcrmCategoryRecords.insert(iCategoryId, tRecordIdList());
 	return iCategoryId;
 } // AddCategory
 
@@ -23,14 +23,14 @@ const void Vocabulary::AddField()
 const void Vocabulary::AddRecord(const int &pCategoryId)
 {
 	int iRecordId = VocabularyDatabase::AddRecord(pCategoryId);
-	_qhCategoryRecords[pCategoryId].append(iRecordId);
+	_tcrmCategoryRecords[pCategoryId].append(iRecordId);
 } // AddRecord
 
 #ifndef FREE
 const void Vocabulary::AddRecord(const int &pCategoryId, const QStringList &pData)
 {
 	int iRecordId = VocabularyDatabase::AddRecord(pCategoryId, pData);
-	/*_qhCategoryRecords[pCategoryId].append(iRecordId);
+	/*_tcrmCategoryRecords[pCategoryId].append(iRecordId);
 
     // insert data to cache
     int iData = 0;
@@ -62,7 +62,7 @@ const void Vocabulary::EndEdit(const bool &pSave /* true */)
 
 const void Vocabulary::ClearCache()
 {
-	_qhCategoryRecords.clear();
+	_tcrmCategoryRecords.clear();
 
     // clear large cache in background
     if (_trdhRecordData) {
@@ -74,12 +74,12 @@ const void Vocabulary::ClearCache()
 
 const VocabularyDatabase::tCategoryIdList Vocabulary::GetCategoryIds() const
 {
-    return _qhCategoryRecords.keys();
+    return _tcrmCategoryRecords.keys();
 } // GetCategoryIds
 
 const QString Vocabulary::GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const
 {
-    int iRecordId = _qhCategoryRecords.value(pCategoryId).at(pRow);
+    int iRecordId = _tcrmCategoryRecords.value(pCategoryId).at(pRow);
     return GetDataText(iRecordId, pFieldId);
 } // GetDataText
 
@@ -174,10 +174,21 @@ const QStringList Vocabulary::GetRecord(const int &pRecordId) const
 } // GetRecord
 #endif
 
+const int Vocabulary::GetRecordCategory(const int &pRecordId) const
+{
+    for (tCategoryRecordsMap::const_iterator ciCategory = _tcrmCategoryRecords.constBegin(); ciCategory != _tcrmCategoryRecords.constEnd(); ciCategory++) {
+        if (ciCategory->contains(pRecordId)) {
+            return ciCategory.key();
+        } // if
+    } // for
+
+    return NOT_FOUND;
+} // GetRecordCategory
+
 const int Vocabulary::GetRecordCount() const
 {
 	int iRecordCount = 0;
-	QList<tRecordIdList> qlAllRecordIds = _qhCategoryRecords.values();
+	QList<tRecordIdList> qlAllRecordIds = _tcrmCategoryRecords.values();
 	foreach (tRecordIdList trilRecordIds, qlAllRecordIds) {
 		iRecordCount += trilRecordIds.size();
 	} // foreach
@@ -187,7 +198,7 @@ const int Vocabulary::GetRecordCount() const
 
 const int Vocabulary::GetRecordCount(const int &pCategoryId) const
 {
-	return _qhCategoryRecords.value(pCategoryId).size();
+	return _tcrmCategoryRecords.value(pCategoryId).size();
 } // GetRecordCount
 
 #ifndef FREE
@@ -205,9 +216,33 @@ const int Vocabulary::GetRecordCount(const bool &pEnabled) const
 } // GetRecordCount
 #endif
 
+const int Vocabulary::GetRecordId(const int &pRow) const
+{
+    int iRecordsTotal = 0;
+    for (tCategoryRecordsMap::const_iterator ciCategory = _tcrmCategoryRecords.constBegin(); ciCategory != _tcrmCategoryRecords.constEnd(); ciCategory++) {
+        int iRecords = iRecordsTotal + ciCategory->size();
+        if (pRow < iRecords) {
+            return ciCategory->at(iRecords - iRecordsTotal - 1);
+        } else {
+            iRecordsTotal = iRecords;
+        } // if else
+    } // for
+
+    return NOT_FOUND;
+} // GetRecordId
+
+const int Vocabulary::GetRecordId(const int &pCategoryId, const int &pRow) const
+{
+    if (pRow == NOT_FOUND) {
+        return NOT_FOUND;
+    } else {
+        return _tcrmCategoryRecords.value(pCategoryId).at(pRow);
+    } // if else
+} // GetRecordId
+
 const VocabularyDatabase::tRecordIdList Vocabulary::GetRecordIds(const int &pCategoryId) const
 {
-    return _qhCategoryRecords.value(pCategoryId);
+    return _tcrmCategoryRecords.value(pCategoryId);
 } // GetRecordIds
 
 const void Vocabulary::InitCache()
@@ -224,7 +259,7 @@ const void Vocabulary::InitCache()
 		tCategoryIdList tcilCategoryIds = VocabularyDatabase::GetCategoryIds();
 		foreach (int iCategoryId, tcilCategoryIds) {
             tRecordIdList tdilRecordIds = VocabularyDatabase::GetRecordIds(iCategoryId);
-			_qhCategoryRecords.insert(iCategoryId, tdilRecordIds);
+			_tcrmCategoryRecords.insert(iCategoryId, tdilRecordIds);
 		} // foreach
 
         // records
@@ -258,11 +293,11 @@ const void Vocabulary::OpenMemory()
 
 const void Vocabulary::RemoveCategory(const int &pCategoryId)
 {
-    tRecordIdList trilRecords = _qhCategoryRecords.value(pCategoryId);
+    tRecordIdList trilRecords = _tcrmCategoryRecords.value(pCategoryId);
     foreach (int iRecordId, trilRecords) {
         _trdhRecordData->remove(iRecordId);
     } // foreach
-	_qhCategoryRecords.remove(pCategoryId);
+	_tcrmCategoryRecords.remove(pCategoryId);
 
 	VocabularyDatabase::RemoveCategory(pCategoryId);
 } // RemoveCategory
@@ -280,15 +315,15 @@ const void Vocabulary::RemoveField(const int &pFieldId)
 
 const void Vocabulary::RemoveRecord(const int &pCategoryId, const int &pRow)
 {
-    _trdhRecordData->remove(_qhCategoryRecords.value(pCategoryId).at(pRow));
-    _qhCategoryRecords[pCategoryId].removeAt(pRow);
+    _trdhRecordData->remove(_tcrmCategoryRecords.value(pCategoryId).at(pRow));
+    _tcrmCategoryRecords[pCategoryId].removeAt(pRow);
 
 	VocabularyDatabase::RemoveRecord(pCategoryId, pRow);
 } // RemoveRecord
 
 const void Vocabulary::SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData)
 {
-    int iRecordId = _qhCategoryRecords.value(pCategoryId).at(pRow);
+    int iRecordId = _tcrmCategoryRecords.value(pCategoryId).at(pRow);
     SetDataText(iRecordId, pFieldId, pData);
 } // SetDataText
 
@@ -325,8 +360,8 @@ const void Vocabulary::SetFieldTemplateName(const int &pFieldId, const QString &
 
 const void Vocabulary::SetRecordByRowCategory(const int &pOldCategoryId, const int &pRecordRow, const int &pNewCategoryId)
 {
-    int iRecordId = _qhCategoryRecords[pOldCategoryId].takeAt(pRecordRow);
-    tRecordIdList *trilRecordIds = &_qhCategoryRecords[pNewCategoryId];
+    int iRecordId = _tcrmCategoryRecords[pOldCategoryId].takeAt(pRecordRow);
+    tRecordIdList *trilRecordIds = &_tcrmCategoryRecords[pNewCategoryId];
     tRecordIdList::iterator iLowerBound = qLowerBound(trilRecordIds->begin(), trilRecordIds->end(), iRecordId);
     trilRecordIds->insert(iLowerBound, iRecordId);
 
