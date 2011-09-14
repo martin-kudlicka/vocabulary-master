@@ -36,11 +36,14 @@ class Vocabulary : public VocabularyDatabase
         const eFieldType GetFieldType(const int &pFieldId) const;
         const QStringList GetRecord(const int &pRecordId) const;
 #endif
+        const int GetRecordCategory(const int &pRecordId) const;
 		const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
 #ifndef FREE
 		const int GetRecordCount(const bool &pEnabled) const;
 #endif
+        const int GetRecordId(const int &pRow) const;
+        const int GetRecordId(const int &pCategoryId, const int &pRow) const;
         const tRecordIdList GetRecordIds(const int &pCategoryId) const;
 		const void New(const QString &pFilePath);
 #ifndef TRY
@@ -75,9 +78,10 @@ class Vocabulary : public VocabularyDatabase
             eFieldLanguage eflLanguage;
         }; // sFieldData
 
+        typedef QHash<int, tRecordIdList> tCategoryRecordsMap;
         typedef QMap<int, sFieldData> tFieldDataMap;
 
-		QHash<int, tRecordIdList> _qhCategoryRecords;
+		tCategoryRecordsMap _tcrmCategoryRecords;
         tFieldDataMap _tfdmFieldData;
         tFieldDataMap _tfdmFieldDataBackup;
         tRecordDataHash *_trdhRecordData;

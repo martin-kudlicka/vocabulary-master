@@ -443,14 +443,14 @@ const QString VocabularyDatabase::GetName() const
     return QFileInfo(_qsVocabularyFile).completeBaseName();
 } // GetName
 
-const int VocabularyDatabase::GetRecordCategory(const int &pRecordId) const
+/*const int VocabularyDatabase::GetRecordCategory(const int &pRecordId) const
 {
 	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_CATEGORYID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_ID + " = " + QString::number(pRecordId));
 	qsqQuery.next();
 	return qsqQuery.value(ColumnPosition1).toInt();
 } // GetRecordCategory
 
-/*const int VocabularyDatabase::GetRecordCount() const
+const int VocabularyDatabase::GetRecordCount() const
 {
 	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS);
 	if (qsqQuery.last()) {
@@ -478,7 +478,7 @@ const int VocabularyDatabase::GetRecordCount(const bool &pEnabled) const
     } else {
         return 0;
     } // if else
-} // GetRecordCount*/
+} // GetRecordCount
 
 const int VocabularyDatabase::GetRecordId(const int &pRow) const
 {
@@ -492,7 +492,7 @@ const int VocabularyDatabase::GetRecordId(const int &pCategoryId, const int &pRo
 	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
 	qsqQuery.seek(pRow);
 	return qsqQuery.value(ColumnPosition1).toInt();
-} // GetRecordId
+} // GetRecordId*/
 
 #ifndef TRY
 const VocabularyDatabase::tRecordIdList VocabularyDatabase::GetRecordIds() const
