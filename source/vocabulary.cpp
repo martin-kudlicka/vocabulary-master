@@ -160,6 +160,18 @@ const VocabularyDatabase::eFieldType Vocabulary::GetFieldType(const int &pFieldI
 {
     return _tfdmFieldData.value(pFieldId).eftType;
 } // GetFieldType
+
+const QStringList Vocabulary::GetRecord(const int &pRecordId) const
+{
+    QStringList qslData;
+
+    tFieldIdList tfilFieldIds = GetFieldIds();
+    foreach (int iFieldId, tfilFieldIds) {
+        qslData.append(GetDataText(pRecordId, iFieldId));
+    } // foreach
+
+    return qslData;
+} // GetRecord
 #endif
 
 const int Vocabulary::GetRecordCount() const
