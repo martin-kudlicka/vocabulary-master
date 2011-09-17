@@ -24,7 +24,14 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 			case VocabularyDatabase::FieldBuiltInEnabled:
 				switch (role) {
 					case Qt::CheckStateRole:
-						return _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
+						{
+							QString qsChecked = _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
+							if (qsChecked.isEmpty()) {
+								return Qt::Checked;
+							} else {
+								return qsChecked;
+							} // if
+						}
 					default:
 						return QVariant();
 				} // switch
