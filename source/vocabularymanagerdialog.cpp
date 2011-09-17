@@ -395,6 +395,13 @@ const void VocabularyManagerDialog::on_vtwTabs_TabPriorityChanged(const int &pIn
 
 const void VocabularyManagerDialog::on_vvVocabularyViewSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
+	const VocabularyView *qtvCurrentTabView = qobject_cast<const VocabularyView *>(_qdvmVocabularyManager.vtwTabs->widget(_qdvmVocabularyManager.vtwTabs->currentIndex()));
+	const VocabularyView *qtvVocabularyView = qobject_cast<const VocabularyView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
+	if (qtvCurrentTabView != qtvVocabularyView) {
+		// tab switching in progress
+		return;
+	} // if
+
     UpdateEditor();
     EnableWordControls();
 } // on_vvVocabularyViewSelectionModel_selectionChanged
