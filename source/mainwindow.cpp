@@ -426,8 +426,16 @@ const void MainWindow::on_qaNew_triggered(bool checked /* false */)
 
 const void MainWindow::on_qaNext_triggered(bool checked /* false */)
 {
-	on_qaStop_triggered();
-	on_qaStart_triggered();
+	if (_iTimerQuestion != 0) {
+		killTimer(_iTimerQuestion);
+	} // if
+	if (_iTimerAnswer != 0) {
+		killTimer(_iTimerAnswer);
+		_iTimerAnswer = 0;
+	} // if
+
+	_iTimerQuestion = startTimer(_sSettings.GetWordsFrequency() * MILISECONDS_PER_SECOND);
+	timerEvent(&QTimerEvent(_iTimerQuestion));
 } // on_qaNext_triggered
 
 #ifndef TRY
