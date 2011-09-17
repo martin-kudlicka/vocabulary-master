@@ -222,7 +222,7 @@ const int Vocabulary::GetRecordId(const int &pRow) const
     for (tCategoryRecordsMap::const_iterator ciCategory = _tcrmCategoryRecords.constBegin(); ciCategory != _tcrmCategoryRecords.constEnd(); ciCategory++) {
         int iRecords = iRecordsTotal + ciCategory->size();
         if (pRow < iRecords) {
-            return ciCategory->at(iRecords - iRecordsTotal - 1);
+            return ciCategory->at(pRow - iRecordsTotal - 1);
         } else {
             iRecordsTotal = iRecords;
         } // if else
