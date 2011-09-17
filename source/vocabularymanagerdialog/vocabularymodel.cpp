@@ -1,5 +1,7 @@
 #include "vocabularymanagerdialog/vocabularymodel.h"
 
+#include "vocabularymanagerdialog/spinboxdelegate.h"
+
 const void VocabularyModel::AddRow()
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
@@ -29,8 +31,8 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 							if (qsChecked.isEmpty()) {
 								return Qt::Checked;
 							} else {
-								return qsChecked;
-							} // if
+								return qsChecked.toInt();
+							} // if else
 						}
 					default:
 						return QVariant();
@@ -39,7 +41,14 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 				switch (role) {
 					case Qt::DisplayRole:
 					case Qt::EditRole:
-						return _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId).toInt();
+						{
+							QString qsPriority = _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
+							if (qsPriority.isEmpty()) {
+								return SpinBoxDelegate::RECORD_PRIORITY_MIN;
+							} else {
+								return qsPriority.toInt();
+							} // if else
+						}
 					default:
 						return QVariant();
 				} // switch
