@@ -6,6 +6,7 @@
 #include "../plugins/common/imp-interface.h"
 #include "common/categoriesmodel.h"
 #include "vocabularymanagerdialog/wordsimportdialog/wordsimportfieldsmodel.h"
+#include "vocabularymanagerdialog/wordsimportdialog/wordsimporteditordelegate.h"
 
 class WordsImportDialog : public QDialog
 {
@@ -30,12 +31,13 @@ class WordsImportDialog : public QDialog
         CategoriesModel _cmCategoriesModel;
 		ImpInterface *_iiPlugin;
 		QString _qsFile;
+		WordsImportEditorDelegate _wiedEditorDelegate;
 		Ui::qdWordsImport _qdwiWordsImport;
 		Vocabulary *_vVocabulary;
         WordsImportFieldsModel _wifmFieldsModel;
 
         virtual void accept();
-        const void CreateFieldEditors() const;
+        const void CreateFieldEditors();
         const void EnableControls() const;
 		const void ImportData(const eTarget &pTarget);
 		const void PreparePreviewColumns() const;

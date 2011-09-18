@@ -16,12 +16,26 @@ void WordsImportDialog::accept()
     } // if
 } // accept
 
-const void WordsImportDialog::CreateFieldEditors() const
+const void WordsImportDialog::CreateFieldEditors()
 {
+	_qdwiWordsImport.qtvFields->setItemDelegateForColumn(WordsImportFieldsModel::ColumnEditor, &_wiedEditorDelegate);
+
     for (int iRow = 0; iRow < _wifmFieldsModel.rowCount(); iRow++) {
-        QModelIndex qmiIndex = _wifmFieldsModel.index(iRow, WordsImportFieldsModel::ColumnEditor);
-        QLineEdit *qleEditor = new QLineEdit(_qdwiWordsImport.qtvFields);
-        _qdwiWordsImport.qtvFields->setIndexWidget(qmiIndex, qleEditor);
+		bool bPersistentEditor = true;
+
+		int iFieldId = _vVocabulary->GetFieldId(iRow);
+		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+		if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
+			if (efbBuiltIn == VocabularyDatabase::FieldBuiltInEnabled) {
+				bPersistentEditor = false;
+			} // if
+		} // if
+
+		if (bPersistentEditor) {
+			QModelIndex qmiIndex = _wifmFieldsModel.index(iRow, WordsImportFieldsModel::ColumnEditor);
+			_qdwiWordsImport.qtvFields->openPersistentEditor(qmiIndex);
+		} // if
     } // for
 } // CreateFieldEditors
 
@@ -51,10 +65,10 @@ int WordsImportDialog::exec()
     connect(_qdwiWordsImport.qtvCategories->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvCategoriesSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
     // fields
     _qdwiWordsImport.qtvFields->setModel(&_wifmFieldsModel);
+	CreateFieldEditors();
     _qdwiWordsImport.qtvFields->header()->setResizeMode(WordsImportFieldsModel::ColumnName, QHeaderView::ResizeToContents);
 	_qdwiWordsImport.qtvFields->header()->setResizeMode(WordsImportFieldsModel::ColumnLanguage, QHeaderView::ResizeToContents);
     _qdwiWordsImport.qtvFields->header()->setResizeMode(WordsImportFieldsModel::ColumnEditor, QHeaderView::Stretch);
-    CreateFieldEditors();
 	// preview
 	PreparePreviewColumns();
 
@@ -78,8 +92,8 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
 	QStringList qslPatterns;
 	for (int iPattern = 0; iPattern < _vVocabulary->GetFieldCount(); iPattern++) {
 		QModelIndex qmiIndex = _wifmFieldsModel.index(iPattern, WordsImportFieldsModel::ColumnEditor);
-		const QLineEdit *qleEditor = qobject_cast<const QLineEdit *>(_qdwiWordsImport.qtvFields->indexWidget(qmiIndex));
-		qslPatterns.append(qleEditor->text());
+		QString qsData = _wifmFieldsModel.data(qmiIndex).toString();
+		qslPatterns.append(qsData);
 	} // for
 
 	QStringList qslMarks = _iiPlugin->GetMarks();
@@ -188,7 +202,7 @@ void WordsImportDialog::reject()
     } // if else
 } // reject
 
-WordsImportDialog::WordsImportDialog(const QString &pFile, Vocabulary *pVocabulary, ImpInterface *pPlugin, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags), _cmCategoriesModel(pVocabulary), _wifmFieldsModel(pVocabulary)
+WordsImportDialog::WordsImportDialog(const QString &pFile, Vocabulary *pVocabulary, ImpInterface *pPlugin, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags), _cmCategoriesModel(pVocabulary), _wiedEditorDelegate(pVocabulary), _wifmFieldsModel(pVocabulary)
 {
 	_qsFile = pFile;
 	_vVocabulary = pVocabulary;
