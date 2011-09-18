@@ -1,6 +1,8 @@
 #include "vocabularymanagerdialog/vocabularymodel.h"
 
-#include "vocabularymanagerdialog/spinboxdelegate.h"
+#ifndef FREE
+# include "vocabularymanagerdialog/spinboxdelegate.h"
+#endif
 
 const void VocabularyModel::AddRow()
 {
