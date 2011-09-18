@@ -50,6 +50,7 @@ class VocabularySettingsDialog : public QDialog
 		virtual void accept();
 #ifndef FREE
         const void ActualizeFieldsEditor() const;
+		const void ActualizeFieldsEditor(const int &pRow) const;
 #endif
 		const void FillOptions();
 #ifndef FREE
