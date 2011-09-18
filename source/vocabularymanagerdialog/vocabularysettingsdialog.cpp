@@ -7,28 +7,35 @@ void VocabularySettingsDialog::accept()
 	QDialog::accept();
 } // accept
 
+#ifndef FREE
 const void VocabularySettingsDialog::ActualizeFieldsEditor() const
 {
     for (int iRow = 0; iRow < _fmFieldsModel.rowCount(); iRow++) {
-        int iFieldId = _vVocabulary->GetFieldId(iRow);
-        VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-
-        QModelIndex qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnTemplateName);
-        _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
-        qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnName);
-        if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
-            _qdvsdVocabularySettingsDialog.qtvFields->closePersistentEditor(qmiIndex);
-        } else {
-            _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
-        } // if else
-        qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnLanguage);
-        if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
-            _qdvsdVocabularySettingsDialog.qtvFields->closePersistentEditor(qmiIndex);
-        } else {
-            _qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
-        } // if else
+        ActualizeFieldsEditor(iRow);
     } // for
 } // ActualizeFieldsEditor
+
+const void VocabularySettingsDialog::ActualizeFieldsEditor(const int &pRow) const
+{
+	int iFieldId = _vVocabulary->GetFieldId(pRow);
+	VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+
+	QModelIndex qmiIndex = _fmFieldsModel.index(pRow, FieldsModel::ColumnTemplateName);
+	_qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
+	qmiIndex = _fmFieldsModel.index(pRow, FieldsModel::ColumnName);
+	if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+		_qdvsdVocabularySettingsDialog.qtvFields->closePersistentEditor(qmiIndex);
+	} else {
+		_qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
+	} // if else
+	qmiIndex = _fmFieldsModel.index(pRow, FieldsModel::ColumnLanguage);
+	if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+		_qdvsdVocabularySettingsDialog.qtvFields->closePersistentEditor(qmiIndex);
+	} else {
+		_qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
+	} // if else
+} // ActualizeFieldsEditor
+#endif
 
 const void VocabularySettingsDialog::FillOptions()
 {
@@ -83,6 +90,7 @@ const void VocabularySettingsDialog::on_leLanguageRight_textEdited(const QString
 const void VocabularySettingsDialog::on_qpbFieldAdd_clicked(bool checked /* false */)
 {
     _fmFieldsModel.AddRow();
+	ActualizeFieldsEditor(_fmFieldsModel.rowCount() - 1);
 } // on_qpbFieldAdd_clicked
 
 const void VocabularySettingsDialog::on_qpbFieldDown_clicked(bool checked /* false */)
