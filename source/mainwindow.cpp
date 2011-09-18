@@ -687,10 +687,19 @@ void MainWindow::timerEvent(QTimerEvent *event)
 #ifndef FREE
 			int iMaxCategoryPriority = qrand() % VocabularyTabWidget::CATEGORY_PRIORITY_MAX + 1;
             int iMaxRecordPriority = qrand() % PriorityDelegate::RECORD_PRIORITY_MAX + 1;
+
+			int iNextRecordTry = 0;
 #endif
             while (true) {
 	            _iCurrentRecordId = _vVocabulary.GetRecordId(qrand() % _vVocabulary.GetRecordCount());
 #ifndef FREE
+				if (iNextRecordTry == MAX_NEXTRECORD_TRIES) {
+					on_qaStop_triggered(false);
+					return;
+				} else {
+					iNextRecordTry++;
+				} // if else
+
 				if (!GetRecordEnabled() || GetRecordPriority() > iMaxRecordPriority) {
 					continue;
 				} // if

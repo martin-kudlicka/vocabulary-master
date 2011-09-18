@@ -38,6 +38,7 @@ class MainWindow : public QMainWindow
 #ifndef FREE
 		static const int FLASH_COUNT = 3;
 		static const int FLASH_WAIT = 100;
+		static const int MAX_NEXTRECORD_TRIES = 9999;
 #endif
 		static const int MILISECONDS_PER_SECOND = 1000;
         static const int RECORD_NONE = -1;
