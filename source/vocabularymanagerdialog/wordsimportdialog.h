@@ -19,7 +19,7 @@ class WordsImportDialog : public QDialog
 		int exec();
 
 	private:
-        static const int IMPORT_REFRESHINTERVAL = 50;
+        static const int IMPORT_REFRESHINTERVAL = 20;
 
 		enum eTarget {
 			TargetPreview,
