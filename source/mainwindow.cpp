@@ -405,6 +405,10 @@ const void MainWindow::on_qaNew_triggered(bool checked /* false */)
     QFileDialog qfdNew(this, tr("Create new vocabulary"), QFileInfo(_vVocabulary.GetVocabularyFile()).absolutePath(), VOCABULARY_FILTER);
     qfdNew.setAcceptMode(QFileDialog::AcceptSave);
     if (qfdNew.exec() == QDialog::Accepted) {
+		if (_iTimerQuestion != 0) {
+			on_qaStop_triggered(false);
+		} // if
+
         QFileInfo qfiFile(qfdNew.selectedFiles().at(0));
 		QString qsFile;
 		if (qfiFile.suffix() != VOCABULARY_SUFFIX) {
