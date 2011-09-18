@@ -31,19 +31,11 @@ void LanguageFieldDelegate::setEditorData(QWidget *editor, const QModelIndex &in
 {
     QComboBox *qcbLanguage = qobject_cast<QComboBox *>(editor);
     int iLanguageId = index.model()->data(index, Qt::EditRole).toInt();
-    if (iLanguageId == VocabularyDatabase::FieldLanguageAll) {
-        qcbLanguage->setCurrentIndex(qcbLanguage->count() - 1);
-    } else {
-        qcbLanguage->setCurrentIndex(iLanguageId - 1);
-    } // if else
+    qcbLanguage->setCurrentIndex(iLanguageId - 1);
 } // setEditorData
 
 void LanguageFieldDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     QComboBox *qcbLanguage = qobject_cast<QComboBox *>(editor);
-    if (qcbLanguage->currentIndex() == qcbLanguage->count() - 1) {
-        model->setData(index, VocabularyDatabase::FieldLanguageAll, Qt::EditRole);
-    } else {
-        model->setData(index, qcbLanguage->currentIndex() + 1, Qt::EditRole);
-    } // if else
+    model->setData(index, qcbLanguage->currentIndex() + 1, Qt::EditRole);
 } // setModelData
