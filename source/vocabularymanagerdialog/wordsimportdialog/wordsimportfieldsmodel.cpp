@@ -1,6 +1,6 @@
 #include "vocabularymanagerdialog/wordsimportdialog/wordsimportfieldsmodel.h"
 
-#include "vocabularymanagerdialog/spinboxdelegate.h"
+#include "vocabularymanagerdialog/prioritydelegate.h"
 
 WordsImportFieldsModel::WordsImportFieldsModel(const Vocabulary *pVocabulary, QObject *pParent /* NULL */) : QAbstractItemModel(pParent)
 {
@@ -63,7 +63,7 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 							switch (role) {
 								case Qt::EditRole:
 									if (_qslEditorData.at(index.row()).isEmpty()) {
-										return SpinBoxDelegate::RECORD_PRIORITY_MIN;
+										return PriorityDelegate::RECORD_PRIORITY_MIN;
 									} else {
 										return _qslEditorData.at(index.row()).toInt();
 									} // if else

@@ -1,7 +1,7 @@
 #include "vocabularymanagerdialog/vocabularymodel.h"
 
 #ifndef FREE
-# include "vocabularymanagerdialog/spinboxdelegate.h"
+# include "vocabularymanagerdialog/prioritydelegate.h"
 #endif
 
 const void VocabularyModel::AddRow()
@@ -46,7 +46,7 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 						{
 							QString qsPriority = _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
 							if (qsPriority.isEmpty()) {
-								return SpinBoxDelegate::RECORD_PRIORITY_MIN;
+								return PriorityDelegate::RECORD_PRIORITY_MIN;
 							} else {
 								return qsPriority.toInt();
 							} // if else

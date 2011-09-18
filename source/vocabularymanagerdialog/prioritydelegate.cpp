@@ -1,10 +1,10 @@
-#include "vocabularymanagerdialog/spinboxdelegate.h"
+#include "vocabularymanagerdialog/prioritydelegate.h"
 
 #include <QtGui/QSpinBox>
 #include <QtGui/QApplication>
 #include "vocabularymanagerdialog/vocabularyview.h"
 
-QWidget *SpinBoxDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
+QWidget *PriorityDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	QSpinBox *qsbEditor = new QSpinBox(parent);
 	qsbEditor->setFrame(false);
@@ -14,7 +14,7 @@ QWidget *SpinBoxDelegate::createEditor(QWidget *parent, const QStyleOptionViewIt
 	return qsbEditor;
 } // createEditor
 
-void SpinBoxDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+void PriorityDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	QStyledItemDelegate::paint(painter, option, index);
 
@@ -43,11 +43,11 @@ void SpinBoxDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
 	QApplication::style()->drawComplexControl(QStyle::CC_SpinBox, &qsosbSpinBox, painter);
 } // paint
 
-SpinBoxDelegate::SpinBoxDelegate(QObject *pParent /* NULL */) : QStyledItemDelegate(pParent)
+PriorityDelegate::PriorityDelegate(QObject *pParent /* NULL */) : QStyledItemDelegate(pParent)
 {
-} // SpinBoxDelegate
+} // PriorityDelegate
 
-void SpinBoxDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+void PriorityDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
 	QSpinBox *qsbEditor = qobject_cast<QSpinBox *>(editor);
 	qsbEditor->setValue(index.model()->data(index).toInt());

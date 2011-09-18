@@ -1,15 +1,15 @@
-#ifndef SPINBOXDELEGATE_H
-#define SPINBOXDELEGATE_H
+#ifndef PRIORITYDELEGATE_H
+#define PRIORITYDELEGATE_H
 
 #include <QtGui/QStyledItemDelegate>
 
-class SpinBoxDelegate : public QStyledItemDelegate
+class PriorityDelegate : public QStyledItemDelegate
 {
 	public:
         static const int RECORD_PRIORITY_MAX = 9;
 		static const int RECORD_PRIORITY_MIN = 1;
 
-		SpinBoxDelegate(QObject *pParent = NULL);
+		PriorityDelegate(QObject *pParent = NULL);
 
 	private:
         static const int SPINBOX_BUTTONS_WIDTH = 16;
@@ -17,6 +17,6 @@ class SpinBoxDelegate : public QStyledItemDelegate
 		virtual QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 		virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 		virtual void setEditorData(QWidget *editor, const QModelIndex &index) const;
-}; // SpinBoxDelegate
+}; // PriorityDelegate
 
-#endif // SPINBOXDELEGATE_H
+#endif // PRIORITYDELEGATE_H
