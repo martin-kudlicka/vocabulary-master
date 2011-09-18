@@ -16,7 +16,7 @@
 #endif
 #ifndef FREE
 # include <QtGui/QSound>
-# include "vocabularymanagerdialog/spinboxdelegate.h"
+# include "vocabularymanagerdialog/prioritydelegate.h"
 #endif
 
 #ifdef FREE
@@ -240,7 +240,7 @@ const int MainWindow::GetRecordPriority() const
         } // if
     } // foreach
 
-    return SpinBoxDelegate::RECORD_PRIORITY_MIN;
+    return PriorityDelegate::RECORD_PRIORITY_MIN;
 } // GetRecordPriority
 #endif
 
@@ -682,7 +682,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
             int iLastRecordId = _iCurrentRecordId;
 #ifndef FREE
 			int iMaxCategoryPriority = qrand() % VocabularyTabWidget::CATEGORY_PRIORITY_MAX + 1;
-            int iMaxRecordPriority = qrand() % SpinBoxDelegate::RECORD_PRIORITY_MAX + 1;
+            int iMaxRecordPriority = qrand() % PriorityDelegate::RECORD_PRIORITY_MAX + 1;
 #endif
             while (true) {
 	            _iCurrentRecordId = _vVocabulary.GetRecordId(qrand() % _vVocabulary.GetRecordCount());

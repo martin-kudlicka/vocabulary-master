@@ -1,6 +1,6 @@
 #include "vocabularymanagerdialog/wordsimportdialog/wordsimporteditordelegate.h"
 
-#include "vocabularymanagerdialog/spinboxdelegate.h"
+#include "vocabularymanagerdialog/prioritydelegate.h"
 #include <QtGui/QSpinBox>
 #include <QtGui/QLineEdit>
 
@@ -12,8 +12,8 @@ QWidget *WordsImportEditorDelegate::createEditor(QWidget *parent, const QStyleOp
 		VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
 		if (efbBuiltIn == VocabularyDatabase::FieldBuiltInPriority) {
 			QSpinBox *qsbEditor = new QSpinBox(parent);
-			qsbEditor->setMinimum(SpinBoxDelegate::RECORD_PRIORITY_MIN);
-			qsbEditor->setMaximum(SpinBoxDelegate::RECORD_PRIORITY_MAX);
+			qsbEditor->setMinimum(PriorityDelegate::RECORD_PRIORITY_MIN);
+			qsbEditor->setMaximum(PriorityDelegate::RECORD_PRIORITY_MAX);
 			return qsbEditor;
 		} // if
 	} else {

@@ -10,7 +10,7 @@
 #ifndef FREE
 # include "common/vocabularyopenprogressdialog.h"
 # include "vocabularymanagerdialog/wordsexportdialog.h"
-# include "vocabularymanagerdialog/spinboxdelegate.h"
+# include "vocabularymanagerdialog/prioritydelegate.h"
 # include "vocabularymanagerdialog/wordcopymovedialog.h"
 #endif
 
@@ -444,7 +444,7 @@ const void VocabularyManagerDialog::SetPriorityDelegate(VocabularyView *pTableVi
 		if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
 			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
 			if (efbBuiltIn == VocabularyDatabase::FieldBuiltInPriority) {
-				SpinBoxDelegate *sbpdPriorityDelegate = new SpinBoxDelegate(pTableView);
+				PriorityDelegate *sbpdPriorityDelegate = new PriorityDelegate(pTableView);
 				pTableView->setItemDelegateForColumn(iColumn, sbpdPriorityDelegate);
             } else {
                 pTableView->setItemDelegateForColumn(iColumn, NULL);
