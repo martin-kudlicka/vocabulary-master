@@ -92,7 +92,7 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
 	QStringList qslPatterns;
 	for (int iPattern = 0; iPattern < _vVocabulary->GetFieldCount(); iPattern++) {
 		QModelIndex qmiIndex = _wifmFieldsModel.index(iPattern, WordsImportFieldsModel::ColumnEditor);
-		QString qsData = _wifmFieldsModel.data(qmiIndex).toString();
+		QString qsData = _wifmFieldsModel.data(qmiIndex, Qt::EditRole).toString();
 		qslPatterns.append(qsData);
 	} // for
 

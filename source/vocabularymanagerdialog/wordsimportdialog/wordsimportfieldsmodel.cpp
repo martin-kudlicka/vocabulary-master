@@ -50,6 +50,7 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 					switch (efbBuiltIn) {
 						case VocabularyDatabase::FieldBuiltInEnabled:
 							switch (role) {
+								case Qt::EditRole:
 								case Qt::CheckStateRole:
 									if (_qslEditorData.at(index.row()).isEmpty()) {
 										return Qt::Checked;
@@ -73,7 +74,6 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 					} // switch
 				} else {
 					switch (role) {
-						case Qt::DisplayRole:
 						case Qt::EditRole:
 							return _qslEditorData.at(index.row());
 						default:
