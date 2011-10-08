@@ -41,7 +41,9 @@ class Vocabulary : public VocabularyDatabase
 		const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
 #ifndef FREE
+		const int GetRecordCount(const int &pCategoryId, const bool &pEnabled) const;
 		const int GetRecordCount(const bool &pEnabled) const;
+		const bool GetRecordEnabled(const int &pRecordId) const;
 #endif
         const int GetRecordId(const int &pRow) const;
         const int GetRecordId(const int &pCategoryId, const int &pRow) const;

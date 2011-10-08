@@ -58,7 +58,7 @@ const void WordsExportDialog::on_eiPlugin_VocabularyGetMarkText(const int &pReco
 
 const void WordsExportDialog::on_eiPlugin_VocabularyGetRecordCount(const int &pCategoryId, int *pCount) const
 {
-    *pCount = _vVocabulary->GetRecordCount(pCategoryId);
+    *pCount = _vVocabulary->GetRecordCount(pCategoryId, _qdweWordsExport.qcbExportEnabledOnly->isChecked());
 } // on_eiPlugin_VocabularyGetRecordCount
 
 const void WordsExportDialog::on_eiPlugin_VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const
