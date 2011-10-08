@@ -63,6 +63,7 @@ const void Vocabulary::EndEdit(const bool &pSave /* true */)
 const void Vocabulary::ClearCache()
 {
 	_tcrmCategoryRecords.clear();
+	_tfdmFieldData.clear();
 
     // clear large cache in background
     if (_trdhRecordData) {
