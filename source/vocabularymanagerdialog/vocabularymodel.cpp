@@ -20,9 +20,7 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 {
 	int iFieldId = _vVocabulary->GetFieldId(index.column());
 #ifndef FREE
-	VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-
-	if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+	if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
 		VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
 		switch (efbBuiltIn) {
 			case VocabularyDatabase::FieldBuiltInEnabled:
@@ -76,8 +74,7 @@ Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
 	Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index);
 
 	int iFieldId = _vVocabulary->GetFieldId(index.column());
-	VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-	if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+	if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
 		VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
 		switch (efbBuiltIn) {
 			case VocabularyDatabase::FieldBuiltInEnabled:

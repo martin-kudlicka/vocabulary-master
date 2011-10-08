@@ -24,8 +24,7 @@ const void WordsImportDialog::CreateFieldEditors()
 		bool bPersistentEditor = true;
 
 		int iFieldId = _vVocabulary->GetFieldId(iRow);
-		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-		if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+		if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
 			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
 			if (efbBuiltIn == VocabularyDatabase::FieldBuiltInEnabled) {
 				bPersistentEditor = false;

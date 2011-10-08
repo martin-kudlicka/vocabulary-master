@@ -214,8 +214,7 @@ const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool
 const bool MainWindow::GetRecordEnabled() const
 {
     foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
-        VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary.GetFieldAttributes(iFieldId);
-        if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+        if (_vVocabulary.FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
             VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary.GetFieldBuiltIn(iFieldId);
             switch (efbBuiltIn) {
                 case VocabularyDatabase::FieldBuiltInEnabled:
@@ -230,8 +229,7 @@ const bool MainWindow::GetRecordEnabled() const
 const int MainWindow::GetRecordPriority() const
 {
     foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
-        VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary.GetFieldAttributes(iFieldId);
-        if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+        if (_vVocabulary.FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
             VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary.GetFieldBuiltIn(iFieldId);
             switch (efbBuiltIn) {
                 case VocabularyDatabase::FieldBuiltInPriority:
@@ -612,7 +610,7 @@ const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) 
         // get text to speech
         QString qsText;
         foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
-            if (_vVocabulary.GetFieldLanguage(iFieldId) == eflLanguage && _vVocabulary.GetFieldAttributes(iFieldId) & VocabularyDatabase::FieldAttributeSpeech) {
+            if (_vVocabulary.GetFieldLanguage(iFieldId) == eflLanguage && _vVocabulary.FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeSpeech)) {
                 if (!qsText.isEmpty()) {
                     qsText += ' ';
                 } // if

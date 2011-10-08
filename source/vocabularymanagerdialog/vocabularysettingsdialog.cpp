@@ -18,18 +18,17 @@ const void VocabularySettingsDialog::ActualizeFieldsEditor() const
 const void VocabularySettingsDialog::ActualizeFieldsEditor(const int &pRow) const
 {
 	int iFieldId = _vVocabulary->GetFieldId(pRow);
-	VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
 
 	QModelIndex qmiIndex = _fmFieldsModel.index(pRow, FieldsModel::ColumnTemplateName);
 	_qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
 	qmiIndex = _fmFieldsModel.index(pRow, FieldsModel::ColumnName);
-	if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+	if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
 		_qdvsdVocabularySettingsDialog.qtvFields->closePersistentEditor(qmiIndex);
 	} else {
 		_qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
 	} // if else
 	qmiIndex = _fmFieldsModel.index(pRow, FieldsModel::ColumnLanguage);
-	if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+	if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
 		_qdvsdVocabularySettingsDialog.qtvFields->closePersistentEditor(qmiIndex);
 	} else {
 		_qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
@@ -124,7 +123,7 @@ const void VocabularySettingsDialog::on_qtvFieldsSelectionModel_selectionChanged
     bool bBuiltIn;
     if (qismSelection->hasSelection()) {
         int iFieldId = _vVocabulary->GetFieldId(_qdvsdVocabularySettingsDialog.qtvFields->currentIndex().row());
-        bBuiltIn = _vVocabulary->GetFieldAttributes(iFieldId) & VocabularyDatabase::FieldAttributeBuiltIn;
+        bBuiltIn = _vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn);
     } // if
 
 	_qdvsdVocabularySettingsDialog.qpbFieldUp->setEnabled(qismSelection->hasSelection() && _qdvsdVocabularySettingsDialog.qtvFields->currentIndex().row() > 0);

@@ -36,7 +36,7 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
         case ColumnSpeech:
             switch (role) {
 				case Qt::CheckStateRole:
-                    if (_vVocabulary->GetFieldAttributes(iFieldId) & VocabularyDatabase::FieldAttributeSpeech) {
+                    if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeSpeech)) {
                         return Qt::Checked;
                     } else {
                         return Qt::Unchecked;
@@ -47,7 +47,7 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
         case ColumnShow:
             switch (role) {
                 case Qt::CheckStateRole:
-                    if (_vVocabulary->GetFieldAttributes(iFieldId) & VocabularyDatabase::FieldAttributeShow) {
+                    if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeShow)) {
                         return Qt::Checked;
                     } else {
                         return Qt::Unchecked;
