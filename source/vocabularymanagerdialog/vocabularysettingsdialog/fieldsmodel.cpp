@@ -20,7 +20,6 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 		case ColumnTemplateName:
 			switch (role) {
 				case Qt::DisplayRole:
-				case Qt::EditRole:
 					return _vVocabulary->GetFieldTemplateName(iFieldId);
 				default:
 					return QVariant();
@@ -28,7 +27,6 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 		case ColumnName:
 			switch (role) {
 				case Qt::DisplayRole:
-				case Qt::EditRole:
 					return _vVocabulary->GetFieldName(iFieldId);
 				default:
 					return QVariant();
@@ -57,8 +55,6 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 			} // switch
 		case ColumnLanguage:
 			switch (role) {
-				case Qt::DisplayRole:
-					return _vVocabulary->GetLanguageName(_vVocabulary->GetFieldLanguage(iFieldId));
 				case Qt::EditRole:
 					return _vVocabulary->GetFieldLanguage(iFieldId);
 				default:
