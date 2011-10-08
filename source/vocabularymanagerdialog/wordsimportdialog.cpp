@@ -178,6 +178,7 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
 
 	// setup progessbar
 	_qdwiWordsImport.qpbProgress->setValue(0);
+	_qdwiWordsImport.qpbProgress->setMaximum(1);
 
     _bImporting = false;
     EnableControls();
