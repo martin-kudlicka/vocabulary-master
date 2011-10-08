@@ -141,7 +141,22 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
         switch (pTarget) {
             case TargetPreview:
                 for (int iColumn = 0; iColumn < _vVocabulary->GetFieldCount(); iColumn++) {
-					QTableWidgetItem *qtwiTableItem = new QTableWidgetItem(qslData.at(iColumn));
+					QTableWidgetItem *qtwiTableItem;
+
+					int iFieldId = _vVocabulary->GetFieldId(iColumn);
+					switch (_vVocabulary->GetFieldType(iFieldId)) {
+						case VocabularyDatabase::FieldTypeLineEdit:
+							qtwiTableItem = new QTableWidgetItem(qslData.at(iColumn));
+							break;
+						case VocabularyDatabase::FieldTypeCheckBox:
+							qtwiTableItem = new QTableWidgetItem();
+							qtwiTableItem->setCheckState(static_cast<Qt::CheckState>(qslData.at(iColumn).toInt()));
+							qtwiTableItem->setFlags(qtwiTableItem->flags() | Qt::ItemIsUserCheckable);
+							break;
+						case VocabularyDatabase::FieldTypeSpinBox:
+							qtwiTableItem = new QTableWidgetItem(qslData.at(iColumn));
+					} // switch
+
 					qtwiTableItem->setFlags(qtwiTableItem->flags() ^ Qt::ItemIsEditable);
 					_qdwiWordsImport.qtwPreview->setItem(iRecord - iSkipCount, iColumn, qtwiTableItem);
 				} // for
