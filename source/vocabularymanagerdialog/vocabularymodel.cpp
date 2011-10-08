@@ -46,7 +46,6 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 		case VocabularyDatabase::FieldTypeSpinBox:
 			switch (role) {
 				case Qt::DisplayRole:
-				case Qt::EditRole:
 					{
 						QString qsPriority = _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
 						if (qsPriority.isEmpty()) {
