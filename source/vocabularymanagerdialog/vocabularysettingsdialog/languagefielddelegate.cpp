@@ -5,10 +5,9 @@
 QWidget *LanguageFieldDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	int iFieldId = _vVocabulary->GetFieldId(index.row());
-	VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
 
 	VocabularyDatabase::tLanguageIdList tlilIds;
-	if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+	if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
 		tlilIds = _vVocabulary->GetLanguageIds(VocabularyDatabase::LanguageIdsAllOnly);
 	} else {
 		tlilIds = _vVocabulary->GetLanguageIds(VocabularyDatabase::LanguageIdsUserDefined);

@@ -24,8 +24,7 @@ void VocabularyView::mouseMoveEvent(QMouseEvent *event)
     _qmiMoveOld = qmiMouse;
 
     int iFieldId = _vVocabulary->GetFieldId(qmiMouse.column());
-    VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-    if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+    if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
         VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
         if (efbBuiltIn == VocabularyDatabase::FieldBuiltInPriority) {
             update(qmiMouse);
@@ -43,8 +42,7 @@ void VocabularyView::mousePressEvent(QMouseEvent *event)
 
     if (qmiOld != qmiNew && event->button() == Qt::LeftButton) {
         int iFieldId = _vVocabulary->GetFieldId(qmiNew.column());
-        VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-        if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+        if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
             VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
             if (efbBuiltIn == VocabularyDatabase::FieldBuiltInPriority) {
                 QSpinBox *qsbEditor = qobject_cast<QSpinBox *>(indexWidget(qmiNew));

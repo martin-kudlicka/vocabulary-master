@@ -19,6 +19,7 @@ class Vocabulary : public VocabularyDatabase
 #endif
         const void BeginEdit();
         const void EndEdit(const bool &pSave = true);
+		const bool FieldHasAttribute(const int &pFieldId, const eFieldAttribute &pAttribute) const;
         const tCategoryIdList GetCategoryIds() const;
         const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
         const QString GetDataText(const int &pRecordId, const int &pFieldId) const;

@@ -72,6 +72,12 @@ const void Vocabulary::ClearCache()
     } // if
 } // ClearCache
 
+const bool Vocabulary::FieldHasAttribute(const int &pFieldId, const eFieldAttribute &pAttribute) const
+{
+	qfFieldAttributes qfaAttributes = GetFieldAttributes(pFieldId);
+	return qfaAttributes & pAttribute;
+} // FieldHasAttribute
+
 const VocabularyDatabase::tCategoryIdList Vocabulary::GetCategoryIds() const
 {
     return _tcrmCategoryRecords.keys();

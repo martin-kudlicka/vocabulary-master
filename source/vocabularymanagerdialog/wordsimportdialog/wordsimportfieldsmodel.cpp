@@ -43,9 +43,8 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 		case ColumnEditor:
 			{
 				int iFieldId = _vVocabulary->GetFieldId(index.row());
-				VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
 
-				if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+				if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
 					VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
 					switch (efbBuiltIn) {
 						case VocabularyDatabase::FieldBuiltInEnabled:

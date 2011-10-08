@@ -116,8 +116,7 @@ const void VocabularyManagerDialog::HideColumns(VocabularyView *pTableView) cons
 {
 	int iColumn = 0;
 	foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
-		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-		if (qfaAttributes & VocabularyDatabase::FieldAttributeShow) {
+		if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeShow)) {
 			pTableView->showColumn(iColumn);
 		} else {
 			pTableView->hideColumn(iColumn);
@@ -440,8 +439,7 @@ const void VocabularyManagerDialog::SetPriorityDelegate(VocabularyView *pTableVi
 {
 	for (int iColumn = 0; iColumn < pTableView->horizontalHeader()->count(); iColumn++) {
 		int iFieldId = _vVocabulary->GetFieldId(iColumn);
-		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-		if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+		if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
 			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
 			if (efbBuiltIn == VocabularyDatabase::FieldBuiltInPriority) {
 				PriorityDelegate *sbpdPriorityDelegate = new PriorityDelegate(pTableView);
@@ -469,8 +467,7 @@ const void VocabularyManagerDialog::StretchColumns(const VocabularyView *pTableV
 	for (int iColumn = 0; iColumn < pTableView->horizontalHeader()->count(); iColumn++) {
 #ifndef FREE
 		int iFieldId = _vVocabulary->GetFieldId(iColumn);
-		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-		if (qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+		if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
 			pTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Fixed);
             pTableView->horizontalHeader()->resizeSection(iColumn, BUILTIN_COLUMN_SIZE);
 		} else {
