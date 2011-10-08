@@ -19,51 +19,47 @@ int VocabularyModel::columnCount(const QModelIndex &parent /* QModelIndex() */) 
 QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
 	int iFieldId = _vVocabulary->GetFieldId(index.column());
+
+	switch (_vVocabulary->GetFieldType(iFieldId)) {
+		case VocabularyDatabase::FieldTypeLineEdit:
+			switch (role) {
+				case Qt::DisplayRole:
+					return _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
+				default:
+					return QVariant();
+			} // switch
 #ifndef FREE
-	if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-		VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
-		switch (efbBuiltIn) {
-			case VocabularyDatabase::FieldBuiltInEnabled:
-				switch (role) {
-					case Qt::CheckStateRole:
-						{
-							QString qsChecked = _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
-							if (qsChecked.isEmpty()) {
-								return Qt::Checked;
-							} else {
-								return qsChecked.toInt();
-							} // if else
-						}
-					default:
-						return QVariant();
-				} // switch
-			case VocabularyDatabase::FieldBuiltInPriority:
-				switch (role) {
-					case Qt::DisplayRole:
-					case Qt::EditRole:
-						{
-							QString qsPriority = _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
-							if (qsPriority.isEmpty()) {
-								return PriorityDelegate::RECORD_PRIORITY_MIN;
-							} else {
-								return qsPriority.toInt();
-							} // if else
-						}
-					default:
-						return QVariant();
-				} // switch
-		} // switch
-	} else {
+		case VocabularyDatabase::FieldTypeCheckBox:
+			switch (role) {
+				case Qt::CheckStateRole:
+					{
+						QString qsChecked = _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
+						if (qsChecked.isEmpty()) {
+							return Qt::Checked;
+						} else {
+							return qsChecked.toInt();
+						} // if else
+					}
+				default:
+					return QVariant();
+			} // switch
+		case VocabularyDatabase::FieldTypeSpinBox:
+			switch (role) {
+				case Qt::DisplayRole:
+				case Qt::EditRole:
+					{
+						QString qsPriority = _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
+						if (qsPriority.isEmpty()) {
+							return PriorityDelegate::RECORD_PRIORITY_MIN;
+						} else {
+							return qsPriority.toInt();
+						} // if else
+					}
+				default:
+					return QVariant();
+			} // switch
 #endif
-		switch (role) {
-			case Qt::DisplayRole:
-				return _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
-			default:
-				return QVariant();
-		} // switch
-#ifndef FREE
-	} // if else
-#endif
+	} // switch
 
 	return QVariant();
 } // data
