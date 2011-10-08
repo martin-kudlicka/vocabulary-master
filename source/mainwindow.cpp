@@ -211,21 +211,6 @@ const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool
 } // GetLearningText
 
 #ifndef FREE
-const bool MainWindow::GetRecordEnabled() const
-{
-    foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
-        if (_vVocabulary.FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-            VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary.GetFieldBuiltIn(iFieldId);
-            switch (efbBuiltIn) {
-                case VocabularyDatabase::FieldBuiltInEnabled:
-                    return _vVocabulary.GetDataText(_iCurrentRecordId, iFieldId).toInt();
-            } // switch
-        } // if
-    } // foreach
-
-    return false;
-} // GetRecordEnabled
-
 const int MainWindow::GetRecordPriority() const
 {
     foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
@@ -698,7 +683,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 					iNextRecordTry++;
 				} // if else
 
-				if (!GetRecordEnabled() || GetRecordPriority() > iMaxRecordPriority) {
+				if (!_vVocabulary.GetRecordEnabled(_iCurrentRecordId) || GetRecordPriority() > iMaxRecordPriority) {
 					continue;
 				} // if
 #endif

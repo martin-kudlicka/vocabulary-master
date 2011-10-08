@@ -90,7 +90,6 @@ class MainWindow : public QMainWindow
 		const bool GetLearningDirection() const;
         const QString GetLearningText(const eTemplate &pTemplate, const bool &pDirectionSwitched, const bool &pAnswer) const;
 #ifndef FREE
-        const bool GetRecordEnabled() const;
         const int GetRecordPriority() const;
 #endif
         const void OpenVocabulary(

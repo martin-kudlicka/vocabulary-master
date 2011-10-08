@@ -209,18 +209,53 @@ const int Vocabulary::GetRecordCount(const int &pCategoryId) const
 } // GetRecordCount
 
 #ifndef FREE
-const int Vocabulary::GetRecordCount(const bool &pEnabled) const
+const int Vocabulary::GetRecordCount(const int &pCategoryId, const bool &pEnabled) const
 {
 	int iRecordCount = 0;
-	tCategoryIdList tcilCategoryIds = GetCategoryIds();
-	foreach (int iCategoryId, tcilCategoryIds) {
-		if (GetCategoryEnabled(iCategoryId)) {
-			iRecordCount += GetRecordCount(iCategoryId);
+
+	tRecordIdList trilRecordIds = _tcrmCategoryRecords.value(pCategoryId);
+	foreach (int iRecordId, trilRecordIds) {
+		if (GetRecordEnabled(iRecordId)) {
+			iRecordCount++;
 		} // if
 	} // foreach
 
 	return iRecordCount;
 } // GetRecordCount
+
+const int Vocabulary::GetRecordCount(const bool &pEnabled) const
+{
+	int iRecordCount = 0;
+
+	tCategoryIdList tcilCategoryIds = GetCategoryIds();
+	foreach (int iCategoryId, tcilCategoryIds) {
+		if (GetCategoryEnabled(iCategoryId)) {
+			iRecordCount += GetRecordCount(iCategoryId, pEnabled);
+		} // if
+	} // foreach
+
+	return iRecordCount;
+} // GetRecordCount
+
+const bool Vocabulary::GetRecordEnabled(const int &pRecordId) const
+{
+	foreach (int iFieldId, GetFieldIds()) {
+		if (FieldHasAttribute(iFieldId, FieldAttributeBuiltIn)) {
+			eFieldBuiltIn efbBuiltIn = GetFieldBuiltIn(iFieldId);
+			switch (efbBuiltIn) {
+				case VocabularyDatabase::FieldBuiltInEnabled:
+					QString qsData = GetDataText(pRecordId, iFieldId);
+					if (qsData.isNull()) {
+						return true;
+					} else {
+						return qsData.toInt();
+					} // if else
+			} // switch
+		} // if
+	} // foreach
+
+	return false;
+} // GetRecordEnabled
 #endif
 
 const int Vocabulary::GetRecordId(const int &pRow) const
