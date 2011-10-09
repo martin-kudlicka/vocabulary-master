@@ -598,14 +598,14 @@ const void VocabularyDatabase::Initialize() const
         QString(), QString(), TTSInterface::TTPluginNone, QString()
 #endif
         );
-    AddField(tr("Enabled"), "", FieldTypeCheckBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
-    AddField(tr("Priority"), "", FieldTypeSpinBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInPriority, FieldLanguageAll);
 #ifdef FREE
     AddField(FIELD_WORD1, FIELD_WORD1, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageLeft);
     AddField(FIELD_NOTE1, FIELD_NOTE1, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageLeft);
     AddField(FIELD_WORD2, FIELD_WORD2, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageRight);
     AddField(FIELD_NOTE2, FIELD_NOTE2, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageRight);
 #endif
+	AddField(tr("Enabled"), "", FieldTypeCheckBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
+	AddField(tr("Priority"), "", FieldTypeSpinBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInPriority, FieldLanguageAll);
 
 #ifndef TRY
     SetSettings(KEY_VERSION, QString::number(Version2));
