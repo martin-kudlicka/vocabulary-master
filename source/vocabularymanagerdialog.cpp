@@ -23,7 +23,11 @@ VocabularyManagerDialog::~VocabularyManagerDialog()
 
 const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
 {
-    VocabularyView *vvVocabularyView = new VocabularyView(_vVocabulary, _qdvmVocabularyManager.vtwTabs);
+    VocabularyView *vvVocabularyView = new VocabularyView(
+#ifndef FREE
+		_vVocabulary,
+#endif
+		_qdvmVocabularyManager.vtwTabs);
 	vvVocabularyView->setSelectionBehavior(QAbstractItemView::SelectRows);
     vvVocabularyView->setModel(new VocabularyModel(_vVocabulary, pCategoryId, vvVocabularyView));
 #ifndef FREE

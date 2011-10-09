@@ -441,9 +441,11 @@ const void MainWindow::on_qaOpen_triggered(bool checked /* false */)
         if (_iTimerQuestion != 0) {
             on_qaStop_triggered();
         } // if
+#ifndef FREE
 		if (_sSettings.GetStartLearningOnStartup()) {
 			on_qaStart_triggered();
 		} // if
+#endif
     } // if
 } // on_qaOpen_triggered
 #endif

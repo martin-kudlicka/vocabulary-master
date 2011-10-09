@@ -95,12 +95,12 @@ const QString Vocabulary::GetDataText(const int &pRecordId, const int &pFieldId)
     return _trdhRecordData->value(pRecordId).value(pFieldId);
 } // GetDataText
 
+#ifndef FREE
 const VocabularyDatabase::qfFieldAttributes Vocabulary::GetFieldAttributes(const int &pFieldId) const
 {
     return _tfdmFieldData.value(pFieldId).qfaAttributes;
 } // GetFieldAttributes
 
-#ifndef FREE
 const VocabularyDatabase::eFieldBuiltIn Vocabulary::GetFieldBuiltIn(const int &pFieldId) const
 {
     return _tfdmFieldData.value(pFieldId).efbBuiltIn;
@@ -118,8 +118,8 @@ const Vocabulary::sFieldData Vocabulary::GetFieldData(const int &pFieldId) const
 
     sfdFieldData.qsTemplateName = VocabularyDatabase::GetFieldTemplateName(pFieldId);
     sfdFieldData.qsName = VocabularyDatabase::GetFieldName(pFieldId);
+	sfdFieldData.eftType = VocabularyDatabase::GetFieldType(pFieldId);
 #ifndef FREE
-    sfdFieldData.eftType = VocabularyDatabase::GetFieldType(pFieldId);
     sfdFieldData.qfaAttributes = VocabularyDatabase::GetFieldAttributes(pFieldId);
     sfdFieldData.efbBuiltIn = VocabularyDatabase::GetFieldBuiltIn(pFieldId);
 #endif
@@ -162,12 +162,12 @@ const QString Vocabulary::GetFieldTemplateName(const int &pFieldId) const
     return _tfdmFieldData.value(pFieldId).qsTemplateName;
 } // GetFieldTemplateName
 
-#ifndef FREE
 const VocabularyDatabase::eFieldType Vocabulary::GetFieldType(const int &pFieldId) const
 {
     return _tfdmFieldData.value(pFieldId).eftType;
 } // GetFieldType
 
+#ifndef FREE
 const QStringList Vocabulary::GetRecord(const int &pRecordId) const
 {
     QStringList qslData;
@@ -375,13 +375,13 @@ const void Vocabulary::SetDataText(const int &pRecordId, const int &pFieldId, co
     VocabularyDatabase::SetDataText(pRecordId, pFieldId, pData);
 } // SetDataText
 
+#ifndef FREE
 const void Vocabulary::SetFieldAttributes(const int &pFieldId, const VocabularyDatabase::qfFieldAttributes &pAttributes)
 {
     _tfdmFieldData[pFieldId].qfaAttributes = pAttributes;
     VocabularyDatabase::SetFieldAttributes(pFieldId, pAttributes);
 } // SetFieldAttributes
 
-#ifndef FREE
 const void Vocabulary::SetFieldLanguage(const int &pFieldId, const VocabularyDatabase::eFieldLanguage &pLanguage)
 {
     _tfdmFieldData[pFieldId].eflLanguage = pLanguage;

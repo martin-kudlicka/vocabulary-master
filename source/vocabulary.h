@@ -23,8 +23,8 @@ class Vocabulary : public VocabularyDatabase
         const tCategoryIdList GetCategoryIds() const;
         const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
         const QString GetDataText(const int &pRecordId, const int &pFieldId) const;
-        const qfFieldAttributes GetFieldAttributes(const int &pFieldId) const;
 #ifndef FREE
+		const qfFieldAttributes GetFieldAttributes(const int &pFieldId) const;
         const eFieldBuiltIn GetFieldBuiltIn(const int &pFieldId) const;
 #endif
         const int GetFieldCount() const;
@@ -33,8 +33,8 @@ class Vocabulary : public VocabularyDatabase
         const eFieldLanguage GetFieldLanguage(const int &pFieldId) const;
         const QString GetFieldName(const int &pFieldId) const;
         const QString GetFieldTemplateName(const int &pFieldId) const;
+		const eFieldType GetFieldType(const int &pFieldId) const;
 #ifndef FREE
-        const eFieldType GetFieldType(const int &pFieldId) const;
         const QStringList GetRecord(const int &pRecordId) const;
 #endif
         const int GetRecordCategory(const int &pRecordId) const;
@@ -60,8 +60,8 @@ class Vocabulary : public VocabularyDatabase
 #endif
 		const void RemoveRecord(const int &pCategoryId, const int &pRow);
         const void SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData);
-        const void SetFieldAttributes(const int &pFieldId, const qfFieldAttributes &pAttributes);
 #ifndef FREE
+		const void SetFieldAttributes(const int &pFieldId, const qfFieldAttributes &pAttributes);
         const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage);
         const void SetFieldName(const int &pFieldId, const QString &pName);
         const void SetFieldTemplateName(const int &pFieldId, const QString &pTemplateName);
@@ -73,8 +73,8 @@ class Vocabulary : public VocabularyDatabase
         struct sFieldData {
             QString qsTemplateName;
             QString qsName;
-#ifndef FREE
             eFieldType eftType;
+#ifndef FREE
             qfFieldAttributes qfaAttributes;
             eFieldBuiltIn efbBuiltIn;
 #endif
