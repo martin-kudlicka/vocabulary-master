@@ -95,12 +95,12 @@ const QString Vocabulary::GetDataText(const int &pRecordId, const int &pFieldId)
     return _trdhRecordData->value(pRecordId).value(pFieldId);
 } // GetDataText
 
-#ifndef FREE
 const VocabularyDatabase::qfFieldAttributes Vocabulary::GetFieldAttributes(const int &pFieldId) const
 {
     return _tfdmFieldData.value(pFieldId).qfaAttributes;
 } // GetFieldAttributes
 
+#ifndef FREE
 const VocabularyDatabase::eFieldBuiltIn Vocabulary::GetFieldBuiltIn(const int &pFieldId) const
 {
     return _tfdmFieldData.value(pFieldId).efbBuiltIn;
@@ -119,8 +119,8 @@ const Vocabulary::sFieldData Vocabulary::GetFieldData(const int &pFieldId) const
     sfdFieldData.qsTemplateName = VocabularyDatabase::GetFieldTemplateName(pFieldId);
     sfdFieldData.qsName = VocabularyDatabase::GetFieldName(pFieldId);
 	sfdFieldData.eftType = VocabularyDatabase::GetFieldType(pFieldId);
+	sfdFieldData.qfaAttributes = VocabularyDatabase::GetFieldAttributes(pFieldId);
 #ifndef FREE
-    sfdFieldData.qfaAttributes = VocabularyDatabase::GetFieldAttributes(pFieldId);
     sfdFieldData.efbBuiltIn = VocabularyDatabase::GetFieldBuiltIn(pFieldId);
 #endif
     sfdFieldData.eflLanguage = VocabularyDatabase::GetFieldLanguage(pFieldId);
