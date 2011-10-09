@@ -254,7 +254,7 @@ const bool Vocabulary::GetRecordEnabled(const int &pRecordId) const
 		} // if
 	} // foreach
 
-	return false;
+	return true;
 } // GetRecordEnabled
 #endif
 
