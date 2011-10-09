@@ -920,18 +920,10 @@ const void VocabularyDatabase::UpdateDatabase()
         _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_BUILTIN + " = " + QString::number(FieldBuiltInNone));
 
         // add enable/disable field
-        int iNewFieldId = AddField(tr("Enabled"), "", FieldTypeCheckBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
-		// enable all data
-		foreach (int iRecordId, GetRecordIds()) {
-			SetDataText(iRecordId, iNewFieldId, QString::number(Qt::Checked));
-		} // foreach
+        AddField(tr("Enabled"), "", FieldTypeCheckBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
 
 		// add priority field
-		iNewFieldId = AddField(tr("Priority"), "", FieldTypeSpinBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInPriority, FieldLanguageAll);
-		// default priority to all data
-		foreach (int iRecordId, GetRecordIds()) {
-			SetDataText(iRecordId, iNewFieldId, QString::number(PRIORITY_DEFAULT));
-		} // foreach
+		AddField(tr("Priority"), "", FieldTypeSpinBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInPriority, FieldLanguageAll);
 
         SetSettings(KEY_VERSION, QString::number(Version2));
     } // if
