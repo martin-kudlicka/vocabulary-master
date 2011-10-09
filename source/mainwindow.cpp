@@ -439,8 +439,11 @@ const void MainWindow::on_qaOpen_triggered(bool checked /* false */)
         RefreshStatusBar();
 
         if (_iTimerQuestion != 0) {
-            on_qaNext_triggered();
+            on_qaStop_triggered();
         } // if
+		if (_sSettings.GetStartLearningOnStartup()) {
+			on_qaStart_triggered();
+		} // if
     } // if
 } // on_qaOpen_triggered
 #endif
