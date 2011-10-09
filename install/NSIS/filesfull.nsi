@@ -30,4 +30,4 @@ SetOutPath "$INSTDIR\plugins\tts-sapi"
 file ..\output\Release\tts-sapi.dll
 ; Qt files
 SetOutPath "$INSTDIR"
-file \Programy\Qt\4.7.3\bin\QtTest4.dll
+file \Programy\Qt\4.7.4\bin\QtTest4.dll
