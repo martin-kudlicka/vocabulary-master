@@ -53,8 +53,8 @@ class VocabularyManagerDialog : public QDialog
         const void FocusOnRecord(const int &pRecordId) const;
 #ifndef FREE
 		const void HideColumns() const;
-		const void HideColumns(VocabularyView *pTableView) const;
 #endif
+		const void HideColumns(VocabularyView *pTableView) const;
 		const void InitEditor();
         const void InitTabs();
 #ifndef FREE

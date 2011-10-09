@@ -30,8 +30,8 @@ const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
 		_qdvmVocabularyManager.vtwTabs);
 	vvVocabularyView->setSelectionBehavior(QAbstractItemView::SelectRows);
     vvVocabularyView->setModel(new VocabularyModel(_vVocabulary, pCategoryId, vvVocabularyView));
-#ifndef FREE
     HideColumns(vvVocabularyView);
+#ifndef FREE
 	SetPriorityDelegate(vvVocabularyView);
     vvVocabularyView->setEditTriggers(QAbstractItemView::AllEditTriggers);
 #endif
@@ -115,12 +115,17 @@ const void VocabularyManagerDialog::HideColumns() const
 		HideColumns(qtvVocabularyView);
 	} // for
 } // HideColumns
+#endif
 
 const void VocabularyManagerDialog::HideColumns(VocabularyView *pTableView) const
 {
 	int iColumn = 0;
 	foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
+#ifdef FREE
+		if (!_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
+#else
 		if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeShow)) {
+#endif
 			pTableView->showColumn(iColumn);
 		} else {
 			pTableView->hideColumn(iColumn);
@@ -129,7 +134,6 @@ const void VocabularyManagerDialog::HideColumns(VocabularyView *pTableView) cons
 		iColumn++;
 	} // foreach
 } // HideColumns
-#endif
 
 const void VocabularyManagerDialog::InitEditor()
 {
