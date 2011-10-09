@@ -130,9 +130,7 @@ class VocabularyDatabase : public QObject
         const eFieldLanguage GetFieldLanguage(const int &pFieldId) const;
         const QString GetFieldName(const int &pFieldId) const;
         const QString GetFieldTemplateName(const int &pFieldId) const;
-#ifndef FREE
         const eFieldType GetFieldType(const int &pFieldId) const;
-#endif
         /*const int GetRecordCategory(const int &pRecordId) const;
         const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;

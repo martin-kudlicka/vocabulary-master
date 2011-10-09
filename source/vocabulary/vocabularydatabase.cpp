@@ -356,7 +356,6 @@ const QString VocabularyDatabase::GetFieldTemplateName(const int &pFieldId) cons
     return QString();
 } // GetFieldTemplateName
 
-#ifndef FREE
 const VocabularyDatabase::eFieldType VocabularyDatabase::GetFieldType(const int &pFieldId) const
 {
 	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_TYPE + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
@@ -367,6 +366,7 @@ const VocabularyDatabase::eFieldType VocabularyDatabase::GetFieldType(const int 
 	return FieldTypeUnknown;
 } // GetFieldType
 
+#ifndef FREE
 const VocabularyDatabase::tLanguageIdList VocabularyDatabase::GetLanguageIds(const qfLanguageIds &pType) const
 {
     tLanguageIdList tlilIds;
@@ -607,7 +607,9 @@ const void VocabularyDatabase::Initialize() const
     AddField(FIELD_NOTE2, FIELD_NOTE2, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageRight);
 #endif
 
+#ifndef TRY
     SetSettings(KEY_VERSION, QString::number(Version2));
+#endif
 } // Initialize
 
 const bool VocabularyDatabase::IsOpen() const
