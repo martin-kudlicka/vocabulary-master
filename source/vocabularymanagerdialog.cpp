@@ -148,13 +148,15 @@ const void VocabularyManagerDialog::InitEditor()
             iFieldsRight++;
         } // if else
 
-#ifndef FREE
 		// check if visible or builtin field
 		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
-        if (!(qfaAttributes & VocabularyDatabase::FieldAttributeShow) || qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
+        if (
+#ifndef FREE
+			!(qfaAttributes & VocabularyDatabase::FieldAttributeShow) ||
+#endif
+			qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
 			continue;
 		} // if
-#endif
 
         // get field language
         if (_vVocabulary->GetFieldLanguage(iFieldId) == VocabularyDatabase::FieldLanguageLeft) {

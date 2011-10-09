@@ -23,8 +23,8 @@ class Vocabulary : public VocabularyDatabase
         const tCategoryIdList GetCategoryIds() const;
         const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
         const QString GetDataText(const int &pRecordId, const int &pFieldId) const;
-#ifndef FREE
 		const qfFieldAttributes GetFieldAttributes(const int &pFieldId) const;
+#ifndef FREE
         const eFieldBuiltIn GetFieldBuiltIn(const int &pFieldId) const;
 #endif
         const int GetFieldCount() const;
@@ -74,8 +74,8 @@ class Vocabulary : public VocabularyDatabase
             QString qsTemplateName;
             QString qsName;
             eFieldType eftType;
-#ifndef FREE
             qfFieldAttributes qfaAttributes;
+#ifndef FREE
             eFieldBuiltIn efbBuiltIn;
 #endif
             eFieldLanguage eflLanguage;
