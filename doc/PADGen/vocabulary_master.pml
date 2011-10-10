@@ -4,9 +4,9 @@
 	<CompanyName />
 	<Program_Info>
 		<Program_Name>Vocabulary Master</Program_Name>
-		<Program_Version>1.1.0.424</Program_Version>
-		<Program_Release_Month>09</Program_Release_Month>
-		<Program_Release_Day>05</Program_Release_Day>
+		<Program_Version>1.1.0.521</Program_Version>
+		<Program_Release_Month>10</Program_Release_Month>
+		<Program_Release_Day>10</Program_Release_Day>
 		<Program_Release_Year>2011</Program_Release_Year>
 		<Program_Cost_Dollars />
 		<Program_Cost_Other_Code />
@@ -16,14 +16,14 @@
 		<Program_Install_Support>Install and Uninstall</Program_Install_Support>
 		<Program_OS_Support>Win7 x32,Win7 x64,WinServer,WinVista,WinVista x64,WinXP</Program_OS_Support>
 		<Program_Language>English,Czech</Program_Language>
-		<Program_Change_Info />
+		<Program_Change_Info>* crash fix on export dialog, + category priorities, + custom new word sound, + show option in field editor, + record priorities, + copy/move records to another category, * Qt 4.7.4</Program_Change_Info>
 		<Program_Specific_Category>Education</Program_Specific_Category>
 		<Program_Category_Class>Education::Languages</Program_Category_Class>
 		<Program_System_Requirements />
 		<File_Info>
-			<File_Size_Bytes>5024156</File_Size_Bytes>
-			<File_Size_K>4906</File_Size_K>
-			<File_Size_MB>4.79</File_Size_MB>
+			<File_Size_Bytes>5059999</File_Size_Bytes>
+			<File_Size_K>4941</File_Size_K>
+			<File_Size_MB>4.83</File_Size_MB>
 		</File_Info>
 		<Expire_Info>
 			<Has_Expire_Info>N</Has_Expire_Info>
@@ -56,26 +56,6 @@ General
 – UNICODE support (ability to write into the dictionary in Russian, Japanese, etc.)
 – multi-language interface (English, Czech)</Char_Desc_2000>
 		</English>
-		<Czech>
-			<Keywords>slovník, cizí jazyk, výuka, slovíčka, elektronický slovník, učení</Keywords>
-			<Char_Desc_45>elektronický slovník</Char_Desc_45>
-			<Char_Desc_80>Vocabulary Master usnadňuje výuku slovíček a frází cizího jazyka.</Char_Desc_80>
-			<Char_Desc_250>Úkolem aplikace Vocabulary Master je usnadnit Vám výuku slovíček a frází cizího jazyka. Forma výuky je velmi jednoduchá a zároveň účelná – slovíčka a fráze jsou v pravidelných intervalech náhodně vybírány a zobrazovány v okně aplikace.</Char_Desc_250>
-			<Char_Desc_450>Úkolem aplikace Vocabulary Master je usnadnit Vám výuku slovíček a frází cizího jazyka. Forma výuky je velmi jednoduchá a zároveň účelná – slovíčka a fráze jsou v pravidelných intervalech náhodně vybírány a zobrazovány v okně aplikace. Tím jsou Vám neustále připomínány, což vede k jejich snadnějšímu zapamatování. Vocabulary Master obsahuje také vlastního správce slovíček, která lze navíc rozdělit do libovolného počtu kategorií.</Char_Desc_450>
-			<Char_Desc_2000>Úkolem aplikace Vocabulary Master je usnadnit Vám výuku slovíček a frází cizího jazyka. Forma výuky je velmi jednoduchá a zároveň účelná – slovíčka a fráze jsou v pravidelných intervalech náhodně vybírány a zobrazovány v okně aplikace. Tím jsou Vám neustále připomínány, což vede k jejich snadnějšímu zapamatování.
-
-Vocabulary Master obsahuje také vlastního správce slovíček, která lze navíc rozdělit do libovolného počtu kategorií.
-
-Vlastnosti:
-Výukové
-– volitelný časový interval výuky slovíček
-Správce slovníku
-– libovolný počet kategorií slovíček
-– vyhledávání slovíčka
-Obecné
-– podpora UNICODE (možnost zápisu do slovníku v ruštině, japonštině apod.)
-– vícejazykové rozhraní (angličtina, čeština)</Char_Desc_2000>
-		</Czech>
 	</Program_Descriptions>
 	<Web_Info>
 		<Application_URLs>
