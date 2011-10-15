@@ -263,10 +263,11 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
     // gui
 	_umwMainWindow.setupUi(this);
-    _umwMainWindow.qlLanguage1->hide();
-    _umwMainWindow.qlLanguage2->hide();
-    _umwMainWindow.qlCategory->hide();
 #ifdef FREE
+	_umwMainWindow.qlLanguage1->hide();
+	_umwMainWindow.qlLanguage2->hide();
+	_umwMainWindow.qlCategory->hide();
+
 	_umwMainWindow.qaFindInVocabulary->setVisible(false);
     _umwMainWindow.qaAnswer->setVisible(false);
     _umwMainWindow.qaMute->setVisible(false);
@@ -473,7 +474,11 @@ const void MainWindow::on_qaStart_triggered(bool checked /* false */)
 	_iTimerQuestion = startTimer(_sSettings.GetWordsFrequency() * MILISECONDS_PER_SECOND);
 
 	EnableControls();
-    _umwMainWindow.qlCategory->show();
+#ifdef FREE
+	_umwMainWindow.qlCategory->show();
+#else
+    _umwMainWindow.qlCategory->setVisible(_sSettings.GetShowCategoryName());
+#endif
 
     _iCurrentRecordId = RECORD_NONE;
 	timerEvent(&QTimerEvent(_iTimerQuestion));
@@ -640,19 +645,19 @@ const void MainWindow::SetLayout()
         delete _umwMainWindow.qwCentral->layout();
     } // if
 
-    QBoxLayout *qblMain = new QVBoxLayout(_umwMainWindow.qwCentral);
+    QVBoxLayout *qvblMain = new QVBoxLayout(_umwMainWindow.qwCentral);
 #ifndef FREE
     if (_sSettings.GetHorizontalLayout()) {
-        qblMain->addWidget(_umwMainWindow.qlCategory);
+        qvblMain->addWidget(_umwMainWindow.qlCategory);
         QHBoxLayout *qhblInner = new QHBoxLayout;
         qhblInner->addWidget(_umwMainWindow.qvblQuestion->parentWidget());
         qhblInner->addWidget(_umwMainWindow.qvblAnswer->parentWidget());
-        qblMain->addLayout(qhblInner);
+        qvblMain->addLayout(qhblInner);
     } else {
 #endif
-        qblMain->addWidget(_umwMainWindow.qvblQuestion->parentWidget());
-        qblMain->addWidget(_umwMainWindow.qlCategory);
-        qblMain->addWidget(_umwMainWindow.qvblAnswer->parentWidget());
+        qvblMain->addWidget(_umwMainWindow.qvblQuestion->parentWidget());
+        qvblMain->addWidget(_umwMainWindow.qlCategory);
+        qvblMain->addWidget(_umwMainWindow.qvblAnswer->parentWidget());
 #ifndef FREE
     } // if else
 #endif
