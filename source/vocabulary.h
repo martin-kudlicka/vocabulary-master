@@ -60,6 +60,7 @@ class Vocabulary : public VocabularyDatabase
 #endif
 		const void RemoveRecord(const int &pCategoryId, const int &pRow);
         const void SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData);
+		const void SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData);
 #ifndef FREE
 		const void SetFieldAttributes(const int &pFieldId, const qfFieldAttributes &pAttributes);
         const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage);
@@ -93,7 +94,6 @@ class Vocabulary : public VocabularyDatabase
 		const void ClearCache();
         const sFieldData GetFieldData(const int &pFieldId) const;
 		const void InitCache();
-        const void SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData);
 }; // VocabularyDatabase
 
 #endif // VOCABULARY_H
