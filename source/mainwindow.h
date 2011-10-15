@@ -106,6 +106,7 @@ class MainWindow : public QMainWindow
 #endif
         const void SetLayout();
 #ifndef FREE
+		const void SetRecordEnabled(const bool &pEnabled);
 		const void SetRecordPriority(const int &pPriority);
 		const void SetupRecordControls() const;
 		const void ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer);
@@ -134,6 +135,7 @@ class MainWindow : public QMainWindow
 		const void on_qaStart_triggered(bool checked = false);
 		const void on_qaStop_triggered(bool checked = false);
 #ifndef FREE
+		const void on_qcbRecordEnabled_clicked(bool checked = false);
 		const void on_qmTray_triggered(QAction *action);
 		const void on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason reason);
 		const void on_qtbPriority1_clicked(bool checked = false);

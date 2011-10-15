@@ -503,6 +503,11 @@ const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 } // on_qaStop_triggered
 
 #ifndef FREE
+const void MainWindow::on_qcbRecordEnabled_clicked(bool checked /* false */)
+{
+	SetRecordEnabled(checked);
+} // on_qcbRecordEnabled_clicked
+
 const void MainWindow::on_qmTray_triggered(QAction *action)
 {
     if (action == _qaTrayManage) {
@@ -732,6 +737,20 @@ const void MainWindow::SetLayout()
 } // SetLayout
 
 #ifndef FREE
+const void MainWindow::SetRecordEnabled(const bool &pEnabled)
+{
+	foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
+		if (_vVocabulary.FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
+			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary.GetFieldBuiltIn(iFieldId);
+			switch (efbBuiltIn) {
+				case VocabularyDatabase::FieldBuiltInEnabled:
+					_vVocabulary.SetDataText(_iCurrentRecordId, iFieldId, QString::number(pEnabled ? Qt::Checked : Qt::Unchecked));
+					return;
+			} // switch
+		} // if
+	} // foreach
+} // SetRecordEnabled
+
 const void MainWindow::SetRecordPriority(const int &pPriority)
 {
 	foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
@@ -740,6 +759,7 @@ const void MainWindow::SetRecordPriority(const int &pPriority)
 			switch (efbBuiltIn) {
 				case VocabularyDatabase::FieldBuiltInPriority:
 					_vVocabulary.SetDataText(_iCurrentRecordId, iFieldId, QString::number(pPriority));
+					return;
 			} // switch
 		} // if
 	} // foreach
