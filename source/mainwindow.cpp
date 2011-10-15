@@ -815,7 +815,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 					iNextRecordTry++;
 				} // if else
 
-				if (!_vVocabulary.GetRecordEnabled(_iCurrentRecordId) || GetRecordPriority() > iMaxRecordPriority) {
+				if ((!_sSettings.GetLearnDisabledWords() && !_vVocabulary.GetRecordEnabled(_iCurrentRecordId)) || GetRecordPriority() > iMaxRecordPriority) {
 					continue;
 				} // if
 #endif

@@ -74,6 +74,7 @@ const void SettingsDialog::FillOptions()
     } // if else
     _usdSettingsDialog.qleSoundCustom->setText(_sSettings->GetNewWordSoundFile());
 	_usdSettingsDialog.qcbNewWordFlash->setChecked(_sSettings->GetNewWordFlash());
+	_usdSettingsDialog.qcbLearnDisabledWords->setChecked(_sSettings->GetLearnDisabledWords());
 #endif
 	_usdSettingsDialog.qcbSwitchLearningDirection->setCheckState(_sSettings->GetSwitchLearningDirection());
 #ifndef FREE
@@ -287,6 +288,7 @@ const void SettingsDialog::SaveOptions()
     } // if else
     _sSettings->SetNewWordSoundFile(_usdSettingsDialog.qleSoundCustom->text());
 	_sSettings->SetNewWordFlash(_usdSettingsDialog.qcbNewWordFlash->isChecked());
+	_sSettings->SetLearnDisabledWords(_usdSettingsDialog.qcbLearnDisabledWords->isChecked());
 #endif
 	_sSettings->SetSwitchLearningDirection(_usdSettingsDialog.qcbSwitchLearningDirection->checkState());
 #ifndef FREE
@@ -347,6 +349,7 @@ SettingsDialog::SettingsDialog(
     delete _usdSettingsDialog.qleSoundCustom;
     delete _usdSettingsDialog.qbpSoundBrowse;
     delete _usdSettingsDialog.qcbNewWordFlash;
+	delete _usdSettingsDialog.qcbLearnDisabledWords;
     delete _usdSettingsDialog.qcbStartLearningOnStartup;
 
 	// plugins

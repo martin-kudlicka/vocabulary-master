@@ -242,6 +242,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="qcbLearnDisabledWords">
+         <property name="text">
+          <string>Learn disabled words</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QCheckBox" name="qcbSwitchLearningDirection">
          <property name="text">
           <string>Switch learning &amp;direction</string>

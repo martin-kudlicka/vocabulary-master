@@ -13,6 +13,7 @@ const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
 # ifdef Q_WS_WIN
 const QString KEY_HOTKEY = "Hotkey";
 # endif
+const QString KEY_LEARNDISABLEDWORDS = "LearnDisabledWords";
 const QString KEY_LICENSE = "License";
 const QString KEY_MINIMIZETOTRAY = "MinimizeToTray";
 const QString KEY_MUTE = "Mute";
@@ -119,6 +120,11 @@ const QString Settings::GetHotkeyKeyVirtualKey(const eHotkey &pType) const
 	return GetHotkeyKey(pType) + "VirtualKey";
 } // GetHotkeyKeyVirtualKey
 # endif
+
+const bool Settings::GetLearnDisabledWords() const
+{
+	return _qsSettings.value(KEY_LEARNDISABLEDWORDS, false).toBool();
+} // GetLearnDisabledWords
 
 const QByteArray Settings::GetLicense() const
 {
@@ -284,6 +290,11 @@ const void Settings::SetHotkey(const eHotkey &pType, const sHotKeyInfo &pHotkey)
 	_qsSettings.setValue(GetHotkeyKeyVirtualKey(pType), pHotkey.qui32VirtualKey);
 } // SetHotkey
 # endif
+
+const void Settings::SetLearnDisabledWords(const bool &pEnable)
+{
+	_qsSettings.setValue(KEY_LEARNDISABLEDWORDS, pEnable);
+} // SetLearnDisabledWords
 
 const void Settings::SetLicense(const QByteArray &pLicense)
 {

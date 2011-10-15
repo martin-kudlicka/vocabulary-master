@@ -50,6 +50,7 @@ class Settings
 # ifdef Q_WS_WIN
         const sHotKeyInfo GetHotkey(const eHotkey &pType) const;
 # endif
+		const bool GetLearnDisabledWords() const;
         const QByteArray GetLicense() const;
         const bool GetMinimizeToTray() const;
         const bool GetMute() const;
@@ -90,6 +91,7 @@ class Settings
 # ifdef Q_WS_WIN
         const void SetHotkey(const eHotkey &pType, const sHotKeyInfo &pHotkey);
 # endif
+		const void SetLearnDisabledWords(const bool &pEnable);
 		const void SetLicense(const QByteArray &pLicense);
 		const void SetMinimizeToTray(const bool &pEnable);
         const void SetMute(const bool &pEnable);
