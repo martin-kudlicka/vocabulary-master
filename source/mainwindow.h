@@ -106,6 +106,8 @@ class MainWindow : public QMainWindow
 #endif
         const void SetLayout();
 #ifndef FREE
+		const void SetRecordPriority(const int &pPriority);
+		const void SetupRecordControls() const;
 		const void ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer);
 #endif
 		void timerEvent(QTimerEvent *event);
@@ -134,6 +136,15 @@ class MainWindow : public QMainWindow
 #ifndef FREE
 		const void on_qmTray_triggered(QAction *action);
 		const void on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason reason);
+		const void on_qtbPriority1_clicked(bool checked = false);
+		const void on_qtbPriority2_clicked(bool checked = false);
+		const void on_qtbPriority3_clicked(bool checked = false);
+		const void on_qtbPriority4_clicked(bool checked = false);
+		const void on_qtbPriority5_clicked(bool checked = false);
+		const void on_qtbPriority6_clicked(bool checked = false);
+		const void on_qtbPriority7_clicked(bool checked = false);
+		const void on_qtbPriority8_clicked(bool checked = false);
+		const void on_qtbPriority9_clicked(bool checked = false);
 #endif
 #if !defined(FREE) && defined(Q_WS_WIN)
 		virtual bool winEvent(MSG *message, long *result);

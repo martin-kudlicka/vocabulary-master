@@ -264,6 +264,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     // gui
 	_umwMainWindow.setupUi(this);
 #ifdef FREE
+	_umwMainWindow.qhblRecordControls->parentWidget()->deleteLater();
 	_umwMainWindow.qlLanguage1->hide();
 	_umwMainWindow.qlLanguage2->hide();
 	_umwMainWindow.qlCategory->hide();
@@ -524,6 +525,69 @@ const void MainWindow::on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReas
 		showNormal();
 	} // if
 } // on_qstiTrayIcon_activated
+
+const void MainWindow::on_qtbPriority1_clicked(bool checked /* false */)
+{
+	if (checked) {
+		SetRecordPriority(1);
+	} // if
+} // on_qtbPriority1_clicked
+
+const void MainWindow::on_qtbPriority2_clicked(bool checked /* false */)
+{
+	if (checked) {
+		SetRecordPriority(2);
+	} // if
+} // on_qtbPriority2_clicked
+
+const void MainWindow::on_qtbPriority3_clicked(bool checked /* false */)
+{
+	if (checked) {
+		SetRecordPriority(3);
+	} // if
+} // on_qtbPriority3_clicked
+
+const void MainWindow::on_qtbPriority4_clicked(bool checked /* false */)
+{
+	if (checked) {
+		SetRecordPriority(4);
+	} // if
+} // on_qtbPriority4_clicked
+
+const void MainWindow::on_qtbPriority5_clicked(bool checked /* false */)
+{
+	if (checked) {
+		SetRecordPriority(5);
+	} // if
+} // on_qtbPriority5_clicked
+
+const void MainWindow::on_qtbPriority6_clicked(bool checked /* false */)
+{
+	if (checked) {
+		SetRecordPriority(6);
+	} // if
+} // on_qtbPriority6_clicked
+
+const void MainWindow::on_qtbPriority7_clicked(bool checked /* false */)
+{
+	if (checked) {
+		SetRecordPriority(7);
+	} // if
+} // on_qtbPriority7_clicked
+
+const void MainWindow::on_qtbPriority8_clicked(bool checked /* false */)
+{
+	if (checked) {
+		SetRecordPriority(8);
+	} // if
+} // on_qtbPriority8_clicked
+
+const void MainWindow::on_qtbPriority9_clicked(bool checked /* false */)
+{
+	if (checked) {
+		SetRecordPriority(9);
+	} // if
+} // on_qtbPriority9_clicked
 #endif
 
 const void MainWindow::OpenVocabulary(
@@ -649,6 +713,7 @@ const void MainWindow::SetLayout()
 #ifndef FREE
     if (_sSettings.GetHorizontalLayout()) {
         qvblMain->addWidget(_umwMainWindow.qlCategory);
+		qvblMain->addWidget(_umwMainWindow.qhblRecordControls->parentWidget());
         QHBoxLayout *qhblInner = new QHBoxLayout;
         qhblInner->addWidget(_umwMainWindow.qvblQuestion->parentWidget());
         qhblInner->addWidget(_umwMainWindow.qvblAnswer->parentWidget());
@@ -657,6 +722,9 @@ const void MainWindow::SetLayout()
 #endif
         qvblMain->addWidget(_umwMainWindow.qvblQuestion->parentWidget());
         qvblMain->addWidget(_umwMainWindow.qlCategory);
+#ifndef FREE
+		qvblMain->addWidget(_umwMainWindow.qhblRecordControls->parentWidget());
+#endif
         qvblMain->addWidget(_umwMainWindow.qvblAnswer->parentWidget());
 #ifndef FREE
     } // if else
@@ -664,6 +732,34 @@ const void MainWindow::SetLayout()
 } // SetLayout
 
 #ifndef FREE
+const void MainWindow::SetRecordPriority(const int &pPriority)
+{
+	foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
+		if (_vVocabulary.FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
+			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary.GetFieldBuiltIn(iFieldId);
+			switch (efbBuiltIn) {
+				case VocabularyDatabase::FieldBuiltInPriority:
+					_vVocabulary.SetDataText(_iCurrentRecordId, iFieldId, QString::number(pPriority));
+			} // switch
+		} // if
+	} // foreach
+} // SetRecordPriority
+
+const void MainWindow::SetupRecordControls() const
+{
+	int iPriority = GetRecordPriority();
+	_umwMainWindow.qtbPriority1->setChecked(iPriority == 1);
+	_umwMainWindow.qtbPriority2->setChecked(iPriority == 2);
+	_umwMainWindow.qtbPriority3->setChecked(iPriority == 3);
+	_umwMainWindow.qtbPriority4->setChecked(iPriority == 4);
+	_umwMainWindow.qtbPriority5->setChecked(iPriority == 5);
+	_umwMainWindow.qtbPriority6->setChecked(iPriority == 6);
+	_umwMainWindow.qtbPriority7->setChecked(iPriority == 7);
+	_umwMainWindow.qtbPriority8->setChecked(iPriority == 8);
+	_umwMainWindow.qtbPriority9->setChecked(iPriority == 9);
+	_umwMainWindow.qcbRecordEnabled->setChecked(_vVocabulary.GetRecordEnabled(_iCurrentRecordId));
+} // SetupRecordControls
+
 const void MainWindow::ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer)
 {
 	QString qsText = GetLearningText(TemplateTray, pDirectionSwitched, false);
@@ -740,6 +836,9 @@ void MainWindow::timerEvent(QTimerEvent *event)
 	        _umwMainWindow.qtbWindow1->setText(GetLearningText(TemplateLearning, saAnswer.bDirectionSwitched, false));
 	        _umwMainWindow.qtbWindow2->clear();
             _umwMainWindow.qlCategory->setText(_vVocabulary.GetCategoryName(iCategoryId));
+#ifndef FREE
+			SetupRecordControls();
+#endif
 
 #ifndef FREE
 		    // tray
