@@ -21,6 +21,10 @@ const QString KEY_NEWWORDSOUND = "NewWordSound";
 const QString KEY_NEWWORDSOUNDFILE = "NewWordSoundFile";
 const QString KEY_NEWWORDSOUNDTYPE = "NewWordSoundType";
 const QString KEY_REMEMBERWINDOWPOSITION = "RememberWindowPosition";
+const QString KEY_SHOWCATEGORYNAME = "ShowCategoryName";
+const QString KEY_SHOWLANGUAGENAMES = "ShowLanguageNames";
+const QString KEY_SHOWSTATUSBAR= "ShowStatusBar";
+const QString KEY_SHOWTOOLBAR = "ShowToolBar";
 const QString KEY_SHOWWORDSINTRAYBALLOON = "ShowWordsInTrayBalloon";
 const QString KEY_STARTLEARNINGONSTARTUP = "StartLearningOnStartup";
 #endif
@@ -155,6 +159,26 @@ const bool Settings::GetRememberWindowPosition() const
 {
     return _qsSettings.value(KEY_REMEMBERWINDOWPOSITION, true).toBool();
 } // GetRememberWindowPosition
+
+const bool Settings::GetShowCategoryName() const
+{
+	return _qsSettings.value(KEY_SHOWCATEGORYNAME, true).toBool();
+} // GetShowCategoryName
+
+const bool Settings::GetShowLanguageNames() const
+{
+	return _qsSettings.value(KEY_SHOWLANGUAGENAMES, true).toBool();
+} // GetShowLanguageNames
+
+const bool Settings::GetShowStatusBar() const
+{
+	return _qsSettings.value(KEY_SHOWSTATUSBAR, true).toBool();
+} // GetShowStatusBar
+
+const bool Settings::GetShowToolBar() const
+{
+	return _qsSettings.value(KEY_SHOWTOOLBAR, true).toBool();
+} // GetShowToolBar
 
 const bool Settings::GetShowWordsInTrayBalloon() const
 {
@@ -300,6 +324,26 @@ const void Settings::SetRememberWindowPosition(const bool &pEnable)
 {
     _qsSettings.setValue(KEY_REMEMBERWINDOWPOSITION, pEnable);
 } // SetRememberWindowPosition
+
+const void Settings::SetShowCategoryName(const bool &pShow)
+{
+	_qsSettings.setValue(KEY_SHOWCATEGORYNAME, pShow);
+} // SetShowCategoryName
+
+const void Settings::SetShowLanguageNames(const bool &pShow)
+{
+	_qsSettings.setValue(KEY_SHOWLANGUAGENAMES, pShow);
+} // SetShowLanguageNames
+
+const void Settings::SetShowStatusBar(const bool &pShow)
+{
+	_qsSettings.setValue(KEY_SHOWSTATUSBAR, pShow);
+} // SetShowStatusBar
+
+const void Settings::SetShowToolBar(const bool &pShow)
+{
+	_qsSettings.setValue(KEY_SHOWTOOLBAR, pShow);
+} // SetShowToolBar
 
 const void Settings::SetShowWordsInTrayBalloon(const bool &pEnable)
 {
