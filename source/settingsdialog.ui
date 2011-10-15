@@ -313,6 +313,13 @@
            </widget>
           </item>
           <item>
+           <widget class="QCheckBox" name="qcbMainWindowRecordControls">
+            <property name="text">
+             <string>Record controls</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QCheckBox" name="qcbMainWindowStatusBar">
             <property name="text">
              <string>Status bar</string>

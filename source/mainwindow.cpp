@@ -50,6 +50,7 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 	_umwMainWindow.qlLanguage1->setVisible(_sSettings.GetShowLanguageNames());
 	_umwMainWindow.qlLanguage2->setVisible(_sSettings.GetShowLanguageNames());
 	_umwMainWindow.qlCategory->setVisible(_sSettings.GetShowCategoryName());
+	_umwMainWindow.qhblRecordControls->parentWidget()->setVisible(_sSettings.GetShowRecordControls());
 	_umwMainWindow.qsbStatusBar->setVisible(_sSettings.GetShowStatusBar());
 #endif
 

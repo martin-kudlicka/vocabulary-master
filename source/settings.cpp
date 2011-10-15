@@ -24,6 +24,7 @@ const QString KEY_NEWWORDSOUNDTYPE = "NewWordSoundType";
 const QString KEY_REMEMBERWINDOWPOSITION = "RememberWindowPosition";
 const QString KEY_SHOWCATEGORYNAME = "ShowCategoryName";
 const QString KEY_SHOWLANGUAGENAMES = "ShowLanguageNames";
+const QString KEY_SHOWRECORDCONTROLS = "ShowRecordControls";
 const QString KEY_SHOWSTATUSBAR= "ShowStatusBar";
 const QString KEY_SHOWTOOLBAR = "ShowToolBar";
 const QString KEY_SHOWWORDSINTRAYBALLOON = "ShowWordsInTrayBalloon";
@@ -175,6 +176,11 @@ const bool Settings::GetShowLanguageNames() const
 {
 	return _qsSettings.value(KEY_SHOWLANGUAGENAMES, true).toBool();
 } // GetShowLanguageNames
+
+const bool Settings::GetShowRecordControls() const
+{
+	return _qsSettings.value(KEY_SHOWRECORDCONTROLS, true).toBool();
+} // GetShowRecordControls
 
 const bool Settings::GetShowStatusBar() const
 {
@@ -345,6 +351,11 @@ const void Settings::SetShowLanguageNames(const bool &pShow)
 {
 	_qsSettings.setValue(KEY_SHOWLANGUAGENAMES, pShow);
 } // SetShowLanguageNames
+
+const void Settings::SetShowRecordControls(const bool &pShow)
+{
+	_qsSettings.setValue(KEY_SHOWRECORDCONTROLS, pShow);
+} // SetShowRecordControls
 
 const void Settings::SetShowStatusBar(const bool &pShow)
 {
