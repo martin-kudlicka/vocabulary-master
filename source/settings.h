@@ -61,6 +61,7 @@ class Settings
         const bool GetRememberWindowPosition() const;
 		const bool GetShowCategoryName() const;
 		const bool GetShowLanguageNames() const;
+		const bool GetShowRecordControls() const;
 		const bool GetShowStatusBar() const;
 		const bool GetShowToolBar() const;
 		const bool GetShowWordsInTrayBalloon() const;
@@ -102,6 +103,7 @@ class Settings
         const void SetRememberWindowPosition(const bool &pEnable);
 		const void SetShowCategoryName(const bool &pShow);
 		const void SetShowLanguageNames(const bool &pShow);
+		const void SetShowRecordControls(const bool &pShow);
 		const void SetShowStatusBar(const bool &pShow);
 		const void SetShowToolBar(const bool &pShow);
 		const void SetShowWordsInTrayBalloon(const bool &pEnable);

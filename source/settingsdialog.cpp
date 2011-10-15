@@ -86,6 +86,7 @@ const void SettingsDialog::FillOptions()
 	_usdSettingsDialog.qcbMainWindowToolBar->setChecked(_sSettings->GetShowToolBar());
 	_usdSettingsDialog.qcbMainWindowLanguageNames->setChecked(_sSettings->GetShowLanguageNames());
 	_usdSettingsDialog.qcbMainWindowCategoryName->setChecked(_sSettings->GetShowCategoryName());
+	_usdSettingsDialog.qcbMainWindowRecordControls->setChecked(_sSettings->GetShowRecordControls());
 	_usdSettingsDialog.qcbMainWindowStatusBar->setChecked(_sSettings->GetShowStatusBar());
 	FillColorFlash();
     _usdSettingsDialog.qcbVocabularyManagerCategoriesEnable->setChecked(_sSettings->GetCanEnableCategories());
@@ -300,6 +301,7 @@ const void SettingsDialog::SaveOptions()
 	_sSettings->SetShowToolBar(_usdSettingsDialog.qcbMainWindowToolBar->isChecked());
 	_sSettings->SetShowLanguageNames(_usdSettingsDialog.qcbMainWindowLanguageNames->isChecked());
 	_sSettings->SetShowCategoryName(_usdSettingsDialog.qcbMainWindowCategoryName->isChecked());
+	_sSettings->SetShowRecordControls(_usdSettingsDialog.qcbMainWindowRecordControls->isChecked());
 	_sSettings->SetShowStatusBar(_usdSettingsDialog.qcbMainWindowStatusBar->isChecked());
 	_sSettings->SetColorFlash(_usdSettingsDialog.qcbColorFlash->itemData(_usdSettingsDialog.qcbColorFlash->currentIndex()).toString());
     _sSettings->SetCanEnableCategories(_usdSettingsDialog.qcbVocabularyManagerCategoriesEnable->isChecked());
