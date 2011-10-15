@@ -45,6 +45,12 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 	_pPlugins.SetLanguage(_sSettings.GetTranslation());
     _qmTray.clear();
     CreateTrayMenu();
+
+	_umwMainWindow.qtbToolBar->setVisible(_sSettings.GetShowToolBar());
+	_umwMainWindow.qlLanguage1->setVisible(_sSettings.GetShowLanguageNames());
+	_umwMainWindow.qlLanguage2->setVisible(_sSettings.GetShowLanguageNames());
+	_umwMainWindow.qlCategory->setVisible(_sSettings.GetShowCategoryName());
+	_umwMainWindow.qsbStatusBar->setVisible(_sSettings.GetShowStatusBar());
 #endif
 
     if (_sSettings.GetAlwaysOnTop()) {
@@ -716,14 +722,14 @@ void MainWindow::timerEvent(QTimerEvent *event)
 		    if (qsLang1.isEmpty()) {
 			    _umwMainWindow.qlLanguage1->hide();
 		    } else {
-			    _umwMainWindow.qlLanguage1->show();
+			    _umwMainWindow.qlLanguage1->setVisible(_sSettings.GetShowLanguageNames());
 			    _umwMainWindow.qlLanguage1->setText(qsLang1);
 		    } // if else
 		    QString qsLang2 = GetLanguageText(saAnswer.bDirectionSwitched, true);
 		    if (qsLang2.isEmpty()) {
 			    _umwMainWindow.qlLanguage2->hide();
 		    } else {
-			    _umwMainWindow.qlLanguage2->show();
+			    _umwMainWindow.qlLanguage2->setVisible(_sSettings.GetShowLanguageNames());
 			    _umwMainWindow.qlLanguage2->setText(qsLang2);
 		    } // if else
 	        _umwMainWindow.qtbWindow1->setText(GetLearningText(TemplateLearning, saAnswer.bDirectionSwitched, false));

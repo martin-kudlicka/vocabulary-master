@@ -58,6 +58,10 @@ class Settings
         const QString GetNewWordSoundFile() const;
         const eNewWordSoundType GetNewWordSoundType() const;
         const bool GetRememberWindowPosition() const;
+		const bool GetShowCategoryName() const;
+		const bool GetShowLanguageNames() const;
+		const bool GetShowStatusBar() const;
+		const bool GetShowToolBar() const;
 		const bool GetShowWordsInTrayBalloon() const;
 		const bool GetStartLearningOnStartup() const;
 #endif
@@ -94,6 +98,10 @@ class Settings
         const void SetNewWordSoundFile(const QString &pFile);
         const void SetNewWordSoundType(const eNewWordSoundType &pType);
         const void SetRememberWindowPosition(const bool &pEnable);
+		const void SetShowCategoryName(const bool &pShow);
+		const void SetShowLanguageNames(const bool &pShow);
+		const void SetShowStatusBar(const bool &pShow);
+		const void SetShowToolBar(const bool &pShow);
 		const void SetShowWordsInTrayBalloon(const bool &pEnable);
 		const void SetStartLearningOnStartup(const bool &pEnable);
 #endif
