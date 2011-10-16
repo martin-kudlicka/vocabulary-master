@@ -95,6 +95,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libhpdf", "3rdparty\libHaru\libhpdf.vcproj", "{5AC84D3E-3EBB-4BC0-9D59-481F3A909317}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "exp-pdf", "plugins\exp-pdf\exp-pdf.vcproj", "{E061BD3F-178B-4EF1-B3D6-E063B4250FA4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5AC84D3E-3EBB-4BC0-9D59-481F3A909317} = {5AC84D3E-3EBB-4BC0-9D59-481F3A909317}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
