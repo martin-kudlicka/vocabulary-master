@@ -1,5 +1,5 @@
-#ifndef PLAINTEXTEXPORTWIDGET_H
-#define PLAINTEXTEXPORTWIDGET_H
+#ifndef HTMLEXPORTWIDGET_H
+#define HTMLEXPORTWIDGET_H
 
 #include <ui_htmlexportwidget.h>
 
@@ -69,4 +69,4 @@ class HtmlExportWidget : public QWidget
         const void on_qsbTableColums_valueChanged(int i);
 }; // HtmlExportWidget
 
-#endif // PLAINTEXTEXPORTWIDGET_H
+#endif // HTMLEXPORTWIDGET_H
