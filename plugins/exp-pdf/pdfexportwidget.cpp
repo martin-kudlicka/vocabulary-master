@@ -22,11 +22,46 @@ const void PdfExportWidget::AddTableColumn()
     _qwpePdfExport.qglTableColumns->addWidget(stcColumn.qleTemplate, TableRowTemplate, _qlTableColumns.size() + LABEL_COLUMN);
 } // AddTableColumn
 
-const QString PdfExportWidget::GetCodec() const
+const void PdfExportWidget::FillFonts(QComboBox *pComboBox) const
 {
-    QModelIndex qmiIndex = _qwpePdfExport.qtvCodecs->currentIndex();
-    return _cmCodecsModel.data(qmiIndex).toString();
-} // GetCodec
+	// remember selection
+	QString qsCurrent = pComboBox->currentText();
+
+	pComboBox->clear();
+	pComboBox->addItems(QStringList() << "Courier" << "Courier-Bold" << "Courier-Oblique" << "Courier-BoldOblique" << "Helvetica" << "Helvetica-Bold" << "Helvetica-Oblique" << "Helvetica-BoldOblique" << "Times-Roman" << "Times-Bold" << "Times-Italic" << "Times-BoldItalic" << "Symbol" << "ZapfDingbats");
+
+	// try to select previous font
+	int iIndex = pComboBox->findText(qsCurrent);
+	if (iIndex == -1) {
+		iIndex = 0;
+	} // if
+	pComboBox->setCurrentIndex(iIndex);
+} // FillFonts
+
+const QString PdfExportWidget::GetCategoryFont() const
+{
+	return _qwpePdfExport.qcbCategoryFont->currentText();
+} // GetCategoryFont
+
+const int PdfExportWidget::GetCategoryFontSize() const
+{
+	return _qwpePdfExport.qsbCategoryFontSize->value();
+} // GetCategoryFontSize
+
+const QString PdfExportWidget::GetRecordFont() const
+{
+	return _qwpePdfExport.qcbRecordFont->currentText();
+} // GetRecordFont
+
+const int PdfExportWidget::GetRecordFontSize() const
+{
+	return _qwpePdfExport.qsbRecordFontSize->value();
+} // GetRecordFontSize
+
+const QString PdfExportWidget::GetTextTemplate() const
+{
+	return _qwpePdfExport.qleTextEdit->text();
+} // GetTextTemplate
 
 const void PdfExportWidget::InitTableColumns()
 {
@@ -58,22 +93,10 @@ PdfExportWidget::PdfExportWidget(QWidget *pParent /* NULL */, Qt::WindowFlags pF
 {
     _qwpePdfExport.setupUi(this);
 
-    _qwpePdfExport.qtvCodecs->setModel(&_cmCodecsModel);
-    PreselectCodec("UTF-8");
-
+	FillFonts(_qwpePdfExport.qcbCategoryFont);
+	FillFonts(_qwpePdfExport.qcbRecordFont);
     InitTableColumns();
 } // PdfExportWidget
-
-const void PdfExportWidget::PreselectCodec(const QString &pCodec) const
-{
-    for (int iI = 0; iI < _cmCodecsModel.rowCount(); iI++) {
-        QModelIndex qmiIndex = _cmCodecsModel.index(iI, CodecsModel::ColumnCodec);
-        if (pCodec == _cmCodecsModel.data(qmiIndex)) {
-            _qwpePdfExport.qtvCodecs->setCurrentIndex(qmiIndex);
-            return;
-        } // if
-    } // for
-} // PreselectCodec
 
 const void PdfExportWidget::RemoveTableColumn()
 {

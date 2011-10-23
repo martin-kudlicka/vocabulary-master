@@ -1,14 +1,86 @@
 #include "exp-pdf.h"
 
-#include <hpdf.h>
+#include <QtGui/QFileDialog>
 
 const bool ExpPdf::BeginExport() const
 {
+	// get filename
+	QString qsFile = QFileDialog::getSaveFileName(_pewWidget, QString(), QString(), tr("pdf (*.pdf)"));
+	if (qsFile.isEmpty()) {
+		return false;
+	} // if
+
+	// PDF
 	HPDF_Doc hdPdf = HPDF_New(NULL, NULL);
+	//HPDF_SetCompressionMode(hdPdf, HPDF_COMP_ALL);
 
-	// TODO
+	// fonts
+	HPDF_Font hfCategory = HPDF_GetFont(hdPdf, _pewWidget->GetCategoryFont().toLocal8Bit(), NULL);
+	HPDF_Font hfRecord = HPDF_GetFont(hdPdf, _pewWidget->GetRecordFont().toLocal8Bit(), NULL);
 
+	// categories
+	ExpInterface::tCategoryIdList tcilCategoryIds;
+	emit VocabularyGetCategoryIds(&tcilCategoryIds);
+
+	// total record count for progress
+	int iTotalRecords = 0;
+	foreach (int iCategoryId, tcilCategoryIds) {
+		int iRecords;
+		emit VocabularyGetRecordCount(iCategoryId, &iRecords);
+		iTotalRecords += iRecords;
+	} // foreach
+	emit ProgressExportSetMax(iTotalRecords);
+
+	QStringList qslMarks;
+	emit VocabularyGetMarks(&qslMarks);
+
+	// export
+	HPDF_Page hpPage = NULL;
+	PdfAddPage(hdPdf, &hpPage, _pewWidget->GetCategoryFontSize());
+	PdfSetFont(hpPage, hfCategory, _pewWidget->GetCategoryFontSize());
+	bool bFirstLine = true;
+	int iRecords = 0;
+	foreach (int iCategoryId, tcilCategoryIds) {
+        if (bFirstLine) {
+            bFirstLine = false;
+        } else {
+			if (!PdfNextLine(hdPdf, &hpPage)) {
+				PdfNextLine(hdPdf, &hpPage);
+			} // if
+        } // if
+
+		// category
+        QString qsCategoryName;
+        emit VocabularyGetCategoryName(iCategoryId, &qsCategoryName);
+		HPDF_Page_ShowText(hpPage, qsCategoryName.toLocal8Bit());
+
+        // records
+		PdfSetFont(hpPage, hfRecord, _pewWidget->GetRecordFontSize());
+        ExpInterface::tRecordIdList trilRecordIds;
+        emit VocabularyGetRecordIds(iCategoryId, &trilRecordIds);
+        foreach (int iRecordId, trilRecordIds) {
+            QString qsTemplate = _pewWidget->GetTextTemplate();
+
+            // replace marks for data
+            foreach (QString qsMark, qslMarks) {
+                QString qsData;
+                emit VocabularyGetMarkText(iRecordId, qsMark, &qsData);
+                qsTemplate.replace(qsMark, qsData);
+            } // foreach
+
+			PdfNextLine(hdPdf, &hpPage);
+			HPDF_Page_ShowText(hpPage, qsTemplate.toLocal8Bit());
+
+            iRecords++;
+            emit ProgressExportSetValue(iRecords);
+        } // foreach
+    } // foreach
+
+	HPDF_SaveToFile(hdPdf, qsFile.toLocal8Bit());
+
+	emit ProgressExportSetValue(0);
 	HPDF_Free(hdPdf);
+
 	return true;
 } // BeginExport
 
@@ -17,60 +89,54 @@ const QString ExpPdf::GetPluginName() const
 	return tr("pdf (pdf)");
 } // GetPluginName
 
-const void ExpPdf::on_pewWidget_ProgressExportSetMax(const int &pMax) const
+const void ExpPdf::PdfAddPage(const HPDF_Doc &pPdf, HPDF_Page *pPage, const HPDF_REAL &pDefaultSize /* 0 */) const
 {
-    emit ProgressExportSetMax(pMax);
-} // on_pewWidget_ProgressExportSetMax
+	// remember current font and size
+	HPDF_Font hfFont;
+	HPDF_REAL hrSize;
+	if (*pPage) {
+		hfFont = HPDF_Page_GetCurrentFont(*pPage);
+		hrSize = HPDF_Page_GetCurrentFontSize(*pPage);
+	} else {
+		hfFont = NULL;
+		hrSize = pDefaultSize;
+	} // if else
 
-const void ExpPdf::on_pewWidget_ProgressExportSetValue(const int &pValue) const
-{
-    emit ProgressExportSetValue(pValue);
-} // on_pewWidget_ProgressExportSetValue
+	*pPage = HPDF_AddPage(pPdf);
+	HPDF_Page_BeginText(*pPage);
+	HPDF_Page_MoveTextPos(*pPage, BORDER, HPDF_Page_GetHeight(*pPage) - BORDER - hrSize);
 
-const void ExpPdf::on_pewWidget_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *pCategoryIds) const
-{
-    emit VocabularyGetCategoryIds(pCategoryIds);
-} // on_pewWidget_VocabularyGetCategoryIds
+	// set previous font and size
+	if (hfFont) {
+		PdfSetFont(*pPage, hfFont, hrSize);
+	} // if
+} // PdfAddPage
 
-const void ExpPdf::on_pewWidget_VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const
+const bool ExpPdf::PdfNextLine(const HPDF_Doc &pPdf, HPDF_Page *pPage) const
 {
-    emit VocabularyGetCategoryName(pCategoryId, pName);
-} // on_pewWidget_VocabularyGetCategoryName
+	// check current position
+	HPDF_REAL hrSize = HPDF_Page_GetCurrentFontSize(*pPage);
+	HPDF_Point hpPosition = HPDF_Page_GetCurrentTextPos(*pPage);
+	if (hpPosition.y < hrSize + BORDER) {
+		PdfAddPage(pPdf, pPage);
+		return true;
+	} else {
+		HPDF_Page_MoveToNextLine(*pPage);
+		return false;
+	} // if else
+} // PdfNextLine
 
-const void ExpPdf::on_pewWidget_VocabularyGetMarks(QStringList *pMarks) const
+const void ExpPdf::PdfSetFont(const HPDF_Page &pPage, const HPDF_Font &pFont, const int &pSize) const
 {
-    emit VocabularyGetMarks(pMarks);
-} // on_pewWidget_VocabularyGetMarks
-
-const void ExpPdf::on_pewWidget_VocabularyGetMarkText(const int &pRecordId, const QString &pMark, QString *pText) const
-{
-    emit VocabularyGetMarkText(pRecordId, pMark, pText);
-} // on_pewWidget_VocabularyGetMarkText
-
-const void ExpPdf::on_pewWidget_VocabularyGetRecordCount(const int &pCategoryId, int *pCount) const
-{
-    emit VocabularyGetRecordCount(pCategoryId, pCount);
-} // on_pewWidget_VocabularyGetRecordCount
-
-const void ExpPdf::on_pewWidget_VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const
-{
-    emit VocabularyGetRecordIds(pCategoryId, pRecordIds);
-} // on_pewWidget_VocabularyGetRecordCount
+	HPDF_Page_SetFontAndSize(pPage, pFont, pSize);
+	HPDF_Page_SetTextLeading(pPage, pSize);
+} // PdfSetFont
 
 const void ExpPdf::SetupUI(QWidget *pParent)
 {
 	_pewWidget = new PdfExportWidget(pParent);
 	QBoxLayout *pLayout = qobject_cast<QBoxLayout *>(pParent->layout());
 	pLayout->insertWidget(WIDGET_POSITION, _pewWidget);
-
-	connect(_pewWidget, SIGNAL(ProgressExportSetMax(const int &)), SLOT(on_pewWidget_ProgressExportSetMax(const int &)));
-	connect(_pewWidget, SIGNAL(ProgressExportSetValue(const int &)), SLOT(on_pewWidget_ProgressExportSetValue(const int &)));
-	connect(_pewWidget, SIGNAL(VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)), SLOT(on_pewWidget_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)));
-	connect(_pewWidget, SIGNAL(VocabularyGetCategoryName(const int &, QString *)), SLOT(on_pewWidget_VocabularyGetCategoryName(const int &, QString *)));
-	connect(_pewWidget, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_pewWidget_VocabularyGetMarks(QStringList *)));
-	connect(_pewWidget, SIGNAL(VocabularyGetMarkText(const int &, const QString &, QString *)), SLOT(on_pewWidget_VocabularyGetMarkText(const int &, const QString &, QString *)));
-	connect(_pewWidget, SIGNAL(VocabularyGetRecordCount(const int &, int *)), SLOT(on_pewWidget_VocabularyGetRecordCount(const int &, int *)));
-	connect(_pewWidget, SIGNAL(VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)), SLOT(on_pewWidget_VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)));
 } // SetupUI
 
 Q_EXPORT_PLUGIN2(exp-pdf, ExpPdf)

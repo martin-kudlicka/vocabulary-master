@@ -164,10 +164,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\common\codecsmodel.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\exp-pdf.cpp"
 				>
 			</File>
@@ -185,32 +181,6 @@
 			Filter="h"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath="..\common\codecsmodel.h"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\exp-pdf\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DEXP-PDF_LIB -DQT_GUI_LIB -D_WINDLL &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\exp-pdf&quot; &quot;-I.\..\..\3rdparty\libHaru\source\include&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\exp-pdf\moc_$(InputName).cpp&quot;"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\..\..\temp\$(ConfigurationName)\exp-pdf\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_CORE_LIB -DEXP-PDF_LIB -DQT_GUI_LIB -D_WINDLL &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\..\..\temp\$(ConfigurationName)\exp-pdf&quot; &quot;-I.\..\..\3rdparty\libHaru\source\include&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-						Outputs="&quot;.\..\..\temp\$(ConfigurationName)\exp-pdf\moc_$(InputName).cpp&quot;"
-					/>
-				</FileConfiguration>
-			</File>
 			<File
 				RelativePath="..\common\exp-interface.h"
 				>
@@ -349,18 +319,6 @@
 				SourceControlFiles="false"
 				>
 				<File
-					RelativePath="..\..\temp\Release\exp-pdf\moc_codecsmodel.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
 					RelativePath="..\..\temp\Release\exp-pdf\moc_exp-interface.cpp"
 					>
 					<FileConfiguration
@@ -402,18 +360,6 @@
 				Filter="cpp;moc"
 				SourceControlFiles="false"
 				>
-				<File
-					RelativePath="..\..\temp\Debug\exp-pdf\moc_codecsmodel.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
 				<File
 					RelativePath="..\..\temp\Debug\exp-pdf\moc_exp-interface.cpp"
 					>
