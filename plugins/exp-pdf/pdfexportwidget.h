@@ -14,8 +14,6 @@ class PdfExportWidget : public QWidget
 		PdfExportWidget(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
         const QString GetCodec() const;
-        const QString GetText() const;
-        const void Refresh() const;
 
 	private:
 		enum eStyle {
@@ -45,7 +43,6 @@ class PdfExportWidget : public QWidget
 
         const void AddTableColumn();
         const void InitTableColumns();
-        const void InsertTableText(const QTextTable *pTablePreview, const int &pRow, const int &pColumn, const QString &pText) const;
         const void PreselectCodec(const QString &pCodec) const;
         const void RefreshTable() const;
         const void RefreshText() const;
@@ -62,8 +59,6 @@ class PdfExportWidget : public QWidget
         void VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const;
 
     private slots:
-        const void on_qpbTableRefresh_clicked(bool checked = false) const;
-        const void on_qpbTextRefresh_clicked(bool checked = false) const;
 		const void on_qrbStyleTable_clicked(bool checked = false) const;
         const void on_qrbStyleText_clicked(bool checked = false) const;
         const void on_qsbTableColums_valueChanged(int i);
