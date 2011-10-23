@@ -4,7 +4,6 @@
 #include <ui_pdfexportwidget.h>
 
 #include "../common/exp-interface.h"
-#include "../common/codecsmodel.h"
 
 class PdfExportWidget : public QWidget
 {
@@ -13,7 +12,11 @@ class PdfExportWidget : public QWidget
 	public:
 		PdfExportWidget(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
-        const QString GetCodec() const;
+		const QString GetCategoryFont() const;
+		const int GetCategoryFontSize() const;
+		const QString GetRecordFont() const;
+		const int GetRecordFontSize() const;
+		const QString GetTextTemplate() const;
 
 	private:
 		enum eStyle {
@@ -37,26 +40,15 @@ class PdfExportWidget : public QWidget
         static const int HEADER_ROW = 0;
         static const int LABEL_COLUMN = 1;
 
-        CodecsModel _cmCodecsModel;
         QList<sTableColumn> _qlTableColumns;
 		Ui::qwPdfExport _qwpePdfExport;
 
         const void AddTableColumn();
+		const void FillFonts(QComboBox *pComboBox) const;
         const void InitTableColumns();
-        const void PreselectCodec(const QString &pCodec) const;
         const void RefreshTable() const;
         const void RefreshText() const;
         const void RemoveTableColumn();
-
-    signals:
-        void ProgressExportSetMax(const int &pMax) const;
-        void ProgressExportSetValue(const int &pValue) const;
-        void VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *pCategoryIds) const;
-        void VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const;
-        void VocabularyGetMarks(QStringList *pMarks) const;
-        void VocabularyGetMarkText(const int &pRecordId, const QString &pMark, QString *pText) const;
-        void VocabularyGetRecordCount(const int &pCategoryId, int *pCount) const;
-        void VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const;
 
     private slots:
 		const void on_qrbStyleTable_clicked(bool checked = false) const;
