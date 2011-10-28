@@ -50,7 +50,7 @@ class PdfExportWidget : public QWidget
 
 		sFontRoleInfo GetFontInfo(const eFontRole &pRole, const int &pNum = -1) const;
 		const QString GetTextTemplate() const;
-		const void InitMarkFonts() const;
+		const void InitMarkFonts();
 
 	private:
 		static const int DEFAULT_FONT_COUNT = 2;
@@ -69,6 +69,11 @@ class PdfExportWidget : public QWidget
             TableRowTemplate
         }; // eTableRow
 
+		struct sFontControls {
+			QComboBox *qcbFont;
+			QComboBox *qcbEncoding;
+			QSpinBox *qsbSize;
+		}; // sFontControls
         struct sTableColumn {
             QWidget *qwHeader;
             QLineEdit *qleHeader;
@@ -81,10 +86,12 @@ class PdfExportWidget : public QWidget
         static const int HEADER_ROW = 0;
         static const int LABEL_COLUMN = 1;
 
+		QList<sFontControls> _qlFontControls;
         QList<sTableColumn> _qlTableColumns;
 		Ui::qwPdfExport _qwpePdfExport;
 
         const void AddTableColumn();
+		const void FillEncodings(QComboBox *pComboBox, const QString &pFont) const;
 		const void FillFonts(QComboBox *pComboBox) const;
         const void InitTableColumns();
         const void RefreshTable() const;
@@ -95,6 +102,7 @@ class PdfExportWidget : public QWidget
 		void VocabularyGetMarks(QStringList *pMarks) const;
 
     private slots:
+		const void on_qcbFont_currentIndexChanged(int index) const;
 		const void on_qrbStyleTable_clicked(bool checked = false) const;
         const void on_qrbStyleText_clicked(bool checked = false) const;
         const void on_qsbTableColums_valueChanged(int i);
