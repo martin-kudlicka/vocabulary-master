@@ -45,31 +45,31 @@ PdfExportWidget::sEncodingInfo seiEncodings[] = { {"StandardEncoding", PdfExport
 												  {"KSCms-UHC-HW-H",   PdfExportWidget::EncodingTypeMultibyte,	PdfExportWidget::EncodingSetKRE},
 												  {"KSCms-UHC-HW-V",   PdfExportWidget::EncodingTypeMultibyte,	PdfExportWidget::EncodingSetKRE} };
 
-PdfExportWidget::sFontInfo sfiFonts[] = { {"Courier",				PdfExportWidget::EncodingTypeSinglebyte},
-										  {"Courier-Bold",			PdfExportWidget::EncodingTypeSinglebyte},
-										  {"Courier-Oblique",		PdfExportWidget::EncodingTypeSinglebyte},
-										  {"Courier-BoldOblique",	PdfExportWidget::EncodingTypeSinglebyte},
-										  {"Helvetica",				PdfExportWidget::EncodingTypeSinglebyte},
-										  {"Helvetica-Bold",		PdfExportWidget::EncodingTypeSinglebyte},
-										  {"Helvetica-Oblique",		PdfExportWidget::EncodingTypeSinglebyte},
-										  {"Helvetica-BoldOblique", PdfExportWidget::EncodingTypeSinglebyte},
-										  {"Times-Roman",			PdfExportWidget::EncodingTypeSinglebyte},
-										  {"Times-Bold",			PdfExportWidget::EncodingTypeSinglebyte},
-										  {"Times-Italic",			PdfExportWidget::EncodingTypeSinglebyte},
-										  {"Times-BoldItalic",		PdfExportWidget::EncodingTypeSinglebyte},
-										  {"Symbol",				PdfExportWidget::EncodingTypeSinglebyte},
-										  {"ZapfDingbats",			PdfExportWidget::EncodingTypeSinglebyte},
-										  {"SimSun",				PdfExportWidget::EncodingTypeMultibyte},
-										  {"SimHei",				PdfExportWidget::EncodingTypeMultibyte},
-										  {"MingLiU",				PdfExportWidget::EncodingTypeMultibyte},
-										  {"MS-Mincyo",				PdfExportWidget::EncodingTypeMultibyte},
-										  {"MS-Gothic",				PdfExportWidget::EncodingTypeMultibyte},
-										  {"MS-PMincyo",			PdfExportWidget::EncodingTypeMultibyte},
-										  {"MS-PGothic",			PdfExportWidget::EncodingTypeMultibyte},
-										  {"Batang",				PdfExportWidget::EncodingTypeMultibyte},
-										  {"Dotum",					PdfExportWidget::EncodingTypeMultibyte},
-										  {"BatangChe",				PdfExportWidget::EncodingTypeMultibyte},
-										  {"DotumChe",				PdfExportWidget::EncodingTypeMultibyte} };
+PdfExportWidget::sFontInfo sfiFonts[] = { {"Courier",				PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::FontSetNone},
+										  {"Courier-Bold",			PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::FontSetNone},
+										  {"Courier-Oblique",		PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::FontSetNone},
+										  {"Courier-BoldOblique",	PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::FontSetNone},
+										  {"Helvetica",				PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::FontSetNone},
+										  {"Helvetica-Bold",		PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::FontSetNone},
+										  {"Helvetica-Oblique",		PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::FontSetNone},
+										  {"Helvetica-BoldOblique", PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::FontSetNone},
+										  {"Times-Roman",			PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::FontSetNone},
+										  {"Times-Bold",			PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::FontSetNone},
+										  {"Times-Italic",			PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::FontSetNone},
+										  {"Times-BoldItalic",		PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::FontSetNone},
+										  {"Symbol",				PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::FontSetNone},
+										  {"ZapfDingbats",			PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::FontSetNone},
+										  {"SimSun",				PdfExportWidget::EncodingTypeMultibyte,	 PdfExportWidget::FontSetCNS},
+										  {"SimHei",				PdfExportWidget::EncodingTypeMultibyte,	 PdfExportWidget::FontSetCNS},
+										  {"MingLiU",				PdfExportWidget::EncodingTypeMultibyte,	 PdfExportWidget::FontSetCNT},
+										  {"MS-Mincyo",				PdfExportWidget::EncodingTypeMultibyte,	 PdfExportWidget::FontSetJP},
+										  {"MS-Gothic",				PdfExportWidget::EncodingTypeMultibyte,	 PdfExportWidget::FontSetJP},
+										  {"MS-PMincyo",			PdfExportWidget::EncodingTypeMultibyte,	 PdfExportWidget::FontSetJP},
+										  {"MS-PGothic",			PdfExportWidget::EncodingTypeMultibyte,	 PdfExportWidget::FontSetJP},
+										  {"Batang",				PdfExportWidget::EncodingTypeMultibyte,	 PdfExportWidget::FontSetKR},
+										  {"Dotum",					PdfExportWidget::EncodingTypeMultibyte,	 PdfExportWidget::FontSetKR},
+										  {"BatangChe",				PdfExportWidget::EncodingTypeMultibyte,	 PdfExportWidget::FontSetKR},
+										  {"DotumChe",				PdfExportWidget::EncodingTypeMultibyte,	 PdfExportWidget::FontSetKR} };
 
 const void PdfExportWidget::AddTableColumn()
 {
@@ -99,7 +99,7 @@ const void PdfExportWidget::FillEncodings(QComboBox *pComboBox, const QString &p
 	eEncodingType eetEncoding;
 	for (int iFont = 0; iFont < sizeof(sfiFonts) / sizeof(sFontInfo); iFont++) {
 		if (sfiFonts[iFont].qsName == pFont) {
-			eetEncoding = sfiFonts[iFont].eetEncoding;
+			eetEncoding = sfiFonts[iFont].eetEncodingType;
 			break;
 		} // if
 	} // for
@@ -130,6 +130,17 @@ const PdfExportWidget::eEncodingSet PdfExportWidget::GetEncodingSet(const QStrin
 	return EncodingSetNone;
 } // GetEncodingSet
 
+const PdfExportWidget::eFontSet PdfExportWidget::GetFontSet(const QString &pFont) const
+{
+	for (int iFont = 0; iFont < sizeof(sfiFonts) / sizeof(sFontInfo); iFont++) {
+		if (sfiFonts[iFont].qsName == pFont) {
+			return sfiFonts[iFont].efsFontSet;
+		} // if
+	} // for
+
+	return FontSetNone;
+} // GetFontSet
+
 PdfExportWidget::sFontRoleInfo PdfExportWidget::GetFontInfo(const eFontRole &pRole, const int &pNum /* -1 */) const
 {
 	sFontRoleInfo sfriFontInfo;
@@ -152,6 +163,7 @@ PdfExportWidget::sFontRoleInfo PdfExportWidget::GetFontInfo(const eFontRole &pRo
 			sfriFontInfo.qsEncoding = sfcControls.qcbEncoding->currentText();
 			sfriFontInfo.iSize = sfcControls.qsbSize->value();
 	} // switch
+	sfriFontInfo.efsFontSet = GetFontSet(sfriFontInfo.qsFont);
 	sfriFontInfo.eesEncodingSet = GetEncodingSet(sfriFontInfo.qsEncoding);
 
 	return sfriFontInfo;

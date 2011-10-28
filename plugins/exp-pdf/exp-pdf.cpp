@@ -17,19 +17,56 @@ const bool ExpPdf::BeginExport() const
 	HPDF_Doc hdPdf = HPDF_New(NULL, NULL);
 	//HPDF_SetCompressionMode(hdPdf, HPDF_COMP_ALL);
 
-	// fonts
+	// get font info with font and encoding set
 	PdfExportWidget::sFontRoleInfo sfriCategoryFont = _pewWidget->GetFontInfo(PdfExportWidget::FontRoleCategory);
-	HPDF_Font hfCategory = HPDF_GetFont(hdPdf, sfriCategoryFont.qsFont.toLocal8Bit(), NULL);
 	PdfExportWidget::sFontRoleInfo sfriTemplateFont = _pewWidget->GetFontInfo(PdfExportWidget::FontRoleTemplate);
-	HPDF_Font hfTemplate = HPDF_GetFont(hdPdf, sfriTemplateFont.qsFont.toLocal8Bit(), NULL);
+	PdfExportWidget::qfFontSets qffsFontSets = sfriCategoryFont.efsFontSet | sfriTemplateFont.efsFontSet;
+	PdfExportWidget::qfEncodingSets qfesEncodingSets = sfriCategoryFont.eesEncodingSet | sfriTemplateFont.eesEncodingSet;
+	for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
+		PdfExportWidget::sFontRoleInfo sfriFont = _pewWidget->GetFontInfo(PdfExportWidget::FontRoleMark, iMark);
+
+		qffsFontSets |= sfriFont.efsFontSet;
+		qfesEncodingSets |= sfriFont.eesEncodingSet;
+	} // for
+
+	// enable demanded CID fonts
+	if (qffsFontSets & PdfExportWidget::FontSetCNS) {
+		HPDF_UseCNSFonts(hdPdf);
+	} // if
+	if (qffsFontSets & PdfExportWidget::FontSetCNT) {
+		HPDF_UseCNTFonts(hdPdf);
+	} // if
+	if (qffsFontSets & PdfExportWidget::FontSetJP) {
+		HPDF_UseJPFonts(hdPdf);
+	} // if
+	if (qffsFontSets & PdfExportWidget::FontSetKR) {
+		HPDF_UseKRFonts(hdPdf);
+	} // if
+
+	// enable demanded encodings
+	if (qfesEncodingSets & PdfExportWidget::EncodingSetCNS) {
+		HPDF_UseCNSEncodings(hdPdf);
+	} // if
+	if (qfesEncodingSets & PdfExportWidget::EncodingSetCNT) {
+		HPDF_UseCNTEncodings(hdPdf);
+	} // if
+	if (qfesEncodingSets & PdfExportWidget::EncodingSetJPE) {
+		HPDF_UseJPEncodings(hdPdf);
+	} // if
+	if (qfesEncodingSets & PdfExportWidget::EncodingSetKRE) {
+		HPDF_UseKREncodings(hdPdf);
+	} // if
+
+	// load fonts
+	HPDF_Font hfCategory = HPDF_GetFont(hdPdf, sfriCategoryFont.qsFont.toLocal8Bit(), sfriCategoryFont.qsEncoding.toLocal8Bit());
+	HPDF_Font hfTemplate = HPDF_GetFont(hdPdf, sfriTemplateFont.qsFont.toLocal8Bit(), sfriTemplateFont.qsEncoding.toLocal8Bit());
 	QList<sMarkFont> qlMarkFonts;
 	for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
 		PdfExportWidget::sFontRoleInfo sfriFont = _pewWidget->GetFontInfo(PdfExportWidget::FontRoleMark, iMark);
 
 		sMarkFont smfFont;
-		smfFont.hfFont = HPDF_GetFont(hdPdf, sfriFont.qsFont.toLocal8Bit(), NULL);
+		smfFont.hfFont = HPDF_GetFont(hdPdf, sfriFont.qsFont.toLocal8Bit(), sfriFont.qsEncoding.toLocal8Bit());
 		smfFont.iSize = sfriFont.iSize;
-
 		qlMarkFonts.append(smfFont);
 	} // for
 

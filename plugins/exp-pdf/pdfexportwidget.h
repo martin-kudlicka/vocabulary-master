@@ -10,6 +10,8 @@ class PdfExportWidget : public QWidget
 	Q_OBJECT
 	Q_ENUMS(eEncodingSet)
 	Q_ENUMS(eEncodingType)
+	Q_ENUMS(eFontRole)
+	Q_ENUMS(eFontSet)
 
 	public:
 		enum eEncodingSet {
@@ -29,6 +31,14 @@ class PdfExportWidget : public QWidget
 			FontRoleTemplate,
 			FontRoleMark
 		}; // eFontRole
+		enum eFontSet {
+			FontSetNone,
+			FontSetCNS,
+			FontSetCNT,
+			FontSetJP = 4,
+			FontSetKR = 8
+		}; // eFontSet
+		Q_DECLARE_FLAGS(qfFontSets, eFontSet)
 
 		struct sEncodingInfo {
 			QString qsName;
@@ -37,10 +47,12 @@ class PdfExportWidget : public QWidget
 		}; // sEncodingInfo
 		struct sFontInfo {
 			QString qsName;
-			eEncodingType eetEncoding;
+			eEncodingType eetEncodingType;
+			eFontSet efsFontSet;
 		}; // sFontInfo
 		struct sFontRoleInfo {
 			QString qsFont;
+			eFontSet efsFontSet;
 			QString qsEncoding;
 			eEncodingSet eesEncodingSet;
 			int iSize;
@@ -94,6 +106,7 @@ class PdfExportWidget : public QWidget
 		const void FillEncodings(QComboBox *pComboBox, const QString &pFont) const;
 		const void FillFonts(QComboBox *pComboBox) const;
 		const eEncodingSet GetEncodingSet(const QString &pEncoding) const;
+		const eFontSet GetFontSet(const QString &pFont) const;
         const void InitTableColumns();
         const void RefreshTable() const;
         const void RefreshText() const;
@@ -110,5 +123,6 @@ class PdfExportWidget : public QWidget
 }; // PdfExportWidget
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(PdfExportWidget::qfEncodingSets)
+Q_DECLARE_OPERATORS_FOR_FLAGS(PdfExportWidget::qfFontSets)
 
 #endif // PDFEXPORTWIDGET_H
