@@ -93,6 +93,7 @@ class PdfExportWidget : public QWidget
         const void AddTableColumn();
 		const void FillEncodings(QComboBox *pComboBox, const QString &pFont) const;
 		const void FillFonts(QComboBox *pComboBox) const;
+		const eEncodingSet GetEncodingSet(const QString &pEncoding) const;
         const void InitTableColumns();
         const void RefreshTable() const;
         const void RefreshText() const;

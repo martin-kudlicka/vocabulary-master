@@ -119,6 +119,17 @@ const void PdfExportWidget::FillFonts(QComboBox *pComboBox) const
 	} // for
 } // FillFonts
 
+const PdfExportWidget::eEncodingSet PdfExportWidget::GetEncodingSet(const QString &pEncoding) const
+{
+	for (int iEncoding = 0; iEncoding < sizeof(seiEncodings) / sizeof(sEncodingInfo); iEncoding++) {
+		if (seiEncodings[iEncoding].qsName == pEncoding) {
+			return seiEncodings[iEncoding].eesEncodingSet;
+		} // if
+	} // for
+
+	return EncodingSetNone;
+} // GetEncodingSet
+
 PdfExportWidget::sFontRoleInfo PdfExportWidget::GetFontInfo(const eFontRole &pRole, const int &pNum /* -1 */) const
 {
 	sFontRoleInfo sfriFontInfo;
@@ -126,27 +137,22 @@ PdfExportWidget::sFontRoleInfo PdfExportWidget::GetFontInfo(const eFontRole &pRo
 	switch (pRole) {
 		case FontRoleCategory:
 			sfriFontInfo.qsFont = _qwpePdfExport.qcbCategoryFont->currentText();
+			sfriFontInfo.qsEncoding = _qwpePdfExport.qcbCategoryEncoding->currentText();
 			sfriFontInfo.iSize = _qwpePdfExport.qsbCategoryFontSize->value();
 			break;
 		case FontRoleTemplate:
 			sfriFontInfo.qsFont = _qwpePdfExport.qcbTemplateFont->currentText();
+			sfriFontInfo.qsEncoding = _qwpePdfExport.qcbTemplateEncoding->currentText();
 			sfriFontInfo.iSize = _qwpePdfExport.qsbTemplateFontSize->value();
 			break;
 		case FontRoleMark:
-			// get correct mark row in form layout
-			QLayoutItem *qliItem = _qwpePdfExport.qflFontLayout->itemAt(pNum + DEFAULT_FONT_COUNT, QFormLayout::FieldRole);
-			const QHBoxLayout *qhblFontDetails = qobject_cast<const QHBoxLayout *>(qliItem->layout());
+			sFontControls sfcControls = _qlFontControls.at(pNum + DEFAULT_FONT_COUNT);
 
-			// font
-			QLayoutItem *qliFont = qhblFontDetails->itemAt(FontDetailsFont);
-			const QComboBox *qcbFont = qobject_cast<const QComboBox *>(qliFont->widget());
-			sfriFontInfo.qsFont = qcbFont->currentText();
-
-			// size
-			QLayoutItem *qliFontSize = qhblFontDetails->itemAt(FontDetailsSize);
-			const QSpinBox *qsbFontSize = qobject_cast<const QSpinBox *>(qliFontSize->widget());
-			sfriFontInfo.iSize = qsbFontSize->value();
+			sfriFontInfo.qsFont = sfcControls.qcbFont->currentText();
+			sfriFontInfo.qsEncoding = sfcControls.qcbEncoding->currentText();
+			sfriFontInfo.iSize = sfcControls.qsbSize->value();
 	} // switch
+	sfriFontInfo.eesEncodingSet = GetEncodingSet(sfriFontInfo.qsEncoding);
 
 	return sfriFontInfo;
 } // GetFontInfo
