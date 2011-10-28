@@ -10,13 +10,28 @@ const bool ExpPdf::BeginExport() const
 		return false;
 	} // if
 
+	QStringList qslMarks;
+	emit VocabularyGetMarks(&qslMarks);
+
 	// PDF
 	HPDF_Doc hdPdf = HPDF_New(NULL, NULL);
 	//HPDF_SetCompressionMode(hdPdf, HPDF_COMP_ALL);
 
 	// fonts
-	HPDF_Font hfCategory = HPDF_GetFont(hdPdf, _pewWidget->GetCategoryFont().toLocal8Bit(), NULL);
-	HPDF_Font hfRecord = HPDF_GetFont(hdPdf, _pewWidget->GetRecordFont().toLocal8Bit(), NULL);
+	PdfExportWidget::sFontRoleInfo sfriCategoryFont = _pewWidget->GetFontInfo(PdfExportWidget::FontRoleCategory);
+	HPDF_Font hfCategory = HPDF_GetFont(hdPdf, sfriCategoryFont.qsFont.toLocal8Bit(), NULL);
+	PdfExportWidget::sFontRoleInfo sfriTemplateFont = _pewWidget->GetFontInfo(PdfExportWidget::FontRoleTemplate);
+	HPDF_Font hfTemplate = HPDF_GetFont(hdPdf, sfriTemplateFont.qsFont.toLocal8Bit(), NULL);
+	QList<sMarkFont> qlMarkFonts;
+	for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
+		PdfExportWidget::sFontRoleInfo sfriFont = _pewWidget->GetFontInfo(PdfExportWidget::FontRoleMark, iMark);
+
+		sMarkFont smfFont;
+		smfFont.hfFont = HPDF_GetFont(hdPdf, sfriFont.qsFont.toLocal8Bit(), NULL);
+		smfFont.iSize = sfriFont.iSize;
+
+		qlMarkFonts.append(smfFont);
+	} // for
 
 	// categories
 	ExpInterface::tCategoryIdList tcilCategoryIds;
@@ -31,13 +46,9 @@ const bool ExpPdf::BeginExport() const
 	} // foreach
 	emit ProgressExportSetMax(iTotalRecords);
 
-	QStringList qslMarks;
-	emit VocabularyGetMarks(&qslMarks);
-
 	// export
 	HPDF_Page hpPage = NULL;
-	PdfAddPage(hdPdf, &hpPage, _pewWidget->GetCategoryFontSize());
-	PdfSetFont(hpPage, hfCategory, _pewWidget->GetCategoryFontSize());
+	PdfAddPage(hdPdf, &hpPage, sfriCategoryFont.iSize);
 	bool bFirstLine = true;
 	int iRecords = 0;
 	foreach (int iCategoryId, tcilCategoryIds) {
@@ -52,24 +63,58 @@ const bool ExpPdf::BeginExport() const
 		// category
         QString qsCategoryName;
         emit VocabularyGetCategoryName(iCategoryId, &qsCategoryName);
+		PdfSetFont(hpPage, hfCategory, sfriCategoryFont.iSize);
 		HPDF_Page_ShowText(hpPage, qsCategoryName.toLocal8Bit());
 
         // records
-		PdfSetFont(hpPage, hfRecord, _pewWidget->GetRecordFontSize());
         ExpInterface::tRecordIdList trilRecordIds;
         emit VocabularyGetRecordIds(iCategoryId, &trilRecordIds);
         foreach (int iRecordId, trilRecordIds) {
             QString qsTemplate = _pewWidget->GetTextTemplate();
 
-            // replace marks for data
-            foreach (QString qsMark, qslMarks) {
-                QString qsData;
-                emit VocabularyGetMarkText(iRecordId, qsMark, &qsData);
-                qsTemplate.replace(qsMark, qsData);
-            } // foreach
-
 			PdfNextLine(hdPdf, &hpPage);
-			HPDF_Page_ShowText(hpPage, qsTemplate.toLocal8Bit());
+
+			// analyze template
+			int iPos = 0;
+			while (iPos < qsTemplate.size()) {
+				int iMarkPos = qsTemplate.indexOf('$', iPos);
+
+				if (iMarkPos == -1) {
+					// no other mark on the line
+					PdfSetFont(hpPage, hfTemplate, sfriTemplateFont.iSize);
+					QString qsText = qsTemplate.mid(iPos);
+					HPDF_Page_ShowText(hpPage, qsText.toLocal8Bit());
+
+					break;
+				} else {
+					// text before possible mark
+					if (iMarkPos > iPos) {
+						PdfSetFont(hpPage, hfTemplate, sfriTemplateFont.iSize);
+						QString qsText = qsTemplate.mid(iPos, iMarkPos - iPos);
+						HPDF_Page_ShowText(hpPage, qsText.toLocal8Bit());
+					} // if
+					iPos = iMarkPos;
+
+					// check if valid mark
+					for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
+						QString qsMark = qslMarks.at(iMark);
+						if (qsTemplate.mid(iMarkPos, qsMark.size()) == qsMark) {
+							// valid mark, replace marks for data
+							QString qsData;
+							emit VocabularyGetMarkText(iRecordId, qsMark, &qsData);
+
+							// show data
+							PdfSetFont(hpPage, qlMarkFonts.at(iMark).hfFont, qlMarkFonts.at(iMark).iSize);
+							HPDF_Page_ShowText(hpPage, qsData.toLocal8Bit());
+
+							iPos += qsMark.size() - 1;
+							break;
+						} // if
+					} // for
+
+					iPos++;
+				} // if else
+			} // while
 
             iRecords++;
             emit ProgressExportSetValue(iRecords);
@@ -88,6 +133,11 @@ const QString ExpPdf::GetPluginName() const
 {
 	return tr("pdf (pdf)");
 } // GetPluginName
+
+const void ExpPdf::on_pewWidget_VocabularyGetMarks(QStringList *pMarks) const
+{
+	emit VocabularyGetMarks(pMarks);
+} // on_pewWidget_VocabularyGetMarks
 
 const void ExpPdf::PdfAddPage(const HPDF_Doc &pPdf, HPDF_Page *pPage, const HPDF_REAL &pDefaultSize /* 0 */) const
 {
@@ -137,6 +187,10 @@ const void ExpPdf::SetupUI(QWidget *pParent)
 	_pewWidget = new PdfExportWidget(pParent);
 	QBoxLayout *pLayout = qobject_cast<QBoxLayout *>(pParent->layout());
 	pLayout->insertWidget(WIDGET_POSITION, _pewWidget);
+
+	connect(_pewWidget, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_pewWidget_VocabularyGetMarks(QStringList *)));
+
+	_pewWidget->InitMarkFonts();
 } // SetupUI
 
 Q_EXPORT_PLUGIN2(exp-pdf, ExpPdf)
