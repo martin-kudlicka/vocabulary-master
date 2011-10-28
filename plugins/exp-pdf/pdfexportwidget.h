@@ -44,6 +44,7 @@ class PdfExportWidget : public QWidget
 			QString qsName;
 			eEncodingType eetEncodingType;
 			eEncodingSet eesEncodingSet;
+			char *cTextCodec;
 		}; // sEncodingInfo
 		struct sFontInfo {
 			QString qsName;
@@ -56,6 +57,7 @@ class PdfExportWidget : public QWidget
 			QString qsEncoding;
 			eEncodingSet eesEncodingSet;
 			int iSize;
+			const char *cTextCodec;
 		}; // sFontRoleInfo
 
 		PdfExportWidget(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
@@ -107,6 +109,7 @@ class PdfExportWidget : public QWidget
 		const void FillFonts(QComboBox *pComboBox) const;
 		const eEncodingSet GetEncodingSet(const QString &pEncoding) const;
 		const eFontSet GetFontSet(const QString &pFont) const;
+		const char *GetTextCodec(const QString &pEncoding) const;
         const void InitTableColumns();
         const void RefreshTable() const;
         const void RefreshText() const;
