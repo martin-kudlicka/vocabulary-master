@@ -8,17 +8,58 @@
 class PdfExportWidget : public QWidget
 {
 	Q_OBJECT
+	Q_ENUMS(eEncodingSet)
+	Q_ENUMS(eEncodingType)
 
 	public:
+		enum eEncodingSet {
+			EncodingSetNone,
+			EncodingSetCNS,
+			EncodingSetCNT,
+			EncodingSetJPE = 4,
+			EncodingSetKRE = 8
+		}; // eEncodingSet
+		Q_DECLARE_FLAGS(qfEncodingSets, eEncodingSet)
+		enum eEncodingType {
+			EncodingTypeSinglebyte,
+			EncodingTypeMultibyte
+		}; // eEncodingType
+		enum eFontRole {
+			FontRoleCategory,
+			FontRoleTemplate,
+			FontRoleMark
+		}; // eFontRole
+
+		struct sEncodingInfo {
+			QString qsName;
+			eEncodingType eetEncodingType;
+			eEncodingSet eesEncodingSet;
+		}; // sEncodingInfo
+		struct sFontInfo {
+			QString qsName;
+			eEncodingType eetEncoding;
+		}; // sFontInfo
+		struct sFontRoleInfo {
+			QString qsFont;
+			QString qsEncoding;
+			eEncodingSet eesEncodingSet;
+			int iSize;
+		}; // sFontRoleInfo
+
 		PdfExportWidget(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
-		const QString GetCategoryFont() const;
-		const int GetCategoryFontSize() const;
-		const QString GetRecordFont() const;
-		const int GetRecordFontSize() const;
+		sFontRoleInfo GetFontInfo(const eFontRole &pRole, const int &pNum = -1) const;
 		const QString GetTextTemplate() const;
+		const void InitMarkFonts() const;
 
 	private:
+		static const int DEFAULT_FONT_COUNT = 2;
+
+		enum eFontDetails {
+			FontDetailsFont,
+			FontDetailsEncoding,
+			FontDetailsSize
+		}; // eFontDetails
 		enum eStyle {
 			StyleText,
 			StyleTable
@@ -50,10 +91,15 @@ class PdfExportWidget : public QWidget
         const void RefreshText() const;
         const void RemoveTableColumn();
 
+	signals:
+		void VocabularyGetMarks(QStringList *pMarks) const;
+
     private slots:
 		const void on_qrbStyleTable_clicked(bool checked = false) const;
         const void on_qrbStyleText_clicked(bool checked = false) const;
         const void on_qsbTableColums_valueChanged(int i);
 }; // PdfExportWidget
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(PdfExportWidget::qfEncodingSets)
 
 #endif // PDFEXPORTWIDGET_H
