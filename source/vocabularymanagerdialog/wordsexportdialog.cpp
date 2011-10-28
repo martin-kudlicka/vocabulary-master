@@ -79,9 +79,7 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
 		int iPage = _qdweWordsExport.qswExpPlugins->addWidget(qwExpPlugin);
 		_qhExpPluginPage.insert(qmiIndex.row(), iPage);
 
-		// setup page
 		ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row()).eiInterface;
-		eiPlugin->SetupUI(qwExpPlugin);
 
         // connections
         connect(eiPlugin, SIGNAL(ProgressExportSetMax(const int &)), SLOT(on_eiPlugin_ProgressExportSetMax(const int &)));
@@ -92,6 +90,9 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
         connect(eiPlugin, SIGNAL(VocabularyGetMarkText(const int &, const QString &, QString *)), SLOT(on_eiPlugin_VocabularyGetMarkText(const int &, const QString &, QString *)));
         connect(eiPlugin, SIGNAL(VocabularyGetRecordCount(const int &, int *)), SLOT(on_eiPlugin_VocabularyGetRecordCount(const int &, int *)));
         connect(eiPlugin, SIGNAL(VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)), SLOT(on_eiPlugin_VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)));
+
+		// setup page
+		eiPlugin->SetupUI(qwExpPlugin);
 	} // if
 
     // set plugin page
