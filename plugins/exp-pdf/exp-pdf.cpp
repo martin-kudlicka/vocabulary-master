@@ -1,6 +1,18 @@
 #include "exp-pdf.h"
 
 #include <QtGui/QFileDialog>
+#include <QtCore/QTextCodec>
+
+const void ExpPdf::AddFont(const HPDF_Doc &pPdf, tFontList *pFontList, const PdfExportWidget::eFontRole &pFontRole, const int &pNum /* PdfExportWidget::FONTROLE_NONE */) const
+{
+	PdfExportWidget::sFontRoleInfo sfriFontRoleInfo = _pewWidget->GetFontRoleInfo(pFontRole, pNum);
+
+	sFont smfFont;
+	smfFont.hfFont = HPDF_GetFont(pPdf, sfriFontRoleInfo.qsFont.toLocal8Bit(), sfriFontRoleInfo.qsEncoding.toLocal8Bit());
+	smfFont.iSize = sfriFontRoleInfo.iSize;
+	smfFont.qtcTextCodec = QTextCodec::codecForName(sfriFontRoleInfo.cTextCodec);
+	pFontList->append(smfFont);
+} // AddFont
 
 const bool ExpPdf::BeginExport() const
 {
@@ -10,6 +22,7 @@ const bool ExpPdf::BeginExport() const
 		return false;
 	} // if
 
+	// marks
 	QStringList qslMarks;
 	emit VocabularyGetMarks(&qslMarks);
 
@@ -18,57 +31,8 @@ const bool ExpPdf::BeginExport() const
 	//HPDF_SetCompressionMode(hdPdf, HPDF_COMP_ALL);
 
 	// get font info with font and encoding set
-	PdfExportWidget::sFontRoleInfo sfriCategoryFont = _pewWidget->GetFontInfo(PdfExportWidget::FontRoleCategory);
-	PdfExportWidget::sFontRoleInfo sfriTemplateFont = _pewWidget->GetFontInfo(PdfExportWidget::FontRoleTemplate);
-	PdfExportWidget::qfFontSets qffsFontSets = sfriCategoryFont.efsFontSet | sfriTemplateFont.efsFontSet;
-	PdfExportWidget::qfEncodingSets qfesEncodingSets = sfriCategoryFont.eesEncodingSet | sfriTemplateFont.eesEncodingSet;
-	for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
-		PdfExportWidget::sFontRoleInfo sfriFont = _pewWidget->GetFontInfo(PdfExportWidget::FontRoleMark, iMark);
-
-		qffsFontSets |= sfriFont.efsFontSet;
-		qfesEncodingSets |= sfriFont.eesEncodingSet;
-	} // for
-
-	// enable demanded CID fonts
-	if (qffsFontSets & PdfExportWidget::FontSetCNS) {
-		HPDF_UseCNSFonts(hdPdf);
-	} // if
-	if (qffsFontSets & PdfExportWidget::FontSetCNT) {
-		HPDF_UseCNTFonts(hdPdf);
-	} // if
-	if (qffsFontSets & PdfExportWidget::FontSetJP) {
-		HPDF_UseJPFonts(hdPdf);
-	} // if
-	if (qffsFontSets & PdfExportWidget::FontSetKR) {
-		HPDF_UseKRFonts(hdPdf);
-	} // if
-
-	// enable demanded encodings
-	if (qfesEncodingSets & PdfExportWidget::EncodingSetCNS) {
-		HPDF_UseCNSEncodings(hdPdf);
-	} // if
-	if (qfesEncodingSets & PdfExportWidget::EncodingSetCNT) {
-		HPDF_UseCNTEncodings(hdPdf);
-	} // if
-	if (qfesEncodingSets & PdfExportWidget::EncodingSetJPE) {
-		HPDF_UseJPEncodings(hdPdf);
-	} // if
-	if (qfesEncodingSets & PdfExportWidget::EncodingSetKRE) {
-		HPDF_UseKREncodings(hdPdf);
-	} // if
-
-	// load fonts
-	HPDF_Font hfCategory = HPDF_GetFont(hdPdf, sfriCategoryFont.qsFont.toLocal8Bit(), sfriCategoryFont.qsEncoding.toLocal8Bit());
-	HPDF_Font hfTemplate = HPDF_GetFont(hdPdf, sfriTemplateFont.qsFont.toLocal8Bit(), sfriTemplateFont.qsEncoding.toLocal8Bit());
-	QList<sMarkFont> qlMarkFonts;
-	for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
-		PdfExportWidget::sFontRoleInfo sfriFont = _pewWidget->GetFontInfo(PdfExportWidget::FontRoleMark, iMark);
-
-		sMarkFont smfFont;
-		smfFont.hfFont = HPDF_GetFont(hdPdf, sfriFont.qsFont.toLocal8Bit(), sfriFont.qsEncoding.toLocal8Bit());
-		smfFont.iSize = sfriFont.iSize;
-		qlMarkFonts.append(smfFont);
-	} // for
+	QList<sFont> qlFonts;
+	InitFonts(hdPdf, &qlFonts, qslMarks.size());
 
 	// categories
 	ExpInterface::tCategoryIdList tcilCategoryIds;
@@ -85,7 +49,7 @@ const bool ExpPdf::BeginExport() const
 
 	// export
 	HPDF_Page hpPage = NULL;
-	PdfAddPage(hdPdf, &hpPage, sfriCategoryFont.iSize);
+	PdfAddPage(hdPdf, &hpPage, qlFonts.at(PdfExportWidget::FontRoleCategory).iSize);
 	bool bFirstLine = true;
 	int iRecords = 0;
 	foreach (int iCategoryId, tcilCategoryIds) {
@@ -100,8 +64,8 @@ const bool ExpPdf::BeginExport() const
 		// category
         QString qsCategoryName;
         emit VocabularyGetCategoryName(iCategoryId, &qsCategoryName);
-		PdfSetFont(hpPage, hfCategory, sfriCategoryFont.iSize);
-		HPDF_Page_ShowText(hpPage, qsCategoryName.toLocal8Bit());
+		PdfSetFont(hpPage, qlFonts.at(PdfExportWidget::FontRoleCategory).hfFont, qlFonts.at(PdfExportWidget::FontRoleCategory).iSize);
+		PdfShowText(hpPage, qsCategoryName, qlFonts.at(PdfExportWidget::FontRoleCategory).qtcTextCodec);
 
         // records
         ExpInterface::tRecordIdList trilRecordIds;
@@ -118,17 +82,17 @@ const bool ExpPdf::BeginExport() const
 
 				if (iMarkPos == -1) {
 					// no other mark on the line
-					PdfSetFont(hpPage, hfTemplate, sfriTemplateFont.iSize);
+					PdfSetFont(hpPage, qlFonts.at(PdfExportWidget::FontRoleTemplate).hfFont, qlFonts.at(PdfExportWidget::FontRoleTemplate).iSize);
 					QString qsText = qsTemplate.mid(iPos);
-					HPDF_Page_ShowText(hpPage, qsText.toLocal8Bit());
+					PdfShowText(hpPage, qsText, qlFonts.at(PdfExportWidget::FontRoleTemplate).qtcTextCodec);
 
 					break;
 				} else {
 					// text before possible mark
 					if (iMarkPos > iPos) {
-						PdfSetFont(hpPage, hfTemplate, sfriTemplateFont.iSize);
+						PdfSetFont(hpPage, qlFonts.at(PdfExportWidget::FontRoleTemplate).hfFont, qlFonts.at(PdfExportWidget::FontRoleTemplate).iSize);
 						QString qsText = qsTemplate.mid(iPos, iMarkPos - iPos);
-						HPDF_Page_ShowText(hpPage, qsText.toLocal8Bit());
+						PdfShowText(hpPage, qsText, qlFonts.at(PdfExportWidget::FontRoleTemplate).qtcTextCodec);
 					} // if
 					iPos = iMarkPos;
 
@@ -141,8 +105,8 @@ const bool ExpPdf::BeginExport() const
 							emit VocabularyGetMarkText(iRecordId, qsMark, &qsData);
 
 							// show data
-							PdfSetFont(hpPage, qlMarkFonts.at(iMark).hfFont, qlMarkFonts.at(iMark).iSize);
-							HPDF_Page_ShowText(hpPage, qsData.toLocal8Bit());
+							PdfSetFont(hpPage, qlFonts.at(PdfExportWidget::FontRoleMark + iMark).hfFont, qlFonts.at(PdfExportWidget::FontRoleMark + iMark).iSize);
+							PdfShowText(hpPage, qsData, qlFonts.at(PdfExportWidget::FontRoleMark + iMark).qtcTextCodec);
 
 							iPos += qsMark.size() - 1;
 							break;
@@ -170,6 +134,57 @@ const QString ExpPdf::GetPluginName() const
 {
 	return tr("pdf (pdf)");
 } // GetPluginName
+
+const void ExpPdf::InitFonts(const HPDF_Doc &pPdf, tFontList *pFontList, const int &pMarkCount) const
+{
+	// get demanded fonts and encodings
+	PdfExportWidget::sFontRoleInfo sfriFont = _pewWidget->GetFontRoleInfo(PdfExportWidget::FontRoleCategory);
+	PdfExportWidget::qfFontSets qffsFontSets = sfriFont.efsFontSet;
+	PdfExportWidget::qfEncodingSets qfesEncodingSets = sfriFont.eesEncodingSet;
+	sfriFont = _pewWidget->GetFontRoleInfo(PdfExportWidget::FontRoleTemplate);
+	qffsFontSets |= sfriFont.efsFontSet;
+	qfesEncodingSets |= sfriFont.eesEncodingSet;
+	for (int iMark = 0; iMark < pMarkCount; iMark++) {
+		sfriFont = _pewWidget->GetFontRoleInfo(PdfExportWidget::FontRoleMark, iMark);
+		qffsFontSets |= sfriFont.efsFontSet;
+		qfesEncodingSets |= sfriFont.eesEncodingSet;
+	} // for
+
+	// enable demanded CID fonts
+	if (qffsFontSets & PdfExportWidget::FontSetCNS) {
+		HPDF_UseCNSFonts(pPdf);
+	} // if
+	if (qffsFontSets & PdfExportWidget::FontSetCNT) {
+		HPDF_UseCNTFonts(pPdf);
+	} // if
+	if (qffsFontSets & PdfExportWidget::FontSetJP) {
+		HPDF_UseJPFonts(pPdf);
+	} // if
+	if (qffsFontSets & PdfExportWidget::FontSetKR) {
+		HPDF_UseKRFonts(pPdf);
+	} // if
+
+	// enable demanded encodings
+	if (qfesEncodingSets & PdfExportWidget::EncodingSetCNS) {
+		HPDF_UseCNSEncodings(pPdf);
+	} // if
+	if (qfesEncodingSets & PdfExportWidget::EncodingSetCNT) {
+		HPDF_UseCNTEncodings(pPdf);
+	} // if
+	if (qfesEncodingSets & PdfExportWidget::EncodingSetJPE) {
+		HPDF_UseJPEncodings(pPdf);
+	} // if
+	if (qfesEncodingSets & PdfExportWidget::EncodingSetKRE) {
+		HPDF_UseKREncodings(pPdf);
+	} // if
+
+	// load fonts
+	AddFont(pPdf, pFontList, PdfExportWidget::FontRoleCategory);
+	AddFont(pPdf, pFontList, PdfExportWidget::FontRoleTemplate);
+	for (int iMark = 0; iMark < pMarkCount; iMark++) {
+		AddFont(pPdf, pFontList, PdfExportWidget::FontRoleMark, iMark);
+	} // for
+} // InitFonts
 
 const void ExpPdf::on_pewWidget_VocabularyGetMarks(QStringList *pMarks) const
 {
@@ -218,6 +233,18 @@ const void ExpPdf::PdfSetFont(const HPDF_Page &pPage, const HPDF_Font &pFont, co
 	HPDF_Page_SetFontAndSize(pPage, pFont, pSize);
 	HPDF_Page_SetTextLeading(pPage, pSize);
 } // PdfSetFont
+
+const void ExpPdf::PdfShowText(const HPDF_Page &pPage, const QString &pText, const QTextCodec *pTextCodec) const
+{
+	QByteArray qbaEncoded;
+	if (pTextCodec) {
+		qbaEncoded = pTextCodec->fromUnicode(pText);
+	} else {
+		qbaEncoded = pText.toAscii();
+	} // if else
+
+	HPDF_Page_ShowText(pPage, qbaEncoded);
+} // PdfShowText
 
 const void ExpPdf::SetupUI(QWidget *pParent)
 {

@@ -152,7 +152,7 @@ const char *PdfExportWidget::GetTextCodec(const QString &pEncoding) const
 	return NULL;
 } // GetTextCodec
 
-PdfExportWidget::sFontRoleInfo PdfExportWidget::GetFontInfo(const eFontRole &pRole, const int &pNum /* -1 */) const
+PdfExportWidget::sFontRoleInfo PdfExportWidget::GetFontRoleInfo(const eFontRole &pRole, const int &pNum /* FONTROLE_NONE */) const
 {
 	sFontRoleInfo sfriFontInfo;
 
@@ -179,7 +179,7 @@ PdfExportWidget::sFontRoleInfo PdfExportWidget::GetFontInfo(const eFontRole &pRo
 	sfriFontInfo.cTextCodec = GetTextCodec(sfriFontInfo.qsEncoding);
 
 	return sfriFontInfo;
-} // GetFontInfo
+} // GetFontRoleInfo
 
 const QString PdfExportWidget::GetTextTemplate() const
 {
