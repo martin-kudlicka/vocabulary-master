@@ -119,6 +119,11 @@ const void PdfExportWidget::FillFonts(QComboBox *pComboBox) const
 	} // for
 } // FillFonts
 
+const int PdfExportWidget::GetBorder() const
+{
+	return _qwpePdfExport.qsbBorder->value();
+} // GetBorder
+
 const PdfExportWidget::eEncodingSet PdfExportWidget::GetEncodingSet(const QString &pEncoding) const
 {
 	for (int iEncoding = 0; iEncoding < sizeof(seiEncodings) / sizeof(sEncodingInfo); iEncoding++) {
@@ -140,17 +145,6 @@ const PdfExportWidget::eFontSet PdfExportWidget::GetFontSet(const QString &pFont
 
 	return FontSetNone;
 } // GetFontSet
-
-const char *PdfExportWidget::GetTextCodec(const QString &pEncoding) const
-{
-	for (int iEncoding = 0; iEncoding < sizeof(seiEncodings) / sizeof(sEncodingInfo); iEncoding++) {
-		if (seiEncodings[iEncoding].qsName == pEncoding) {
-			return seiEncodings[iEncoding].cTextCodec;
-		} // if
-	} // for
-
-	return NULL;
-} // GetTextCodec
 
 PdfExportWidget::sFontRoleInfo PdfExportWidget::GetFontRoleInfo(const eFontRole &pRole, const int &pNum /* FONTROLE_NONE */) const
 {
@@ -180,6 +174,17 @@ PdfExportWidget::sFontRoleInfo PdfExportWidget::GetFontRoleInfo(const eFontRole 
 
 	return sfriFontInfo;
 } // GetFontRoleInfo
+
+const char *PdfExportWidget::GetTextCodec(const QString &pEncoding) const
+{
+	for (int iEncoding = 0; iEncoding < sizeof(seiEncodings) / sizeof(sEncodingInfo); iEncoding++) {
+		if (seiEncodings[iEncoding].qsName == pEncoding) {
+			return seiEncodings[iEncoding].cTextCodec;
+		} // if
+	} // for
+
+	return NULL;
+} // GetTextCodec
 
 const QString PdfExportWidget::GetTextTemplate() const
 {

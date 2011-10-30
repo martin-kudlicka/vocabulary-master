@@ -64,6 +64,7 @@ class PdfExportWidget : public QWidget
 
 		PdfExportWidget(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
+		const int GetBorder() const;
 		sFontRoleInfo GetFontRoleInfo(const eFontRole &pRole, const int &pNum = FONTROLE_NONE) const;
 		const QString GetTextTemplate() const;
 		const void InitMarkFonts();

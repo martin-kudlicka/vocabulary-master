@@ -10,8 +10,6 @@ class ExpPdf : public ExpInterface
 	Q_INTERFACES(ExpInterface)
 
 	private:
-		static const int BORDER = 0;
-
 		struct sFont {
 			HPDF_Font hfFont;
 			int iSize;
