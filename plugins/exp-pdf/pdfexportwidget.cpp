@@ -225,6 +225,20 @@ const HPDF_PageSizes PdfExportWidget::GetPageSize() const
 	return static_cast<const HPDF_PageSizes>(_qwpePdfExport.qcbPageSize->itemData(_qwpePdfExport.qcbPageSize->currentIndex()).toInt());
 } // GetPageSize
 
+const PdfExportWidget::eStyle PdfExportWidget::GetStyle() const
+{
+	if (_qwpePdfExport.qrbStyleText->isChecked()) {
+		return StyleText;
+	} else {
+		return StyleTable;
+	} // if else
+} // GetStyle
+
+const PdfExportWidget::tTableColumns *PdfExportWidget::GetTableColumns() const
+{
+	return &_qlTableColumns;
+} // GetTableColumns
+
 const char *PdfExportWidget::GetTextCodec(const QString &pEncoding) const
 {
 	for (int iEncoding = 0; iEncoding < sizeof(seiEncodings) / sizeof(sEncodingInfo); iEncoding++) {

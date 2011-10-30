@@ -72,51 +72,13 @@ const bool ExpPdf::BeginExport() const
         ExpInterface::tRecordIdList trilRecordIds;
         emit VocabularyGetRecordIds(iCategoryId, &trilRecordIds);
         foreach (int iRecordId, trilRecordIds) {
-            QString qsTemplate = _pewWidget->GetTextTemplate();
-
 			PdfNextLine(hdPdf, &hpPage);
 
-			// analyze template
-			int iPos = 0;
-			while (iPos < qsTemplate.size()) {
-				int iMarkPos = qsTemplate.indexOf('$', iPos);
-
-				if (iMarkPos == -1) {
-					// no other mark on the line
-					PdfSetFont(hpPage, qlFonts.at(PdfExportWidget::FontRoleTemplate).hfFont, qlFonts.at(PdfExportWidget::FontRoleTemplate).iSize);
-					QString qsText = qsTemplate.mid(iPos);
-					PdfShowText(hpPage, qsText, qlFonts.at(PdfExportWidget::FontRoleTemplate).qtcTextCodec);
-
-					break;
-				} else {
-					// text before possible mark
-					if (iMarkPos > iPos) {
-						PdfSetFont(hpPage, qlFonts.at(PdfExportWidget::FontRoleTemplate).hfFont, qlFonts.at(PdfExportWidget::FontRoleTemplate).iSize);
-						QString qsText = qsTemplate.mid(iPos, iMarkPos - iPos);
-						PdfShowText(hpPage, qsText, qlFonts.at(PdfExportWidget::FontRoleTemplate).qtcTextCodec);
-					} // if
-					iPos = iMarkPos;
-
-					// check if valid mark
-					for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
-						QString qsMark = qslMarks.at(iMark);
-						if (qsTemplate.mid(iMarkPos, qsMark.size()) == qsMark) {
-							// valid mark, replace marks for data
-							QString qsData;
-							emit VocabularyGetMarkText(iRecordId, qsMark, &qsData);
-
-							// show data
-							PdfSetFont(hpPage, qlFonts.at(PdfExportWidget::FontRoleMark + iMark).hfFont, qlFonts.at(PdfExportWidget::FontRoleMark + iMark).iSize);
-							PdfShowText(hpPage, qsData, qlFonts.at(PdfExportWidget::FontRoleMark + iMark).qtcTextCodec);
-
-							iPos += qsMark.size() - 1;
-							break;
-						} // if
-					} // for
-
-					iPos++;
-				} // if else
-			} // while
+			if (_pewWidget->GetStyle() == PdfExportWidget::StyleText) {
+				ExportText(iRecordId, hpPage, qlFonts, qslMarks, _pewWidget->GetTextTemplate());
+			} else {
+				ExportTable(iRecordId, hpPage, qlFonts, qslMarks);
+			} // if else
 
             iRecords++;
             emit ProgressExportSetValue(iRecords);
@@ -130,6 +92,63 @@ const bool ExpPdf::BeginExport() const
 
 	return true;
 } // BeginExport
+
+const void ExpPdf::ExportTable(const int &pRecordId, const HPDF_Page &pPage, const tFontList &pFontList, const QStringList &pMarks) const
+{
+	const PdfExportWidget::tTableColumns *ttcColumns = _pewWidget->GetTableColumns();
+	foreach (PdfExportWidget::sTableColumn stcColumn, *ttcColumns) {
+		// write column text
+		ExportText(pRecordId, pPage, pFontList, pMarks, stcColumn.qleTemplate->text());
+
+		// next column
+		HPDF_Page_MoveTextPos(pPage, stcColumn.qsbWidth->value(), 0);
+	} // foreach
+} // ExportTable
+
+const void ExpPdf::ExportText(const int &pRecordId, const HPDF_Page &pPage, const tFontList &pFontList, const QStringList &pMarks, const QString &pTemplate) const
+{
+	// analyze template
+	int iPos = 0;
+	while (iPos < pTemplate.size()) {
+		int iMarkPos = pTemplate.indexOf('$', iPos);
+
+		if (iMarkPos == -1) {
+			// no other mark on the line
+			PdfSetFont(pPage, pFontList.at(PdfExportWidget::FontRoleTemplate).hfFont, pFontList.at(PdfExportWidget::FontRoleTemplate).iSize);
+			QString qsText = pTemplate.mid(iPos);
+			PdfShowText(pPage, qsText, pFontList.at(PdfExportWidget::FontRoleTemplate).qtcTextCodec);
+
+			break;
+		} else {
+			// text before possible mark
+			if (iMarkPos > iPos) {
+				PdfSetFont(pPage, pFontList.at(PdfExportWidget::FontRoleTemplate).hfFont, pFontList.at(PdfExportWidget::FontRoleTemplate).iSize);
+				QString qsText = pTemplate.mid(iPos, iMarkPos - iPos);
+				PdfShowText(pPage, qsText, pFontList.at(PdfExportWidget::FontRoleTemplate).qtcTextCodec);
+			} // if
+			iPos = iMarkPos;
+
+			// check if valid mark
+			for (int iMark = 0; iMark < pMarks.size(); iMark++) {
+				QString qsMark = pMarks.at(iMark);
+				if (pTemplate.mid(iMarkPos, qsMark.size()) == qsMark) {
+					// valid mark, replace marks for data
+					QString qsData;
+					emit VocabularyGetMarkText(pRecordId, qsMark, &qsData);
+
+					// show data
+					PdfSetFont(pPage, pFontList.at(PdfExportWidget::FontRoleMark + iMark).hfFont, pFontList.at(PdfExportWidget::FontRoleMark + iMark).iSize);
+					PdfShowText(pPage, qsData, pFontList.at(PdfExportWidget::FontRoleMark + iMark).qtcTextCodec);
+
+					iPos += qsMark.size() - 1;
+					break;
+				} // if
+			} // for
+
+			iPos++;
+		} // if else
+	} // while
+} // ExportText
 
 const QString ExpPdf::GetPluginName() const
 {
@@ -208,6 +227,8 @@ const void ExpPdf::PdfAddPage(const HPDF_Doc &pPdf, HPDF_Page *pPage, const HPDF
 	*pPage = HPDF_AddPage(pPdf);
 	HPDF_Page_SetSize(*pPage, _pewWidget->GetPageSize(), HPDF_PAGE_PORTRAIT);
 	HPDF_Page_BeginText(*pPage);
+
+	// horizontal and vertical border
 	HPDF_Page_MoveTextPos(*pPage, _pewWidget->GetBorder(), HPDF_Page_GetHeight(*pPage) - _pewWidget->GetBorder() - hrSize);
 
 	// set previous font and size
@@ -226,6 +247,11 @@ const bool ExpPdf::PdfNextLine(const HPDF_Doc &pPdf, HPDF_Page *pPage) const
 		return true;
 	} else {
 		HPDF_Page_MoveToNextLine(*pPage);
+
+		// horizontal border
+		HPDF_Point hpPosition = HPDF_Page_GetCurrentTextPos(*pPage);
+		HPDF_Page_MoveTextPos(*pPage, _pewWidget->GetBorder() - hpPosition.x, 0);
+
 		return false;
 	} // if else
 } // PdfNextLine
