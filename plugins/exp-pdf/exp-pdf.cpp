@@ -2,6 +2,7 @@
 
 #include <QtGui/QFileDialog>
 #include <QtCore/QTextCodec>
+#include <hpdf.h>
 
 const void ExpPdf::AddFont(const HPDF_Doc &pPdf, tFontList *pFontList, const PdfExportWidget::eFontRole &pFontRole, const int &pNum /* PdfExportWidget::FONTROLE_NONE */) const
 {
@@ -28,7 +29,7 @@ const bool ExpPdf::BeginExport() const
 
 	// PDF
 	HPDF_Doc hdPdf = HPDF_New(NULL, NULL);
-	//HPDF_SetCompressionMode(hdPdf, HPDF_COMP_ALL);
+	HPDF_SetCompressionMode(hdPdf, _pewWidget->GetCompression());
 
 	// get font info with font and encoding set
 	QList<sFont> qlFonts;

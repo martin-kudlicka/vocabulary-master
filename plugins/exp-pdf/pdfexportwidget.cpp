@@ -1,5 +1,7 @@
 #include "pdfexportwidget.h"
 
+#include <hpdf_consts.h>
+
 PdfExportWidget::sEncodingInfo seiEncodings[] = { {"StandardEncoding", PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::EncodingSetNone, NULL},
 												  {"MacRomanEncoding", PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::EncodingSetNone, "MacRoman"},
 												  {"WinAnsiEncoding",  PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::EncodingSetNone, "CP1252"},
@@ -123,6 +125,25 @@ const int PdfExportWidget::GetBorder() const
 {
 	return _qwpePdfExport.qsbBorder->value();
 } // GetBorder
+
+const int PdfExportWidget::GetCompression() const
+{
+	int iCompression;
+
+	if (_qwpePdfExport.qcbCompressText->isChecked()) {
+		iCompression = HPDF_COMP_TEXT;
+	} else {
+		iCompression = HPDF_COMP_NONE;
+	} // if else
+	if (_qwpePdfExport.qcbCompressImage->isChecked()) {
+		iCompression |= HPDF_COMP_IMAGE;
+	} // if
+	if (_qwpePdfExport.qcbCompressMetadata->isChecked()) {
+		iCompression |= HPDF_COMP_METADATA;
+	} // if
+
+	return iCompression;
+} // GetCompression
 
 const PdfExportWidget::eEncodingSet PdfExportWidget::GetEncodingSet(const QString &pEncoding) const
 {
