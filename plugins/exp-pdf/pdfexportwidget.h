@@ -14,6 +14,8 @@ class PdfExportWidget : public QWidget
 	Q_ENUMS(eFontSet)
 
 	public:
+		static const int FONTROLE_NONE = -1;
+
 		enum eEncodingSet {
 			EncodingSetNone,
 			EncodingSetCNS,
@@ -62,7 +64,7 @@ class PdfExportWidget : public QWidget
 
 		PdfExportWidget(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
-		sFontRoleInfo GetFontInfo(const eFontRole &pRole, const int &pNum = -1) const;
+		sFontRoleInfo GetFontRoleInfo(const eFontRole &pRole, const int &pNum = FONTROLE_NONE) const;
 		const QString GetTextTemplate() const;
 		const void InitMarkFonts();
 
