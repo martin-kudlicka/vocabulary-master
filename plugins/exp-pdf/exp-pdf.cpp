@@ -206,7 +206,7 @@ const void ExpPdf::PdfAddPage(const HPDF_Doc &pPdf, HPDF_Page *pPage, const HPDF
 
 	*pPage = HPDF_AddPage(pPdf);
 	HPDF_Page_BeginText(*pPage);
-	HPDF_Page_MoveTextPos(*pPage, BORDER, HPDF_Page_GetHeight(*pPage) - BORDER - hrSize);
+	HPDF_Page_MoveTextPos(*pPage, _pewWidget->GetBorder(), HPDF_Page_GetHeight(*pPage) - _pewWidget->GetBorder() - hrSize);
 
 	// set previous font and size
 	if (hfFont) {
@@ -219,7 +219,7 @@ const bool ExpPdf::PdfNextLine(const HPDF_Doc &pPdf, HPDF_Page *pPage) const
 	// check current position
 	HPDF_REAL hrSize = HPDF_Page_GetCurrentFontSize(*pPage);
 	HPDF_Point hpPosition = HPDF_Page_GetCurrentTextPos(*pPage);
-	if (hpPosition.y < hrSize + BORDER) {
+	if (hpPosition.y < hrSize + _pewWidget->GetBorder()) {
 		PdfAddPage(pPdf, pPage);
 		return true;
 	} else {
