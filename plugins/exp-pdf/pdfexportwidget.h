@@ -13,6 +13,7 @@ class PdfExportWidget : public QWidget
 	Q_ENUMS(eEncodingType)
 	Q_ENUMS(eFontRole)
 	Q_ENUMS(eFontSet)
+	Q_ENUMS(eStyle)
 
 	public:
 		static const int FONTROLE_NONE = -1;
@@ -42,6 +43,10 @@ class PdfExportWidget : public QWidget
 			FontSetKR = 8
 		}; // eFontSet
 		Q_DECLARE_FLAGS(qfFontSets, eFontSet)
+		enum eStyle {
+			StyleText,
+			StyleTable
+		}; // eStyle
 
 		struct sEncodingInfo {
 			QString qsName;
@@ -66,6 +71,14 @@ class PdfExportWidget : public QWidget
 			QString qsName;
 			HPDF_PageSizes hpsSize;
 		}; // sPageSize
+		struct sTableColumn {
+			QWidget *qwHeader;
+			QLineEdit *qleHeader;
+			QSpinBox *qsbWidth;
+			QLineEdit *qleTemplate;
+		}; // sTableColumn
+
+		typedef QList<sTableColumn> tTableColumns;
 
 		PdfExportWidget(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
@@ -73,6 +86,8 @@ class PdfExportWidget : public QWidget
 		const int GetCompression() const;
 		sFontRoleInfo GetFontRoleInfo(const eFontRole &pRole, const int &pNum = FONTROLE_NONE) const;
 		const HPDF_PageSizes GetPageSize() const;
+		const eStyle GetStyle() const;
+		const tTableColumns *GetTableColumns() const;
 		const QString GetTextTemplate() const;
 		const void InitMarkFonts();
 
@@ -84,10 +99,6 @@ class PdfExportWidget : public QWidget
 			FontDetailsEncoding,
 			FontDetailsSize
 		}; // eFontDetails
-		enum eStyle {
-			StyleText,
-			StyleTable
-		}; // eStyle
         enum eTableRow {
             TableRowHeader,
             TableRowTemplate
@@ -98,16 +109,9 @@ class PdfExportWidget : public QWidget
 			QComboBox *qcbEncoding;
 			QSpinBox *qsbSize;
 		}; // sFontControls
-        struct sTableColumn {
-            QWidget *qwHeader;
-            QLineEdit *qleHeader;
-            QSpinBox *qsbWidth;
-            QLineEdit *qleTemplate;
-        }; // sTableColumn
 
         static const int COLUMN_DEFAULTWIDTH = 100;
         static const int COLUMN_MAX_WIDTH = 999;
-        static const int HEADER_ROW = 0;
         static const int LABEL_COLUMN = 1;
 
 		QList<sFontControls> _qlFontControls;
