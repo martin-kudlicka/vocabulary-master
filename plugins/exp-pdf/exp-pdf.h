@@ -2,7 +2,7 @@
 #define EXP_PDF_H
 
 #include "pdfexportwidget.h"
-#include <hpdf.h>
+#include <hpdf_doc.h>
 
 class ExpPdf : public ExpInterface
 {
