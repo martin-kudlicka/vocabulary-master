@@ -41,13 +41,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="source\win32\include;source\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;LIBHPDF_HAVE_NOPNGLIB;LIBHPDF_HAVE_NOZLIB"
+				AdditionalIncludeDirectories="source\win32\include;source\include;..\zlib\source;..\libpng\source;..\libpng"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="2"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -105,12 +105,12 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="source\win32\include;source\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LIBHPDF_HAVE_NOPNGLIB;LIBHPDF_HAVE_NOZLIB"
+				AdditionalIncludeDirectories="source\win32\include;source\include;..\zlib\source;..\libpng\source;..\libpng"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="2"
 				DebugInformationFormat="3"
 			/>
 			<Tool
