@@ -206,6 +206,7 @@ const void ExpPdf::PdfAddPage(const HPDF_Doc &pPdf, HPDF_Page *pPage, const HPDF
 	} // if else
 
 	*pPage = HPDF_AddPage(pPdf);
+	HPDF_Page_SetSize(*pPage, _pewWidget->GetPageSize(), HPDF_PAGE_PORTRAIT);
 	HPDF_Page_BeginText(*pPage);
 	HPDF_Page_MoveTextPos(*pPage, _pewWidget->GetBorder(), HPDF_Page_GetHeight(*pPage) - _pewWidget->GetBorder() - hrSize);
 

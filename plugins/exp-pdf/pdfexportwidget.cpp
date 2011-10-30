@@ -73,6 +73,19 @@ PdfExportWidget::sFontInfo sfiFonts[] = { {"Courier",				PdfExportWidget::Encodi
 										  {"BatangChe",				PdfExportWidget::EncodingTypeMultibyte,	 PdfExportWidget::FontSetKR},
 										  {"DotumChe",				PdfExportWidget::EncodingTypeMultibyte,	 PdfExportWidget::FontSetKR} };
 
+PdfExportWidget::sPageSize spiPageSizes[] = { {"Letter",	HPDF_PAGE_SIZE_LETTER},
+											  {"Legal",		HPDF_PAGE_SIZE_LEGAL},
+											  {"A3",		HPDF_PAGE_SIZE_A3},
+											  {"A4",		HPDF_PAGE_SIZE_A4},
+											  {"A5",		HPDF_PAGE_SIZE_A5},
+											  {"B4",		HPDF_PAGE_SIZE_B4},
+											  {"B5",		HPDF_PAGE_SIZE_B5},
+											  {"Executive", HPDF_PAGE_SIZE_EXECUTIVE},
+											  {"US 4x6",	HPDF_PAGE_SIZE_US4x6},
+											  {"US 4x8",	HPDF_PAGE_SIZE_US4x8},
+											  {"US 5x7",	HPDF_PAGE_SIZE_US5x7},
+											  {"Comm 10",	HPDF_PAGE_SIZE_COMM10} };
+
 const void PdfExportWidget::AddTableColumn()
 {
     // controls
@@ -120,6 +133,17 @@ const void PdfExportWidget::FillFonts(QComboBox *pComboBox) const
 		pComboBox->addItem(sfiFonts[iFont].qsName);
 	} // for
 } // FillFonts
+
+const void PdfExportWidget::FillPageSizes() const
+{
+	for (int iSize = 0; iSize < sizeof(spiPageSizes) / sizeof(sPageSize); iSize++) {
+		_qwpePdfExport.qcbPageSize->addItem(spiPageSizes[iSize].qsName, spiPageSizes[iSize].hpsSize);
+
+		if (spiPageSizes[iSize].hpsSize == HPDF_PAGE_SIZE_A4) {
+			_qwpePdfExport.qcbPageSize->setCurrentIndex(iSize);
+		} // if
+	} // for
+} // FillPageSizes
 
 const int PdfExportWidget::GetBorder() const
 {
@@ -195,6 +219,11 @@ PdfExportWidget::sFontRoleInfo PdfExportWidget::GetFontRoleInfo(const eFontRole 
 
 	return sfriFontInfo;
 } // GetFontRoleInfo
+
+const HPDF_PageSizes PdfExportWidget::GetPageSize() const
+{
+	return static_cast<const HPDF_PageSizes>(_qwpePdfExport.qcbPageSize->itemData(_qwpePdfExport.qcbPageSize->currentIndex()).toInt());
+} // GetPageSize
 
 const char *PdfExportWidget::GetTextCodec(const QString &pEncoding) const
 {
@@ -308,6 +337,7 @@ PdfExportWidget::PdfExportWidget(QWidget *pParent /* NULL */, Qt::WindowFlags pF
 	FillEncodings(_qwpePdfExport.qcbCategoryEncoding, _qwpePdfExport.qcbCategoryFont->currentText());
 	FillFonts(_qwpePdfExport.qcbTemplateFont);
 	FillEncodings(_qwpePdfExport.qcbTemplateEncoding, _qwpePdfExport.qcbTemplateFont->currentText());
+	FillPageSizes();
     InitTableColumns();
 
 	// font controls

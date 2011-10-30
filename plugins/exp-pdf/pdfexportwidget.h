@@ -4,6 +4,7 @@
 #include <ui_pdfexportwidget.h>
 
 #include "../common/exp-interface.h"
+#include <hpdf_types.h>
 
 class PdfExportWidget : public QWidget
 {
@@ -61,12 +62,17 @@ class PdfExportWidget : public QWidget
 			int iSize;
 			const char *cTextCodec;
 		}; // sFontRoleInfo
+		struct sPageSize {
+			QString qsName;
+			HPDF_PageSizes hpsSize;
+		}; // sPageSize
 
 		PdfExportWidget(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 		const int GetBorder() const;
 		const int GetCompression() const;
 		sFontRoleInfo GetFontRoleInfo(const eFontRole &pRole, const int &pNum = FONTROLE_NONE) const;
+		const HPDF_PageSizes GetPageSize() const;
 		const QString GetTextTemplate() const;
 		const void InitMarkFonts();
 
@@ -111,6 +117,7 @@ class PdfExportWidget : public QWidget
         const void AddTableColumn();
 		const void FillEncodings(QComboBox *pComboBox, const QString &pFont) const;
 		const void FillFonts(QComboBox *pComboBox) const;
+		const void FillPageSizes() const;
 		const eEncodingSet GetEncodingSet(const QString &pEncoding) const;
 		const eFontSet GetFontSet(const QString &pFont) const;
 		const char *GetTextCodec(const QString &pEncoding) const;
