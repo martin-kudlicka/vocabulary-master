@@ -27,6 +27,7 @@ class WordsExportFieldsModel : public QAbstractItemModel
 
         virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 		virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+        const int GetFieldId(const int &pRow) const;
         virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
         virtual QModelIndex parent(const QModelIndex &index) const;
 }; // WordsExportFieldsModel
