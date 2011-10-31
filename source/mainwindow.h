@@ -3,6 +3,7 @@
 
 #include <QtGui/QMainWindow>
 #include <ui_mainwindow.h>
+#include <QtGui/QProgressBar>
 
 #ifdef FREE
 # include "settings.h"
@@ -45,17 +46,18 @@ class MainWindow : public QMainWindow
 #ifndef FREE
         static const int SAY_BEEP_WAIT = 500;
 #endif
+        static const int TIME_NONE = -1;
+        static const int TIME_NOW = 1;
 
 		struct sAnswer {
 			int iWord;
 			bool bDirectionSwitched;
 		}; // sAnswer
 
-        typedef QHash<int, sAnswer> tAnswer;
-
 		int _iCurrentRecordId;
-        int _iTimerAnswer;
-		int _iTimerQuestion;
+        int _iTimer;
+        int _iTimeAnswer;
+		int _iTimeQuestion;
 #ifndef FREE
 # ifndef TRY
         License *_lLicense;
@@ -64,19 +66,20 @@ class MainWindow : public QMainWindow
 		QAction *_qaTrayExit;
         QAction *_qaTrayManage;
         QAction *_qaTraySettings;
-#endif
-        QHash<int, int> _qhCurrentAnswer;
-#ifndef FREE
         QHBoxLayout *_qhblInner;
 #endif
         QLabel _qlVocabularyStatus;
 #ifndef FREE
 		QMenu _qmTray;
+#endif
+        QProgressBar _qpbTimer;
+        QSet<int> _qsQueuedAnswers;
+#ifndef FREE
         QSystemTrayIcon _qstiTrayIcon;
 #endif
 		QTranslator _qtTranslator;
+        sAnswer _saCurrentAnswer;
 		Settings _sSettings;
-        tAnswer _taHash;
 		Ui::qmwUiMain _umwMainWindow;
         Vocabulary _vVocabulary;
 
@@ -109,6 +112,9 @@ class MainWindow : public QMainWindow
 		const void SetRecordEnabled(const bool &pEnabled);
 		const void SetRecordPriority(const int &pPriority);
 		const void SetupRecordControls() const;
+#endif
+        const void ShowAnswer();
+#ifndef FREE
 		const void ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer);
 #endif
 		void timerEvent(QTimerEvent *event);
