@@ -187,9 +187,9 @@ const quint16 Settings::GetProxyPort() const
 	return _qsSettings.value(KEY_PROXYPORT, 8080).toInt();
 } // GetProxyPort
 
-const Settings::eProxyType Settings::GetProxyType() const
+const QNetworkProxy::ProxyType Settings::GetProxyType() const
 {
-	return static_cast<eProxyType>(_qsSettings.value(KEY_PROXYTYPE, ProxyTypeHttp).toInt());
+	return static_cast<QNetworkProxy::ProxyType>(_qsSettings.value(KEY_PROXYTYPE, QNetworkProxy::HttpProxy).toInt());
 } // GetProxyType
 
 const QString Settings::GetProxyUsername() const
@@ -399,7 +399,7 @@ const void Settings::SetProxyPort(const quint16 &pPort)
 	_qsSettings.setValue(KEY_PROXYPORT, pPort);
 } // SetProxyPort
 
-const void Settings::SetProxyType(const eProxyType &pType)
+const void Settings::SetProxyType(const QNetworkProxy::ProxyType &pType)
 {
 	_qsSettings.setValue(KEY_PROXYTYPE, pType);
 } // SetProxyType

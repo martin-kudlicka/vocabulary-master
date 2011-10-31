@@ -116,13 +116,13 @@ const void SettingsDialog::FillOptions()
 	_usdSettingsDialog.qleProxyUsername->setText(_sSettings->GetProxyUsername());
 	_usdSettingsDialog.qleProxyPassword->setText(_sSettings->GetProxyPassword());
 	switch (_sSettings->GetProxyType()) {
-		case Settings::ProxyTypeHttp:
+		case QNetworkProxy::HttpProxy:
 			_usdSettingsDialog.qrbProxyTypeHttp->setChecked(true);
 			break;
-		case Settings::ProxyTypeSocks5:
+		case QNetworkProxy::Socks5Proxy:
 			_usdSettingsDialog.qrbProxyTypeSocks5->setChecked(true);
 			break;
-		case Settings::ProxyTypeCachingOnlyHttp:
+		case QNetworkProxy::HttpCachingProxy:
 			_usdSettingsDialog.qrbProxyTypeCachingOnlyHttp->setChecked(true);
 	} // switch
 } // FillOptions
@@ -344,12 +344,12 @@ const void SettingsDialog::SaveOptions()
 	_sSettings->SetProxyUsername(_usdSettingsDialog.qleProxyUsername->text());
 	_sSettings->SetProxyPassword(_usdSettingsDialog.qleProxyPassword->text());
 	if (_usdSettingsDialog.qrbProxyTypeHttp->isChecked()) {
-		_sSettings->SetProxyType(Settings::ProxyTypeHttp);
+		_sSettings->SetProxyType(QNetworkProxy::HttpProxy);
 	} else {
 		if (_usdSettingsDialog.qrbProxyTypeSocks5->isChecked()) {
-			_sSettings->SetProxyType(Settings::ProxyTypeSocks5);
+			_sSettings->SetProxyType(QNetworkProxy::Socks5Proxy);
 		} else {
-			_sSettings->SetProxyType(Settings::ProxyTypeCachingOnlyHttp);
+			_sSettings->SetProxyType(QNetworkProxy::HttpCachingProxy);
 		} // if else
 	} // if else
 } // SaveOptions

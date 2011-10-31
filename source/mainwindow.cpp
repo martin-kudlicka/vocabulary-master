@@ -252,7 +252,7 @@ MainWindow::~MainWindow()
 #endif
 } // ~MainWindow
 
-MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags)
+MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags), _ucUpdateChecker(&_sSettings)
 {
     _iTimer = 0;
 #ifndef FREE
@@ -336,6 +336,12 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 	// connections
 	connect(&_qstiTrayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason)));
 #endif
+	connect(&_ucUpdateChecker, SIGNAL(Finished()), SLOT(on_ucUpdateChecker_Finished()));
+
+	// update check
+	if (_sSettings.GetUpdateCheck()) {
+		_ucUpdateChecker.CheckForUpdate();
+	} // if
 } // MainWindow
 
 const void MainWindow::on_qaAbout_triggered(bool checked /* false */)
@@ -347,7 +353,7 @@ const void MainWindow::on_qaAbout_triggered(bool checked /* false */)
 #ifdef TRY
         + TRY_SUFFIX
 #endif
-        + "</b></center><center>Version 1.1.0.521</center><br />Copyright (C) 2011 Isshou");
+        + "</b></center><center>Version " + _ucUpdateChecker.GetCurrentVersion() + "</center><br />Copyright (C) 2011 Isshou");
 } // on_qaAbout_triggered
 
 #ifndef FREE
@@ -583,6 +589,18 @@ const void MainWindow::on_qtbPriority8_clicked(bool checked /* false */)
 		SetRecordPriority(8);
 	} // if
 } // on_qtbPriority8_clicked
+
+const void MainWindow::on_ucUpdateChecker_Finished()
+{
+	if (_ucUpdateChecker.GetCheckResult() != QNetworkReply::NoError) {
+		return;
+	} // if
+
+	if (_ucUpdateChecker.IsUpdateAvailable()) {
+		QString qsText = QString("There is new version %1 of Vocabulary Master available at http://vocabulary-master.cz/ .").arg(_ucUpdateChecker.GetUpdateVersion());
+		QMessageBox::information(this, tr("Update available"), qsText);
+	} // if
+} // on_ucUpdateChecker_Finished
 
 const void MainWindow::on_qtbPriority9_clicked(bool checked /* false */)
 {
