@@ -25,8 +25,6 @@ class WordsExportDialog : public QDialog
 		const Vocabulary *_vVocabulary;
 		WordsExportFieldsModel _wefmFieldsModel;
 
-        virtual void accept();
-
 	private slots:
         const void on_eiPlugin_ProgressExportSetMax(const int &pMax) const;
         const void on_eiPlugin_ProgressExportSetValue(const int &pValue) const;
@@ -36,6 +34,7 @@ class WordsExportDialog : public QDialog
         const void on_eiPlugin_VocabularyGetMarkText(const int &pRecordId, const QString &pMark, QString *pText) const;
         const void on_eiPlugin_VocabularyGetRecordCount(const int &pCategoryId, int *pCount) const;
         const void on_eiPlugin_VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const;
+        const void on_qpbExport_clicked(bool checked = false);
 		const void on_qtvExpPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 }; // WordsExportDialog
 

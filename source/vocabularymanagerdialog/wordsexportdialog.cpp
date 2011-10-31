@@ -2,15 +2,6 @@
 
 #include "../../common/marklineedit.h"
 
-void WordsExportDialog::accept()
-{
-    QModelIndex qmiIndex = _qdweWordsExport.qtvExpPlugins->currentIndex();
-    ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row()).eiInterface;
-    if (eiPlugin->BeginExport()) {
-        QDialog::accept();
-    } // if
-} // accept
-
 const void WordsExportDialog::on_eiPlugin_ProgressExportSetMax(const int &pMax) const
 {
     _qdweWordsExport.qpbProgress->setMaximum(pMax);
@@ -66,6 +57,13 @@ const void WordsExportDialog::on_eiPlugin_VocabularyGetRecordIds(const int &pCat
     *pRecordIds = _vVocabulary->GetRecordIds(pCategoryId);
 } // on_eiPlugin_VocabularyGetRecordCount
 
+const void WordsExportDialog::on_qpbExport_clicked(bool checked /* false */)
+{
+    QModelIndex qmiIndex = _qdweWordsExport.qtvExpPlugins->currentIndex();
+    ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row()).eiInterface;
+    eiPlugin->BeginExport();
+} // on_qpbExport_clicked
+
 const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
 	QModelIndex qmiIndex = _qdweWordsExport.qtvExpPlugins->currentIndex();
@@ -98,7 +96,7 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
     // set plugin page
     _qdweWordsExport.qswExpPlugins->setCurrentIndex(_qhExpPluginPage.value(qmiIndex.row()));
 
-    _qdweWordsExport.qpbOk->setEnabled(true);
+    _qdweWordsExport.qpbExport->setEnabled(true);
 } // on_qtvExpPluginsSelectionModel_selectionChanged
 
 WordsExportDialog::WordsExportDialog(const Vocabulary *pVocabulary, const Plugins::tExpPluginList &pExpPlugins, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags), _cmCategoriesModel(pVocabulary), _epmExpPluginsModel(&pExpPlugins), _wefmFieldsModel(pVocabulary)

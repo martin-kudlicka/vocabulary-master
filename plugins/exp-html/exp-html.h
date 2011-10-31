@@ -11,7 +11,7 @@ class ExpHtml : public ExpInterface
 	private:
         HtmlExportWidget *_hewWidget;
 
-        virtual const bool BeginExport() const;
+        virtual const void BeginExport() const;
 		virtual const QString GetPluginName() const;
 		virtual const void SetupUI(QWidget *pParent);
 
