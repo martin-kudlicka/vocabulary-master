@@ -21,6 +21,13 @@ const QString KEY_NEWWORDFLASH = "NewWordFlash";
 const QString KEY_NEWWORDSOUND = "NewWordSound";
 const QString KEY_NEWWORDSOUNDFILE = "NewWordSoundFile";
 const QString KEY_NEWWORDSOUNDTYPE = "NewWordSoundType";
+#endif
+const QString KEY_PROXYHOSTNAME = "ProxyHostname";
+const QString KEY_PROXYPASSWORD = "ProxyPassword";
+const QString KEY_PROXYPORT = "ProxyPort";
+const QString KEY_PROXYTYPE = "ProxyType";
+const QString KEY_PROXYUSERNAME = "ProxyUsername";
+#ifndef FREE
 const QString KEY_REMEMBERWINDOWPOSITION = "RememberWindowPosition";
 const QString KEY_SHOWCATEGORYNAME = "ShowCategoryName";
 const QString KEY_SHOWLANGUAGENAMES = "ShowLanguageNames";
@@ -36,6 +43,7 @@ const QString KEY_SYSTEMTRAYICON = "SystemTrayIcon";
 #endif
 const QString KEY_TRANSLATION = "Translation";
 const QString KEY_UPDATECHECK = "UpdateCheck";
+const QString KEY_USEPROXY = "UseProxy";
 const QString KEY_VOCABULARYFILE = "VocabularyFile";
 #ifndef FREE
 const QString KEY_WAITFORANSWER = "WaitForAnswer";
@@ -162,7 +170,34 @@ const Settings::eNewWordSoundType Settings::GetNewWordSoundType() const
 {
     return static_cast<eNewWordSoundType>(_qsSettings.value(KEY_NEWWORDSOUNDTYPE, NewWordSoundTypeSystem).toInt());
 } // GetNewWordSoundType
+#endif
 
+const QString Settings::GetProxyHostname() const
+{
+	return _qsSettings.value(KEY_PROXYHOSTNAME).toString();
+} // GetProxyHostname
+
+const QString Settings::GetProxyPassword() const
+{
+	return _qsSettings.value(KEY_PROXYPASSWORD).toString();
+} // GetProxyPassword
+
+const quint16 Settings::GetProxyPort() const
+{
+	return _qsSettings.value(KEY_PROXYPORT, 8080).toInt();
+} // GetProxyPort
+
+const Settings::eProxyType Settings::GetProxyType() const
+{
+	return static_cast<eProxyType>(_qsSettings.value(KEY_PROXYTYPE, ProxyTypeHttp).toInt());
+} // GetProxyType
+
+const QString Settings::GetProxyUsername() const
+{
+	return _qsSettings.value(KEY_PROXYUSERNAME).toString();
+} // GetProxyUsername
+
+#ifndef FREE
 const bool Settings::GetRememberWindowPosition() const
 {
     return _qsSettings.value(KEY_REMEMBERWINDOWPOSITION, true).toBool();
@@ -225,6 +260,11 @@ const bool Settings::GetUpdateCheck() const
 {
 	return _qsSettings.value(KEY_UPDATECHECK, true).toBool();
 } // GetUpdateCheck
+
+const bool Settings::GetUseProxy() const
+{
+	return _qsSettings.value(KEY_USEPROXY, false).toBool();
+} // GetUseProxy
 
 #ifndef TRY
 const QString Settings::GetVocabularyFile() const
@@ -342,7 +382,34 @@ const void Settings::SetNewWordSoundType(const eNewWordSoundType &pType)
 {
     _qsSettings.setValue(KEY_NEWWORDSOUNDTYPE, pType);
 } // SetNewWordSoundType
+#endif
 
+const void Settings::SetProxyHostname(const QString &pHostname)
+{
+	_qsSettings.setValue(KEY_PROXYHOSTNAME, pHostname);
+} // SetProxyHostname
+
+const void Settings::SetProxyPassword(const QString &pPassword)
+{
+	_qsSettings.setValue(KEY_PROXYPASSWORD, pPassword);
+} // SetProxyPassword
+
+const void Settings::SetProxyPort(const quint16 &pPort)
+{
+	_qsSettings.setValue(KEY_PROXYPORT, pPort);
+} // SetProxyPort
+
+const void Settings::SetProxyType(const eProxyType &pType)
+{
+	_qsSettings.setValue(KEY_PROXYTYPE, pType);
+} // SetProxyType
+
+const void Settings::SetProxyUsername(const QString &pUsername)
+{
+	_qsSettings.setValue(KEY_PROXYUSERNAME, pUsername);
+} // SetProxyUsername
+
+#ifndef FREE
 const void Settings::SetRememberWindowPosition(const bool &pEnable)
 {
     _qsSettings.setValue(KEY_REMEMBERWINDOWPOSITION, pEnable);
@@ -409,6 +476,11 @@ const void Settings::SetUpdateCheck(const bool &pCheck)
 {
 	_qsSettings.setValue(KEY_UPDATECHECK, pCheck);
 } // SetUpdateCheck
+
+const void Settings::SetUseProxy(const bool &pUse)
+{
+	_qsSettings.setValue(KEY_USEPROXY, pUse);
+} // SetUseProxy
 
 #ifndef TRY
 const void Settings::SetVocabularyFile(const QString &pFile)
