@@ -108,6 +108,23 @@ const void SettingsDialog::FillOptions()
     PreparePlugins(_usdSettingsDialog.qtvPluginsExp, &_pmExpPlugins);
     PreparePlugins(_usdSettingsDialog.qtvPluginsTTS, &_pmTTSPlugins);
 #endif
+
+	// network
+	_usdSettingsDialog.qgbUseProxy->setChecked(_sSettings->GetUseProxy());
+	_usdSettingsDialog.qleProxyHostname->setText(_sSettings->GetProxyHostname());
+	_usdSettingsDialog.qsbProxyPort->setValue(_sSettings->GetProxyPort());
+	_usdSettingsDialog.qleProxyUsername->setText(_sSettings->GetProxyUsername());
+	_usdSettingsDialog.qleProxyPassword->setText(_sSettings->GetProxyPassword());
+	switch (_sSettings->GetProxyType()) {
+		case Settings::ProxyTypeHttp:
+			_usdSettingsDialog.qrbProxyTypeHttp->setChecked(true);
+			break;
+		case Settings::ProxyTypeSocks5:
+			_usdSettingsDialog.qrbProxyTypeSocks5->setChecked(true);
+			break;
+		case Settings::ProxyTypeCachingOnlyHttp:
+			_usdSettingsDialog.qrbProxyTypeCachingOnlyHttp->setChecked(true);
+	} // switch
 } // FillOptions
 
 const void SettingsDialog::FillTranslation()
@@ -319,6 +336,22 @@ const void SettingsDialog::SaveOptions()
 	SaveHotkey(_usdSettingsDialog.qleHotkeyRestore, Settings::HotkeyRestore);
 # endif
 #endif
+
+	// network
+	_sSettings->SetUseProxy(_usdSettingsDialog.qgbUseProxy->isChecked());
+	_sSettings->SetProxyHostname(_usdSettingsDialog.qleProxyHostname->text());
+	_sSettings->SetProxyPort(_usdSettingsDialog.qsbProxyPort->value());
+	_sSettings->SetProxyUsername(_usdSettingsDialog.qleProxyUsername->text());
+	_sSettings->SetProxyPassword(_usdSettingsDialog.qleProxyPassword->text());
+	if (_usdSettingsDialog.qrbProxyTypeHttp->isChecked()) {
+		_sSettings->SetProxyType(Settings::ProxyTypeHttp);
+	} else {
+		if (_usdSettingsDialog.qrbProxyTypeSocks5->isChecked()) {
+			_sSettings->SetProxyType(Settings::ProxyTypeSocks5);
+		} else {
+			_sSettings->SetProxyType(Settings::ProxyTypeCachingOnlyHttp);
+		} // if else
+	} // if else
 } // SaveOptions
 
 SettingsDialog::SettingsDialog(

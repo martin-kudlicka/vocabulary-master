@@ -28,8 +28,15 @@ class Settings
             NewWordSoundTypeSystem,
             NewWordSoundTypeCustom
         }; // eNewWordSoundType
-# ifdef Q_WS_WIN
+#endif
+		enum eProxyType {
+			ProxyTypeHttp,
+			ProxyTypeSocks5,
+			ProxyTypeCachingOnlyHttp
+		}; // eProxyType
 
+#ifndef FREE
+# ifdef Q_WS_WIN
 		struct sHotKeyInfo {
 			QString qsText;
 			quint32 qui32VirtualKey;
@@ -58,6 +65,13 @@ class Settings
 		const bool GetNewWordSound() const;
         const QString GetNewWordSoundFile() const;
         const eNewWordSoundType GetNewWordSoundType() const;
+#endif
+		const QString GetProxyHostname() const;
+		const QString GetProxyPassword() const;
+		const quint16 GetProxyPort() const;
+		const eProxyType GetProxyType() const;
+		const QString GetProxyUsername() const;
+#ifndef FREE
         const bool GetRememberWindowPosition() const;
 		const bool GetShowCategoryName() const;
 		const bool GetShowLanguageNames() const;
@@ -73,6 +87,7 @@ class Settings
 #endif
         const QString GetTranslation() const;
 		const bool GetUpdateCheck() const;
+		const bool GetUseProxy() const;
 #ifndef TRY
 		const QString GetVocabularyFile() const;
 #endif
@@ -101,6 +116,13 @@ class Settings
 		const void SetNewWordSound(const bool &pEnable);
         const void SetNewWordSoundFile(const QString &pFile);
         const void SetNewWordSoundType(const eNewWordSoundType &pType);
+#endif
+		const void SetProxyHostname(const QString &pHostname);
+		const void SetProxyPassword(const QString &pPassword);
+		const void SetProxyPort(const quint16 &pPort);
+		const void SetProxyType(const eProxyType &pType);
+		const void SetProxyUsername(const QString &pUsername);
+#ifndef FREE
         const void SetRememberWindowPosition(const bool &pEnable);
 		const void SetShowCategoryName(const bool &pShow);
 		const void SetShowLanguageNames(const bool &pShow);
@@ -116,6 +138,7 @@ class Settings
 #endif
         const void SetTranslation(const QString &pTranslation);
 		const void SetUpdateCheck(const bool &pCheck);
+		const void SetUseProxy(const bool &pUse);
 #ifndef TRY
 		const void SetVocabularyFile(const QString &pFile);
 #endif

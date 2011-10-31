@@ -33,7 +33,8 @@ class SettingsDialog : public QDialog
 			TabLearning,
 			TabAppearance,
             TabHotkey,
-            TabPlugins
+            TabPlugins,
+			TabNetwork
 		}; // eTab
 #endif
 
