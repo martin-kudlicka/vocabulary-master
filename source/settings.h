@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtCore/QSettings>
+#include <QtNetwork/QNetworkProxy>
 
 const QString DIR_LANG = "lang";
 
@@ -29,11 +30,6 @@ class Settings
             NewWordSoundTypeCustom
         }; // eNewWordSoundType
 #endif
-		enum eProxyType {
-			ProxyTypeHttp,
-			ProxyTypeSocks5,
-			ProxyTypeCachingOnlyHttp
-		}; // eProxyType
 
 #ifndef FREE
 # ifdef Q_WS_WIN
@@ -69,7 +65,7 @@ class Settings
 		const QString GetProxyHostname() const;
 		const QString GetProxyPassword() const;
 		const quint16 GetProxyPort() const;
-		const eProxyType GetProxyType() const;
+		const QNetworkProxy::ProxyType GetProxyType() const;
 		const QString GetProxyUsername() const;
 #ifndef FREE
         const bool GetRememberWindowPosition() const;
@@ -120,7 +116,7 @@ class Settings
 		const void SetProxyHostname(const QString &pHostname);
 		const void SetProxyPassword(const QString &pPassword);
 		const void SetProxyPort(const quint16 &pPort);
-		const void SetProxyType(const eProxyType &pType);
+		const void SetProxyType(const QNetworkProxy::ProxyType &pType);
 		const void SetProxyUsername(const QString &pUsername);
 #ifndef FREE
         const void SetRememberWindowPosition(const bool &pEnable);

@@ -19,6 +19,7 @@
 #ifndef FREE
 # include "license.h"
 #endif
+#include "updatechecker.h"
 
 class MainWindow : public QMainWindow
 {
@@ -81,6 +82,7 @@ class MainWindow : public QMainWindow
         sAnswer _saCurrentAnswer;
 		Settings _sSettings;
 		Ui::qmwUiMain _umwMainWindow;
+		UpdateChecker _ucUpdateChecker;
         Vocabulary _vVocabulary;
 
         const void ApplySettings(const bool &pStartup);
@@ -118,6 +120,9 @@ class MainWindow : public QMainWindow
 		const void ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer);
 #endif
 		void timerEvent(QTimerEvent *event);
+#if !defined(FREE) && defined(Q_WS_WIN)
+		virtual bool winEvent(MSG *message, long *result);
+#endif
 
 	private slots:
         const void on_qaAbout_triggered(bool checked = false);
@@ -154,9 +159,7 @@ class MainWindow : public QMainWindow
 		const void on_qtbPriority8_clicked(bool checked = false);
 		const void on_qtbPriority9_clicked(bool checked = false);
 #endif
-#if !defined(FREE) && defined(Q_WS_WIN)
-		virtual bool winEvent(MSG *message, long *result);
-#endif
+		const void on_ucUpdateChecker_Finished();
 }; // MainWindow
 
 #endif // MAINWINDOW_H
