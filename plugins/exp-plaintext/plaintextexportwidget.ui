@@ -42,21 +42,16 @@
          </spacer>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>&amp;Template:</string>
-            </property>
-            <property name="buddy">
-             <cstring>qlePlainEdit</cstring>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="qlePlainEdit"/>
-          </item>
-         </layout>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Template</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QLineEdit" name="qlePlainEdit"/>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
