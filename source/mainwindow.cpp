@@ -597,7 +597,7 @@ const void MainWindow::on_ucUpdateChecker_Finished()
 	} // if
 
 	if (_ucUpdateChecker.IsUpdateAvailable()) {
-		QString qsText = tr("There is new version %1 of Vocabulary Master available at http://vocabulary-master.cz/ .").arg(_ucUpdateChecker.GetUpdateVersion());
+		QString qsText = tr("New version %1 of Vocabulary Master available at <a href=\"http://vocabulary-master.cz/\">homepage</a>.").arg(_ucUpdateChecker.GetUpdateVersion());
 		QMessageBox::information(this, tr("Update available"), qsText);
 	} // if
 } // on_ucUpdateChecker_Finished
