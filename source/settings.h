@@ -72,6 +72,7 @@ class Settings
         const bool GetSystemTrayIcon() const;
 #endif
         const QString GetTranslation() const;
+		const bool GetUpdateCheck() const;
 #ifndef TRY
 		const QString GetVocabularyFile() const;
 #endif
@@ -114,6 +115,7 @@ class Settings
         const void SetSystemTrayIcon(const bool &pEnable);
 #endif
         const void SetTranslation(const QString &pTranslation);
+		const void SetUpdateCheck(const bool &pCheck);
 #ifndef TRY
 		const void SetVocabularyFile(const QString &pFile);
 #endif
