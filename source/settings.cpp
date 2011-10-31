@@ -35,6 +35,7 @@ const QString KEY_SWITCHLEARNINGDIRECTION = "SwitchLearningDirection";
 const QString KEY_SYSTEMTRAYICON = "SystemTrayIcon";
 #endif
 const QString KEY_TRANSLATION = "Translation";
+const QString KEY_UPDATECHECK = "UpdateCheck";
 const QString KEY_VOCABULARYFILE = "VocabularyFile";
 #ifndef FREE
 const QString KEY_WAITFORANSWER = "WaitForAnswer";
@@ -220,6 +221,11 @@ const QString Settings::GetTranslation() const
     return _qsSettings.value(KEY_TRANSLATION).toString();
 } // GetTranslation
 
+const bool Settings::GetUpdateCheck() const
+{
+	return _qsSettings.value(KEY_UPDATECHECK, true).toBool();
+} // GetUpdateCheck
+
 #ifndef TRY
 const QString Settings::GetVocabularyFile() const
 {
@@ -398,6 +404,11 @@ const void Settings::SetTranslation(const QString &pTranslation)
 {
     _qsSettings.setValue(KEY_TRANSLATION, pTranslation);
 } // SetTranslation
+
+const void Settings::SetUpdateCheck(const bool &pCheck)
+{
+	_qsSettings.setValue(KEY_UPDATECHECK, pCheck);
+} // SetUpdateCheck
 
 #ifndef TRY
 const void Settings::SetVocabularyFile(const QString &pFile)

@@ -60,6 +60,7 @@ const void SettingsDialog::FillOptions()
 	_usdSettingsDialog.qcbMinimizeToTray->setChecked(_sSettings->GetMinimizeToTray());
 #endif
 	FillTranslation();
+	_usdSettingsDialog.qcbUpdateCheck->setChecked(_sSettings->GetUpdateCheck());
 
     // learning
     _usdSettingsDialog.qsbWordsFrequency->setValue(_sSettings->GetWordsFrequency());
@@ -276,6 +277,7 @@ const void SettingsDialog::SaveOptions()
 	_sSettings->SetMinimizeToTray(_usdSettingsDialog.qcbMinimizeToTray->isChecked());
 #endif
 	_sSettings->SetTranslation(_usdSettingsDialog.qcbLanguage->itemData(_usdSettingsDialog.qcbLanguage->currentIndex()).toString());
+	_sSettings->SetUpdateCheck(_usdSettingsDialog.qcbUpdateCheck->isChecked());
 
     // learning
     _sSettings->SetWordsFrequency(_usdSettingsDialog.qsbWordsFrequency->value());
