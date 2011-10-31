@@ -15,12 +15,12 @@ const void ExpPdf::AddFont(const HPDF_Doc &pPdf, tFontList *pFontList, const Pdf
 	pFontList->append(smfFont);
 } // AddFont
 
-const bool ExpPdf::BeginExport() const
+const void ExpPdf::BeginExport() const
 {
 	// get filename
 	QString qsFile = QFileDialog::getSaveFileName(_pewWidget, QString(), QString(), tr("pdf (*.pdf)"));
 	if (qsFile.isEmpty()) {
-		return false;
+		return;
 	} // if
 
 	// marks
@@ -89,8 +89,6 @@ const bool ExpPdf::BeginExport() const
 
 	emit ProgressExportSetValue(0);
 	HPDF_Free(hdPdf);
-
-	return true;
 } // BeginExport
 
 const void ExpPdf::ExportTable(const int &pRecordId, const HPDF_Page &pPage, const tFontList &pFontList, const QStringList &pMarks) const

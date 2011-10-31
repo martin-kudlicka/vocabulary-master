@@ -150,19 +150,19 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="qpbOk">
+      <widget class="QPushButton" name="qpbExport">
        <property name="enabled">
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>OK</string>
+        <string>Export</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="cancelButton">
+      <widget class="QPushButton" name="qpbClose">
        <property name="text">
-        <string>Cancel</string>
+        <string>Close</string>
        </property>
       </widget>
      </item>
@@ -173,23 +173,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>qpbOk</sender>
-   <signal>clicked()</signal>
-   <receiver>qdWordsExport</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>278</x>
-     <y>253</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>96</x>
-     <y>254</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cancelButton</sender>
+   <sender>qpbClose</sender>
    <signal>clicked()</signal>
    <receiver>qdWordsExport</receiver>
    <slot>reject()</slot>

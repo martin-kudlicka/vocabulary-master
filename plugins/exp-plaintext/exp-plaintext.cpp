@@ -3,12 +3,12 @@
 #include <QtGui/QFileDialog>
 #include <QtCore/QTextStream>
 
-const bool ExpPlaintext::BeginExport() const
+const void ExpPlaintext::BeginExport() const
 {
     // get filename
     QString qsFile = QFileDialog::getSaveFileName(_pewWidget, QString(), QString(), tr("plaintext (*.txt)"));
     if (qsFile.isEmpty()) {
-        return false;
+        return;
     } // if
 
     // open file
@@ -25,8 +25,6 @@ const bool ExpPlaintext::BeginExport() const
 
     // save result to file
     qtsTextStream << _pewWidget->GetText();
-
-    return true;
 } // BeginExport
 
 const QString ExpPlaintext::GetPluginName() const

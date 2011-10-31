@@ -3,12 +3,12 @@
 #include <QtGui/QFileDialog>
 #include <QtCore/QTextStream>
 
-const bool ExpHtml::BeginExport() const
+const void ExpHtml::BeginExport() const
 {
     // get filename
     QString qsFile = QFileDialog::getSaveFileName(_hewWidget, QString(), QString(), tr("html (*.html)"));
     if (qsFile.isEmpty()) {
-        return false;
+        return;
     } // if
 
     // open file
@@ -25,8 +25,6 @@ const bool ExpHtml::BeginExport() const
 
     // save result to file
     qtsTextStream << _hewWidget->GetText();
-
-    return true;
 } // BeginExport
 
 const QString ExpHtml::GetPluginName() const

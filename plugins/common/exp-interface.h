@@ -16,7 +16,7 @@ class ExpInterface : public QObject, public TranslationHandler
 
 		static const int WIDGET_POSITION = 0;
 
-        virtual const bool BeginExport() const = 0;
+        virtual const void BeginExport() const = 0;
 		virtual const QString GetPluginName() const = 0;
 		virtual const void SetupUI(QWidget *pParent) = 0;
 
