@@ -889,6 +889,12 @@ void MainWindow::timerEvent(QTimerEvent *event)
             qDebug("Current word: %d", _iCurrentRecordId);
 #endif*/
 
+			// answer time
+			_iTimeAnswer = _sSettings.GetWaitForAnswer();
+			// progress
+			_qpbTimer.setMaximum(_iTimeAnswer);
+			_qpbTimer.setValue(_iTimeAnswer);
+
             // question parameters
 	        _saCurrentAnswer.iWord = _iCurrentRecordId;
 	        _saCurrentAnswer.bDirectionSwitched = GetLearningDirection();
@@ -953,16 +959,10 @@ void MainWindow::timerEvent(QTimerEvent *event)
 
             // next question time
             _iTimeQuestion = _sSettings.GetWordsFrequency();
-            // answer time
-            _iTimeAnswer = _sSettings.GetWaitForAnswer();
 /*#ifdef _DEBUG
             qDebug("Answer: %d, word: %d, timer: %d", _iTimerAnswer, _saCurrentAnswer.iWord, _iTimerAnswer);
 #endif*/
             _qsQueuedAnswers.insert(_saCurrentAnswer.iWord);
-
-            // progress
-            _qpbTimer.setMaximum(_iTimeAnswer);
-            _qpbTimer.setValue(_iTimeAnswer);
 
 #ifndef FREE
             // answer
