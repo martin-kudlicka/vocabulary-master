@@ -4,7 +4,7 @@
 <context>
     <name>CodecsModel</name>
     <message>
-        <location filename="../common/codecsmodel.cpp" line="29"/>
+        <location filename="../../common/codecsmodel.cpp" line="29"/>
         <source>Codec</source>
         <translation>Kodek</translation>
     </message>
@@ -12,12 +12,12 @@
 <context>
     <name>ExpHtml</name>
     <message>
-        <location filename="exp-html.cpp" line="9"/>
+        <location filename="../exp-html.cpp" line="9"/>
         <source>html (*.html)</source>
         <translation>html (*.html)</translation>
     </message>
     <message>
-        <location filename="exp-html.cpp" line="34"/>
+        <location filename="../exp-html.cpp" line="32"/>
         <source>html (html)</source>
         <translation>html (html)</translation>
     </message>
@@ -25,54 +25,59 @@
 <context>
     <name>qwHtmlExport</name>
     <message>
-        <location filename="htmlexportwidget.ui" line="14"/>
+        <location filename="../htmlexportwidget.ui" line="14"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="htmlexportwidget.ui" line="22"/>
+        <location filename="../htmlexportwidget.ui" line="22"/>
         <source>Style</source>
         <translation>Styl</translation>
     </message>
     <message>
-        <location filename="htmlexportwidget.ui" line="28"/>
+        <location filename="../htmlexportwidget.ui" line="28"/>
         <source>&amp;Text</source>
         <translation>T&amp;ext</translation>
     </message>
     <message>
-        <location filename="htmlexportwidget.ui" line="38"/>
+        <location filename="../htmlexportwidget.ui" line="38"/>
         <source>T&amp;able</source>
         <translation>T&amp;abulka</translation>
     </message>
     <message>
-        <location filename="htmlexportwidget.ui" line="79"/>
         <source>&amp;Template:</source>
-        <translation>Ša&amp;blona:</translation>
+        <translation type="obsolete">Ša&amp;blona:</translation>
     </message>
     <message>
-        <location filename="htmlexportwidget.ui" line="94"/>
-        <location filename="htmlexportwidget.ui" line="195"/>
+        <location filename="../htmlexportwidget.ui" line="80"/>
+        <location filename="../htmlexportwidget.ui" line="142"/>
+        <source>Template</source>
+        <translation>Šablona</translation>
+    </message>
+    <message>
+        <location filename="../htmlexportwidget.ui" line="92"/>
+        <location filename="../htmlexportwidget.ui" line="218"/>
         <source>Preview</source>
         <translation>Náhled</translation>
     </message>
     <message>
-        <location filename="htmlexportwidget.ui" line="125"/>
-        <location filename="htmlexportwidget.ui" line="226"/>
+        <location filename="../htmlexportwidget.ui" line="123"/>
+        <location filename="../htmlexportwidget.ui" line="249"/>
         <source>&amp;Refresh</source>
         <translation>&amp;Obnovit</translation>
     </message>
     <message>
-        <location filename="htmlexportwidget.ui" line="152"/>
+        <location filename="../htmlexportwidget.ui" line="156"/>
         <source> columns</source>
         <translation> sloupců</translation>
     </message>
     <message>
-        <location filename="htmlexportwidget.ui" line="164"/>
+        <location filename="../htmlexportwidget.ui" line="183"/>
         <source>Header:</source>
         <translation>Hlavička:</translation>
     </message>
     <message>
-        <location filename="htmlexportwidget.ui" line="171"/>
+        <location filename="../htmlexportwidget.ui" line="190"/>
         <source>Template:</source>
         <translation>Šablona:</translation>
     </message>
