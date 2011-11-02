@@ -547,7 +547,7 @@ VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *pVocabulary,
     const Settings *pSettings,
     const Plugins *pPlugins,
 #endif
-    QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
+    QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags | Qt::WindowMaximizeButtonHint)
 {
     _vVocabulary = pVocabulary;
 #ifndef FREE
