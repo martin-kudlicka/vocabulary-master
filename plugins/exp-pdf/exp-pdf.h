@@ -10,6 +10,8 @@ class ExpPdf : public ExpInterface
 	Q_INTERFACES(ExpInterface)
 
 	private:
+		static const int RECORD_NONE = -1;
+
 		struct sFont {
 			HPDF_Font hfFont;
 			int iSize;
@@ -29,6 +31,7 @@ class ExpPdf : public ExpInterface
 		const void PdfAddPage(const HPDF_Doc &pPdf, HPDF_Page *pPage, const HPDF_REAL &pDefaultSize = 0) const;
 		const bool PdfNextLine(const HPDF_Doc &pPdf, HPDF_Page *pPage) const;
 		const void PdfSetFont(const HPDF_Page &pPage, const HPDF_Font &pFont, const int &pSize) const;
+		const void PdfShowTableHeader(const HPDF_Page &pPage, const tFontList &pFontList) const;
 		const void PdfShowText(const HPDF_Page &pPage, const QString &pText, const QTextCodec *pTextCodec) const;
 		virtual const void SetupUI(QWidget *pParent);
 
