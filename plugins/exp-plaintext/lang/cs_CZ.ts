@@ -18,8 +18,12 @@
     </message>
     <message>
         <location filename="../exp-plaintext.cpp" line="32"/>
-        <source>plaintext (txt)</source>
+        <source>text file (txt)</source>
         <translation>textový soubor (txt)</translation>
+    </message>
+    <message>
+        <source>plaintext (txt)</source>
+        <translation type="obsolete">textový soubor (txt)</translation>
     </message>
 </context>
 <context>

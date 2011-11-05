@@ -9,9 +9,13 @@
         <translation>pdf (*.pdf)</translation>
     </message>
     <message>
-        <location filename="../exp-pdf.cpp" line="153"/>
+        <location filename="../exp-pdf.cpp" line="167"/>
+        <source>Adobe Reader (pdf)</source>
+        <translation>Adobe Reader (pdf)</translation>
+    </message>
+    <message>
         <source>pdf (pdf)</source>
-        <translation>pdf (pdf)</translation>
+        <translation type="obsolete">pdf (pdf)</translation>
     </message>
 </context>
 <context>
@@ -103,7 +107,7 @@
     <message>
         <location filename="../pdfexportwidget.ui" line="264"/>
         <source> columns</source>
-        <translation>sloupce</translation>
+        <translation> sloupců</translation>
     </message>
     <message>
         <location filename="../pdfexportwidget.ui" line="291"/>

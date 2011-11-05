@@ -18,8 +18,12 @@
     </message>
     <message>
         <location filename="../exp-html.cpp" line="32"/>
+        <source>HTML page (html)</source>
+        <translation>HTML stránka (html)</translation>
+    </message>
+    <message>
         <source>html (html)</source>
-        <translation>html (html)</translation>
+        <translation type="obsolete">html (html)</translation>
     </message>
 </context>
 <context>
