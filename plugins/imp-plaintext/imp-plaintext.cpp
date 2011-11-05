@@ -13,7 +13,7 @@ const void ImpPlaintext::Close()
 
 const QString ImpPlaintext::GetFilter() const
 {
-    return tr("plaintext (*.txt)");
+    return tr("text file (*.txt)");
 } // GetFilter
 
 const QStringList ImpPlaintext::GetMarks() const
