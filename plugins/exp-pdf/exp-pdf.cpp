@@ -57,8 +57,14 @@ const void ExpPdf::BeginExport() const
         if (bFirstLine) {
             bFirstLine = false;
         } else {
-			if (!PdfNextLine(hdPdf, &hpPage)) {
-				PdfNextLine(hdPdf, &hpPage);
+			bool bNewPage = PdfNextLine(hdPdf, &hpPage);
+			if (!bNewPage) {
+				bNewPage = PdfNextLine(hdPdf, &hpPage);
+			} // if
+
+			if (bNewPage) {
+				// header
+				PdfShowTableHeader(hpPage, qlFonts);
 			} // if
         } // if
 
@@ -68,11 +74,19 @@ const void ExpPdf::BeginExport() const
 		PdfSetFont(hpPage, qlFonts.at(PdfExportWidget::FontRoleCategory).hfFont, qlFonts.at(PdfExportWidget::FontRoleCategory).iSize);
 		PdfShowText(hpPage, qsCategoryName, qlFonts.at(PdfExportWidget::FontRoleCategory).qtcTextCodec);
 
+		// header
+		PdfNextLine(hdPdf, &hpPage);
+		PdfShowTableHeader(hpPage, qlFonts);
+
         // records
         ExpInterface::tRecordIdList trilRecordIds;
         emit VocabularyGetRecordIds(iCategoryId, &trilRecordIds);
         foreach (int iRecordId, trilRecordIds) {
-			PdfNextLine(hdPdf, &hpPage);
+			if (PdfNextLine(hdPdf, &hpPage)) {
+				// header
+				PdfShowTableHeader(hpPage, qlFonts);
+				PdfNextLine(hdPdf, &hpPage);
+			} // if
 
 			if (_pewWidget->GetStyle() == PdfExportWidget::StyleText) {
 				ExportText(iRecordId, hpPage, qlFonts, qslMarks, _pewWidget->GetTextTemplate());
@@ -259,6 +273,18 @@ const void ExpPdf::PdfSetFont(const HPDF_Page &pPage, const HPDF_Font &pFont, co
 	HPDF_Page_SetFontAndSize(pPage, pFont, pSize);
 	HPDF_Page_SetTextLeading(pPage, pSize);
 } // PdfSetFont
+
+const void ExpPdf::PdfShowTableHeader(const HPDF_Page &pPage, const tFontList &pFontList) const
+{
+	const PdfExportWidget::tTableColumns *ttcColumns = _pewWidget->GetTableColumns();
+	foreach (PdfExportWidget::sTableColumn stcColumn, *ttcColumns) {
+		// write column header
+		ExportText(RECORD_NONE, pPage, pFontList, QStringList(), stcColumn.qleHeader->text());
+
+		// next column
+		HPDF_Page_MoveTextPos(pPage, stcColumn.qsbWidth->value(), 0);
+	} // foreach
+} // PdfShowTableHeader
 
 const void ExpPdf::PdfShowText(const HPDF_Page &pPage, const QString &pText, const QTextCodec *pTextCodec) const
 {
