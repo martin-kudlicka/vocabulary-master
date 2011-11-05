@@ -12,8 +12,12 @@
 <context>
     <name>ImpPlaintext</name>
     <message>
-        <location filename="../imp-plaintext.cpp" line="16"/>
         <source>plaintext (*.txt)</source>
+        <translation type="obsolete">textový soubor (*.txt)</translation>
+    </message>
+    <message>
+        <location filename="../imp-plaintext.cpp" line="16"/>
+        <source>text file (*.txt)</source>
         <translation>textový soubor (*.txt)</translation>
     </message>
 </context>
