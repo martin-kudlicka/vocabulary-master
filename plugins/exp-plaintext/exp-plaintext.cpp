@@ -29,7 +29,7 @@ const void ExpPlaintext::BeginExport() const
 
 const QString ExpPlaintext::GetPluginName() const
 {
-	return tr("plaintext (txt)");
+	return tr("text file (txt)");
 } // GetPluginName
 
 const void ExpPlaintext::on_pewWidget_ProgressExportSetMax(const int &pMax) const

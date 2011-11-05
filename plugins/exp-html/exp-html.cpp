@@ -29,7 +29,7 @@ const void ExpHtml::BeginExport() const
 
 const QString ExpHtml::GetPluginName() const
 {
-	return tr("html (html)");
+	return tr("HTML page (html)");
 } // GetPluginName
 
 const void ExpHtml::on_hewWidget_ProgressExportSetMax(const int &pMax) const
