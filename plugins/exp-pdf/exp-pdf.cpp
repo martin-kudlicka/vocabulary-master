@@ -164,7 +164,7 @@ const void ExpPdf::ExportText(const int &pRecordId, const HPDF_Page &pPage, cons
 
 const QString ExpPdf::GetPluginName() const
 {
-	return tr("pdf (pdf)");
+	return tr("Adobe Reader (pdf)");
 } // GetPluginName
 
 const void ExpPdf::InitFonts(const HPDF_Doc &pPdf, tFontList *pFontList, const int &pMarkCount) const
