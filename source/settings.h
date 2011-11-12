@@ -148,7 +148,7 @@ class Settings
         const void SetWordsFrequency(const int &pFrequency);
 
 	private:
-		static const int DEFAULT_FREQUENCY = 60 * 1000;
+		static const int DEFAULT_FREQUENCY = 60;
 		static const int DEFAULT_WAIT = 0;
 
 		QSettings _qsSettings;
