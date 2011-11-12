@@ -264,7 +264,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     // gui
 	_umwMainWindow.setupUi(this);
 #ifdef FREE
-	_umwMainWindow.qhblRecordControls->parentWidget()->deleteLater();
+	_umwMainWindow.qhblRecordControls->parentWidget()->hide();
 	_umwMainWindow.qlLanguage1->hide();
 	_umwMainWindow.qlLanguage2->hide();
 	_umwMainWindow.qlCategory->hide();
