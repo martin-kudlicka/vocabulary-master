@@ -1,7 +1,7 @@
 ; exp-html plugin
-SetOutPath "$INSTDIR\plugins\tts-exp-html"
+SetOutPath "$INSTDIR\plugins\exp-html"
 file ..\output\Release\exp-html.dll
-SetOutPath "$INSTDIR\plugins\tts-exp-html\lang"
+SetOutPath "$INSTDIR\plugins\exp-html\lang"
 file ..\plugins\exp-html\lang\cs_CZ.qm
 ; exp-plaintext plugin
 SetOutPath "$INSTDIR\plugins\exp-plaintext"
