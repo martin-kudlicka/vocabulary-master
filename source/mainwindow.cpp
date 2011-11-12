@@ -590,6 +590,14 @@ const void MainWindow::on_qtbPriority8_clicked(bool checked /* false */)
 	} // if
 } // on_qtbPriority8_clicked
 
+const void MainWindow::on_qtbPriority9_clicked(bool checked /* false */)
+{
+	if (checked) {
+		SetRecordPriority(9);
+	} // if
+} // on_qtbPriority9_clicked
+#endif
+
 const void MainWindow::on_ucUpdateChecker_Finished()
 {
 	if (_ucUpdateChecker.GetCheckResult() != QNetworkReply::NoError) {
@@ -601,14 +609,6 @@ const void MainWindow::on_ucUpdateChecker_Finished()
 		QMessageBox::information(this, tr("Update available"), qsText);
 	} // if
 } // on_ucUpdateChecker_Finished
-
-const void MainWindow::on_qtbPriority9_clicked(bool checked /* false */)
-{
-	if (checked) {
-		SetRecordPriority(9);
-	} // if
-} // on_qtbPriority9_clicked
-#endif
 
 const void MainWindow::OpenVocabulary(
 #ifndef FREE
@@ -904,14 +904,22 @@ void MainWindow::timerEvent(QTimerEvent *event)
 		    if (qsLang1.isEmpty()) {
 			    _umwMainWindow.qlLanguage1->hide();
 		    } else {
+#ifdef FREE
+				_umwMainWindow.qlLanguage1->show();
+#else
 			    _umwMainWindow.qlLanguage1->setVisible(_sSettings.GetShowLanguageNames());
+#endif
 			    _umwMainWindow.qlLanguage1->setText(qsLang1);
 		    } // if else
 		    QString qsLang2 = GetLanguageText(_saCurrentAnswer.bDirectionSwitched, true);
 		    if (qsLang2.isEmpty()) {
 			    _umwMainWindow.qlLanguage2->hide();
 		    } else {
+#ifdef FREE
+				_umwMainWindow.qlLanguage2->show();
+#else
 			    _umwMainWindow.qlLanguage2->setVisible(_sSettings.GetShowLanguageNames());
+#endif
 			    _umwMainWindow.qlLanguage2->setText(qsLang2);
 		    } // if else
 	        _umwMainWindow.qtbWindow1->setText(GetLearningText(TemplateLearning, _saCurrentAnswer.bDirectionSwitched, false));
