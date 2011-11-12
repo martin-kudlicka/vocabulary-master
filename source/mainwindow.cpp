@@ -47,10 +47,10 @@ const void MainWindow::ApplySettings(const bool &pStartup)
     CreateTrayMenu();
 
 	_umwMainWindow.qtbToolBar->setVisible(_sSettings.GetShowToolBar());
-	_umwMainWindow.qlLanguage1->setVisible(_sSettings.GetShowLanguageNames());
-	_umwMainWindow.qlLanguage2->setVisible(_sSettings.GetShowLanguageNames());
-	_umwMainWindow.qlCategory->setVisible(_sSettings.GetShowCategoryName());
-	_umwMainWindow.qhblRecordControls->parentWidget()->setVisible(_sSettings.GetShowRecordControls());
+	_umwMainWindow.qlLanguage1->setVisible(_iTimer != 0 && _sSettings.GetShowLanguageNames());
+	_umwMainWindow.qlLanguage2->setVisible(_iTimer != 0 && _sSettings.GetShowLanguageNames());
+	_umwMainWindow.qlCategory->setVisible(_iTimer != 0 && _sSettings.GetShowCategoryName());
+	_umwMainWindow.qhblRecordControls->parentWidget()->setVisible(_iTimer != 0 && _sSettings.GetShowRecordControls());
 	_umwMainWindow.qsbStatusBar->setVisible(_sSettings.GetShowStatusBar());
 #endif
 
@@ -485,6 +485,7 @@ const void MainWindow::on_qaStart_triggered(bool checked /* false */)
 	_umwMainWindow.qlCategory->show();
 #else
     _umwMainWindow.qlCategory->setVisible(_sSettings.GetShowCategoryName());
+	_umwMainWindow.qhblRecordControls->parentWidget()->setVisible(_iTimer != 0 && _sSettings.GetShowRecordControls());
 #endif
 
     _iCurrentRecordId = RECORD_NONE;
@@ -503,6 +504,9 @@ const void MainWindow::on_qaStop_triggered(bool checked /* false */)
     _umwMainWindow.qlLanguage2->hide();
 	_umwMainWindow.qtbWindow2->clear();
     _umwMainWindow.qlCategory->hide();
+#ifndef FREE
+	_umwMainWindow.qhblRecordControls->parentWidget()->hide();
+#endif
 } // on_qaStop_triggered
 
 #ifndef FREE
