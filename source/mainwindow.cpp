@@ -3,7 +3,6 @@
 #include "settingsdialog.h"
 #include <QtGui/QFileDialog>
 #include "vocabularymanagerdialog.h"
-#include <QtCore/QTimer>
 #include <QtCore/QTime>
 #include <QTest>
 #include <QtGui/QMessageBox>
@@ -47,10 +46,10 @@ const void MainWindow::ApplySettings(const bool &pStartup)
     CreateTrayMenu();
 
 	_umwMainWindow.qtbToolBar->setVisible(_sSettings.GetShowToolBar());
-	_umwMainWindow.qlLanguage1->setVisible(_iTimer != 0 && _sSettings.GetShowLanguageNames());
-	_umwMainWindow.qlLanguage2->setVisible(_iTimer != 0 && _sSettings.GetShowLanguageNames());
-	_umwMainWindow.qlCategory->setVisible(_iTimer != 0 && _sSettings.GetShowCategoryName());
-	_umwMainWindow.qhblRecordControls->parentWidget()->setVisible(_iTimer != 0 && _sSettings.GetShowRecordControls());
+	_umwMainWindow.qlLanguage1->setVisible(_qtLearning.isActive() && _sSettings.GetShowLanguageNames());
+	_umwMainWindow.qlLanguage2->setVisible(_qtLearning.isActive() && _sSettings.GetShowLanguageNames());
+	_umwMainWindow.qlCategory->setVisible(_qtLearning.isActive() && _sSettings.GetShowCategoryName());
+	_umwMainWindow.qhblRecordControls->parentWidget()->setVisible(_qtLearning.isActive() && _sSettings.GetShowRecordControls());
 	_umwMainWindow.qsbStatusBar->setVisible(_sSettings.GetShowStatusBar());
 #endif
 
@@ -112,12 +111,12 @@ const void MainWindow::EnableControls()
 #if !defined(FREE) && !defined(TRY)
 		_lLicense->IsLoaded() &&
 #endif
-		_vVocabulary.IsOpen() && _iTimer == 0 && _vVocabulary.GetRecordCount(true) > 0);
-	_umwMainWindow.qaStop->setEnabled(_iTimer != 0);
-	_umwMainWindow.qaNext->setEnabled(_iTimer != 0);
+		_vVocabulary.IsOpen() && !_qtLearning.isActive() && _vVocabulary.GetRecordCount(true) > 0);
+	_umwMainWindow.qaStop->setEnabled(_qtLearning.isActive());
+	_umwMainWindow.qaNext->setEnabled(_qtLearning.isActive());
 #ifndef FREE
-	_umwMainWindow.qaFindInVocabulary->setEnabled(_iTimer != 0);
-    _umwMainWindow.qaAnswer->setEnabled(_iTimer != 0 && _iTimeAnswer >= TIME_NOW);
+	_umwMainWindow.qaFindInVocabulary->setEnabled(_qtLearning.isActive());
+    _umwMainWindow.qaAnswer->setEnabled(_qtLearning.isActive() && _iTimeAnswer >= TIME_NOW);
 
     // tray
     _qaTrayManage->setEnabled(_vVocabulary.IsOpen());
@@ -130,13 +129,13 @@ bool MainWindow::event(QEvent *event)
         case QEvent::LanguageChange:
             {
                 QString qsCategory, qsLang1, qsLang2;
-                if (_iTimer != 0) {
+                if (_qtLearning.isActive()) {
                     qsLang1 = _umwMainWindow.qlLanguage1->text();
                     qsLang2 = _umwMainWindow.qlLanguage2->text();
                     qsCategory = _umwMainWindow.qlCategory->text();
                 } // if
                 _umwMainWindow.retranslateUi(this);
-                if (_iTimer != 0) {
+                if (_qtLearning.isActive()) {
                     _umwMainWindow.qlLanguage1->setText(qsLang1);
                     _umwMainWindow.qlLanguage2->setText(qsLang2);
                     _umwMainWindow.qlCategory->setText(qsCategory);
@@ -254,7 +253,7 @@ MainWindow::~MainWindow()
 
 MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags), _ucUpdateChecker(&_sSettings)
 {
-    _iTimer = 0;
+	_qtLearning.setSingleShot(true);
 #ifndef FREE
     _qhblInner = NULL;
 #endif
@@ -324,19 +323,22 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 #ifndef FREE
     _umwMainWindow.qaMute->setChecked(_sSettings.GetMute());
 
-    // learning
-	if (
-# ifndef TRY
-        _lLicense->IsLoaded() &&
-# endif
-        _sSettings.GetStartLearningOnStartup() && _vVocabulary.IsOpen()) {
-		on_qaStart_triggered();
-	} // if
-
 	// connections
 	connect(&_qstiTrayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason)));
 #endif
+	connect(&_qtLearning, SIGNAL(timeout()), SLOT(on_qtLearning_timeout()));
 	connect(&_ucUpdateChecker, SIGNAL(Finished()), SLOT(on_ucUpdateChecker_Finished()));
+
+#ifndef FREE
+	// learning
+	if (
+# ifndef TRY
+		_lLicense->IsLoaded() &&
+# endif
+		_sSettings.GetStartLearningOnStartup() && _vVocabulary.IsOpen()) {
+			on_qaStart_triggered();
+	} // if
+#endif
 
 	// update check
 	if (_sSettings.GetUpdateCheck()) {
@@ -402,7 +404,7 @@ const void MainWindow::on_qaNew_triggered(bool checked /* false */)
     QFileDialog qfdNew(this, tr("Create new vocabulary"), QFileInfo(_vVocabulary.GetVocabularyFile()).absolutePath(), VOCABULARY_FILTER);
     qfdNew.setAcceptMode(QFileDialog::AcceptSave);
     if (qfdNew.exec() == QDialog::Accepted) {
-		if (_iTimer != 0) {
+		if (_qtLearning.isActive()) {
 			on_qaStop_triggered(false);
 		} // if
 
@@ -427,14 +429,13 @@ const void MainWindow::on_qaNew_triggered(bool checked /* false */)
 
 const void MainWindow::on_qaNext_triggered(bool checked /* false */)
 {
-	if (_iTimer != 0) {
-		killTimer(_iTimer);
+	if (_qtLearning.isActive()) {
+		_qtLearning.stop();
 	} // if
 	_iTimeQuestion = TIME_NOW;
     _iTimeAnswer = TIME_NONE;
 
-	_iTimer = startTimer(MILISECONDS_PER_SECOND);
-	timerEvent(NULL);
+	_qtLearning.start(0);
 } // on_qaNext_triggered
 
 #ifndef TRY
@@ -450,7 +451,7 @@ const void MainWindow::on_qaOpen_triggered(bool checked /* false */)
         EnableControls();
         RefreshStatusBar();
 
-        if (_iTimer != 0) {
+        if (_qtLearning.isActive()) {
             on_qaStop_triggered();
         } // if
 #ifndef FREE
@@ -478,24 +479,22 @@ const void MainWindow::on_qaStart_triggered(bool checked /* false */)
 {
     _iTimeQuestion = TIME_NOW;
     _iTimeAnswer = TIME_NONE;
-	_iTimer = startTimer(MILISECONDS_PER_SECOND);
+
+	_iCurrentRecordId = RECORD_NONE;
+	_qtLearning.start(0);
 
 	EnableControls();
 #ifdef FREE
 	_umwMainWindow.qlCategory->show();
 #else
     _umwMainWindow.qlCategory->setVisible(_sSettings.GetShowCategoryName());
-	_umwMainWindow.qhblRecordControls->parentWidget()->setVisible(_iTimer != 0 && _sSettings.GetShowRecordControls());
+	_umwMainWindow.qhblRecordControls->parentWidget()->setVisible(_sSettings.GetShowRecordControls());
 #endif
-
-    _iCurrentRecordId = RECORD_NONE;
-	timerEvent(NULL);
 } // on_qaStart_triggered
 
 const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 {
-	killTimer(_iTimer);
-	_iTimer = 0;
+	_qtLearning.stop();
     _qpbTimer.setValue(0);
 	EnableControls();
 
@@ -602,6 +601,153 @@ const void MainWindow::on_qtbPriority9_clicked(bool checked /* false */)
 } // on_qtbPriority9_clicked
 #endif
 
+const void MainWindow::on_qtLearning_timeout()
+{
+    if (_iTimeQuestion != TIME_NONE) {
+        _iTimeQuestion--;
+    } // if
+    if (_iTimeAnswer != TIME_NONE) {
+        _iTimeAnswer--;
+    } // if
+
+    _qpbTimer.setValue(_qpbTimer.value() - 1);
+
+    if (_iTimeQuestion == 0) {
+        if (_vVocabulary.GetRecordCount(true) == 0) {
+            on_qaStop_triggered();
+        } else {
+            int iCategoryId;
+            int iLastRecordId = _iCurrentRecordId;
+#ifndef FREE
+			int iMaxCategoryPriority = qrand() % VocabularyTabWidget::CATEGORY_PRIORITY_MAX + 1;
+            int iMaxRecordPriority = qrand() % PriorityDelegate::RECORD_PRIORITY_MAX + 1;
+
+			int iNextRecordTry = 0;
+#endif
+            while (true) {
+	            _iCurrentRecordId = _vVocabulary.GetRecordId(qrand() % _vVocabulary.GetRecordCount());
+#ifndef FREE
+				if (iNextRecordTry == MAX_NEXTRECORD_TRIES) {
+					on_qaStop_triggered(false);
+					return;
+				} else {
+					iNextRecordTry++;
+				} // if else
+
+				if ((!_sSettings.GetLearnDisabledWords() && !_vVocabulary.GetRecordEnabled(_iCurrentRecordId)) || GetRecordPriority() > iMaxRecordPriority) {
+					continue;
+				} // if
+#endif
+
+                iCategoryId = _vVocabulary.GetRecordCategory(_iCurrentRecordId);
+#ifndef FREE
+                if (_vVocabulary.GetCategoryEnabled(iCategoryId) && _vVocabulary.GetCategoryPriority(iCategoryId) <= iMaxCategoryPriority  && (_vVocabulary.GetRecordCount(true) == 1 || _iCurrentRecordId != iLastRecordId)) {
+#endif
+                    break;
+#ifndef FREE
+                } // if
+#endif
+            } // while
+/*#ifdef _DEBUG
+            qDebug("Current word: %d", _iCurrentRecordId);
+#endif*/
+
+			// answer time
+			_iTimeAnswer = _sSettings.GetWaitForAnswer();
+			// progress
+			_qpbTimer.setMaximum(_iTimeAnswer);
+			_qpbTimer.setValue(_iTimeAnswer);
+
+            // question parameters
+	        _saCurrentAnswer.iWord = _iCurrentRecordId;
+	        _saCurrentAnswer.bDirectionSwitched = GetLearningDirection();
+
+            // gui
+		    QString qsLang1 = GetLanguageText(_saCurrentAnswer.bDirectionSwitched, false);
+		    if (qsLang1.isEmpty()) {
+			    _umwMainWindow.qlLanguage1->hide();
+		    } else {
+#ifdef FREE
+				_umwMainWindow.qlLanguage1->show();
+#else
+			    _umwMainWindow.qlLanguage1->setVisible(_sSettings.GetShowLanguageNames());
+#endif
+			    _umwMainWindow.qlLanguage1->setText(qsLang1);
+		    } // if else
+		    QString qsLang2 = GetLanguageText(_saCurrentAnswer.bDirectionSwitched, true);
+		    if (qsLang2.isEmpty()) {
+			    _umwMainWindow.qlLanguage2->hide();
+		    } else {
+#ifdef FREE
+				_umwMainWindow.qlLanguage2->show();
+#else
+			    _umwMainWindow.qlLanguage2->setVisible(_sSettings.GetShowLanguageNames());
+#endif
+			    _umwMainWindow.qlLanguage2->setText(qsLang2);
+		    } // if else
+	        _umwMainWindow.qtbWindow1->setText(GetLearningText(TemplateLearning, _saCurrentAnswer.bDirectionSwitched, false));
+	        _umwMainWindow.qtbWindow2->clear();
+            _umwMainWindow.qlCategory->setText(_vVocabulary.GetCategoryName(iCategoryId));
+#ifndef FREE
+			SetupRecordControls();
+#endif
+
+#ifndef FREE
+		    // tray
+		    if (_sSettings.GetSystemTrayIcon() && _sSettings.GetShowWordsInTrayBalloon()) {
+			    ShowTrayBalloon(_saCurrentAnswer.bDirectionSwitched, false);
+		    } // if
+
+            // sound
+	        if (_sSettings.GetNewWordSound() && !_sSettings.GetMute()) {
+                if (_sSettings.GetNewWordSoundType() == Settings::NewWordSoundTypeSystem) {
+		            QApplication::beep();
+                } else {
+                    QSound::play(_sSettings.GetNewWordSoundFile());
+                } // if else
+	        } // if
+
+            // flash
+	        if (_sSettings.GetNewWordFlash()) {
+                QString qsStyleSheet = _umwMainWindow.qtbWindow1->styleSheet();
+
+		        for (int iI = 0; iI < FLASH_COUNT && !_qsQueuedAnswers.contains(_iCurrentRecordId); iI++) {
+                    _umwMainWindow.qtbWindow1->setStyleSheet(QString("QAbstractScrollArea { background-color: %1 }").arg(_sSettings.GetColorFlash()));
+			        QTest::qWait(FLASH_WAIT);
+                    _umwMainWindow.qtbWindow1->setStyleSheet(qsStyleSheet);
+			        if (iI < FLASH_COUNT - 1) {
+				        QTest::qWait(FLASH_WAIT);
+			        } // if
+		        } // for
+	        } // if
+
+            // speech
+            if (_sSettings.GetNewWordSound() && !_qsQueuedAnswers.contains(_iCurrentRecordId)) {
+                QTest::qWait(SAY_BEEP_WAIT);
+                Say(_saCurrentAnswer.bDirectionSwitched, false);
+            } // if
+#endif
+
+            // next question time
+            _iTimeQuestion = _sSettings.GetWordsFrequency();
+            _qsQueuedAnswers.insert(_saCurrentAnswer.iWord);
+
+#ifndef FREE
+            // answer
+            _umwMainWindow.qaAnswer->setEnabled(true);
+#endif
+        } // if else
+    } // if
+
+    if (_iTimeAnswer == 0) {
+        ShowAnswer();
+    } // if else
+
+	if (!_qtLearning.isActive()) {
+		_qtLearning.start(MILISECONDS_PER_SECOND);
+	} // if
+} // on_qtLearning_timeout
+
 const void MainWindow::on_ucUpdateChecker_Finished()
 {
 	if (_ucUpdateChecker.GetCheckResult() != QNetworkReply::NoError) {
@@ -636,7 +782,7 @@ const void MainWindow::OpenVocabulary(
     } // if else
 #endif
 
-	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && _iTimer == 0 && _vVocabulary.GetRecordCount() > 0);
+	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && !_qtLearning.isActive() && _vVocabulary.GetRecordCount() > 0);
     RefreshStatusBar();
 } // OpenVocabulary
 
@@ -841,152 +987,6 @@ const void MainWindow::ShowTrayBalloon(const bool &pDirectionSwitched, const boo
 	_qstiTrayIcon.showMessage(VOCABULARY_MASTER, qsText);
 } // ShowTrayBalloon
 #endif
-
-void MainWindow::timerEvent(QTimerEvent *event)
-{
-    if (_iTimeQuestion != TIME_NONE) {
-        _iTimeQuestion--;
-    } // if
-    if (_iTimeAnswer != TIME_NONE) {
-        _iTimeAnswer--;
-    } // if
-
-    _qpbTimer.setValue(_qpbTimer.value() - 1);
-
-    if (_iTimeQuestion == 0) {
-        if (_vVocabulary.GetRecordCount(true) == 0) {
-            on_qaStop_triggered();
-        } else {
-            int iCategoryId;
-            int iLastRecordId = _iCurrentRecordId;
-#ifndef FREE
-			int iMaxCategoryPriority = qrand() % VocabularyTabWidget::CATEGORY_PRIORITY_MAX + 1;
-            int iMaxRecordPriority = qrand() % PriorityDelegate::RECORD_PRIORITY_MAX + 1;
-
-			int iNextRecordTry = 0;
-#endif
-            while (true) {
-	            _iCurrentRecordId = _vVocabulary.GetRecordId(qrand() % _vVocabulary.GetRecordCount());
-#ifndef FREE
-				if (iNextRecordTry == MAX_NEXTRECORD_TRIES) {
-					on_qaStop_triggered(false);
-					return;
-				} else {
-					iNextRecordTry++;
-				} // if else
-
-				if ((!_sSettings.GetLearnDisabledWords() && !_vVocabulary.GetRecordEnabled(_iCurrentRecordId)) || GetRecordPriority() > iMaxRecordPriority) {
-					continue;
-				} // if
-#endif
-
-                iCategoryId = _vVocabulary.GetRecordCategory(_iCurrentRecordId);
-#ifndef FREE
-                if (_vVocabulary.GetCategoryEnabled(iCategoryId) && _vVocabulary.GetCategoryPriority(iCategoryId) <= iMaxCategoryPriority  && (_vVocabulary.GetRecordCount(true) == 1 || _iCurrentRecordId != iLastRecordId)) {
-#endif
-                    break;
-#ifndef FREE
-                } // if
-#endif
-            } // while
-/*#ifdef _DEBUG
-            qDebug("Current word: %d", _iCurrentRecordId);
-#endif*/
-
-			// answer time
-			_iTimeAnswer = _sSettings.GetWaitForAnswer();
-			// progress
-			_qpbTimer.setMaximum(_iTimeAnswer);
-			_qpbTimer.setValue(_iTimeAnswer);
-
-            // question parameters
-	        _saCurrentAnswer.iWord = _iCurrentRecordId;
-	        _saCurrentAnswer.bDirectionSwitched = GetLearningDirection();
-
-            // gui
-		    QString qsLang1 = GetLanguageText(_saCurrentAnswer.bDirectionSwitched, false);
-		    if (qsLang1.isEmpty()) {
-			    _umwMainWindow.qlLanguage1->hide();
-		    } else {
-#ifdef FREE
-				_umwMainWindow.qlLanguage1->show();
-#else
-			    _umwMainWindow.qlLanguage1->setVisible(_sSettings.GetShowLanguageNames());
-#endif
-			    _umwMainWindow.qlLanguage1->setText(qsLang1);
-		    } // if else
-		    QString qsLang2 = GetLanguageText(_saCurrentAnswer.bDirectionSwitched, true);
-		    if (qsLang2.isEmpty()) {
-			    _umwMainWindow.qlLanguage2->hide();
-		    } else {
-#ifdef FREE
-				_umwMainWindow.qlLanguage2->show();
-#else
-			    _umwMainWindow.qlLanguage2->setVisible(_sSettings.GetShowLanguageNames());
-#endif
-			    _umwMainWindow.qlLanguage2->setText(qsLang2);
-		    } // if else
-	        _umwMainWindow.qtbWindow1->setText(GetLearningText(TemplateLearning, _saCurrentAnswer.bDirectionSwitched, false));
-	        _umwMainWindow.qtbWindow2->clear();
-            _umwMainWindow.qlCategory->setText(_vVocabulary.GetCategoryName(iCategoryId));
-#ifndef FREE
-			SetupRecordControls();
-#endif
-
-#ifndef FREE
-		    // tray
-		    if (_sSettings.GetSystemTrayIcon() && _sSettings.GetShowWordsInTrayBalloon()) {
-			    ShowTrayBalloon(_saCurrentAnswer.bDirectionSwitched, false);
-		    } // if
-
-            // sound
-	        if (_sSettings.GetNewWordSound() && !_sSettings.GetMute()) {
-                if (_sSettings.GetNewWordSoundType() == Settings::NewWordSoundTypeSystem) {
-		            QApplication::beep();
-                } else {
-                    QSound::play(_sSettings.GetNewWordSoundFile());
-                } // if else
-	        } // if
-
-            // flash
-	        if (_sSettings.GetNewWordFlash()) {
-                QString qsStyleSheet = _umwMainWindow.qtbWindow1->styleSheet();
-
-		        for (int iI = 0; iI < FLASH_COUNT && !_qsQueuedAnswers.contains(_iCurrentRecordId); iI++) {
-                    _umwMainWindow.qtbWindow1->setStyleSheet(QString("QAbstractScrollArea { background-color: %1 }").arg(_sSettings.GetColorFlash()));
-			        QTest::qWait(FLASH_WAIT);
-                    _umwMainWindow.qtbWindow1->setStyleSheet(qsStyleSheet);
-			        if (iI < FLASH_COUNT - 1) {
-				        QTest::qWait(FLASH_WAIT);
-			        } // if
-		        } // for
-	        } // if
-
-            // speech
-            if (_sSettings.GetNewWordSound() && !_qsQueuedAnswers.contains(_iCurrentRecordId)) {
-                QTest::qWait(SAY_BEEP_WAIT);
-                Say(_saCurrentAnswer.bDirectionSwitched, false);
-            } // if
-#endif
-
-            // next question time
-            _iTimeQuestion = _sSettings.GetWordsFrequency();
-/*#ifdef _DEBUG
-            qDebug("Answer: %d, word: %d, timer: %d", _iTimerAnswer, _saCurrentAnswer.iWord, _iTimerAnswer);
-#endif*/
-            _qsQueuedAnswers.insert(_saCurrentAnswer.iWord);
-
-#ifndef FREE
-            // answer
-            _umwMainWindow.qaAnswer->setEnabled(true);
-#endif
-        } // if else
-    } // if
-
-    if (_iTimeAnswer == 0) {
-        ShowAnswer();
-    } // if else
-} // timerEvent
 
 #if !defined(FREE) && defined(Q_WS_WIN)
 bool MainWindow::winEvent(MSG *message, long *result)
