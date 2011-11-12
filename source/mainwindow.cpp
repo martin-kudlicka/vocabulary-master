@@ -748,9 +748,8 @@ const void MainWindow::on_qtLearning_timeout()
 
 	if (!_qtLearning.isActive() && _umwMainWindow.qaStop->isEnabled()) {
 		_qtLearning.start(MILISECONDS_PER_SECOND);
+		_umwMainWindow.qaNext->setEnabled(true);
 	} // if
-
-	_umwMainWindow.qaNext->setEnabled(true);
 } // on_qtLearning_timeout
 
 const void MainWindow::on_ucUpdateChecker_Finished()
