@@ -31,3 +31,8 @@ file ..\output\Release\tts-sapi.dll
 ; Qt files
 SetOutPath "$INSTDIR"
 file \Programy\Qt\4.7.4\bin\QtTest4.dll
+SetOutPath "$INSTDIR\codecs"
+file \Programy\Qt\4.7.4\plugins\codecs\qcncodecs4.dll
+file \Programy\Qt\4.7.4\plugins\codecs\qjpcodecs4.dll
+file \Programy\Qt\4.7.4\plugins\codecs\qkrcodecs4.dll
+file \Programy\Qt\4.7.4\plugins\codecs\qtwcodecs4.dll
