@@ -603,6 +603,8 @@ const void MainWindow::on_qtbPriority9_clicked(bool checked /* false */)
 
 const void MainWindow::on_qtLearning_timeout()
 {
+	_umwMainWindow.qaNext->setEnabled(false);
+
     if (_iTimeQuestion != TIME_NONE) {
         _iTimeQuestion--;
     } // if
@@ -746,6 +748,8 @@ const void MainWindow::on_qtLearning_timeout()
 	if (!_qtLearning.isActive()) {
 		_qtLearning.start(MILISECONDS_PER_SECOND);
 	} // if
+
+	_umwMainWindow.qaNext->setEnabled(true);
 } // on_qtLearning_timeout
 
 const void MainWindow::on_ucUpdateChecker_Finished()
