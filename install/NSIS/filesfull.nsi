@@ -3,6 +3,11 @@ SetOutPath "$INSTDIR\plugins\exp-html"
 file ..\output\Release\exp-html.dll
 SetOutPath "$INSTDIR\plugins\exp-html\lang"
 file ..\plugins\exp-html\lang\cs_CZ.qm
+; exp-pdf plugin
+SetOutPath "$INSTDIR\plugins\exp-pdf"
+file ..\output\Release\exp-pdf.dll
+SetOutPath "$INSTDIR\plugins\exp-pdf\lang"
+file ..\plugins\exp-pdf\lang\cs_CZ.qm
 ; exp-plaintext plugin
 SetOutPath "$INSTDIR\plugins\exp-plaintext"
 file ..\output\Release\exp-plaintext.dll
