@@ -741,11 +741,11 @@ const void MainWindow::on_qtLearning_timeout()
         } // if else
     } // if
 
-    if (_iTimeAnswer == 0) {
+    if (_iTimeAnswer == 0 && _umwMainWindow.qaStop->isEnabled()) {
         ShowAnswer();
     } // if else
 
-	if (!_qtLearning.isActive()) {
+	if (!_qtLearning.isActive() && _umwMainWindow.qaStop->isEnabled()) {
 		_qtLearning.start(MILISECONDS_PER_SECOND);
 	} // if
 
