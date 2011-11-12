@@ -604,8 +604,6 @@ const void MainWindow::on_qtbPriority9_clicked(bool checked /* false */)
 
 const void MainWindow::on_qtLearning_timeout()
 {
-	_umwMainWindow.qaNext->setEnabled(false);
-
     if (_iTimeQuestion != TIME_NONE) {
         _iTimeQuestion--;
     } // if
@@ -616,6 +614,12 @@ const void MainWindow::on_qtLearning_timeout()
     _qpbTimer.setValue(_qpbTimer.value() - 1);
 
     if (_iTimeQuestion == 0) {
+		_umwMainWindow.qaNext->setEnabled(false);
+#ifndef FREE
+		// disable answer
+		_umwMainWindow.qaAnswer->setEnabled(false);
+#endif
+
         if (_vVocabulary.GetRecordCount(true) == 0) {
             on_qaStop_triggered();
         } else {
@@ -736,7 +740,7 @@ const void MainWindow::on_qtLearning_timeout()
             _qsQueuedAnswers.insert(_saCurrentAnswer.iWord);
 
 #ifndef FREE
-            // answer
+            // enable answer
             _umwMainWindow.qaAnswer->setEnabled(true);
 #endif
         } // if else
