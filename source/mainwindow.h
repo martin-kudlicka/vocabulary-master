@@ -20,6 +20,7 @@
 # include "license.h"
 #endif
 #include "updatechecker.h"
+#include <QtCore/QTimer>
 
 class MainWindow : public QMainWindow
 {
@@ -56,7 +57,6 @@ class MainWindow : public QMainWindow
 		}; // sAnswer
 
 		int _iCurrentRecordId;
-        int _iTimer;
         int _iTimeAnswer;
 		int _iTimeQuestion;
 #ifndef FREE
@@ -78,6 +78,7 @@ class MainWindow : public QMainWindow
 #ifndef FREE
         QSystemTrayIcon _qstiTrayIcon;
 #endif
+		QTimer _qtLearning;
 		QTranslator _qtTranslator;
         sAnswer _saCurrentAnswer;
 		Settings _sSettings;
@@ -119,7 +120,6 @@ class MainWindow : public QMainWindow
 #ifndef FREE
 		const void ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer);
 #endif
-		void timerEvent(QTimerEvent *event);
 #if !defined(FREE) && defined(Q_WS_WIN)
 		virtual bool winEvent(MSG *message, long *result);
 #endif
@@ -159,6 +159,7 @@ class MainWindow : public QMainWindow
 		const void on_qtbPriority8_clicked(bool checked = false);
 		const void on_qtbPriority9_clicked(bool checked = false);
 #endif
+		const void on_qtLearning_timeout();
 		const void on_ucUpdateChecker_Finished();
 }; // MainWindow
 
