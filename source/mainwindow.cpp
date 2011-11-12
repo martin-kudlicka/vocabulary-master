@@ -495,6 +495,7 @@ const void MainWindow::on_qaStart_triggered(bool checked /* false */)
 const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 {
 	_qtLearning.stop();
+	_qpbTimer.setMaximum(1);
     _qpbTimer.setValue(0);
 	EnableControls();
 
