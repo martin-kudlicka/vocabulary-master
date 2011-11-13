@@ -95,9 +95,9 @@ UpdateChecker::UpdateChecker(const Settings *pSettings, QObject *pParent /* NULL
 	_qnrLastReply = NULL;
 
 	_svCurrent.usMajor = 1;
-	_svCurrent.usMinor = 1;
+	_svCurrent.usMinor = 2;
 	_svCurrent.usMinor2 = 0;
-	_svCurrent.usRevision = 521;
+	_svCurrent.usRevision = 593;
 
 	connect(&_qnamNetworkManager, SIGNAL(finished(QNetworkReply *)), SLOT(on_qnamNetworkManager_finished(QNetworkReply *)));
 } // UpdateChecker
