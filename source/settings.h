@@ -151,11 +151,24 @@ class Settings
 		static const int DEFAULT_FREQUENCY = 60;
 		static const int DEFAULT_WAIT = 0;
 
+#ifndef TRY
+		enum eVersion {
+			Version1,
+			Version2,
+		}; // eVersion
+		enum eVocabularyPosition {
+			VocabularyPosition1
+		}; // eVocabularyPosition
+#endif
+
 		QSettings _qsSettings;
 
 #if !defined(FREE) && defined(Q_WS_WIN)
         const QString GetHotkeyKey(const eHotkey &pType) const;
 		const QString GetHotkeyKeyText(const eHotkey &pType) const;
 		const QString GetHotkeyKeyVirtualKey(const eHotkey &pType) const;
+#endif
+#ifndef TRY
+		const void UpdateSettings();
 #endif
 }; // Settings

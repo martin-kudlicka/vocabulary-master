@@ -1,6 +1,9 @@
 #include "settings.h"
 
 const QString APPLICATION = "Vocabulary Master";
+#ifndef TRY
+const QString ARRAY_VOCABULARIES = "Vocabularies";
+#endif
 #ifndef FREE
 const QString DEFAULT_COLORFLASH = "chartreuse";
 #endif
@@ -44,6 +47,9 @@ const QString KEY_SYSTEMTRAYICON = "SystemTrayIcon";
 const QString KEY_TRANSLATION = "Translation";
 const QString KEY_UPDATECHECK = "UpdateCheck";
 const QString KEY_USEPROXY = "UseProxy";
+#ifndef TRY
+const QString KEY_VERSION = "Version";
+#endif
 const QString KEY_VOCABULARYFILE = "VocabularyFile";
 #ifndef FREE
 const QString KEY_WAITFORANSWER = "WaitForAnswer";
@@ -465,6 +471,9 @@ const void Settings::SetSystemTrayIcon(const bool &pEnable)
 
 Settings::Settings() : _qsSettings(ORGANIZATION, APPLICATION)
 {
+#ifndef TRY
+	UpdateSettings();
+#endif
 } // Settings
 
 const void Settings::SetTranslation(const QString &pTranslation)
@@ -520,3 +529,22 @@ const void Settings::SetWordsFrequency(const int &pFrequency)
 {
     _qsSettings.setValue(KEY_WORDSFREQUENCY, pFrequency);
 } // SetWordsFrequency
+
+#ifndef TRY
+const void Settings::UpdateSettings()
+{
+	eVersion evCurrent = static_cast<eVersion>(_qsSettings.value(KEY_VERSION, Version1).toInt());
+
+	if (evCurrent < Version2) {
+		// move vocabulary to vocabularies group
+		QString qsVocabulary = _qsSettings.value(KEY_VOCABULARYFILE).toString();
+		_qsSettings.beginWriteArray(ARRAY_VOCABULARIES);
+		_qsSettings.setArrayIndex(VocabularyPosition1);
+		_qsSettings.setValue(KEY_VOCABULARYFILE, qsVocabulary);
+		_qsSettings.endArray();
+		_qsSettings.remove(KEY_VOCABULARYFILE);
+
+		_qsSettings.setValue(KEY_VERSION, Version2);
+	} // if
+} // UpdateSettings
+#endif
