@@ -3,15 +3,10 @@
 
 #include <QtGui/QMainWindow>
 #include <ui_mainwindow.h>
-#include <QtGui/QProgressBar>
 
-#ifdef FREE
-# include "settings.h"
-#else
-# include <QtGui/QBoxLayout>
-#endif
-#include "vocabulary.h"
+#include <QtGui/QProgressBar>
 #ifndef FREE
+# include <QtGui/QBoxLayout>
 # include "plugins.h"
 # include <QtGui/QSystemTrayIcon>
 #endif
@@ -21,6 +16,7 @@
 #endif
 #include "updatechecker.h"
 #include <QtCore/QTimer>
+#include "vocabularyorganizer.h"
 
 class MainWindow : public QMainWindow
 {
@@ -56,7 +52,6 @@ class MainWindow : public QMainWindow
 			bool bDirectionSwitched;
 		}; // sAnswer
 
-		int _iCurrentRecordId;
         int _iTimeAnswer;
 		int _iTimeQuestion;
 #ifndef FREE
@@ -65,7 +60,7 @@ class MainWindow : public QMainWindow
 # endif
 		Plugins _pPlugins;
 		QAction *_qaTrayExit;
-        QAction *_qaTrayManage;
+        //QAction *_qaTrayManage;
         QAction *_qaTraySettings;
         QHBoxLayout *_qhblInner;
 #endif
@@ -81,10 +76,11 @@ class MainWindow : public QMainWindow
 		QTimer _qtLearning;
 		QTranslator _qtTranslator;
         sAnswer _saCurrentAnswer;
+		VocabularyOrganizer::sRecordInfo _sriCurrentRecord;
 		Settings _sSettings;
 		Ui::qmwUiMain _umwMainWindow;
 		UpdateChecker _ucUpdateChecker;
-        Vocabulary _vVocabulary;
+		VocabularyOrganizer _voOrganizer;
 
         const void ApplySettings(const bool &pStartup);
 #ifndef FREE
@@ -137,11 +133,8 @@ class MainWindow : public QMainWindow
 #ifndef FREE
         const void on_qaMute_toggled(bool checked);
 #endif
-        const void on_qaNew_triggered(bool checked = false);
 		const void on_qaNext_triggered(bool checked = false);
-#ifndef TRY
-        const void on_qaOpen_triggered(bool checked = false);
-#endif
+        const void on_qaOrganizer_triggered(bool checked = false);
 		const void on_qaSettings_triggered(bool checked = false);
 		const void on_qaStart_triggered(bool checked = false);
 		const void on_qaStop_triggered(bool checked = false);

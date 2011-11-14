@@ -273,9 +273,22 @@ const bool Settings::GetUseProxy() const
 } // GetUseProxy
 
 #ifndef TRY
-const QString Settings::GetVocabularyFile() const
+const int Settings::GetVocabularyCount()
 {
-	return _qsSettings.value(KEY_VOCABULARYFILE).toString();
+	int iCount = _qsSettings.beginReadArray(ARRAY_VOCABULARIES);
+	_qsSettings.endArray();
+
+	return iCount;
+} // GetVocabularyCount
+
+const QString Settings::GetVocabularyFile(const int &pIndex)
+{
+	_qsSettings.beginReadArray(ARRAY_VOCABULARIES);
+	_qsSettings.setArrayIndex(pIndex);
+	QString qsFile = _qsSettings.value(KEY_VOCABULARYFILE).toString();
+	_qsSettings.endArray();
+
+	return qsFile;
 } // GetVocabularyFile
 #endif
 

@@ -277,8 +277,7 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="qaNew"/>
-    <addaction name="qaOpen"/>
+    <addaction name="qaOrganizer"/>
     <addaction name="separator"/>
     <addaction name="qaExit"/>
    </widget>
@@ -288,11 +287,10 @@
     </property>
     <addaction name="qaSettings"/>
    </widget>
-   <widget class="QMenu" name="qmVocabulary">
+   <widget class="QMenu" name="qmVocabularies">
     <property name="title">
-     <string>&amp;Vocabulary</string>
+     <string>&amp;Vocabularies</string>
     </property>
-    <addaction name="qaManage"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -302,7 +300,7 @@
     <addaction name="qaAbout"/>
    </widget>
    <addaction name="menu_File"/>
-   <addaction name="qmVocabulary"/>
+   <addaction name="qmVocabularies"/>
    <addaction name="qmOptions"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -347,13 +345,13 @@
     <string>&amp;Settings...</string>
    </property>
   </action>
-  <action name="qaNew">
+  <action name="qaOrganizer">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
      <normaloff>:/res/mainwindow/menubar/new.png</normaloff>:/res/mainwindow/menubar/new.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;New...</string>
+    <string>&amp;Organizer...</string>
    </property>
   </action>
   <action name="qaOpen">
