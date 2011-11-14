@@ -1,17 +1,17 @@
 #include "mainwindow.h"
 
 #include "settingsdialog.h"
-#include <QtGui/QFileDialog>
 #include "vocabularymanagerdialog.h"
 #include <QtCore/QTime>
 #include <QTest>
 #include <QtGui/QMessageBox>
-#if !defined(FREE) && defined(Q_WS_WIN)
-# include <Windows.h>
-#endif
-#include "common/vocabularyopenprogressdialog.h"
-#if !defined(FREE) && !defined(TRY)
-# include "licensedialog.h"
+#ifndef FREE
+# ifdef Q_WS_WIN
+#  include <Windows.h>
+# endif
+# ifndef TRY
+#  include "licensedialog.h"
+# endif
 #endif
 #ifndef FREE
 # include <QtGui/QSound>
@@ -77,8 +77,8 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 #ifndef FREE
 const void MainWindow::CreateTrayMenu()
 {
-    _qaTrayManage = _qmTray.addAction(tr("&Manage"));
-    _qaTrayManage->setIcon(QIcon(":/res/mainwindow/menubar/manage.png"));
+    /*_qaTrayManage = _qmTray.addAction(tr("&Manage"));
+    _qaTrayManage->setIcon(QIcon(":/res/mainwindow/menubar/manage.png"));*/
     _qaTraySettings = _qmTray.addAction(tr("&Settings"));
     _qaTraySettings->setIcon(QIcon(":/res/mainwindow/menubar/settings.png"));
     _qmTray.addSeparator();
@@ -94,14 +94,13 @@ const void MainWindow::EnableControls()
 {
 	// menu
 #if !defined(FREE) && !defined(TRY)
-	_umwMainWindow.qaNew->setEnabled(_lLicense->IsLoaded());
-	_umwMainWindow.qaOpen->setEnabled(_lLicense->IsLoaded());
+	_umwMainWindow.qaOrganizer->setEnabled(_lLicense->IsLoaded());
 #endif
-    _umwMainWindow.qmVocabulary->setEnabled(
+    _umwMainWindow.qmVocabularies->setEnabled(
 #if !defined(FREE) && !defined(TRY)
 		_lLicense->IsLoaded() &&
 #endif
-		_vVocabulary.IsOpen());
+		_voOrganizer.IsOpen());
 #if !defined(FREE) && !defined(TRY)
 	_umwMainWindow.qmOptions->setEnabled(_lLicense->IsLoaded());
 #endif
@@ -111,7 +110,7 @@ const void MainWindow::EnableControls()
 #if !defined(FREE) && !defined(TRY)
 		_lLicense->IsLoaded() &&
 #endif
-		_vVocabulary.IsOpen() && !_qtLearning.isActive() && _vVocabulary.GetRecordCount(true) > 0);
+		_voOrganizer.IsOpen() && !_qtLearning.isActive() && _voOrganizer.GetRecordCount(true) > 0);
 	_umwMainWindow.qaStop->setEnabled(_qtLearning.isActive());
 	_umwMainWindow.qaNext->setEnabled(_qtLearning.isActive());
 #ifndef FREE
@@ -119,7 +118,7 @@ const void MainWindow::EnableControls()
     _umwMainWindow.qaAnswer->setEnabled(_qtLearning.isActive() && _iTimeAnswer >= TIME_NOW);
 
     // tray
-    _qaTrayManage->setEnabled(_vVocabulary.IsOpen());
+    //_qaTrayManage->setEnabled(_vVocabulary.IsOpen());
 #endif
 } // EnableControls
 
@@ -162,9 +161,9 @@ bool MainWindow::event(QEvent *event)
 const QString MainWindow::GetLanguageText(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
     if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
-		return _vVocabulary.GetLanguageName(VocabularyDatabase::FieldLanguageLeft);
+		return _sriCurrentRecord.vVocabulary->GetLanguageName(VocabularyDatabase::FieldLanguageLeft);
     } else {
-        return _vVocabulary.GetLanguageName(VocabularyDatabase::FieldLanguageRight);
+        return _sriCurrentRecord.vVocabulary->GetLanguageName(VocabularyDatabase::FieldLanguageRight);
     } // if else
 } // GetLanguageText
 
@@ -183,32 +182,32 @@ const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool
 	VocabularyDatabase::eFieldLanguage eflLanguage;
 	if ((!pDirectionSwitched && !pAnswer) || (pDirectionSwitched && pAnswer)) {
 		if (pTemplate == TemplateLearning) {
-			qsTemplate = _vVocabulary.GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageLeft);
+			qsTemplate = _sriCurrentRecord.vVocabulary->GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageLeft);
 		}
 #ifndef FREE
 		else {
-			qsTemplate = _vVocabulary.GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageLeft);
+			qsTemplate = _sriCurrentRecord.vVocabulary->GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageLeft);
 		} // if else
 #endif
 		eflLanguage = VocabularyDatabase::FieldLanguageLeft;
 	} else {
 		if (pTemplate == TemplateLearning) {
-			qsTemplate = _vVocabulary.GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageRight);
+			qsTemplate = _sriCurrentRecord.vVocabulary->GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageRight);
 		}
 #ifndef FREE
 		else {
-			qsTemplate = _vVocabulary.GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageRight);
+			qsTemplate = _sriCurrentRecord.vVocabulary->GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageRight);
 		} // if else
 #endif
 		eflLanguage = VocabularyDatabase::FieldLanguageRight;
 	} // if else
 
 	// substitute variables in template
-	foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
-		if (_vVocabulary.GetFieldLanguage(iFieldId) == eflLanguage) {
-			QString qsData = _vVocabulary.GetDataText(_iCurrentRecordId, iFieldId);
+	foreach (int iFieldId, _sriCurrentRecord.vVocabulary->GetFieldIds()) {
+		if (_sriCurrentRecord.vVocabulary->GetFieldLanguage(iFieldId) == eflLanguage) {
+			QString qsData = _sriCurrentRecord.vVocabulary->GetDataText(_sriCurrentRecord.iId, iFieldId);
 
-			QString qsField = _vVocabulary.GetFieldTemplateName(iFieldId);
+			QString qsField = _sriCurrentRecord.vVocabulary->GetFieldTemplateName(iFieldId);
 			qsTemplate.replace(VARIABLE_MARK + qsField, qsData);
 		} // if
 	} // foreach
@@ -219,12 +218,12 @@ const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool
 #ifndef FREE
 const int MainWindow::GetRecordPriority() const
 {
-    foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
-        if (_vVocabulary.FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-            VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary.GetFieldBuiltIn(iFieldId);
+    foreach (int iFieldId, _sriCurrentRecord.vVocabulary->GetFieldIds()) {
+        if (_sriCurrentRecord.vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
+            VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _sriCurrentRecord.vVocabulary->GetFieldBuiltIn(iFieldId);
             switch (efbBuiltIn) {
                 case VocabularyDatabase::FieldBuiltInPriority:
-                    return _vVocabulary.GetDataText(_iCurrentRecordId, iFieldId).toInt();
+                    return _sriCurrentRecord.vVocabulary->GetDataText(_sriCurrentRecord.iId, iFieldId).toInt();
             } // switch
         } // if
     } // foreach
@@ -235,9 +234,6 @@ const int MainWindow::GetRecordPriority() const
 
 MainWindow::~MainWindow()
 {
-#ifndef TRY
-    _sSettings.SetVocabularyFile(_vVocabulary.GetVocabularyFile());
-#endif
 #ifndef FREE
 	_sSettings.SetWindowX(geometry().x());
 	_sSettings.SetWindowY(geometry().y());
@@ -251,7 +247,7 @@ MainWindow::~MainWindow()
 #endif
 } // ~MainWindow
 
-MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags), _ucUpdateChecker(&_sSettings)
+MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags), _ucUpdateChecker(&_sSettings), _voOrganizer(&_sSettings)
 {
 	_qtLearning.setSingleShot(true);
 #ifndef FREE
@@ -311,10 +307,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     ApplySettings(true);
 
 #ifndef TRY
-	VocabularyOpenProgressDialog vopdOpenProgress(&_vVocabulary, this);
-    vopdOpenProgress.show();
-    _vVocabulary.Open(_sSettings.GetVocabularyFile());
-    vopdOpenProgress.hide();
+	_voOrganizer.Open(this);
 #endif
     RefreshStatusBar();
 
@@ -335,7 +328,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 # ifndef TRY
 		_lLicense->IsLoaded() &&
 # endif
-		_sSettings.GetStartLearningOnStartup() && _vVocabulary.IsOpen()) {
+		_sSettings.GetStartLearningOnStartup() && _voOrganizer.IsOpen()) {
 			on_qaStart_triggered();
 	} // if
 #endif
@@ -398,35 +391,6 @@ const void MainWindow::on_qaMute_toggled(bool checked)
 } // on_qaMute_toggled
 #endif
 
-const void MainWindow::on_qaNew_triggered(bool checked /* false */)
-{
-#ifndef TRY
-    QFileDialog qfdNew(this, tr("Create new vocabulary"), QFileInfo(_vVocabulary.GetVocabularyFile()).absolutePath(), VOCABULARY_FILTER);
-    qfdNew.setAcceptMode(QFileDialog::AcceptSave);
-    if (qfdNew.exec() == QDialog::Accepted) {
-		if (_qtLearning.isActive()) {
-			on_qaStop_triggered(false);
-		} // if
-
-        QFileInfo qfiFile(qfdNew.selectedFiles().at(0));
-		QString qsFile;
-		if (qfiFile.suffix() != VOCABULARY_SUFFIX) {
-			qsFile = qfdNew.selectedFiles().at(0) + "." + VOCABULARY_SUFFIX;
-		} else {
-			qsFile = qfdNew.selectedFiles().at(0);
-		} // if else
-        _vVocabulary.New(qsFile);
-#else
-        _vVocabulary.New(QString());
-#endif
-
-        EnableControls();
-        RefreshStatusBar();
-#ifndef TRY
-    } // if
-#endif
-} // on_qaNew_triggered
-
 const void MainWindow::on_qaNext_triggered(bool checked /* false */)
 {
 	if (_qtLearning.isActive()) {
@@ -438,30 +402,10 @@ const void MainWindow::on_qaNext_triggered(bool checked /* false */)
 	_qtLearning.start(0);
 } // on_qaNext_triggered
 
-#ifndef TRY
-const void MainWindow::on_qaOpen_triggered(bool checked /* false */)
+const void MainWindow::on_qaOrganizer_triggered(bool checked /* false */)
 {
-    QString qsFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), QFileInfo(_vVocabulary.GetVocabularyFile()).absolutePath(), VOCABULARY_FILTER);
-    if (!qsFile.isEmpty()) {
-        VocabularyOpenProgressDialog vopdOpenProgress(&_vVocabulary, this);
-        vopdOpenProgress.show();
-        _vVocabulary.Open(qsFile);
-        vopdOpenProgress.hide();
-
-        EnableControls();
-        RefreshStatusBar();
-
-        if (_qtLearning.isActive()) {
-            on_qaStop_triggered();
-        } // if
-#ifndef FREE
-		if (_sSettings.GetStartLearningOnStartup()) {
-			on_qaStart_triggered();
-		} // if
-#endif
-    } // if
-} // on_qaOpen_triggered
-#endif
+	// TODO
+} // on_qaOrganizer_triggered
 
 const void MainWindow::on_qaSettings_triggered(bool checked /* false */)
 {
@@ -480,7 +424,8 @@ const void MainWindow::on_qaStart_triggered(bool checked /* false */)
     _iTimeQuestion = TIME_NOW;
     _iTimeAnswer = TIME_NONE;
 
-	_iCurrentRecordId = RECORD_NONE;
+	_sriCurrentRecord.vVocabulary = NULL;
+	_sriCurrentRecord.iId = RECORD_NONE;
 	_qtLearning.start(0);
 
 	EnableControls();
@@ -517,9 +462,9 @@ const void MainWindow::on_qcbRecordEnabled_clicked(bool checked /* false */)
 
 const void MainWindow::on_qmTray_triggered(QAction *action)
 {
-    if (action == _qaTrayManage) {
+    /*if (action == _qaTrayManage) {
         on_qaManage_triggered();
-    } else {
+    } else {*/
         if (action == _qaTraySettings) {
             on_qaSettings_triggered();
         } else {
@@ -527,7 +472,7 @@ const void MainWindow::on_qmTray_triggered(QAction *action)
 		        close();
 	        } // if
         } // if else
-    } // if else
+    //} // if else
 } // on_qmTray_triggered
 
 const void MainWindow::on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason reason)
@@ -620,11 +565,11 @@ const void MainWindow::on_qtLearning_timeout()
 		_umwMainWindow.qaAnswer->setEnabled(false);
 #endif
 
-        if (_vVocabulary.GetRecordCount(true) == 0) {
+        if (_voOrganizer.GetRecordCount(true) == 0) {
             on_qaStop_triggered();
         } else {
             int iCategoryId;
-            int iLastRecordId = _iCurrentRecordId;
+			VocabularyOrganizer::sRecordInfo sriLastRecord = _sriCurrentRecord;
 #ifndef FREE
 			int iMaxCategoryPriority = qrand() % VocabularyTabWidget::CATEGORY_PRIORITY_MAX + 1;
             int iMaxRecordPriority = qrand() % PriorityDelegate::RECORD_PRIORITY_MAX + 1;
@@ -632,7 +577,7 @@ const void MainWindow::on_qtLearning_timeout()
 			int iNextRecordTry = 0;
 #endif
             while (true) {
-	            _iCurrentRecordId = _vVocabulary.GetRecordId(qrand() % _vVocabulary.GetRecordCount());
+	            _sriCurrentRecord = _voOrganizer.GetRecordInfo(qrand() % _voOrganizer.GetRecordCount());
 #ifndef FREE
 				if (iNextRecordTry == MAX_NEXTRECORD_TRIES) {
 					on_qaStop_triggered(false);
@@ -641,14 +586,14 @@ const void MainWindow::on_qtLearning_timeout()
 					iNextRecordTry++;
 				} // if else
 
-				if ((!_sSettings.GetLearnDisabledWords() && !_vVocabulary.GetRecordEnabled(_iCurrentRecordId)) || GetRecordPriority() > iMaxRecordPriority) {
+				if ((!_sSettings.GetLearnDisabledWords() && !_sriCurrentRecord.vVocabulary->GetRecordEnabled(_sriCurrentRecord.iId)) || GetRecordPriority() > iMaxRecordPriority) {
 					continue;
 				} // if
 #endif
 
-                iCategoryId = _vVocabulary.GetRecordCategory(_iCurrentRecordId);
+                iCategoryId = _sriCurrentRecord.vVocabulary->GetRecordCategory(_sriCurrentRecord.iId);
 #ifndef FREE
-                if (_vVocabulary.GetCategoryEnabled(iCategoryId) && _vVocabulary.GetCategoryPriority(iCategoryId) <= iMaxCategoryPriority  && (_vVocabulary.GetRecordCount(true) == 1 || _iCurrentRecordId != iLastRecordId)) {
+                if (_sriCurrentRecord.vVocabulary->GetCategoryEnabled(iCategoryId) && _sriCurrentRecord.vVocabulary->GetCategoryPriority(iCategoryId) <= iMaxCategoryPriority  && (_sriCurrentRecord.vVocabulary->GetRecordCount(true) == 1 || _sriCurrentRecord.vVocabulary != sriLastRecord.vVocabulary || _sriCurrentRecord.iId != sriLastRecord.iId)) {
 #endif
                     break;
 #ifndef FREE
@@ -656,7 +601,7 @@ const void MainWindow::on_qtLearning_timeout()
 #endif
             } // while
 /*#ifdef _DEBUG
-            qDebug("Current word: %d", _iCurrentRecordId);
+            qDebug("Current word: %d", _sriCurrentRecord.iId);
 #endif*/
 
 			// answer time
@@ -666,7 +611,7 @@ const void MainWindow::on_qtLearning_timeout()
 			_qpbTimer.setValue(_iTimeAnswer);
 
             // question parameters
-	        _saCurrentAnswer.iWord = _iCurrentRecordId;
+	        _saCurrentAnswer.iWord = _sriCurrentRecord.iId;
 	        _saCurrentAnswer.bDirectionSwitched = GetLearningDirection();
 
             // gui
@@ -694,7 +639,7 @@ const void MainWindow::on_qtLearning_timeout()
 		    } // if else
 	        _umwMainWindow.qtbWindow1->setText(GetLearningText(TemplateLearning, _saCurrentAnswer.bDirectionSwitched, false));
 	        _umwMainWindow.qtbWindow2->clear();
-            _umwMainWindow.qlCategory->setText(_vVocabulary.GetCategoryName(iCategoryId));
+            _umwMainWindow.qlCategory->setText(_sriCurrentRecord.vVocabulary->GetCategoryName(iCategoryId));
 #ifndef FREE
 			SetupRecordControls();
 #endif
@@ -718,7 +663,7 @@ const void MainWindow::on_qtLearning_timeout()
 	        if (_sSettings.GetNewWordFlash()) {
                 QString qsStyleSheet = _umwMainWindow.qtbWindow1->styleSheet();
 
-		        for (int iI = 0; iI < FLASH_COUNT && !_qsQueuedAnswers.contains(_iCurrentRecordId); iI++) {
+		        for (int iI = 0; iI < FLASH_COUNT && !_qsQueuedAnswers.contains(_sriCurrentRecord.iId); iI++) {
                     _umwMainWindow.qtbWindow1->setStyleSheet(QString("QAbstractScrollArea { background-color: %1 }").arg(_sSettings.GetColorFlash()));
 			        QTest::qWait(FLASH_WAIT);
                     _umwMainWindow.qtbWindow1->setStyleSheet(qsStyleSheet);
@@ -729,7 +674,7 @@ const void MainWindow::on_qtLearning_timeout()
 	        } // if
 
             // speech
-            if (_sSettings.GetNewWordSound() && !_qsQueuedAnswers.contains(_iCurrentRecordId)) {
+            if (_sSettings.GetNewWordSound() && !_qsQueuedAnswers.contains(_sriCurrentRecord.iId)) {
                 QTest::qWait(SAY_BEEP_WAIT);
                 Say(_saCurrentAnswer.bDirectionSwitched, false);
             } // if
@@ -774,7 +719,7 @@ const void MainWindow::OpenVocabulary(
 #endif
     )
 {
-    VocabularyManagerDialog vmdManager(&_vVocabulary,
+    VocabularyManagerDialog vmdManager(_sriCurrentRecord.vVocabulary,
 #ifndef FREE
         &_sSettings,
         &_pPlugins,
@@ -782,7 +727,7 @@ const void MainWindow::OpenVocabulary(
         this);
 #ifndef FREE
     if (pCurrentRecord) {
-        vmdManager.ExecOnRecord(_iCurrentRecordId);
+        vmdManager.ExecOnRecord(_sriCurrentRecord.iId);
     } else {
 #endif
         vmdManager.exec();
@@ -790,24 +735,16 @@ const void MainWindow::OpenVocabulary(
     } // if else
 #endif
 
-	_umwMainWindow.qaStart->setEnabled(_vVocabulary.IsOpen() && !_qtLearning.isActive() && _vVocabulary.GetRecordCount() > 0);
+	_umwMainWindow.qaStart->setEnabled(_voOrganizer.IsOpen() && !_qtLearning.isActive() && _voOrganizer.GetRecordCount() > 0);
     RefreshStatusBar();
 } // OpenVocabulary
 
 const void MainWindow::RefreshStatusBar()
 {
-    if (!_vVocabulary.IsOpen()) {
+    if (!_voOrganizer.IsOpen()) {
         _qlVocabularyStatus.setText("");
     } else {
-        QString qsInfo;
-#ifdef FREE
-        qsInfo = QString("%1, %2").arg(_vVocabulary.GetName()).arg(_vVocabulary.GetRecordCount());
-#elif defined TRY
-        qsInfo = tr("memory, %1/%2").arg(_vVocabulary.GetRecordCount(true)).arg(_vVocabulary.GetRecordCount());
-#else
-        qsInfo = QString("%1, %2/%3").arg(_vVocabulary.GetName()).arg(_vVocabulary.GetRecordCount(true)).arg(_vVocabulary.GetRecordCount());
-#endif
-        _qlVocabularyStatus.setText(tr("%1 records").arg(qsInfo));
+        _qlVocabularyStatus.setText(tr("%1 vocabularies, %2/%3 records").arg(_voOrganizer.GetVocabularyCount()).arg(_voOrganizer.GetRecordCount(true)).arg(_voOrganizer.GetRecordCount()));
     } // if else
 } // RefreshStatusBar
 
@@ -852,21 +789,21 @@ const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) 
 
         // get text to speech
         QString qsText;
-        foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
-            if (_vVocabulary.GetFieldLanguage(iFieldId) == eflLanguage && _vVocabulary.FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeSpeech)) {
+        foreach (int iFieldId, _sriCurrentRecord.vVocabulary->GetFieldIds()) {
+            if (_sriCurrentRecord.vVocabulary->GetFieldLanguage(iFieldId) == eflLanguage && _sriCurrentRecord.vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeSpeech)) {
                 if (!qsText.isEmpty()) {
                     qsText += ' ';
                 } // if
-                qsText += _vVocabulary.GetDataText(_iCurrentRecordId, iFieldId);
+                qsText += _sriCurrentRecord.vVocabulary->GetDataText(_sriCurrentRecord.iId, iFieldId);
             } // if
         } // foreach
 
         if (!qsText.isEmpty()) {
-			TTSInterface::eTTSPlugin etpSpeech = _vVocabulary.GetLanguageSpeech(eflLanguage);
+			TTSInterface::eTTSPlugin etpSpeech = _sriCurrentRecord.vVocabulary->GetLanguageSpeech(eflLanguage);
 	        if (etpSpeech != TTSInterface::TTPluginNone) {
 		        TTSInterface *tiPlugin = _pPlugins.GetTTSPlugin(etpSpeech);
                 if (tiPlugin) {
-					QString qsVoice = _vVocabulary.GetLanguageVoice(eflLanguage);
+					QString qsVoice = _sriCurrentRecord.vVocabulary->GetLanguageVoice(eflLanguage);
 		            tiPlugin->Say(qsVoice, qsText);
                 } // if
 	        } // if
@@ -912,12 +849,12 @@ const void MainWindow::SetLayout()
 #ifndef FREE
 const void MainWindow::SetRecordEnabled(const bool &pEnabled)
 {
-	foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
-		if (_vVocabulary.FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary.GetFieldBuiltIn(iFieldId);
+	foreach (int iFieldId, _sriCurrentRecord.vVocabulary->GetFieldIds()) {
+		if (_sriCurrentRecord.vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
+			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _sriCurrentRecord.vVocabulary->GetFieldBuiltIn(iFieldId);
 			switch (efbBuiltIn) {
 				case VocabularyDatabase::FieldBuiltInEnabled:
-					_vVocabulary.SetDataText(_iCurrentRecordId, iFieldId, QString::number(pEnabled ? Qt::Checked : Qt::Unchecked));
+					_sriCurrentRecord.vVocabulary->SetDataText(_sriCurrentRecord.iId, iFieldId, QString::number(pEnabled ? Qt::Checked : Qt::Unchecked));
 					return;
 			} // switch
 		} // if
@@ -926,12 +863,12 @@ const void MainWindow::SetRecordEnabled(const bool &pEnabled)
 
 const void MainWindow::SetRecordPriority(const int &pPriority)
 {
-	foreach (int iFieldId, _vVocabulary.GetFieldIds()) {
-		if (_vVocabulary.FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary.GetFieldBuiltIn(iFieldId);
+	foreach (int iFieldId, _sriCurrentRecord.vVocabulary->GetFieldIds()) {
+		if (_sriCurrentRecord.vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
+			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _sriCurrentRecord.vVocabulary->GetFieldBuiltIn(iFieldId);
 			switch (efbBuiltIn) {
 				case VocabularyDatabase::FieldBuiltInPriority:
-					_vVocabulary.SetDataText(_iCurrentRecordId, iFieldId, QString::number(pPriority));
+					_sriCurrentRecord.vVocabulary->SetDataText(_sriCurrentRecord.iId, iFieldId, QString::number(pPriority));
 					return;
 			} // switch
 		} // if
@@ -950,13 +887,13 @@ const void MainWindow::SetupRecordControls() const
 	_umwMainWindow.qtbPriority7->setChecked(iPriority == 7);
 	_umwMainWindow.qtbPriority8->setChecked(iPriority == 8);
 	_umwMainWindow.qtbPriority9->setChecked(iPriority == 9);
-	_umwMainWindow.qcbRecordEnabled->setChecked(_vVocabulary.GetRecordEnabled(_iCurrentRecordId));
+	_umwMainWindow.qcbRecordEnabled->setChecked(_sriCurrentRecord.vVocabulary->GetRecordEnabled(_sriCurrentRecord.iId));
 } // SetupRecordControls
 #endif
 
 const void MainWindow::ShowAnswer()
 {
-    if (_saCurrentAnswer.iWord == _iCurrentRecordId) {
+    if (_saCurrentAnswer.iWord == _sriCurrentRecord.iId) {
         _qsQueuedAnswers.clear();
 
 #ifndef FREE

@@ -85,7 +85,8 @@ class Settings
 		const bool GetUpdateCheck() const;
 		const bool GetUseProxy() const;
 #ifndef TRY
-		const QString GetVocabularyFile() const;
+		const int GetVocabularyCount();
+		const QString GetVocabularyFile(const int &pIndex);
 #endif
 		const int GetWaitForAnswer() const;
 #ifndef FREE
