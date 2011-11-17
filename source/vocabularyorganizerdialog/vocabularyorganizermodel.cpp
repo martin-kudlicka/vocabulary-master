@@ -34,6 +34,12 @@ QVariant VocabularyOrganizerModel::headerData(int section, Qt::Orientation orien
 	} // switch
 } // headerData
 
+const void VocabularyOrganizerModel::RemoveRow(const int &pRow)
+{
+	beginRemoveRows(QModelIndex(), pRow, pRow);
+	endRemoveRows();
+} // RemoveRow
+
 int VocabularyOrganizerModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
 	if (parent == QModelIndex()) {

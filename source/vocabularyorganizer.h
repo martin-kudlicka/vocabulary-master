@@ -13,6 +13,7 @@ class VocabularyOrganizer
 
 		VocabularyOrganizer(Settings *pSettings);
 
+		const void Close(const int &pIndex);
 		const int GetRecordCount() const;
 		const int GetRecordCount(const bool &pEnabled) const;
 		const sRecordInfo GetRecordInfo(const int &pRow) const;

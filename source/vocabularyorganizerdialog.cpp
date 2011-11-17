@@ -15,6 +15,16 @@ const QString VocabularyOrganizerDialog::GetOpenPath() const
 	} // if else
 } // GetOpenPath
 
+const void VocabularyOrganizerDialog::on_qpbClose_clicked(bool checked /* false */)
+{
+	int iIndex = _qdvmOrganizer.qtvVocabularies->currentIndex().row();
+
+	_voOrganizer->Close(iIndex);
+	_vomModel.RemoveRow(iIndex);
+
+	on_qtvVocabulariesSelectionModel_selectionChanged(QItemSelection(), QItemSelection());
+} // on_qpbClose_clicked
+
 const void VocabularyOrganizerDialog::on_qpbNew_clicked(bool checked /* false */)
 {
 #ifndef TRY
