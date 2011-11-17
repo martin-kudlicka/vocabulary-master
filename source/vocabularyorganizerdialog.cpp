@@ -44,6 +44,7 @@ const void VocabularyOrganizerDialog::on_qpbOpen_clicked(bool checked /* false *
 	QString qsFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), GetOpenPath(), VOCABULARY_FILTER);
 	if (!qsFile.isEmpty()) {
 		_voOrganizer->Open(qsFile, this);
+		_vomModel.AddRow();
 	} // if
 } // on_qpbOpen_clicked
 #endif
