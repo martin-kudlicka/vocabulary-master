@@ -91,9 +91,9 @@ class MainWindow : public QMainWindow
 #ifndef FREE
         const int GetRecordPriority() const;
 #endif
-        const void OpenVocabulary(Vocabulary *pVocabulary,
+        const void OpenVocabulary(Vocabulary *pVocabulary
 #ifndef FREE
-            const bool &pCurrentRecord
+            , const bool &pCurrentRecord
 #endif
             );
         const void RefreshStatusBar();
