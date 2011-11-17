@@ -937,5 +937,5 @@ const void VocabularyDatabase::UpdateDatabase()
 VocabularyDatabase::VocabularyDatabase(QObject *pParent /* NULL */) : QObject(pParent)
 {
     // create empty database
-    _qsdDatabase = QSqlDatabase::addDatabase("QSQLITE");
+	_qsdDatabase = QSqlDatabase::addDatabase("QSQLITE", QString::number(qrand()));
 } // VocabularyDatabase
