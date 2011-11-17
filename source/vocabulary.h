@@ -18,6 +18,7 @@ class Vocabulary : public VocabularyDatabase
 		const void AddRecord(const int &pCategoryId, const QStringList &pData);
 #endif
         const void BeginEdit();
+		const void Close();
         const void EndEdit(const bool &pSave = true);
 		const bool FieldHasAttribute(const int &pFieldId, const eFieldAttribute &pAttribute) const;
         const tCategoryIdList GetCategoryIds() const;

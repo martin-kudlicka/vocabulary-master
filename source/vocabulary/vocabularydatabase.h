@@ -115,6 +115,7 @@ class VocabularyDatabase : public QObject
         const int AddRecord(const int &pCategoryId, const QStringList &pData) const;
 #endif
         const void BeginEdit();
+		const void Close();
         const void EndEdit(const bool &pSave = true);
         const tCategoryIdList GetCategoryIds() const;
         /*const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;

@@ -6,6 +6,7 @@
 
 const void VocabularyOrganizer::Close(const int &pIndex)
 {
+	_qlVocabularies.at(pIndex)->Close();
 	delete _qlVocabularies.at(pIndex);
 	_qlVocabularies.removeAt(pIndex);
 } // Close

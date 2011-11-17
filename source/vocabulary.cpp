@@ -50,6 +50,12 @@ const void Vocabulary::BeginEdit()
     VocabularyDatabase::BeginEdit();
 } // BeginEdit
 
+const void Vocabulary::Close()
+{
+	ClearCache();
+	VocabularyDatabase::Close();
+} // Close
+
 const void Vocabulary::EndEdit(const bool &pSave /* true */)
 {
     if (!pSave) {
@@ -312,7 +318,6 @@ const void Vocabulary::InitCache()
 
 const void Vocabulary::New(const QString &pFilePath)
 {
-	ClearCache();
 	VocabularyDatabase::New(pFilePath);
 	InitCache();
 } // New
@@ -320,7 +325,6 @@ const void Vocabulary::New(const QString &pFilePath)
 #ifndef TRY
 const void Vocabulary::Open(const QString &pFilePath)
 {
-	ClearCache();
 	VocabularyDatabase::Open(pFilePath);
 	InitCache();
 } // Open
@@ -328,7 +332,6 @@ const void Vocabulary::Open(const QString &pFilePath)
 
 const void Vocabulary::OpenMemory()
 {
-    ClearCache();
     InitCache();
 } // OpenMemory
 #endif

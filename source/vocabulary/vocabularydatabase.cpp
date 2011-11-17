@@ -146,6 +146,11 @@ const void VocabularyDatabase::BeginEdit()
     _qsdDatabase.transaction();
 } // BeginEdit
 
+const void VocabularyDatabase::Close()
+{
+	CloseDatabase();
+} // Close
+
 const void VocabularyDatabase::CloseDatabase()
 {
 	if (_qsdDatabase.isOpen()) {
@@ -621,8 +626,6 @@ const void VocabularyDatabase::New(const QString &pFilePath)
 {
 	_qsVocabularyFile = pFilePath;
 
-	CloseDatabase();
-
 	if (QFile::exists(pFilePath)) {
 		QFile::remove(pFilePath);
 	} // if
@@ -641,7 +644,6 @@ const void VocabularyDatabase::Open(const QString &pFilePath)
 	emit SetVocabularyName(QFileInfo(pFilePath).completeBaseName());
     _qsVocabularyFile = pFilePath;
 
-    CloseDatabase();
     OpenDatabase();
 
     UpdateDatabase();
