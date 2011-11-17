@@ -12,6 +12,13 @@ void VocabularyOrganizerDialog::accept()
 } // accept
 #endif
 
+#ifdef FREE
+const void VocabularyOrganizerDialog::EnableControls() const
+{
+	_qdvmOrganizer.qpbOpen->setEnabled(_voOrganizer->GetVocabularyCount() <= 1);
+} // EnableControls
+#endif
+
 const QString VocabularyOrganizerDialog::GetOpenPath() const
 {
 	if (_voOrganizer->GetVocabularyCount() > 0) {
@@ -29,6 +36,10 @@ const void VocabularyOrganizerDialog::on_qpbClose_clicked(bool checked /* false 
 	_vomModel.RemoveRow(iIndex);
 
 	on_qtvVocabulariesSelectionModel_selectionChanged(QItemSelection(), QItemSelection());
+
+#ifdef FREE
+	EnableControls();
+#endif
 } // on_qpbClose_clicked
 
 const void VocabularyOrganizerDialog::on_qpbNew_clicked(bool checked /* false */)
@@ -52,6 +63,10 @@ const void VocabularyOrganizerDialog::on_qpbNew_clicked(bool checked /* false */
 	_voOrganizer->New();
 	_vomModel.AddRow();
 #endif
+
+#ifdef FREE
+	EnableControls();
+#endif
 } // on_qpbNew_clicked
 
 #ifndef TRY
@@ -62,6 +77,10 @@ const void VocabularyOrganizerDialog::on_qpbOpen_clicked(bool checked /* false *
 		_voOrganizer->Open(qsFile, this);
 		_vomModel.AddRow();
 	} // if
+
+#ifdef FREE
+	EnableControls();
+#endif
 } // on_qpbOpen_clicked
 #endif
 
@@ -82,7 +101,9 @@ VocabularyOrganizerDialog::VocabularyOrganizerDialog(VocabularyOrganizer *pOrgan
 	_voOrganizer = pOrganizer;
 
 	_qdvmOrganizer.setupUi(this);
-#ifdef TRY
+#ifdef FREE
+	EnableControls();
+#elif defined TRY
 	_qdvmOrganizer->qpbOpen->deleteLater();
 #endif
 

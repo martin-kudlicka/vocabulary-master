@@ -20,6 +20,9 @@ class VocabularyOrganizerDialog : public QDialog
 #ifndef TRY
 		virtual void accept();
 #endif
+#ifdef FREE
+		const void EnableControls() const;
+#endif
 		const QString GetOpenPath() const;
 #ifndef TRY
 		virtual void reject();
