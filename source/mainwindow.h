@@ -57,13 +57,14 @@ class MainWindow : public QMainWindow
 # endif
 		Plugins _pPlugins;
 		QAction *_qaTrayExit;
-        //QAction *_qaTrayManage;
         QAction *_qaTraySettings;
+		QAction *_qaTrayVocabularies;
         QHBoxLayout *_qhblInner;
 #endif
         QLabel _qlVocabularyStatus;
 #ifndef FREE
 		QMenu _qmTray;
+		QMenu _qmTrayVocabularies;
 #endif
         QProgressBar _qpbTimer;
 #ifndef FREE
@@ -81,6 +82,7 @@ class MainWindow : public QMainWindow
 #ifndef FREE
 		const void CreateTrayMenu();
 #endif
+		const void CreateVocabulariesMenu();
         const void EnableControls();
 		virtual bool event(QEvent *event);
         const QString GetLanguageText(const bool &pDirectionSwitched, const bool &pAnswer) const;
@@ -89,7 +91,7 @@ class MainWindow : public QMainWindow
 #ifndef FREE
         const int GetRecordPriority() const;
 #endif
-        const void OpenVocabulary(
+        const void OpenVocabulary(Vocabulary *pVocabulary,
 #ifndef FREE
             const bool &pCurrentRecord
 #endif
@@ -123,9 +125,6 @@ class MainWindow : public QMainWindow
 # ifndef TRY
         const void on_qaLicense_triggered(bool checked = false);
 # endif
-#endif
-        const void on_qaManage_triggered(bool checked = false);
-#ifndef FREE
         const void on_qaMute_toggled(bool checked);
 #endif
 		const void on_qaNext_triggered(bool checked = false);
@@ -136,6 +135,9 @@ class MainWindow : public QMainWindow
 #ifndef FREE
 		const void on_qcbRecordEnabled_clicked(bool checked = false);
 		const void on_qmTray_triggered(QAction *action);
+#endif
+		const void on_qmVocabularies_triggered(QAction *action);
+#ifndef FREE
 		const void on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason reason);
 		const void on_qtbPriority1_clicked(bool checked = false);
 		const void on_qtbPriority2_clicked(bool checked = false);
