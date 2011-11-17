@@ -17,6 +17,7 @@
 # include <QtGui/QSound>
 # include "vocabularymanagerdialog/prioritydelegate.h"
 #endif
+#include "vocabularyorganizerdialog.h"
 
 #ifdef FREE
 const QString FREE_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " FREE");
@@ -404,7 +405,11 @@ const void MainWindow::on_qaNext_triggered(bool checked /* false */)
 
 const void MainWindow::on_qaOrganizer_triggered(bool checked /* false */)
 {
-	// TODO
+	VocabularyOrganizerDialog vodOrganizerDialog(&_voOrganizer, this);
+	if (vodOrganizerDialog.exec() == QDialog::Accepted) {
+		EnableControls();
+		RefreshStatusBar();
+	} // if
 } // on_qaOrganizer_triggered
 
 const void MainWindow::on_qaSettings_triggered(bool checked /* false */)

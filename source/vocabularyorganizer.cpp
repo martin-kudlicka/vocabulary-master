@@ -60,6 +60,11 @@ const int VocabularyOrganizer::GetVocabularyCount() const
 	return _qlVocabularies.size();
 } // GetVocabularyCount
 
+const Vocabulary *VocabularyOrganizer::GetVocabularyInfo(const int &pIndex) const
+{
+	return _qlVocabularies.at(pIndex);
+} // GetVocabularyInfo
+
 const bool VocabularyOrganizer::IsOpen() const
 {
 	foreach (const Vocabulary *vVocabulary, _qlVocabularies) {
