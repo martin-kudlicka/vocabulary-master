@@ -674,7 +674,7 @@ const void MainWindow::on_qtLearning_timeout()
 		    } // if else
 	        _umwMainWindow.qtbWindow1->setText(GetLearningText(TemplateLearning, _bDirectionSwitched, false));
 	        _umwMainWindow.qtbWindow2->clear();
-            _umwMainWindow.qlCategory->setText(_sriCurrentRecord.vVocabulary->GetCategoryName(iCategoryId));
+            _umwMainWindow.qlCategory->setText(QFileInfo(_sriCurrentRecord.vVocabulary->GetVocabularyFile()).completeBaseName() + ", " + _sriCurrentRecord.vVocabulary->GetCategoryName(iCategoryId));
 #ifndef FREE
 			SetupRecordControls();
 #endif
