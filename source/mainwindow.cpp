@@ -618,11 +618,10 @@ const void MainWindow::on_qtLearning_timeout()
 			_qpbTimer.setValue(_iTimeAnswer);
 
             // question parameters
-	        _saCurrentAnswer.iWord = _sriCurrentRecord.iId;
-	        _saCurrentAnswer.bDirectionSwitched = GetLearningDirection();
+	        _bDirectionSwitched = GetLearningDirection();
 
             // gui
-		    QString qsLang1 = GetLanguageText(_saCurrentAnswer.bDirectionSwitched, false);
+		    QString qsLang1 = GetLanguageText(_bDirectionSwitched, false);
 		    if (qsLang1.isEmpty()) {
 			    _umwMainWindow.qlLanguage1->hide();
 		    } else {
@@ -633,7 +632,7 @@ const void MainWindow::on_qtLearning_timeout()
 #endif
 			    _umwMainWindow.qlLanguage1->setText(qsLang1);
 		    } // if else
-		    QString qsLang2 = GetLanguageText(_saCurrentAnswer.bDirectionSwitched, true);
+		    QString qsLang2 = GetLanguageText(_bDirectionSwitched, true);
 		    if (qsLang2.isEmpty()) {
 			    _umwMainWindow.qlLanguage2->hide();
 		    } else {
@@ -644,7 +643,7 @@ const void MainWindow::on_qtLearning_timeout()
 #endif
 			    _umwMainWindow.qlLanguage2->setText(qsLang2);
 		    } // if else
-	        _umwMainWindow.qtbWindow1->setText(GetLearningText(TemplateLearning, _saCurrentAnswer.bDirectionSwitched, false));
+	        _umwMainWindow.qtbWindow1->setText(GetLearningText(TemplateLearning, _bDirectionSwitched, false));
 	        _umwMainWindow.qtbWindow2->clear();
             _umwMainWindow.qlCategory->setText(_sriCurrentRecord.vVocabulary->GetCategoryName(iCategoryId));
 #ifndef FREE
@@ -654,7 +653,7 @@ const void MainWindow::on_qtLearning_timeout()
 #ifndef FREE
 		    // tray
 		    if (_sSettings.GetSystemTrayIcon() && _sSettings.GetShowWordsInTrayBalloon()) {
-			    ShowTrayBalloon(_saCurrentAnswer.bDirectionSwitched, false);
+			    ShowTrayBalloon(_bDirectionSwitched, false);
 		    } // if
 
             // sound
@@ -683,7 +682,7 @@ const void MainWindow::on_qtLearning_timeout()
             // speech
             if (_sSettings.GetNewWordSound()) {
                 QTest::qWait(SAY_BEEP_WAIT);
-                Say(_saCurrentAnswer.bDirectionSwitched, false);
+                Say(_bDirectionSwitched, false);
             } // if
 #endif
 
@@ -906,30 +905,28 @@ const void MainWindow::SetupRecordControls() const
 
 const void MainWindow::ShowAnswer()
 {
-    if (_saCurrentAnswer.iWord == _sriCurrentRecord.iId) {
 #ifndef FREE
-        // answer
-        _umwMainWindow.qaAnswer->setEnabled(false);
+    // answer
+    _umwMainWindow.qaAnswer->setEnabled(false);
 #endif
 
-        // gui
-        _umwMainWindow.qtbWindow2->setText(GetLearningText(TemplateLearning, _saCurrentAnswer.bDirectionSwitched, true));
-        _umwMainWindow.qtbWindow2->repaint();
+    // gui
+    _umwMainWindow.qtbWindow2->setText(GetLearningText(TemplateLearning, _bDirectionSwitched, true));
+    _umwMainWindow.qtbWindow2->repaint();
 
 #ifndef FREE
-        // tray
-        if (_sSettings.GetSystemTrayIcon() && _sSettings.GetShowWordsInTrayBalloon()) {
-            ShowTrayBalloon(_saCurrentAnswer.bDirectionSwitched, true);
-        } // if
-
-        // speech
-        Say(_saCurrentAnswer.bDirectionSwitched, true);
-#endif
-
-        // progress
-        _qpbTimer.setMaximum(_iTimeQuestion);
-        _qpbTimer.setValue(_iTimeQuestion);
+    // tray
+    if (_sSettings.GetSystemTrayIcon() && _sSettings.GetShowWordsInTrayBalloon()) {
+        ShowTrayBalloon(_bDirectionSwitched, true);
     } // if
+
+    // speech
+    Say(_bDirectionSwitched, true);
+#endif
+
+    // progress
+    _qpbTimer.setMaximum(_iTimeQuestion);
+    _qpbTimer.setValue(_iTimeQuestion);
 } // ShowAnswer
 
 #ifndef FREE
