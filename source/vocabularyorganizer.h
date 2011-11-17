@@ -3,8 +3,10 @@
 #include "vocabulary.h"
 #include "settings.h"
 
-class VocabularyOrganizer
+class VocabularyOrganizer : public QObject
 {
+	Q_OBJECT
+
 	public:
 		struct sRecordInfo {
 			Vocabulary *vVocabulary;
@@ -33,4 +35,7 @@ class VocabularyOrganizer
 	private:
 		QList<Vocabulary *> _qlVocabularies;
 		Settings *_sSettings;
+
+	signals:
+		void VocabularyClose(const Vocabulary *pVocabulary) const;
 }; // VocabularyOrganizer
