@@ -154,6 +154,7 @@ class MainWindow : public QMainWindow
 #endif
 		const void on_qtLearning_timeout();
 		const void on_ucUpdateChecker_Finished();
+		const void on_voOrganizer_VocabularyClose(const Vocabulary *pVocabulary);
 }; // MainWindow
 
 #endif // MAINWINDOW_H

@@ -6,9 +6,13 @@
 
 const void VocabularyOrganizer::Close(const int &pIndex)
 {
-	_qlVocabularies.at(pIndex)->Close();
-	delete _qlVocabularies.at(pIndex);
+	Vocabulary *vVocabulary = _qlVocabularies.at(pIndex);
+
 	_qlVocabularies.removeAt(pIndex);
+	emit VocabularyClose(vVocabulary);
+
+	vVocabulary->Close();
+	delete vVocabulary;
 } // Close
 
 const int VocabularyOrganizer::GetRecordCount() const

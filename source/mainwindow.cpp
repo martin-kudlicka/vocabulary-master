@@ -321,6 +321,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 #endif
 	connect(&_qtLearning, SIGNAL(timeout()), SLOT(on_qtLearning_timeout()));
 	connect(&_ucUpdateChecker, SIGNAL(Finished()), SLOT(on_ucUpdateChecker_Finished()));
+	connect(&_voOrganizer, SIGNAL(VocabularyClose(const Vocabulary *)), SLOT(on_voOrganizer_VocabularyClose(const Vocabulary *)));
 
 #ifndef FREE
 	// learning
@@ -717,6 +718,13 @@ const void MainWindow::on_ucUpdateChecker_Finished()
 		QMessageBox::information(this, tr("Update available"), qsText);
 	} // if
 } // on_ucUpdateChecker_Finished
+
+const void MainWindow::on_voOrganizer_VocabularyClose(const Vocabulary *pVocabulary)
+{
+	if (_sriCurrentRecord.vVocabulary == pVocabulary) {
+		on_qaNext_triggered();
+	} // if
+} // on_voOrganizer_Close
 
 const void MainWindow::OpenVocabulary(
 #ifndef FREE
