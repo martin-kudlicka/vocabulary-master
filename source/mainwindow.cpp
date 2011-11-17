@@ -25,8 +25,6 @@ const QString FREE_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " FREE");
 #ifdef TRY
 const QString TRY_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " TRY");
 #endif
-const QString VOCABULARY_SUFFIX = "sl3";
-const QString VOCABULARY_FILTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary (*." + VOCABULARY_SUFFIX + ")");
 const QString VOCABULARY_MASTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary Master");
 
 const void MainWindow::ApplySettings(const bool &pStartup)
