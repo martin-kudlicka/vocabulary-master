@@ -137,7 +137,8 @@ class Settings
 		const void SetUpdateCheck(const bool &pCheck);
 		const void SetUseProxy(const bool &pUse);
 #ifndef TRY
-		const void SetVocabularyFile(const QString &pFile);
+		const void SetVocabularyCount(const int &pCount);
+		const void SetVocabularyFile(const int &pIndex, const QString &pFile);
 #endif
 #ifndef FREE
 		const void SetWaitForAnswer(const int &pTime);

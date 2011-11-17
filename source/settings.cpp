@@ -505,9 +505,18 @@ const void Settings::SetUseProxy(const bool &pUse)
 } // SetUseProxy
 
 #ifndef TRY
-const void Settings::SetVocabularyFile(const QString &pFile)
+const void Settings::SetVocabularyCount(const int &pCount)
 {
+	_qsSettings.beginWriteArray(ARRAY_VOCABULARIES, pCount);
+	_qsSettings.endArray();
+} // SetVocabularyCount
+
+const void Settings::SetVocabularyFile(const int &pIndex, const QString &pFile)
+{
+	_qsSettings.beginWriteArray(ARRAY_VOCABULARIES);
+	_qsSettings.setArrayIndex(pIndex);
 	_qsSettings.setValue(KEY_VOCABULARYFILE, pFile);
+	_qsSettings.endArray();
 } // SetVocabularyFile
 #endif
 

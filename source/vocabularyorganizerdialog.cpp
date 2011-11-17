@@ -4,6 +4,12 @@
 #ifndef TRY
 const QString VOCABULARY_SUFFIX = "sl3";
 const QString VOCABULARY_FILTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary (*." + VOCABULARY_SUFFIX + ")");
+
+void VocabularyOrganizerDialog::accept()
+{
+	_voOrganizer->SaveAll();
+	QDialog::accept();
+} // accept
 #endif
 
 const QString VocabularyOrganizerDialog::GetOpenPath() const
@@ -63,6 +69,13 @@ const void VocabularyOrganizerDialog::on_qtvVocabulariesSelectionModel_selection
 {
 	_qdvmOrganizer.qpbClose->setEnabled(_qdvmOrganizer.qtvVocabularies->currentIndex().isValid());
 } // on_qtvVocabulariesSelectionModel_selectionChanged
+
+#ifndef TRY
+void VocabularyOrganizerDialog::reject()
+{
+	accept();
+} // reject
+#endif
 
 VocabularyOrganizerDialog::VocabularyOrganizerDialog(VocabularyOrganizer *pOrganizer, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags), _vomModel(pOrganizer)
 {

@@ -17,7 +17,13 @@ class VocabularyOrganizerDialog : public QDialog
 		VocabularyOrganizer *_voOrganizer;
 		VocabularyOrganizerModel _vomModel;
 
+#ifndef TRY
+		virtual void accept();
+#endif
 		const QString GetOpenPath() const;
+#ifndef TRY
+		virtual void reject();
+#endif
 
 	private slots:
 		const void on_qpbClose_clicked(bool checked = false);

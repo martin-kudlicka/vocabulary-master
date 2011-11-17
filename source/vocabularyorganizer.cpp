@@ -126,6 +126,16 @@ const void VocabularyOrganizer::OpenAll(QWidget *pParent)
 		_qlVocabularies.append(vVocabulary);
 	} // for
 } // OpenAll
+
+const void VocabularyOrganizer::SaveAll()
+{
+	int iVocabularies = _qlVocabularies.size();
+
+	for (int iI = 0; iI < iVocabularies; iI++) {
+		_sSettings->SetVocabularyFile(iI, _qlVocabularies.at(iI)->GetVocabularyFile());
+	} // for
+	_sSettings->SetVocabularyCount(iVocabularies);
+} // SaveAll
 #endif
 
 VocabularyOrganizer::VocabularyOrganizer(Settings *pSettings)

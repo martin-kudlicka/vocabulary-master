@@ -30,6 +30,7 @@ class VocabularyOrganizer : public QObject
 #ifndef TRY
 		const void Open(const QString &pFile, QWidget *pParent);
 		const void OpenAll(QWidget *pParent);
+		const void SaveAll();
 #endif
 
 	private:
