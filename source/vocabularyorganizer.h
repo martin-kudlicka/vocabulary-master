@@ -25,15 +25,11 @@ class VocabularyOrganizer
 #endif
 			);
 #ifndef TRY
-		const void Open(QWidget *pParent);
+		const void Open(const QString &pFile, QWidget *pParent);
+		const void OpenAll(QWidget *pParent);
 #endif
 
 	private:
 		QList<Vocabulary *> _qlVocabularies;
 		Settings *_sSettings;
-/*
-	private slots:
-#ifndef TRY
-		const void on_qaOpen_triggered(bool checked = false);
-#endif*/
 }; // VocabularyOrganizer
