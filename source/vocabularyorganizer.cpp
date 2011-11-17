@@ -70,7 +70,7 @@ const int VocabularyOrganizer::GetVocabularyCount() const
 	return _qlVocabularies.size();
 } // GetVocabularyCount
 
-const Vocabulary *VocabularyOrganizer::GetVocabularyInfo(const int &pIndex) const
+Vocabulary *VocabularyOrganizer::GetVocabularyInfo(const int &pIndex) const
 {
 	return _qlVocabularies.at(pIndex);
 } // GetVocabularyInfo

@@ -18,6 +18,7 @@
 # include "vocabularymanagerdialog/prioritydelegate.h"
 #endif
 #include "vocabularyorganizerdialog.h"
+#include <QtCore/QFileInfo>
 
 #ifdef FREE
 const QString FREE_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " FREE");
@@ -41,8 +42,6 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 	} // if
 #ifndef FREE
 	_pPlugins.SetLanguage(_sSettings.GetTranslation());
-    _qmTray.clear();
-    CreateTrayMenu();
 
 	_umwMainWindow.qtbToolBar->setVisible(_sSettings.GetShowToolBar());
 	_umwMainWindow.qlLanguage1->setVisible(_bLearning && _sSettings.GetShowLanguageNames());
@@ -76,8 +75,9 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 #ifndef FREE
 const void MainWindow::CreateTrayMenu()
 {
-    /*_qaTrayManage = _qmTray.addAction(tr("&Manage"));
-    _qaTrayManage->setIcon(QIcon(":/res/mainwindow/menubar/manage.png"));*/
+    _qaTrayVocabularies = _qmTray.addAction(tr("&Vocabularies"));
+    _qaTrayVocabularies->setIcon(QIcon(":/res/mainwindow/menubar/manage.png"));
+	_qaTrayVocabularies->setMenu(&_qmTrayVocabularies);
     _qaTraySettings = _qmTray.addAction(tr("&Settings"));
     _qaTraySettings->setIcon(QIcon(":/res/mainwindow/menubar/settings.png"));
     _qmTray.addSeparator();
@@ -88,6 +88,29 @@ const void MainWindow::CreateTrayMenu()
 	_qstiTrayIcon.setContextMenu(&_qmTray);
 } // CreateTrayMenu
 #endif
+
+const void MainWindow::CreateVocabulariesMenu()
+{
+	_umwMainWindow.qmVocabularies->clear();
+#ifndef FREE
+	_qmTrayVocabularies.clear();
+#endif
+
+	for (int iI = 0; iI < _voOrganizer.GetVocabularyCount(); iI++) {
+		const Vocabulary *vVocabulary = _voOrganizer.GetVocabularyInfo(iI);
+		QString qsName = QFileInfo(vVocabulary->GetVocabularyFile()).completeBaseName();
+
+		// main menu
+		QAction *qaAction = _umwMainWindow.qmVocabularies->addAction(qsName);
+		qaAction->setData(iI);
+
+#ifndef FREE
+		// tray menu
+		qaAction = _qmTrayVocabularies.addAction(qsName);
+		qaAction->setData(iI);
+#endif
+	} // for
+} // CreateVocabulariesMenu
 
 const void MainWindow::EnableControls()
 {
@@ -117,7 +140,7 @@ const void MainWindow::EnableControls()
     _umwMainWindow.qaAnswer->setEnabled(_bLearning && _iTimeAnswer >= TIME_NOW);
 
     // tray
-    //_qaTrayManage->setEnabled(_vVocabulary.IsOpen());
+    _qaTrayVocabularies->setEnabled(_voOrganizer.IsOpen());
 #endif
 } // EnableControls
 
@@ -311,12 +334,21 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 #endif
     RefreshStatusBar();
 
+	// menus
+#ifndef FREE
+	CreateTrayMenu();
+#endif
+	CreateVocabulariesMenu();
+
     // controls
     EnableControls();
 #ifndef FREE
     _umwMainWindow.qaMute->setChecked(_sSettings.GetMute());
+#endif
 
 	// connections
+#ifndef FREE
+	connect(&_qmTrayVocabularies, SIGNAL(triggered(QAction *)), SLOT(on_qmVocabularies_triggered(QAction *)));
 	connect(&_qstiTrayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason)));
 #endif
 	connect(&_qtLearning, SIGNAL(timeout()), SLOT(on_qtLearning_timeout()));
@@ -361,7 +393,7 @@ const void MainWindow::on_qaAnswer_triggered(bool checked /* false */)
 
 const void MainWindow::on_qaFindInVocabulary_triggered(bool checked /* false */)
 {
-    OpenVocabulary(true);
+    OpenVocabulary(_sriCurrentRecord.vVocabulary, true);
 } // on_qaFindInVocabulary_triggered
 
 # ifndef TRY
@@ -374,18 +406,7 @@ const void MainWindow::on_qaLicense_triggered(bool checked /* false */)
 	} // if
 } // on_qaLicense_triggered
 # endif
-#endif
 
-const void MainWindow::on_qaManage_triggered(bool checked /* false */)
-{
-    OpenVocabulary(
-#ifndef FREE
-		false
-#endif
-		);
-} // on_qaManage_triggered
-
-#ifndef FREE
 const void MainWindow::on_qaMute_toggled(bool checked)
 {
     _sSettings.SetMute(checked);
@@ -409,6 +430,7 @@ const void MainWindow::on_qaOrganizer_triggered(bool checked /* false */)
 	if (vodOrganizerDialog.exec() == QDialog::Accepted) {
 		EnableControls();
 		RefreshStatusBar();
+		CreateVocabulariesMenu();
 	} // if
 } // on_qaOrganizer_triggered
 
@@ -469,18 +491,26 @@ const void MainWindow::on_qcbRecordEnabled_clicked(bool checked /* false */)
 
 const void MainWindow::on_qmTray_triggered(QAction *action)
 {
-    /*if (action == _qaTrayManage) {
-        on_qaManage_triggered();
-    } else {*/
-        if (action == _qaTraySettings) {
-            on_qaSettings_triggered();
-        } else {
-	        if (action == _qaTrayExit) {
-		        close();
-	        } // if
-        } // if else
-    //} // if else
+    if (action == _qaTraySettings) {
+        on_qaSettings_triggered();
+    } else {
+        if (action == _qaTrayExit) {
+	        close();
+        } // if
+    } // if else
 } // on_qmTray_triggered
+
+const void MainWindow::on_qmVocabularies_triggered(QAction *action)
+{
+	int iIndex = action->data().toInt();
+	Vocabulary *vVocabulary = _voOrganizer.GetVocabularyInfo(iIndex);
+
+	OpenVocabulary(vVocabulary,
+#ifndef FREE
+		false
+#endif
+		);
+} // on_qmVocabularies_triggered
 
 const void MainWindow::on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason reason)
 {
@@ -725,13 +755,13 @@ const void MainWindow::on_voOrganizer_VocabularyClose(const Vocabulary *pVocabul
 	} // if
 } // on_voOrganizer_Close
 
-const void MainWindow::OpenVocabulary(
+const void MainWindow::OpenVocabulary(Vocabulary *pVocabulary,
 #ifndef FREE
     const bool &pCurrentRecord
 #endif
     )
 {
-    VocabularyManagerDialog vmdManager(_sriCurrentRecord.vVocabulary,
+    VocabularyManagerDialog vmdManager(pVocabulary,
 #ifndef FREE
         &_sSettings,
         &_pPlugins,
