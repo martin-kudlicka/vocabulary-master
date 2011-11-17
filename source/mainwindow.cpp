@@ -47,10 +47,10 @@ const void MainWindow::ApplySettings(const bool &pStartup)
     CreateTrayMenu();
 
 	_umwMainWindow.qtbToolBar->setVisible(_sSettings.GetShowToolBar());
-	_umwMainWindow.qlLanguage1->setVisible(_qtLearning.isActive() && _sSettings.GetShowLanguageNames());
-	_umwMainWindow.qlLanguage2->setVisible(_qtLearning.isActive() && _sSettings.GetShowLanguageNames());
-	_umwMainWindow.qlCategory->setVisible(_qtLearning.isActive() && _sSettings.GetShowCategoryName());
-	_umwMainWindow.qhblRecordControls->parentWidget()->setVisible(_qtLearning.isActive() && _sSettings.GetShowRecordControls());
+	_umwMainWindow.qlLanguage1->setVisible(_bLearning && _sSettings.GetShowLanguageNames());
+	_umwMainWindow.qlLanguage2->setVisible(_bLearning && _sSettings.GetShowLanguageNames());
+	_umwMainWindow.qlCategory->setVisible(_bLearning && _sSettings.GetShowCategoryName());
+	_umwMainWindow.qhblRecordControls->parentWidget()->setVisible(_bLearning && _sSettings.GetShowRecordControls());
 	_umwMainWindow.qsbStatusBar->setVisible(_sSettings.GetShowStatusBar());
 #endif
 
@@ -111,12 +111,12 @@ const void MainWindow::EnableControls()
 #if !defined(FREE) && !defined(TRY)
 		_lLicense->IsLoaded() &&
 #endif
-		_voOrganizer.IsOpen() && !_qtLearning.isActive() && _voOrganizer.GetRecordCount(true) > 0);
-	_umwMainWindow.qaStop->setEnabled(_qtLearning.isActive());
-	_umwMainWindow.qaNext->setEnabled(_qtLearning.isActive());
+		_voOrganizer.IsOpen() && !_bLearning && _voOrganizer.GetRecordCount(true) > 0);
+	_umwMainWindow.qaStop->setEnabled(_bLearning);
+	_umwMainWindow.qaNext->setEnabled(_bLearning);
 #ifndef FREE
-	_umwMainWindow.qaFindInVocabulary->setEnabled(_qtLearning.isActive());
-    _umwMainWindow.qaAnswer->setEnabled(_qtLearning.isActive() && _iTimeAnswer >= TIME_NOW);
+	_umwMainWindow.qaFindInVocabulary->setEnabled(_bLearning);
+    _umwMainWindow.qaAnswer->setEnabled(_bLearning && _iTimeAnswer >= TIME_NOW);
 
     // tray
     //_qaTrayManage->setEnabled(_vVocabulary.IsOpen());
@@ -129,13 +129,13 @@ bool MainWindow::event(QEvent *event)
         case QEvent::LanguageChange:
             {
                 QString qsCategory, qsLang1, qsLang2;
-                if (_qtLearning.isActive()) {
+                if (_bLearning) {
                     qsLang1 = _umwMainWindow.qlLanguage1->text();
                     qsLang2 = _umwMainWindow.qlLanguage2->text();
                     qsCategory = _umwMainWindow.qlCategory->text();
                 } // if
                 _umwMainWindow.retranslateUi(this);
-                if (_qtLearning.isActive()) {
+                if (_bLearning) {
                     _umwMainWindow.qlLanguage1->setText(qsLang1);
                     _umwMainWindow.qlLanguage2->setText(qsLang2);
                     _umwMainWindow.qlCategory->setText(qsCategory);
@@ -250,6 +250,7 @@ MainWindow::~MainWindow()
 
 MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags), _ucUpdateChecker(&_sSettings), _voOrganizer(&_sSettings)
 {
+	_bLearning = false;
 	_qtLearning.setSingleShot(true);
 #ifndef FREE
     _qhblInner = NULL;
@@ -428,10 +429,7 @@ const void MainWindow::on_qaStart_triggered(bool checked /* false */)
 {
     _iTimeQuestion = TIME_NOW;
     _iTimeAnswer = TIME_NONE;
-
-	_sriCurrentRecord.vVocabulary = NULL;
-	_sriCurrentRecord.iId = RECORD_NONE;
-	_qtLearning.start(0);
+	_bLearning = true;
 
 	EnableControls();
 #ifdef FREE
@@ -440,11 +438,16 @@ const void MainWindow::on_qaStart_triggered(bool checked /* false */)
     _umwMainWindow.qlCategory->setVisible(_sSettings.GetShowCategoryName());
 	_umwMainWindow.qhblRecordControls->parentWidget()->setVisible(_sSettings.GetShowRecordControls());
 #endif
+
+	_sriCurrentRecord.vVocabulary = NULL;
+	_sriCurrentRecord.iId = RECORD_NONE;
+	_qtLearning.start(0);
 } // on_qaStart_triggered
 
 const void MainWindow::on_qaStop_triggered(bool checked /* false */)
 {
 	_qtLearning.stop();
+	_bLearning = false;
 	_qpbTimer.setMaximum(1);
     _qpbTimer.setValue(0);
 	EnableControls();
@@ -740,7 +743,7 @@ const void MainWindow::OpenVocabulary(
     } // if else
 #endif
 
-	_umwMainWindow.qaStart->setEnabled(_voOrganizer.IsOpen() && !_qtLearning.isActive() && _voOrganizer.GetRecordCount() > 0);
+	_umwMainWindow.qaStart->setEnabled(_voOrganizer.IsOpen() && !_bLearning && _voOrganizer.GetRecordCount() > 0);
     RefreshStatusBar();
 } // OpenVocabulary
 

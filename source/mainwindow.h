@@ -52,6 +52,7 @@ class MainWindow : public QMainWindow
 			bool bDirectionSwitched;
 		}; // sAnswer
 
+		bool _bLearning;
         int _iTimeAnswer;
 		int _iTimeQuestion;
 #ifndef FREE
