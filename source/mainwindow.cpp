@@ -757,7 +757,7 @@ const void MainWindow::RefreshStatusBar()
     if (!_voOrganizer.IsOpen()) {
         _qlVocabularyStatus.setText("");
     } else {
-        _qlVocabularyStatus.setText(tr("%1 vocabularies, %2/%3 records").arg(_voOrganizer.GetVocabularyCount()).arg(_voOrganizer.GetRecordCount(true)).arg(_voOrganizer.GetRecordCount()));
+        _qlVocabularyStatus.setText(tr("%1 voc., %2/%3 records").arg(_voOrganizer.GetVocabularyCount()).arg(_voOrganizer.GetRecordCount(true)).arg(_voOrganizer.GetRecordCount()));
     } // if else
 } // RefreshStatusBar
 
