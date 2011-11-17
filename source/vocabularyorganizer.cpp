@@ -3,7 +3,6 @@
 #ifndef TRY
 # include "common/vocabularyopenprogressdialog.h"
 #endif
-//#include <QtGui/QFileDialog>
 
 const int VocabularyOrganizer::GetRecordCount() const
 {
@@ -76,36 +75,22 @@ const bool VocabularyOrganizer::IsOpen() const
 	return false;
 } // IsOpen
 
-//const void MainWindow::on_qaNew_triggered(bool checked /* false */)
-/*{
+const void VocabularyOrganizer::New(
 #ifndef TRY
-	QFileDialog qfdNew(this, tr("Create new vocabulary"), QFileInfo(_vVocabulary.GetVocabularyFile()).absolutePath(), VOCABULARY_FILTER);
-	qfdNew.setAcceptMode(QFileDialog::AcceptSave);
-	if (qfdNew.exec() == QDialog::Accepted) {
-		if (_qtLearning.isActive()) {
-			on_qaStop_triggered(false);
-		} // if
-
-		QFileInfo qfiFile(qfdNew.selectedFiles().at(0));
-		QString qsFile;
-		if (qfiFile.suffix() != VOCABULARY_SUFFIX) {
-			qsFile = qfdNew.selectedFiles().at(0) + "." + VOCABULARY_SUFFIX;
-		} else {
-			qsFile = qfdNew.selectedFiles().at(0);
-		} // if else
-		_vVocabulary.New(qsFile);
-#else
-	_vVocabulary.New(QString());
+	const QString &pFile
 #endif
-
-	EnableControls();
-	RefreshStatusBar();
+	)
+{
+	Vocabulary *vVocabulary = new Vocabulary;
+	vVocabulary->New(
 #ifndef TRY
-} // if
+		pFile
 #endif
-} // on_qaNew_triggered
+		);
+	_qlVocabularies.append(vVocabulary);
+} // New
 
-#ifndef TRY
+/*#ifndef TRY
 const void MainWindow::on_qaOpen_triggered(bool checked /* false *//*)
 /*{
 	QString qsFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), QFileInfo(_vVocabulary.GetVocabularyFile()).absolutePath(), VOCABULARY_FILTER);

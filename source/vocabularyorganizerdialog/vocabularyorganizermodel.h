@@ -10,6 +10,8 @@ class VocabularyOrganizerModel : public QAbstractTableModel
 	public:
 		VocabularyOrganizerModel(const VocabularyOrganizer *pOrganizer);
 
+		const void AddRow();
+
 	private:
 		enum eColumn {
 			ColumnVocabularyFile,

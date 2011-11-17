@@ -1,5 +1,11 @@
 #include "vocabularyorganizerdialog/vocabularyorganizermodel.h"
 
+const void VocabularyOrganizerModel::AddRow()
+{
+	beginInsertRows(QModelIndex(), rowCount(), rowCount());
+	endInsertRows();
+} // AddRow
+
 int VocabularyOrganizerModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
 	return ColumnCount;
