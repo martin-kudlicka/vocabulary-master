@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/">
+    <file>res/mainwindow/menubar/vocabulary.png</file>
     <file>res/mainwindow/menubar/license.png</file>
     <file>res/mainwindow/toolbar/findinvocabulary.png</file>
     <file>res/mainwindow/toolbar/next.png</file>

@@ -75,14 +75,11 @@ const void MainWindow::ApplySettings(const bool &pStartup)
 #ifndef FREE
 const void MainWindow::CreateTrayMenu()
 {
-    _qaTrayVocabularies = _qmTray.addAction(tr("&Vocabularies"));
-    _qaTrayVocabularies->setIcon(QIcon(":/res/mainwindow/menubar/manage.png"));
+    _qaTrayVocabularies = _qmTray.addAction(QIcon(":/res/mainwindow/menubar/manage.png"), tr("&Vocabularies"));
 	_qaTrayVocabularies->setMenu(&_qmTrayVocabularies);
-    _qaTraySettings = _qmTray.addAction(tr("&Settings"));
-    _qaTraySettings->setIcon(QIcon(":/res/mainwindow/menubar/settings.png"));
+    _qaTraySettings = _qmTray.addAction(QIcon(":/res/mainwindow/menubar/settings.png"), tr("&Settings"));
     _qmTray.addSeparator();
-	_qaTrayExit = _qmTray.addAction(tr("&Exit"));
-    _qaTrayExit->setIcon(QIcon(":/res/mainwindow/menubar/exit.png"));
+	_qaTrayExit = _qmTray.addAction(QIcon(":/res/mainwindow/menubar/exit.png"), tr("&Exit"));
 
 	connect(&_qmTray, SIGNAL(triggered(QAction *)), SLOT(on_qmTray_triggered(QAction *)));
 	_qstiTrayIcon.setContextMenu(&_qmTray);
@@ -101,12 +98,12 @@ const void MainWindow::CreateVocabulariesMenu()
 		QString qsName = QFileInfo(vVocabulary->GetVocabularyFile()).completeBaseName();
 
 		// main menu
-		QAction *qaAction = _umwMainWindow.qmVocabularies->addAction(qsName);
+		QAction *qaAction = _umwMainWindow.qmVocabularies->addAction(QIcon(":/res/mainwindow/menubar/vocabulary.png"), qsName);
 		qaAction->setData(iI);
 
 #ifndef FREE
 		// tray menu
-		qaAction = _qmTrayVocabularies.addAction(qsName);
+		qaAction = _qmTrayVocabularies.addAction(QIcon(":/res/mainwindow/menubar/vocabulary.png"), qsName);
 		qaAction->setData(iI);
 #endif
 	} // for
