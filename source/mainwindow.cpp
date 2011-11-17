@@ -496,19 +496,21 @@ const void MainWindow::on_qmTray_triggered(QAction *action)
         } // if
     } // if else
 } // on_qmTray_triggered
+#endif
 
 const void MainWindow::on_qmVocabularies_triggered(QAction *action)
 {
 	int iIndex = action->data().toInt();
 	Vocabulary *vVocabulary = _voOrganizer.GetVocabularyInfo(iIndex);
 
-	OpenVocabulary(vVocabulary,
+	OpenVocabulary(vVocabulary
 #ifndef FREE
-		false
+		, false
 #endif
 		);
 } // on_qmVocabularies_triggered
 
+#ifndef FREE
 const void MainWindow::on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason reason)
 {
 	if (reason == QSystemTrayIcon::DoubleClick && isMinimized()) {
@@ -752,9 +754,9 @@ const void MainWindow::on_voOrganizer_VocabularyClose(const Vocabulary *pVocabul
 	} // if
 } // on_voOrganizer_Close
 
-const void MainWindow::OpenVocabulary(Vocabulary *pVocabulary,
+const void MainWindow::OpenVocabulary(Vocabulary *pVocabulary
 #ifndef FREE
-    const bool &pCurrentRecord
+    , const bool &pCurrentRecord
 #endif
     )
 {
