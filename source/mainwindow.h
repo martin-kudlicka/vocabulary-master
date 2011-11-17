@@ -70,7 +70,6 @@ class MainWindow : public QMainWindow
 		QMenu _qmTray;
 #endif
         QProgressBar _qpbTimer;
-        QSet<int> _qsQueuedAnswers;
 #ifndef FREE
         QSystemTrayIcon _qstiTrayIcon;
 #endif
