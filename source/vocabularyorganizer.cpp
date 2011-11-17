@@ -4,6 +4,12 @@
 # include "common/vocabularyopenprogressdialog.h"
 #endif
 
+const void VocabularyOrganizer::Close(const int &pIndex)
+{
+	delete _qlVocabularies.at(pIndex);
+	_qlVocabularies.removeAt(pIndex);
+} // Close
+
 const int VocabularyOrganizer::GetRecordCount() const
 {
 	int iCount = 0;

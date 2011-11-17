@@ -20,6 +20,7 @@ class VocabularyOrganizerDialog : public QDialog
 		const QString GetOpenPath() const;
 
 	private slots:
+		const void on_qpbClose_clicked(bool checked = false);
 		const void on_qpbNew_clicked(bool checked = false);
 #ifndef TRY
 		const void on_qpbOpen_clicked(bool checked = false);

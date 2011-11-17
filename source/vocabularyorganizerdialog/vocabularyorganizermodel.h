@@ -11,6 +11,7 @@ class VocabularyOrganizerModel : public QAbstractTableModel
 		VocabularyOrganizerModel(const VocabularyOrganizer *pOrganizer);
 
 		const void AddRow();
+		const void RemoveRow(const int &pRow);
 
 	private:
 		enum eColumn {
