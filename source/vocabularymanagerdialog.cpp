@@ -353,6 +353,7 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
 
             VocabularyOpenProgressDialog vopdOpenProgress(_vVocabulary, this);
             vopdOpenProgress.show();
+			_vVocabulary->Close();
 # ifdef TRY
             _vVocabulary->OpenMemory();
 # else
