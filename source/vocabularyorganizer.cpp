@@ -90,33 +90,19 @@ const void VocabularyOrganizer::New(
 	_qlVocabularies.append(vVocabulary);
 } // New
 
-/*#ifndef TRY
-const void MainWindow::on_qaOpen_triggered(bool checked /* false *//*)
-/*{
-	QString qsFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), QFileInfo(_vVocabulary.GetVocabularyFile()).absolutePath(), VOCABULARY_FILTER);
-	if (!qsFile.isEmpty()) {
-		VocabularyOpenProgressDialog vopdOpenProgress(&_vVocabulary, this);
-		vopdOpenProgress.show();
-		_vVocabulary.Open(qsFile);
-		vopdOpenProgress.hide();
-
-		EnableControls();
-		RefreshStatusBar();
-
-		if (_qtLearning.isActive()) {
-			on_qaStop_triggered();
-		} // if
-#ifndef FREE
-		if (_sSettings.GetStartLearningOnStartup()) {
-			on_qaStart_triggered();
-		} // if
-#endif
-	} // if
-} // on_qaOpen_triggered
-#endif*/
-
 #ifndef TRY
-const void VocabularyOrganizer::Open(QWidget *pParent)
+const void VocabularyOrganizer::Open(const QString &pFile, QWidget *pParent)
+{
+	Vocabulary *vVocabulary = new Vocabulary;
+
+	VocabularyOpenProgressDialog vopdOpenProgress(vVocabulary, pParent);
+	vopdOpenProgress.show();
+	vVocabulary->Open(pFile);
+
+	_qlVocabularies.append(vVocabulary);
+} // Open
+
+const void VocabularyOrganizer::OpenAll(QWidget *pParent)
 {
 	int iVocabularies = _sSettings->GetVocabularyCount();
 	for (int iI = 0; iI < iVocabularies; iI++) {
@@ -128,7 +114,7 @@ const void VocabularyOrganizer::Open(QWidget *pParent)
 
 		_qlVocabularies.append(vVocabulary);
 	} // for
-} // Open
+} // OpenAll
 #endif
 
 VocabularyOrganizer::VocabularyOrganizer(Settings *pSettings)

@@ -307,7 +307,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     ApplySettings(true);
 
 #ifndef TRY
-	_voOrganizer.Open(this);
+	_voOrganizer.OpenAll(this);
 #endif
     RefreshStatusBar();
 
