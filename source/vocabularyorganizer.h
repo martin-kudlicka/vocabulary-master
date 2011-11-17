@@ -17,6 +17,7 @@ class VocabularyOrganizer
 		const int GetRecordCount(const bool &pEnabled) const;
 		const sRecordInfo GetRecordInfo(const int &pRow) const;
 		const int GetVocabularyCount() const;
+		const Vocabulary *GetVocabularyInfo(const int &pIndex) const;
 		const bool IsOpen() const;
 #ifndef TRY
 		const void Open(QWidget *pParent);
