@@ -47,11 +47,7 @@ class MainWindow : public QMainWindow
         static const int TIME_NONE = -1;
         static const int TIME_NOW = 1;
 
-		struct sAnswer {
-			int iWord;
-			bool bDirectionSwitched;
-		}; // sAnswer
-
+		bool _bDirectionSwitched;
 		bool _bLearning;
         int _iTimeAnswer;
 		int _iTimeQuestion;
@@ -75,7 +71,6 @@ class MainWindow : public QMainWindow
 #endif
 		QTimer _qtLearning;
 		QTranslator _qtTranslator;
-        sAnswer _saCurrentAnswer;
 		VocabularyOrganizer::sRecordInfo _sriCurrentRecord;
 		Settings _sSettings;
 		Ui::qmwUiMain _umwMainWindow;
