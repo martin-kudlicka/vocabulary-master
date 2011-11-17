@@ -1,5 +1,7 @@
 #include "vocabularyorganizerdialog/vocabularyorganizermodel.h"
 
+#include <QtCore/QDir>
+
 const void VocabularyOrganizerModel::AddRow()
 {
 	beginInsertRows(QModelIndex(), rowCount(), rowCount());
@@ -17,7 +19,7 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 		case Qt::DisplayRole:
 			{
 				const Vocabulary *vVocabulary = _voOrganizer->GetVocabularyInfo(index.row());
-				return vVocabulary->GetVocabularyFile();
+				return QDir::toNativeSeparators(vVocabulary->GetVocabularyFile());
 			}
 		default:
 			return QVariant();
