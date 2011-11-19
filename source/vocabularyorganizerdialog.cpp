@@ -22,7 +22,8 @@ const void VocabularyOrganizerDialog::EnableControls() const
 const QString VocabularyOrganizerDialog::GetOpenPath() const
 {
 	if (_voOrganizer->GetVocabularyCount() > 0) {
-		return QFileInfo(_voOrganizer->GetVocabularyInfo(0)->GetVocabularyFile()).absolutePath();
+		VocabularyOrganizer::sVocabulary svVocabulary = _voOrganizer->GetVocabularyInfo(0);
+		return QFileInfo(svVocabulary.sviVocabularyInfo.qsFile).absolutePath();
 	} else {
 		return QDir::homePath();
 	} // if else
@@ -32,7 +33,7 @@ const void VocabularyOrganizerDialog::on_qpbClose_clicked(bool checked /* false 
 {
 	int iIndex = _qdvmOrganizer.qtvVocabularies->currentIndex().row();
 
-	_voOrganizer->Close(iIndex);
+	_voOrganizer->Remove(iIndex);
 	_vomModel.RemoveRow(iIndex);
 
 	on_qtvVocabulariesSelectionModel_selectionChanged(QItemSelection(), QItemSelection());
@@ -56,11 +57,11 @@ const void VocabularyOrganizerDialog::on_qpbNew_clicked(bool checked /* false */
 			qsFile = qfdNew.selectedFiles().at(0);
 		} // if else
 
-		_voOrganizer->New(qsFile);
+		_voOrganizer->AddNew(qsFile);
 		_vomModel.AddRow();
 	} // if
 #else
-	_voOrganizer->New();
+	_voOrganizer->AddNew();
 	_vomModel.AddRow();
 #endif
 
@@ -74,7 +75,11 @@ const void VocabularyOrganizerDialog::on_qpbOpen_clicked(bool checked /* false *
 {
 	QString qsFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), GetOpenPath(), VOCABULARY_FILTER);
 	if (!qsFile.isEmpty()) {
-		_voOrganizer->Open(qsFile, this);
+		VocabularyOrganizer::sVocabulary svVocabulary;
+		svVocabulary.sviVocabularyInfo.qsFile = qsFile;
+		svVocabulary.sviVocabularyInfo.bEnabled = true;
+
+		_voOrganizer->AddExisting(svVocabulary, this);
 		_vomModel.AddRow();
 	} // if
 

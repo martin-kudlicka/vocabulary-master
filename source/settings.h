@@ -39,6 +39,12 @@ class Settings
 		}; // sHotKeyInfo
 # endif
 #endif
+		struct sVocabularyInfo {
+			QString qsFile;
+#ifndef FREE
+			bool bEnabled;
+#endif
+		}; // sVocabularyInfo
 
 		static const int DEFAULT_DIMENSION = -1;
 
@@ -86,7 +92,7 @@ class Settings
 		const bool GetUseProxy() const;
 #ifndef TRY
 		const int GetVocabularyCount();
-		const QString GetVocabularyFile(const int &pIndex);
+		const sVocabularyInfo GetVocabularyInfo(const int &pIndex);
 #endif
 		const int GetWaitForAnswer() const;
 #ifndef FREE
@@ -138,7 +144,7 @@ class Settings
 		const void SetUseProxy(const bool &pUse);
 #ifndef TRY
 		const void SetVocabularyCount(const int &pCount);
-		const void SetVocabularyFile(const int &pIndex, const QString &pFile);
+		const void SetVocabularyInfo(const int &pIndex, const sVocabularyInfo &pInfo);
 #endif
 #ifndef FREE
 		const void SetWaitForAnswer(const int &pTime);
