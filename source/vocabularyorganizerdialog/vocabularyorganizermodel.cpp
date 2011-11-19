@@ -26,6 +26,7 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 				default:
 					return QVariant();
 			} // switch
+#ifndef FREE
 		case ColumnEnabled:
 			switch (role) {
 				case Qt::CheckStateRole:
@@ -40,6 +41,7 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 				default:
 					return QVariant();
 			} // switch
+#endif
 		default:
 			return QVariant();
 	} // switch
@@ -52,8 +54,10 @@ QVariant VocabularyOrganizerModel::headerData(int section, Qt::Orientation orien
 			switch (section) {
 				case ColumnVocabularyFile:
 					return tr("Vocabulary");
+#ifndef FREE
 				case ColumnEnabled:
 					return tr("Enabled");
+#endif
 			} // switch
 		default:
 			return QVariant();
