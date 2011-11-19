@@ -97,7 +97,7 @@ bool VocabularyOrganizerModel::setData(const QModelIndex &index, const QVariant 
 {
 	switch (index.column()) {
 		case ColumnEnabled:
-			_voOrganizer->SetVocabularyEnabled(index.row(), value.toBool());
+			_voOrganizer->SetVocabularyEnabled(index.row(), value.toBool(), _qwParent);
 
 			emit dataChanged(index, index);
 			return true;
@@ -107,7 +107,8 @@ bool VocabularyOrganizerModel::setData(const QModelIndex &index, const QVariant 
 } // setData
 #endif
 
-VocabularyOrganizerModel::VocabularyOrganizerModel(VocabularyOrganizer *pOrganizer)
+VocabularyOrganizerModel::VocabularyOrganizerModel(VocabularyOrganizer *pOrganizer, QWidget *pParent)
 {
 	_voOrganizer = pOrganizer;
+	_qwParent = pParent;
 } // VocabularyOrganizerModel

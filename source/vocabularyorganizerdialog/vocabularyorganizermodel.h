@@ -16,12 +16,13 @@ class VocabularyOrganizerModel : public QAbstractTableModel
 			ColumnCount
 		}; // eColumn
 
-		VocabularyOrganizerModel(VocabularyOrganizer *pOrganizer);
+		VocabularyOrganizerModel(VocabularyOrganizer *pOrganizer, QWidget *pParent);
 
 		const void AddRow();
 		const void RemoveRow(const int &pRow);
 
 	private:
+		QWidget *_qwParent;
 		VocabularyOrganizer *_voOrganizer;
 
 		virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
