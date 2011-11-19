@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>570</width>
+    <width>660</width>
     <height>154</height>
    </rect>
   </property>
@@ -21,6 +21,9 @@
        <property name="rootIsDecorated">
         <bool>false</bool>
        </property>
+       <attribute name="headerStretchLastSection">
+        <bool>false</bool>
+       </attribute>
       </widget>
      </item>
      <item>
