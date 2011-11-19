@@ -8,12 +8,6 @@
 class VocabularyOrganizerModel : public QAbstractTableModel
 {
 	public:
-		VocabularyOrganizerModel(const VocabularyOrganizer *pOrganizer);
-
-		const void AddRow();
-		const void RemoveRow(const int &pRow);
-
-	private:
 		enum eColumn {
 			ColumnVocabularyFile,
 #ifndef FREE
@@ -22,6 +16,12 @@ class VocabularyOrganizerModel : public QAbstractTableModel
 			ColumnCount
 		}; // eColumn
 
+		VocabularyOrganizerModel(const VocabularyOrganizer *pOrganizer);
+
+		const void AddRow();
+		const void RemoveRow(const int &pRow);
+
+	private:
 		const VocabularyOrganizer *_voOrganizer;
 
 		virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
