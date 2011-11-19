@@ -12,29 +12,37 @@ class VocabularyOrganizer : public QObject
 			Vocabulary *vVocabulary;
 			int iId;
 		}; // sRecordInfo
+		struct sVocabulary {
+			Settings::sVocabularyInfo sviVocabularyInfo;
+			Vocabulary *vVocabulary;
+		}; // sVocabulary
 
 		VocabularyOrganizer(Settings *pSettings);
 
-		const void Close(const int &pIndex);
-		const int GetRecordCount() const;
-		const int GetRecordCount(const bool &pEnabled) const;
-		const sRecordInfo GetRecordInfo(const int &pRow) const;
-		const int GetVocabularyCount() const;
-		Vocabulary *GetVocabularyInfo(const int &pIndex) const;
-		const bool IsOpen() const;
-		const void New(
+#ifndef TRY
+		const void AddExisting(sVocabulary &pVocabulary, QWidget *pParent);
+#endif
+		const void AddNew(
 #ifndef TRY
 			const QString &pFile
 #endif
 			);
+		const int GetRecordCount() const;
+		const int GetRecordCount(const bool &pEnabled) const;
+		const sRecordInfo GetRecordInfo(const int &pRow) const;
+		const int GetVocabularyCount() const;
+		const sVocabulary &GetVocabularyInfo(const int &pIndex) const;
+		const bool IsOpen() const;
 #ifndef TRY
-		const void Open(const QString &pFile, QWidget *pParent);
 		const void OpenAll(QWidget *pParent);
+#endif
+		const void Remove(const int &pIndex);
+#ifndef TRY
 		const void SaveAll();
 #endif
 
 	private:
-		QList<Vocabulary *> _qlVocabularies;
+		QList<sVocabulary> _qlVocabularies;
 		Settings *_sSettings;
 
 	signals:

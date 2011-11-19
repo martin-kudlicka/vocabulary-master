@@ -12,6 +12,7 @@ const QString KEY_ALWAYSONTOP = "AlwaysOnTop";
 const QString KEY_CANCHANGECATEGORYPRIORITY = "CanChangeCategoryPriority";
 const QString KEY_CANENABLECATEGORIES = "CanEnableCategories";
 const QString KEY_COLORFLASH = "ColorFlash";
+const QString KEY_ENABLED = "Enabled";
 const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
 # ifdef Q_WS_WIN
 const QString KEY_HOTKEY = "Hotkey";
@@ -281,15 +282,20 @@ const int Settings::GetVocabularyCount()
 	return iCount;
 } // GetVocabularyCount
 
-const QString Settings::GetVocabularyFile(const int &pIndex)
+const Settings::sVocabularyInfo Settings::GetVocabularyInfo(const int &pIndex)
 {
+	sVocabularyInfo sviVocabularyInfo;
+
 	_qsSettings.beginReadArray(ARRAY_VOCABULARIES);
 	_qsSettings.setArrayIndex(pIndex);
-	QString qsFile = _qsSettings.value(KEY_VOCABULARYFILE).toString();
+	sviVocabularyInfo.qsFile = _qsSettings.value(KEY_VOCABULARYFILE).toString();
+#ifndef FREE
+	sviVocabularyInfo.bEnabled = _qsSettings.value(KEY_ENABLED, true).toBool();
+#endif
 	_qsSettings.endArray();
 
-	return qsFile;
-} // GetVocabularyFile
+	return sviVocabularyInfo;
+} // GetVocabularyInfo
 #endif
 
 const int Settings::GetWaitForAnswer() const
@@ -511,13 +517,16 @@ const void Settings::SetVocabularyCount(const int &pCount)
 	_qsSettings.endArray();
 } // SetVocabularyCount
 
-const void Settings::SetVocabularyFile(const int &pIndex, const QString &pFile)
+const void Settings::SetVocabularyInfo(const int &pIndex, const sVocabularyInfo &pInfo)
 {
 	_qsSettings.beginWriteArray(ARRAY_VOCABULARIES);
 	_qsSettings.setArrayIndex(pIndex);
-	_qsSettings.setValue(KEY_VOCABULARYFILE, pFile);
+	_qsSettings.setValue(KEY_VOCABULARYFILE, pInfo.qsFile);
+#ifndef FREE
+	_qsSettings.setValue(KEY_ENABLED, pInfo.bEnabled);
+#endif
 	_qsSettings.endArray();
-} // SetVocabularyFile
+} // SetVocabularyInfo
 #endif
 
 #ifndef FREE

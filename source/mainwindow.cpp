@@ -94,8 +94,8 @@ const void MainWindow::CreateVocabulariesMenu()
 #endif
 
 	for (int iI = 0; iI < _voOrganizer.GetVocabularyCount(); iI++) {
-		const Vocabulary *vVocabulary = _voOrganizer.GetVocabularyInfo(iI);
-		QString qsName = QFileInfo(vVocabulary->GetVocabularyFile()).completeBaseName();
+		VocabularyOrganizer::sVocabulary svVocabulary = _voOrganizer.GetVocabularyInfo(iI);
+		QString qsName = QFileInfo(svVocabulary.sviVocabularyInfo.qsFile).completeBaseName();
 
 		// main menu
 		QAction *qaAction = _umwMainWindow.qmVocabularies->addAction(QIcon(":/res/mainwindow/menubar/vocabulary.png"), qsName);
@@ -501,9 +501,9 @@ const void MainWindow::on_qmTray_triggered(QAction *action)
 const void MainWindow::on_qmVocabularies_triggered(QAction *action)
 {
 	int iIndex = action->data().toInt();
-	Vocabulary *vVocabulary = _voOrganizer.GetVocabularyInfo(iIndex);
+	VocabularyOrganizer::sVocabulary svVocabulary = _voOrganizer.GetVocabularyInfo(iIndex);
 
-	OpenVocabulary(vVocabulary
+	OpenVocabulary(svVocabulary.vVocabulary
 #ifndef FREE
 		, false
 #endif

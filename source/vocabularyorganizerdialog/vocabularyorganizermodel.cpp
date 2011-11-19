@@ -15,12 +15,31 @@ int VocabularyOrganizerModel::columnCount(const QModelIndex &parent /* QModelInd
 
 QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
-	switch (role) {
-		case Qt::DisplayRole:
-			{
-				const Vocabulary *vVocabulary = _voOrganizer->GetVocabularyInfo(index.row());
-				return QDir::toNativeSeparators(vVocabulary->GetVocabularyFile());
-			}
+	switch (index.column()) {
+		case ColumnVocabularyFile:
+			switch (role) {
+				case Qt::DisplayRole:
+					{
+						QString qsFile = _voOrganizer->GetVocabularyInfo(index.row()).sviVocabularyInfo.qsFile;
+						return QDir::toNativeSeparators(qsFile);
+					}
+				default:
+					return QVariant();
+			} // switch
+		case ColumnEnabled:
+			switch (role) {
+				case Qt::CheckStateRole:
+					{
+						bool bEnabled = _voOrganizer->GetVocabularyInfo(index.row()).sviVocabularyInfo.bEnabled;
+						if (bEnabled) {
+							return Qt::Checked;
+						} else {
+							return Qt::Unchecked;
+						} // if else
+					}
+				default:
+					return QVariant();
+			} // switch
 		default:
 			return QVariant();
 	} // switch
@@ -30,7 +49,12 @@ QVariant VocabularyOrganizerModel::headerData(int section, Qt::Orientation orien
 {
 	switch (role) {
 		case Qt::DisplayRole:
-			return tr("Vocabulary");
+			switch (section) {
+				case ColumnVocabularyFile:
+					return tr("Vocabulary");
+				case ColumnEnabled:
+					return tr("Enabled");
+			} // switch
 		default:
 			return QVariant();
 	} // switch
