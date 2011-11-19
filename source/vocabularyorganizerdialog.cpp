@@ -113,5 +113,11 @@ VocabularyOrganizerDialog::VocabularyOrganizerDialog(VocabularyOrganizer *pOrgan
 #endif
 
 	_qdvmOrganizer.qtvVocabularies->setModel(&_vomModel);
+
+	_qdvmOrganizer.qtvVocabularies->header()->setResizeMode(VocabularyOrganizerModel::ColumnVocabularyFile, QHeaderView::Stretch);
+#ifdef FREE
+	_qdvmOrganizer.qtvVocabularies->header()->setResizeMode(VocabularyOrganizerModel::ColumnEnabled, QHeaderView::ResizeToContents);
+#endif
+
 	connect(_qdvmOrganizer.qtvVocabularies->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvVocabulariesSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 } // VocabularyOrganizerDialog
