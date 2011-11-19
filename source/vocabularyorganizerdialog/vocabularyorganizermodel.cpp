@@ -47,6 +47,19 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 	} // switch
 } // data
 
+#ifndef FREE
+Qt::ItemFlags VocabularyOrganizerModel::flags(const QModelIndex &index) const
+{
+	Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index);
+
+	if (index.column() == ColumnEnabled) {
+		ifFlags |= Qt::ItemIsUserCheckable;
+	} // if
+
+	return ifFlags;
+} // flags
+#endif
+
 QVariant VocabularyOrganizerModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
 	switch (role) {
@@ -79,7 +92,22 @@ int VocabularyOrganizerModel::rowCount(const QModelIndex &parent /* QModelIndex(
 	} // if else
 } // rowCount
 
-VocabularyOrganizerModel::VocabularyOrganizerModel(const VocabularyOrganizer *pOrganizer)
+#ifndef FREE
+bool VocabularyOrganizerModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)
+{
+	switch (index.column()) {
+		case ColumnEnabled:
+			_voOrganizer->SetVocabularyEnabled(index.row(), value.toBool());
+
+			emit dataChanged(index, index);
+			return true;
+		default:
+			return false;
+	} // switch
+} // setData
+#endif
+
+VocabularyOrganizerModel::VocabularyOrganizerModel(VocabularyOrganizer *pOrganizer)
 {
 	_voOrganizer = pOrganizer;
 } // VocabularyOrganizerModel

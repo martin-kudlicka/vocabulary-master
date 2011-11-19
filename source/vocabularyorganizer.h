@@ -40,6 +40,9 @@ class VocabularyOrganizer : public QObject
 #ifndef TRY
 		const void SaveAll();
 #endif
+#ifndef FREE
+		const void SetVocabularyEnabled(const int &pIndex, const bool &pEnabled);
+#endif
 
 	private:
 		QList<sVocabulary> _qlVocabularies;

@@ -154,6 +154,13 @@ const void VocabularyOrganizer::SaveAll()
 } // SaveAll
 #endif
 
+#ifndef FREE
+const void VocabularyOrganizer::SetVocabularyEnabled(const int &pIndex, const bool &pEnabled)
+{
+	_qlVocabularies[pIndex].sviVocabularyInfo.bEnabled = pEnabled;
+} // SetVocabularyEnabled
+#endif
+
 VocabularyOrganizer::VocabularyOrganizer(Settings *pSettings)
 {
 	_sSettings = pSettings;	
