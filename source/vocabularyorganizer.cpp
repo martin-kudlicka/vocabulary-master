@@ -10,14 +10,8 @@ const void VocabularyOrganizer::AddExisting(sVocabulary &pVocabulary, QWidget *p
 # ifndef FREE
 	if (pVocabulary.sviVocabularyInfo.bEnabled) {
 # endif
-		VocabularyOpenProgressDialog vopdOpenProgress(pVocabulary.vVocabulary, pParent);
-		vopdOpenProgress.show();
-		pVocabulary.vVocabulary->Open(pVocabulary.sviVocabularyInfo.qsFile);
-
+		Open(&pVocabulary, pParent);
 # ifndef FREE
-		if (!pVocabulary.vVocabulary->IsOpen()) {
-			pVocabulary.sviVocabularyInfo.bEnabled = false;
-		} // if
 	} // if
 # endif
 
@@ -120,6 +114,19 @@ const bool VocabularyOrganizer::IsOpen() const
 } // IsOpen
 
 #ifndef TRY
+const void VocabularyOrganizer::Open(sVocabulary *pVocabulary, QWidget *pParent)
+{
+	VocabularyOpenProgressDialog vopdOpenProgress(pVocabulary->vVocabulary, pParent);
+	vopdOpenProgress.show();
+	pVocabulary->vVocabulary->Open(pVocabulary->sviVocabularyInfo.qsFile);
+
+# ifndef FREE
+	if (!pVocabulary->vVocabulary->IsOpen()) {
+		pVocabulary->sviVocabularyInfo.bEnabled = false;
+	} // if
+#endif
+} // Open
+
 const void VocabularyOrganizer::OpenAll(QWidget *pParent)
 {
 	int iVocabularies = _sSettings->GetVocabularyCount();
@@ -155,9 +162,16 @@ const void VocabularyOrganizer::SaveAll()
 #endif
 
 #ifndef FREE
-const void VocabularyOrganizer::SetVocabularyEnabled(const int &pIndex, const bool &pEnabled)
+const void VocabularyOrganizer::SetVocabularyEnabled(const int &pIndex, const bool &pEnabled, QWidget *pParent)
 {
-	_qlVocabularies[pIndex].sviVocabularyInfo.bEnabled = pEnabled;
+	sVocabulary *svVocabulary = &_qlVocabularies[pIndex];
+	svVocabulary->sviVocabularyInfo.bEnabled = pEnabled;
+
+	if (pEnabled) {
+		Open(svVocabulary, pParent);
+	} else {
+		svVocabulary->vVocabulary->Close();
+	} // if else
 } // SetVocabularyEnabled
 #endif
 

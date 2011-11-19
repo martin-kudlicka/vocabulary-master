@@ -41,12 +41,16 @@ class VocabularyOrganizer : public QObject
 		const void SaveAll();
 #endif
 #ifndef FREE
-		const void SetVocabularyEnabled(const int &pIndex, const bool &pEnabled);
+		const void SetVocabularyEnabled(const int &pIndex, const bool &pEnabled, QWidget *pParent);
 #endif
 
 	private:
 		QList<sVocabulary> _qlVocabularies;
 		Settings *_sSettings;
+
+#ifndef TRY
+		const void Open(sVocabulary *pVocabulary, QWidget *pParent);
+#endif
 
 	signals:
 		void VocabularyClose(const Vocabulary *pVocabulary) const;
