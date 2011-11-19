@@ -16,7 +16,9 @@ class VocabularyOrganizerModel : public QAbstractTableModel
 	private:
 		enum eColumn {
 			ColumnVocabularyFile,
+#ifndef FREE
 			ColumnEnabled,
+#endif
 			ColumnCount
 		}; // eColumn
 
