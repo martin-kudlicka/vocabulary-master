@@ -170,6 +170,7 @@ const void VocabularyOrganizer::SetVocabularyEnabled(const int &pIndex, const bo
 	if (pEnabled) {
 		Open(svVocabulary, pParent);
 	} else {
+		emit VocabularyClose(svVocabulary->vVocabulary);
 		svVocabulary->vVocabulary->Close();
 	} // if else
 } // SetVocabularyEnabled
