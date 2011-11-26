@@ -18,7 +18,6 @@
 # include "vocabularymanagerdialog/prioritydelegate.h"
 #endif
 #include "vocabularyorganizerdialog.h"
-#include <QtCore/QFileInfo>
 
 #ifdef FREE
 const QString FREE_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " FREE");
@@ -95,7 +94,7 @@ const void MainWindow::CreateVocabulariesMenu()
 
 	for (int iI = 0; iI < _voOrganizer.GetVocabularyCount(); iI++) {
 		VocabularyOrganizer::sVocabulary svVocabulary = _voOrganizer.GetVocabularyInfo(iI);
-		QString qsName = QFileInfo(svVocabulary.sviVocabularyInfo.qsFile).completeBaseName();
+		QString qsName = svVocabulary.vVocabulary->GetName();
 
 		// main menu
 		QAction *qaAction = _umwMainWindow.qmVocabularies->addAction(QIcon(":/res/mainwindow/menubar/vocabulary.png"), qsName);
@@ -674,7 +673,7 @@ const void MainWindow::on_qtLearning_timeout()
 		    } // if else
 	        _umwMainWindow.qtbWindow1->setText(GetLearningText(TemplateLearning, _bDirectionSwitched, false));
 	        _umwMainWindow.qtbWindow2->clear();
-            _umwMainWindow.qlCategory->setText(QFileInfo(_sriCurrentRecord.vVocabulary->GetVocabularyFile()).completeBaseName() + ", " + _sriCurrentRecord.vVocabulary->GetCategoryName(iCategoryId));
+            _umwMainWindow.qlCategory->setText(_sriCurrentRecord.vVocabulary->GetName() + ", " + _sriCurrentRecord.vVocabulary->GetCategoryName(iCategoryId));
 #ifndef FREE
 			SetupRecordControls();
 #endif

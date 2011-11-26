@@ -641,8 +641,8 @@ const void VocabularyDatabase::Open(const QString &pFilePath)
         return;
     } // if
 
-	emit SetVocabularyName(QFileInfo(pFilePath).completeBaseName());
     _qsVocabularyFile = pFilePath;
+	emit SetVocabularyName(GetName());
 
     OpenDatabase();
 
