@@ -1,6 +1,6 @@
 #include "vocabularyorganizerdialog/vocabularyorganizermodel.h"
 
-#ifdef TRY
+#ifndef TRY
 # include <QtCore/QDir>
 #endif
 
