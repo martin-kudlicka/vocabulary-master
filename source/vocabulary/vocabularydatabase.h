@@ -87,7 +87,9 @@ class VocabularyDatabase : public QObject
         const QString GetName() const;
 		const int GetRow(const int &pRecordId, const int &pCategoryId) const;
 		const QString GetSettings(const QString &pKey) const;
+#ifndef TRY
         const QString &GetVocabularyFile() const;
+#endif
         const bool IsOpen() const;
 		const int Search(const QString &pWord, const int &pStartId) const;
 #ifndef FREE
@@ -139,7 +141,11 @@ class VocabularyDatabase : public QObject
         const int GetRecordId(const int &pRow) const;
         const int GetRecordId(const int &pCategoryId, const int &pRow) const;*/
         const tRecordIdList GetRecordIds(const int &pCategoryId) const;
-        const void New(const QString &pFilePath);
+        const void New(
+#ifndef TRY
+			const QString &pFilePath
+#endif
+			);
 #ifndef TRY
         const void Open(const QString &pFilePath);
 #endif
@@ -173,8 +179,14 @@ class VocabularyDatabase : public QObject
 		static const int OPENPROGRESS_REFRESHINTERVAL = 100;
 		static const int PRIORITY_DEFAULT = 1;
 
+#ifdef TRY
+		static int _iMemoryVocabularies;
+		int _iVocabularyNumber;
+#endif
         QSqlDatabase _qsdDatabase;
+#ifndef TRY
         QString _qsVocabularyFile;
+#endif
 
         const int AddField(const QString &pTemplate, const QString &pName, const eFieldType &pType, const qfFieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const;
         const void AddLanguage(const QString &pName, const QString &pLearningTemplate
