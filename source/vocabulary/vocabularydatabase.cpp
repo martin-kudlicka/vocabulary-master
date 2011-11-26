@@ -12,6 +12,10 @@
 # include "../plugins/common/tts-interface.h"
 #endif
 
+#ifdef TRY
+int VocabularyDatabase::_iMemoryVocabularies = 0;
+#endif
+
 const QString COLUMN_ATTRIBUTES = "attributes";
 const QString COLUMN_BUILTIN = "builtin";
 const QString COLUMN_CATEGORYID = "category_id";
@@ -445,7 +449,11 @@ const QString VocabularyDatabase::GetLanguageVoice(const int &pLanguageId) const
 
 const QString VocabularyDatabase::GetName() const
 {
+#ifdef TRY
+	return tr("memory %1").arg(_iVocabularyNumber);
+#else
     return QFileInfo(_qsVocabularyFile).completeBaseName();
+#endif
 } // GetName
 
 /*const int VocabularyDatabase::GetRecordCategory(const int &pRecordId) const
@@ -549,10 +557,12 @@ const QString VocabularyDatabase::GetSettings(const QString &pKey) const
 	} // if else
 } // GetSettings
 
+#ifndef TRY
 const QString &VocabularyDatabase::GetVocabularyFile() const
 {
     return _qsVocabularyFile;
 } // GetVocabularyFile
+#endif
 
 const void VocabularyDatabase::Initialize() const
 {
@@ -622,13 +632,21 @@ const bool VocabularyDatabase::IsOpen() const
     return _qsdDatabase.isOpen();
 } // IsOpen
 
-const void VocabularyDatabase::New(const QString &pFilePath)
+const void VocabularyDatabase::New(
+#ifndef TRY
+	const QString &pFilePath
+#endif
+	)
 {
+#ifdef TRY
+	_iVocabularyNumber = ++_iMemoryVocabularies;
+#else
 	_qsVocabularyFile = pFilePath;
 
 	if (QFile::exists(pFilePath)) {
 		QFile::remove(pFilePath);
 	} // if
+#endif
 
 	OpenDatabase();
 	Initialize();

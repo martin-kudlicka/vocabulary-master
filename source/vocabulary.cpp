@@ -316,9 +316,17 @@ const void Vocabulary::InitCache()
 	} // if
 } // InitCache
 
-const void Vocabulary::New(const QString &pFilePath)
+const void Vocabulary::New(
+#ifndef TRY
+	const QString &pFilePath
+#endif
+	)
 {
-	VocabularyDatabase::New(pFilePath);
+	VocabularyDatabase::New(
+#ifndef TRY
+		pFilePath
+#endif
+		);
 	InitCache();
 } // New
 

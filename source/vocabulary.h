@@ -49,7 +49,11 @@ class Vocabulary : public VocabularyDatabase
         const int GetRecordId(const int &pRow) const;
         const int GetRecordId(const int &pCategoryId, const int &pRow) const;
         const tRecordIdList GetRecordIds(const int &pCategoryId) const;
-		const void New(const QString &pFilePath);
+		const void New(
+#ifndef TRY
+			const QString &pFilePath
+#endif
+			);
 #ifndef TRY
 		const void Open(const QString &pFilePath);
 #else
