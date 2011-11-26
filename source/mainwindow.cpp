@@ -783,9 +783,14 @@ const void MainWindow::OpenVocabulary(Vocabulary *pVocabulary
 const void MainWindow::RefreshStatusBar()
 {
     if (!_voOrganizer.IsOpen()) {
-        _qlVocabularyStatus.setText("");
+        _qlVocabularyStatus.setText(tr("no vocabulary"));
     } else {
-        _qlVocabularyStatus.setText(tr("%1 voc., %2/%3 records").arg(_voOrganizer.GetVocabularyCount()).arg(_voOrganizer.GetRecordCount(true)).arg(_voOrganizer.GetRecordCount()));
+#ifdef FREE
+		QString qsCount = QString("%1").arg(_voOrganizer.GetRecordCount());
+#else
+		QString qsCount = QString("%1/%2").arg(_voOrganizer.GetRecordCount(true)).arg(_voOrganizer.GetRecordCount());
+#endif
+		_qlVocabularyStatus.setText(tr("%1 voc., %2 records").arg(_voOrganizer.GetVocabularyCount()).arg(qsCount));
     } // if else
 } // RefreshStatusBar
 
