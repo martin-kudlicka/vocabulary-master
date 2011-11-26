@@ -80,69 +80,79 @@
         <translation type="obsolete">Ukončit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="23"/>
+        <location filename="../mainwindow.cpp" line="24"/>
         <source> FREE</source>
         <translation>ZDARMA</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="26"/>
+        <location filename="../mainwindow.cpp" line="27"/>
         <source> TRY</source>
         <translation>ZKUŠEBNÍ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="30"/>
+        <location filename="../mainwindow.cpp" line="29"/>
         <source>Vocabulary Master</source>
         <translation>Vocabulary Master</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="81"/>
-        <source>&amp;Manage</source>
-        <translation>&amp;Spravovat</translation>
+        <location filename="../mainwindow.cpp" line="78"/>
+        <source>&amp;Vocabularies</source>
+        <translation>&amp;Slovníky</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="83"/>
+        <location filename="../mainwindow.cpp" line="786"/>
+        <source>no vocabulary</source>
+        <translation>žádný slovník</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="793"/>
+        <source>%1 voc., %2 records</source>
+        <translation>%1 slov., %2 záznamů</translation>
+    </message>
+    <message>
+        <source>&amp;Manage</source>
+        <translation type="obsolete">&amp;Spravovat</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="80"/>
         <source>&amp;Settings</source>
         <translation>&amp;Nastavení</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="86"/>
+        <location filename="../mainwindow.cpp" line="82"/>
         <source>&amp;Exit</source>
         <translation>&amp;Ukončit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="349"/>
+        <location filename="../mainwindow.cpp" line="374"/>
         <source>About Vocabulary Master</source>
         <translation>O Vocabulary Master</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="402"/>
         <source>Create new vocabulary</source>
-        <translation>Vytvořit nový slovník</translation>
+        <translation type="obsolete">Vytvořit nový slovník</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="443"/>
         <source>Open vocabulary</source>
-        <translation>Otevřít slovník</translation>
+        <translation type="obsolete">Otevřít slovník</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="600"/>
+        <location filename="../mainwindow.cpp" line="745"/>
         <source>New version %1 of Vocabulary Master available at &lt;a href=&quot;http://vocabulary-master.cz/&quot;&gt;homepage&lt;/a&gt;.</source>
         <translation>Nová verze Vocabulary Master %1 je k dispozici na &lt;a href=&quot;http://vocabulary-master.cz/&quot;&gt;homepage&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="601"/>
+        <location filename="../mainwindow.cpp" line="746"/>
         <source>Update available</source>
         <translation>Dostupná aktualizace</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="648"/>
         <source>memory, %1/%2</source>
-        <translation>paměť, %1/%2</translation>
+        <translation type="obsolete">paměť, %1/%2</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="652"/>
         <source>%1 records</source>
-        <translation>%1 záznamů</translation>
+        <translation type="obsolete">%1 záznamů</translation>
     </message>
     <message>
         <source>%1, %2/%3 records</source>
@@ -248,29 +258,29 @@
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="../vocabulary/vocabularydatabase.cpp" line="405"/>
+        <location filename="../vocabulary/vocabularydatabase.cpp" line="410"/>
         <source>All</source>
         <translation>Všechny</translation>
     </message>
     <message>
-        <location filename="../vocabulary/vocabularydatabase.cpp" line="587"/>
+        <location filename="../vocabulary/vocabularydatabase.cpp" line="592"/>
         <source>Language1</source>
         <translation>Jazyk1</translation>
     </message>
     <message>
-        <location filename="../vocabulary/vocabularydatabase.cpp" line="594"/>
+        <location filename="../vocabulary/vocabularydatabase.cpp" line="599"/>
         <source>Language2</source>
         <translation>Jazyk2</translation>
     </message>
     <message>
-        <location filename="../vocabulary/vocabularydatabase.cpp" line="607"/>
-        <location filename="../vocabulary/vocabularydatabase.cpp" line="925"/>
+        <location filename="../vocabulary/vocabularydatabase.cpp" line="612"/>
+        <location filename="../vocabulary/vocabularydatabase.cpp" line="927"/>
         <source>Enabled</source>
         <translation>Povoleno</translation>
     </message>
     <message>
-        <location filename="../vocabulary/vocabularydatabase.cpp" line="608"/>
-        <location filename="../vocabulary/vocabularydatabase.cpp" line="928"/>
+        <location filename="../vocabulary/vocabularydatabase.cpp" line="613"/>
+        <location filename="../vocabulary/vocabularydatabase.cpp" line="930"/>
         <source>Priority</source>
         <translation>Priorita</translation>
     </message>
@@ -306,6 +316,32 @@
         <location filename="../common/vocabularyopenprogressdialog.cpp" line="15"/>
         <source>Opening vocabulary %1...</source>
         <translation>Načítám slovník %1...</translation>
+    </message>
+</context>
+<context>
+    <name>VocabularyOrganizerDialog</name>
+    <message>
+        <location filename="../vocabularyorganizerdialog.cpp" line="49"/>
+        <source>Create new vocabulary</source>
+        <translation>Vytvořit nový slovník</translation>
+    </message>
+    <message>
+        <location filename="../vocabularyorganizerdialog.cpp" line="76"/>
+        <source>Open vocabulary</source>
+        <translation>Otevřít slovník</translation>
+    </message>
+</context>
+<context>
+    <name>VocabularyOrganizerModel</name>
+    <message>
+        <location filename="../vocabularyorganizerdialog/vocabularyorganizermodel.cpp" line="69"/>
+        <source>Vocabulary</source>
+        <translation>Slovník</translation>
+    </message>
+    <message>
+        <location filename="../vocabularyorganizerdialog/vocabularyorganizermodel.cpp" line="72"/>
+        <source>Enabled</source>
+        <translation>Povoleno</translation>
     </message>
 </context>
 <context>
@@ -956,6 +992,34 @@
     </message>
 </context>
 <context>
+    <name>qdVocabularyOrganizer</name>
+    <message>
+        <location filename="../vocabularyorganizerdialog.ui" line="14"/>
+        <source>Vocabulary Organizer</source>
+        <translation>Správce slovníků</translation>
+    </message>
+    <message>
+        <location filename="../vocabularyorganizerdialog.ui" line="34"/>
+        <source>New</source>
+        <translation>Nový</translation>
+    </message>
+    <message>
+        <location filename="../vocabularyorganizerdialog.ui" line="41"/>
+        <source>Open</source>
+        <translation>Otevřít</translation>
+    </message>
+    <message>
+        <location filename="../vocabularyorganizerdialog.ui" line="51"/>
+        <source>Close</source>
+        <translation>Zavřít</translation>
+    </message>
+    <message>
+        <location filename="../vocabularyorganizerdialog.ui" line="96"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+</context>
+<context>
     <name>qdVocabularySettingsDialog</name>
     <message>
         <location filename="../vocabularymanagerdialog/vocabularysettingsdialog.ui" line="14"/>
@@ -1283,82 +1347,90 @@
         <translation>&amp;Soubor</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="287"/>
+        <location filename="../mainwindow.ui" line="286"/>
         <source>&amp;Options</source>
         <translation>&amp;Nastavení</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="293"/>
-        <source>&amp;Vocabulary</source>
-        <translation>S&amp;lovník</translation>
+        <location filename="../mainwindow.ui" line="292"/>
+        <source>&amp;Vocabularies</source>
+        <translation>&amp;Slovníky</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="299"/>
+        <location filename="../mainwindow.ui" line="354"/>
+        <source>&amp;Organizer...</source>
+        <translation>&amp;Správce...</translation>
+    </message>
+    <message>
+        <source>&amp;Vocabulary</source>
+        <translation type="obsolete">S&amp;lovník</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="297"/>
         <source>&amp;Help</source>
         <translation>&amp;Nápověda</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="338"/>
+        <location filename="../mainwindow.ui" line="336"/>
         <source>E&amp;xit</source>
         <translation>&amp;Ukončit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="347"/>
+        <location filename="../mainwindow.ui" line="345"/>
         <source>&amp;Settings...</source>
         <translation>&amp;Nastavení...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="356"/>
         <source>&amp;New...</source>
-        <translation>&amp;Nový...</translation>
+        <translation type="obsolete">&amp;Nový...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="365"/>
+        <location filename="../mainwindow.ui" line="363"/>
         <source>&amp;Open...</source>
         <translation>&amp;Otevřít...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="374"/>
+        <location filename="../mainwindow.ui" line="372"/>
         <source>&amp;Manage...</source>
         <translation>&amp;Spravovat...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="383"/>
+        <location filename="../mainwindow.ui" line="381"/>
         <source>Start</source>
         <translation>Spustit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="392"/>
+        <location filename="../mainwindow.ui" line="390"/>
         <source>Stop</source>
         <translation>Zastavit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="401"/>
+        <location filename="../mainwindow.ui" line="399"/>
         <source>Next</source>
         <translation>Další</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="413"/>
+        <location filename="../mainwindow.ui" line="411"/>
         <source>Mute</source>
         <translation>Ztlumit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="422"/>
+        <location filename="../mainwindow.ui" line="420"/>
         <source>Answer</source>
         <translation>Odpověď</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="431"/>
+        <location filename="../mainwindow.ui" line="429"/>
         <source>&amp;About...</source>
         <translation>&amp;O aplikaci...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="440"/>
+        <location filename="../mainwindow.ui" line="438"/>
         <source>&amp;License...</source>
         <translation>&amp;Licence...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="449"/>
+        <location filename="../mainwindow.ui" line="447"/>
         <source>Find in vocabulary</source>
         <translation>Najít ve slovníku</translation>
     </message>
