@@ -2,8 +2,8 @@
 #ifndef TRY
 # include <QtGui/QFileDialog>
 
-const QString VOCABULARY_SUFFIX = "sl3";
-const QString VOCABULARY_FILTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary (*." + VOCABULARY_SUFFIX + ")");
+#define VOCABULARY_SUFFIX "sl3"
+const char *VOCABULARY_FILTER = QT_TRANSLATE_NOOP("VocabularyOrganizerDialog", "Vocabulary (*." VOCABULARY_SUFFIX ")");
 
 void VocabularyOrganizerDialog::accept()
 {
@@ -49,7 +49,7 @@ const void VocabularyOrganizerDialog::on_qpbClose_clicked(bool checked /* false 
 const void VocabularyOrganizerDialog::on_qpbNew_clicked(bool checked /* false */)
 {
 #ifndef TRY
-	QFileDialog qfdNew(this, tr("Create new vocabulary"), GetOpenPath(), VOCABULARY_FILTER);
+	QFileDialog qfdNew(this, tr("Create new vocabulary"), GetOpenPath(), tr(VOCABULARY_FILTER));
 	qfdNew.setAcceptMode(QFileDialog::AcceptSave);
 	if (qfdNew.exec() == QDialog::Accepted) {
 		QFileInfo qfiFile(qfdNew.selectedFiles().at(0));
@@ -76,7 +76,7 @@ const void VocabularyOrganizerDialog::on_qpbNew_clicked(bool checked /* false */
 #ifndef TRY
 const void VocabularyOrganizerDialog::on_qpbOpen_clicked(bool checked /* false */)
 {
-	QString qsFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), GetOpenPath(), VOCABULARY_FILTER);
+	QString qsFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), GetOpenPath(), tr(VOCABULARY_FILTER));
 	if (!qsFile.isEmpty()) {
 		VocabularyOrganizer::sVocabulary svVocabulary;
 		svVocabulary.sviVocabularyInfo.qsFile = qsFile;
