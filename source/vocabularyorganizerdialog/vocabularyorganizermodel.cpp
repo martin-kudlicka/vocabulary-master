@@ -20,8 +20,12 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 			switch (role) {
 				case Qt::DisplayRole:
 					{
+#ifdef TRY
+						return _voOrganizer->GetVocabularyInfo(index.row()).vVocabulary->GetName();
+#else
 						QString qsFile = _voOrganizer->GetVocabularyInfo(index.row()).sviVocabularyInfo.qsFile;
 						return QDir::toNativeSeparators(qsFile);
+#endif
 					}
 				default:
 					return QVariant();
