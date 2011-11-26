@@ -77,7 +77,9 @@ const void VocabularyOrganizerDialog::on_qpbOpen_clicked(bool checked /* false *
 	if (!qsFile.isEmpty()) {
 		VocabularyOrganizer::sVocabulary svVocabulary;
 		svVocabulary.sviVocabularyInfo.qsFile = qsFile;
+#ifndef FREE
 		svVocabulary.sviVocabularyInfo.bEnabled = true;
+#endif
 
 		_voOrganizer->AddExisting(svVocabulary, this);
 		_vomModel.AddRow();
@@ -115,7 +117,7 @@ VocabularyOrganizerDialog::VocabularyOrganizerDialog(VocabularyOrganizer *pOrgan
 	_qdvmOrganizer.qtvVocabularies->setModel(&_vomModel);
 
 	_qdvmOrganizer.qtvVocabularies->header()->setResizeMode(VocabularyOrganizerModel::ColumnVocabularyFile, QHeaderView::Stretch);
-#ifdef FREE
+#ifndef FREE
 	_qdvmOrganizer.qtvVocabularies->header()->setResizeMode(VocabularyOrganizerModel::ColumnEnabled, QHeaderView::ResizeToContents);
 #endif
 
