@@ -563,7 +563,7 @@ VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *pVocabulary,
 	delete _qdvmVocabularyManager.qpbWordExport;
 #endif
 
-	setWindowTitle(windowTitle() + " - " + QFileInfo(pVocabulary->GetVocabularyFile()).completeBaseName());
+	setWindowTitle(windowTitle() + " - " + pVocabulary->GetName());
 
     InitTabs();
 	InitEditor();
