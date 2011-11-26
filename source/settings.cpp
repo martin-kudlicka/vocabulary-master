@@ -293,7 +293,7 @@ const Settings::sVocabularyInfo Settings::GetVocabularyInfo(const int &pIndex)
 	_qsSettings.beginReadArray(ARRAY_VOCABULARIES);
 	_qsSettings.setArrayIndex(pIndex);
 	sviVocabularyInfo.qsFile = _qsSettings.value(KEY_VOCABULARYFILE).toString();
-#ifndef FREE
+#if !defined(FREE) && !defined(TRY)
 	sviVocabularyInfo.bEnabled = _qsSettings.value(KEY_ENABLED, true).toBool();
 #endif
 	_qsSettings.endArray();
@@ -526,7 +526,7 @@ const void Settings::SetVocabularyInfo(const int &pIndex, const sVocabularyInfo 
 	_qsSettings.beginWriteArray(ARRAY_VOCABULARIES);
 	_qsSettings.setArrayIndex(pIndex);
 	_qsSettings.setValue(KEY_VOCABULARYFILE, pInfo.qsFile);
-#ifndef FREE
+#if !defined(FREE) && !defined(TRY)
 	_qsSettings.setValue(KEY_ENABLED, pInfo.bEnabled);
 #endif
 	_qsSettings.endArray();
