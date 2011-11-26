@@ -7,6 +7,8 @@
 
 class VocabularyOrganizerModel : public QAbstractTableModel
 {
+	Q_OBJECT
+
 	public:
 		enum eColumn {
 			ColumnVocabularyFile,
