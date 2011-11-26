@@ -23,8 +23,8 @@ class VocabularyOrganizerDialog : public QDialog
 #ifdef FREE
 		const void EnableControls() const;
 #endif
-		const QString GetOpenPath() const;
 #ifndef TRY
+		const QString GetOpenPath() const;
 		virtual void reject();
 #endif
 

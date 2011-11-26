@@ -1,7 +1,7 @@
 #include "vocabularyorganizerdialog.h"
-#include <QtGui/QFileDialog>
-
 #ifndef TRY
+# include <QtGui/QFileDialog>
+
 const QString VOCABULARY_SUFFIX = "sl3";
 const QString VOCABULARY_FILTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary (*." + VOCABULARY_SUFFIX + ")");
 
@@ -19,6 +19,7 @@ const void VocabularyOrganizerDialog::EnableControls() const
 } // EnableControls
 #endif
 
+#ifndef TRY
 const QString VocabularyOrganizerDialog::GetOpenPath() const
 {
 	if (_voOrganizer->GetVocabularyCount() > 0) {
@@ -28,6 +29,7 @@ const QString VocabularyOrganizerDialog::GetOpenPath() const
 		return QDir::homePath();
 	} // if else
 } // GetOpenPath
+#endif
 
 const void VocabularyOrganizerDialog::on_qpbClose_clicked(bool checked /* false */)
 {

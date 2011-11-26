@@ -40,7 +40,9 @@ class Settings
 # endif
 #endif
 		struct sVocabularyInfo {
+#ifndef TRY
 			QString qsFile;
+#endif
 #if !defined(FREE) && !defined(TRY)
 			bool bEnabled;
 #endif
