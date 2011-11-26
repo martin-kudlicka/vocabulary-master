@@ -111,7 +111,7 @@ VocabularyOrganizerDialog::VocabularyOrganizerDialog(VocabularyOrganizer *pOrgan
 #ifdef FREE
 	EnableControls();
 #elif defined TRY
-	_qdvmOrganizer.qpbOpen->deleteLater();
+	delete _qdvmOrganizer.qpbOpen;
 #endif
 
 	_qdvmOrganizer.qtvVocabularies->setModel(&_vomModel);
