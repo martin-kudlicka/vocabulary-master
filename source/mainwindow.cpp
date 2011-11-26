@@ -20,12 +20,12 @@
 #include "vocabularyorganizerdialog.h"
 
 #ifdef FREE
-const QString FREE_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " FREE");
+const char *FREE_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " FREE");
 #endif
 #ifdef TRY
-const QString TRY_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " TRY");
+const char *TRY_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " TRY");
 #endif
-const QString VOCABULARY_MASTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary Master");
+const char *VOCABULARY_MASTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary Master");
 
 const void MainWindow::ApplySettings(const bool &pStartup)
 {
@@ -159,10 +159,10 @@ bool MainWindow::event(QEvent *event)
                 } // if
             }
 #ifdef FREE
-            setWindowTitle(windowTitle() + FREE_SUFFIX);
+            setWindowTitle(windowTitle() + tr(FREE_SUFFIX));
 #endif
 #ifdef TRY
-            setWindowTitle(windowTitle() + TRY_SUFFIX);
+            setWindowTitle(windowTitle() + tr(TRY_SUFFIX));
 #endif
             break;
 #ifndef FREE
@@ -370,12 +370,12 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
 const void MainWindow::on_qaAbout_triggered(bool checked /* false */)
 {
-    QMessageBox::about(this, tr("About Vocabulary Master"), "<center><b>" + VOCABULARY_MASTER
+    QMessageBox::about(this, tr("About Vocabulary Master"), "<center><b>" + tr(VOCABULARY_MASTER)
 #ifdef FREE
-        + FREE_SUFFIX
+        + tr(FREE_SUFFIX)
 #endif
 #ifdef TRY
-        + TRY_SUFFIX
+        + tr(TRY_SUFFIX)
 #endif
         + "</b></center><center>Version " + _ucUpdateChecker.GetCurrentVersion() + "</center><br />Copyright (C) 2011 Isshou");
 } // on_qaAbout_triggered
@@ -970,7 +970,7 @@ const void MainWindow::ShowTrayBalloon(const bool &pDirectionSwitched, const boo
 		qsText += " -> " + GetLearningText(TemplateTray, pDirectionSwitched, true);
 	} // if
 
-	_qstiTrayIcon.showMessage(VOCABULARY_MASTER, qsText);
+	_qstiTrayIcon.showMessage(tr(VOCABULARY_MASTER), qsText);
 } // ShowTrayBalloon
 #endif
 

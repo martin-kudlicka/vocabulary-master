@@ -36,10 +36,10 @@ const QString COLUMN_TYPE = "type";
 const QString COLUMN_VALUE = "value";
 const QString COLUMN_VOICE = "voice";
 #ifdef FREE
-const QString FIELD_NOTE1 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Note1");
-const QString FIELD_NOTE2 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Note2");
-const QString FIELD_WORD1 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Word1");
-const QString FIELD_WORD2 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Word2");
+const char *FIELD_NOTE1 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Note1");
+const char *FIELD_NOTE2 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Note2");
+const char *FIELD_WORD1 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Word1");
+const char *FIELD_WORD2 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Word2");
 #endif
 const QString KEY_LANGUAGE1 = "language1";
 const QString KEY_LANGUAGE2 = "language2";
@@ -55,10 +55,6 @@ const QString KEY_VOICE2 = "voice2";
 #endif
 #ifndef TRY
 const QString KEY_VERSION = "version";
-#endif
-#ifdef FREE
-const QString LEARNING_TEMPLATE1 = "<center style=\"font-size:20px\">" + VARIABLE_MARK + FIELD_WORD1 + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + FIELD_NOTE1 + "</center>";
-const QString LEARNING_TEMPLATE2 = "<center style=\"font-size:20px\">" + VARIABLE_MARK + FIELD_WORD2 + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + FIELD_NOTE2 + "</center>";
 #endif
 const QString TABLE_CATEGORIES = "categories";
 const QString TABLE_DATA = "data";
@@ -599,6 +595,10 @@ const void VocabularyDatabase::Initialize() const
 					  + COLUMN_TEXT + " TEXT NOT NULL)");
 
     // fill default data
+#ifdef FREE
+	const QString LEARNING_TEMPLATE1 = "<center style=\"font-size:20px\">" + VARIABLE_MARK + tr(FIELD_WORD1) + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + tr(FIELD_NOTE1) + "</center>";
+	const QString LEARNING_TEMPLATE2 = "<center style=\"font-size:20px\">" + VARIABLE_MARK + tr(FIELD_WORD2) + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + tr(FIELD_NOTE2) + "</center>";
+#endif
     AddLanguage(tr("Language1"),
 #ifdef FREE
         LEARNING_TEMPLATE1
@@ -614,10 +614,10 @@ const void VocabularyDatabase::Initialize() const
 #endif
         );
 #ifdef FREE
-    AddField(FIELD_WORD1, FIELD_WORD1, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageLeft);
-    AddField(FIELD_NOTE1, FIELD_NOTE1, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageLeft);
-    AddField(FIELD_WORD2, FIELD_WORD2, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageRight);
-    AddField(FIELD_NOTE2, FIELD_NOTE2, FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageRight);
+    AddField(tr(FIELD_WORD1), tr(FIELD_WORD1), FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageLeft);
+    AddField(tr(FIELD_NOTE1), tr(FIELD_NOTE1), FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageLeft);
+    AddField(tr(FIELD_WORD2), tr(FIELD_WORD2), FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageRight);
+    AddField(tr(FIELD_NOTE2), tr(FIELD_NOTE2), FieldTypeLineEdit, FieldAttributeNone, FieldBuiltInNone, FieldLanguageRight);
 #endif
 	AddField(tr("Enabled"), "", FieldTypeCheckBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
 	AddField(tr("Priority"), "", FieldTypeSpinBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInPriority, FieldLanguageAll);
