@@ -279,7 +279,11 @@ const int Settings::GetVocabularyCount()
 	int iCount = _qsSettings.beginReadArray(ARRAY_VOCABULARIES);
 	_qsSettings.endArray();
 
+#ifdef FREE
+	return qMin(iCount, 1);
+#else
 	return iCount;
+#endif
 } // GetVocabularyCount
 
 const Settings::sVocabularyInfo Settings::GetVocabularyInfo(const int &pIndex)
