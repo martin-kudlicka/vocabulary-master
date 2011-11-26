@@ -49,6 +49,9 @@ class Settings
 		}; // sVocabularyInfo
 
 		static const int DEFAULT_DIMENSION = -1;
+#ifdef FREE
+		static const int FREE_VOCABULARIES_MAX = 1;
+#endif
 
 		Settings();
 
