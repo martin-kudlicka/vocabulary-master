@@ -2,8 +2,8 @@
 #ifndef TRY
 # include <QtGui/QFileDialog>
 
-#define VOCABULARY_SUFFIX "sl3"
-const char *VOCABULARY_FILTER = QT_TRANSLATE_NOOP("VocabularyOrganizerDialog", "Vocabulary (*." VOCABULARY_SUFFIX ")");
+const QString VOCABULARY_SUFFIX = "sl3";
+const char *VOCABULARY_FILTER = QT_TRANSLATE_NOOP("VocabularyOrganizerDialog", "Vocabulary (*.sl3)");
 
 void VocabularyOrganizerDialog::accept()
 {
