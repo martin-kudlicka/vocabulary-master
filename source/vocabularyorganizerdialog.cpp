@@ -15,6 +15,7 @@ void VocabularyOrganizerDialog::accept()
 #ifdef FREE
 const void VocabularyOrganizerDialog::EnableControls() const
 {
+	_qdvmOrganizer.qpbNew->setEnabled(_voOrganizer->GetVocabularyCount() < Settings::FREE_VOCABULARIES_MAX);
 	_qdvmOrganizer.qpbOpen->setEnabled(_voOrganizer->GetVocabularyCount() < Settings::FREE_VOCABULARIES_MAX);
 } // EnableControls
 #endif
