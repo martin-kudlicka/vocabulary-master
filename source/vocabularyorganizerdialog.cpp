@@ -117,7 +117,7 @@ VocabularyOrganizerDialog::VocabularyOrganizerDialog(VocabularyOrganizer *pOrgan
 	_qdvmOrganizer.qtvVocabularies->setModel(&_vomModel);
 
 	_qdvmOrganizer.qtvVocabularies->header()->setResizeMode(VocabularyOrganizerModel::ColumnVocabularyFile, QHeaderView::Stretch);
-#ifndef FREE
+#if !defined(FREE) && !defined(TRY)
 	_qdvmOrganizer.qtvVocabularies->header()->setResizeMode(VocabularyOrganizerModel::ColumnEnabled, QHeaderView::ResizeToContents);
 #endif
 

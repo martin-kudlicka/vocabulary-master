@@ -29,7 +29,7 @@ const void VocabularyOrganizer::AddNew(
 #ifndef TRY
 	svVocabulary.sviVocabularyInfo.qsFile = pFile;
 #endif
-#ifndef FREE
+#if !defined(FREE) && !defined(TRY)
 	svVocabulary.sviVocabularyInfo.bEnabled = true;
 #endif
 	svVocabulary.vVocabulary = new Vocabulary;
@@ -159,9 +159,8 @@ const void VocabularyOrganizer::SaveAll()
 	} // for
 	_sSettings->SetVocabularyCount(iVocabularies);
 } // SaveAll
-#endif
 
-#ifndef FREE
+# ifndef FREE
 const void VocabularyOrganizer::SetVocabularyEnabled(const int &pIndex, const bool &pEnabled, QWidget *pParent)
 {
 	sVocabulary *svVocabulary = &_qlVocabularies[pIndex];
@@ -174,6 +173,7 @@ const void VocabularyOrganizer::SetVocabularyEnabled(const int &pIndex, const bo
 		svVocabulary->vVocabulary->Close();
 	} // if else
 } // SetVocabularyEnabled
+# endif
 #endif
 
 VocabularyOrganizer::VocabularyOrganizer(Settings *pSettings)

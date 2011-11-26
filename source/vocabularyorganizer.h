@@ -39,9 +39,9 @@ class VocabularyOrganizer : public QObject
 		const void Remove(const int &pIndex);
 #ifndef TRY
 		const void SaveAll();
-#endif
-#ifndef FREE
+# ifndef FREE
 		const void SetVocabularyEnabled(const int &pIndex, const bool &pEnabled, QWidget *pParent);
+# endif
 #endif
 
 	private:
