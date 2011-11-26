@@ -15,7 +15,7 @@ void VocabularyOrganizerDialog::accept()
 #ifdef FREE
 const void VocabularyOrganizerDialog::EnableControls() const
 {
-	_qdvmOrganizer.qpbOpen->setEnabled(_voOrganizer->GetVocabularyCount() <= 1);
+	_qdvmOrganizer.qpbOpen->setEnabled(_voOrganizer->GetVocabularyCount() < Settings::FREE_VOCABULARIES_MAX);
 } // EnableControls
 #endif
 
@@ -61,14 +61,14 @@ const void VocabularyOrganizerDialog::on_qpbNew_clicked(bool checked /* false */
 
 		_voOrganizer->AddNew(qsFile);
 		_vomModel.AddRow();
+
+#ifdef FREE
+		EnableControls();
+#endif
 	} // if
 #else
 	_voOrganizer->AddNew();
 	_vomModel.AddRow();
-#endif
-
-#ifdef FREE
-	EnableControls();
 #endif
 } // on_qpbNew_clicked
 
@@ -85,11 +85,11 @@ const void VocabularyOrganizerDialog::on_qpbOpen_clicked(bool checked /* false *
 
 		_voOrganizer->AddExisting(svVocabulary, this);
 		_vomModel.AddRow();
-	} // if
 
 #ifdef FREE
-	EnableControls();
+		EnableControls();
 #endif
+	} // if
 } // on_qpbOpen_clicked
 #endif
 

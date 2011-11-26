@@ -280,7 +280,7 @@ const int Settings::GetVocabularyCount()
 	_qsSettings.endArray();
 
 #ifdef FREE
-	return qMin(iCount, 1);
+	return qMin(iCount, FREE_VOCABULARIES_MAX);
 #else
 	return iCount;
 #endif
@@ -573,10 +573,12 @@ const void Settings::UpdateSettings()
 	if (evCurrent < Version2) {
 		// move vocabulary to vocabularies group
 		QString qsVocabulary = _qsSettings.value(KEY_VOCABULARYFILE).toString();
-		_qsSettings.beginWriteArray(ARRAY_VOCABULARIES);
-		_qsSettings.setArrayIndex(VocabularyPosition1);
-		_qsSettings.setValue(KEY_VOCABULARYFILE, qsVocabulary);
-		_qsSettings.endArray();
+		if (!qsVocabulary.isEmpty()) {
+			_qsSettings.beginWriteArray(ARRAY_VOCABULARIES);
+			_qsSettings.setArrayIndex(VocabularyPosition1);
+			_qsSettings.setValue(KEY_VOCABULARYFILE, qsVocabulary);
+			_qsSettings.endArray();
+		} // if
 		_qsSettings.remove(KEY_VOCABULARYFILE);
 
 		_qsSettings.setValue(KEY_VERSION, Version2);
