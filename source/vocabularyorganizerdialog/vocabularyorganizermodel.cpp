@@ -1,6 +1,8 @@
 #include "vocabularyorganizerdialog/vocabularyorganizermodel.h"
 
-#include <QtCore/QDir>
+#ifdef TRY
+# include <QtCore/QDir>
+#endif
 
 const void VocabularyOrganizerModel::AddRow()
 {
