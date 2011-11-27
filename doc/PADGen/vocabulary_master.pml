@@ -4,9 +4,9 @@
 	<CompanyName />
 	<Program_Info>
 		<Program_Name>Vocabulary Master</Program_Name>
-		<Program_Version>1.2.0.593</Program_Version>
+		<Program_Version>1.3.0.654</Program_Version>
 		<Program_Release_Month>11</Program_Release_Month>
-		<Program_Release_Day>13</Program_Release_Day>
+		<Program_Release_Day>27</Program_Release_Day>
 		<Program_Release_Year>2011</Program_Release_Year>
 		<Program_Cost_Dollars />
 		<Program_Cost_Other_Code />
@@ -16,14 +16,14 @@
 		<Program_Install_Support>Install and Uninstall</Program_Install_Support>
 		<Program_OS_Support>Win7 x32,Win7 x64,WinServer,WinVista,WinVista x64,WinXP</Program_OS_Support>
 		<Program_Language>English,Czech</Program_Language>
-		<Program_Change_Info>+ option to show/hide toolbar, language names, category name and status bar in main window, + possibility to show controls for priority change and enable/disable of the word in the main window, + option to learn disabled words, + export plugin to PDF (Adobe Reader), * do not close export dialog a...</Program_Change_Info>
+		<Program_Change_Info>+ vocabulary organizer</Program_Change_Info>
 		<Program_Specific_Category>Education</Program_Specific_Category>
 		<Program_Category_Class>Education::Languages</Program_Category_Class>
 		<Program_System_Requirements />
 		<File_Info>
-			<File_Size_Bytes>5446885</File_Size_Bytes>
-			<File_Size_K>5319</File_Size_K>
-			<File_Size_MB>5.19</File_Size_MB>
+			<File_Size_Bytes>5453951</File_Size_Bytes>
+			<File_Size_K>5326</File_Size_K>
+			<File_Size_MB>5.20</File_Size_MB>
 		</File_Info>
 		<Expire_Info>
 			<Has_Expire_Info>N</Has_Expire_Info>
