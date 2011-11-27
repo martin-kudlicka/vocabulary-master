@@ -48,24 +48,29 @@
 <context>
     <name>LicenseDialog</name>
     <message>
+        <location filename="../licensedialog.cpp" line="27"/>
         <source>No license.</source>
-        <translation type="obsolete">Bez licence.</translation>
+        <translation>Bez licence.</translation>
     </message>
     <message>
+        <location filename="../licensedialog.cpp" line="30"/>
         <source>License has been expired.</source>
-        <translation type="obsolete">Licence expirována.</translation>
+        <translation>Licence expirována.</translation>
     </message>
     <message>
+        <location filename="../licensedialog.cpp" line="33"/>
         <source>License is invalid.</source>
-        <translation type="obsolete">Licence je neplatná.</translation>
+        <translation>Licence je neplatná.</translation>
     </message>
     <message>
+        <location filename="../licensedialog.cpp" line="62"/>
         <source>Load license</source>
-        <translation type="obsolete">Nahrát licenci</translation>
+        <translation>Nahrát licenci</translation>
     </message>
     <message>
+        <location filename="../licensedialog.cpp" line="62"/>
         <source>license (*.lic)</source>
-        <translation type="obsolete">licence (*.lic)</translation>
+        <translation>licence (*.lic)</translation>
     </message>
 </context>
 <context>
@@ -429,40 +434,58 @@
 <context>
     <name>qdLicense</name>
     <message>
+        <location filename="../licensedialog.ui" line="14"/>
         <source>License</source>
-        <translation type="obsolete">Licence</translation>
+        <translation>Licence</translation>
     </message>
     <message>
+        <location filename="../licensedialog.ui" line="20"/>
         <source>License information</source>
-        <translation type="obsolete">Informace o licenci</translation>
+        <translation>Informace o licenci</translation>
     </message>
     <message>
+        <location filename="../licensedialog.ui" line="29"/>
         <source>First name:</source>
-        <translation type="obsolete">Jméno:</translation>
+        <translation>Jméno:</translation>
     </message>
     <message>
+        <location filename="../licensedialog.ui" line="36"/>
+        <location filename="../licensedialog.ui" line="50"/>
+        <location filename="../licensedialog.ui" line="64"/>
+        <location filename="../licensedialog.ui" line="78"/>
+        <location filename="../licensedialog.ui" line="149"/>
+        <source>TextLabel</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../licensedialog.ui" line="43"/>
         <source>Last name:</source>
-        <translation type="obsolete">Příjmení:</translation>
+        <translation>Příjmení:</translation>
     </message>
     <message>
+        <location filename="../licensedialog.ui" line="57"/>
         <source>Valid to:</source>
-        <translation type="obsolete">Platnost:</translation>
+        <translation>Platnost:</translation>
     </message>
     <message>
+        <location filename="../licensedialog.ui" line="71"/>
         <source>Email:</source>
-        <translation type="obsolete">Email:</translation>
+        <translation>Email:</translation>
     </message>
     <message>
+        <location filename="../licensedialog.ui" line="100"/>
         <source>&amp;Load</source>
-        <translation type="obsolete">&amp;Nahrát</translation>
+        <translation>&amp;Nahrát</translation>
     </message>
     <message>
+        <location filename="../licensedialog.ui" line="167"/>
         <source>EULA</source>
-        <translation type="obsolete">EULA</translation>
+        <translation>EULA</translation>
     </message>
     <message>
+        <location filename="../licensedialog.ui" line="187"/>
         <source>OK</source>
-        <translation type="obsolete">OK</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
