@@ -4,7 +4,7 @@
 /*           http://open-jtalk.sourceforge.net/                      */
 /* ----------------------------------------------------------------- */
 /*                                                                   */
-/*  Copyright (c) 2008-2011  Nagoya Institute of Technology          */
+/*  Copyright (c) 2008-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -71,7 +71,7 @@ NJD_SET_ACCENT_TYPE_C_START;
 
 #define MAXBUFLEN 1024
 
-static char get_token_from_string(char *str, int *index, char *buff)
+static char get_token_from_string(const char *str, int *index, char *buff)
 {
    char c;
    int i = 0;
@@ -89,31 +89,33 @@ static char get_token_from_string(char *str, int *index, char *buff)
    return c;
 }
 
-static void get_rule(char *input_rule, char *prev_pos, char *rule, int *add_type)
+static void get_rule(const char *input_rule, const char *prev_pos, char *rule, int *add_type)
 {
    int index = 0;
    char buff[MAXBUFLEN];
    char c = ' ';
 
-   while (c != '\0') {
-      c = get_token_from_string(input_rule, &index, buff);
-      if ((c == '%' && strstr(prev_pos, buff) != NULL) || c == '@' || c == '/' || c == '\0') {
-         /* find */
-         if (c == '%')
-            c = get_token_from_string(input_rule, &index, rule);
-         else
-            strcpy(rule, buff);
-         if (c == '@') {
-            c = get_token_from_string(input_rule, &index, buff);
-            (*add_type) = atoi(buff);
+   if (input_rule) {
+      while (c != '\0') {
+         c = get_token_from_string(input_rule, &index, buff);
+         if ((c == '%' && strstr(prev_pos, buff) != NULL) || c == '@' || c == '/' || c == '\0') {
+            /* find */
+            if (c == '%')
+               c = get_token_from_string(input_rule, &index, rule);
+            else
+               strcpy(rule, buff);
+            if (c == '@') {
+               c = get_token_from_string(input_rule, &index, buff);
+               (*add_type) = atoi(buff);
+            } else {
+               (*add_type) = 0;
+            }
+            return;
          } else {
-            (*add_type) = 0;
+            /* skip */
+            while (c == '%' || c == '@')
+               c = get_token_from_string(input_rule, &index, buff);
          }
-         return;
-      } else {
-         /* skip */
-         while (c == '%' || c == '@')
-            c = get_token_from_string(input_rule, &index, buff);
       }
    }
 
@@ -129,6 +131,9 @@ void njd_set_accent_type(NJD * njd)
    char rule[MAXBUFLEN];
    int add_type = 0;
    int mora_size = 0;
+
+   if (njd == NULL || njd->head == NULL)
+      return;
 
    for (node = njd->head; node != NULL; node = node->next) {
       if (NJDNode_get_string(node) == NULL)
@@ -235,6 +240,7 @@ void njd_set_accent_type(NJD * njd)
                 (strcmp(NJDNode_get_string(node->prev), NJD_SET_ACCENT_TYPE_ICHI) == 0 ||
                  strcmp(NJDNode_get_string(node->prev), NJD_SET_ACCENT_TYPE_ROKU) == 0 ||
                  strcmp(NJDNode_get_string(node->prev), NJD_SET_ACCENT_TYPE_NANA) == 0 ||
+                 strcmp(NJDNode_get_string(node->prev), NJD_SET_ACCENT_TYPE_HACHI) == 0 ||
                  strcmp(NJDNode_get_string(node->prev), NJD_SET_ACCENT_TYPE_IKU) == 0)) {
                NJDNode_set_acc(node->prev, 2);
             } else {

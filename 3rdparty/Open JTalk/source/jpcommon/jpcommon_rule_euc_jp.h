@@ -4,7 +4,7 @@
 /*           http://open-jtalk.sourceforge.net/                      */
 /* ----------------------------------------------------------------- */
 /*                                                                   */
-/*  Copyright (c) 2008-2011  Nagoya Institute of Technology          */
+/*  Copyright (c) 2008-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -83,6 +83,7 @@ static const char *jpcommon_mora_list[] = {
    "¥ñ", "e", NULL,
    "¥ð", "i", NULL,
    "¥ï", "w", "a",
+   "¥î", "w", "a",
    "¥í", "r", "o",
    "¥ì", "r", "e",
    "¥ë", "r", "u",
@@ -201,7 +202,10 @@ static const char *jpcommon_mora_list[] = {
    "¥³", "k", "o",
    "¥²", "g", "e",
    "¥±", "k", "e",
+   "¥ö", "k", "e",
+   "¥°¥î", "gw", "a",
    "¥°", "g", "u",
+   "¥¯¥î", "kw", "a",
    "¥¯", "k", "u",
    "¥®¥ç", "gy", "o",
    "¥®¥å", "gy", "u",
@@ -265,6 +269,7 @@ static const char *jpcommon_pos_list[] = {
    "Ì¾»ì-Èó¼«Î©", "22",
    "Ì¾»ì-ÉáÄÌÌ¾»ì", "02",
    "Ï¢ÂÎ»ì", "07",
+   "¥Õ¥£¥é¡¼", "25",
    NULL, NULL
 };
 
