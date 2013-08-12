@@ -40,7 +40,7 @@ const void Plugins::Load()
 	QDir qdPlugins(QCoreApplication::applicationDirPath());
 	qdPlugins.cd(DIR_PLUGINS);
 
-	foreach (QFileInfo qfiPluginDir, qdPlugins.entryInfoList(QDir::Dirs)) {
+	foreach (QFileInfo qfiPluginDir, qdPlugins.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot)) {
 		QDir qdPluginDir(qfiPluginDir.filePath());
 #endif
 		foreach (QFileInfo qfiPlugin, qdPluginDir.entryInfoList(QDir::Files)) {
