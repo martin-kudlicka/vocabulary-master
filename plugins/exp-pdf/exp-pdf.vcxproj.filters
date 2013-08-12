@@ -64,11 +64,14 @@
     <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-pdf\moc_exp-pdf.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\exp-pdf\moc_pdfexportwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-pdf\moc_pdfexportwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pdfexportwidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\common\translationhandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -84,6 +87,9 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="exp-pdf.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="pdfexportwidget.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
