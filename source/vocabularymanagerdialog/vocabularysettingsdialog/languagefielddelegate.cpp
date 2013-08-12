@@ -1,6 +1,6 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog/languagefielddelegate.h"
 
-#include <QtGui/QComboBox>
+#include <QtWidgets/QComboBox>
 
 QWidget *LanguageFieldDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {

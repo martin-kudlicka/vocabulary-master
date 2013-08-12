@@ -3,18 +3,18 @@
 #include "settingsdialog.h"
 #include "vocabularymanagerdialog.h"
 #include <QtCore/QTime>
-#include <QTest>
-#include <QtGui/QMessageBox>
+#include <QtTest/QTest>
+#include <QtWidgets/QMessageBox>
 #ifndef FREE
-# ifdef Q_WS_WIN
-#  include <Windows.h>
+# ifdef Q_OS_WIN
+#  include <qt_windows.h>
 # endif
 # ifndef TRY
 #  include "licensedialog.h"
 # endif
 #endif
 #ifndef FREE
-# include <QtGui/QSound>
+# include <QtMultimedia/QSound>
 # include "vocabularymanagerdialog/prioritydelegate.h"
 #endif
 #include "vocabularyorganizerdialog.h"
@@ -66,7 +66,7 @@ const void MainWindow::ApplySettings(const bool &pStartup)
     _qstiTrayIcon.setVisible(_sSettings.GetSystemTrayIcon());
 #endif
 
-#if !defined(FREE) && defined(Q_WS_WIN)
+#if !defined(FREE) && defined(Q_OS_WIN)
 	RegisterHotkeys();
 #endif
 } // ApplySettings
@@ -793,14 +793,14 @@ const void MainWindow::RefreshStatusBar()
     } // if else
 } // RefreshStatusBar
 
-#if !defined(FREE) && defined(Q_WS_WIN)
+#if !defined(FREE) && defined(Q_OS_WIN)
 const void MainWindow::RegisterHotkeys() const
 {
 	for (int iHotkey = 0; iHotkey < Settings::HotkeyCount - 1; iHotkey++) {
 		Settings::sHotKeyInfo shkiHotkey = _sSettings.GetHotkey(static_cast<Settings::eHotkey>(iHotkey));
 
 		if (shkiHotkey.qui32VirtualKey == SettingsDialog::VIRTUALKEY_NONE) {
-			UnregisterHotKey(winId(), iHotkey);
+			UnregisterHotKey(reinterpret_cast<HWND>(winId()), iHotkey);
 		} else {
 			UINT uiModifiers;
 			if (shkiHotkey.qsText.contains(MODIFIER_ALT)) {
@@ -815,7 +815,7 @@ const void MainWindow::RegisterHotkeys() const
 				uiModifiers |= MOD_SHIFT;
 			} // if
 
-			RegisterHotKey(winId(), iHotkey, uiModifiers, shkiHotkey.qui32VirtualKey);
+			RegisterHotKey(reinterpret_cast<HWND>(winId()), iHotkey, uiModifiers, shkiHotkey.qui32VirtualKey);
 		} // if else
 	} // for
 } // RegisterHotkeys
@@ -974,7 +974,7 @@ const void MainWindow::ShowTrayBalloon(const bool &pDirectionSwitched, const boo
 } // ShowTrayBalloon
 #endif
 
-#if !defined(FREE) && defined(Q_WS_WIN)
+#if !defined(FREE) && defined(Q_OS_WIN)
 bool MainWindow::winEvent(MSG *message, long *result)
 {
 	if (message->message == WM_HOTKEY) {

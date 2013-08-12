@@ -1,7 +1,7 @@
 #ifndef MARKLINEEDIT_H
 #define MARKLINEEDIT_H
 
-#include <QtGui/QLineEdit>
+#include <QtWidgets/QLineEdit>
 
 class MarkLineEdit : public QLineEdit
 {

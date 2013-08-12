@@ -1,7 +1,7 @@
 #include "vocabularymanagerdialog/wordsimportdialog.h"
 
-#include <QtGui/QMessageBox>
-#include <QtGui/QLineEdit>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QLineEdit>
 
 WordsImportDialog::~WordsImportDialog()
 {
@@ -65,9 +65,9 @@ int WordsImportDialog::exec()
     // fields
     _qdwiWordsImport.qtvFields->setModel(&_wifmFieldsModel);
 	CreateFieldEditors();
-    _qdwiWordsImport.qtvFields->header()->setResizeMode(WordsImportFieldsModel::ColumnName, QHeaderView::ResizeToContents);
-	_qdwiWordsImport.qtvFields->header()->setResizeMode(WordsImportFieldsModel::ColumnLanguage, QHeaderView::ResizeToContents);
-    _qdwiWordsImport.qtvFields->header()->setResizeMode(WordsImportFieldsModel::ColumnEditor, QHeaderView::Stretch);
+    _qdwiWordsImport.qtvFields->header()->setSectionResizeMode(WordsImportFieldsModel::ColumnName, QHeaderView::ResizeToContents);
+	_qdwiWordsImport.qtvFields->header()->setSectionResizeMode(WordsImportFieldsModel::ColumnLanguage, QHeaderView::ResizeToContents);
+    _qdwiWordsImport.qtvFields->header()->setSectionResizeMode(WordsImportFieldsModel::ColumnEditor, QHeaderView::Stretch);
 	// preview
 	PreparePreviewColumns();
 
@@ -204,7 +204,7 @@ const void WordsImportDialog::PreparePreviewColumns() const
 	_qdwiWordsImport.qtwPreview->setColumnCount(qslColumns.size());
 	_qdwiWordsImport.qtwPreview->setHorizontalHeaderLabels(qslColumns);
 	for (int iColumn = 0; iColumn < _qdwiWordsImport.qtwPreview->horizontalHeader()->count(); iColumn++) {
-		_qdwiWordsImport.qtwPreview->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Stretch);
+		_qdwiWordsImport.qtwPreview->horizontalHeader()->setSectionResizeMode(iColumn, QHeaderView::Stretch);
 	} // for
 } // PreparePreviewColumns
 

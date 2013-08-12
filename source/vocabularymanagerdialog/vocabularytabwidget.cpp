@@ -1,8 +1,8 @@
 #include "vocabularymanagerdialog/vocabularytabwidget.h"
 
 #ifndef FREE
-# include <QtGui/QCheckBox>
-# include <QtGui/QSpinBox>
+# include <QtWidgets/QCheckBox>
+# include <QtWidgets/QSpinBox>
 
 int VocabularyTabWidget::addTab(QWidget *page, const QString &label, const bool &pEnabled, const int &pPriority)
 {

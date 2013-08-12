@@ -1,6 +1,6 @@
 #include "licensedialog.h"
 
-#include <QtGui/QFileDialog>
+#include <QtWidgets/QFileDialog>
 #include "common/licensetextdialog.h"
 
 const void LicenseDialog::FillLicenseInfo() const

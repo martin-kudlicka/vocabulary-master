@@ -14,7 +14,7 @@ const QString KEY_CANENABLECATEGORIES = "CanEnableCategories";
 const QString KEY_COLORFLASH = "ColorFlash";
 const QString KEY_ENABLED = "Enabled";
 const QString KEY_HORIZONTALLAYOUT = "HorizontalLayout";
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
 const QString KEY_HOTKEY = "Hotkey";
 # endif
 const QString KEY_LEARNDISABLEDWORDS = "LearnDisabledWords";
@@ -61,7 +61,7 @@ const QString KEY_WINDOWY = "WindowY";
 #endif
 const QString KEY_WORDSFREQUENCY = "WordsFrequency";
 const QString ORGANIZATION  = "Isshou";
-#if !defined(FREE) && defined(Q_WS_WIN)
+#if !defined(FREE) && defined(Q_OS_WIN)
 const QString SHORTCUT_ANSWER = "Answer";
 const QString SHORTCUT_MINIMIZE = "Minimize";
 const QString SHORTCUT_NEXT = "Next";
@@ -94,7 +94,7 @@ const bool Settings::GetHorizontalLayout() const
     return _qsSettings.value(KEY_HORIZONTALLAYOUT, false).toBool();
 } // GetHorizontalLayout
 
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
 const Settings::sHotKeyInfo Settings::GetHotkey(const eHotkey &pType) const
 {
 	sHotKeyInfo shkiHotKey;
@@ -364,7 +364,7 @@ const void Settings::SetHorizontalLayout(const bool &pEnable)
     _qsSettings.setValue(KEY_HORIZONTALLAYOUT, pEnable);
 } // SetHorizontalLayout
 
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
 const void Settings::SetHotkey(const eHotkey &pType, const sHotKeyInfo &pHotkey)
 {
     _qsSettings.setValue(GetHotkeyKeyText(pType), pHotkey.qsText);

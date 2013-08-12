@@ -1,7 +1,7 @@
 #ifndef LINEEDITPERSISTENTDELEGATE_H
 #define LINEEDITPERSISTENTDELEGATE_H
 
-#include <QtGui/QStyledItemDelegate>
+#include <QtWidgets/QStyledItemDelegate>
 
 class LineEditPersistentDelegate : public QStyledItemDelegate
 {

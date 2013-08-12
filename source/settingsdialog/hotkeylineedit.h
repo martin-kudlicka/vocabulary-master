@@ -1,7 +1,7 @@
 #ifndef HOTKEYLINEEDIT_H
 #define HOTKEYLINEEDIT_H
 
-#include <QtGui/QLineEdit>
+#include <QtWidgets/QLineEdit>
 
 static const char *PROPERTY_VIRTUALKEY = "VirtualKey";
 const QChar MODIFIER_SEPARATOR = '+';

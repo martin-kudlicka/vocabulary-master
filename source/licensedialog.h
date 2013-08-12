@@ -1,7 +1,7 @@
 #ifndef LICENSEDIALOG_H
 #define LICENSEDIALOG_H
 
-#include <QtGui/QDialog>
+#include <QtWidgets/QDialog>
 #include <ui_licensedialog.h>
 
 #include "license.h"

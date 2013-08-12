@@ -3,10 +3,10 @@
 
 #include <QtCore/QString>
 #include <QtPlugin>
-#include <QtGui/QGroupBox>
+#include <QtWidgets/QGroupBox>
 #include "translationhandler.h"
 
-static const char *IMP_INTERFACE = "Imp Interface 1.0";
+#define IID_IMPINTERFACE "cz.martinkudlicka.VocabularyMaster.ImpInterface"
 
 class ImpInterface : public TranslationHandler
 {
@@ -22,6 +22,6 @@ class ImpInterface : public TranslationHandler
         virtual const void SetupUI(QGroupBox *pParent) = 0;
 }; // ImpInterface
 
-Q_DECLARE_INTERFACE(ImpInterface, IMP_INTERFACE);
+Q_DECLARE_INTERFACE(ImpInterface, IID_IMPINTERFACE);
 
 #endif // IMPINTERFACE_H

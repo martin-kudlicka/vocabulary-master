@@ -1,6 +1,6 @@
 #include "settings/colorcombobox.h"
 
-#include <QtGui/QStylePainter>
+#include <QtWidgets/QStylePainter>
 #include <QtGui/QPaintEvent>
 
 ColorComboBox::ColorComboBox(QWidget *pParent /* NULL */) : QComboBox(pParent)

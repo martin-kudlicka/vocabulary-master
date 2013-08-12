@@ -1,6 +1,6 @@
 #include "imp-anki.h"
 
-#include <QtGui/QBoxLayout>
+#include <QtWidgets/QBoxLayout>
 #include <QtSql/QSqlQuery>
 
 const QChar DATA_TAIL = ',';
@@ -80,5 +80,3 @@ const void ImpAnki::SetupUI(QGroupBox *pParent)
     QBoxLayout *pLayout = qobject_cast<QBoxLayout *>(pParent->layout());
     pLayout->insertWidget(WIDGET_POSITION, _aiwWidget);
 } // SetupUI
-
-Q_EXPORT_PLUGIN2(imp-anki, ImpAnki)

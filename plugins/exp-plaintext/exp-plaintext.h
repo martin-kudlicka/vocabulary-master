@@ -6,6 +6,7 @@
 class ExpPlaintext : public ExpInterface
 {
 	Q_OBJECT
+	Q_PLUGIN_METADATA(IID IID_EXPINTERFACE FILE "exp-plaintext.json")
 	Q_INTERFACES(ExpInterface)
 
 	private:

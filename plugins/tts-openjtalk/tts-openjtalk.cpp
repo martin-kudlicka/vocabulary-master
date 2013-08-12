@@ -198,5 +198,3 @@ const void TTSOpenJTalk::Uninitialize()
 	JPCommon_clear(&_jJpcommon);
 	HTS_Engine_clear(&_heEngine);
 } // Uninitialize
-
-Q_EXPORT_PLUGIN2(tts-openjtalk, TTSOpenJTalk)

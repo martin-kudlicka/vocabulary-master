@@ -2,7 +2,7 @@
 
 #ifndef FREE
 #include <QtGui/QMouseEvent>
-#include <QtGui/QSpinBox>
+#include <QtWidgets/QSpinBox>
 #include <QtCore/QCoreApplication>
 
 bool VocabularyView::eventFilter(QObject *watched, QEvent *event)

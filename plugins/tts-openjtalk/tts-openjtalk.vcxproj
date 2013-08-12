@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\tts-openjtalk\moc_tts-openjtalk.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\temp\GeneratedFiles\Release\tts-openjtalk\moc_tts-openjtalk.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="tts-openjtalk.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\common\licensecommon.h" />
+    <ClInclude Include="..\common\tts-interface.h" />
+    <CustomBuild Include="tts-openjtalk.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing tts-openjtalk.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\temp\GeneratedFiles\$(ConfigurationName)\tts-openjtalk\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\..\temp\GeneratedFiles\$(ConfigurationName)\tts-openjtalk\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DTTS-OPENJTALK_LIB -D_WINDLL "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I.\..\..\temp\GeneratedFiles\$(ConfigurationName)\tts-openjtalk" "-I.\..\..\temp\GeneratedFiles\tts-openjtalk"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing tts-openjtalk.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\temp\GeneratedFiles\$(ConfigurationName)\tts-openjtalk\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\..\temp\GeneratedFiles\$(ConfigurationName)\tts-openjtalk\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DTTS-OPENJTALK_LIB -D_WINDLL "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I.\..\..\temp\GeneratedFiles\$(ConfigurationName)\tts-openjtalk" "-I.\..\..\temp\GeneratedFiles\tts-openjtalk"</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="tts-openjtalk.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\3rdparty\hts_engine API\HTSEngine.vcxproj">
+      <Project>{986853a1-722b-4296-a4b0-a4f83c651777}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3rdparty\Open JTalk\jpcommon.vcxproj">
+      <Project>{f3faa179-bc8a-4f70-8aee-20265cdb2825}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3rdparty\Open JTalk\mecab.vcxproj">
+      <Project>{0af3d1a2-4028-4ac2-941e-983b685b5282}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3rdparty\Open JTalk\mecab2njd.vcxproj">
+      <Project>{33a2814a-1764-4cb6-b0c2-a29e715830e9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd.vcxproj">
+      <Project>{636f2d95-9f1c-4b03-a22e-905cc39f49d7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd2jpcommon.vcxproj">
+      <Project>{576cf895-cbb4-49a7-a2e2-62f2b4d2c8f2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd_set_accent_phrase.vcxproj">
+      <Project>{c928f8f4-9beb-420c-b3ca-14d0778d1f7b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd_set_accent_type.vcxproj">
+      <Project>{3393cff0-2550-404d-94b1-9eb82e9cf2d9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd_set_digit.vcxproj">
+      <Project>{0114f7a6-18be-47e8-8571-86557474aef7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd_set_long_vowel.vcxproj">
+      <Project>{0e209cb6-5c64-4640-b567-63d8ad4f81a9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd_set_pronunciation.vcxproj">
+      <Project>{edea0bab-8da2-492e-bfeb-3948230e1f46}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd_set_unvoiced_vowel.vcxproj">
+      <Project>{d727dbff-ee5f-4307-a37f-33d8dae68e2c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3rdparty\Open JTalk\text2mecab.vcxproj">
+      <Project>{29fb2828-2a74-4843-b31a-f7e3318d39bb}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{FDAF15A4-D6A7-45BE-97D7-639DEF84582B}</ProjectGuid>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.60610.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)output\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)output\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)temp\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;TTS-OPENJTALK_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;$(QTDIR)\include;$(QTDIR)\include\QtCore;.\..\..\temp\GeneratedFiles\$(ConfigurationName)\tts-openjtalk;.\..\..\temp\GeneratedFiles\tts-openjtalk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).dll</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;TTS-OPENJTALK_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;$(QTDIR)\include;$(QTDIR)\include\QtCore;.\..\..\temp\GeneratedFiles\$(ConfigurationName)\tts-openjtalk;.\..\..\temp\GeneratedFiles\tts-openjtalk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat />
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).dll</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties UicDir=".\..\..\temp\GeneratedFiles\tts-openjtalk" MocDir=".\..\..\temp\GeneratedFiles\$(ConfigurationName)\tts-openjtalk" MocOptions="" RccDir=".\..\..\temp\GeneratedFiles\tts-openjtalk" lupdateOnBuild="0" lupdateOptions="" lreleaseOptions="-removeidentical" Qt5Version_x0020_Win32="$(DefaultQtVersion)" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

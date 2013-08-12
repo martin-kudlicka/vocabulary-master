@@ -1,12 +1,12 @@
 #include "vocabularymanagerdialog.h"
 
-#include <QtGui/QInputDialog>
+#include <QtWidgets/QInputDialog>
 #include "vocabularymanagerdialog/vocabularymodel.h"
 #include "vocabularymanagerdialog/vocabularysettingsdialog.h"
 #ifndef FREE
 # include "vocabularymanagerdialog/wordsimportdialog.h"
 #endif
-#include <QtGui/QFileDialog>
+#include <QtWidgets/QFileDialog>
 #ifndef FREE
 # include "common/vocabularyopenprogressdialog.h"
 # include "vocabularymanagerdialog/wordsexportdialog.h"
@@ -479,11 +479,11 @@ const void VocabularyManagerDialog::StretchColumns(const VocabularyView *pTableV
 #ifndef FREE
 		int iFieldId = _vVocabulary->GetFieldId(iColumn);
 		if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-			pTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Fixed);
+			pTableView->horizontalHeader()->setSectionResizeMode(iColumn, QHeaderView::Fixed);
             pTableView->horizontalHeader()->resizeSection(iColumn, BUILTIN_COLUMN_SIZE);
 		} else {
 #endif
-			pTableView->horizontalHeader()->setResizeMode(iColumn, QHeaderView::Stretch);
+			pTableView->horizontalHeader()->setSectionResizeMode(iColumn, QHeaderView::Stretch);
 #ifndef FREE
 		} // if else
 #endif

@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 
-#include <QtGui/QFileDialog>
+#include <QtWidgets/QFileDialog>
 #include "../../3rdparty/Crypto++/source/rsa.h"
 #include "../../3rdparty/Crypto++/source/osrng.h"
 #include "../../3rdparty/Crypto++/source/files.h"

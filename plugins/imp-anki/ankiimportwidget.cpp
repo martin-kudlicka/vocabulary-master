@@ -61,6 +61,6 @@ const void AnkiImportWidget::PrepareTreeView(QTreeView *pTreeView, QAbstractItem
     pTreeView->setModel(pItemModel);
     pTreeView->setItemDelegateForColumn(FieldsModel::ColumnMark, &_mlepdMarkDelegate);
     for (int iColumn = 0; iColumn < pTreeView->header()->count(); iColumn++) {
-        pTreeView->header()->setResizeMode(iColumn, QHeaderView::Stretch);
+        pTreeView->header()->setSectionResizeMode(iColumn, QHeaderView::Stretch);
     } // for
 } // PrepareTreeView

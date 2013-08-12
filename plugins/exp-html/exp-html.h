@@ -6,6 +6,7 @@
 class ExpHtml : public ExpInterface
 {
 	Q_OBJECT
+	Q_PLUGIN_METADATA(IID IID_EXPINTERFACE FILE "exp-html.json")
 	Q_INTERFACES(ExpInterface)
 
 	private:

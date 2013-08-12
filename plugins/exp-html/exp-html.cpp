@@ -1,6 +1,6 @@
 #include "exp-html.h"
 
-#include <QtGui/QFileDialog>
+#include <QtWidgets/QFileDialog>
 #include <QtCore/QTextStream>
 
 const void ExpHtml::BeginExport() const
@@ -87,5 +87,3 @@ const void ExpHtml::SetupUI(QWidget *pParent)
     connect(_hewWidget, SIGNAL(VocabularyGetRecordCount(const int &, int *)), SLOT(on_hewWidget_VocabularyGetRecordCount(const int &, int *)));
     connect(_hewWidget, SIGNAL(VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)), SLOT(on_hewWidget_VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)));
 } // SetupUI
-
-Q_EXPORT_PLUGIN2(exp-html, ExpHtml)

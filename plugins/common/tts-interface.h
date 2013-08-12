@@ -5,7 +5,7 @@
 #include <QtPlugin>
 #include "../../common/licensecommon.h"
 
-static const char *TTS_INTERFACE = "TTS Interface 1.0";
+#define IID_TTSINTERFACE "cz.martinkudlicka.VocabularMmaster.TTSInterface"
 #ifndef _DEBUG
 const QString DIR_PLUGINS = "plugins";
 #endif
@@ -37,6 +37,6 @@ class TTSInterface
 		virtual const void Uninitialize() = 0;
 }; // TTSInterface
 
-Q_DECLARE_INTERFACE(TTSInterface, TTS_INTERFACE);
+Q_DECLARE_INTERFACE(TTSInterface, IID_TTSINTERFACE);
 
 #endif // TTSINTERFACE_H

@@ -10,6 +10,7 @@
 class TTSOpenJTalk : public QObject, private TTSInterface
 {
 	Q_OBJECT
+	Q_PLUGIN_METADATA(IID IID_TTSINTERFACE FILE "tts-openjtalk.json")
 	Q_INTERFACES(TTSInterface)
 
 	private:

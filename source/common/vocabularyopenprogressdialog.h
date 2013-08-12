@@ -3,7 +3,7 @@
 
 #include <ui_vocabularyopenprogressdialog.h>
 
-#include <QtGui/QDialog>
+#include <QtWidgets/QDialog>
 #include "vocabulary.h"
 
 class VocabularyOpenProgressDialog : public QDialog

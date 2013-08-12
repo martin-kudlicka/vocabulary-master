@@ -2,7 +2,7 @@
 
 #include <QtCore/QLocale>
 #include <QtCore/QCoreApplication>
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
 # include <QtCore/QDir>
 #endif
 
@@ -10,7 +10,7 @@ HINSTANCE TranslationHandler::_hiInstance;
 
 const QString DIR_LANG = "lang";
 
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
 	if (fdwReason == DLL_PROCESS_ATTACH) {
@@ -24,7 +24,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 const void TranslationHandler::SetLanguage(const QString &pLanguage)
 {
 	if (!_qtTranslator.load(pLanguage,
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
 		_qsPluginDir +
 #endif
 		DIR_LANG)) {
@@ -38,7 +38,7 @@ TranslationHandler::TranslationHandler()
 {
 	QCoreApplication::installTranslator(&_qtTranslator);
 
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
 	TCHAR tcFileName[MAX_PATH + 1];
 	GetModuleFileName(_hiInstance, tcFileName, sizeof(tcFileName) / sizeof(TCHAR));
 	QString qsPluginPath = QString::fromWCharArray(tcFileName);

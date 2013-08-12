@@ -1,7 +1,7 @@
 #ifndef MARKLINEEDITPERSISTENTDELEGATE_H
 #define MARKLINEEDITPERSISTENTDELEGATE_H
 
-#include <QtGui/QStyledItemDelegate>
+#include <QtWidgets/QStyledItemDelegate>
 
 class MarkLineEditPersistentDelegate : public QStyledItemDelegate
 {

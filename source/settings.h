@@ -8,7 +8,7 @@ const QString DIR_LANG = "lang";
 class Settings
 {
 #ifndef FREE
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
     Q_ENUMS(eHotkey)
 # endif
 	Q_ENUMS(eNewWordSoundType)
@@ -16,7 +16,7 @@ class Settings
 
 	public:
 #ifndef FREE
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
         enum eHotkey {
             HotkeyAnswer,
             HotkeyMinimize,
@@ -32,7 +32,7 @@ class Settings
 #endif
 
 #ifndef FREE
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
 		struct sHotKeyInfo {
 			QString qsText;
 			quint32 qui32VirtualKey;
@@ -61,7 +61,7 @@ class Settings
         const bool GetCanEnableCategories() const;
         const QString GetColorFlash() const;
         const bool GetHorizontalLayout() const;
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
         const sHotKeyInfo GetHotkey(const eHotkey &pType) const;
 # endif
 		const bool GetLearnDisabledWords() const;
@@ -113,7 +113,7 @@ class Settings
         const void SetCanEnableCategories(const bool &pEnable);
         const void SetColorFlash(const QString &pColor);
         const void SetHorizontalLayout(const bool &pEnable);
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
         const void SetHotkey(const eHotkey &pType, const sHotKeyInfo &pHotkey);
 # endif
 		const void SetLearnDisabledWords(const bool &pEnable);
@@ -176,7 +176,7 @@ class Settings
 
 		QSettings _qsSettings;
 
-#if !defined(FREE) && defined(Q_WS_WIN)
+#if !defined(FREE) && defined(Q_OS_WIN)
         const QString GetHotkeyKey(const eHotkey &pType) const;
 		const QString GetHotkeyKeyText(const eHotkey &pType) const;
 		const QString GetHotkeyKeyVirtualKey(const eHotkey &pType) const;

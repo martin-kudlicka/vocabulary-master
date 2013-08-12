@@ -1,0 +1,595 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{4341ea42-f657-49b1-9523-84093c4d5df9}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{9073f4ad-811b-4c04-8d3f-39b7b68032f8}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{9ec3e8dd-20fb-4d9f-8575-1ad69241c491}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="common\categoriesmodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabulary\clearcacheworker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="settings\colorcombobox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="settings\colordelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\wordsexportdialog\exppluginsmodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\vocabularysettingsdialog\lineeditpersistentdelegate\fieldidentifiervalidator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\vocabularysettingsdialog\lineeditpersistentdelegate\fieldlineedit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\vocabularysettingsdialog\fieldsmodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="settingsdialog\hotkeylineedit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\vocabularysettingsdialog\languagefielddelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="license.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="licensedialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="common\licensetextdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\vocabularysettingsdialog\lineeditpersistentdelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="plugins.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="settingsdialog\pluginsmodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\prioritydelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="settingsdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="updatechecker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabulary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabulary\vocabularydatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\vocabularymodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="common\vocabularyopenprogressdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularyorganizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularyorganizerdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularyorganizerdialog\vocabularyorganizermodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\vocabularysettingsdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\vocabularytabwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\vocabularyview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\wordcopymovedialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\wordsexportdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\wordsexportdialog\wordsexportfieldsmodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\wordsimportdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\wordsimportdialog\wordsimporteditordelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vocabularymanagerdialog\wordsimportdialog\wordsimportfieldsmodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\marklineedit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\marklineeditpersistentdelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_marklineedit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_marklineedit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_wordsimportfieldsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_wordsimportfieldsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_wordsimportdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_wordsimportdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_wordsexportfieldsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_wordsexportfieldsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_wordsexportdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_wordsexportdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_wordcopymovedialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_wordcopymovedialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularyview.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularyview.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularytabwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularytabwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularysettingsdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularysettingsdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularyorganizermodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularyorganizermodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularyorganizerdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularyorganizerdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularyorganizer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularyorganizer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularyopenprogressdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularyopenprogressdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularymodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularymodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularymanagerdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularymanagerdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularydatabase.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularydatabase.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_updatechecker.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_updatechecker.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_settingsdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_settingsdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_pluginsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_pluginsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_mainwindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_mainwindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_licensedialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_licensedialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_fieldsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_fieldsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_fieldlineedit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_fieldlineedit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_exppluginsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_exppluginsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_categoriesmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_categoriesmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\vocabularymaster\qrc_mainwindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\vocabularymaster\qrc_eula.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\vocabularymaster\qrc_license.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="common\categoriesmodel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\wordsexportdialog\exppluginsmodel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\vocabularysettingsdialog\lineeditpersistentdelegate\fieldlineedit.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\vocabularysettingsdialog\fieldsmodel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="licensedialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mainwindow.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="settingsdialog\pluginsmodel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="settingsdialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="updatechecker.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabulary\vocabularydatabase.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\vocabularymodel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="common\vocabularyopenprogressdialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularyorganizer.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularyorganizerdialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularyorganizerdialog\vocabularyorganizermodel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\vocabularysettingsdialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\vocabularytabwidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\vocabularyview.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\wordcopymovedialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\wordsexportdialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\wordsexportdialog\wordsexportfieldsmodel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\wordsimportdialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\wordsimportdialog\wordsimportfieldsmodel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mainwindow.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="eula.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="license.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\common\marklineedit.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\wordsimportdialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\wordsexportdialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\wordcopymovedialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog\vocabularysettingsdialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularyorganizerdialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="common\vocabularyopenprogressdialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="vocabularymanagerdialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="settingsdialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mainwindow.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="common\licensetextdialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="licensedialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="vocabulary\clearcacheworker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="settings\colorcombobox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="settings\colordelegate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vocabularymanagerdialog\vocabularysettingsdialog\lineeditpersistentdelegate\fieldidentifiervalidator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="settingsdialog\hotkeylineedit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vocabularymanagerdialog\vocabularysettingsdialog\languagefielddelegate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="license.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common\licensetextdialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vocabularymanagerdialog\vocabularysettingsdialog\lineeditpersistentdelegate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="plugins.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vocabularymanagerdialog\prioritydelegate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vocabulary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vocabularymanagerdialog\wordsimportdialog\wordsimporteditordelegate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\licensecommon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\marklineeditpersistentdelegate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\temp\GeneratedFiles\vocabularymaster\ui_wordsimportdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\temp\GeneratedFiles\vocabularymaster\ui_wordsexportdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\temp\GeneratedFiles\vocabularymaster\ui_wordcopymovedialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\temp\GeneratedFiles\vocabularymaster\ui_vocabularysettingsdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\temp\GeneratedFiles\vocabularymaster\ui_vocabularyorganizerdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\temp\GeneratedFiles\vocabularymaster\ui_vocabularyopenprogressdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\temp\GeneratedFiles\vocabularymaster\ui_vocabularymanagerdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\temp\GeneratedFiles\vocabularymaster\ui_settingsdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\temp\GeneratedFiles\vocabularymaster\ui_mainwindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\temp\GeneratedFiles\vocabularymaster\ui_licensetextdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\temp\GeneratedFiles\vocabularymaster\ui_licensedialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\mainwindow\menubar\vocabulary.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainwindow\menubar\license.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainwindow\toolbar\findinvocabulary.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainwindow\toolbar\next.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainwindow\toolbar\answer.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainwindow\toolbar\mute.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainwindow\toolbar\stop.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainwindow\toolbar\play.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainwindow\menubar\about.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainwindow\menubar\manage.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainwindow\menubar\new.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainwindow\menubar\settings.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainwindow\menubar\exit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\mainwindow\mainwindow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\eula\cze.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="res\eula\eng.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="res\eula\fugue-icons\README.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\license\encryptprivate.der">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\license\signpublic.der">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="lang\cs_CZ.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
