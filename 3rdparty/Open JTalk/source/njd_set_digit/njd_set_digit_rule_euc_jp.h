@@ -4,7 +4,7 @@
 /*           http://open-jtalk.sourceforge.net/                      */
 /* ----------------------------------------------------------------- */
 /*                                                                   */
-/*  Copyright (c) 2008-2011  Nagoya Institute of Technology          */
+/*  Copyright (c) 2008-2012  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -54,15 +54,16 @@ NJD_SET_DIGIT_RULE_H_START;
 #define NJD_SET_DIGIT_KAZU "¿ô"
 #define NJD_SET_DIGIT_SUUSETSUZOKU "¿ôÀÜÂ³"
 #define NJD_SET_DIGIT_JOSUUSHI "½õ¿ô»ì"
+#define NJD_SET_DIGIT_FUKUSHIKANOU "Éû»ì²ÄÇ½"
 #define NJD_SET_DIGIT_HAIHUN1 "¡½"
 #define NJD_SET_DIGIT_HAIHUN2 "¡Ý"
 #define NJD_SET_DIGIT_HAIHUN3 "¡¾"
 #define NJD_SET_DIGIT_KAKKO1 "¡Ê"
 #define NJD_SET_DIGIT_KAKKO2 "¡Ë"
 #define NJD_SET_DIGIT_BANGOU "ÈÖ¹æ"
-#define NJD_SET_DIGIT_TEN1 "¡¦"
-#define NJD_SET_DIGIT_TEN2 "¡¥"
-#define NJD_SET_DIGIT_TEN_FEATURE "¡¥,Ì¾»ì,ÀÜÈø,½õ¿ô»ì,*,*,*,¡¥,¥Æ¥ó,¥Æ¥ó,1/2,*,-1"
+#define NJD_SET_DIGIT_TEN1 "¡¥"
+#define NJD_SET_DIGIT_TEN2 "¡¦"
+#define NJD_SET_DIGIT_TEN_FEATURE "¡¥,Ì¾»ì,ÀÜÈø,½õ¿ô»ì,*,*,*,¡¥,¥Æ¥ó,¥Æ¥ó,0/2,*,-1"
 #define NJD_SET_DIGIT_ZERO "¡»"
 #define NJD_SET_DIGIT_ZERO_BEFORE_DP "¥ì¡¼"
 #define NJD_SET_DIGIT_ZERO_AFTER_DP "¥¼¥í"
