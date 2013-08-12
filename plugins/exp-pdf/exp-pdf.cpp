@@ -292,7 +292,7 @@ const void ExpPdf::PdfShowText(const HPDF_Page &pPage, const QString &pText, con
 	if (pTextCodec) {
 		qbaEncoded = pTextCodec->fromUnicode(pText);
 	} else {
-		qbaEncoded = pText.toAscii();
+		qbaEncoded = pText.toLatin1();
 	} // if else
 
 	HPDF_Page_ShowText(pPage, qbaEncoded);
