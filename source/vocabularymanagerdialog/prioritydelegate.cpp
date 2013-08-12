@@ -1,7 +1,7 @@
 #include "vocabularymanagerdialog/prioritydelegate.h"
 
-#include <QtGui/QSpinBox>
-#include <QtGui/QApplication>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QApplication>
 #include "vocabularymanagerdialog/vocabularyview.h"
 
 QWidget *PriorityDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const

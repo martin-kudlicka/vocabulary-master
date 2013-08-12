@@ -1,7 +1,7 @@
 #ifndef COLORCOMBOBOX_H
 #define COLORCOMBOBOX_H
 
-#include <QtGui/QComboBox>
+#include <QtWidgets/QComboBox>
 
 class ColorComboBox : public QComboBox
 {

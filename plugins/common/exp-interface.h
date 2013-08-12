@@ -4,7 +4,7 @@
 #include <QtPlugin>
 #include "translationhandler.h"
 
-static const char *EXP_INTERFACE = "Exp Interface 1.0";
+#define IID_EXPINTERFACE "cz.martinkudlicka.VocabularyMaster.ExpInterface"
 
 class ExpInterface : public QObject, public TranslationHandler
 {
@@ -31,6 +31,6 @@ class ExpInterface : public QObject, public TranslationHandler
         void VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const;
 }; // ExpInterface
 
-Q_DECLARE_INTERFACE(ExpInterface, EXP_INTERFACE);
+Q_DECLARE_INTERFACE(ExpInterface, IID_EXPINTERFACE);
 
 #endif // EXPINTERFACE_H

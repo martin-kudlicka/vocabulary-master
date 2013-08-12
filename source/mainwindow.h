@@ -1,14 +1,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtGui/QMainWindow>
+#include <QtWidgets/QMainWindow>
 #include <ui_mainwindow.h>
 
-#include <QtGui/QProgressBar>
+#include <QtWidgets/QProgressBar>
 #ifndef FREE
-# include <QtGui/QBoxLayout>
+# include <QtWidgets/QBoxLayout>
 # include "plugins.h"
-# include <QtGui/QSystemTrayIcon>
+# include <QtWidgets/QSystemTrayIcon>
 #endif
 #include <QtCore/QTranslator>
 #ifndef FREE
@@ -98,7 +98,7 @@ class MainWindow : public QMainWindow
             );
         const void RefreshStatusBar();
 #ifndef FREE
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
         const void RegisterHotkeys() const;
 # endif
 		const void Say(const bool &pDirectionSwitched, const bool &pAnswer) const;
@@ -113,7 +113,7 @@ class MainWindow : public QMainWindow
 #ifndef FREE
 		const void ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer);
 #endif
-#if !defined(FREE) && defined(Q_WS_WIN)
+#if !defined(FREE) && defined(Q_OS_WIN)
 		virtual bool winEvent(MSG *message, long *result);
 #endif
 

@@ -1,6 +1,6 @@
 #include "vocabularyorganizerdialog.h"
 #ifndef TRY
-# include <QtGui/QFileDialog>
+# include <QtWidgets/QFileDialog>
 
 const QString VOCABULARY_SUFFIX = "sl3";
 const char *VOCABULARY_FILTER = QT_TRANSLATE_NOOP("VocabularyOrganizerDialog", "Vocabulary (*.sl3)");
@@ -119,9 +119,9 @@ VocabularyOrganizerDialog::VocabularyOrganizerDialog(VocabularyOrganizer *pOrgan
 
 	_qdvmOrganizer.qtvVocabularies->setModel(&_vomModel);
 
-	_qdvmOrganizer.qtvVocabularies->header()->setResizeMode(VocabularyOrganizerModel::ColumnVocabularyFile, QHeaderView::Stretch);
+	_qdvmOrganizer.qtvVocabularies->header()->setSectionResizeMode(VocabularyOrganizerModel::ColumnVocabularyFile, QHeaderView::Stretch);
 #if !defined(FREE) && !defined(TRY)
-	_qdvmOrganizer.qtvVocabularies->header()->setResizeMode(VocabularyOrganizerModel::ColumnEnabled, QHeaderView::ResizeToContents);
+	_qdvmOrganizer.qtvVocabularies->header()->setSectionResizeMode(VocabularyOrganizerModel::ColumnEnabled, QHeaderView::ResizeToContents);
 #endif
 
 	connect(_qdvmOrganizer.qtvVocabularies->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvVocabulariesSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));

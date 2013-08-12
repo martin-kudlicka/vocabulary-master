@@ -1,6 +1,6 @@
 #include "plaintextexportwidget.h"
 
-#include <QtGui/QScrollBar>
+#include <QtWidgets/QScrollBar>
 
 const QString PlaintextExportWidget::GetCodec() const
 {

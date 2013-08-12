@@ -6,7 +6,7 @@
 #include <QtCore/QDir>
 #ifndef FREE
 # include "common/licensetextdialog.h"
-# include <QtGui/QFileDialog>
+# include <QtWidgets/QFileDialog>
 #endif
 
 void SettingsDialog::accept()
@@ -17,7 +17,7 @@ void SettingsDialog::accept()
 } // accept
 
 #ifndef FREE
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
 const void SettingsDialog::ClearHotkey(HotkeyLineEdit *pControl) const
 {
 	pControl->clear();
@@ -35,7 +35,7 @@ const void SettingsDialog::FillColorFlash()
     } // for
 } // FillColorFlash
 
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
 const void SettingsDialog::FillHotkey(HotkeyLineEdit *pControl, const Settings::eHotkey &pHotkey) const
 {
 	Settings::sHotKeyInfo shkiHotkey = _sSettings->GetHotkey(pHotkey);
@@ -93,7 +93,7 @@ const void SettingsDialog::FillOptions()
     _usdSettingsDialog.qcbVocabularyManagerCategoriesEnable->setChecked(_sSettings->GetCanEnableCategories());
 	_usdSettingsDialog.qcbVocabularyManagerCategoryPriority->setChecked(_sSettings->GetCanChangeCategoryPriority());
 
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
     // hotkeys
     // learning
 	FillHotkey(_usdSettingsDialog.qleHotkeyNext, Settings::HotkeyNext);
@@ -151,7 +151,7 @@ const void SettingsDialog::on_qcbSystemTrayIcon_stateChanged(int state) const
 	_usdSettingsDialog.qcbShowWordsInTrayBalloon->setEnabled(state == Qt::Checked);
 } // on_qcbSystemTrayIcon_stateChanged
 
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
 const void SettingsDialog::on_qpbHotkeyAnswerClear_clicked(bool checked /* false */) const
 {
 	ClearHotkey(_usdSettingsDialog.qleHotkeyAnswer);
@@ -204,7 +204,7 @@ const void SettingsDialog::on_qbpSoundBrowse_clicked(bool checked /* false */)
 {
     QString qsOldFile = _sSettings->GetNewWordSoundFile();
     QString qsFile = QFileDialog::getOpenFileName(this, tr("Sound file"), QFileInfo(qsOldFile).path()
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
         , tr("sound files (*.wav)")
 #endif
         );
@@ -247,8 +247,8 @@ const void SettingsDialog::PreparePlugins(QTreeView *pTreeView, PluginsModel *pM
 
         connect(qpbShow, SIGNAL(clicked(bool)), SLOT(on_qpbShowLicense_clicked(bool)));
     } // for
-    pTreeView->header()->setResizeMode(PluginsModel::ColumnName, QHeaderView::Stretch);
-    pTreeView->header()->setResizeMode(PluginsModel::ColumnLicense, QHeaderView::ResizeToContents);
+    pTreeView->header()->setSectionResizeMode(PluginsModel::ColumnName, QHeaderView::Stretch);
+    pTreeView->header()->setSectionResizeMode(PluginsModel::ColumnLicense, QHeaderView::ResizeToContents);
 } // PreparePlugins
 #endif
 
@@ -268,7 +268,7 @@ const void SettingsDialog::PrepareTranslations()
     } // foreach
 } // PrepareTranslations
 
-#if !defined(FREE) && defined(Q_WS_WIN)
+#if !defined(FREE) && defined(Q_OS_WIN)
 const void SettingsDialog::SaveHotkey(const HotkeyLineEdit *pControl, const Settings::eHotkey &pHotkey) const
 {
 	Settings::sHotKeyInfo shkiHotkey;
@@ -326,7 +326,7 @@ const void SettingsDialog::SaveOptions()
     _sSettings->SetCanEnableCategories(_usdSettingsDialog.qcbVocabularyManagerCategoriesEnable->isChecked());
 	_sSettings->SetCanChangeCategoryPriority(_usdSettingsDialog.qcbVocabularyManagerCategoryPriority->isChecked());
 
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
 	// hotkeys
     // learning
 	SaveHotkey(_usdSettingsDialog.qleHotkeyNext, Settings::HotkeyNext);
@@ -395,7 +395,7 @@ SettingsDialog::SettingsDialog(
     // appearance
     _usdSettingsDialog.qtwTabs->removeTab(TabHotkey);
     _usdSettingsDialog.qtwTabs->removeTab(TabAppearance);
-#elif !defined(Q_WS_WIN)
+#elif !defined(Q_OS_WIN)
     _usdSettingsDialog.qtwTabs->removeTab(TabHotkey);
 #else
 	_usdSettingsDialog.qcbColorFlash->setItemDelegate(new ColorDelegate(_usdSettingsDialog.qcbColorFlash));

@@ -1,8 +1,8 @@
 #include "vocabularymanagerdialog/wordsimportdialog/wordsimporteditordelegate.h"
 
 #include "vocabularymanagerdialog/prioritydelegate.h"
-#include <QtGui/QSpinBox>
-#include <QtGui/QLineEdit>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QLineEdit>
 
 QWidget *WordsImportEditorDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {

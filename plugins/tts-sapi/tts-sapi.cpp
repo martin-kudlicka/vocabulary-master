@@ -1,6 +1,6 @@
 #include "tts-sapi.h"
 
-#include <Windows.h>
+#include <qt_windows.h>
 #include <atlcomcli.h>
 #include <sapi.h>
 #include <sphelper.h>
@@ -80,5 +80,3 @@ const void TTSSAPI::Uninitialize()
 {
 	CoUninitialize();
 } // Uninitialize
-
-Q_EXPORT_PLUGIN2(tts-sapi, TTSSAPI)

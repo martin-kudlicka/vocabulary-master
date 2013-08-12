@@ -1,6 +1,6 @@
 #include "common/licensetextdialog.h"
 
-#include <QtGui/QPlainTextEdit>
+#include <QtWidgets/QPlainTextEdit>
 #include <QtCore/QFile>
 
 LicenseTextDialog::LicenseTextDialog(const LicenseCommon::tLicenseContentList &pLicenses, const Settings *pSettings, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)

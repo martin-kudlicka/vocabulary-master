@@ -1,11 +1,11 @@
 #include "mainwindow.h"
 
-#include <QtGui/QFileDialog>
+#include <QtWidgets/QFileDialog>
 #include <QtCore/QUuid>
 #include <QtCore/QBuffer>
 #include "../../3rdparty/Crypto++/source/rsa.h"
 #include "../../3rdparty/Crypto++/source/osrng.h"
-#include <QtGui/QMessageBox>
+#include <QtWidgets/QMessageBox>
 
 MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags)
 {
@@ -74,7 +74,7 @@ const void MainWindow::on_qpbCreate_clicked(bool checked /* false */)
 const void MainWindow::on_qpbGenerateUid_clicked(bool checked /* false */)
 {
 	QUuid quUid = QUuid::createUuid();
-	_umwMainWindow.qleUid->setText(quUid);
+	_umwMainWindow.qleUid->setText(quUid.toString());
 } // on_qpbGenerateUid_clicked
 
 const void MainWindow::WriteLicense()

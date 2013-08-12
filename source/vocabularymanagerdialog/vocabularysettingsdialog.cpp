@@ -145,9 +145,9 @@ const void VocabularySettingsDialog::PrepareFields()
 
     for (int iColumn = 0; iColumn < _qdvsdVocabularySettingsDialog.qtvFields->header()->count(); iColumn++) {
         if (iColumn == FieldsModel::ColumnSpeech || iColumn == FieldsModel::ColumnShow) {
-            _qdvsdVocabularySettingsDialog.qtvFields->header()->setResizeMode(iColumn, QHeaderView::ResizeToContents);
+            _qdvsdVocabularySettingsDialog.qtvFields->header()->setSectionResizeMode(iColumn, QHeaderView::ResizeToContents);
         } else {
-            _qdvsdVocabularySettingsDialog.qtvFields->header()->setResizeMode(iColumn, QHeaderView::Stretch);
+            _qdvsdVocabularySettingsDialog.qtvFields->header()->setSectionResizeMode(iColumn, QHeaderView::Stretch);
         } // if else
     } // for
 } // PrepareFields

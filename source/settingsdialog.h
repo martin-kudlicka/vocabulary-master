@@ -1,7 +1,7 @@
 #ifndef SETTINGSDIALOG_H
 #define SETTINGSDIALOG_H
 
-#include <QtGui/QDialog>
+#include <QtWidgets/QDialog>
 #include <ui_settingsdialog.h>
 
 #include "settings.h"
@@ -16,7 +16,7 @@ class SettingsDialog : public QDialog
 	Q_OBJECT
 
 	public:
-#if !defined(FREE) && defined(Q_WS_WIN)
+#if !defined(FREE) && defined(Q_OS_WIN)
 		static const quint32 VIRTUALKEY_NONE = 0;
 #endif
 
@@ -27,7 +27,7 @@ class SettingsDialog : public QDialog
             Settings *pSettings, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 	private:
-#if defined(FREE) || !defined(Q_WS_WIN)
+#if defined(FREE) || !defined(Q_OS_WIN)
 		enum eTab {
 			TabGeneral,
 			TabLearning,
@@ -49,11 +49,11 @@ class SettingsDialog : public QDialog
 
         virtual void accept();
 #ifndef FREE
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
 		const void ClearHotkey(HotkeyLineEdit *pControl) const;
 # endif
         const void FillColorFlash();
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
 		const void FillHotkey(HotkeyLineEdit *pControl, const Settings::eHotkey &pHotkey) const;
 # endif
 #endif
@@ -64,7 +64,7 @@ class SettingsDialog : public QDialog
         const void PreparePlugins(QTreeView *pTreeView, PluginsModel *pModel) const;
 #endif
         const void PrepareTranslations();
-#if !defined(FREE) && defined(Q_WS_WIN)
+#if !defined(FREE) && defined(Q_OS_WIN)
 		const void SaveHotkey(const HotkeyLineEdit *pControl, const Settings::eHotkey &pHotkey) const;
 #endif
         const void SaveOptions();
@@ -73,7 +73,7 @@ class SettingsDialog : public QDialog
 #ifndef FREE
         const void on_qcbNewWordSound_stateChanged(int state) const;
 		const void on_qcbSystemTrayIcon_stateChanged(int state) const;
-# ifdef Q_WS_WIN
+# ifdef Q_OS_WIN
 		const void on_qpbHotkeyAnswerClear_clicked(bool checked = false) const;
 		const void on_qpbHotkeyMinimizeClear_clicked(bool checked = false) const;
 		const void on_qpbHotkeyNextClear_clicked(bool checked = false) const;

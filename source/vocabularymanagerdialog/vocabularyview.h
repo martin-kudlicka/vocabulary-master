@@ -1,7 +1,7 @@
 #ifndef VOCABULARYVIEW_H
 #define VOCABULARYVIEW_H
 
-#include <QtGui/QTableView>
+#include <QtWidgets/QTableView>
 #include "vocabulary.h"
 
 class VocabularyView : public QTableView

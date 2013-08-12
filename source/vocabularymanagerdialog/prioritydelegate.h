@@ -1,7 +1,7 @@
 #ifndef PRIORITYDELEGATE_H
 #define PRIORITYDELEGATE_H
 
-#include <QtGui/QStyledItemDelegate>
+#include <QtWidgets/QStyledItemDelegate>
 
 class PriorityDelegate : public QStyledItemDelegate
 {

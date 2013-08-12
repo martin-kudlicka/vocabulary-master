@@ -1,6 +1,6 @@
 #include "imp-plaintext.h"
 
-#include <QtGui/QBoxLayout>
+#include <QtWidgets/QBoxLayout>
 
 const QString TEMPLATE_MARK = "${%1}";
 
@@ -101,5 +101,3 @@ const void ImpPlaintext::SetupUI(QGroupBox *pParent)
     QBoxLayout *pLayout = qobject_cast<QBoxLayout *>(pParent->layout());
     pLayout->insertWidget(WIDGET_POSITION, _piwWidget);
 } // SetupUI
-
-Q_EXPORT_PLUGIN2(imp-plaintext, ImpPlaintext)

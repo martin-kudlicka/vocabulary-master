@@ -1,6 +1,6 @@
 #include "exp-plaintext.h"
 
-#include <QtGui/QFileDialog>
+#include <QtWidgets/QFileDialog>
 #include <QtCore/QTextStream>
 
 const void ExpPlaintext::BeginExport() const
@@ -87,5 +87,3 @@ const void ExpPlaintext::SetupUI(QWidget *pParent)
     connect(_pewWidget, SIGNAL(VocabularyGetRecordCount(const int &, int *)), SLOT(on_pewWidget_VocabularyGetRecordCount(const int &, int *)));
     connect(_pewWidget, SIGNAL(VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)), SLOT(on_pewWidget_VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)));
 } // SetupUI
-
-Q_EXPORT_PLUGIN2(exp-plaintext, ExpPlaintext)

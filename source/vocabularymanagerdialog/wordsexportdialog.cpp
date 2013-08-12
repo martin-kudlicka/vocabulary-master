@@ -120,7 +120,7 @@ WordsExportDialog::WordsExportDialog(const Vocabulary *pVocabulary, const Plugin
         _qdweWordsExport.qtvFields->openPersistentEditor(qmiIndex);
     } // for
 	for (int iColumn = 0; iColumn < _qdweWordsExport.qtvFields->header()->count(); iColumn++) {
-		_qdweWordsExport.qtvFields->header()->setResizeMode(iColumn, QHeaderView::Stretch);
+		_qdweWordsExport.qtvFields->header()->setSectionResizeMode(iColumn, QHeaderView::Stretch);
 	} // for
 
 	_qdweWordsExport.qtvCategories->selectAll();

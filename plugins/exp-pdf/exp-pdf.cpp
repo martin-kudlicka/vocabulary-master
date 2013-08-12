@@ -1,6 +1,6 @@
 #include "exp-pdf.h"
 
-#include <QtGui/QFileDialog>
+#include <QtWidgets/QFileDialog>
 #include <QtCore/QTextCodec>
 #include <hpdf.h>
 
@@ -308,5 +308,3 @@ const void ExpPdf::SetupUI(QWidget *pParent)
 
 	_pewWidget->InitMarkFonts();
 } // SetupUI
-
-Q_EXPORT_PLUGIN2(exp-pdf, ExpPdf)

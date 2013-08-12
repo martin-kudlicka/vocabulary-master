@@ -1,9 +1,9 @@
 #ifndef VOCABULARYTABWIDGET_H
 #define VOCABULARYTABWIDGET_H
 
-#include <QtGui/QTabWidget>
+#include <QtWidgets/QTabWidget>
 #ifndef FREE
-# include <QtGui/QTabBar>
+# include <QtWidgets/QTabBar>
 #endif
 
 class VocabularyTabWidget : public QTabWidget

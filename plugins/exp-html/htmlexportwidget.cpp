@@ -1,7 +1,7 @@
 #include "htmlexportwidget.h"
 
 #include <QtGui/QTextTable>
-#include <QtGui/QScrollBar>
+#include <QtWidgets/QScrollBar>
 
 const void HtmlExportWidget::AddTableColumn()
 {
