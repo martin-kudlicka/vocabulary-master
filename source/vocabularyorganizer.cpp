@@ -1,17 +1,17 @@
 #include "vocabularyorganizer.h"
 
-#ifndef TRY
+#ifndef EDITION_TRY
 # include "common/vocabularyopenprogressdialog.h"
 
 const void VocabularyOrganizer::AddExisting(sVocabulary &pVocabulary, QWidget *pParent)
 {
 	pVocabulary.vVocabulary = new Vocabulary;
 
-# ifndef FREE
+# ifndef EDITION_FREE
 	if (pVocabulary.sviVocabularyInfo.bEnabled) {
 # endif
 		Open(&pVocabulary, pParent);
-# ifndef FREE
+# ifndef EDITION_FREE
 	} // if
 # endif
 
@@ -20,21 +20,21 @@ const void VocabularyOrganizer::AddExisting(sVocabulary &pVocabulary, QWidget *p
 #endif
 
 const void VocabularyOrganizer::AddNew(
-#ifndef TRY
+#ifndef EDITION_TRY
 	const QString &pFile
 #endif
 	)
 {
 	sVocabulary svVocabulary;
-#ifndef TRY
+#ifndef EDITION_TRY
 	svVocabulary.sviVocabularyInfo.qsFile = pFile;
 #endif
-#if !defined(FREE) && !defined(TRY)
+#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 	svVocabulary.sviVocabularyInfo.bEnabled = true;
 #endif
 	svVocabulary.vVocabulary = new Vocabulary;
 	svVocabulary.vVocabulary->New(
-#ifndef TRY
+#ifndef EDITION_TRY
 		pFile
 #endif
 		);
@@ -113,14 +113,14 @@ const bool VocabularyOrganizer::IsOpen() const
 	return false;
 } // IsOpen
 
-#ifndef TRY
+#ifndef EDITION_TRY
 const void VocabularyOrganizer::Open(sVocabulary *pVocabulary, QWidget *pParent)
 {
 	VocabularyOpenProgressDialog vopdOpenProgress(pVocabulary->vVocabulary, pParent);
 	vopdOpenProgress.show();
 	pVocabulary->vVocabulary->Open(pVocabulary->sviVocabularyInfo.qsFile);
 
-# ifndef FREE
+# ifndef EDITION_FREE
 	if (!pVocabulary->vVocabulary->IsOpen()) {
 		pVocabulary->sviVocabularyInfo.bEnabled = false;
 	} // if
@@ -149,7 +149,7 @@ const void VocabularyOrganizer::Remove(const int &pIndex)
 	delete vVocabulary;
 } // Remove
 
-#ifndef TRY
+#ifndef EDITION_TRY
 const void VocabularyOrganizer::SaveAll()
 {
 	int iVocabularies = _qlVocabularies.size();
@@ -160,7 +160,7 @@ const void VocabularyOrganizer::SaveAll()
 	_sSettings->SetVocabularyCount(iVocabularies);
 } // SaveAll
 
-# ifndef FREE
+# ifndef EDITION_FREE
 const void VocabularyOrganizer::SetVocabularyEnabled(const int &pIndex, const bool &pEnabled, QWidget *pParent)
 {
 	sVocabulary *svVocabulary = &_qlVocabularies[pIndex];

@@ -7,7 +7,7 @@ void VocabularySettingsDialog::accept()
 	QDialog::accept();
 } // accept
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void VocabularySettingsDialog::ActualizeFieldsEditor() const
 {
     for (int iRow = 0; iRow < _fmFieldsModel.rowCount(); iRow++) {
@@ -41,7 +41,7 @@ const void VocabularySettingsDialog::FillOptions()
     // languages
     _qdvsdVocabularySettingsDialog.leLanguageLeft->setText(_vVocabulary->GetLanguageName(VocabularyDatabase::FieldLanguageLeft));
     _qdvsdVocabularySettingsDialog.leLanguageRight->setText(_vVocabulary->GetLanguageName(VocabularyDatabase::FieldLanguageRight));
-#ifndef FREE
+#ifndef EDITION_FREE
     FillSpeech(_qdvsdVocabularySettingsDialog.qcbSpeechLeft, QString::number(_vVocabulary->GetLanguageSpeech(VocabularyDatabase::FieldLanguageLeft)), _vVocabulary->GetLanguageVoice(VocabularyDatabase::FieldLanguageLeft));
 	FillSpeech(_qdvsdVocabularySettingsDialog.qcbSpeechRight, QString::number(_vVocabulary->GetLanguageSpeech(VocabularyDatabase::FieldLanguageRight)), _vVocabulary->GetLanguageVoice(VocabularyDatabase::FieldLanguageRight));
 
@@ -53,7 +53,7 @@ const void VocabularySettingsDialog::FillOptions()
 #endif
 } // FillOptions
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void VocabularySettingsDialog::FillSpeech(QComboBox *pComboBox, const QString &pSpeech, const QString &pVoice)
 {
 	int iSpeech = _vVocabulary->GetSettings(pSpeech).toInt();
@@ -197,7 +197,7 @@ const void VocabularySettingsDialog::RefreshLanguageNameFields() const
 const void VocabularySettingsDialog::SaveOptions()
 {
     // languages
-#ifdef FREE
+#ifdef EDITION_FREE
     _vVocabulary->SetLanguageName(VocabularyDatabase::FieldLanguageLeft, _qdvsdVocabularySettingsDialog.leLanguageLeft->text());
     _vVocabulary->SetLanguageName(VocabularyDatabase::FieldLanguageRight, _qdvsdVocabularySettingsDialog.leLanguageRight->text());
 #else
@@ -217,21 +217,21 @@ const void VocabularySettingsDialog::SaveOptions()
 } // SaveOptions
 
 VocabularySettingsDialog::VocabularySettingsDialog(Vocabulary *pVocabulary,
-#ifndef FREE
+#ifndef EDITION_FREE
     const Plugins *pPlugins,
 #endif
     QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
-#ifndef FREE
+#ifndef EDITION_FREE
     , _fmFieldsModel(pVocabulary), _lfdLanguageDelegate(pVocabulary)
 #endif
 {
 	_vVocabulary = pVocabulary;
-#ifndef FREE
+#ifndef EDITION_FREE
 	_pPlugins = pPlugins;
 #endif
 
 	_qdvsdVocabularySettingsDialog.setupUi(this);
-#ifdef FREE
+#ifdef EDITION_FREE
     delete _qdvsdVocabularySettingsDialog.qgbSpeech;
     _qdvsdVocabularySettingsDialog.qtwTabs->removeTab(TabFields);
 	_qdvsdVocabularySettingsDialog.qtwTabs->removeTab(TabTemplates);

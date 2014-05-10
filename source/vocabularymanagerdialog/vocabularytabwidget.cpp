@@ -1,6 +1,6 @@
 #include "vocabularymanagerdialog/vocabularytabwidget.h"
 
-#ifndef FREE
+#ifndef EDITION_FREE
 # include <QtWidgets/QCheckBox>
 # include <QtWidgets/QSpinBox>
 
@@ -62,7 +62,7 @@ const void VocabularyTabWidget::SetShowPriorities(const bool &pEnabled)
 
 VocabularyTabWidget::VocabularyTabWidget(QWidget *pParent /* NULL */) : QTabWidget(pParent)
 {
-#ifndef FREE
+#ifndef EDITION_FREE
     _bShowEnabled = true;
 	_bShowPriorities = true;
 #endif

@@ -1,6 +1,6 @@
 #include "vocabularyorganizerdialog/vocabularyorganizermodel.h"
 
-#ifndef TRY
+#ifndef EDITION_TRY
 # include <QtCore/QDir>
 #endif
 
@@ -22,7 +22,7 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 			switch (role) {
 				case Qt::DisplayRole:
 					{
-#ifdef TRY
+#ifdef EDITION_TRY
 						return _voOrganizer->GetVocabularyInfo(index.row()).vVocabulary->GetName();
 #else
 						QString qsFile = _voOrganizer->GetVocabularyInfo(index.row()).sviVocabularyInfo.qsFile;
@@ -32,7 +32,7 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 				default:
 					return QVariant();
 			} // switch
-#if !defined(FREE) && !defined(TRY)
+#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 		case ColumnEnabled:
 			switch (role) {
 				case Qt::CheckStateRole:
@@ -53,7 +53,7 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 	} // switch
 } // data
 
-#if !defined(FREE) && !defined(TRY)
+#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 Qt::ItemFlags VocabularyOrganizerModel::flags(const QModelIndex &index) const
 {
 	Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index);
@@ -73,7 +73,7 @@ QVariant VocabularyOrganizerModel::headerData(int section, Qt::Orientation orien
 			switch (section) {
 				case ColumnVocabularyFile:
 					return tr("Vocabulary");
-#if !defined(FREE) && !defined(TRY)
+#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 				case ColumnEnabled:
 					return tr("Enabled");
 #endif
@@ -98,7 +98,7 @@ int VocabularyOrganizerModel::rowCount(const QModelIndex &parent /* QModelIndex(
 	} // if else
 } // rowCount
 
-#if !defined(FREE) && !defined(TRY)
+#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 bool VocabularyOrganizerModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)
 {
 	switch (index.column()) {

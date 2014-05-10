@@ -2,24 +2,24 @@
 #define VOCABULARYTABWIDGET_H
 
 #include <QtWidgets/QTabWidget>
-#ifndef FREE
+#ifndef EDITION_FREE
 # include <QtWidgets/QTabBar>
 #endif
 
 class VocabularyTabWidget : public QTabWidget
 {
-#ifndef FREE
+#ifndef EDITION_FREE
     Q_OBJECT
 #endif
 
     public:
-#ifndef FREE
+#ifndef EDITION_FREE
         static const int CATEGORY_PRIORITY_MAX = 9;
 #endif
 
         VocabularyTabWidget(QWidget *pParent = NULL);
 
-#ifndef FREE
+#ifndef EDITION_FREE
         int addTab(QWidget *page, const QString &label, const bool &pEnabled, const int &pPriority);
         const void SetShowEnabled(const bool &pEnabled);
 		const void SetShowPriorities(const bool &pEnabled);

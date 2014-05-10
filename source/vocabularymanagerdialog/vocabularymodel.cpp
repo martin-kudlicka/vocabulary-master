@@ -1,6 +1,6 @@
 #include "vocabularymanagerdialog/vocabularymodel.h"
 
-#ifndef FREE
+#ifndef EDITION_FREE
 # include "vocabularymanagerdialog/prioritydelegate.h"
 #endif
 
@@ -28,7 +28,7 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 				default:
 					return QVariant();
 			} // switch
-#ifndef FREE
+#ifndef EDITION_FREE
 		case VocabularyDatabase::FieldTypeCheckBox:
 			switch (role) {
 				case Qt::CheckStateRole:
@@ -63,7 +63,7 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 	return QVariant();
 } // data
 
-#ifndef FREE
+#ifndef EDITION_FREE
 Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
 {
 	Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index);

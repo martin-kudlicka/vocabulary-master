@@ -1,6 +1,6 @@
 #include "vocabularymanagerdialog/vocabularyview.h"
 
-#ifndef FREE
+#ifndef EDITION_FREE
 #include <QtGui/QMouseEvent>
 #include <QtWidgets/QSpinBox>
 #include <QtCore/QCoreApplication>
@@ -59,12 +59,12 @@ void VocabularyView::mousePressEvent(QMouseEvent *event)
 #endif
 
 VocabularyView::VocabularyView(
-#ifndef FREE
+#ifndef EDITION_FREE
     Vocabulary *pVocabulary,
 #endif
     QWidget *pParent /* NULL */) : QTableView(pParent)
 {
-#ifndef FREE
+#ifndef EDITION_FREE
     _vVocabulary = pVocabulary;
 
     setMouseTracking(true);

@@ -3,11 +3,11 @@
 #include <QtWidgets/QInputDialog>
 #include "vocabularymanagerdialog/vocabularymodel.h"
 #include "vocabularymanagerdialog/vocabularysettingsdialog.h"
-#ifndef FREE
+#ifndef EDITION_FREE
 # include "vocabularymanagerdialog/wordsimportdialog.h"
 #endif
 #include <QtWidgets/QFileDialog>
-#ifndef FREE
+#ifndef EDITION_FREE
 # include "common/vocabularyopenprogressdialog.h"
 # include "vocabularymanagerdialog/wordsexportdialog.h"
 # include "vocabularymanagerdialog/prioritydelegate.h"
@@ -24,14 +24,14 @@ VocabularyManagerDialog::~VocabularyManagerDialog()
 const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
 {
     VocabularyView *vvVocabularyView = new VocabularyView(
-#ifndef FREE
+#ifndef EDITION_FREE
 		_vVocabulary,
 #endif
 		_qdvmVocabularyManager.vtwTabs);
 	vvVocabularyView->setSelectionBehavior(QAbstractItemView::SelectRows);
     vvVocabularyView->setModel(new VocabularyModel(_vVocabulary, pCategoryId, vvVocabularyView));
     HideColumns(vvVocabularyView);
-#ifndef FREE
+#ifndef EDITION_FREE
 	SetPriorityDelegate(vvVocabularyView);
     vvVocabularyView->setEditTriggers(QAbstractItemView::AllEditTriggers);
 #endif
@@ -41,11 +41,11 @@ const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
 
     VocabularyTabWidget *vtwTabs = _qdvmVocabularyManager.vtwTabs;
     int iTab = vtwTabs->addTab(vvVocabularyView, _vVocabulary->GetCategoryName(pCategoryId)
-#ifndef FREE
+#ifndef EDITION_FREE
         , _vVocabulary->GetCategoryEnabled(pCategoryId), _vVocabulary->GetCategoryPriority(pCategoryId)
 #endif
         );
-#ifndef FREE
+#ifndef EDITION_FREE
     vtwTabs->setTabEnabled(iTab, _vVocabulary->GetCategoryEnabled(pCategoryId));
 #endif
 } // AddTab
@@ -55,7 +55,7 @@ const void VocabularyManagerDialog::EnableTabControls() const
 	_qdvmVocabularyManager.qpbCategoryRemove->setEnabled(_qdvmVocabularyManager.vtwTabs->currentWidget());
 	_qdvmVocabularyManager.qpbWordAdd->setEnabled(_qdvmVocabularyManager.vtwTabs->currentWidget() && _qdvmVocabularyManager.vtwTabs->isTabEnabled(_qdvmVocabularyManager.vtwTabs->currentIndex()));
 
-#ifndef FREE
+#ifndef EDITION_FREE
     _qdvmVocabularyManager.qpbWordImport->setEnabled(_qdvmVocabularyManager.vtwTabs->currentWidget());
     _qdvmVocabularyManager.qpbWordExport->setEnabled(_qdvmVocabularyManager.vtwTabs->currentWidget());
 #endif
@@ -72,12 +72,12 @@ const void VocabularyManagerDialog::EnableWordControls() const
 	} // if else
 
 	_qdvmVocabularyManager.qpbWordRemove->setEnabled(qismSelection && qtvVocabularyView->isEnabled() && qismSelection->hasSelection());
-#ifndef FREE
+#ifndef EDITION_FREE
 	_qdvmVocabularyManager.qpbWordCopyMove->setEnabled(qismSelection && qtvVocabularyView->isEnabled() && qismSelection->hasSelection());
 #endif
 } // EnableWordControls
 
-#ifndef FREE
+#ifndef EDITION_FREE
 int VocabularyManagerDialog::ExecOnRecord(const int &pRecordId)
 {
     FocusOnRecord(pRecordId);
@@ -107,7 +107,7 @@ const void VocabularyManagerDialog::FocusOnRecord(const int &pRecordId) const
     qtvVocabularyView->setCurrentIndex(vmVocabularyModel->index(_vVocabulary->GetRow(pRecordId, iCategory), 0));
 } // FocusOnRecord
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void VocabularyManagerDialog::HideColumns() const
 {
 	for (int iTab = 0; iTab < _qdvmVocabularyManager.vtwTabs->count(); iTab++) {
@@ -121,7 +121,7 @@ const void VocabularyManagerDialog::HideColumns(VocabularyView *pTableView) cons
 {
 	int iColumn = 0;
 	foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
-#ifdef FREE
+#ifdef EDITION_FREE
 		if (!_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
 #else
 		if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeShow)) {
@@ -155,7 +155,7 @@ const void VocabularyManagerDialog::InitEditor()
 		// check if visible or builtin field
 		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
         if (
-#ifndef FREE
+#ifndef EDITION_FREE
 			!(qfaAttributes & VocabularyDatabase::FieldAttributeShow) ||
 #endif
 			qfaAttributes & VocabularyDatabase::FieldAttributeBuiltIn) {
@@ -186,7 +186,7 @@ const void VocabularyManagerDialog::InitEditor()
 const void VocabularyManagerDialog::InitTabs()
 {
     VocabularyTabWidget *vtwTabs = _qdvmVocabularyManager.vtwTabs;
-#ifndef FREE
+#ifndef EDITION_FREE
     vtwTabs->SetShowEnabled(_sSettings->GetCanEnableCategories());
 	vtwTabs->SetShowPriorities(_sSettings->GetCanChangeCategoryPriority());
 #endif
@@ -257,12 +257,12 @@ const void VocabularyManagerDialog::on_qpbSearch_clicked(bool checked /* false *
 const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checked /* false */)
 {
 	VocabularySettingsDialog vsdSettings(_vVocabulary,
-#ifndef FREE
+#ifndef EDITION_FREE
         _pPlugins,
 #endif
         this);
 
-#ifndef FREE
+#ifndef EDITION_FREE
 	int iOldColumnCount = _vVocabulary->GetFieldCount();
 #endif
 
@@ -270,7 +270,7 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
     _vVocabulary->BeginEdit();
 
     if (vsdSettings.exec() == QDialog::Accepted) {
-#ifndef FREE
+#ifndef EDITION_FREE
 		if (iOldColumnCount != _vVocabulary->GetFieldCount()) {
 			ReassignModels();
 		} // if
@@ -302,7 +302,7 @@ const void VocabularyManagerDialog::on_qpbWordAdd_clicked(bool checked /* false 
     } // if
 } // on_qpbWordAdd_clicked
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void VocabularyManagerDialog::on_qpbWordCopyMove_clicked(bool checked /* false */)
 {
 	// get selected records
@@ -354,7 +354,7 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
             VocabularyOpenProgressDialog vopdOpenProgress(_vVocabulary, this);
             vopdOpenProgress.show();
 			_vVocabulary->Close();
-# ifdef TRY
+# ifdef EDITION_TRY
             _vVocabulary->OpenMemory();
 # else
             _vVocabulary->Open(_vVocabulary->GetVocabularyFile());
@@ -387,7 +387,7 @@ const void VocabularyManagerDialog::on_vtwTabs_currentChanged(int index) const
 	EnableWordControls();
 } // on_vtwTabs_currentChanged
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void VocabularyManagerDialog::on_vtwTabs_TabEnableChanged(const int &pIndex, const Qt::CheckState &pState) const
 {
     _vVocabulary->SetCategoryEnabled(_qlCategories.at(pIndex), pState);
@@ -416,7 +416,7 @@ const void VocabularyManagerDialog::on_vvVocabularyViewSelectionModel_selectionC
     EnableWordControls();
 } // on_vvVocabularyViewSelectionModel_selectionChanged
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void VocabularyManagerDialog::ReassignModels() const
 {
     for (int iTab = 0; iTab < _qdvmVocabularyManager.vtwTabs->count(); iTab++) {
@@ -476,7 +476,7 @@ const void VocabularyManagerDialog::StretchColumns() const
 const void VocabularyManagerDialog::StretchColumns(const VocabularyView *pTableView) const
 {
 	for (int iColumn = 0; iColumn < pTableView->horizontalHeader()->count(); iColumn++) {
-#ifndef FREE
+#ifndef EDITION_FREE
 		int iFieldId = _vVocabulary->GetFieldId(iColumn);
 		if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
 			pTableView->horizontalHeader()->setSectionResizeMode(iColumn, QHeaderView::Fixed);
@@ -484,13 +484,13 @@ const void VocabularyManagerDialog::StretchColumns(const VocabularyView *pTableV
 		} else {
 #endif
 			pTableView->horizontalHeader()->setSectionResizeMode(iColumn, QHeaderView::Stretch);
-#ifndef FREE
+#ifndef EDITION_FREE
 		} // if else
 #endif
 	} // for
 } // StretchColumns
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void VocabularyManagerDialog::UninitEditor() const
 {
     QLayoutItem *qliItem;
@@ -544,20 +544,20 @@ const void VocabularyManagerDialog::UpdateEditor(const eEditorColumn &pControlsC
 } // UpdateEditor
 
 VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *pVocabulary,
-#ifndef FREE
+#ifndef EDITION_FREE
     const Settings *pSettings,
     const Plugins *pPlugins,
 #endif
     QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags | Qt::WindowMaximizeButtonHint)
 {
     _vVocabulary = pVocabulary;
-#ifndef FREE
+#ifndef EDITION_FREE
     _sSettings = pSettings;
 	_pPlugins = pPlugins;
 #endif
 
     _qdvmVocabularyManager.setupUi(this);
-#ifdef FREE
+#ifdef EDITION_FREE
 	delete _qdvmVocabularyManager.qpbWordCopyMove;
     delete _qdvmVocabularyManager.qpbWordImport;
 	delete _qdvmVocabularyManager.qpbWordExport;
@@ -567,13 +567,13 @@ VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *pVocabulary,
 
     InitTabs();
 	InitEditor();
-#ifndef FREE
+#ifndef EDITION_FREE
     SelectFirstEnabledTab();
 #endif
 
 	EnableTabControls();
 
-#ifndef FREE
+#ifndef EDITION_FREE
     connect(_qdvmVocabularyManager.vtwTabs, SIGNAL(TabEnableChanged(const int &, const Qt::CheckState &)), SLOT(on_vtwTabs_TabEnableChanged(const int &, const Qt::CheckState &)));
 	connect(_qdvmVocabularyManager.vtwTabs, SIGNAL(TabPriorityChanged(const int &, const int &)), SLOT(on_vtwTabs_TabPriorityChanged(const int &, const int &)));
 #endif

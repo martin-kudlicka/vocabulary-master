@@ -7,7 +7,7 @@ const QString DIR_LANG = "lang";
 
 class Settings
 {
-#ifndef FREE
+#ifndef EDITION_FREE
 # ifdef Q_OS_WIN
     Q_ENUMS(eHotkey)
 # endif
@@ -15,7 +15,7 @@ class Settings
 #endif
 
 	public:
-#ifndef FREE
+#ifndef EDITION_FREE
 # ifdef Q_OS_WIN
         enum eHotkey {
             HotkeyAnswer,
@@ -31,7 +31,7 @@ class Settings
         }; // eNewWordSoundType
 #endif
 
-#ifndef FREE
+#ifndef EDITION_FREE
 # ifdef Q_OS_WIN
 		struct sHotKeyInfo {
 			QString qsText;
@@ -40,23 +40,23 @@ class Settings
 # endif
 #endif
 		struct sVocabularyInfo {
-#ifndef TRY
+#ifndef EDITION_TRY
 			QString qsFile;
 #endif
-#if !defined(FREE) && !defined(TRY)
+#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 			bool bEnabled;
 #endif
 		}; // sVocabularyInfo
 
 		static const int DEFAULT_DIMENSION = -1;
-#ifdef FREE
-		static const int FREE_VOCABULARIES_MAX = 1;
+#ifdef EDITION_FREE
+		static const int EDITION_FREE_VOCABULARIES_MAX = 1;
 #endif
 
 		Settings();
 
         const bool GetAlwaysOnTop() const;
-#ifndef FREE
+#ifndef EDITION_FREE
         const bool GetCanChangeCategoryPriority() const;
         const bool GetCanEnableCategories() const;
         const QString GetColorFlash() const;
@@ -78,7 +78,7 @@ class Settings
 		const quint16 GetProxyPort() const;
 		const QNetworkProxy::ProxyType GetProxyType() const;
 		const QString GetProxyUsername() const;
-#ifndef FREE
+#ifndef EDITION_FREE
         const bool GetRememberWindowPosition() const;
 		const bool GetShowCategoryName() const;
 		const bool GetShowLanguageNames() const;
@@ -89,18 +89,18 @@ class Settings
 		const bool GetStartLearningOnStartup() const;
 #endif
 		const Qt::CheckState GetSwitchLearningDirection() const;
-#ifndef FREE
+#ifndef EDITION_FREE
         const bool GetSystemTrayIcon() const;
 #endif
         const QString GetTranslation() const;
 		const bool GetUpdateCheck() const;
 		const bool GetUseProxy() const;
-#ifndef TRY
+#ifndef EDITION_TRY
 		const int GetVocabularyCount();
 		const sVocabularyInfo GetVocabularyInfo(const int &pIndex);
 #endif
 		const int GetWaitForAnswer() const;
-#ifndef FREE
+#ifndef EDITION_FREE
 		const int GetWindowHeight() const;
 		const int GetWindowWidth() const;
 		const int GetWindowX() const;
@@ -108,7 +108,7 @@ class Settings
 #endif
         const int GetWordsFrequency() const;
         const void SetAlwaysOnTop(const bool &pEnable);
-#ifndef FREE
+#ifndef EDITION_FREE
         const void SetCanChangeCategoryPriority(const bool &pEnable);
         const void SetCanEnableCategories(const bool &pEnable);
         const void SetColorFlash(const QString &pColor);
@@ -130,7 +130,7 @@ class Settings
 		const void SetProxyPort(const quint16 &pPort);
 		const void SetProxyType(const QNetworkProxy::ProxyType &pType);
 		const void SetProxyUsername(const QString &pUsername);
-#ifndef FREE
+#ifndef EDITION_FREE
         const void SetRememberWindowPosition(const bool &pEnable);
 		const void SetShowCategoryName(const bool &pShow);
 		const void SetShowLanguageNames(const bool &pShow);
@@ -141,17 +141,17 @@ class Settings
 		const void SetStartLearningOnStartup(const bool &pEnable);
 #endif
 		const void SetSwitchLearningDirection(const Qt::CheckState &pSwitch);
-#ifndef FREE
+#ifndef EDITION_FREE
         const void SetSystemTrayIcon(const bool &pEnable);
 #endif
         const void SetTranslation(const QString &pTranslation);
 		const void SetUpdateCheck(const bool &pCheck);
 		const void SetUseProxy(const bool &pUse);
-#ifndef TRY
+#ifndef EDITION_TRY
 		const void SetVocabularyCount(const int &pCount);
 		const void SetVocabularyInfo(const int &pIndex, const sVocabularyInfo &pInfo);
 #endif
-#ifndef FREE
+#ifndef EDITION_FREE
 		const void SetWaitForAnswer(const int &pTime);
 		const void SetWindowHeight(const int &pHeight);
 		const void SetWindowWidth(const int &pWidth);
@@ -164,7 +164,7 @@ class Settings
 		static const int DEFAULT_FREQUENCY = 60;
 		static const int DEFAULT_WAIT = 0;
 
-#ifndef TRY
+#ifndef EDITION_TRY
 		enum eVersion {
 			Version1,
 			Version2,
@@ -176,12 +176,12 @@ class Settings
 
 		QSettings _qsSettings;
 
-#if !defined(FREE) && defined(Q_OS_WIN)
+#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
         const QString GetHotkeyKey(const eHotkey &pType) const;
 		const QString GetHotkeyKeyText(const eHotkey &pType) const;
 		const QString GetHotkeyKeyVirtualKey(const eHotkey &pType) const;
 #endif
-#ifndef TRY
+#ifndef EDITION_TRY
 		const void UpdateSettings();
 #endif
 }; // Settings

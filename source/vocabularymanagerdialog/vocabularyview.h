@@ -10,12 +10,12 @@ class VocabularyView : public QTableView
 
     public:
         VocabularyView(
-#ifndef FREE
+#ifndef EDITION_FREE
             Vocabulary *pVocabulary,
 #endif
             QWidget *pParent = NULL);
 
-#ifndef FREE
+#ifndef EDITION_FREE
     private:
         virtual bool eventFilter(QObject *watched, QEvent *event);
         virtual void mouseMoveEvent(QMouseEvent *event);

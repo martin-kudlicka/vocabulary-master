@@ -3,7 +3,7 @@
 
 #include <ui_vocabularysettingsdialog.h>
 
-#ifdef FREE
+#ifdef EDITION_FREE
 # include "vocabulary.h"
 #else
 # include "vocabularymanagerdialog/vocabularysettingsdialog/fieldsmodel.h"
@@ -18,13 +18,13 @@ class VocabularySettingsDialog : public QDialog
 
 	public:
 		VocabularySettingsDialog(Vocabulary *pVocabulary,
-#ifndef FREE
+#ifndef EDITION_FREE
             const Plugins *pPlugins,
 #endif
             QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 	private:
-#ifdef FREE
+#ifdef EDITION_FREE
 		enum eTab {
 			TabLanguages,
 			TabTemplates,
@@ -48,12 +48,12 @@ class VocabularySettingsDialog : public QDialog
 		const Vocabulary *_vVocabulary;
 
 		virtual void accept();
-#ifndef FREE
+#ifndef EDITION_FREE
         const void ActualizeFieldsEditor() const;
 		const void ActualizeFieldsEditor(const int &pRow) const;
 #endif
 		const void FillOptions();
-#ifndef FREE
+#ifndef EDITION_FREE
 		const void FillSpeech(QComboBox *pComboBox, const QString &pSpeech, const QString &pVoice);
         const void PrepareFields();
         const void PreparePlugins();
@@ -62,7 +62,7 @@ class VocabularySettingsDialog : public QDialog
 #endif
 		const void SaveOptions();
 
-#ifndef FREE
+#ifndef EDITION_FREE
 	private slots:
         const void on_leLanguageLeft_textEdited(const QString &text) const;
         const void on_leLanguageRight_textEdited(const QString &text) const;

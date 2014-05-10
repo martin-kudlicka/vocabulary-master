@@ -10,7 +10,7 @@ const int Vocabulary::AddCategory(const QString &pName)
 	return iCategoryId;
 } // AddCategory
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void Vocabulary::AddField()
 {
     int iFieldId = VocabularyDatabase::AddField();
@@ -26,7 +26,7 @@ const void Vocabulary::AddRecord(const int &pCategoryId)
 	_tcrmCategoryRecords[pCategoryId].append(iRecordId);
 } // AddRecord
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void Vocabulary::AddRecord(const int &pCategoryId, const QStringList &pData)
 {
 	int iRecordId = VocabularyDatabase::AddRecord(pCategoryId, pData);
@@ -106,7 +106,7 @@ const VocabularyDatabase::qfFieldAttributes Vocabulary::GetFieldAttributes(const
     return _tfdmFieldData.value(pFieldId).qfaAttributes;
 } // GetFieldAttributes
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const VocabularyDatabase::eFieldBuiltIn Vocabulary::GetFieldBuiltIn(const int &pFieldId) const
 {
     return _tfdmFieldData.value(pFieldId).efbBuiltIn;
@@ -126,7 +126,7 @@ const Vocabulary::sFieldData Vocabulary::GetFieldData(const int &pFieldId) const
     sfdFieldData.qsName = VocabularyDatabase::GetFieldName(pFieldId);
 	sfdFieldData.eftType = VocabularyDatabase::GetFieldType(pFieldId);
 	sfdFieldData.qfaAttributes = VocabularyDatabase::GetFieldAttributes(pFieldId);
-#ifndef FREE
+#ifndef EDITION_FREE
     sfdFieldData.efbBuiltIn = VocabularyDatabase::GetFieldBuiltIn(pFieldId);
 #endif
     sfdFieldData.eflLanguage = VocabularyDatabase::GetFieldLanguage(pFieldId);
@@ -173,7 +173,7 @@ const VocabularyDatabase::eFieldType Vocabulary::GetFieldType(const int &pFieldI
     return _tfdmFieldData.value(pFieldId).eftType;
 } // GetFieldType
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const QStringList Vocabulary::GetRecord(const int &pRecordId) const
 {
     QStringList qslData;
@@ -214,7 +214,7 @@ const int Vocabulary::GetRecordCount(const int &pCategoryId) const
 	return _tcrmCategoryRecords.value(pCategoryId).size();
 } // GetRecordCount
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const int Vocabulary::GetRecordCount(const int &pCategoryId, const bool &pEnabled) const
 {
 	int iRecordCount = 0;
@@ -317,20 +317,20 @@ const void Vocabulary::InitCache()
 } // InitCache
 
 const void Vocabulary::New(
-#ifndef TRY
+#ifndef EDITION_TRY
 	const QString &pFilePath
 #endif
 	)
 {
 	VocabularyDatabase::New(
-#ifndef TRY
+#ifndef EDITION_TRY
 		pFilePath
 #endif
 		);
 	InitCache();
 } // New
 
-#ifndef TRY
+#ifndef EDITION_TRY
 const void Vocabulary::Open(const QString &pFilePath)
 {
 	VocabularyDatabase::Open(pFilePath);
@@ -355,7 +355,7 @@ const void Vocabulary::RemoveCategory(const int &pCategoryId)
 	VocabularyDatabase::RemoveCategory(pCategoryId);
 } // RemoveCategory
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void Vocabulary::RemoveField(const int &pFieldId)
 {
     for (tRecordDataHash::iterator iFieldData = _trdhRecordData->begin(); iFieldData != _trdhRecordData->end(); iFieldData++) {
@@ -386,7 +386,7 @@ const void Vocabulary::SetDataText(const int &pRecordId, const int &pFieldId, co
     VocabularyDatabase::SetDataText(pRecordId, pFieldId, pData);
 } // SetDataText
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void Vocabulary::SetFieldAttributes(const int &pFieldId, const VocabularyDatabase::qfFieldAttributes &pAttributes)
 {
     _tfdmFieldData[pFieldId].qfaAttributes = pAttributes;

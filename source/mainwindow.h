@@ -5,13 +5,13 @@
 #include <ui_mainwindow.h>
 
 #include <QtWidgets/QProgressBar>
-#ifndef FREE
+#ifndef EDITION_FREE
 # include <QtWidgets/QBoxLayout>
 # include "plugins.h"
 # include <QtWidgets/QSystemTrayIcon>
 #endif
 #include <QtCore/QTranslator>
-#ifndef FREE
+#ifndef EDITION_FREE
 # include "license.h"
 #endif
 #include "updatechecker.h"
@@ -29,19 +29,19 @@ class MainWindow : public QMainWindow
 	private:
 		enum eTemplate {
 			TemplateLearning
-#ifndef FREE
+#ifndef EDITION_FREE
 			, TemplateTray
 #endif
 		}; // eTemplate
 
-#ifndef FREE
+#ifndef EDITION_FREE
 		static const int FLASH_COUNT = 3;
 		static const int FLASH_WAIT = 100;
 		static const int MAX_NEXTRECORD_TRIES = 9999;
 #endif
 		static const int MILISECONDS_PER_SECOND = 1000;
         static const int RECORD_NONE = -1;
-#ifndef FREE
+#ifndef EDITION_FREE
         static const int SAY_BEEP_WAIT = 500;
 #endif
         static const int TIME_NONE = -1;
@@ -51,8 +51,8 @@ class MainWindow : public QMainWindow
 		bool _bLearning;
         int _iTimeAnswer;
 		int _iTimeQuestion;
-#ifndef FREE
-# ifndef TRY
+#ifndef EDITION_FREE
+# ifndef EDITION_TRY
         License *_lLicense;
 # endif
 		Plugins _pPlugins;
@@ -62,12 +62,12 @@ class MainWindow : public QMainWindow
         QHBoxLayout *_qhblInner;
 #endif
         QLabel _qlVocabularyStatus;
-#ifndef FREE
+#ifndef EDITION_FREE
 		QMenu _qmTray;
 		QMenu _qmTrayVocabularies;
 #endif
         QProgressBar _qpbTimer;
-#ifndef FREE
+#ifndef EDITION_FREE
         QSystemTrayIcon _qstiTrayIcon;
 #endif
 		QTimer _qtLearning;
@@ -79,7 +79,7 @@ class MainWindow : public QMainWindow
 		VocabularyOrganizer _voOrganizer;
 
         const void ApplySettings(const bool &pStartup);
-#ifndef FREE
+#ifndef EDITION_FREE
 		const void CreateTrayMenu();
 #endif
 		const void CreateVocabulariesMenu();
@@ -88,41 +88,41 @@ class MainWindow : public QMainWindow
         const QString GetLanguageText(const bool &pDirectionSwitched, const bool &pAnswer) const;
 		const bool GetLearningDirection() const;
         const QString GetLearningText(const eTemplate &pTemplate, const bool &pDirectionSwitched, const bool &pAnswer) const;
-#ifndef FREE
+#ifndef EDITION_FREE
         const int GetRecordPriority() const;
 #endif
         const void OpenVocabulary(Vocabulary *pVocabulary
-#ifndef FREE
+#ifndef EDITION_FREE
             , const bool &pCurrentRecord
 #endif
             );
         const void RefreshStatusBar();
-#ifndef FREE
+#ifndef EDITION_FREE
 # ifdef Q_OS_WIN
         const void RegisterHotkeys() const;
 # endif
 		const void Say(const bool &pDirectionSwitched, const bool &pAnswer) const;
 #endif
         const void SetLayout();
-#ifndef FREE
+#ifndef EDITION_FREE
 		const void SetRecordEnabled(const bool &pEnabled);
 		const void SetRecordPriority(const int &pPriority);
 		const void SetupRecordControls() const;
 #endif
         const void ShowAnswer();
-#ifndef FREE
+#ifndef EDITION_FREE
 		const void ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer);
 #endif
-#if !defined(FREE) && defined(Q_OS_WIN)
+#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
 		virtual bool winEvent(MSG *message, long *result);
 #endif
 
 	private slots:
         const void on_qaAbout_triggered(bool checked = false);
-#ifndef FREE
+#ifndef EDITION_FREE
         const void on_qaAnswer_triggered(bool checked = false);
         const void on_qaFindInVocabulary_triggered(bool checked = false);
-# ifndef TRY
+# ifndef EDITION_TRY
         const void on_qaLicense_triggered(bool checked = false);
 # endif
         const void on_qaMute_toggled(bool checked);
@@ -132,12 +132,12 @@ class MainWindow : public QMainWindow
 		const void on_qaSettings_triggered(bool checked = false);
 		const void on_qaStart_triggered(bool checked = false);
 		const void on_qaStop_triggered(bool checked = false);
-#ifndef FREE
+#ifndef EDITION_FREE
 		const void on_qcbRecordEnabled_clicked(bool checked = false);
 		const void on_qmTray_triggered(QAction *action);
 #endif
 		const void on_qmVocabularies_triggered(QAction *action);
-#ifndef FREE
+#ifndef EDITION_FREE
 		const void on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason reason);
 		const void on_qtbPriority1_clicked(bool checked = false);
 		const void on_qtbPriority2_clicked(bool checked = false);
