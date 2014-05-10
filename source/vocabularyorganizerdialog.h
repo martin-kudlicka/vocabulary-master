@@ -17,13 +17,13 @@ class VocabularyOrganizerDialog : public QDialog
 		VocabularyOrganizer *_voOrganizer;
 		VocabularyOrganizerModel _vomModel;
 
-#ifndef TRY
+#ifndef EDITION_TRY
 		virtual void accept();
 #endif
-#ifdef FREE
+#ifdef EDITION_FREE
 		const void EnableControls() const;
 #endif
-#ifndef TRY
+#ifndef EDITION_TRY
 		const QString GetOpenPath() const;
 		virtual void reject();
 #endif
@@ -31,7 +31,7 @@ class VocabularyOrganizerDialog : public QDialog
 	private slots:
 		const void on_qpbClose_clicked(bool checked = false);
 		const void on_qpbNew_clicked(bool checked = false);
-#ifndef TRY
+#ifndef EDITION_TRY
 		const void on_qpbOpen_clicked(bool checked = false);
 #endif
 		const void on_qtvVocabulariesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);

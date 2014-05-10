@@ -5,25 +5,25 @@
 #include <QtCore/QTime>
 #include <QtTest/QTest>
 #include <QtWidgets/QMessageBox>
-#ifndef FREE
+#ifndef EDITION_FREE
 # ifdef Q_OS_WIN
 #  include <qt_windows.h>
 # endif
-# ifndef TRY
+# ifndef EDITION_TRY
 #  include "licensedialog.h"
 # endif
 #endif
-#ifndef FREE
+#ifndef EDITION_FREE
 # include <QtMultimedia/QSound>
 # include "vocabularymanagerdialog/prioritydelegate.h"
 #endif
 #include "vocabularyorganizerdialog.h"
 
-#ifdef FREE
-const char *FREE_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " FREE");
+#ifdef EDITION_FREE
+const char *EDITION_FREE_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " Free edition");
 #endif
-#ifdef TRY
-const char *TRY_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " TRY");
+#ifdef EDITION_TRY
+const char *EDITION_TRY_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " Try edition");
 #endif
 const char *VOCABULARY_MASTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary Master");
 
@@ -39,7 +39,7 @@ const void MainWindow::ApplySettings(const bool &pStartup)
             } // if
 		} // if
 	} // if
-#ifndef FREE
+#ifndef EDITION_FREE
 	_pPlugins.SetLanguage(_sSettings.GetTranslation());
 
 	_umwMainWindow.qtbToolBar->setVisible(_sSettings.GetShowToolBar());
@@ -55,23 +55,23 @@ const void MainWindow::ApplySettings(const bool &pStartup)
     } else {
         setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint);
     } // if else
-#ifndef FREE
+#ifndef EDITION_FREE
     if (pStartup && _sSettings.GetWindowX() != Settings::DEFAULT_DIMENSION) {
         setGeometry(_sSettings.GetWindowX(), _sSettings.GetWindowY(), _sSettings.GetWindowWidth(), _sSettings.GetWindowHeight());
     } // if
 #endif
     show();
 
-#ifndef FREE
+#ifndef EDITION_FREE
     _qstiTrayIcon.setVisible(_sSettings.GetSystemTrayIcon());
 #endif
 
-#if !defined(FREE) && defined(Q_OS_WIN)
+#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
 	RegisterHotkeys();
 #endif
 } // ApplySettings
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void MainWindow::CreateTrayMenu()
 {
     _qaTrayVocabularies = _qmTray.addAction(QIcon(":/res/mainwindow/menubar/manage.png"), tr("&Vocabularies"));
@@ -88,7 +88,7 @@ const void MainWindow::CreateTrayMenu()
 const void MainWindow::CreateVocabulariesMenu()
 {
 	_umwMainWindow.qmVocabularies->clear();
-#ifndef FREE
+#ifndef EDITION_FREE
 	_qmTrayVocabularies.clear();
 #endif
 
@@ -100,7 +100,7 @@ const void MainWindow::CreateVocabulariesMenu()
 		QAction *qaAction = _umwMainWindow.qmVocabularies->addAction(QIcon(":/res/mainwindow/menubar/vocabulary.png"), qsName);
 		qaAction->setData(iI);
 
-#ifndef FREE
+#ifndef EDITION_FREE
 		// tray menu
 		qaAction = _qmTrayVocabularies.addAction(QIcon(":/res/mainwindow/menubar/vocabulary.png"), qsName);
 		qaAction->setData(iI);
@@ -111,27 +111,27 @@ const void MainWindow::CreateVocabulariesMenu()
 const void MainWindow::EnableControls()
 {
 	// menu
-#if !defined(FREE) && !defined(TRY)
+#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 	_umwMainWindow.qaOrganizer->setEnabled(_lLicense->IsLoaded());
 #endif
     _umwMainWindow.qmVocabularies->setEnabled(
-#if !defined(FREE) && !defined(TRY)
+#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 		_lLicense->IsLoaded() &&
 #endif
 		_voOrganizer.IsOpen());
-#if !defined(FREE) && !defined(TRY)
+#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 	_umwMainWindow.qmOptions->setEnabled(_lLicense->IsLoaded());
 #endif
 
 	// tool bar
 	_umwMainWindow.qaStart->setEnabled(
-#if !defined(FREE) && !defined(TRY)
+#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 		_lLicense->IsLoaded() &&
 #endif
 		_voOrganizer.IsOpen() && !_bLearning && _voOrganizer.GetRecordCount(true) > 0);
 	_umwMainWindow.qaStop->setEnabled(_bLearning);
 	_umwMainWindow.qaNext->setEnabled(_bLearning);
-#ifndef FREE
+#ifndef EDITION_FREE
 	_umwMainWindow.qaFindInVocabulary->setEnabled(_bLearning);
     _umwMainWindow.qaAnswer->setEnabled(_bLearning && _iTimeAnswer >= TIME_NOW);
 
@@ -158,14 +158,14 @@ bool MainWindow::event(QEvent *event)
                     _umwMainWindow.qlCategory->setText(qsCategory);
                 } // if
             }
-#ifdef FREE
-            setWindowTitle(windowTitle() + tr(FREE_SUFFIX));
+#ifdef EDITION_FREE
+            setWindowTitle(windowTitle() + tr(EDITION_FREE_SUFFIX));
 #endif
-#ifdef TRY
-            setWindowTitle(windowTitle() + tr(TRY_SUFFIX));
+#ifdef EDITION_TRY
+            setWindowTitle(windowTitle() + tr(EDITION_TRY_SUFFIX));
 #endif
             break;
-#ifndef FREE
+#ifndef EDITION_FREE
         case QEvent::WindowStateChange:
 		    if (isMinimized() && _sSettings.GetSystemTrayIcon() && _sSettings.GetMinimizeToTray()) {
 			    setWindowFlags(windowFlags() | Qt::CustomizeWindowHint); // just add some flag to hide window
@@ -202,7 +202,7 @@ const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool
 		if (pTemplate == TemplateLearning) {
 			qsTemplate = _sriCurrentRecord.vVocabulary->GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageLeft);
 		}
-#ifndef FREE
+#ifndef EDITION_FREE
 		else {
 			qsTemplate = _sriCurrentRecord.vVocabulary->GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageLeft);
 		} // if else
@@ -212,7 +212,7 @@ const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool
 		if (pTemplate == TemplateLearning) {
 			qsTemplate = _sriCurrentRecord.vVocabulary->GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageRight);
 		}
-#ifndef FREE
+#ifndef EDITION_FREE
 		else {
 			qsTemplate = _sriCurrentRecord.vVocabulary->GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageRight);
 		} // if else
@@ -233,7 +233,7 @@ const QString MainWindow::GetLearningText(const eTemplate &pTemplate, const bool
 	return qsTemplate;
 } // GetLearningText
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const int MainWindow::GetRecordPriority() const
 {
     foreach (int iFieldId, _sriCurrentRecord.vVocabulary->GetFieldIds()) {
@@ -252,14 +252,14 @@ const int MainWindow::GetRecordPriority() const
 
 MainWindow::~MainWindow()
 {
-#ifndef FREE
+#ifndef EDITION_FREE
 	_sSettings.SetWindowX(geometry().x());
 	_sSettings.SetWindowY(geometry().y());
 	_sSettings.SetWindowHeight(geometry().height());
 	_sSettings.SetWindowWidth(geometry().width());
 
 	_pPlugins.Uninitialize();
-# ifndef TRY
+# ifndef EDITION_TRY
     delete _lLicense;
 # endif
 #endif
@@ -269,7 +269,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 {
 	_bLearning = false;
 	_qtLearning.setSingleShot(true);
-#ifndef FREE
+#ifndef EDITION_FREE
     _qhblInner = NULL;
 #endif
 
@@ -277,7 +277,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 
     // gui
 	_umwMainWindow.setupUi(this);
-#ifdef FREE
+#ifdef EDITION_FREE
 	_umwMainWindow.qhblRecordControls->parentWidget()->hide();
 	_umwMainWindow.qlLanguage1->hide();
 	_umwMainWindow.qlLanguage2->hide();
@@ -294,7 +294,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 		} // if
 	} // foreach
 #else
-# ifdef TRY
+# ifdef EDITION_TRY
     _umwMainWindow.qaOpen->setVisible(false);
     _umwMainWindow.qaLicense->setVisible(false);
 # endif
@@ -304,8 +304,8 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     _qpbTimer.setTextVisible(false);
     _umwMainWindow.qsbStatusBar->addWidget(&_qpbTimer, 1);
 
-#ifndef FREE
-# ifndef TRY
+#ifndef EDITION_FREE
+# ifndef EDITION_TRY
     // license
     _lLicense = new License(&_sSettings);
 # endif
@@ -325,25 +325,25 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
     // settings
     ApplySettings(true);
 
-#ifndef TRY
+#ifndef EDITION_TRY
 	_voOrganizer.OpenAll(this);
 #endif
     RefreshStatusBar();
 
 	// menus
-#ifndef FREE
+#ifndef EDITION_FREE
 	CreateTrayMenu();
 #endif
 	CreateVocabulariesMenu();
 
     // controls
     EnableControls();
-#ifndef FREE
+#ifndef EDITION_FREE
     _umwMainWindow.qaMute->setChecked(_sSettings.GetMute());
 #endif
 
 	// connections
-#ifndef FREE
+#ifndef EDITION_FREE
 	connect(&_qmTrayVocabularies, SIGNAL(triggered(QAction *)), SLOT(on_qmVocabularies_triggered(QAction *)));
 	connect(&_qstiTrayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason)));
 #endif
@@ -351,10 +351,10 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 	connect(&_ucUpdateChecker, SIGNAL(Finished()), SLOT(on_ucUpdateChecker_Finished()));
 	connect(&_voOrganizer, SIGNAL(VocabularyClose(const Vocabulary *)), SLOT(on_voOrganizer_VocabularyClose(const Vocabulary *)));
 
-#ifndef FREE
+#ifndef EDITION_FREE
 	// learning
 	if (
-# ifndef TRY
+# ifndef EDITION_TRY
 		_lLicense->IsLoaded() &&
 # endif
 		_sSettings.GetStartLearningOnStartup() && _voOrganizer.IsOpen()) {
@@ -371,16 +371,16 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 const void MainWindow::on_qaAbout_triggered(bool checked /* false */)
 {
     QMessageBox::about(this, tr("About Vocabulary Master"), "<center><b>" + tr(VOCABULARY_MASTER)
-#ifdef FREE
-        + tr(FREE_SUFFIX)
+#ifdef EDITION_FREE
+        + tr(EDITION_FREE_SUFFIX)
 #endif
-#ifdef TRY
-        + tr(TRY_SUFFIX)
+#ifdef EDITION_TRY
+        + tr(EDITION_TRY_SUFFIX)
 #endif
         + "</b></center><center>Version " + _ucUpdateChecker.GetCurrentVersion() + "</center><br />Copyright (C) 2011 Isshou");
 } // on_qaAbout_triggered
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void MainWindow::on_qaAnswer_triggered(bool checked /* false */)
 {
     _iTimeAnswer = TIME_NONE;
@@ -392,7 +392,7 @@ const void MainWindow::on_qaFindInVocabulary_triggered(bool checked /* false */)
     OpenVocabulary(_sriCurrentRecord.vVocabulary, true);
 } // on_qaFindInVocabulary_triggered
 
-# ifndef TRY
+# ifndef EDITION_TRY
 const void MainWindow::on_qaLicense_triggered(bool checked /* false */)
 {
     LicenseDialog ldLicenseDialog(_lLicense, &_sSettings, this);
@@ -433,7 +433,7 @@ const void MainWindow::on_qaOrganizer_triggered(bool checked /* false */)
 const void MainWindow::on_qaSettings_triggered(bool checked /* false */)
 {
 	SettingsDialog sdDialog(
-#ifndef FREE
+#ifndef EDITION_FREE
         &_pPlugins,
 #endif
         &_sSettings, this);
@@ -449,7 +449,7 @@ const void MainWindow::on_qaStart_triggered(bool checked /* false */)
 	_bLearning = true;
 
 	EnableControls();
-#ifdef FREE
+#ifdef EDITION_FREE
 	_umwMainWindow.qlCategory->show();
 #else
     _umwMainWindow.qlCategory->setVisible(_sSettings.GetShowCategoryName());
@@ -474,12 +474,12 @@ const void MainWindow::on_qaStop_triggered(bool checked /* false */)
     _umwMainWindow.qlLanguage2->hide();
 	_umwMainWindow.qtbWindow2->clear();
     _umwMainWindow.qlCategory->hide();
-#ifndef FREE
+#ifndef EDITION_FREE
 	_umwMainWindow.qhblRecordControls->parentWidget()->hide();
 #endif
 } // on_qaStop_triggered
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void MainWindow::on_qcbRecordEnabled_clicked(bool checked /* false */)
 {
 	SetRecordEnabled(checked);
@@ -503,13 +503,13 @@ const void MainWindow::on_qmVocabularies_triggered(QAction *action)
 	VocabularyOrganizer::sVocabulary svVocabulary = _voOrganizer.GetVocabularyInfo(iIndex);
 
 	OpenVocabulary(svVocabulary.vVocabulary
-#ifndef FREE
+#ifndef EDITION_FREE
 		, false
 #endif
 		);
 } // on_qmVocabularies_triggered
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void MainWindow::on_qstiTrayIcon_activated(QSystemTrayIcon::ActivationReason reason)
 {
 	if (reason == QSystemTrayIcon::DoubleClick && isMinimized()) {
@@ -595,7 +595,7 @@ const void MainWindow::on_qtLearning_timeout()
 
     if (_iTimeQuestion == 0) {
 		_umwMainWindow.qaNext->setEnabled(false);
-#ifndef FREE
+#ifndef EDITION_FREE
 		// disable answer
 		_umwMainWindow.qaAnswer->setEnabled(false);
 #endif
@@ -605,7 +605,7 @@ const void MainWindow::on_qtLearning_timeout()
         } else {
             int iCategoryId;
 			VocabularyOrganizer::sRecordInfo sriLastRecord = _sriCurrentRecord;
-#ifndef FREE
+#ifndef EDITION_FREE
 			int iMaxCategoryPriority = qrand() % VocabularyTabWidget::CATEGORY_PRIORITY_MAX + 1;
             int iMaxRecordPriority = qrand() % PriorityDelegate::RECORD_PRIORITY_MAX + 1;
 
@@ -613,7 +613,7 @@ const void MainWindow::on_qtLearning_timeout()
 #endif
             while (true) {
 	            _sriCurrentRecord = _voOrganizer.GetRecordInfo(qrand() % _voOrganizer.GetRecordCount());
-#ifndef FREE
+#ifndef EDITION_FREE
 				if (iNextRecordTry == MAX_NEXTRECORD_TRIES) {
 					on_qaStop_triggered(false);
 					return;
@@ -627,11 +627,11 @@ const void MainWindow::on_qtLearning_timeout()
 #endif
 
                 iCategoryId = _sriCurrentRecord.vVocabulary->GetRecordCategory(_sriCurrentRecord.iId);
-#ifndef FREE
+#ifndef EDITION_FREE
                 if (_sriCurrentRecord.vVocabulary->GetCategoryEnabled(iCategoryId) && _sriCurrentRecord.vVocabulary->GetCategoryPriority(iCategoryId) <= iMaxCategoryPriority  && (_sriCurrentRecord.vVocabulary->GetRecordCount(true) == 1 || _sriCurrentRecord.vVocabulary != sriLastRecord.vVocabulary || _sriCurrentRecord.iId != sriLastRecord.iId)) {
 #endif
                     break;
-#ifndef FREE
+#ifndef EDITION_FREE
                 } // if
 #endif
             } // while
@@ -653,7 +653,7 @@ const void MainWindow::on_qtLearning_timeout()
 		    if (qsLang1.isEmpty()) {
 			    _umwMainWindow.qlLanguage1->hide();
 		    } else {
-#ifdef FREE
+#ifdef EDITION_FREE
 				_umwMainWindow.qlLanguage1->show();
 #else
 			    _umwMainWindow.qlLanguage1->setVisible(_sSettings.GetShowLanguageNames());
@@ -664,7 +664,7 @@ const void MainWindow::on_qtLearning_timeout()
 		    if (qsLang2.isEmpty()) {
 			    _umwMainWindow.qlLanguage2->hide();
 		    } else {
-#ifdef FREE
+#ifdef EDITION_FREE
 				_umwMainWindow.qlLanguage2->show();
 #else
 			    _umwMainWindow.qlLanguage2->setVisible(_sSettings.GetShowLanguageNames());
@@ -674,11 +674,11 @@ const void MainWindow::on_qtLearning_timeout()
 	        _umwMainWindow.qtbWindow1->setText(GetLearningText(TemplateLearning, _bDirectionSwitched, false));
 	        _umwMainWindow.qtbWindow2->clear();
             _umwMainWindow.qlCategory->setText(_sriCurrentRecord.vVocabulary->GetName() + ", " + _sriCurrentRecord.vVocabulary->GetCategoryName(iCategoryId));
-#ifndef FREE
+#ifndef EDITION_FREE
 			SetupRecordControls();
 #endif
 
-#ifndef FREE
+#ifndef EDITION_FREE
 		    // tray
 		    if (_sSettings.GetSystemTrayIcon() && _sSettings.GetShowWordsInTrayBalloon()) {
 			    ShowTrayBalloon(_bDirectionSwitched, false);
@@ -717,7 +717,7 @@ const void MainWindow::on_qtLearning_timeout()
             // next question time
             _iTimeQuestion = _sSettings.GetWordsFrequency();
 
-#ifndef FREE
+#ifndef EDITION_FREE
             // enable answer
             _umwMainWindow.qaAnswer->setEnabled(true);
 #endif
@@ -754,24 +754,24 @@ const void MainWindow::on_voOrganizer_VocabularyClose(const Vocabulary *pVocabul
 } // on_voOrganizer_Close
 
 const void MainWindow::OpenVocabulary(Vocabulary *pVocabulary
-#ifndef FREE
+#ifndef EDITION_FREE
     , const bool &pCurrentRecord
 #endif
     )
 {
     VocabularyManagerDialog vmdManager(pVocabulary,
-#ifndef FREE
+#ifndef EDITION_FREE
         &_sSettings,
         &_pPlugins,
 #endif
         this);
-#ifndef FREE
+#ifndef EDITION_FREE
     if (pCurrentRecord) {
         vmdManager.ExecOnRecord(_sriCurrentRecord.iId);
     } else {
 #endif
         vmdManager.exec();
-#ifndef FREE
+#ifndef EDITION_FREE
     } // if else
 #endif
 
@@ -784,7 +784,7 @@ const void MainWindow::RefreshStatusBar()
     if (!_voOrganizer.IsOpen()) {
         _qlVocabularyStatus.setText(tr("no vocabulary"));
     } else {
-#ifdef FREE
+#ifdef EDITION_FREE
 		QString qsCount = QString("%1").arg(_voOrganizer.GetRecordCount());
 #else
 		QString qsCount = QString("%1/%2").arg(_voOrganizer.GetRecordCount(true)).arg(_voOrganizer.GetRecordCount());
@@ -793,7 +793,7 @@ const void MainWindow::RefreshStatusBar()
     } // if else
 } // RefreshStatusBar
 
-#if !defined(FREE) && defined(Q_OS_WIN)
+#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
 const void MainWindow::RegisterHotkeys() const
 {
 	for (int iHotkey = 0; iHotkey < Settings::HotkeyCount - 1; iHotkey++) {
@@ -821,7 +821,7 @@ const void MainWindow::RegisterHotkeys() const
 } // RegisterHotkeys
 #endif
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) const
 {
     if (!_sSettings.GetMute()) {
@@ -859,7 +859,7 @@ const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) 
 
 const void MainWindow::SetLayout()
 {
-#ifndef FREE
+#ifndef EDITION_FREE
     if (_qhblInner) {
         _qhblInner->deleteLater();
         _qhblInner = NULL;
@@ -870,7 +870,7 @@ const void MainWindow::SetLayout()
     } // if
 
     QVBoxLayout *qvblMain = new QVBoxLayout(_umwMainWindow.qwCentral);
-#ifndef FREE
+#ifndef EDITION_FREE
     if (_sSettings.GetHorizontalLayout()) {
         qvblMain->addWidget(_umwMainWindow.qlCategory);
 		qvblMain->addWidget(_umwMainWindow.qhblRecordControls->parentWidget());
@@ -882,16 +882,16 @@ const void MainWindow::SetLayout()
 #endif
         qvblMain->addWidget(_umwMainWindow.qvblQuestion->parentWidget());
         qvblMain->addWidget(_umwMainWindow.qlCategory);
-#ifndef FREE
+#ifndef EDITION_FREE
 		qvblMain->addWidget(_umwMainWindow.qhblRecordControls->parentWidget());
 #endif
         qvblMain->addWidget(_umwMainWindow.qvblAnswer->parentWidget());
-#ifndef FREE
+#ifndef EDITION_FREE
     } // if else
 #endif
 } // SetLayout
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void MainWindow::SetRecordEnabled(const bool &pEnabled)
 {
 	foreach (int iFieldId, _sriCurrentRecord.vVocabulary->GetFieldIds()) {
@@ -938,7 +938,7 @@ const void MainWindow::SetupRecordControls() const
 
 const void MainWindow::ShowAnswer()
 {
-#ifndef FREE
+#ifndef EDITION_FREE
     // answer
     _umwMainWindow.qaAnswer->setEnabled(false);
 #endif
@@ -947,7 +947,7 @@ const void MainWindow::ShowAnswer()
     _umwMainWindow.qtbWindow2->setText(GetLearningText(TemplateLearning, _bDirectionSwitched, true));
     _umwMainWindow.qtbWindow2->repaint();
 
-#ifndef FREE
+#ifndef EDITION_FREE
     // tray
     if (_sSettings.GetSystemTrayIcon() && _sSettings.GetShowWordsInTrayBalloon()) {
         ShowTrayBalloon(_bDirectionSwitched, true);
@@ -962,7 +962,7 @@ const void MainWindow::ShowAnswer()
     _qpbTimer.setValue(_iTimeQuestion);
 } // ShowAnswer
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void MainWindow::ShowTrayBalloon(const bool &pDirectionSwitched, const bool &pAnswer)
 {
 	QString qsText = GetLearningText(TemplateTray, pDirectionSwitched, false);
@@ -974,7 +974,7 @@ const void MainWindow::ShowTrayBalloon(const bool &pDirectionSwitched, const boo
 } // ShowTrayBalloon
 #endif
 
-#if !defined(FREE) && defined(Q_OS_WIN)
+#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
 bool MainWindow::winEvent(MSG *message, long *result)
 {
 	if (message->message == WM_HOTKEY) {

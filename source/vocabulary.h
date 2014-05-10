@@ -10,11 +10,11 @@ class Vocabulary : public VocabularyDatabase
         Vocabulary();
 
 		const int AddCategory(const QString &pName);
-#ifndef FREE
+#ifndef EDITION_FREE
         const void AddField();
 #endif
 		const void AddRecord(const int &pCategoryId);
-#ifndef FREE
+#ifndef EDITION_FREE
 		const void AddRecord(const int &pCategoryId, const QStringList &pData);
 #endif
         const void BeginEdit();
@@ -25,7 +25,7 @@ class Vocabulary : public VocabularyDatabase
         const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
         const QString GetDataText(const int &pRecordId, const int &pFieldId) const;
 		const qfFieldAttributes GetFieldAttributes(const int &pFieldId) const;
-#ifndef FREE
+#ifndef EDITION_FREE
         const eFieldBuiltIn GetFieldBuiltIn(const int &pFieldId) const;
 #endif
         const int GetFieldCount() const;
@@ -35,13 +35,13 @@ class Vocabulary : public VocabularyDatabase
         const QString GetFieldName(const int &pFieldId) const;
         const QString GetFieldTemplateName(const int &pFieldId) const;
 		const eFieldType GetFieldType(const int &pFieldId) const;
-#ifndef FREE
+#ifndef EDITION_FREE
         const QStringList GetRecord(const int &pRecordId) const;
 #endif
         const int GetRecordCategory(const int &pRecordId) const;
 		const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
-#ifndef FREE
+#ifndef EDITION_FREE
 		const int GetRecordCount(const int &pCategoryId, const bool &pEnabled) const;
 		const int GetRecordCount(const bool &pEnabled) const;
 		const bool GetRecordEnabled(const int &pRecordId) const;
@@ -50,23 +50,23 @@ class Vocabulary : public VocabularyDatabase
         const int GetRecordId(const int &pCategoryId, const int &pRow) const;
         const tRecordIdList GetRecordIds(const int &pCategoryId) const;
 		const void New(
-#ifndef TRY
+#ifndef EDITION_TRY
 			const QString &pFilePath
 #endif
 			);
-#ifndef TRY
+#ifndef EDITION_TRY
 		const void Open(const QString &pFilePath);
 #else
         const void OpenMemory();
 #endif
 		const void RemoveCategory(const int &pCategoryId);
-#ifndef FREE
+#ifndef EDITION_FREE
         const void RemoveField(const int &pFieldId);
 #endif
 		const void RemoveRecord(const int &pCategoryId, const int &pRow);
         const void SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData);
 		const void SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData);
-#ifndef FREE
+#ifndef EDITION_FREE
 		const void SetFieldAttributes(const int &pFieldId, const qfFieldAttributes &pAttributes);
         const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage);
         const void SetFieldName(const int &pFieldId, const QString &pName);
@@ -81,7 +81,7 @@ class Vocabulary : public VocabularyDatabase
             QString qsName;
             eFieldType eftType;
             qfFieldAttributes qfaAttributes;
-#ifndef FREE
+#ifndef EDITION_FREE
             eFieldBuiltIn efbBuiltIn;
 #endif
             eFieldLanguage eflLanguage;

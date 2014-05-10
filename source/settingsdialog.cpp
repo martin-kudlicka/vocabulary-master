@@ -1,10 +1,10 @@
 #include "settingsdialog.h"
 
-#ifndef FREE
+#ifndef EDITION_FREE
 # include "settings/colordelegate.h"
 #endif
 #include <QtCore/QDir>
-#ifndef FREE
+#ifndef EDITION_FREE
 # include "common/licensetextdialog.h"
 # include <QtWidgets/QFileDialog>
 #endif
@@ -16,7 +16,7 @@ void SettingsDialog::accept()
     QDialog::accept();
 } // accept
 
-#ifndef FREE
+#ifndef EDITION_FREE
 # ifdef Q_OS_WIN
 const void SettingsDialog::ClearHotkey(HotkeyLineEdit *pControl) const
 {
@@ -48,11 +48,11 @@ const void SettingsDialog::FillHotkey(HotkeyLineEdit *pControl, const Settings::
 const void SettingsDialog::FillOptions()
 {
     // general
-#ifndef FREE
+#ifndef EDITION_FREE
     _usdSettingsDialog.qcbHorizontalLayout->setChecked(_sSettings->GetHorizontalLayout());
 #endif
     _usdSettingsDialog.qcbAlwaysOnTop->setChecked(_sSettings->GetAlwaysOnTop());
-#ifndef FREE
+#ifndef EDITION_FREE
     _usdSettingsDialog.qcbRememberWindowPosition->setChecked(_sSettings->GetRememberWindowPosition());
     _usdSettingsDialog.qcbSystemTrayIcon->setChecked(_sSettings->GetSystemTrayIcon());
 	on_qcbSystemTrayIcon_stateChanged(_usdSettingsDialog.qcbSystemTrayIcon->checkState());
@@ -64,7 +64,7 @@ const void SettingsDialog::FillOptions()
 
     // learning
     _usdSettingsDialog.qsbWordsFrequency->setValue(_sSettings->GetWordsFrequency());
-#ifndef FREE
+#ifndef EDITION_FREE
 	_usdSettingsDialog.qsbWaitForAnswer->setMaximum(_sSettings->GetWordsFrequency() - 1);
 	_usdSettingsDialog.qsbWaitForAnswer->setValue(_sSettings->GetWaitForAnswer());
 	_usdSettingsDialog.qcbNewWordSound->setChecked(_sSettings->GetNewWordSound());
@@ -78,11 +78,11 @@ const void SettingsDialog::FillOptions()
 	_usdSettingsDialog.qcbLearnDisabledWords->setChecked(_sSettings->GetLearnDisabledWords());
 #endif
 	_usdSettingsDialog.qcbSwitchLearningDirection->setCheckState(_sSettings->GetSwitchLearningDirection());
-#ifndef FREE
+#ifndef EDITION_FREE
 	_usdSettingsDialog.qcbStartLearningOnStartup->setChecked(_sSettings->GetStartLearningOnStartup());
 #endif
 
-#ifndef FREE
+#ifndef EDITION_FREE
     // appearance
 	_usdSettingsDialog.qcbMainWindowToolBar->setChecked(_sSettings->GetShowToolBar());
 	_usdSettingsDialog.qcbMainWindowLanguageNames->setChecked(_sSettings->GetShowLanguageNames());
@@ -137,7 +137,7 @@ const void SettingsDialog::FillTranslation()
 	} // for
 } // FillTranslation
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void SettingsDialog::on_qcbNewWordSound_stateChanged(int state) const
 {
     _usdSettingsDialog.qrbSoundSystem->setEnabled(state == Qt::Checked);
@@ -268,7 +268,7 @@ const void SettingsDialog::PrepareTranslations()
     } // foreach
 } // PrepareTranslations
 
-#if !defined(FREE) && defined(Q_OS_WIN)
+#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
 const void SettingsDialog::SaveHotkey(const HotkeyLineEdit *pControl, const Settings::eHotkey &pHotkey) const
 {
 	Settings::sHotKeyInfo shkiHotkey;
@@ -283,11 +283,11 @@ const void SettingsDialog::SaveHotkey(const HotkeyLineEdit *pControl, const Sett
 const void SettingsDialog::SaveOptions()
 {
     // general
-#ifndef FREE
+#ifndef EDITION_FREE
     _sSettings->SetHorizontalLayout(_usdSettingsDialog.qcbHorizontalLayout->isChecked());
 #endif
     _sSettings->SetAlwaysOnTop(_usdSettingsDialog.qcbAlwaysOnTop->isChecked());
-#ifndef FREE
+#ifndef EDITION_FREE
     _sSettings->SetRememberWindowPosition(_usdSettingsDialog.qcbRememberWindowPosition->isChecked());
     _sSettings->SetSystemTrayIcon(_usdSettingsDialog.qcbSystemTrayIcon->isChecked());
 	_sSettings->SetShowWordsInTrayBalloon(_usdSettingsDialog.qcbShowWordsInTrayBalloon->isChecked());
@@ -298,7 +298,7 @@ const void SettingsDialog::SaveOptions()
 
     // learning
     _sSettings->SetWordsFrequency(_usdSettingsDialog.qsbWordsFrequency->value());
-#ifndef FREE
+#ifndef EDITION_FREE
 	_sSettings->SetWaitForAnswer(_usdSettingsDialog.qsbWaitForAnswer->value());
 	_sSettings->SetNewWordSound(_usdSettingsDialog.qcbNewWordSound->isChecked());
     if (_usdSettingsDialog.qrbSoundSystem->isChecked()) {
@@ -311,11 +311,11 @@ const void SettingsDialog::SaveOptions()
 	_sSettings->SetLearnDisabledWords(_usdSettingsDialog.qcbLearnDisabledWords->isChecked());
 #endif
 	_sSettings->SetSwitchLearningDirection(_usdSettingsDialog.qcbSwitchLearningDirection->checkState());
-#ifndef FREE
+#ifndef EDITION_FREE
 	_sSettings->SetStartLearningOnStartup(_usdSettingsDialog.qcbStartLearningOnStartup->isChecked());
 #endif
 
-#ifndef FREE
+#ifndef EDITION_FREE
     // appearance
 	_sSettings->SetShowToolBar(_usdSettingsDialog.qcbMainWindowToolBar->isChecked());
 	_sSettings->SetShowLanguageNames(_usdSettingsDialog.qcbMainWindowLanguageNames->isChecked());
@@ -355,21 +355,21 @@ const void SettingsDialog::SaveOptions()
 } // SaveOptions
 
 SettingsDialog::SettingsDialog(
-#ifndef FREE
+#ifndef EDITION_FREE
     const Plugins *pPlugins,
 #endif
     Settings *pSettings, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
-#ifndef FREE
+#ifndef EDITION_FREE
     , _pmExpPlugins(pPlugins, PluginsModel::PluginTypeExp), _pmImpPlugins(pPlugins, PluginsModel::PluginTypeImp), _pmTTSPlugins(pPlugins, PluginsModel::PluginTypeTTS)
 #endif
 {
-#ifndef FREE
+#ifndef EDITION_FREE
     _pPlugins = pPlugins;
 #endif
 	_sSettings = pSettings;
 
 	_usdSettingsDialog.setupUi(this);
-#ifdef FREE
+#ifdef EDITION_FREE
     // general
     delete _usdSettingsDialog.qcbHorizontalLayout;
     delete _usdSettingsDialog.qcbRememberWindowPosition;

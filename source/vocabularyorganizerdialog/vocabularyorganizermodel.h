@@ -12,7 +12,7 @@ class VocabularyOrganizerModel : public QAbstractTableModel
 	public:
 		enum eColumn {
 			ColumnVocabularyFile,
-#if !defined(FREE) && !defined(TRY)
+#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 			ColumnEnabled,
 #endif
 			ColumnCount
@@ -29,12 +29,12 @@ class VocabularyOrganizerModel : public QAbstractTableModel
 
 		virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 		virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-#if !defined(FREE) && !defined(TRY)
+#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 		virtual Qt::ItemFlags flags(const QModelIndex &index) const;
 #endif
 		virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 		virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
-#if !defined(FREE) && !defined(TRY)
+#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 		virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
 #endif
 }; // VocabularyOrganizerModel

@@ -3,7 +3,7 @@
 
 #include <ui_vocabularymanagerdialog.h>
 
-#ifndef FREE
+#ifndef EDITION_FREE
 # include "settings.h"
 # include "plugins.h"
 #endif
@@ -16,13 +16,13 @@ class VocabularyManagerDialog : public QDialog
     public:
         ~VocabularyManagerDialog();
         VocabularyManagerDialog(Vocabulary *pVocabulary,
-#ifndef FREE
+#ifndef EDITION_FREE
             const Settings *pSettings,
             const Plugins *pPlugins,
 #endif
             QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
-#ifndef FREE
+#ifndef EDITION_FREE
         int ExecOnRecord(const int &pRecordId);
 #endif
 
@@ -34,14 +34,14 @@ class VocabularyManagerDialog : public QDialog
 			EditorColumnRightControl
 		}; // eEditorColumn
 
-#ifndef FREE
+#ifndef EDITION_FREE
 		static const int BUILTIN_COLUMN_SIZE = 30;
 		static const int COLUMNS_NONE = -1;
 
 		const Plugins *_pPlugins;
 #endif
         QList<int> _qlCategories;
-#ifndef FREE
+#ifndef EDITION_FREE
         const Settings *_sSettings;
 #endif
         Ui::qdVocabularyManager _qdvmVocabularyManager;
@@ -51,13 +51,13 @@ class VocabularyManagerDialog : public QDialog
 		const void EnableTabControls() const;
 		const void EnableWordControls() const;
         const void FocusOnRecord(const int &pRecordId) const;
-#ifndef FREE
+#ifndef EDITION_FREE
 		const void HideColumns() const;
 #endif
 		const void HideColumns(VocabularyView *pTableView) const;
 		const void InitEditor();
         const void InitTabs();
-#ifndef FREE
+#ifndef EDITION_FREE
         const void ReassignModels() const;
         const void SelectFirstEnabledTab();
 		const void SetPriorityDelegate();
@@ -65,7 +65,7 @@ class VocabularyManagerDialog : public QDialog
         const void StretchColumns() const;
 #endif
 		const void StretchColumns(const VocabularyView *pTableView) const;
-#ifndef FREE
+#ifndef EDITION_FREE
         const void UninitEditor() const;
 #endif
 		const void UpdateEditor() const;
@@ -79,14 +79,14 @@ class VocabularyManagerDialog : public QDialog
         const void on_qpbSearch_clicked(bool checked = false) const;
 		const void on_qpbVocabularySettings_clicked(bool checked = false);
         const void on_qpbWordAdd_clicked(bool checked = false);
-#ifndef FREE
+#ifndef EDITION_FREE
 		const void on_qpbWordCopyMove_clicked(bool checked = false);
 		const void on_qpbWordExport_clicked(bool checked = false);
 		const void on_qpbWordImport_clicked(bool checked = false);
 #endif
         const void on_qpbWordRemove_clicked(bool checked = false);
 		const void on_vtwTabs_currentChanged(int index) const;
-#ifndef FREE
+#ifndef EDITION_FREE
         const void on_vtwTabs_TabEnableChanged(const int &pIndex, const Qt::CheckState &pState) const;
 		const void on_vtwTabs_TabPriorityChanged(const int &pIndex, const int &pValue) const;
 #endif

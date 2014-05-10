@@ -19,11 +19,11 @@ class VocabularyOrganizer : public QObject
 
 		VocabularyOrganizer(Settings *pSettings);
 
-#ifndef TRY
+#ifndef EDITION_TRY
 		const void AddExisting(sVocabulary &pVocabulary, QWidget *pParent);
 #endif
 		const void AddNew(
-#ifndef TRY
+#ifndef EDITION_TRY
 			const QString &pFile
 #endif
 			);
@@ -33,13 +33,13 @@ class VocabularyOrganizer : public QObject
 		const int GetVocabularyCount() const;
 		const sVocabulary &GetVocabularyInfo(const int &pIndex) const;
 		const bool IsOpen() const;
-#ifndef TRY
+#ifndef EDITION_TRY
 		const void OpenAll(QWidget *pParent);
 #endif
 		const void Remove(const int &pIndex);
-#ifndef TRY
+#ifndef EDITION_TRY
 		const void SaveAll();
-# ifndef FREE
+# ifndef EDITION_FREE
 		const void SetVocabularyEnabled(const int &pIndex, const bool &pEnabled, QWidget *pParent);
 # endif
 #endif
@@ -48,7 +48,7 @@ class VocabularyOrganizer : public QObject
 		QList<sVocabulary> _qlVocabularies;
 		Settings *_sSettings;
 
-#ifndef TRY
+#ifndef EDITION_TRY
 		const void Open(sVocabulary *pVocabulary, QWidget *pParent);
 #endif
 

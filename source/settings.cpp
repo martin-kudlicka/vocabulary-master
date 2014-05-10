@@ -1,14 +1,14 @@
 #include "settings.h"
 
 const QString APPLICATION = "Vocabulary Master";
-#ifndef TRY
+#ifndef EDITION_TRY
 const QString ARRAY_VOCABULARIES = "Vocabularies";
 #endif
-#ifndef FREE
+#ifndef EDITION_FREE
 const QString DEFAULT_COLORFLASH = "chartreuse";
 #endif
 const QString KEY_ALWAYSONTOP = "AlwaysOnTop";
-#ifndef FREE
+#ifndef EDITION_FREE
 const QString KEY_CANCHANGECATEGORYPRIORITY = "CanChangeCategoryPriority";
 const QString KEY_CANENABLECATEGORIES = "CanEnableCategories";
 const QString KEY_COLORFLASH = "ColorFlash";
@@ -31,7 +31,7 @@ const QString KEY_PROXYPASSWORD = "ProxyPassword";
 const QString KEY_PROXYPORT = "ProxyPort";
 const QString KEY_PROXYTYPE = "ProxyType";
 const QString KEY_PROXYUSERNAME = "ProxyUsername";
-#ifndef FREE
+#ifndef EDITION_FREE
 const QString KEY_REMEMBERWINDOWPOSITION = "RememberWindowPosition";
 const QString KEY_SHOWCATEGORYNAME = "ShowCategoryName";
 const QString KEY_SHOWLANGUAGENAMES = "ShowLanguageNames";
@@ -42,17 +42,17 @@ const QString KEY_SHOWWORDSINTRAYBALLOON = "ShowWordsInTrayBalloon";
 const QString KEY_STARTLEARNINGONSTARTUP = "StartLearningOnStartup";
 #endif
 const QString KEY_SWITCHLEARNINGDIRECTION = "SwitchLearningDirection";
-#ifndef FREE
+#ifndef EDITION_FREE
 const QString KEY_SYSTEMTRAYICON = "SystemTrayIcon";
 #endif
 const QString KEY_TRANSLATION = "Translation";
 const QString KEY_UPDATECHECK = "UpdateCheck";
 const QString KEY_USEPROXY = "UseProxy";
-#ifndef TRY
+#ifndef EDITION_TRY
 const QString KEY_VERSION = "Version";
 #endif
 const QString KEY_VOCABULARYFILE = "VocabularyFile";
-#ifndef FREE
+#ifndef EDITION_FREE
 const QString KEY_WAITFORANSWER = "WaitForAnswer";
 const QString KEY_WINDOWHEIGHT = "WindowHeight";
 const QString KEY_WINDOWWIDTH = "WindowWidth";
@@ -61,7 +61,7 @@ const QString KEY_WINDOWY = "WindowY";
 #endif
 const QString KEY_WORDSFREQUENCY = "WordsFrequency";
 const QString ORGANIZATION  = "Isshou";
-#if !defined(FREE) && defined(Q_OS_WIN)
+#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
 const QString SHORTCUT_ANSWER = "Answer";
 const QString SHORTCUT_MINIMIZE = "Minimize";
 const QString SHORTCUT_NEXT = "Next";
@@ -73,7 +73,7 @@ const bool Settings::GetAlwaysOnTop() const
     return _qsSettings.value(KEY_ALWAYSONTOP, false).toBool();
 } // GetAlwaysOnTop
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const bool Settings::GetCanChangeCategoryPriority() const
 {
     return _qsSettings.value(KEY_CANCHANGECATEGORYPRIORITY, true).toBool();
@@ -204,7 +204,7 @@ const QString Settings::GetProxyUsername() const
 	return _qsSettings.value(KEY_PROXYUSERNAME).toString();
 } // GetProxyUsername
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const bool Settings::GetRememberWindowPosition() const
 {
     return _qsSettings.value(KEY_REMEMBERWINDOWPOSITION, true).toBool();
@@ -251,7 +251,7 @@ const Qt::CheckState Settings::GetSwitchLearningDirection() const
 	return static_cast<Qt::CheckState>(_qsSettings.value(KEY_SWITCHLEARNINGDIRECTION, false).toInt());
 } // GetSwitchLearningDirection
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const bool Settings::GetSystemTrayIcon() const
 {
     return _qsSettings.value(KEY_SYSTEMTRAYICON, false).toBool();
@@ -273,14 +273,14 @@ const bool Settings::GetUseProxy() const
 	return _qsSettings.value(KEY_USEPROXY, false).toBool();
 } // GetUseProxy
 
-#ifndef TRY
+#ifndef EDITION_TRY
 const int Settings::GetVocabularyCount()
 {
 	int iCount = _qsSettings.beginReadArray(ARRAY_VOCABULARIES);
 	_qsSettings.endArray();
 
-#ifdef FREE
-	return qMin(iCount, FREE_VOCABULARIES_MAX);
+#ifdef EDITION_FREE
+	return qMin(iCount, EDITION_FREE_VOCABULARIES_MAX);
 #else
 	return iCount;
 #endif
@@ -293,7 +293,7 @@ const Settings::sVocabularyInfo Settings::GetVocabularyInfo(const int &pIndex)
 	_qsSettings.beginReadArray(ARRAY_VOCABULARIES);
 	_qsSettings.setArrayIndex(pIndex);
 	sviVocabularyInfo.qsFile = _qsSettings.value(KEY_VOCABULARYFILE).toString();
-#if !defined(FREE) && !defined(TRY)
+#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 	sviVocabularyInfo.bEnabled = _qsSettings.value(KEY_ENABLED, true).toBool();
 #endif
 	_qsSettings.endArray();
@@ -304,14 +304,14 @@ const Settings::sVocabularyInfo Settings::GetVocabularyInfo(const int &pIndex)
 
 const int Settings::GetWaitForAnswer() const
 {
-#ifndef FREE
+#ifndef EDITION_FREE
 	return _qsSettings.value(KEY_WAITFORANSWER, DEFAULT_WAIT).toInt();
 #else
     return DEFAULT_WAIT;
 #endif
 } // GetWaitForAnswer
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const int Settings::GetWindowHeight() const
 {
 	return _qsSettings.value(KEY_WINDOWHEIGHT, DEFAULT_DIMENSION).toInt();
@@ -343,7 +343,7 @@ const void Settings::SetAlwaysOnTop(const bool &pEnable)
     _qsSettings.setValue(KEY_ALWAYSONTOP, pEnable);
 } // SetAlwaysOnTop
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void Settings::SetCanChangeCategoryPriority(const bool &pEnable)
 {
     _qsSettings.setValue(KEY_CANCHANGECATEGORYPRIORITY, pEnable);
@@ -438,7 +438,7 @@ const void Settings::SetProxyUsername(const QString &pUsername)
 	_qsSettings.setValue(KEY_PROXYUSERNAME, pUsername);
 } // SetProxyUsername
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void Settings::SetRememberWindowPosition(const bool &pEnable)
 {
     _qsSettings.setValue(KEY_REMEMBERWINDOWPOSITION, pEnable);
@@ -485,7 +485,7 @@ const void Settings::SetSwitchLearningDirection(const Qt::CheckState &pSwitch)
 	_qsSettings.setValue(KEY_SWITCHLEARNINGDIRECTION, pSwitch);
 } // SetSwitchLearningDirection
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void Settings::SetSystemTrayIcon(const bool &pEnable)
 {
     _qsSettings.setValue(KEY_SYSTEMTRAYICON, pEnable);
@@ -494,7 +494,7 @@ const void Settings::SetSystemTrayIcon(const bool &pEnable)
 
 Settings::Settings() : _qsSettings(ORGANIZATION, APPLICATION)
 {
-#ifndef TRY
+#ifndef EDITION_TRY
 	UpdateSettings();
 #endif
 } // Settings
@@ -514,7 +514,7 @@ const void Settings::SetUseProxy(const bool &pUse)
 	_qsSettings.setValue(KEY_USEPROXY, pUse);
 } // SetUseProxy
 
-#ifndef TRY
+#ifndef EDITION_TRY
 const void Settings::SetVocabularyCount(const int &pCount)
 {
 	_qsSettings.beginWriteArray(ARRAY_VOCABULARIES, pCount);
@@ -526,14 +526,14 @@ const void Settings::SetVocabularyInfo(const int &pIndex, const sVocabularyInfo 
 	_qsSettings.beginWriteArray(ARRAY_VOCABULARIES);
 	_qsSettings.setArrayIndex(pIndex);
 	_qsSettings.setValue(KEY_VOCABULARYFILE, pInfo.qsFile);
-#if !defined(FREE) && !defined(TRY)
+#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 	_qsSettings.setValue(KEY_ENABLED, pInfo.bEnabled);
 #endif
 	_qsSettings.endArray();
 } // SetVocabularyInfo
 #endif
 
-#ifndef FREE
+#ifndef EDITION_FREE
 const void Settings::SetWaitForAnswer(const int &pTime)
 {
 	_qsSettings.setValue(KEY_WAITFORANSWER, pTime);
@@ -565,7 +565,7 @@ const void Settings::SetWordsFrequency(const int &pFrequency)
     _qsSettings.setValue(KEY_WORDSFREQUENCY, pFrequency);
 } // SetWordsFrequency
 
-#ifndef TRY
+#ifndef EDITION_TRY
 const void Settings::UpdateSettings()
 {
 	eVersion evCurrent = static_cast<eVersion>(_qsSettings.value(KEY_VERSION, Version1).toInt());

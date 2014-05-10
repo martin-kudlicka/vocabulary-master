@@ -5,7 +5,7 @@
 #include <ui_settingsdialog.h>
 
 #include "settings.h"
-#ifndef FREE
+#ifndef EDITION_FREE
 # include "settingsdialog/pluginsmodel.h"
 #endif
 
@@ -16,18 +16,18 @@ class SettingsDialog : public QDialog
 	Q_OBJECT
 
 	public:
-#if !defined(FREE) && defined(Q_OS_WIN)
+#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
 		static const quint32 VIRTUALKEY_NONE = 0;
 #endif
 
 		SettingsDialog(
-#ifndef FREE
+#ifndef EDITION_FREE
             const Plugins *pPlugins,
 #endif
             Settings *pSettings, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 	private:
-#if defined(FREE) || !defined(Q_OS_WIN)
+#if defined(EDITION_FREE) || !defined(Q_OS_WIN)
 		enum eTab {
 			TabGeneral,
 			TabLearning,
@@ -38,7 +38,7 @@ class SettingsDialog : public QDialog
 		}; // eTab
 #endif
 
-#ifndef FREE
+#ifndef EDITION_FREE
         const Plugins *_pPlugins;
         PluginsModel _pmExpPlugins;
         PluginsModel _pmImpPlugins;
@@ -48,7 +48,7 @@ class SettingsDialog : public QDialog
 		Ui::qdUiSettings _usdSettingsDialog;
 
         virtual void accept();
-#ifndef FREE
+#ifndef EDITION_FREE
 # ifdef Q_OS_WIN
 		const void ClearHotkey(HotkeyLineEdit *pControl) const;
 # endif
@@ -59,18 +59,18 @@ class SettingsDialog : public QDialog
 #endif
         const void FillOptions();
         const void FillTranslation();
-#ifndef FREE
+#ifndef EDITION_FREE
 		const void PrepareColorFlash();
         const void PreparePlugins(QTreeView *pTreeView, PluginsModel *pModel) const;
 #endif
         const void PrepareTranslations();
-#if !defined(FREE) && defined(Q_OS_WIN)
+#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
 		const void SaveHotkey(const HotkeyLineEdit *pControl, const Settings::eHotkey &pHotkey) const;
 #endif
         const void SaveOptions();
 
 	private slots:
-#ifndef FREE
+#ifndef EDITION_FREE
         const void on_qcbNewWordSound_stateChanged(int state) const;
 		const void on_qcbSystemTrayIcon_stateChanged(int state) const;
 # ifdef Q_OS_WIN
