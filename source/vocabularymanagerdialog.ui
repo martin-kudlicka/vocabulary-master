@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Vocabulary Manager</string>
+   <string>Vocabulary manager</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
