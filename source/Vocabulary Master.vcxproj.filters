@@ -36,6 +36,26 @@
     <Filter Include="Translation Files">
       <UniqueIdentifier>{9ec3e8dd-20fb-4d9f-8575-1ad69241c491}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Generated Files\DebugFreeEdition">
+      <UniqueIdentifier>{27edd8f2-3a43-4e52-9a2d-4e67cd1c3d0d}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\DebugTryEdition">
+      <UniqueIdentifier>{bea2d13c-84a9-4f87-ad23-41a01cfc3406}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\ReleaseFreeEdition">
+      <UniqueIdentifier>{5b757b11-189a-4d98-8b30-d4296b5c3044}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\ReleaseTryEdition">
+      <UniqueIdentifier>{99b14ea6-8238-4798-a97c-feaee8a3953f}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -161,156 +181,6 @@
     <ClCompile Include="..\common\marklineeditpersistentdelegate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_marklineedit.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_marklineedit.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_wordsimportfieldsmodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_wordsimportfieldsmodel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_wordsimportdialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_wordsimportdialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_wordsexportfieldsmodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_wordsexportfieldsmodel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_wordsexportdialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_wordsexportdialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_wordcopymovedialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_wordcopymovedialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularyview.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularyview.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularytabwidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularytabwidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularysettingsdialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularysettingsdialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularyorganizermodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularyorganizermodel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularyorganizerdialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularyorganizerdialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularyorganizer.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularyorganizer.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularyopenprogressdialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularyopenprogressdialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularymodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularymodel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularymanagerdialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularymanagerdialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularydatabase.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularydatabase.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_updatechecker.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_updatechecker.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_settingsdialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_settingsdialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_pluginsmodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_pluginsmodel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_mainwindow.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_mainwindow.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_licensedialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_licensedialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_fieldsmodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_fieldsmodel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_fieldlineedit.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_fieldlineedit.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_exppluginsmodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_exppluginsmodel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_categoriesmodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_categoriesmodel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="..\temp\GeneratedFiles\vocabularymaster\qrc_mainwindow.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -319,6 +189,456 @@
     </ClCompile>
     <ClCompile Include="..\temp\GeneratedFiles\vocabularymaster\qrc_license.cpp">
       <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_categoriesmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_categoriesmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_categoriesmodel.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_categoriesmodel.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_categoriesmodel.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_categoriesmodel.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_exppluginsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_exppluginsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_exppluginsmodel.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_exppluginsmodel.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_exppluginsmodel.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_exppluginsmodel.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_fieldlineedit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_fieldlineedit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_fieldlineedit.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_fieldlineedit.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_fieldlineedit.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_fieldlineedit.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_fieldsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_fieldsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_fieldsmodel.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_fieldsmodel.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_fieldsmodel.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_fieldsmodel.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_licensedialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_licensedialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_licensedialog.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_licensedialog.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_licensedialog.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_licensedialog.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_mainwindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_mainwindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_mainwindow.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_mainwindow.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_mainwindow.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_mainwindow.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_marklineedit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_marklineedit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_marklineedit.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_marklineedit.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_marklineedit.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_marklineedit.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_pluginsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_pluginsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_pluginsmodel.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_pluginsmodel.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_pluginsmodel.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_pluginsmodel.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_settingsdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_settingsdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_settingsdialog.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_settingsdialog.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_settingsdialog.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_settingsdialog.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_updatechecker.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_updatechecker.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_updatechecker.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_updatechecker.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_updatechecker.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_updatechecker.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularydatabase.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularydatabase.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_vocabularydatabase.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_vocabularydatabase.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_vocabularydatabase.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_vocabularydatabase.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularymanagerdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularymanagerdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_vocabularymanagerdialog.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_vocabularymanagerdialog.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_vocabularymanagerdialog.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_vocabularymanagerdialog.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularymodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularymodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_vocabularymodel.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_vocabularymodel.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_vocabularymodel.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_vocabularymodel.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularyopenprogressdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularyopenprogressdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_vocabularyopenprogressdialog.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_vocabularyopenprogressdialog.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_vocabularyopenprogressdialog.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_vocabularyopenprogressdialog.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularyorganizer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularyorganizer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_vocabularyorganizer.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_vocabularyorganizer.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_vocabularyorganizer.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_vocabularyorganizer.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularyorganizerdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularyorganizerdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_vocabularyorganizerdialog.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_vocabularyorganizerdialog.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_vocabularyorganizerdialog.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_vocabularyorganizerdialog.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularyorganizermodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularyorganizermodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_vocabularyorganizermodel.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_vocabularyorganizermodel.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_vocabularyorganizermodel.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_vocabularyorganizermodel.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularysettingsdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularysettingsdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_vocabularysettingsdialog.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_vocabularysettingsdialog.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_vocabularysettingsdialog.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_vocabularysettingsdialog.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularytabwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularytabwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_vocabularytabwidget.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_vocabularytabwidget.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_vocabularytabwidget.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_vocabularytabwidget.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_vocabularyview.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_vocabularyview.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_vocabularyview.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_vocabularyview.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_vocabularyview.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_vocabularyview.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_wordcopymovedialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_wordcopymovedialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_wordcopymovedialog.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_wordcopymovedialog.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_wordcopymovedialog.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_wordcopymovedialog.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_wordsexportdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_wordsexportdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_wordsexportdialog.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_wordsexportdialog.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_wordsexportdialog.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_wordsexportdialog.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_wordsexportfieldsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_wordsexportfieldsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_wordsexportfieldsmodel.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_wordsexportfieldsmodel.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_wordsexportfieldsmodel.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_wordsexportfieldsmodel.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_wordsimportdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_wordsimportdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_wordsimportdialog.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_wordsimportdialog.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_wordsimportdialog.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_wordsimportdialog.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Debug\vocabularymaster\moc_wordsimportfieldsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\Release\vocabularymaster\moc_wordsimportfieldsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugFreeEdition\vocabularymaster\moc_wordsimportfieldsmodel.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\DebugTryEdition\vocabularymaster\moc_wordsimportfieldsmodel.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseFreeEdition\vocabularymaster\moc_wordsimportfieldsmodel.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\temp\GeneratedFiles\ReleaseTryEdition\vocabularymaster\moc_wordsimportfieldsmodel.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
