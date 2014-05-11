@@ -4,7 +4,9 @@
 #include <QtSql/QSqlDatabase>
 #include <QtCore/QList>
 #include <QtCore/QHash>
-#ifndef EDITION_FREE
+#ifdef EDITION_FREE
+# include <QtCore/QObject>
+#else
 # include "../plugins/common/tts-interface.h"
 #endif
 
