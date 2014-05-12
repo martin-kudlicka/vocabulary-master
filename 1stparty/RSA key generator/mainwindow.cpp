@@ -5,40 +5,42 @@
 #include "../../3rdparty/Crypto++/source/osrng.h"
 #include "../../3rdparty/Crypto++/source/files.h"
 
-MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags)
+MainWindow::MainWindow(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags)
 {
-	_qmwMainWindow.setupUi(this);
+	_ui.setupUi(this);
 } // MainWindow
 
-const void MainWindow::on_qpbBrowsePublic_clicked(bool checked /* false */)
+const void MainWindow::on_browsePublic_clicked(bool checked /* false */)
 {
-	QString qsFile = QFileDialog::getSaveFileName(this, tr("Public key file"), QString(), tr("public key (*.der)"));
-	if (!qsFile.isEmpty()) {
-		_qmwMainWindow.qlePublic->setText(qsFile);
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Public key file"), QString(), tr("public key (*.der)"));
+	if (!fileName.isEmpty())
+	{
+		_ui.publicKey->setText(fileName);
 	} // if
-} // on_qpbBrowsePublic_clicked
+} // on_browsePublic_clicked
 
-const void MainWindow::on_qpbBrowsePrivate_clicked(bool checked /* false */)
+const void MainWindow::on_browsePrivate_clicked(bool checked /* false */)
 {
-	QString qsFile = QFileDialog::getSaveFileName(this, tr("Private key file"), QString(), tr("private key (*.der)"));
-	if (!qsFile.isEmpty()) {
-		_qmwMainWindow.qlePrivate->setText(qsFile);
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Private key file"), QString(), tr("private key (*.der)"));
+	if (!fileName.isEmpty())
+	{
+		_ui.privateKey->setText(fileName);
 	} // if
-} // on_qpbBrowsePrivate_clicked
+} // on_browsePrivate_clicked
 
-const void MainWindow::on_qpbGenerate_clicked(bool checked /* false */) const
+const void MainWindow::on_generate_clicked(bool checked /* false */) const
 {
-	CryptoPP::AutoSeededRandomPool asrpRandomPool;
-	CryptoPP::InvertibleRSAFunction irfRsaFunc;
-	irfRsaFunc.GenerateRandomWithKeySize(asrpRandomPool, KEY_SIZE);
+	CryptoPP::AutoSeededRandomPool randomPool;
+	CryptoPP::InvertibleRSAFunction rsaFunc;
+	rsaFunc.GenerateRandomWithKeySize(randomPool, KEY_SIZE);
 
-	CryptoPP::RSAES_OAEP_SHA_Decryptor rosdDecryptor(asrpRandomPool, KEY_SIZE);
-	CryptoPP::FileSink fsPrivateFile(_qmwMainWindow.qlePrivate->text().toLocal8Bit());
-	rosdDecryptor.DEREncode(fsPrivateFile);
-	fsPrivateFile.MessageEnd();
+	CryptoPP::RSAES_OAEP_SHA_Decryptor decryptor(randomPool, KEY_SIZE);
+	CryptoPP::FileSink privateFile(_ui.privateKey->text().toLocal8Bit());
+	decryptor.DEREncode(privateFile);
+	privateFile.MessageEnd();
 
-	CryptoPP::RSAES_OAEP_SHA_Encryptor roseEncryptor(rosdDecryptor);
-	CryptoPP::FileSink fsPublicFile(_qmwMainWindow.qlePublic->text().toLocal8Bit());
-	roseEncryptor.DEREncode(fsPublicFile);
-	fsPublicFile.MessageEnd();
-} // on_qpbGenerate_clicked
+	CryptoPP::RSAES_OAEP_SHA_Encryptor encryptor(decryptor);
+	CryptoPP::FileSink publicFile(_ui.publicKey->text().toLocal8Bit());
+	encryptor.DEREncode(publicFile);
+	publicFile.MessageEnd();
+} // on_generate_clicked
