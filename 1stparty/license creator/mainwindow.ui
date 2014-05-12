@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qmwUiMain</class>
- <widget class="QMainWindow" name="qmwUiMain">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -39,15 +39,15 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QDateEdit" name="qdeValidTo"/>
+        <widget class="QDateEdit" name="validTo"/>
        </item>
        <item row="0" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QLineEdit" name="qleUid"/>
+          <widget class="QLineEdit" name="uid"/>
          </item>
          <item>
-          <widget class="QPushButton" name="qpbGenerateUid">
+          <widget class="QPushButton" name="generateUid">
            <property name="text">
             <string>Generate</string>
            </property>
@@ -72,7 +72,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="qleFirstName"/>
+        <widget class="QLineEdit" name="firstName"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_4">
@@ -82,7 +82,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="qleLastName"/>
+        <widget class="QLineEdit" name="lastName"/>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_5">
@@ -92,7 +92,7 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLineEdit" name="qleEmail"/>
+        <widget class="QLineEdit" name="email"/>
        </item>
       </layout>
      </widget>
@@ -113,7 +113,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="qpbCreate">
+       <widget class="QPushButton" name="create">
         <property name="text">
          <string>Create</string>
         </property>
@@ -136,11 +136,11 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="qaExit"/>
+    <addaction name="exit"/>
    </widget>
    <addaction name="menu_File"/>
   </widget>
-  <action name="qaExit">
+  <action name="exit">
    <property name="text">
     <string>&amp;Exit</string>
    </property>
@@ -152,9 +152,9 @@
  </resources>
  <connections>
   <connection>
-   <sender>qaExit</sender>
+   <sender>exit</sender>
    <signal>activated()</signal>
-   <receiver>qmwUiMain</receiver>
+   <receiver>MainWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">

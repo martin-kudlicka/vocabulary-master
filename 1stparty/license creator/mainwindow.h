@@ -11,19 +11,19 @@ class MainWindow : public QMainWindow
 	Q_OBJECT
 
 	public:
-		MainWindow(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+		MainWindow(QWidget *parent = NULL, Qt::WindowFlags flags = 0);
 
 	private:
-		QXmlStreamWriter _qxswXmlWriter;
-		Ui::qmwUiMain _umwMainWindow;
+		QXmlStreamWriter _xmlStreamWriter;
+		Ui::MainWindow   _ui;
 
-		const void WriteLicense();
-		const void WriteLicenseGeneral();
-		const void WriteLicensePersonal();
+		const void writeLicense        ();
+		const void writeLicenseGeneral ();
+		const void writeLicensePersonal();
 
 	private slots:
-		const void on_qpbCreate_clicked(bool checked = false);
-		const void on_qpbGenerateUid_clicked(bool checked = false);
+		const void on_create_clicked     (bool checked = false);
+		const void on_generateUid_clicked(bool checked = false);
 }; // MainWindow
 
 #endif // MAINWINDOW_H
