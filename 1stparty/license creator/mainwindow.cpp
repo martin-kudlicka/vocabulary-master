@@ -7,95 +7,96 @@
 #include "../../3rdparty/Crypto++/source/osrng.h"
 #include <QtWidgets/QMessageBox>
 
-MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QMainWindow(pParent, pFlags)
+MainWindow::MainWindow(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags)
 {
-	_umwMainWindow.setupUi(this);
+	_ui.setupUi(this);
 
 	// preset current date + 1 year
-	QDate qdPreset = QDate::currentDate().addYears(1);
-	_umwMainWindow.qdeValidTo->setDate(qdPreset);
+	QDate preset = QDate::currentDate().addYears(1);
+	_ui.validTo->setDate(preset);
 
-	on_qpbGenerateUid_clicked();
+	on_generateUid_clicked();
 } // MainWindow
 
-const void MainWindow::on_qpbCreate_clicked(bool checked /* false */)
+const void MainWindow::on_create_clicked(bool checked /* false */)
 {
-	QString qsFile = QFileDialog::getSaveFileName(this, tr("Create license"), QString(), tr("license (*.lic)"));
-	if (qsFile.isEmpty()) {
+	QString file = QFileDialog::getSaveFileName(this, tr("Create license"), QString(), tr("license (*.lic)"));
+	if (file.isEmpty())
+	{
 		return;
 	} // if
 
 	// buffer
-	QBuffer qbLicense;
-	qbLicense.open(QIODevice::WriteOnly);
-	_qxswXmlWriter.setDevice(&qbLicense);
+	QBuffer license;
+	license.open(QIODevice::WriteOnly);
+	_xmlStreamWriter.setDevice(&license);
 
 	// write license
-	WriteLicense();
-	qbLicense.close();
+	writeLicense();
+	license.close();
 
 	// get encrypt key
-	QFile qfEncryptKey(":/MainWindow/res/mainwindow/encryptpublic.der");
-	qfEncryptKey.open(QIODevice::ReadOnly);
-	QByteArray qbaEncryptKey = qfEncryptKey.readAll();
+	QFile encryptKeyFile(":/MainWindow/res/mainwindow/encryptpublic.der");
+	encryptKeyFile.open(QIODevice::ReadOnly);
+	QByteArray encryptKey = encryptKeyFile.readAll();
 
 	// encrypt license
-    CryptoPP::ArraySource asEncryptKey(reinterpret_cast<const byte *>(qbaEncryptKey.constData()), qbaEncryptKey.size(), true);
-    CryptoPP::RSAES_OAEP_SHA_Encryptor roseEncryptor(asEncryptKey);
-    CryptoPP::AutoSeededRandomPool asrpRandomPool;
-    std::string sEncrypted;
-    CryptoPP::ArraySource asEncrypt(reinterpret_cast<const byte *>(qbLicense.data().constData()), qbLicense.size(), true, new CryptoPP::PK_EncryptorFilter(asrpRandomPool, roseEncryptor, new CryptoPP::StringSink(sEncrypted)));
-    QByteArray qbaEncrypted = QByteArray(sEncrypted.c_str(), sEncrypted.size());
+    CryptoPP::ArraySource encryptKeyBuffer(reinterpret_cast<const byte *>(encryptKey.constData()), encryptKey.size(), true);
+    CryptoPP::RSAES_OAEP_SHA_Encryptor roseEncryptor(encryptKeyBuffer);
+    CryptoPP::AutoSeededRandomPool randomPool;
+    std::string encryptedString;
+    CryptoPP::ArraySource encryptedBuffer(reinterpret_cast<const byte *>(license.data().constData()), license.size(), true, new CryptoPP::PK_EncryptorFilter(randomPool, roseEncryptor, new CryptoPP::StringSink(encryptedString)));
+    QByteArray encryptedData = QByteArray(encryptedString.c_str(), encryptedString.size());
 
 	// get sign key
-	QFile qfSignKey(":/MainWindow/res/mainwindow/signprivate.der");
-	qfSignKey.open(QIODevice::ReadOnly);
-	QByteArray qbaSignKey = qfSignKey.readAll();
+	QFile signKeyFile(":/MainWindow/res/mainwindow/signprivate.der");
+	signKeyFile.open(QIODevice::ReadOnly);
+	QByteArray signKey = signKeyFile.readAll();
 
 	// sign encrypted license
-    CryptoPP::ArraySource asSignKey(reinterpret_cast<const byte *>(qbaSignKey.constData()), qbaSignKey.size(), true);
-    CryptoPP::RSASS<CryptoPP::PKCS1v15, CryptoPP::SHA>::Signer sSigner(asSignKey);
-    std::string sSigned;
-    CryptoPP::ArraySource asSign(reinterpret_cast<const byte *>(qbaEncrypted.constData()), qbaEncrypted.size(), true, new CryptoPP::SignerFilter(asrpRandomPool, sSigner, new CryptoPP::StringSink(sSigned)));
-    QByteArray qbaSigned = QByteArray(sSigned.c_str(), sSigned.size());
+    CryptoPP::ArraySource signKeyBuffer(reinterpret_cast<const byte *>(signKey.constData()), signKey.size(), true);
+    CryptoPP::RSASS<CryptoPP::PKCS1v15, CryptoPP::SHA>::Signer signer(signKeyBuffer);
+    std::string signedString;
+    CryptoPP::ArraySource signedBuffer(reinterpret_cast<const byte *>(encryptedData.constData()), encryptedData.size(), true, new CryptoPP::SignerFilter(randomPool, signer, new CryptoPP::StringSink(signedString)));
+    QByteArray signedData = QByteArray(signedString.c_str(), signedString.size());
 
 	// get size of encrypted data
-	qint16 qi16Size = qbaEncrypted.size();
-	QByteArray qbaEncryptedSize(reinterpret_cast<const char *>(&qi16Size), sizeof(qi16Size));
+	qint16 encryptedSize = encryptedData.size();
+	QByteArray encryptedSizeData(reinterpret_cast<const char *>(&encryptedSize), sizeof(encryptedSize));
 
 	// write license to file
-	QFile qfFile(qsFile);
-	qfFile.open(QIODevice::WriteOnly);
-	qfFile.write(qbaEncryptedSize + qbaEncrypted + qbaSigned);
+	QFile licenseFile(file);
+	licenseFile.open(QIODevice::WriteOnly);
+	licenseFile.write(encryptedSizeData + encryptedData + signedData);
 
 	QMessageBox::information(this, windowTitle(), tr("License created, encrypted and signed."));
-} // on_qpbCreate_clicked
+} // on_create_clicked
 
-const void MainWindow::on_qpbGenerateUid_clicked(bool checked /* false */)
+const void MainWindow::on_generateUid_clicked(bool checked /* false */)
 {
-	QUuid quUid = QUuid::createUuid();
-	_umwMainWindow.qleUid->setText(quUid.toString());
-} // on_qpbGenerateUid_clicked
+	QUuid uuid = QUuid::createUuid();
+	_ui.uid->setText(uuid.toString());
+} // on_generateUid_clicked
 
-const void MainWindow::WriteLicense()
+const void MainWindow::writeLicense()
 {
-	_qxswXmlWriter.writeStartElement("License");
-	WriteLicenseGeneral();
-	_qxswXmlWriter.writeStartElement("Personal");
-	WriteLicensePersonal();
-	_qxswXmlWriter.writeEndElement();
-	_qxswXmlWriter.writeEndElement();
-} // WriteLicense
+	_xmlStreamWriter.writeStartElement("License");
+	writeLicenseGeneral();
+	_xmlStreamWriter.writeStartElement("Personal");
+	writeLicensePersonal();
+	_xmlStreamWriter.writeEndElement();
+	_xmlStreamWriter.writeEndElement();
+} // writeLicense
 
-const void MainWindow::WriteLicenseGeneral()
+const void MainWindow::writeLicenseGeneral()
 {
-	_qxswXmlWriter.writeTextElement("UId", _umwMainWindow.qleUid->text());
-	_qxswXmlWriter.writeTextElement("ValidTo", _umwMainWindow.qdeValidTo->date().toString(Qt::ISODate));
-} // WriteLicenseGeneral
+	_xmlStreamWriter.writeTextElement("UId", _ui.uid->text());
+	_xmlStreamWriter.writeTextElement("ValidTo", _ui.validTo->date().toString(Qt::ISODate));
+} // writeLicenseGeneral
 
-const void MainWindow::WriteLicensePersonal()
+const void MainWindow::writeLicensePersonal()
 {
-	_qxswXmlWriter.writeTextElement("FirstName", _umwMainWindow.qleFirstName->text());
-	_qxswXmlWriter.writeTextElement("LastName", _umwMainWindow.qleLastName->text());
-	_qxswXmlWriter.writeTextElement("Email", _umwMainWindow.qleEmail->text());
-} // WriteLicensePersonal
+	_xmlStreamWriter.writeTextElement("FirstName", _ui.firstName->text());
+	_xmlStreamWriter.writeTextElement("LastName", _ui.lastName->text());
+	_xmlStreamWriter.writeTextElement("Email", _ui.email->text());
+} // writeLicensePersonal
