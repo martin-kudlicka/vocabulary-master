@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qmwMainWindow</class>
- <widget class="QMainWindow" name="qmwMainWindow">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -28,10 +28,10 @@
     <item row="0" column="1">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLineEdit" name="qlePublic"/>
+       <widget class="QLineEdit" name="publicKey"/>
       </item>
       <item>
-       <widget class="QPushButton" name="qpbBrowsePublic">
+       <widget class="QPushButton" name="browsePublic">
         <property name="text">
          <string>Browse...</string>
         </property>
@@ -49,10 +49,10 @@
     <item row="1" column="1">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QLineEdit" name="qlePrivate"/>
+       <widget class="QLineEdit" name="privateKey"/>
       </item>
       <item>
-       <widget class="QPushButton" name="qpbBrowsePrivate">
+       <widget class="QPushButton" name="browsePrivate">
         <property name="text">
          <string>Browse...</string>
         </property>
@@ -76,7 +76,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="qpbGenerate">
+       <widget class="QPushButton" name="generate">
         <property name="text">
          <string>Generate</string>
         </property>
@@ -117,12 +117,12 @@
   <connection>
    <sender>qaExit</sender>
    <signal>activated()</signal>
-   <receiver>qmwMainWindow</receiver>
+   <receiver>MainWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>299</x>
-     <y>199</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
     <hint type="destinationlabel">
      <x>299</x>

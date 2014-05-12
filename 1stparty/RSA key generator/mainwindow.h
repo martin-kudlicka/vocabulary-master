@@ -9,17 +9,17 @@ class MainWindow : public QMainWindow
 	Q_OBJECT
 
 	public:
-		MainWindow(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+		MainWindow(QWidget *parent = NULL, Qt::WindowFlags flags = 0);
 
 	private:
-		static const int KEY_SIZE = 3072;
+		static const quint16 KEY_SIZE = 3072;
 
-		Ui::qmwMainWindow _qmwMainWindow;
+		Ui::MainWindow _ui;
 
 	private slots:
-		const void on_qpbBrowsePublic_clicked(bool checked = false);
-		const void on_qpbBrowsePrivate_clicked(bool checked = false);
-		const void on_qpbGenerate_clicked(bool checked = false) const;
+		const void on_browsePublic_clicked (bool checked = false);
+		const void on_browsePrivate_clicked(bool checked = false);
+		const void on_generate_clicked     (bool checked = false) const;
 }; // MainWindow
 
 #endif // MAINWINDOW_H
