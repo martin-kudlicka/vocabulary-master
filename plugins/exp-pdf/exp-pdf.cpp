@@ -15,7 +15,7 @@ const void ExpPdf::AddFont(const HPDF_Doc &pPdf, tFontList *pFontList, const Pdf
 	pFontList->append(smfFont);
 } // AddFont
 
-const void ExpPdf::BeginExport() const
+const void ExpPdf::beginExport() const
 {
 	// get filename
 	QString qsFile = QFileDialog::getSaveFileName(_pewWidget, QString(), QString(), tr("pdf (*.pdf)"));
@@ -25,7 +25,7 @@ const void ExpPdf::BeginExport() const
 
 	// marks
 	QStringList qslMarks;
-	emit VocabularyGetMarks(&qslMarks);
+	emit vocabularyGetMarks(&qslMarks);
 
 	// PDF
 	HPDF_Doc hdPdf = HPDF_New(NULL, NULL);
@@ -36,17 +36,17 @@ const void ExpPdf::BeginExport() const
 	InitFonts(hdPdf, &qlFonts, qslMarks.size());
 
 	// categories
-	ExpInterface::tCategoryIdList tcilCategoryIds;
-	emit VocabularyGetCategoryIds(&tcilCategoryIds);
+	ExpInterface::CategoryIdList tcilCategoryIds;
+	emit vocabularyGetCategoryIds(&tcilCategoryIds);
 
 	// total record count for progress
 	int iTotalRecords = 0;
 	foreach (int iCategoryId, tcilCategoryIds) {
-		int iRecords;
-		emit VocabularyGetRecordCount(iCategoryId, &iRecords);
+		quint32 iRecords;
+		emit vocabularyGetRecordCount(iCategoryId, &iRecords);
 		iTotalRecords += iRecords;
 	} // foreach
-	emit ProgressExportSetMax(iTotalRecords);
+	emit progressExportSetMax(iTotalRecords);
 
 	// export
 	HPDF_Page hpPage = NULL;
@@ -70,7 +70,7 @@ const void ExpPdf::BeginExport() const
 
 		// category
         QString qsCategoryName;
-        emit VocabularyGetCategoryName(iCategoryId, &qsCategoryName);
+        emit vocabularyGetCategoryName(iCategoryId, &qsCategoryName);
 		PdfSetFont(hpPage, qlFonts.at(PdfExportWidget::FontRoleCategory).hfFont, qlFonts.at(PdfExportWidget::FontRoleCategory).iSize);
 		PdfShowText(hpPage, qsCategoryName, qlFonts.at(PdfExportWidget::FontRoleCategory).qtcTextCodec);
 
@@ -79,8 +79,8 @@ const void ExpPdf::BeginExport() const
 		PdfShowTableHeader(hpPage, qlFonts);
 
         // records
-        ExpInterface::tRecordIdList trilRecordIds;
-        emit VocabularyGetRecordIds(iCategoryId, &trilRecordIds);
+        ExpInterface::RecordIdList trilRecordIds;
+        emit vocabularyGetRecordIds(iCategoryId, &trilRecordIds);
         foreach (int iRecordId, trilRecordIds) {
 			if (PdfNextLine(hdPdf, &hpPage)) {
 				// header
@@ -95,15 +95,15 @@ const void ExpPdf::BeginExport() const
 			} // if else
 
             iRecords++;
-            emit ProgressExportSetValue(iRecords);
+            emit progressExportSetValue(iRecords);
         } // foreach
     } // foreach
 
 	HPDF_SaveToFile(hdPdf, qsFile.toLocal8Bit());
 
-	emit ProgressExportSetValue(0);
+	emit progressExportSetValue(0);
 	HPDF_Free(hdPdf);
-} // BeginExport
+} // beginExport
 
 const void ExpPdf::ExportTable(const int &pRecordId, const HPDF_Page &pPage, const tFontList &pFontList, const QStringList &pMarks) const
 {
@@ -146,7 +146,7 @@ const void ExpPdf::ExportText(const int &pRecordId, const HPDF_Page &pPage, cons
 				if (pTemplate.mid(iMarkPos, qsMark.size()) == qsMark) {
 					// valid mark, replace marks for data
 					QString qsData;
-					emit VocabularyGetMarkText(pRecordId, qsMark, &qsData);
+					emit vocabularyGetMarkText(pRecordId, qsMark, &qsData);
 
 					// show data
 					PdfSetFont(pPage, pFontList.at(PdfExportWidget::FontRoleMark + iMark).hfFont, pFontList.at(PdfExportWidget::FontRoleMark + iMark).iSize);
@@ -162,10 +162,10 @@ const void ExpPdf::ExportText(const int &pRecordId, const HPDF_Page &pPage, cons
 	} // while
 } // ExportText
 
-const QString ExpPdf::GetPluginName() const
+const QString ExpPdf::getPluginName() const
 {
 	return tr("Adobe Reader (pdf)");
-} // GetPluginName
+} // getPluginName
 
 const void ExpPdf::InitFonts(const HPDF_Doc &pPdf, tFontList *pFontList, const int &pMarkCount) const
 {
@@ -220,7 +220,7 @@ const void ExpPdf::InitFonts(const HPDF_Doc &pPdf, tFontList *pFontList, const i
 
 const void ExpPdf::on_pewWidget_VocabularyGetMarks(QStringList *pMarks) const
 {
-	emit VocabularyGetMarks(pMarks);
+	emit vocabularyGetMarks(pMarks);
 } // on_pewWidget_VocabularyGetMarks
 
 const void ExpPdf::PdfAddPage(const HPDF_Doc &pPdf, HPDF_Page *pPage, const HPDF_REAL &pDefaultSize /* 0 */) const
@@ -298,7 +298,7 @@ const void ExpPdf::PdfShowText(const HPDF_Page &pPage, const QString &pText, con
 	HPDF_Page_ShowText(pPage, qbaEncoded);
 } // PdfShowText
 
-const void ExpPdf::SetupUI(QWidget *pParent)
+const void ExpPdf::setupUi(QWidget *pParent)
 {
 	_pewWidget = new PdfExportWidget(pParent);
 	QBoxLayout *pLayout = qobject_cast<QBoxLayout *>(pParent->layout());
@@ -307,4 +307,4 @@ const void ExpPdf::SetupUI(QWidget *pParent)
 	connect(_pewWidget, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_pewWidget_VocabularyGetMarks(QStringList *)));
 
 	_pewWidget->InitMarkFonts();
-} // SetupUI
+} // setupUi

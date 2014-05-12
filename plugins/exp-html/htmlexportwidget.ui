@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qwHtmlExport</class>
- <widget class="QWidget" name="qwHtmlExport">
+ <class>HtmlExportWidget</class>
+ <widget class="QWidget" name="HtmlExportWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -23,7 +23,7 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QRadioButton" name="qrbStyleText">
+         <widget class="QRadioButton" name="styleText">
           <property name="text">
            <string>&amp;Text</string>
           </property>
@@ -33,7 +33,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="qrbStyleTable">
+         <widget class="QRadioButton" name="styleTable">
           <property name="text">
            <string>T&amp;able</string>
           </property>
@@ -56,7 +56,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QTreeView" name="qtvCodecs">
+      <widget class="QTreeView" name="codecs">
        <property name="rootIsDecorated">
         <bool>false</bool>
        </property>
@@ -65,13 +65,22 @@
     </layout>
    </item>
    <item>
-    <widget class="QStackedWidget" name="qswStyles">
+    <widget class="QStackedWidget" name="styles">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QVBoxLayout" name="verticalLayout_3">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
         <number>0</number>
        </property>
        <item>
@@ -93,7 +102,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <widget class="QTextEdit" name="qteTextPreview">
+           <widget class="QTextEdit" name="textPreview">
             <property name="undoRedoEnabled">
              <bool>false</bool>
             </property>
@@ -118,7 +127,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="qpbTextRefresh">
+             <widget class="QPushButton" name="textRefresh">
               <property name="text">
                <string>&amp;Refresh</string>
               </property>
@@ -131,9 +140,18 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="qwPageTable">
+     <widget class="QWidget" name="pageTable">
       <layout class="QVBoxLayout" name="verticalLayout_6">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
         <number>0</number>
        </property>
        <item>
@@ -145,7 +163,7 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_8">
             <item>
-             <widget class="QSpinBox" name="qsbTableColums">
+             <widget class="QSpinBox" name="tableColums">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -176,7 +194,7 @@
            </layout>
           </item>
           <item>
-           <layout class="QGridLayout" name="qglTableColumns">
+           <layout class="QGridLayout" name="tableColumns">
             <item row="0" column="0">
              <widget class="QLabel" name="label_2">
               <property name="text">
@@ -219,7 +237,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <item>
-           <widget class="QTextEdit" name="qteTablePreview">
+           <widget class="QTextEdit" name="tablePreview">
             <property name="undoRedoEnabled">
              <bool>false</bool>
             </property>
@@ -244,7 +262,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="qpbTableRefresh">
+             <widget class="QPushButton" name="tableRefresh">
               <property name="text">
                <string>&amp;Refresh</string>
               </property>

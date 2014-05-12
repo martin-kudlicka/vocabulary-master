@@ -10,21 +10,21 @@ class ExpHtml : public ExpInterface
 	Q_INTERFACES(ExpInterface)
 
 	private:
-        HtmlExportWidget *_hewWidget;
+        HtmlExportWidget *_widget;
 
-        virtual const void BeginExport() const;
-		virtual const QString GetPluginName() const;
-		virtual const void SetupUI(QWidget *pParent);
+        virtual const void    beginExport  () const;
+		virtual const QString getPluginName() const;
+		virtual const void    setupUi      (QWidget *parent);
 
     private slots:
-        const void on_hewWidget_ProgressExportSetMax(const int &pMax) const;
-        const void on_hewWidget_ProgressExportSetValue(const int &pValue) const;
-        const void on_hewWidget_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *pCategoryIds) const;
-        const void on_hewWidget_VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const;
-        const void on_hewWidget_VocabularyGetMarks(QStringList *pMarks) const;
-        const void on_hewWidget_VocabularyGetMarkText(const int &pRecordId, const QString &pMark, QString *pText) const;
-        const void on_hewWidget_VocabularyGetRecordCount(const int &pCategoryId, int *pCount) const;
-        const void on_hewWidget_VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const;
+        const void on_widget_progressExportSetMax     (const quint32 &max)                                              const;
+        const void on_widget_progressExportSetValue   (const quint32 &value)                                            const;
+        const void on_widget_vocabularyGetCategoryIds (ExpInterface::CategoryIdList *categoryIds)                       const;
+        const void on_widget_vocabularyGetCategoryName(const quint8 &categoryId, QString *name)                         const;
+        const void on_widget_vocabularyGetMarks       (QStringList *marks)                                              const;
+        const void on_widget_vocabularyGetMarkText    (const quint32 &recordId, const QString &mark, QString *text)     const;
+        const void on_widget_vocabularyGetRecordCount (const quint8 &categoryId, quint32 *count)                        const;
+        const void on_widget_vocabularyGetRecordIds   (const quint8 &categoryId, ExpInterface::RecordIdList *recordIds) const;
 }; // ExpHtml
 
 #endif // EXP_HTML_H

@@ -6,43 +6,46 @@
 # include <QtCore/QDir>
 #endif
 
-HINSTANCE TranslationHandler::_hiInstance;
+HINSTANCE TranslationHandler::_instance;
 
 const QString DIR_LANG = "lang";
 
 #ifdef Q_OS_WIN
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
-	if (fdwReason == DLL_PROCESS_ATTACH) {
-		TranslationHandler::_hiInstance = hinstDLL;
+	if (fdwReason == DLL_PROCESS_ATTACH)
+	{
+		TranslationHandler::_instance = hinstDLL;
 	} // if
 
 	return TRUE;
 } // DllMain
 #endif
 
-const void TranslationHandler::SetLanguage(const QString &pLanguage)
-{
-	if (!_qtTranslator.load(pLanguage,
-#ifdef Q_OS_WIN
-		_qsPluginDir +
-#endif
-		DIR_LANG)) {
-		if (pLanguage.isEmpty()) {
-			_qtTranslator.load(QLocale::system().name(), DIR_LANG);
-		} // if
-	} // if
-} // SetLanguage
-
 TranslationHandler::TranslationHandler()
 {
-	QCoreApplication::installTranslator(&_qtTranslator);
+	QCoreApplication::installTranslator(&_translator);
 
 #ifdef Q_OS_WIN
-	TCHAR tcFileName[MAX_PATH + 1];
-	GetModuleFileName(_hiInstance, tcFileName, sizeof(tcFileName) / sizeof(TCHAR));
-	QString qsPluginPath = QString::fromWCharArray(tcFileName);
+	TCHAR fileName[MAX_PATH + 1];
+	GetModuleFileName(_instance, fileName, _countof(fileName));
+	QString pluginPath = QString::fromWCharArray(fileName);
 
-	_qsPluginDir = qsPluginPath.left(qsPluginPath.lastIndexOf(QDir::separator()) + 1);
+	_pluginDir = pluginPath.left(pluginPath.lastIndexOf(QDir::separator()) + 1);
 #endif
 } // TranslationHandler
+
+const void TranslationHandler::setLanguage(const QString &language)
+{
+	if (!_translator.load(language,
+#ifdef Q_OS_WIN
+		_pluginDir +
+#endif
+		DIR_LANG))
+	{
+		if (language.isEmpty())
+		{
+			_translator.load(QLocale::system().name(), DIR_LANG);
+		} // if
+	} // if
+} // setLanguage
