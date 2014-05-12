@@ -11,18 +11,18 @@ class TranslationHandler
 {
 	public:
 #ifdef Q_OS_WIN
-		static HINSTANCE _hiInstance;
+		static HINSTANCE _instance;
 #endif
 
 		TranslationHandler();
 
-		virtual const void SetLanguage(const QString &pLanguage);
+		virtual const void setLanguage(const QString &language);
 
 	private:
 #ifdef Q_OS_WIN
-		QString _qsPluginDir;
+		QString _pluginDir;
 #endif
-		QTranslator _qtTranslator;
+		QTranslator _translator;
 }; // TranslationHandler
 
 #endif // TRANSLATIONHANDLER_H

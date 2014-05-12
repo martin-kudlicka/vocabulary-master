@@ -3,273 +3,302 @@
 #include <QtGui/QTextTable>
 #include <QtWidgets/QScrollBar>
 
-const void HtmlExportWidget::AddTableColumn()
+HtmlExportWidget::HtmlExportWidget(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QWidget(parent, flags)
 {
-    // controls
-    sTableColumn stcColumn;
-    stcColumn.qleHeader = new QLineEdit(_qwheHtmlExport.qwPageTable);
-    stcColumn.qleTemplate = new QLineEdit(_qwheHtmlExport.qwPageTable);
-    stcColumn.qsbWidth = new QSpinBox(_qwheHtmlExport.qwPageTable);
-    stcColumn.qsbWidth->setMaximum(COLUMN_MAX_WIDTH);
-    stcColumn.qsbWidth->setValue(COLUMN_DEFAULTWIDTH);
-    stcColumn.qwHeader = new QWidget(_qwheHtmlExport.qwPageTable);
-    _qlTableColumns.append(stcColumn);
+	_ui.setupUi(this);
 
-    // header
-    QHBoxLayout *qhblHeader = new QHBoxLayout(stcColumn.qwHeader);
-    qhblHeader->setContentsMargins(QMargins());
-    qhblHeader->addWidget(stcColumn.qleHeader);
-    qhblHeader->addWidget(stcColumn.qsbWidth);
-    _qwheHtmlExport.qglTableColumns->addWidget(stcColumn.qwHeader, TableRowHeader, _qlTableColumns.size() + LABEL_COLUMN);
-    // template
-    _qwheHtmlExport.qglTableColumns->addWidget(stcColumn.qleTemplate, TableRowTemplate, _qlTableColumns.size() + LABEL_COLUMN);
-} // AddTableColumn
+	_ui.codecs->setModel(&_codecsModel);
+	preselectCodec("UTF-8");
 
-const QString HtmlExportWidget::GetCodec() const
-{
-    QModelIndex qmiIndex = _qwheHtmlExport.qtvCodecs->currentIndex();
-    return _cmCodecsModel.data(qmiIndex).toString();
-} // GetCodec
-
-const QString HtmlExportWidget::GetText() const
-{
-    if (_qwheHtmlExport.qrbStyleText->isChecked()) {
-        return _qwheHtmlExport.qteTextPreview->toHtml();
-    } else {
-        return _qwheHtmlExport.qteTablePreview->toHtml();
-    } // if else
-} // GetText
-
-const void HtmlExportWidget::InitTableColumns()
-{
-    for (int iColumn = 0; iColumn < _qwheHtmlExport.qsbTableColums->value(); iColumn++) {
-        AddTableColumn();
-    } // for
-} // InitTableColumns
-
-const void HtmlExportWidget::InsertTableText(const QTextTable *pTablePreview, const int &pRow, const int &pColumn, const QString &pText) const
-{
-    QTextTableCell qttcCell = pTablePreview->cellAt(pRow, pColumn);
-    QTextCursor qtcCursor = qttcCell.firstCursorPosition();
-    qtcCursor.insertText(pText);
-} // InsertTableText
-
-const void HtmlExportWidget::on_qpbTableRefresh_clicked(bool checked /* false */) const
-{
-    RefreshTable();
-} // on_qpbTableRefresh_clicked
-
-const void HtmlExportWidget::on_qpbTextRefresh_clicked(bool checked /* false */) const
-{
-    RefreshText();
-} // on_qpbTextRefresh_clicked
-
-const void HtmlExportWidget::on_qrbStyleTable_clicked(bool checked /* false */) const
-{
-	_qwheHtmlExport.qswStyles->setCurrentIndex(StyleTable);
-} // on_qrbStyleTable_clicked
-
-const void HtmlExportWidget::on_qrbStyleText_clicked(bool checked /* false */) const
-{
-    _qwheHtmlExport.qswStyles->setCurrentIndex(StyleText);
-} // on_qrbStyleText_clicked
-
-const void HtmlExportWidget::on_qsbTableColums_valueChanged(int i)
-{
-    if (i < _qlTableColumns.size()) {
-        RemoveTableColumn();
-    } else {
-        AddTableColumn();
-    } // if else
-} // on_qsbTableColums_valueChanged
-
-HtmlExportWidget::HtmlExportWidget(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(pParent, pFlags)
-{
-    _qwheHtmlExport.setupUi(this);
-
-    _qwheHtmlExport.qtvCodecs->setModel(&_cmCodecsModel);
-    PreselectCodec("UTF-8");
-
-    InitTableColumns();
+	initTableColumns();
 } // HtmlExportWidget
 
-const void HtmlExportWidget::PreselectCodec(const QString &pCodec) const
+const QString HtmlExportWidget::getCodec() const
 {
-    for (int iI = 0; iI < _cmCodecsModel.rowCount(); iI++) {
-        QModelIndex qmiIndex = _cmCodecsModel.index(iI, CodecsModel::ColumnCodec);
-        if (pCodec == _cmCodecsModel.data(qmiIndex)) {
-            _qwheHtmlExport.qtvCodecs->setCurrentIndex(qmiIndex);
+	QModelIndex index = _ui.codecs->currentIndex();
+	return _codecsModel.data(index).toString();
+} // getCodec
+
+const QString HtmlExportWidget::getText() const
+{
+	if (_ui.styleText->isChecked())
+	{
+		return _ui.textPreview->toHtml();
+	}
+	else
+	{
+		return _ui.tablePreview->toHtml();
+	} // if else
+} // getText
+
+const void HtmlExportWidget::refresh() const
+{
+	if (_ui.styleText->isChecked())
+	{
+		refreshText();
+	}
+	else
+	{
+		refreshTable();
+	} // if else
+} // refresh
+
+const void HtmlExportWidget::addTableColumn()
+{
+    // controls
+    TableColumn column;
+    column.headerEdit   = new QLineEdit(_ui.pageTable);
+    column.templateEdit = new QLineEdit(_ui.pageTable);
+    column.width        = new QSpinBox(_ui.pageTable);
+    column.width->setMaximum(COLUMN_MAX_WIDTH);
+    column.width->setValue(COLUMN_DEFAULTWIDTH);
+    column.headerWidget = new QWidget(_ui.pageTable);
+    _tableColumns.append(column);
+
+    // header
+    QHBoxLayout *header = new QHBoxLayout(column.headerWidget);
+    header->setContentsMargins(QMargins());
+    header->addWidget(column.headerEdit);
+    header->addWidget(column.width);
+    _ui.tableColumns->addWidget(column.headerWidget, TableRowHeader, _tableColumns.size() + LABEL_COLUMN);
+    // template
+    _ui.tableColumns->addWidget(column.templateEdit, TableRowTemplate, _tableColumns.size() + LABEL_COLUMN);
+} // addTableColumn
+
+const void HtmlExportWidget::initTableColumns()
+{
+    for (quint8 column = 0; column < _ui.tableColums->value(); column++)
+	{
+        addTableColumn();
+    } // for
+} // initTableColumns
+
+const void HtmlExportWidget::insertTableText(const QTextTable *tablePreview, const quint32 &row, const quint8 &column, const QString &text) const
+{
+    QTextTableCell cell = tablePreview->cellAt(row, column);
+    QTextCursor cursor = cell.firstCursorPosition();
+    cursor.insertText(text);
+} // insertTableText
+
+const void HtmlExportWidget::preselectCodec(const QString &codec) const
+{
+    for (quint8 codecIndex = 0; codecIndex < _codecsModel.rowCount(); codecIndex++)
+	{
+        QModelIndex index = _codecsModel.index(codecIndex, CodecsModel::ColumnCodec);
+        if (codec == _codecsModel.data(index))
+		{
+            _ui.codecs->setCurrentIndex(index);
             return;
         } // if
     } // for
-} // PreselectCodec
+} // preselectCodec
 
-const void HtmlExportWidget::Refresh() const
-{
-    if (_qwheHtmlExport.qrbStyleText->isChecked()) {
-        RefreshText();
-    } else {
-        RefreshTable();
-    } // if else
-} // Refresh
-
-const void HtmlExportWidget::RefreshTable() const
+const void HtmlExportWidget::refreshTable() const
 {
     // prepare table
-    _qwheHtmlExport.qteTablePreview->clear();
-    QTextCursor qtcCursor = _qwheHtmlExport.qteTablePreview->textCursor();
+    _ui.tablePreview->clear();
+    QTextCursor cursor = _ui.tablePreview->textCursor();
     // format
-    QTextTableFormat qttfTableFormat;
-    QVector<QTextLength> qvWidths;
-    foreach (sTableColumn stcColumn, _qlTableColumns) {
-        qvWidths.append(QTextLength(QTextLength::FixedLength, stcColumn.qsbWidth->value()));
+    QTextTableFormat tableFormat;
+    QVector<QTextLength> widths;
+    foreach (const TableColumn &column, _tableColumns)
+	{
+        widths.append(QTextLength(QTextLength::FixedLength, column.width->value()));
     } // foreach
-    qttfTableFormat.setColumnWidthConstraints(qvWidths);
-    QTextTable *qttTablePreview = qtcCursor.insertTable(HEADER_ROW + 1, _qlTableColumns.size(), qttfTableFormat);
+    tableFormat.setColumnWidthConstraints(widths);
+    QTextTable *tablePreview = cursor.insertTable(HEADER_ROW + 1, _tableColumns.size(), tableFormat);
 
-    qtcCursor.beginEditBlock();
+    cursor.beginEditBlock();
 
     // header labels
-    for (int iI = 0; iI < _qlTableColumns.size(); iI++) {
-        InsertTableText(qttTablePreview, HEADER_ROW, iI, _qlTableColumns.at(iI).qleHeader->text());
+    for (quint8 tableColumn = 0; tableColumn < _tableColumns.size(); tableColumn++)
+	{
+        insertTableText(tablePreview, HEADER_ROW, tableColumn, _tableColumns.at(tableColumn).headerEdit->text());
     } // for
 
     // categories
-    ExpInterface::tCategoryIdList tcilCategoryIds;
-    emit VocabularyGetCategoryIds(&tcilCategoryIds);
+    ExpInterface::CategoryIdList categoryIds;
+    emit vocabularyGetCategoryIds(&categoryIds);
 
     // total record count for progress
-    int iTotalRecords = 0;
-    foreach (int iCategoryId, tcilCategoryIds) {
-        int iRecords;
-        emit VocabularyGetRecordCount(iCategoryId, &iRecords);
-        iTotalRecords += iRecords;
+    quint32 totalRecords = 0;
+    foreach (const quint8 &categoryId, categoryIds)
+	{
+        quint32 records;
+        emit vocabularyGetRecordCount(categoryId, &records);
+        totalRecords += records;
     } // foreach
-    emit ProgressExportSetMax(iTotalRecords);
-    QCoreApplication::processEvents();  // to avoid crash
+    emit progressExportSetMax(totalRecords);
+    QCoreApplication::processEvents(); // to avoid crash
 
-    QStringList qslMarks;
-    emit VocabularyGetMarks(&qslMarks);
+    QStringList marks;
+    emit vocabularyGetMarks(&marks);
 
     // preview
-    bool bFirstLine = true;
-    int iRecords = 0;
-    foreach (int iCategoryId, tcilCategoryIds) {
-        if (bFirstLine) {
-            bFirstLine = false;
-        } else {
-            qttTablePreview->appendRows(1);
-            qttTablePreview->mergeCells(qttTablePreview->rows() - 1, 0, 1, _qlTableColumns.size());
-        } // if
+    bool firstLine  = true;
+    quint32 records = 0;
+    foreach (const quint8 &categoryId, categoryIds)
+	{
+        if (firstLine)
+		{
+            firstLine = false;
+        }
+		else
+		{
+            tablePreview->appendRows(1);
+            tablePreview->mergeCells(tablePreview->rows() - 1, 0, 1, _tableColumns.size());
+        } // if else
 
-        QString qsCategoryName;
-        emit VocabularyGetCategoryName(iCategoryId, &qsCategoryName);
-        qttTablePreview->appendRows(1);
-        int iTableRow = qttTablePreview->rows() - 1;
-        qttTablePreview->mergeCells(iTableRow, 0, 1, _qlTableColumns.size());
-        InsertTableText(qttTablePreview, iTableRow, 0, qsCategoryName);
+        QString categoryName;
+        emit vocabularyGetCategoryName(categoryId, &categoryName);
+        tablePreview->appendRows(1);
+        quint32 tableRow = tablePreview->rows() - 1;
+        tablePreview->mergeCells(tableRow, 0, 1, _tableColumns.size());
+        insertTableText(tablePreview, tableRow, 0, categoryName);
 
         // records
-        ExpInterface::tRecordIdList trilRecordIds;
-        emit VocabularyGetRecordIds(iCategoryId, &trilRecordIds);
-        foreach (int iRecordId, trilRecordIds) {
-            qttTablePreview->appendRows(1);
-            iTableRow = qttTablePreview->rows() - 1;
+        ExpInterface::RecordIdList recordIds;
+        emit vocabularyGetRecordIds(categoryId, &recordIds);
+        foreach (const quint32 &recordId, recordIds)
+		{
+            tablePreview->appendRows(1);
+            tableRow = tablePreview->rows() - 1;
 
-            for (int iColumn = 0; iColumn < _qlTableColumns.size(); iColumn++) {
-                QString qsTemplate = _qlTableColumns.at(iColumn).qleTemplate->text();
+            for (quint8 column = 0; column < _tableColumns.size(); column++)
+			{
+                QString templateText = _tableColumns.at(column).templateEdit->text();
 
                 // replace marks for data
-                foreach (QString qsMark, qslMarks) {
-                    QString qsData;
-                    emit VocabularyGetMarkText(iRecordId, qsMark, &qsData);
-                    qsTemplate.replace(qsMark, qsData);
+                foreach (const QString &mark, marks)
+				{
+                    QString data;
+                    emit vocabularyGetMarkText(recordId, mark, &data);
+                    templateText.replace(mark, data);
                 } // foreach
 
-                InsertTableText(qttTablePreview, iTableRow, iColumn, qsTemplate);
+                insertTableText(tablePreview, tableRow, column, templateText);
             } // for
 
-            iRecords++;
-            emit ProgressExportSetValue(iRecords);
+            records++;
+            emit progressExportSetValue(records);
         } // foreach
     } // foreach
 
-    qtcCursor.endEditBlock();
+    cursor.endEditBlock();
 
-    emit ProgressExportSetValue(0);
-} // RefreshTable
+    emit progressExportSetValue(0);
+} // refreshTable
 
-const void HtmlExportWidget::RefreshText() const
+const void HtmlExportWidget::refreshText() const
 {
-    _qwheHtmlExport.qteTextPreview->clear();
+    _ui.textPreview->clear();
 
-    QTextCursor qtcCursor = _qwheHtmlExport.qteTextPreview->textCursor();
-    qtcCursor.beginEditBlock();
+    QTextCursor cursor = _ui.textPreview->textCursor();
+    cursor.beginEditBlock();
 
     // categories
-    ExpInterface::tCategoryIdList tcilCategoryIds;
-    emit VocabularyGetCategoryIds(&tcilCategoryIds);
+    ExpInterface::CategoryIdList categoryIds;
+    emit vocabularyGetCategoryIds(&categoryIds);
 
     // total record count for progress
-    int iTotalRecords = 0;
-    foreach (int iCategoryId, tcilCategoryIds) {
-        int iRecords;
-        emit VocabularyGetRecordCount(iCategoryId, &iRecords);
-        iTotalRecords += iRecords;
+    quint32 totalRecords = 0;
+    foreach (const quint8 &categoryId, categoryIds)
+	{
+        quint32 records;
+        emit vocabularyGetRecordCount(categoryId, &records);
+        totalRecords += records;
     } // foreach
-    emit ProgressExportSetMax(iTotalRecords);
+    emit progressExportSetMax(totalRecords);
 
-    QStringList qslMarks;
-    emit VocabularyGetMarks(&qslMarks);
+    QStringList marks;
+    emit vocabularyGetMarks(&marks);
 
     // preview
-    bool bFirstLine = true;
-    int iRecords = 0;
-    foreach (int iCategoryId, tcilCategoryIds) {
-        if (bFirstLine) {
-            bFirstLine = false;
-        } else {
-            _qwheHtmlExport.qteTextPreview->append("");
+    bool firstLine  = true;
+    quint32 records = 0;
+    foreach (const quint8 &categoryId, categoryIds)
+	{
+        if (firstLine)
+		{
+            firstLine = false;
+        }
+		else
+		{
+            _ui.textPreview->append("");
         } // if
 
-        QString qsCategoryName;
-        emit VocabularyGetCategoryName(iCategoryId, &qsCategoryName);
-        _qwheHtmlExport.qteTextPreview->append(qsCategoryName);
+        QString categoryName;
+        emit vocabularyGetCategoryName(categoryId, &categoryName);
+        _ui.textPreview->append(categoryName);
 
         // records
-        ExpInterface::tRecordIdList trilRecordIds;
-        emit VocabularyGetRecordIds(iCategoryId, &trilRecordIds);
-        foreach (int iRecordId, trilRecordIds) {
-            QString qsTemplate = _qwheHtmlExport.qleTextEdit->text();
+        ExpInterface::RecordIdList recordIds;
+        emit vocabularyGetRecordIds(categoryId, &recordIds);
+        foreach (const quint32 &recordId, recordIds)
+		{
+            QString templateText = _ui.qleTextEdit->text();
 
             // replace marks for data
-            foreach (QString qsMark, qslMarks) {
-                QString qsData;
-                emit VocabularyGetMarkText(iRecordId, qsMark, &qsData);
-                qsTemplate.replace(qsMark, qsData);
+            foreach (const QString &mark, marks)
+			{
+                QString data;
+                emit vocabularyGetMarkText(recordId, mark, &data);
+                templateText.replace(mark, data);
             } // foreach
 
-            _qwheHtmlExport.qteTextPreview->append(qsTemplate);
+            _ui.textPreview->append(templateText);
 
-            iRecords++;
-            emit ProgressExportSetValue(iRecords);
+            records++;
+            emit progressExportSetValue(records);
         } // foreach
     } // foreach
 
-    qtcCursor.endEditBlock();
+    cursor.endEditBlock();
 
-    _qwheHtmlExport.qteTextPreview->verticalScrollBar()->setValue(0);
+    _ui.textPreview->verticalScrollBar()->setValue(0);
 
-    emit ProgressExportSetValue(0);
-} // RefreshText
+    emit progressExportSetValue(0);
+} // refreshText
 
-const void HtmlExportWidget::RemoveTableColumn()
+const void HtmlExportWidget::removeTableColumn()
 {
-    sTableColumn stcColumn = _qlTableColumns.takeLast();
+    TableColumn column = _tableColumns.takeLast();
     // header
-    stcColumn.qleHeader->deleteLater();
-    stcColumn.qsbWidth->deleteLater();
-    stcColumn.qwHeader->deleteLater();
+    column.headerEdit->deleteLater();
+    column.width->deleteLater();
+    column.headerWidget->deleteLater();
     // template
-    stcColumn.qleTemplate->deleteLater();
-} // RemoveTableColumn
+    column.templateEdit->deleteLater();
+} // removeTableColumn
+
+const void HtmlExportWidget::on_tableRefresh_clicked(bool checked /* false */) const
+{
+	refreshTable();
+} // on_tableRefresh_clicked
+
+const void HtmlExportWidget::on_textRefresh_clicked(bool checked /* false */) const
+{
+	refreshText();
+} // on_textRefresh_clicked
+
+const void HtmlExportWidget::on_styleTable_clicked(bool checked /* false */) const
+{
+	_ui.styles->setCurrentIndex(StyleTable);
+} // on_styleTable_clicked
+
+const void HtmlExportWidget::on_styleText_clicked(bool checked /* false */) const
+{
+	_ui.styles->setCurrentIndex(StyleText);
+} // on_styleText_clicked
+
+const void HtmlExportWidget::on_tableColums_valueChanged(int i)
+{
+	if (i < _tableColumns.size())
+	{
+		removeTableColumn();
+	}
+	else
+	{
+		addTableColumn();
+	} // if else
+} // on_tableColums_valueChanged

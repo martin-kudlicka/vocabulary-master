@@ -42,13 +42,13 @@ const void PlaintextExportWidget::Refresh() const
     _qwpePlaintextExport.qptePlainPreview->clear();
 
     // categories
-    ExpInterface::tCategoryIdList tcilCategoryIds;
+    ExpInterface::CategoryIdList tcilCategoryIds;
     emit VocabularyGetCategoryIds(&tcilCategoryIds);
 
     // total record count for progress
     int iTotalRecords = 0;
     foreach (int iCategoryId, tcilCategoryIds) {
-        int iRecords;
+        quint32 iRecords;
         emit VocabularyGetRecordCount(iCategoryId, &iRecords);
         iTotalRecords += iRecords;
     } // foreach
@@ -72,7 +72,7 @@ const void PlaintextExportWidget::Refresh() const
         _qwpePlaintextExport.qptePlainPreview->appendPlainText(qsCategoryName);
 
         // records
-        ExpInterface::tRecordIdList trilRecordIds;
+        ExpInterface::RecordIdList trilRecordIds;
         emit VocabularyGetRecordIds(iCategoryId, &trilRecordIds);
         foreach (int iRecordId, trilRecordIds) {
             QString qsTemplate = _qwpePlaintextExport.qlePlainEdit->text();

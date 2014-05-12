@@ -108,7 +108,7 @@ class VocabularyDatabase : public QObject
 		const void SetSettings(const QString &pKey, const QString &pValue) const;
 
     protected:
-        typedef QList<int> tRecordIdList;
+        typedef QList<quint32> tRecordIdList;
 
         const int AddCategory(const QString &pName) const;
 #ifndef EDITION_FREE

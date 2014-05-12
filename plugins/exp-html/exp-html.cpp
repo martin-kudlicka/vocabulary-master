@@ -3,87 +3,88 @@
 #include <QtWidgets/QFileDialog>
 #include <QtCore/QTextStream>
 
-const void ExpHtml::BeginExport() const
+const void ExpHtml::beginExport() const
 {
     // get filename
-    QString qsFile = QFileDialog::getSaveFileName(_hewWidget, QString(), QString(), tr("html (*.html)"));
-    if (qsFile.isEmpty()) {
+    QString fileName = QFileDialog::getSaveFileName(_widget, QString(), QString(), tr("html (*.html)"));
+    if (fileName.isEmpty())
+	{
         return;
     } // if
 
     // open file
-    QFile qfFile(qsFile);
-    qfFile.open(QIODevice::WriteOnly | QIODevice::Text);
+    QFile file(fileName);
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
 
     // text stream
-    QTextStream qtsTextStream(&qfFile);
-    qtsTextStream.setCodec(_hewWidget->GetCodec().toLocal8Bit());
+    QTextStream textStream(&file);
+    textStream.setCodec(_widget->getCodec().toLocal8Bit());
 
     // process export
-    _hewWidget->setUpdatesEnabled(false);
-    _hewWidget->Refresh();
+    _widget->setUpdatesEnabled(false);
+    _widget->refresh();
 
     // save result to file
-    qtsTextStream << _hewWidget->GetText();
-} // BeginExport
+    textStream << _widget->getText();
+} // beginExport
 
-const QString ExpHtml::GetPluginName() const
+const QString ExpHtml::getPluginName() const
 {
 	return tr("HTML page (html)");
-} // GetPluginName
+} // getPluginName
 
-const void ExpHtml::on_hewWidget_ProgressExportSetMax(const int &pMax) const
+const void ExpHtml::setupUi(QWidget *parent)
 {
-    emit ProgressExportSetMax(pMax);
-} // on_hewWidget_ProgressExportSetMax
+	_widget             = new HtmlExportWidget(parent);
+	QBoxLayout *pLayout = qobject_cast<QBoxLayout *>(parent->layout());
+	pLayout->insertWidget(WIDGET_POSITION, _widget);
 
-const void ExpHtml::on_hewWidget_ProgressExportSetValue(const int &pValue) const
+	connect(_widget, SIGNAL(progressExportSetMax(const quint32 &)),                                SLOT(on_widget_progressExportSetMax(const quint32 &)));
+	connect(_widget, SIGNAL(progressExportSetValue(const quint32 &)),                              SLOT(on_widget_progressExportSetValue(const quint32 &)));
+	connect(_widget, SIGNAL(vocabularyGetCategoryIds(ExpInterface::CategoryIdList *)),             SLOT(on_widget_vocabularyGetCategoryIds(ExpInterface::CategoryIdList *)));
+	connect(_widget, SIGNAL(vocabularyGetCategoryName(const quint8 &, QString *)),                 SLOT(on_widget_vocabularyGetCategoryName(const quint8 &, QString *)));
+	connect(_widget, SIGNAL(vocabularyGetMarks(QStringList *)),                                    SLOT(on_widget_vocabularyGetMarks(QStringList *)));
+	connect(_widget, SIGNAL(vocabularyGetMarkText(const quint32 &, const QString &, QString *)),   SLOT(on_widget_vocabularyGetMarkText(const quint32 &, const QString &, QString *)));
+	connect(_widget, SIGNAL(vocabularyGetRecordCount(const quint8 &, quint32 *)),                  SLOT(on_widget_vocabularyGetRecordCount(const quint8 &, quint32 *)));
+	connect(_widget, SIGNAL(vocabularyGetRecordIds(const quint8 &, ExpInterface::RecordIdList *)), SLOT(on_widget_vocabularyGetRecordIds(const quint8 &, ExpInterface::RecordIdList *)));
+} // setupUi
+
+const void ExpHtml::on_widget_progressExportSetMax(const quint32 &max) const
 {
-    emit ProgressExportSetValue(pValue);
-} // on_hewWidget_ProgressExportSetValue
+    emit progressExportSetMax(max);
+} // on_widget_progressExportSetMax
 
-const void ExpHtml::on_hewWidget_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *pCategoryIds) const
+const void ExpHtml::on_widget_progressExportSetValue(const quint32 &value) const
 {
-    emit VocabularyGetCategoryIds(pCategoryIds);
-} // on_hewWidget_VocabularyGetCategoryIds
+    emit progressExportSetValue(value);
+} // on_widget_progressExportSetValue
 
-const void ExpHtml::on_hewWidget_VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const
+const void ExpHtml::on_widget_vocabularyGetCategoryIds(ExpInterface::CategoryIdList *categoryIds) const
 {
-    emit VocabularyGetCategoryName(pCategoryId, pName);
-} // on_hewWidget_VocabularyGetCategoryName
+    emit vocabularyGetCategoryIds(categoryIds);
+} // on_widget_vocabularyGetCategoryIds
 
-const void ExpHtml::on_hewWidget_VocabularyGetMarks(QStringList *pMarks) const
+const void ExpHtml::on_widget_vocabularyGetCategoryName(const quint8 &categoryId, QString *name) const
 {
-    emit VocabularyGetMarks(pMarks);
-} // on_hewWidget_VocabularyGetMarks
+    emit vocabularyGetCategoryName(categoryId, name);
+} // on_widget_vocabularyGetCategoryName
 
-const void ExpHtml::on_hewWidget_VocabularyGetMarkText(const int &pRecordId, const QString &pMark, QString *pText) const
+const void ExpHtml::on_widget_vocabularyGetMarks(QStringList *marks) const
 {
-    emit VocabularyGetMarkText(pRecordId, pMark, pText);
-} // on_hewWidget_VocabularyGetMarkText
+    emit vocabularyGetMarks(marks);
+} // on_widget_vocabularyGetMarks
 
-const void ExpHtml::on_hewWidget_VocabularyGetRecordCount(const int &pCategoryId, int *pCount) const
+const void ExpHtml::on_widget_vocabularyGetMarkText(const quint32 &recordId, const QString &mark, QString *text) const
 {
-    emit VocabularyGetRecordCount(pCategoryId, pCount);
-} // on_hewWidget_VocabularyGetRecordCount
+    emit vocabularyGetMarkText(recordId, mark, text);
+} // on_widget_vocabularyGetMarkText
 
-const void ExpHtml::on_hewWidget_VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::tRecordIdList *pRecordIds) const
+const void ExpHtml::on_widget_vocabularyGetRecordCount(const quint8 &categoryId, quint32 *count) const
 {
-    emit VocabularyGetRecordIds(pCategoryId, pRecordIds);
-} // on_hewWidget_VocabularyGetRecordCount
+    emit vocabularyGetRecordCount(categoryId, count);
+} // on_widget_vocabularyGetRecordCount
 
-const void ExpHtml::SetupUI(QWidget *pParent)
+const void ExpHtml::on_widget_vocabularyGetRecordIds(const quint8 &categoryId, ExpInterface::RecordIdList *recordIds) const
 {
-	_hewWidget = new HtmlExportWidget(pParent);
-	QBoxLayout *pLayout = qobject_cast<QBoxLayout *>(pParent->layout());
-	pLayout->insertWidget(WIDGET_POSITION, _hewWidget);
-
-    connect(_hewWidget, SIGNAL(ProgressExportSetMax(const int &)), SLOT(on_hewWidget_ProgressExportSetMax(const int &)));
-    connect(_hewWidget, SIGNAL(ProgressExportSetValue(const int &)), SLOT(on_hewWidget_ProgressExportSetValue(const int &)));
-    connect(_hewWidget, SIGNAL(VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)), SLOT(on_hewWidget_VocabularyGetCategoryIds(ExpInterface::tCategoryIdList *)));
-    connect(_hewWidget, SIGNAL(VocabularyGetCategoryName(const int &, QString *)), SLOT(on_hewWidget_VocabularyGetCategoryName(const int &, QString *)));
-    connect(_hewWidget, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_hewWidget_VocabularyGetMarks(QStringList *)));
-    connect(_hewWidget, SIGNAL(VocabularyGetMarkText(const int &, const QString &, QString *)), SLOT(on_hewWidget_VocabularyGetMarkText(const int &, const QString &, QString *)));
-    connect(_hewWidget, SIGNAL(VocabularyGetRecordCount(const int &, int *)), SLOT(on_hewWidget_VocabularyGetRecordCount(const int &, int *)));
-    connect(_hewWidget, SIGNAL(VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)), SLOT(on_hewWidget_VocabularyGetRecordIds(const int &, ExpInterface::tRecordIdList *)));
-} // SetupUI
+    emit vocabularyGetRecordIds(categoryId, recordIds);
+} // on_widget_vocabularyGetRecordCount
