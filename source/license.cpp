@@ -78,7 +78,7 @@ const void License::RefreshLicense()
 
 	// verify license
 	RSA rRSA;
-	bool bVerify = rRSA.Verify(qbaSignKey, qbaContent, qbaSignature);
+	bool bVerify = rRSA.verify(qbaSignKey, qbaContent, qbaSignature);
 	if (!bVerify) {
 		_esStatus = StatusInvalid;
 		return;
@@ -90,7 +90,7 @@ const void License::RefreshLicense()
 	QByteArray qbaDecryptKey = qfDecryptKey.readAll();
 
 	// decrypt license
-	QByteArray qbaDecrypted = rRSA.Decrypt(qbaDecryptKey, qbaContent);
+	QByteArray qbaDecrypted = rRSA.decrypt(qbaDecryptKey, qbaContent);
 
 	QXmlStreamReader qxsrXmlReader(qbaDecrypted);
 	while (!qxsrXmlReader.atEnd()) {

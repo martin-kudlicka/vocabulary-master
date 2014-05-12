@@ -4,34 +4,35 @@
 #include "../../3rdparty/Crypto++/source/osrng.h"
 #include <string>
 
-const QByteArray RSA::Decrypt(const QByteArray &pPrivateKey, const QByteArray &pContent) const
+const QByteArray RSA::decrypt(const QByteArray &privateKey, const QByteArray &content) const
 {
-	CryptoPP::ArraySource asKey(reinterpret_cast<const byte *>(pPrivateKey.constData()), pPrivateKey.size(), true);
-	CryptoPP::RSAES_OAEP_SHA_Decryptor rosdDecryptor(asKey);
+	CryptoPP::ArraySource keyBuffer(reinterpret_cast<const byte *>(privateKey.constData()), privateKey.size(), true);
+	CryptoPP::RSAES_OAEP_SHA_Decryptor decryptor(keyBuffer);
 
-	CryptoPP::AutoSeededRandomPool asrpRandomPool;
-	std::string sDecrypted;
-	CryptoPP::ArraySource asDecrypt(reinterpret_cast<const byte *>(pContent.constData()), pContent.size(), true, new CryptoPP::PK_DecryptorFilter(asrpRandomPool, rosdDecryptor, new CryptoPP::StringSink(sDecrypted)));
+	CryptoPP::AutoSeededRandomPool randomPool;
+	std::string decryptedString;
+	CryptoPP::ArraySource decryptedBuffer(reinterpret_cast<const byte *>(content.constData()), content.size(), true, new CryptoPP::PK_DecryptorFilter(randomPool, decryptor, new CryptoPP::StringSink(decryptedString)));
 
-	return sDecrypted.c_str();
-} // Decrypt
+	return decryptedString.c_str();
+} // decrypt
 
-const bool RSA::Verify(const QByteArray &pPublicKey, const QByteArray &pContent, const QByteArray &pSignature) const
+const bool RSA::verify(const QByteArray &publicKey, const QByteArray &content, const QByteArray &signature) const
 {
-	CryptoPP::ArraySource asKey(reinterpret_cast<const byte *>(pPublicKey.constData()), pPublicKey.size(), true);
-	CryptoPP::RSASS<CryptoPP::PKCS1v15, CryptoPP::SHA>::Verifier vVerifier(asKey);
+	CryptoPP::ArraySource keyBuffer(reinterpret_cast<const byte *>(publicKey.constData()), publicKey.size(), true);
+	CryptoPP::RSASS<CryptoPP::PKCS1v15, CryptoPP::SHA>::Verifier verifier(keyBuffer);
 
-	if (pSignature.size() != vVerifier.SignatureLength()) {
+	if (signature.size() != verifier.SignatureLength())
+	{
 		return false;
 	} // if
 
-	CryptoPP::ArraySource asSignature(reinterpret_cast<const byte *>(pSignature.constData()), pSignature.size(), true);
-	CryptoPP::SecByteBlock sbbSecByteBlock(vVerifier.SignatureLength());
-	asSignature.Get(sbbSecByteBlock, sbbSecByteBlock.size());
+	CryptoPP::ArraySource signatureBuffer(reinterpret_cast<const byte *>(signature.constData()), signature.size(), true);
+	CryptoPP::SecByteBlock secByteBlock(verifier.SignatureLength());
+	signatureBuffer.Get(secByteBlock, secByteBlock.size());
 
-	CryptoPP::VerifierFilter *vfVerifierFilter = new CryptoPP::VerifierFilter(vVerifier);
-	vfVerifierFilter->Put(sbbSecByteBlock, vVerifier.SignatureLength());
-	CryptoPP::ArraySource asContent(reinterpret_cast<const byte *>(pContent.constData()), pContent.size(), true, vfVerifierFilter);
+	CryptoPP::VerifierFilter *verifierFilter = new CryptoPP::VerifierFilter(verifier);
+	verifierFilter->Put(secByteBlock, verifier.SignatureLength());
+	CryptoPP::ArraySource contentBuffer(reinterpret_cast<const byte *>(content.constData()), content.size(), true, verifierFilter);
 
-	return vfVerifierFilter->GetLastResult();
-} // Verify
+	return verifierFilter->GetLastResult();
+} // verify
