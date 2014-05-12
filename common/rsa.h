@@ -12,8 +12,8 @@ class
 	RSA
 {
     public:
-		const QByteArray Decrypt(const QByteArray &pPrivateKey, const QByteArray &pContent) const;
-		const bool Verify(const QByteArray &pPublicKey, const QByteArray &pContent, const QByteArray &pSignature) const;
+		const QByteArray decrypt(const QByteArray &privateKey, const QByteArray &content)                             const;
+		const bool       verify (const QByteArray &publicKey, const QByteArray &content, const QByteArray &signature) const;
 }; // RSA
 
 #endif // RSA_H
