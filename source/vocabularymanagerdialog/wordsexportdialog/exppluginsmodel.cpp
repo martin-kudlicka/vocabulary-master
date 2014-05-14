@@ -14,7 +14,7 @@ QVariant ExpPluginsModel::data(const QModelIndex &index, int role /* Qt::Display
 {
     switch (role) {
         case Qt::DisplayRole:
-			return _teplExpPlugins->at(index.row()).eiInterface->getPluginName();
+			return _teplExpPlugins->at(index.row()).eiInterface->pluginName();
         default:
             return QVariant();
     } // switch

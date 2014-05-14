@@ -13,7 +13,7 @@ class ExpPlaintext : public ExpInterface
         PlaintextExportWidget *_pewWidget;
 
         virtual const void beginExport() const;
-		virtual const QString getPluginName() const;
+		virtual const QString pluginName() const;
 		virtual const void setupUi(QWidget *pParent);
 
     private slots:
