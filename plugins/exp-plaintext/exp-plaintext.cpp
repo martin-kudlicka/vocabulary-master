@@ -27,10 +27,10 @@ const void ExpPlaintext::beginExport() const
     qtsTextStream << _pewWidget->GetText();
 } // beginExport
 
-const QString ExpPlaintext::getPluginName() const
+const QString ExpPlaintext::pluginName() const
 {
 	return tr("text file (txt)");
-} // getPluginName
+} // pluginName
 
 const void ExpPlaintext::on_pewWidget_ProgressExportSetMax(const int &pMax) const
 {

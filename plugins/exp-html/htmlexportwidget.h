@@ -13,9 +13,9 @@ class HtmlExportWidget : public QWidget
 	public:
 		HtmlExportWidget(QWidget *parent = NULL, Qt::WindowFlags flags = 0);
 
-        const QString getCodec() const;
-        const QString getText () const;
-        const void    refresh () const;
+        const QString codec  () const;
+        const void    refresh() const;
+		const QString text   () const;
 
 	private:
 		enum Style

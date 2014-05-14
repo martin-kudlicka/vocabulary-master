@@ -6,7 +6,7 @@
 const void ExpHtml::beginExport() const
 {
     // get filename
-    QString fileName = QFileDialog::getSaveFileName(_widget, QString(), QString(), tr("html (*.html)"));
+    const QString fileName = QFileDialog::getSaveFileName(_widget, QString(), QString(), tr("html (*.html)"));
     if (fileName.isEmpty())
 	{
         return;
@@ -18,26 +18,26 @@ const void ExpHtml::beginExport() const
 
     // text stream
     QTextStream textStream(&file);
-    textStream.setCodec(_widget->getCodec().toLocal8Bit());
+    textStream.setCodec(_widget->codec().toLocal8Bit());
 
     // process export
     _widget->setUpdatesEnabled(false);
     _widget->refresh();
 
     // save result to file
-    textStream << _widget->getText();
+    textStream << _widget->text();
 } // beginExport
 
-const QString ExpHtml::getPluginName() const
+const QString ExpHtml::pluginName() const
 {
 	return tr("HTML page (html)");
-} // getPluginName
+} // pluginName
 
 const void ExpHtml::setupUi(QWidget *parent)
 {
-	_widget             = new HtmlExportWidget(parent);
-	QBoxLayout *pLayout = qobject_cast<QBoxLayout *>(parent->layout());
-	pLayout->insertWidget(WIDGET_POSITION, _widget);
+	_widget               = new HtmlExportWidget(parent);
+	QBoxLayout *boxLayout = qobject_cast<QBoxLayout *>(parent->layout());
+	boxLayout->insertWidget(WIDGET_POSITION, _widget);
 
 	connect(_widget, SIGNAL(progressExportSetMax(const quint32 &)),                                SLOT(on_widget_progressExportSetMax(const quint32 &)));
 	connect(_widget, SIGNAL(progressExportSetValue(const quint32 &)),                              SLOT(on_widget_progressExportSetValue(const quint32 &)));

@@ -12,9 +12,9 @@ class ExpHtml : public ExpInterface
 	private:
         HtmlExportWidget *_widget;
 
-        virtual const void    beginExport  () const;
-		virtual const QString getPluginName() const;
-		virtual const void    setupUi      (QWidget *parent);
+        virtual const void    beginExport() const;
+		virtual const QString pluginName () const;
+		virtual const void    setupUi    (QWidget *parent);
 
     private slots:
         const void on_widget_progressExportSetMax     (const quint32 &max)                                              const;

@@ -28,13 +28,13 @@ class ExpPdf : public ExpInterface
 		virtual const void    beginExport       ()                                                                                                                                       const;
 		        const void    exportTable       (const quint32 &recordId, const HPDF_Page &page, const FontList &fontList, const QStringList &marks)                                     const;
 		        const void    exportText        (const quint32 &recordId, const HPDF_Page &page, const FontList &fontList, const QStringList &marks, const QString &templateText)        const;
-		virtual const QString getPluginName     ()                                                                                                                                       const;
 		        const void    initFonts         (const HPDF_Doc &pdf, FontList *fontList, const quint8 &markCount)                                                                       const;
 		        const void    pdfAddPage        (const HPDF_Doc &pdf, HPDF_Page *page, const HPDF_REAL &defaultSize = 0)                                                                 const;
 		        const bool    pdfNextLine       (const HPDF_Doc &pdf, HPDF_Page *page)                                                                                                   const;
 		        const void    pdfSetFont        (const HPDF_Page &page, const HPDF_Font &font, const quint8 &size)                                                                       const;
 		        const void    pdfShowTableHeader(const HPDF_Page &page, const FontList &fontList)                                                                                        const;
 		        const void    pdfShowText       (const HPDF_Page &page, const QString &text, const QTextCodec *textCodec)                                                                const;
+		virtual const QString pluginName        ()                                                                                                                                       const;
 		virtual const void    setupUi           (QWidget *parent);
 
 	private slots:

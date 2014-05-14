@@ -182,11 +182,6 @@ const void ExpPdf::exportText(const quint32 &recordId, const HPDF_Page &page, co
 	} // while
 } // exportText
 
-const QString ExpPdf::getPluginName() const
-{
-	return tr("Adobe Reader (pdf)");
-} // getPluginName
-
 const void ExpPdf::initFonts(const HPDF_Doc &pdf, FontList *fontList, const quint8 &markCount) const
 {
 	// get demanded fonts and encodings
@@ -338,6 +333,11 @@ const void ExpPdf::pdfShowText(const HPDF_Page &page, const QString &text, const
 
 	HPDF_Page_ShowText(page, encoded);
 } // pdfShowText
+
+const QString ExpPdf::pluginName() const
+{
+	return tr("Adobe Reader (pdf)");
+} // pluginName
 
 const void ExpPdf::setupUi(QWidget *parent)
 {
