@@ -9,138 +9,146 @@
 class PdfExportWidget : public QWidget
 {
 	Q_OBJECT
-	Q_ENUMS(eEncodingSet)
-	Q_ENUMS(eEncodingType)
-	Q_ENUMS(eFontRole)
-	Q_ENUMS(eFontSet)
-	Q_ENUMS(eStyle)
 
 	public:
-		static const int FONTROLE_NONE = -1;
+		static const qint8 FONTROLE_NONE = -1;
 
-		enum eEncodingSet {
+		enum EncodingSet
+		{
 			EncodingSetNone,
 			EncodingSetCNS,
 			EncodingSetCNT,
-			EncodingSetJPE = 4,
-			EncodingSetKRE = 8
-		}; // eEncodingSet
-		Q_DECLARE_FLAGS(qfEncodingSets, eEncodingSet)
-		enum eEncodingType {
+			EncodingSetJPE = 0x4,
+			EncodingSetKRE = 0x8
+		}; // EncodingSet
+		Q_DECLARE_FLAGS(EncodingSets, EncodingSet)
+		enum EncodingType
+		{
 			EncodingTypeSinglebyte,
 			EncodingTypeMultibyte
-		}; // eEncodingType
-		enum eFontRole {
+		}; // EncodingType
+		enum FontRole
+		{
 			FontRoleCategory,
 			FontRoleTemplate,
 			FontRoleMark
-		}; // eFontRole
-		enum eFontSet {
+		}; // FontRole
+		enum FontSet
+		{
 			FontSetNone,
 			FontSetCNS,
 			FontSetCNT,
-			FontSetJP = 4,
-			FontSetKR = 8
-		}; // eFontSet
-		Q_DECLARE_FLAGS(qfFontSets, eFontSet)
-		enum eStyle {
+			FontSetJP = 0x4,
+			FontSetKR = 0x8
+		}; // FontSet
+		Q_DECLARE_FLAGS(FontSets, FontSet)
+		enum Style
+		{
 			StyleText,
 			StyleTable
-		}; // eStyle
+		}; // Style
 
-		struct sEncodingInfo {
-			QString qsName;
-			eEncodingType eetEncodingType;
-			eEncodingSet eesEncodingSet;
-			char *cTextCodec;
-		}; // sEncodingInfo
-		struct sFontInfo {
-			QString qsName;
-			eEncodingType eetEncodingType;
-			eFontSet efsFontSet;
-		}; // sFontInfo
-		struct sFontRoleInfo {
-			QString qsFont;
-			eFontSet efsFontSet;
-			QString qsEncoding;
-			eEncodingSet eesEncodingSet;
-			int iSize;
-			const char *cTextCodec;
-		}; // sFontRoleInfo
-		struct sPageSize {
-			QString qsName;
-			HPDF_PageSizes hpsSize;
-		}; // sPageSize
-		struct sTableColumn {
-			QWidget *qwHeader;
-			QLineEdit *qleHeader;
-			QSpinBox *qsbWidth;
-			QLineEdit *qleTemplate;
-		}; // sTableColumn
+		struct EncodingInfo
+		{
+			QString      name;
+			EncodingType encodingType;
+			EncodingSet  encodingSet;
+			char        *textCodec;
+		}; // EncodingInfo
+		struct FontInfo
+		{
+			QString      name;
+			EncodingType encodingType;
+			FontSet      fontSet;
+		}; // FontInfo
+		struct FontRoleInfo
+		{
+			QString     font;
+			FontSet     fontSet;
+			QString     encoding;
+			EncodingSet encodingSet;
+			quint8      size;
+			const char *textCodec;
+		}; // FontRoleInfo
+		struct PageSize
+		{
+			QString        name;
+			HPDF_PageSizes size;
+		}; // PageSize
+		struct TableColumn
+		{
+			QWidget   *headerWidget;
+			QLineEdit *headerEdit;
+			QSpinBox  *width;
+			QLineEdit *templateEdit;
+		}; // TableColumn
 
-		typedef QList<sTableColumn> tTableColumns;
+		typedef QList<TableColumn> TableColumns;
 
-		PdfExportWidget(QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+		PdfExportWidget(QWidget *parent = NULL, Qt::WindowFlags flags = 0);
 
-		const int GetBorder() const;
-		const int GetCompression() const;
-		sFontRoleInfo GetFontRoleInfo(const eFontRole &pRole, const int &pNum = FONTROLE_NONE) const;
-		const HPDF_PageSizes GetPageSize() const;
-		const eStyle GetStyle() const;
-		const tTableColumns *GetTableColumns() const;
-		const QString GetTextTemplate() const;
-		const void InitMarkFonts();
+		const quint8         getBorder      ()                                                       const;
+		const quint8         getCompression ()                                                       const;
+		const FontRoleInfo   getFontRoleInfo(const FontRole &role, const qint8 &num = FONTROLE_NONE) const;
+		const HPDF_PageSizes getPageSize    ()                                                       const;
+		const Style          getStyle       ()                                                       const;
+		const TableColumns  *getTableColumns()                                                       const;
+		const QString        getTextTemplate()                                                       const;
+		const void           initMarkFonts  ();
 
 	private:
-		static const int DEFAULT_FONT_COUNT = 2;
+		static const quint8 DEFAULT_FONT_COUNT = 2;
 
-		enum eFontDetails {
+		enum FontDetails
+		{
 			FontDetailsFont,
 			FontDetailsEncoding,
 			FontDetailsSize
-		}; // eFontDetails
-        enum eTableRow {
+		}; // FontDetails
+        enum TableRow
+		{
             TableRowHeader,
             TableRowTemplate
-        }; // eTableRow
+        }; // TableRow
 
-		struct sFontControls {
-			QComboBox *qcbFont;
-			QComboBox *qcbEncoding;
-			QSpinBox *qsbSize;
-		}; // sFontControls
+		struct FontControls
+		{
+			QComboBox *font;
+			QComboBox *encoding;
+			QSpinBox  *size;
+		}; // FontControls
 
-        static const int COLUMN_DEFAULTWIDTH = 100;
-        static const int COLUMN_MAX_WIDTH = 999;
-        static const int LABEL_COLUMN = 1;
+        static const quint8  COLUMN_DEFAULTWIDTH = 100;
+        static const quint16 COLUMN_MAX_WIDTH    = 999;
+        static const quint8  LABEL_COLUMN        = 1;
 
-		QList<sFontControls> _qlFontControls;
-        QList<sTableColumn> _qlTableColumns;
-		Ui::qwPdfExport _qwpePdfExport;
+		QList<FontControls> _fontControls;
+        QList<TableColumn>  _tableColumns;
+		Ui::PdfExportWidget _ui;
 
-        const void AddTableColumn();
-		const void FillEncodings(QComboBox *pComboBox, const QString &pFont) const;
-		const void FillFonts(QComboBox *pComboBox) const;
-		const void FillPageSizes() const;
-		const eEncodingSet GetEncodingSet(const QString &pEncoding) const;
-		const eFontSet GetFontSet(const QString &pFont) const;
-		const char *GetTextCodec(const QString &pEncoding) const;
-        const void InitTableColumns();
-        const void RefreshTable() const;
-        const void RefreshText() const;
-        const void RemoveTableColumn();
+        const void        addTableColumn   ();
+		const void        fillEncodings    (QComboBox *comboBox, const QString &font) const;
+		const void        fillFonts        (QComboBox *comboBox)                      const;
+		const void        fillPageSizes    ()                                         const;
+		const EncodingSet getEncodingSet   (const QString &encoding)                  const;
+		const FontSet     getFontSet       (const QString &font)                      const;
+		const char       *getTextCodec     (const QString &encoding)                  const;
+        const void        initTableColumns ();
+        const void        refreshTable     ()                                         const;
+        const void        refreshText      ()                                         const;
+        const void        removeTableColumn();
 
 	signals:
-		void VocabularyGetMarks(QStringList *pMarks) const;
+		void vocabularyGetMarks(QStringList *marks) const;
 
     private slots:
-		const void on_qcbFont_currentIndexChanged(int index) const;
-		const void on_qrbStyleTable_clicked(bool checked = false) const;
-        const void on_qrbStyleText_clicked(bool checked = false) const;
-        const void on_qsbTableColums_valueChanged(int i);
+		const void on_font_currentIndexChanged(int index)            const;
+		const void on_styleTable_clicked      (bool checked = false) const;
+        const void on_styleText_clicked       (bool checked = false) const;
+        const void on_tableColums_valueChanged(int i);
 }; // PdfExportWidget
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(PdfExportWidget::qfEncodingSets)
-Q_DECLARE_OPERATORS_FOR_FLAGS(PdfExportWidget::qfFontSets)
+Q_DECLARE_OPERATORS_FOR_FLAGS(PdfExportWidget::EncodingSets)
+Q_DECLARE_OPERATORS_FOR_FLAGS(PdfExportWidget::FontSets)
 
 #endif // PDFEXPORTWIDGET_H
