@@ -73,7 +73,7 @@ class PdfExportWidget : public QWidget
 		struct PageSize
 		{
 			QString        name;
-			HPDF_PageSizes size;
+			HPDF_PageSizes pdfPageSize;
 		}; // PageSize
 		struct TableColumn
 		{
@@ -87,14 +87,14 @@ class PdfExportWidget : public QWidget
 
 		PdfExportWidget(QWidget *parent = NULL, Qt::WindowFlags flags = 0);
 
-		const quint8         getBorder      ()                                                       const;
-		const quint8         getCompression ()                                                       const;
-		const FontRoleInfo   getFontRoleInfo(const FontRole &role, const qint8 &num = FONTROLE_NONE) const;
-		const HPDF_PageSizes getPageSize    ()                                                       const;
-		const Style          getStyle       ()                                                       const;
-		const TableColumns  *getTableColumns()                                                       const;
-		const QString        getTextTemplate()                                                       const;
-		const void           initMarkFonts  ();
+		const quint8         border       ()                                                           const;
+		const quint8         compression  ()                                                           const;
+		const FontRoleInfo   fontRoleInfo (const FontRole &fontRole, const qint8 &num = FONTROLE_NONE) const;
+		const void           initMarkFonts();
+		const HPDF_PageSizes pageSize     ()                                                           const;
+		const Style          style        ()                                                           const;
+		const TableColumns  *tableColumns ()                                                           const;
+		const QString        textTemplate ()                                                           const;
 
 	private:
 		static const quint8 DEFAULT_FONT_COUNT = 2;
@@ -130,12 +130,10 @@ class PdfExportWidget : public QWidget
 		const void        fillEncodings    (QComboBox *comboBox, const QString &font) const;
 		const void        fillFonts        (QComboBox *comboBox)                      const;
 		const void        fillPageSizes    ()                                         const;
-		const EncodingSet getEncodingSet   (const QString &encoding)                  const;
-		const FontSet     getFontSet       (const QString &font)                      const;
-		const char       *getTextCodec     (const QString &encoding)                  const;
+		const EncodingSet encodingSet      (const QString &encoding)                  const;
+		const FontSet     fontSet          (const QString &font)                      const;
+		const char       *textCodec        (const QString &encoding)                  const;
         const void        initTableColumns ();
-        const void        refreshTable     ()                                         const;
-        const void        refreshText      ()                                         const;
         const void        removeTableColumn();
 
 	signals:

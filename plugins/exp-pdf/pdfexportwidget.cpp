@@ -86,78 +86,38 @@ PdfExportWidget::PageSize PAGE_SIZES[] = { {"Letter",	HPDF_PAGE_SIZE_LETTER},
 											  {"US 5x7",	HPDF_PAGE_SIZE_US5x7},
 											  {"Comm 10",	HPDF_PAGE_SIZE_COMM10} };
 
-const void PdfExportWidget::addTableColumn()
+PdfExportWidget::PdfExportWidget(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QWidget(parent, flags)
 {
-    // controls
-    TableColumn column;
-    column.headerEdit   = new QLineEdit(_ui.pageTable);
-    column.templateEdit = new QLineEdit(_ui.pageTable);
-    column.width        = new QSpinBox(_ui.pageTable);
-    column.width->setMaximum(COLUMN_MAX_WIDTH);
-    column.width->setValue(COLUMN_DEFAULTWIDTH);
-    column.headerWidget = new QWidget(_ui.pageTable);
-    _tableColumns.append(column);
+	_ui.setupUi(this);
 
-    // header
-    QHBoxLayout *header = new QHBoxLayout(column.headerWidget);
-    header->setContentsMargins(QMargins());
-    header->addWidget(column.headerEdit);
-    header->addWidget(column.width);
-    _ui.tableColumns->addWidget(column.headerWidget, TableRowHeader, _tableColumns.size() + LABEL_COLUMN);
-    // template
-    _ui.tableColumns->addWidget(column.templateEdit, TableRowTemplate, _tableColumns.size() + LABEL_COLUMN);
-} // addTableColumn
+	fillFonts(_ui.categoryFont);
+	fillEncodings(_ui.categoryEncoding, _ui.categoryFont->currentText());
+	fillFonts(_ui.templateFont);
+	fillEncodings(_ui.templateEncoding, _ui.templateFont->currentText());
+	fillPageSizes();
+	initTableColumns();
 
-const void PdfExportWidget::fillEncodings(QComboBox *comboBox, const QString &font) const
-{
-	// get font encoding type
-	EncodingType encoding;
-	for (quint8 fontIndex = 0; fontIndex < sizeof(FONTS) / sizeof(FontInfo); fontIndex++)
-	{
-		if (FONTS[fontIndex].name == font)
-		{
-			encoding = FONTS[fontIndex].encodingType;
-			break;
-		} // if
-	} // for
+	// font controls
+	FontControls controls;
+	controls.font     = _ui.categoryFont;
+	controls.encoding = _ui.categoryEncoding;
+	controls.size     = _ui.categoryFontSize;
+	_fontControls.append(controls);
+	controls.font     = _ui.templateFont;
+	controls.encoding = _ui.templateEncoding;
+	controls.size     = _ui.templateFontSize;
+	_fontControls.append(controls);
 
-	comboBox->clear();
-	for (quint8 encodingIndex = 0; encodingIndex < sizeof(ENCODINGS) / sizeof(EncodingInfo); encodingIndex++)
-	{
-		if (ENCODINGS[encodingIndex].encodingType == encoding)
-		{
-			comboBox->addItem(ENCODINGS[encodingIndex].name);
-		} // if
-	} // for
-} // fillEncodings
+	connect(_ui.categoryFont, SIGNAL(currentIndexChanged(int)), SLOT(on_font_currentIndexChanged(int)));
+	connect(_ui.templateFont, SIGNAL(currentIndexChanged(int)), SLOT(on_font_currentIndexChanged(int)));
+} // PdfExportWidget
 
-const void PdfExportWidget::fillFonts(QComboBox *comboBox) const
-{
-	for (quint8 fontIndex = 0; fontIndex < sizeof(FONTS) / sizeof(FontInfo); fontIndex++)
-	{
-		comboBox->addItem(FONTS[fontIndex].name);
-	} // for
-} // fillFonts
-
-const void PdfExportWidget::fillPageSizes() const
-{
-	for (quint8 sizeIndex = 0; sizeIndex < sizeof(PAGE_SIZES) / sizeof(PageSize); sizeIndex++)
-	{
-		_ui.pageSize->addItem(PAGE_SIZES[sizeIndex].name, PAGE_SIZES[sizeIndex].size);
-
-		if (PAGE_SIZES[sizeIndex].size == HPDF_PAGE_SIZE_A4)
-		{
-			_ui.pageSize->setCurrentIndex(sizeIndex);
-		} // if
-	} // for
-} // fillPageSizes
-
-const quint8 PdfExportWidget::getBorder() const
+const quint8 PdfExportWidget::border() const
 {
 	return _ui.border->value();
-} // getBorder
+} // border
 
-const quint8 PdfExportWidget::getCompression() const
+const quint8 PdfExportWidget::compression() const
 {
 	quint8 compression;
 
@@ -174,39 +134,13 @@ const quint8 PdfExportWidget::getCompression() const
 	} // if
 
 	return compression;
-} // getCompression
+} // compression
 
-const PdfExportWidget::EncodingSet PdfExportWidget::getEncodingSet(const QString &encoding) const
-{
-	for (quint8 encodingIndex = 0; encodingIndex < sizeof(ENCODINGS) / sizeof(EncodingInfo); encodingIndex++)
-	{
-		if (ENCODINGS[encodingIndex].name == encoding)
-		{
-			return ENCODINGS[encodingIndex].encodingSet;
-		} // if
-	} // for
-
-	return EncodingSetNone;
-} // getEncodingSet
-
-const PdfExportWidget::FontSet PdfExportWidget::getFontSet(const QString &font) const
-{
-	for (quint8 fontIndex = 0; fontIndex < sizeof(FONTS) / sizeof(FontInfo); fontIndex++)
-	{
-		if (FONTS[fontIndex].name == font)
-		{
-			return FONTS[fontIndex].fontSet;
-		} // if
-	} // for
-
-	return FontSetNone;
-} // getFontSet
-
-const PdfExportWidget::FontRoleInfo PdfExportWidget::getFontRoleInfo(const FontRole &role, const qint8 &num /* FONTROLE_NONE */) const
+const PdfExportWidget::FontRoleInfo PdfExportWidget::fontRoleInfo(const FontRole &fontRole, const qint8 &num /* FONTROLE_NONE */) const
 {
 	FontRoleInfo fontRoleInfo;
 
-	switch (role)
+	switch (fontRole)
 	{
 		case FontRoleCategory:
 			fontRoleInfo.font     = _ui.categoryFont->currentText();
@@ -226,50 +160,12 @@ const PdfExportWidget::FontRoleInfo PdfExportWidget::getFontRoleInfo(const FontR
 			fontRoleInfo.size     = controls.size->value();
 	} // switch
 
-	fontRoleInfo.fontSet     = getFontSet(fontRoleInfo.font);
-	fontRoleInfo.encodingSet = getEncodingSet(fontRoleInfo.encoding);
-	fontRoleInfo.textCodec   = getTextCodec(fontRoleInfo.encoding);
+	fontRoleInfo.fontSet     = fontSet(fontRoleInfo.font);
+	fontRoleInfo.encodingSet = encodingSet(fontRoleInfo.encoding);
+	fontRoleInfo.textCodec   = textCodec(fontRoleInfo.encoding);
 
 	return fontRoleInfo;
-} // getFontRoleInfo
-
-const HPDF_PageSizes PdfExportWidget::getPageSize() const
-{
-	return static_cast<const HPDF_PageSizes>(_ui.pageSize->itemData(_ui.pageSize->currentIndex()).toInt());
-} // getPageSize
-
-const PdfExportWidget::Style PdfExportWidget::getStyle() const
-{
-	if (_ui.styleText->isChecked())
-	{
-		return StyleText;
-	} else {
-		return StyleTable;
-	} // if else
-} // getStyle
-
-const PdfExportWidget::TableColumns *PdfExportWidget::getTableColumns() const
-{
-	return &_tableColumns;
-} // getTableColumns
-
-const char *PdfExportWidget::getTextCodec(const QString &encoding) const
-{
-	for (quint8 encodingIndex = 0; encodingIndex < sizeof(ENCODINGS) / sizeof(EncodingInfo); encodingIndex++)
-	{
-		if (ENCODINGS[encodingIndex].name == encoding)
-		{
-			return ENCODINGS[encodingIndex].textCodec;
-		} // if
-	} // for
-
-	return NULL;
-} // getTextCodec
-
-const QString PdfExportWidget::getTextTemplate() const
-{
-	return _ui.textEdit->text();
-} // getTextTemplate
+} // fontRoleInfo
 
 const void PdfExportWidget::initMarkFonts()
 {
@@ -311,6 +207,136 @@ const void PdfExportWidget::initMarkFonts()
 	} // foreach
 } // initMarkFonts
 
+const HPDF_PageSizes PdfExportWidget::pageSize() const
+{
+	return static_cast<const HPDF_PageSizes>(_ui.pageSize->itemData(_ui.pageSize->currentIndex()).toInt());
+} // pageSize
+
+const PdfExportWidget::Style PdfExportWidget::style() const
+{
+	if (_ui.styleText->isChecked())
+	{
+		return StyleText;
+	} else {
+		return StyleTable;
+	} // if else
+} // style
+
+const PdfExportWidget::TableColumns *PdfExportWidget::tableColumns() const
+{
+	return &_tableColumns;
+} // tableColumns
+
+const QString PdfExportWidget::textTemplate() const
+{
+	return _ui.textEdit->text();
+} // textTemplate
+
+const void PdfExportWidget::addTableColumn()
+{
+    // controls
+    TableColumn tableColumn;
+    tableColumn.headerEdit   = new QLineEdit(_ui.pageTable);
+    tableColumn.templateEdit = new QLineEdit(_ui.pageTable);
+    tableColumn.width        = new QSpinBox(_ui.pageTable);
+    tableColumn.width->setMaximum(COLUMN_MAX_WIDTH);
+    tableColumn.width->setValue(COLUMN_DEFAULTWIDTH);
+    tableColumn.headerWidget = new QWidget(_ui.pageTable);
+    _tableColumns.append(tableColumn);
+
+    // header
+    QHBoxLayout *header = new QHBoxLayout(tableColumn.headerWidget);
+    header->setContentsMargins(QMargins());
+    header->addWidget(tableColumn.headerEdit);
+    header->addWidget(tableColumn.width);
+    _ui.tableColumns->addWidget(tableColumn.headerWidget, TableRowHeader, _tableColumns.size() + LABEL_COLUMN);
+    // template
+    _ui.tableColumns->addWidget(tableColumn.templateEdit, TableRowTemplate, _tableColumns.size() + LABEL_COLUMN);
+} // addTableColumn
+
+const void PdfExportWidget::fillEncodings(QComboBox *comboBox, const QString &font) const
+{
+	// get font encoding type
+	EncodingType encoding;
+	for (quint8 fontIndex = 0; fontIndex < sizeof(FONTS) / sizeof(FontInfo); fontIndex++)
+	{
+		if (FONTS[fontIndex].name == font)
+		{
+			encoding = FONTS[fontIndex].encodingType;
+			break;
+		} // if
+	} // for
+
+	comboBox->clear();
+	for (quint8 encodingIndex = 0; encodingIndex < sizeof(ENCODINGS) / sizeof(EncodingInfo); encodingIndex++)
+	{
+		if (ENCODINGS[encodingIndex].encodingType == encoding)
+		{
+			comboBox->addItem(ENCODINGS[encodingIndex].name);
+		} // if
+	} // for
+} // fillEncodings
+
+const void PdfExportWidget::fillFonts(QComboBox *comboBox) const
+{
+	for (quint8 fontIndex = 0; fontIndex < sizeof(FONTS) / sizeof(FontInfo); fontIndex++)
+	{
+		comboBox->addItem(FONTS[fontIndex].name);
+	} // for
+} // fillFonts
+
+const void PdfExportWidget::fillPageSizes() const
+{
+	for (quint8 sizeIndex = 0; sizeIndex < sizeof(PAGE_SIZES) / sizeof(PageSize); sizeIndex++)
+	{
+		_ui.pageSize->addItem(PAGE_SIZES[sizeIndex].name, PAGE_SIZES[sizeIndex].pdfPageSize);
+
+		if (PAGE_SIZES[sizeIndex].pdfPageSize == HPDF_PAGE_SIZE_A4)
+		{
+			_ui.pageSize->setCurrentIndex(sizeIndex);
+		} // if
+	} // for
+} // fillPageSizes
+
+const PdfExportWidget::EncodingSet PdfExportWidget::encodingSet(const QString &encoding) const
+{
+	for (quint8 encodingIndex = 0; encodingIndex < sizeof(ENCODINGS) / sizeof(EncodingInfo); encodingIndex++)
+	{
+		if (ENCODINGS[encodingIndex].name == encoding)
+		{
+			return ENCODINGS[encodingIndex].encodingSet;
+		} // if
+	} // for
+
+	return EncodingSetNone;
+} // encodingSet
+
+const PdfExportWidget::FontSet PdfExportWidget::fontSet(const QString &font) const
+{
+	for (quint8 fontIndex = 0; fontIndex < sizeof(FONTS) / sizeof(FontInfo); fontIndex++)
+	{
+		if (FONTS[fontIndex].name == font)
+		{
+			return FONTS[fontIndex].fontSet;
+		} // if
+	} // for
+
+	return FontSetNone;
+} // fontSet
+
+const char *PdfExportWidget::textCodec(const QString &encoding) const
+{
+	for (quint8 encodingIndex = 0; encodingIndex < sizeof(ENCODINGS) / sizeof(EncodingInfo); encodingIndex++)
+	{
+		if (ENCODINGS[encodingIndex].name == encoding)
+		{
+			return ENCODINGS[encodingIndex].textCodec;
+		} // if
+	} // for
+
+	return NULL;
+} // textCodec
+
 const void PdfExportWidget::initTableColumns()
 {
     for (quint8 column = 0; column < _ui.tableColums->value(); column++)
@@ -318,6 +344,17 @@ const void PdfExportWidget::initTableColumns()
         addTableColumn();
     } // for
 } // initTableColumns
+
+const void PdfExportWidget::removeTableColumn()
+{
+	TableColumn tableColumn = _tableColumns.takeLast();
+	// header
+	tableColumn.headerEdit->deleteLater();
+	tableColumn.width->deleteLater();
+	tableColumn.headerWidget->deleteLater();
+	// template
+	tableColumn.templateEdit->deleteLater();
+} // removeTableColumn
 
 const void PdfExportWidget::on_font_currentIndexChanged(int index) const
 {
@@ -330,13 +367,13 @@ const void PdfExportWidget::on_font_currentIndexChanged(int index) const
 	} // foreach
 
 	// remember old encoding selection
-	QString oldEncoding = controls.encoding->currentText();
+	const QString oldEncoding = controls.encoding->currentText();
 
 	// fill new encodings
 	fillEncodings(controls.encoding, controls.font->currentText());
 
 	// try to select old encoding if possible
-	quint8 pos = controls.encoding->findText(oldEncoding);
+	const quint8 pos = controls.encoding->findText(oldEncoding);
 	if (pos != -1)
 	{
 		controls.encoding->setCurrentIndex(pos);
@@ -364,40 +401,3 @@ const void PdfExportWidget::on_tableColums_valueChanged(int i)
         addTableColumn();
     } // if else
 } // on_tableColums_valueChanged
-
-PdfExportWidget::PdfExportWidget(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QWidget(parent, flags)
-{
-    _ui.setupUi(this);
-
-	fillFonts(_ui.categoryFont);
-	fillEncodings(_ui.categoryEncoding, _ui.categoryFont->currentText());
-	fillFonts(_ui.templateFont);
-	fillEncodings(_ui.templateEncoding, _ui.templateFont->currentText());
-	fillPageSizes();
-    initTableColumns();
-
-	// font controls
-	FontControls controls;
-	controls.font     = _ui.categoryFont;
-	controls.encoding = _ui.categoryEncoding;
-	controls.size     = _ui.categoryFontSize;
-	_fontControls.append(controls);
-	controls.font     = _ui.templateFont;
-	controls.encoding = _ui.templateEncoding;
-	controls.size     = _ui.templateFontSize;
-	_fontControls.append(controls);
-
-	connect(_ui.categoryFont, SIGNAL(currentIndexChanged(int)), SLOT(on_font_currentIndexChanged(int)));
-	connect(_ui.templateFont, SIGNAL(currentIndexChanged(int)), SLOT(on_font_currentIndexChanged(int)));
-} // PdfExportWidget
-
-const void PdfExportWidget::removeTableColumn()
-{
-    TableColumn column = _tableColumns.takeLast();
-    // header
-    column.headerEdit->deleteLater();
-    column.width->deleteLater();
-    column.headerWidget->deleteLater();
-    // template
-    column.templateEdit->deleteLater();
-} // removeTableColumn
