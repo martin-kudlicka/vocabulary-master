@@ -12,8 +12,8 @@ MainWindow::MainWindow(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */
 	_ui.setupUi(this);
 
 	// preset current date + 1 year
-	const QDate preset = QDate::currentDate().addYears(1);
-	_ui.validTo->setDate(preset);
+	const QDate presetDate = QDate::currentDate().addYears(1);
+	_ui.validTo->setDate(presetDate);
 
 	on_generateUid_clicked();
 } // MainWindow
@@ -50,34 +50,34 @@ const void MainWindow::on_create_clicked(bool checked /* false */)
 	} // if
 
 	// buffer
-	QBuffer license;
-	license.open(QIODevice::WriteOnly);
-	_xmlStreamWriter.setDevice(&license);
+	QBuffer licenseBuffer;
+	licenseBuffer.open(QIODevice::WriteOnly);
+	_xmlStreamWriter.setDevice(&licenseBuffer);
 
 	// write license
 	writeLicense();
-	license.close();
+	licenseBuffer.close();
 
 	// get encrypt key
 	QFile encryptKeyFile(":/MainWindow/res/mainwindow/encryptpublic.der");
 	encryptKeyFile.open(QIODevice::ReadOnly);
-	const QByteArray encryptKey = encryptKeyFile.readAll();
+	const QByteArray encryptKeyData = encryptKeyFile.readAll();
 
 	// encrypt license
-	CryptoPP::ArraySource encryptKeyBuffer(reinterpret_cast<const byte *>(encryptKey.constData()), encryptKey.size(), true);
+	CryptoPP::ArraySource encryptKeyBuffer(reinterpret_cast<const byte *>(encryptKeyData.constData()), encryptKeyData.size(), true);
 	const CryptoPP::RSAES_OAEP_SHA_Encryptor roseEncryptor(encryptKeyBuffer);
 	CryptoPP::AutoSeededRandomPool randomPool;
 	std::string encryptedString;
-	const CryptoPP::ArraySource encryptedBuffer(reinterpret_cast<const byte *>(license.data().constData()), license.size(), true, new CryptoPP::PK_EncryptorFilter(randomPool, roseEncryptor, new CryptoPP::StringSink(encryptedString)));
+	const CryptoPP::ArraySource encryptedBuffer(reinterpret_cast<const byte *>(licenseBuffer.data().constData()), licenseBuffer.size(), true, new CryptoPP::PK_EncryptorFilter(randomPool, roseEncryptor, new CryptoPP::StringSink(encryptedString)));
 	const QByteArray encryptedData = QByteArray(encryptedString.c_str(), encryptedString.size());
 
 	// get sign key
 	QFile signKeyFile(":/MainWindow/res/mainwindow/signprivate.der");
 	signKeyFile.open(QIODevice::ReadOnly);
-	const QByteArray signKey = signKeyFile.readAll();
+	const QByteArray signKeyData = signKeyFile.readAll();
 
 	// sign encrypted license
-	CryptoPP::ArraySource signKeyBuffer(reinterpret_cast<const byte *>(signKey.constData()), signKey.size(), true);
+	CryptoPP::ArraySource signKeyBuffer(reinterpret_cast<const byte *>(signKeyData.constData()), signKeyData.size(), true);
 	const CryptoPP::RSASS<CryptoPP::PKCS1v15, CryptoPP::SHA>::Signer signer(signKeyBuffer);
 	std::string signedString;
 	const CryptoPP::ArraySource signedBuffer(reinterpret_cast<const byte *>(encryptedData.constData()), encryptedData.size(), true, new CryptoPP::SignerFilter(randomPool, signer, new CryptoPP::StringSink(signedString)));
