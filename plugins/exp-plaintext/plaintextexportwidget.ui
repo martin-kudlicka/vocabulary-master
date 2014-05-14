@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qwPlaintextExport</class>
- <widget class="QWidget" name="qwPlaintextExport">
+ <class>PlaintextExportWidget</class>
+ <widget class="QWidget" name="PlaintextExportWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -25,7 +25,16 @@
         </sizepolicy>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
-        <property name="margin">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
          <number>0</number>
         </property>
         <item>
@@ -48,7 +57,7 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <widget class="QLineEdit" name="qlePlainEdit"/>
+            <widget class="QLineEdit" name="plainEdit"/>
            </item>
           </layout>
          </widget>
@@ -57,7 +66,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QTreeView" name="qtvCodecs">
+      <widget class="QTreeView" name="codecs">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>1</horstretch>
@@ -78,7 +87,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
-       <widget class="QPlainTextEdit" name="qptePlainPreview">
+       <widget class="QPlainTextEdit" name="plainPreview">
         <property name="readOnly">
          <bool>true</bool>
         </property>
@@ -100,7 +109,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="qpbRefresh">
+         <widget class="QPushButton" name="refresh">
           <property name="text">
            <string>&amp;Refresh</string>
           </property>

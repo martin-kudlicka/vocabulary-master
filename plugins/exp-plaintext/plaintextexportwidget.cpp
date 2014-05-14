@@ -2,96 +2,105 @@
 
 #include <QtWidgets/QScrollBar>
 
-const QString PlaintextExportWidget::GetCodec() const
+PlaintextExportWidget::PlaintextExportWidget(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QWidget(parent, flags)
 {
-    QModelIndex qmiIndex = _qwpePlaintextExport.qtvCodecs->currentIndex();
-    return _cmCodecsModel.data(qmiIndex).toString();
-} // GetCodec
+	_ui.setupUi(this);
 
-const QString PlaintextExportWidget::GetText() const
-{
-    return _qwpePlaintextExport.qptePlainPreview->toPlainText();
-} // GetText
-
-const void PlaintextExportWidget::on_qpbRefresh_clicked(bool checked /* false */) const
-{
-    Refresh();
-} // on_qpbRefresh_clicked
-
-PlaintextExportWidget::PlaintextExportWidget(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(pParent, pFlags)
-{
-    _qwpePlaintextExport.setupUi(this);
-
-    _qwpePlaintextExport.qtvCodecs->setModel(&_cmCodecsModel);
-    PreselectCodec("UTF-8");
+	_ui.codecs->setModel(&_codecsModel);
+	preselectCodec("UTF-8");
 } // PlaintextExportWidget
 
-const void PlaintextExportWidget::PreselectCodec(const QString &pCodec) const
+const QString PlaintextExportWidget::codec() const
 {
-    for (int iI = 0; iI < _cmCodecsModel.rowCount(); iI++) {
-        QModelIndex qmiIndex = _cmCodecsModel.index(iI, CodecsModel::ColumnCodec);
-        if (pCodec == _cmCodecsModel.data(qmiIndex)) {
-            _qwpePlaintextExport.qtvCodecs->setCurrentIndex(qmiIndex);
-            return;
-        } // if
-    } // for
-} // PreselectCodec
+    const QModelIndex modelIndex = _ui.codecs->currentIndex();
+    return _codecsModel.data(modelIndex).toString();
+} // codec
 
-const void PlaintextExportWidget::Refresh() const
+const QString PlaintextExportWidget::text() const
 {
-    _qwpePlaintextExport.qptePlainPreview->clear();
+    return _ui.plainPreview->toPlainText();
+} // text
 
-    // categories
-    ExpInterface::CategoryIdList tcilCategoryIds;
-    emit VocabularyGetCategoryIds(&tcilCategoryIds);
+const void PlaintextExportWidget::refresh() const
+{
+	_ui.plainPreview->clear();
 
-    // total record count for progress
-    int iTotalRecords = 0;
-    foreach (int iCategoryId, tcilCategoryIds) {
-        quint32 iRecords;
-        emit VocabularyGetRecordCount(iCategoryId, &iRecords);
-        iTotalRecords += iRecords;
-    } // foreach
-    emit ProgressExportSetMax(iTotalRecords);
+	// categories
+	ExpInterface::CategoryIdList categoryIds;
+	emit vocabularyGetCategoryIds(&categoryIds);
 
-    QStringList qslMarks;
-    emit VocabularyGetMarks(&qslMarks);
+	// total record count for progress
+	quint32 totalRecords = 0;
+	foreach (const quint8 &categoryId, categoryIds)
+	{
+		quint32 records;
+		emit vocabularyGetRecordCount(categoryId, &records);
+		totalRecords += records;
+	} // foreach
+	emit progressExportSetMax(totalRecords);
 
-    // preview
-    bool bFirstLine = true;
-    int iRecords = 0;
-    foreach (int iCategoryId, tcilCategoryIds) {
-        if (bFirstLine) {
-            bFirstLine = false;
-        } else {
-            _qwpePlaintextExport.qptePlainPreview->appendPlainText("");
-        } // if
+	QStringList marks;
+	emit vocabularyGetMarks(&marks);
 
-        QString qsCategoryName;
-        emit VocabularyGetCategoryName(iCategoryId, &qsCategoryName);
-        _qwpePlaintextExport.qptePlainPreview->appendPlainText(qsCategoryName);
+	// preview
+	bool firstLine  = true;
+	quint32 records = 0;
+	foreach (const quint8 &categoryId, categoryIds)
+	{
+		if (firstLine)
+		{
+			firstLine = false;
+		}
+		else
+		{
+			_ui.plainPreview->appendPlainText("");
+		} // if else
 
-        // records
-        ExpInterface::RecordIdList trilRecordIds;
-        emit VocabularyGetRecordIds(iCategoryId, &trilRecordIds);
-        foreach (int iRecordId, trilRecordIds) {
-            QString qsTemplate = _qwpePlaintextExport.qlePlainEdit->text();
+		QString categoryName;
+		emit vocabularyGetCategoryName(categoryId, &categoryName);
+		_ui.plainPreview->appendPlainText(categoryName);
 
-            // replace marks for data
-            foreach (QString qsMark, qslMarks) {
-                QString qsData;
-                emit VocabularyGetMarkText(iRecordId, qsMark, &qsData);
-                qsTemplate.replace(qsMark, qsData);
-            } // foreach
+		// records
+		ExpInterface::RecordIdList recordIds;
+		emit vocabularyGetRecordIds(categoryId, &recordIds);
+		foreach (const quint32 &recordId, recordIds)
+		{
+			QString templateText = _ui.plainEdit->text();
 
-            _qwpePlaintextExport.qptePlainPreview->appendPlainText(qsTemplate);
+			// replace marks for data
+			foreach (const QString &mark, marks)
+			{
+				QString data;
+				emit vocabularyGetMarkText(recordId, mark, &data);
+				templateText.replace(mark, data);
+			} // foreach
 
-            iRecords++;
-            emit ProgressExportSetValue(iRecords);
-        } // foreach
-    } // foreach
+			_ui.plainPreview->appendPlainText(templateText);
 
-    _qwpePlaintextExport.qptePlainPreview->verticalScrollBar()->setValue(0);
+			records++;
+			emit progressExportSetValue(records);
+		} // foreach
+	} // foreach
 
-    emit ProgressExportSetValue(0);
-} // Refresh
+	_ui.plainPreview->verticalScrollBar()->setValue(0);
+
+	emit progressExportSetValue(0);
+} // refresh
+
+const void PlaintextExportWidget::preselectCodec(const QString &codec) const
+{
+	for (quint8 codecIndex = 0; codecIndex < _codecsModel.rowCount(); codecIndex++)
+	{
+		const QModelIndex modelIndex = _codecsModel.index(codecIndex, CodecsModel::ColumnCodec);
+		if (codec == _codecsModel.data(modelIndex))
+		{
+			_ui.codecs->setCurrentIndex(modelIndex);
+			return;
+		} // if
+	} // for
+} // preselectCodec
+
+const void PlaintextExportWidget::on_refresh_clicked(bool checked /* false */) const
+{
+    refresh();
+} // on_refresh_clicked

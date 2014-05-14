@@ -77,8 +77,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\common\marklineedit.h" />
-    <ClInclude Include="..\..\common\marklineeditpersistentdelegate.h" />
     <CustomBuild Include="..\common\codecsmodel.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing codecsmodel.h...</Message>
