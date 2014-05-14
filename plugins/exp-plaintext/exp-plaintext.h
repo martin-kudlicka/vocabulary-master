@@ -10,21 +10,21 @@ class ExpPlaintext : public ExpInterface
 	Q_INTERFACES(ExpInterface)
 
 	private:
-        PlaintextExportWidget *_pewWidget;
+        PlaintextExportWidget *_widget;
 
-        virtual const void beginExport() const;
-		virtual const QString pluginName() const;
-		virtual const void setupUi(QWidget *pParent);
+        virtual const void    beginExport() const;
+		virtual const QString pluginName () const;
+		virtual const void    setupUi    (QWidget *parent);
 
     private slots:
-        const void on_pewWidget_ProgressExportSetMax(const int &pMax) const;
-        const void on_pewWidget_ProgressExportSetValue(const int &pValue) const;
-        const void on_pewWidget_VocabularyGetCategoryIds(ExpInterface::CategoryIdList *pCategoryIds) const;
-        const void on_pewWidget_VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const;
-        const void on_pewWidget_VocabularyGetMarks(QStringList *pMarks) const;
-        const void on_pewWidget_VocabularyGetMarkText(const int &pRecordId, const QString &pMark, QString *pText) const;
-        const void on_pewWidget_VocabularyGetRecordCount(const int &pCategoryId, quint32 *pCount) const;
-        const void on_pewWidget_VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::RecordIdList *pRecordIds) const;
+        const void on_widget_progressExportSetMax     (const quint32 &max)                                              const;
+        const void on_widget_progressExportSetValue   (const quint32 &value)                                            const;
+        const void on_widget_vocabularyGetCategoryIds (ExpInterface::CategoryIdList *categoryIds)                       const;
+        const void on_widget_vocabularyGetCategoryName(const quint8 &categoryId, QString *name)                         const;
+        const void on_widget_vocabularyGetMarks       (QStringList *marks)                                              const;
+        const void on_widget_vocabularyGetMarkText    (const quint32 &recordId, const QString &mark, QString *text)     const;
+        const void on_widget_vocabularyGetRecordCount (const quint8 &categoryId, quint32 *count)                        const;
+        const void on_widget_vocabularyGetRecordIds   (const quint8 &categoryId, ExpInterface::RecordIdList *recordIds) const;
 }; // ExpPlaintext
 
 #endif // EXP_PLAINTEXT_H

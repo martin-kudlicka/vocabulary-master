@@ -96,12 +96,6 @@
     <ClInclude Include="..\common\translationhandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\common\marklineedit.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\common\marklineeditpersistentdelegate.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\temp\GeneratedFiles\exp-plaintext\ui_plaintextexportwidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
