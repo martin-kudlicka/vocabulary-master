@@ -84,7 +84,7 @@ const void HtmlExportWidget::preselectCodec(const QString &codec) const
 {
     for (quint8 codecIndex = 0; codecIndex < _codecsModel.rowCount(); codecIndex++)
 	{
-        QModelIndex modelIndex = _codecsModel.index(codecIndex, CodecsModel::ColumnCodec);
+        const QModelIndex modelIndex = _codecsModel.index(codecIndex, CodecsModel::ColumnCodec);
         if (codec == _codecsModel.data(modelIndex))
 		{
             _ui.codecs->setCurrentIndex(modelIndex);
@@ -271,16 +271,6 @@ const void HtmlExportWidget::removeTableColumn()
     tableColumn.templateEdit->deleteLater();
 } // removeTableColumn
 
-const void HtmlExportWidget::on_tableRefresh_clicked(bool checked /* false */) const
-{
-	refreshTable();
-} // on_tableRefresh_clicked
-
-const void HtmlExportWidget::on_textRefresh_clicked(bool checked /* false */) const
-{
-	refreshText();
-} // on_textRefresh_clicked
-
 const void HtmlExportWidget::on_styleTable_clicked(bool checked /* false */) const
 {
 	_ui.styles->setCurrentIndex(StyleTable);
@@ -302,3 +292,13 @@ const void HtmlExportWidget::on_tableColums_valueChanged(int i)
 		addTableColumn();
 	} // if else
 } // on_tableColums_valueChanged
+
+const void HtmlExportWidget::on_tableRefresh_clicked(bool checked /* false */) const
+{
+	refreshTable();
+} // on_tableRefresh_clicked
+
+const void HtmlExportWidget::on_textRefresh_clicked(bool checked /* false */) const
+{
+	refreshText();
+} // on_textRefresh_clicked

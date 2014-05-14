@@ -65,11 +65,11 @@ class HtmlExportWidget : public QWidget
         void vocabularyGetRecordIds   (const quint8 &categoryId, ExpInterface::RecordIdList *recordIds) const;
 
     private slots:
-        const void on_tableRefresh_clicked    (bool checked = false) const;
-        const void on_textRefresh_clicked     (bool checked = false) const;
 		const void on_styleTable_clicked      (bool checked = false) const;
         const void on_styleText_clicked       (bool checked = false) const;
-        const void on_tableColums_valueChanged(int i);
+		const void on_tableColums_valueChanged(int i);
+		const void on_tableRefresh_clicked    (bool checked = false) const;
+		const void on_textRefresh_clicked     (bool checked = false) const;
 }; // HtmlExportWidget
 
 #endif // HTMLEXPORTWIDGET_H
