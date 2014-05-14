@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */
 
 const void MainWindow::on_browsePublic_clicked(bool checked /* false */)
 {
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Public key file"), QString(), tr("public key (*.der)"));
+	const QString fileName = QFileDialog::getSaveFileName(this, tr("Public key file"), QString(), tr("public key (*.der)"));
 	if (!fileName.isEmpty())
 	{
 		_ui.publicKey->setText(fileName);
@@ -21,7 +21,7 @@ const void MainWindow::on_browsePublic_clicked(bool checked /* false */)
 
 const void MainWindow::on_browsePrivate_clicked(bool checked /* false */)
 {
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Private key file"), QString(), tr("private key (*.der)"));
+	const QString fileName = QFileDialog::getSaveFileName(this, tr("Private key file"), QString(), tr("private key (*.der)"));
 	if (!fileName.isEmpty())
 	{
 		_ui.privateKey->setText(fileName);
@@ -34,12 +34,12 @@ const void MainWindow::on_generate_clicked(bool checked /* false */) const
 	CryptoPP::InvertibleRSAFunction rsaFunc;
 	rsaFunc.GenerateRandomWithKeySize(randomPool, KEY_SIZE);
 
-	CryptoPP::RSAES_OAEP_SHA_Decryptor decryptor(randomPool, KEY_SIZE);
+	const CryptoPP::RSAES_OAEP_SHA_Decryptor decryptor(randomPool, KEY_SIZE);
 	CryptoPP::FileSink privateFile(_ui.privateKey->text().toLocal8Bit());
 	decryptor.DEREncode(privateFile);
 	privateFile.MessageEnd();
 
-	CryptoPP::RSAES_OAEP_SHA_Encryptor encryptor(decryptor);
+	const CryptoPP::RSAES_OAEP_SHA_Encryptor encryptor(decryptor);
 	CryptoPP::FileSink publicFile(_ui.publicKey->text().toLocal8Bit());
 	encryptor.DEREncode(publicFile);
 	publicFile.MessageEnd();
