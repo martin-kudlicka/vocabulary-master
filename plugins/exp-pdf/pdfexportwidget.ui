@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qwPdfExport</class>
- <widget class="QWidget" name="qwPdfExport">
+ <class>PdfExportWidget</class>
+ <widget class="QWidget" name="PdfExportWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -29,7 +29,7 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QRadioButton" name="qrbStyleText">
+         <widget class="QRadioButton" name="styleText">
           <property name="text">
            <string>&amp;Text</string>
           </property>
@@ -39,7 +39,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="qrbStyleTable">
+         <widget class="QRadioButton" name="styleTable">
           <property name="text">
            <string>T&amp;able</string>
           </property>
@@ -62,11 +62,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="qgbFont">
+      <widget class="QGroupBox" name="font">
        <property name="title">
         <string>Font</string>
        </property>
-       <layout class="QFormLayout" name="qflFontLayout">
+       <layout class="QFormLayout" name="fontLayout">
         <property name="fieldGrowthPolicy">
          <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
         </property>
@@ -80,13 +80,13 @@
         <item row="0" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QComboBox" name="qcbCategoryFont"/>
+           <widget class="QComboBox" name="categoryFont"/>
           </item>
           <item>
-           <widget class="QComboBox" name="qcbCategoryEncoding"/>
+           <widget class="QComboBox" name="categoryEncoding"/>
           </item>
           <item>
-           <widget class="QSpinBox" name="qsbCategoryFontSize">
+           <widget class="QSpinBox" name="categoryFontSize">
             <property name="suffix">
              <string>px</string>
             </property>
@@ -110,13 +110,13 @@
         <item row="1" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
-           <widget class="QComboBox" name="qcbTemplateFont"/>
+           <widget class="QComboBox" name="templateFont"/>
           </item>
           <item>
-           <widget class="QComboBox" name="qcbTemplateEncoding"/>
+           <widget class="QComboBox" name="templateEncoding"/>
           </item>
           <item>
-           <widget class="QSpinBox" name="qsbTemplateFontSize">
+           <widget class="QSpinBox" name="templateFontSize">
             <property name="suffix">
              <string>px</string>
             </property>
@@ -150,7 +150,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSpinBox" name="qsbBorder">
+         <widget class="QSpinBox" name="border">
           <property name="suffix">
            <string>px</string>
           </property>
@@ -167,7 +167,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QComboBox" name="qcbPageSize"/>
+         <widget class="QComboBox" name="pageSize"/>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_5">
@@ -179,7 +179,7 @@
         <item row="2" column="1">
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <widget class="QCheckBox" name="qcbCompressText">
+           <widget class="QCheckBox" name="compressText">
             <property name="text">
              <string>Text</string>
             </property>
@@ -189,7 +189,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="qcbCompressImage">
+           <widget class="QCheckBox" name="compressImage">
             <property name="text">
              <string>Image</string>
             </property>
@@ -199,7 +199,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="qcbCompressMetadata">
+           <widget class="QCheckBox" name="compressMetadata">
             <property name="text">
              <string>Metadata</string>
             </property>
@@ -216,13 +216,22 @@
     </layout>
    </item>
    <item>
-    <widget class="QStackedWidget" name="qswStyles">
+    <widget class="QStackedWidget" name="styles">
      <property name="currentIndex">
       <number>0</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QVBoxLayout" name="verticalLayout_3">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
         <number>0</number>
        </property>
        <item>
@@ -232,16 +241,25 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <item>
-           <widget class="QLineEdit" name="qleTextEdit"/>
+           <widget class="QLineEdit" name="textEdit"/>
           </item>
          </layout>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="qwPageTable">
+     <widget class="QWidget" name="pageTable">
       <layout class="QVBoxLayout" name="verticalLayout_6">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
         <number>0</number>
        </property>
        <item>
@@ -253,7 +271,7 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_7">
             <item>
-             <widget class="QSpinBox" name="qsbTableColums">
+             <widget class="QSpinBox" name="tableColums">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -284,7 +302,7 @@
            </layout>
           </item>
           <item>
-           <layout class="QGridLayout" name="qglTableColumns">
+           <layout class="QGridLayout" name="tableColumns">
             <item row="0" column="0">
              <widget class="QLabel" name="label_2">
               <property name="text">

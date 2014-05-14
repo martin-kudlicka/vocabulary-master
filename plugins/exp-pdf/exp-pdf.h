@@ -11,33 +11,34 @@ class ExpPdf : public ExpInterface
 	Q_INTERFACES(ExpInterface)
 
 	private:
-		static const int RECORD_NONE = -1;
+		static const qint8 RECORD_NONE = -1;
 
-		struct sFont {
-			HPDF_Font hfFont;
-			int iSize;
-			const QTextCodec *qtcTextCodec;
-		}; // sFont
+		struct Font
+		{
+			HPDF_Font         font;
+			quint8            size;
+			const QTextCodec *textCodec;
+		}; // Font
 
-		typedef QList<sFont> tFontList;
+		typedef QList<Font> FontList;
 
-		PdfExportWidget *_pewWidget;
+		PdfExportWidget *_widget;
 
-		const void AddFont(const HPDF_Doc &pPdf, tFontList *pFontList, const PdfExportWidget::eFontRole &pFontRole, const int &pNum = PdfExportWidget::FONTROLE_NONE) const;
-		virtual const void beginExport() const;
-		const void ExportTable(const int &pRecordId, const HPDF_Page &pPage, const tFontList &pFontList, const QStringList &pMarks) const;
-		const void ExportText(const int &pRecordId, const HPDF_Page &pPage, const tFontList &pFontList, const QStringList &pMarks, const QString &pTemplate) const;
-		virtual const QString getPluginName() const;
-		const void InitFonts(const HPDF_Doc &pPdf, tFontList *pFontList, const int &pMarkCount) const;
-		const void PdfAddPage(const HPDF_Doc &pPdf, HPDF_Page *pPage, const HPDF_REAL &pDefaultSize = 0) const;
-		const bool PdfNextLine(const HPDF_Doc &pPdf, HPDF_Page *pPage) const;
-		const void PdfSetFont(const HPDF_Page &pPage, const HPDF_Font &pFont, const int &pSize) const;
-		const void PdfShowTableHeader(const HPDF_Page &pPage, const tFontList &pFontList) const;
-		const void PdfShowText(const HPDF_Page &pPage, const QString &pText, const QTextCodec *pTextCodec) const;
-		virtual const void setupUi(QWidget *pParent);
+		        const void    addFont           (const HPDF_Doc &pdf, FontList *fontList, const PdfExportWidget::FontRole &fontRole, const qint8 &num = PdfExportWidget::FONTROLE_NONE) const;
+		virtual const void    beginExport       ()                                                                                                                                       const;
+		        const void    exportTable       (const quint32 &recordId, const HPDF_Page &page, const FontList &fontList, const QStringList &marks)                                     const;
+		        const void    exportText        (const quint32 &recordId, const HPDF_Page &page, const FontList &fontList, const QStringList &marks, const QString &templateText)        const;
+		virtual const QString getPluginName     ()                                                                                                                                       const;
+		        const void    initFonts         (const HPDF_Doc &pdf, FontList *fontList, const quint8 &markCount)                                                                       const;
+		        const void    pdfAddPage        (const HPDF_Doc &pdf, HPDF_Page *page, const HPDF_REAL &defaultSize = 0)                                                                 const;
+		        const bool    pdfNextLine       (const HPDF_Doc &pdf, HPDF_Page *page)                                                                                                   const;
+		        const void    pdfSetFont        (const HPDF_Page &page, const HPDF_Font &font, const quint8 &size)                                                                       const;
+		        const void    pdfShowTableHeader(const HPDF_Page &page, const FontList &fontList)                                                                                        const;
+		        const void    pdfShowText       (const HPDF_Page &page, const QString &text, const QTextCodec *textCodec)                                                                const;
+		virtual const void    setupUi           (QWidget *parent);
 
 	private slots:
-		const void on_pewWidget_VocabularyGetMarks(QStringList *pMarks) const;
+		const void on_widget_vocabularyGetMarks(QStringList *marks) const;
 }; // ExpPdf
 
 #endif // EXP_PDF_H
