@@ -10,15 +10,6 @@ MainWindow::MainWindow(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */
 	_ui.setupUi(this);
 } // MainWindow
 
-const void MainWindow::on_browsePublic_clicked(bool checked /* false */)
-{
-	const QString fileName = QFileDialog::getSaveFileName(this, tr("Public key file"), QString(), tr("public key (*.der)"));
-	if (!fileName.isEmpty())
-	{
-		_ui.publicKey->setText(fileName);
-	} // if
-} // on_browsePublic_clicked
-
 const void MainWindow::on_browsePrivate_clicked(bool checked /* false */)
 {
 	const QString fileName = QFileDialog::getSaveFileName(this, tr("Private key file"), QString(), tr("private key (*.der)"));
@@ -27,6 +18,15 @@ const void MainWindow::on_browsePrivate_clicked(bool checked /* false */)
 		_ui.privateKey->setText(fileName);
 	} // if
 } // on_browsePrivate_clicked
+
+const void MainWindow::on_browsePublic_clicked(bool checked /* false */)
+{
+	const QString fileName = QFileDialog::getSaveFileName(this, tr("Public key file"), QString(), tr("public key (*.der)"));
+	if (!fileName.isEmpty())
+	{
+		_ui.publicKey->setText(fileName);
+	} // if
+} // on_browsePublic_clicked
 
 const void MainWindow::on_generate_clicked(bool checked /* false */) const
 {
