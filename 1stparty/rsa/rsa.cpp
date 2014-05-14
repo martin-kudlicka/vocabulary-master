@@ -7,11 +7,11 @@
 const QByteArray RSA::decrypt(const QByteArray &privateKey, const QByteArray &content) const
 {
 	CryptoPP::ArraySource keyBuffer(reinterpret_cast<const byte *>(privateKey.constData()), privateKey.size(), true);
-	CryptoPP::RSAES_OAEP_SHA_Decryptor decryptor(keyBuffer);
+	const CryptoPP::RSAES_OAEP_SHA_Decryptor decryptor(keyBuffer);
 
 	CryptoPP::AutoSeededRandomPool randomPool;
 	std::string decryptedString;
-	CryptoPP::ArraySource decryptedBuffer(reinterpret_cast<const byte *>(content.constData()), content.size(), true, new CryptoPP::PK_DecryptorFilter(randomPool, decryptor, new CryptoPP::StringSink(decryptedString)));
+	const CryptoPP::ArraySource decryptedBuffer(reinterpret_cast<const byte *>(content.constData()), content.size(), true, new CryptoPP::PK_DecryptorFilter(randomPool, decryptor, new CryptoPP::StringSink(decryptedString)));
 
 	return decryptedString.c_str();
 } // decrypt
@@ -19,7 +19,7 @@ const QByteArray RSA::decrypt(const QByteArray &privateKey, const QByteArray &co
 const bool RSA::verify(const QByteArray &publicKey, const QByteArray &content, const QByteArray &signature) const
 {
 	CryptoPP::ArraySource keyBuffer(reinterpret_cast<const byte *>(publicKey.constData()), publicKey.size(), true);
-	CryptoPP::RSASS<CryptoPP::PKCS1v15, CryptoPP::SHA>::Verifier verifier(keyBuffer);
+	const CryptoPP::RSASS<CryptoPP::PKCS1v15, CryptoPP::SHA>::Verifier verifier(keyBuffer);
 
 	if (signature.size() != verifier.SignatureLength())
 	{
@@ -32,7 +32,7 @@ const bool RSA::verify(const QByteArray &publicKey, const QByteArray &content, c
 
 	CryptoPP::VerifierFilter *verifierFilter = new CryptoPP::VerifierFilter(verifier);
 	verifierFilter->Put(secByteBlock, verifier.SignatureLength());
-	CryptoPP::ArraySource contentBuffer(reinterpret_cast<const byte *>(content.constData()), content.size(), true, verifierFilter);
+	const CryptoPP::ArraySource contentBuffer(reinterpret_cast<const byte *>(content.constData()), content.size(), true, verifierFilter);
 
 	return verifierFilter->GetLastResult();
 } // verify
