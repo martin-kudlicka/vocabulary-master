@@ -9,28 +9,29 @@ class DecksModel : public QAbstractItemModel
     Q_OBJECT
 
     public:
-        DecksModel(const QSqlDatabase *pAnki, QObject *pParent = NULL);
+        DecksModel(const QSqlDatabase *database, QObject *parent = NULL);
 
-        const int GetDeckId(const int &pRow) const;
+        const quint8 deckId(const quint8 &row) const;
 
     private:
-        enum eColumn {
+        enum Column
+		{
             ColumnId,
             ColumnCount
-        }; // eColumn
-
-        enum eColumnPosition {
+        }; // Column
+        enum ColumnPosition
+		{
             ColumnPosition1
-        }; // eColumnPosition
+        }; // ColumnPosition
 
-        const QSqlDatabase *_qsdAnki;
+        const QSqlDatabase *_database;
 
-        virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
-        virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-        virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-        virtual QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
-        virtual QModelIndex parent(const QModelIndex &index) const;
-        virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
+        virtual int         columnCount(const QModelIndex &parent = QModelIndex())                            const;
+        virtual QVariant    data       (const QModelIndex &index, int role = Qt::DisplayRole)                 const;
+        virtual QVariant    headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+        virtual QModelIndex index      (int row, int column, const QModelIndex &parent = QModelIndex())       const;
+        virtual QModelIndex parent     (const QModelIndex &index)                                             const;
+        virtual int         rowCount   (const QModelIndex &parent = QModelIndex())                            const;
 }; // DecksModel
 
 #endif // DECKSMODEL_H

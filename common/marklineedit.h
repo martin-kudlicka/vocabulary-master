@@ -8,16 +8,16 @@ class MarkLineEdit : public QLineEdit
 	Q_OBJECT
 
     public:
-        MarkLineEdit(QWidget *pParent = NULL);
-        MarkLineEdit(const QString &pContents, QWidget *pParent = NULL);
+        MarkLineEdit(QWidget *parent = NULL);
+        MarkLineEdit(const QString &contents, QWidget *parent = NULL);
 
     private:
-        bool _bFocusedIn;
+        bool _focusedIn;
 
-        virtual void focusInEvent(QFocusEvent *e);
-        const void Initialize();
+        virtual void focusInEvent   (QFocusEvent *e);
+        const   void initialize     ();
         virtual void mousePressEvent(QMouseEvent *e);
-        virtual void showEvent(QShowEvent *event);
+        virtual void showEvent      (QShowEvent *event);
 }; // MarkLineEdit
 
 #endif // MARKLINEEDIT_H

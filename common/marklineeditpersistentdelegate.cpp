@@ -13,6 +13,6 @@ MarkLineEditPersistentDelegate::MarkLineEditPersistentDelegate(QObject *pParent 
 
 void MarkLineEditPersistentDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-    MarkLineEdit *mleEditor = qobject_cast<MarkLineEdit *>(editor);
-    mleEditor->setText(index.model()->data(index).toString());
+    MarkLineEdit *markEditor = qobject_cast<MarkLineEdit *>(editor);
+    markEditor->setText(index.model()->data(index).toString());
 } // setEditorData

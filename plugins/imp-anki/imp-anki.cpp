@@ -3,80 +3,85 @@
 #include <QtWidgets/QBoxLayout>
 #include <QtSql/QSqlQuery>
 
-const QChar DATA_TAIL = ',';
-const QString COLUMN_FACTID = "factId";
+const QChar   DATA_TAIL           = ',';
+const QString COLUMN_FACTID       = "factId";
 const QString COLUMN_FIELDMODELID = "fieldModelId";
-const QString COLUMN_ID = "id";
-const QString COLUMN_VALUE = "value";
-const QString TABLE_FIELDS = "fields";
-
-const void ImpAnki::Close()
-{
-    if (_qsdAnki.isOpen()) {
-        _qsdAnki.close();
-    } // if
-} // Close
-
-const QString ImpAnki::GetFilter() const
-{
-	return "Anki (*.anki)";
-} // GetFilter
-
-const QStringList ImpAnki::GetMarks() const
-{
-	return _aiwWidget->GetMarks();
-} // GetMarks
-
-const int ImpAnki::GetRecordCount() const
-{
-	qlonglong qllFieldId = _aiwWidget->GetFieldId(FieldNum1);
-	QSqlQuery qsqQuery = _qsdAnki.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FIELDMODELID + " = " + QString::number(qllFieldId));
-	if (qsqQuery.last()) {
-		return qsqQuery.at() + 1;
-	} else {
-		return 0;
-	} // if else
-} // GetRecordCount
-
-const QString ImpAnki::GetRecordData(const int &pRecord, const QString &pMark)
-{
-	// query records by first field ID to get always same sequence
-	qlonglong qllFieldId = _aiwWidget->GetFieldId(FieldNum1);
-	QSqlQuery qsqQuery = _qsdAnki.exec("SELECT " + COLUMN_FACTID + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FIELDMODELID + " = " + QString::number(qllFieldId));
-	qsqQuery.seek(pRecord);
-	qlonglong qllFactId = qsqQuery.value(ColumnPosition1).toLongLong();
-
-	// get mark ID
-	QStringList qslMarks = _aiwWidget->GetMarks();
-	int iIndex = qslMarks.indexOf(pMark);
-	qlonglong qllMarkId = _aiwWidget->GetFieldId(iIndex);
-
-	// get data
-	qsqQuery = _qsdAnki.exec("SELECT " + COLUMN_VALUE + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FACTID + " = " + QString::number(qllFactId) + " AND " + COLUMN_FIELDMODELID + " = " + QString::number(qllMarkId));
-	qsqQuery.next();
-    QString qsData = qsqQuery.value(ColumnPosition1).toString();
-    if (qsData.endsWith(DATA_TAIL)) {
-        qsData.chop(QString(DATA_TAIL).size());
-    } // if
-
-	return qsData;
-} // GetRecordData
+const QString COLUMN_ID           = "id";
+const QString COLUMN_VALUE        = "value";
+const QString TABLE_FIELDS        = "fields";
 
 ImpAnki::ImpAnki() : ImpInterface()
 {
-    _qsdAnki = QSqlDatabase::addDatabase("QSQLITE", "Anki");
+	_database = QSqlDatabase::addDatabase("QSQLITE", "Anki");
 } // ImpAnki
 
-const bool ImpAnki::Open(const QString &pFile)
+const void ImpAnki::close()
 {
-    Close();
-    _qsdAnki.setDatabaseName(pFile);
-    return _qsdAnki.open();
-} // Open
+    if (_database.isOpen())
+	{
+        _database.close();
+    } // if
+} // close
 
-const void ImpAnki::SetupUI(QGroupBox *pParent)
+const QString ImpAnki::filter() const
 {
-    _aiwWidget = new AnkiImportWidget(&_qsdAnki, pParent);
-    QBoxLayout *pLayout = qobject_cast<QBoxLayout *>(pParent->layout());
-    pLayout->insertWidget(WIDGET_POSITION, _aiwWidget);
-} // SetupUI
+	return "Anki (*.anki)";
+} // filter
+
+const QStringList ImpAnki::marks() const
+{
+	return _widget->marks();
+} // marks
+
+const bool ImpAnki::open(const QString &fileName)
+{
+	close();
+	_database.setDatabaseName(fileName);
+	return _database.open();
+} // open
+
+const quint16 ImpAnki::recordCount() const
+{
+	const qlonglong fieldId = _widget->fieldId(FieldNum1);
+	QSqlQuery query         = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FIELDMODELID + " = " + QString::number(fieldId));
+	if (query.last())
+	{
+		return query.at() + 1;
+	}
+	else
+	{
+		return 0;
+	} // if else
+} // recordCount
+
+const QString ImpAnki::recordData(const quint16 &recordId, const QString &mark)
+{
+	// query records by first field ID to get always same sequence
+	const qlonglong fieldId = _widget->fieldId(FieldNum1);
+	QSqlQuery query         = _database.exec("SELECT " + COLUMN_FACTID + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FIELDMODELID + " = " + QString::number(fieldId));
+	query.seek(recordId);
+	const qlonglong factId = query.value(ColumnPosition1).toLongLong();
+
+	// get mark ID
+	const QStringList marks = _widget->marks();
+	const quint8 markIndex  = marks.indexOf(mark);
+	const qlonglong markId  = _widget->fieldId(markIndex);
+
+	// get data
+	query = _database.exec("SELECT " + COLUMN_VALUE + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FACTID + " = " + QString::number(factId) + " AND " + COLUMN_FIELDMODELID + " = " + QString::number(markId));
+	query.next();
+    QString data = query.value(ColumnPosition1).toString();
+    if (data.endsWith(DATA_TAIL))
+	{
+        data.chop(QString(DATA_TAIL).size());
+    } // if
+
+	return data;
+} // recordData
+
+const void ImpAnki::setupUI(QGroupBox *parent)
+{
+    _widget = new AnkiImportWidget(&_database, parent);
+    QBoxLayout *boxLayout = qobject_cast<QBoxLayout *>(parent->layout());
+    boxLayout->insertWidget(WIDGET_POSITION, _widget);
+} // setupUI

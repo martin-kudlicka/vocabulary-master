@@ -14,23 +14,25 @@ class ImpAnki : public QObject, private ImpInterface
         ImpAnki();
 
 	private:
-		enum eColumnPosition {
+		enum ColumnPosition
+		{
 			ColumnPosition1
-		}; // eColumnPosition
-		enum eFieldNum {
+		}; // ColumnPosition
+		enum FieldNum
+		{
 			FieldNum1
-		}; // eFieldNum
+		}; // FieldNum
 
-		AnkiImportWidget *_aiwWidget;
-        QSqlDatabase _qsdAnki;
+		AnkiImportWidget *_widget;
+        QSqlDatabase      _database;
 
-        virtual const void Close();
-		virtual const QString GetFilter() const;
-		virtual const QStringList GetMarks() const;
-		virtual const int GetRecordCount() const;
-		virtual const QString GetRecordData(const int &pRecord, const QString &pMark);
-		virtual const bool Open(const QString &pFile);
-        virtual const void SetupUI(QGroupBox *pParent);
+        virtual const void        close      ();
+		virtual const QString     filter     () const;
+		virtual const QStringList marks      () const;
+		virtual const bool        open       (const QString &fileName);
+		virtual const quint16     recordCount() const;
+		virtual const QString     recordData (const quint16 &recordId, const QString &mark);
+        virtual const void        setupUI    (QGroupBox *parent);
 }; // ImpAnki
 
 #endif // IMPANKI_H

@@ -3,64 +3,65 @@
 #include "../../common/marklineedit.h"
 #include "../common/imp-interface.h"
 
-AnkiImportWidget::AnkiImportWidget(const QSqlDatabase *pAnki, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(pParent, pFlags), _dmDecksModel(pAnki), _fmFieldsModel(pAnki), _mmModelsModel(pAnki)
+AnkiImportWidget::AnkiImportWidget(const QSqlDatabase *database, QWidget *parent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(parent, pFlags), _decksModel(database), _fieldsModel(database), _modelsModel(database), _database(database)
 {
-    _qsdAnki = pAnki;
-
-    _qwaiAnkiImport.setupUi(this);
+    _ui.setupUi(this);
 
     // decks
-    PrepareTreeView(_qwaiAnkiImport.qtvDecks, &_dmDecksModel);
-    connect(_qwaiAnkiImport.qtvDecks->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvDecksSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+    prepareTreeView(_ui.decks, &_decksModel);
+    connect(_ui.decks->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_decks_selectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
     // models
-    PrepareTreeView(_qwaiAnkiImport.qtvModels, &_mmModelsModel);
-    connect(_qwaiAnkiImport.qtvModels->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvModelsSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+    prepareTreeView(_ui.models, &_modelsModel);
+    connect(_ui.models->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_models_selectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
     // fields
-    PrepareTreeView(_qwaiAnkiImport.qtvFields, &_fmFieldsModel);
+    prepareTreeView(_ui.fields, &_fieldsModel);
 } // AnkiImportWidget
 
-const qlonglong AnkiImportWidget::GetFieldId(const int &pPosition) const
+const qlonglong AnkiImportWidget::fieldId(const quint8 &position) const
 {
-	return _fmFieldsModel.GetFieldId(pPosition);
-} // GetFieldId
+	return _fieldsModel.fieldId(position);
+} // fieldId
 
-const QStringList AnkiImportWidget::GetMarks() const
+const QStringList AnkiImportWidget::marks() const
 {
-	QStringList qslMarks;
-	for (int iI = 0; iI < _fmFieldsModel.rowCount(); iI++) {
-		QModelIndex qmiEditorIndex = _fmFieldsModel.index(iI, FieldsModel::ColumnMark);
-		const MarkLineEdit *mleEditor = qobject_cast<const MarkLineEdit *>(_qwaiAnkiImport.qtvFields->indexWidget(qmiEditorIndex));
-		qslMarks.append(mleEditor->text());
+	QStringList marks;
+	for (quint8 rowIndex = 0; rowIndex < _fieldsModel.rowCount(); rowIndex++)
+	{
+		const QModelIndex editorIndex = _fieldsModel.index(rowIndex, FieldsModel::ColumnMark);
+		const MarkLineEdit *markEditor = qobject_cast<const MarkLineEdit *>(_ui.fields->indexWidget(editorIndex));
+		marks.append(markEditor->text());
 	} // for
 
-	return qslMarks;
-} // GetMarks
+	return marks;
+} // marks
 
-const void AnkiImportWidget::on_qtvDecksSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
+const void AnkiImportWidget::prepareTreeView(QTreeView *treeView, QAbstractItemModel *itemModel)
 {
-    int iDeckId = _dmDecksModel.GetDeckId(_qwaiAnkiImport.qtvDecks->currentIndex().row());
-    _mmModelsModel.SetDeckId(iDeckId);
-    _qwaiAnkiImport.qtvModels->reset();
-} // on_qtvDecksSelectionModel_selectionChanged
+	treeView->setModel(itemModel);
+	treeView->setItemDelegateForColumn(FieldsModel::ColumnMark, &_markEditDelegate);
+	for (quint8 columnIndex = 0; columnIndex < treeView->header()->count(); columnIndex++)
+	{
+		treeView->header()->setSectionResizeMode(columnIndex, QHeaderView::Stretch);
+	} // for
+} // prepareTreeView
 
-const void AnkiImportWidget::on_qtvModelsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
+const void AnkiImportWidget::on_decks_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
-    qlonglong qllModelId = _mmModelsModel.GetModelId(_qwaiAnkiImport.qtvModels->currentIndex().row());
-    _fmFieldsModel.SetModelId(qllModelId);
+    const quint8 deckId = _decksModel.deckId(_ui.decks->currentIndex().row());
+    _modelsModel.deckId(deckId);
+    _ui.models->reset();
+} // on_decks_selectionModel_selectionChanged
 
-    _qwaiAnkiImport.qtvFields->reset();
+const void AnkiImportWidget::on_models_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
+{
+    const qlonglong modelId = _modelsModel.modelId(_ui.models->currentIndex().row());
+    _fieldsModel.setModelId(modelId);
 
-    for (int iRow = 0; iRow < _fmFieldsModel.rowCount(); iRow++) {
-        QModelIndex qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnMark);
-        _qwaiAnkiImport.qtvFields->openPersistentEditor(qmiIndex);
+    _ui.fields->reset();
+
+    for (quint8 rowIndex = 0; rowIndex < _fieldsModel.rowCount(); rowIndex++)
+	{
+        const QModelIndex modelIndex = _fieldsModel.index(rowIndex, FieldsModel::ColumnMark);
+        _ui.fields->openPersistentEditor(modelIndex);
     } // for
-} // on_qtvModelsSelectionModel_selectionChanged
-
-const void AnkiImportWidget::PrepareTreeView(QTreeView *pTreeView, QAbstractItemModel *pItemModel)
-{
-    pTreeView->setModel(pItemModel);
-    pTreeView->setItemDelegateForColumn(FieldsModel::ColumnMark, &_mlepdMarkDelegate);
-    for (int iColumn = 0; iColumn < pTreeView->header()->count(); iColumn++) {
-        pTreeView->header()->setSectionResizeMode(iColumn, QHeaderView::Stretch);
-    } // for
-} // PrepareTreeView
+} // on_models_selectionModel_selectionChanged

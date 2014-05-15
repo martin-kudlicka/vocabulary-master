@@ -4,19 +4,19 @@
 
 const QString TEMPLATE_MARK = "${%1}";
 
-const void ImpPlaintext::Close()
+const void ImpPlaintext::close()
 {
     if (_pfPlaintext.IsOpen()) {
         _pfPlaintext.Close();
     } // if
-} // Close
+} // close
 
-const QString ImpPlaintext::GetFilter() const
+const QString ImpPlaintext::filter() const
 {
     return tr("text file (*.txt)");
-} // GetFilter
+} // filter
 
-const QStringList ImpPlaintext::GetMarks() const
+const QStringList ImpPlaintext::marks() const
 {
     QString qsRegExp = _piwWidget->GetRegExp();
 	QStringList qslMarks;
@@ -28,9 +28,9 @@ const QStringList ImpPlaintext::GetMarks() const
 	} // for
 
 	return qslMarks;
-} // GetMarks
+} // marks
 
-const int ImpPlaintext::GetRecordCount() const
+const quint16 ImpPlaintext::recordCount() const
 {
 	int iFileLines = _piwWidget->GetLineCount();
 	int iLines = iFileLines / _piwWidget->GetLinesPerRecord();
@@ -39,9 +39,9 @@ const int ImpPlaintext::GetRecordCount() const
 	} // if
 
 	return iLines;
-} // GetRecordCount
+} // recordCount
 
-const QString ImpPlaintext::GetRecordData(const int &pRecord, const QString &pMark)
+const QString ImpPlaintext::recordData(const quint16 &pRecord, const QString &pMark)
 {
 	if (_iCachedRecord != pRecord) {
 		if (_iCachedRecord + 1 != pRecord) {
@@ -77,7 +77,7 @@ const QString ImpPlaintext::GetRecordData(const int &pRecord, const QString &pMa
 	} // if
 
 	// get mark ID
-	QStringList qslMarks = GetMarks();
+	QStringList qslMarks = marks();
 	int iIndex = qslMarks.indexOf(pMark);
 
 	// get data
@@ -86,18 +86,18 @@ const QString ImpPlaintext::GetRecordData(const int &pRecord, const QString &pMa
 	} else {
 		return QString();
 	} // if else
-} // GetRecordData
+} // recordData
 
-const bool ImpPlaintext::Open(const QString &pFile)
+const bool ImpPlaintext::open(const QString &pFile)
 {
-    Close();
+    close();
 	_iCachedRecord = CACHED_NONE;
     return _pfPlaintext.Open(pFile);
-} // Open
+} // open
 
-const void ImpPlaintext::SetupUI(QGroupBox *pParent)
+const void ImpPlaintext::setupUI(QGroupBox *pParent)
 {
     _piwWidget = new PlaintextImportWidget(&_pfPlaintext, pParent);
     QBoxLayout *pLayout = qobject_cast<QBoxLayout *>(pParent->layout());
     pLayout->insertWidget(WIDGET_POSITION, _piwWidget);
-} // SetupUI
+} // setupUI
