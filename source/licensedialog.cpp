@@ -5,11 +5,11 @@
 
 const void LicenseDialog::FillLicenseInfo() const
 {
-	if (_lLicense->GetStatus() == License::StatusOk || _lLicense->GetStatus() == License::StatusExpired) {
-		_qdlLicenseDialog.qlFirstName->setText(_lLicense->GetFirstName());
-		_qdlLicenseDialog.qlLastName->setText(_lLicense->GetLastName());
-		_qdlLicenseDialog.qlEmail->setText(_lLicense->GetEmail());
-		_qdlLicenseDialog.qlValidTo->setText(_lLicense->GetValidTo().toString(Qt::DefaultLocaleLongDate));
+	if (_lLicense->status() == License::StatusOk || _lLicense->status() == License::StatusExpired) {
+		_qdlLicenseDialog.qlFirstName->setText(_lLicense->firstName());
+		_qdlLicenseDialog.qlLastName->setText(_lLicense->lastName());
+		_qdlLicenseDialog.qlEmail->setText(_lLicense->email());
+		_qdlLicenseDialog.qlValidTo->setText(_lLicense->validTo().toString(Qt::DefaultLocaleLongDate));
 
 		_qdlLicenseDialog.qlFirstName->show();
 		_qdlLicenseDialog.qlLastName->show();
@@ -22,7 +22,7 @@ const void LicenseDialog::FillLicenseInfo() const
 		_qdlLicenseDialog.qlValidTo->hide();
 	} // if else
 
-	switch (_lLicense->GetStatus()) {
+	switch (_lLicense->status()) {
 		case License::StatusNone:
 			_qdlLicenseDialog.qlStatus->setText(tr("No license."));
 			break;
@@ -32,7 +32,7 @@ const void LicenseDialog::FillLicenseInfo() const
 		case License::StatusInvalid:
 			_qdlLicenseDialog.qlStatus->setText(tr("License is invalid."));
 	} // switch
-	if (_lLicense->GetStatus() == License::StatusOk) {
+	if (_lLicense->status() == License::StatusOk) {
 		_qdlLicenseDialog.qlStatus->hide();
 	} else {
 		_qdlLicenseDialog.qlStatus->show();
@@ -69,7 +69,7 @@ const void LicenseDialog::on_qpbLoad_clicked(bool checked /* false */)
 	QByteArray qbaData = qfFile.readAll();
 
 	_sSettings->SetLicense(qbaData);
-	_lLicense->RefreshLicense();
+	_lLicense->refreshLicense();
 
 	FillLicenseInfo();
 

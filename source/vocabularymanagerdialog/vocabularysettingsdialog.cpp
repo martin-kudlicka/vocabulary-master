@@ -88,14 +88,14 @@ const void VocabularySettingsDialog::on_leLanguageRight_textEdited(const QString
 
 const void VocabularySettingsDialog::on_qpbFieldAdd_clicked(bool checked /* false */)
 {
-    _fmFieldsModel.AddRow();
+    _fmFieldsModel.addRow();
 	ActualizeFieldsEditor(_fmFieldsModel.rowCount() - 1);
 } // on_qpbFieldAdd_clicked
 
 const void VocabularySettingsDialog::on_qpbFieldDown_clicked(bool checked /* false */)
 {
 	QModelIndex qmiCurrent = _qdvsdVocabularySettingsDialog.qtvFields->currentIndex();
-	_fmFieldsModel.Swap(qmiCurrent.row(), qmiCurrent.row() + 1);
+	_fmFieldsModel.swap(qmiCurrent.row(), qmiCurrent.row() + 1);
     ActualizeFieldsEditor();
 
 	_qdvsdVocabularySettingsDialog.qtvFields->setCurrentIndex(_fmFieldsModel.index(qmiCurrent.row() + 1, qmiCurrent.column()));
@@ -104,14 +104,14 @@ const void VocabularySettingsDialog::on_qpbFieldDown_clicked(bool checked /* fal
 const void VocabularySettingsDialog::on_qpbFieldRemove_clicked(bool checked /* false */)
 {
 	const QItemSelectionModel *qismSelection = _qdvsdVocabularySettingsDialog.qtvFields->selectionModel();
-	_fmFieldsModel.RemoveRow(qismSelection->currentIndex().row());
+	_fmFieldsModel.removeRow(qismSelection->currentIndex().row());
     ActualizeFieldsEditor();
 } // on_qpbFieldRemove_clicked
 
 const void VocabularySettingsDialog::on_qpbFieldUp_clicked(bool checked /* false */)
 {
 	QModelIndex qmiCurrent = _qdvsdVocabularySettingsDialog.qtvFields->currentIndex();
-	_fmFieldsModel.Swap(qmiCurrent.row(), qmiCurrent.row() - 1);
+	_fmFieldsModel.swap(qmiCurrent.row(), qmiCurrent.row() - 1);
     ActualizeFieldsEditor();
 
 	_qdvsdVocabularySettingsDialog.qtvFields->setCurrentIndex(_fmFieldsModel.index(qmiCurrent.row() - 1, qmiCurrent.column()));

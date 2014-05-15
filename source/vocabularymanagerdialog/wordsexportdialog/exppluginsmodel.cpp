@@ -1,8 +1,7 @@
 #include "vocabularymanagerdialog/wordsexportdialog/exppluginsmodel.h"
 
-ExpPluginsModel::ExpPluginsModel(const Plugins::tExpPluginList *pExpPlugins, QObject *pParent /* NULL */) : QAbstractItemModel(pParent)
+ExpPluginsModel::ExpPluginsModel(const Plugins::ExpPluginList *expPlugins, QObject *parent /* NULL */) : QAbstractItemModel(parent), _expPlugins(expPlugins)
 {
-    _teplExpPlugins = pExpPlugins;
 } // ExpPluginsModel
 
 int ExpPluginsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
@@ -12,9 +11,10 @@ int ExpPluginsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) 
 
 QVariant ExpPluginsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
-    switch (role) {
+    switch (role)
+	{
         case Qt::DisplayRole:
-			return _teplExpPlugins->at(index.row()).eiInterface->pluginName();
+			return _expPlugins->at(index.row()).eiInterface->pluginName();
         default:
             return QVariant();
     } // switch
@@ -22,7 +22,8 @@ QVariant ExpPluginsModel::data(const QModelIndex &index, int role /* Qt::Display
 
 QVariant ExpPluginsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
-    switch (role) {
+    switch (role)
+	{
         case Qt::DisplayRole:
             return tr("Plugin");
         default:
@@ -42,9 +43,12 @@ QModelIndex ExpPluginsModel::parent(const QModelIndex &index) const
 
 int ExpPluginsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-    if (parent == QModelIndex()) {
-        return _teplExpPlugins->size();
-    } else {
+    if (parent == QModelIndex())
+	{
+        return _expPlugins->size();
+    }
+	else
+	{
         return 0;
     } // if else
 } // rowCount

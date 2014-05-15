@@ -34,7 +34,7 @@ class Vocabulary : public VocabularyDatabase
         const eFieldLanguage GetFieldLanguage(const int &pFieldId) const;
         const QString GetFieldName(const int &pFieldId) const;
         const QString GetFieldTemplateName(const int &pFieldId) const;
-		const eFieldType GetFieldType(const int &pFieldId) const;
+		const FieldType GetFieldType(const int &pFieldId) const;
 #ifndef EDITION_FREE
         const QStringList GetRecord(const int &pRecordId) const;
 #endif
@@ -79,7 +79,7 @@ class Vocabulary : public VocabularyDatabase
         struct sFieldData {
             QString qsTemplateName;
             QString qsName;
-            eFieldType eftType;
+            FieldType eftType;
             qfFieldAttributes qfaAttributes;
 #ifndef EDITION_FREE
             eFieldBuiltIn efbBuiltIn;

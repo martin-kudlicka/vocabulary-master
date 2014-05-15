@@ -99,7 +99,7 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
     _qdweWordsExport.qpbExport->setEnabled(true);
 } // on_qtvExpPluginsSelectionModel_selectionChanged
 
-WordsExportDialog::WordsExportDialog(const Vocabulary *pVocabulary, const Plugins::tExpPluginList &pExpPlugins, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags), _cmCategoriesModel(pVocabulary), _epmExpPluginsModel(&pExpPlugins), _wefmFieldsModel(pVocabulary)
+WordsExportDialog::WordsExportDialog(const Vocabulary *pVocabulary, const Plugins::ExpPluginList &pExpPlugins, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags), _cmCategoriesModel(pVocabulary), _epmExpPluginsModel(&pExpPlugins), _wefmFieldsModel(pVocabulary)
 {
 	_vVocabulary = pVocabulary;
 	_teplExpPlugins = pExpPlugins;

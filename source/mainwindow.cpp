@@ -112,21 +112,21 @@ const void MainWindow::EnableControls()
 {
 	// menu
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-	_umwMainWindow.qaOrganizer->setEnabled(_lLicense->IsLoaded());
+	_umwMainWindow.qaOrganizer->setEnabled(_lLicense->isLoaded());
 #endif
     _umwMainWindow.qmVocabularies->setEnabled(
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-		_lLicense->IsLoaded() &&
+		_lLicense->isLoaded() &&
 #endif
 		_voOrganizer.IsOpen());
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-	_umwMainWindow.qmOptions->setEnabled(_lLicense->IsLoaded());
+	_umwMainWindow.qmOptions->setEnabled(_lLicense->isLoaded());
 #endif
 
 	// tool bar
 	_umwMainWindow.qaStart->setEnabled(
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-		_lLicense->IsLoaded() &&
+		_lLicense->isLoaded() &&
 #endif
 		_voOrganizer.IsOpen() && !_bLearning && _voOrganizer.GetRecordCount(true) > 0);
 	_umwMainWindow.qaStop->setEnabled(_bLearning);
@@ -355,7 +355,7 @@ MainWindow::MainWindow(QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 
 	// learning
 	if (
 # ifndef EDITION_TRY
-		_lLicense->IsLoaded() &&
+		_lLicense->isLoaded() &&
 # endif
 		_sSettings.GetStartLearningOnStartup() && _voOrganizer.IsOpen()) {
 			on_qaStart_triggered();

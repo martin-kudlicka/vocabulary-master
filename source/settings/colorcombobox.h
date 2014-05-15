@@ -6,10 +6,10 @@
 class ColorComboBox : public QComboBox
 {
 	public:
-		ColorComboBox(QWidget *pParent = NULL);
+		ColorComboBox(QWidget *parent = NULL);
 
 	private:
-		static const int BORDER_WIDTH = 2;
+		static const quint8 BORDER_WIDTH = 2;
 
 		virtual void paintEvent(QPaintEvent * e);
 }; // ColorComboBox

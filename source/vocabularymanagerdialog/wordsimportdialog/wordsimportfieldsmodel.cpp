@@ -91,7 +91,7 @@ Qt::ItemFlags WordsImportFieldsModel::flags(const QModelIndex &index) const
 
 	if (index.column() == ColumnEditor) {
 		int iFieldId = _vVocabulary->GetFieldId(index.row());
-		VocabularyDatabase::eFieldType eftType = _vVocabulary->GetFieldType(iFieldId);
+		VocabularyDatabase::FieldType eftType = _vVocabulary->GetFieldType(iFieldId);
 		if (eftType == VocabularyDatabase::FieldTypeCheckBox) {
 			ifFlags |= Qt::ItemIsUserCheckable;
 		} // if

@@ -25,12 +25,12 @@ class Plugins
             TTSInterface *tiInterface;
         }; // sTTSPlugin
 
-		typedef QList<sExpPlugin> tExpPluginList;
+		typedef QList<sExpPlugin> ExpPluginList;
 		typedef QList<sImpPlugin> tImpPluginList;
 		typedef QList<sTTSPlugin> tTTSPluginList;
 
 		TTSInterface *GetTTSPlugin(const TTSInterface::TTSPlugin &pPluginId) const;
-		const tExpPluginList &GetExpPlugins() const;
+		const ExpPluginList &GetExpPlugins() const;
 		const tImpPluginList &GetImpPlugins() const;
 		const tTTSPluginList GetTTSPlugins() const;
 		const void Initialize();
@@ -40,7 +40,7 @@ class Plugins
 
 	private:
 		QHash<TTSInterface::TTSPlugin, sTTSPlugin> _qhTTSPlugins;
-		tExpPluginList _teplExpPlugins;
+		ExpPluginList _teplExpPlugins;
 		tImpPluginList _tiplImpPlugins;
 }; // Plugins
 

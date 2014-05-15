@@ -13,13 +13,13 @@ class WordsExportDialog : public QDialog
 	Q_OBJECT
 
 	public:
-		WordsExportDialog(const Vocabulary *pVocabulary, const Plugins::tExpPluginList &pExpPlugins, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+		WordsExportDialog(const Vocabulary *pVocabulary, const Plugins::ExpPluginList &pExpPlugins, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
 
 	private:
 		CategoriesModel _cmCategoriesModel;
 		ExpPluginsModel _epmExpPluginsModel;
         MarkLineEditPersistentDelegate _mlepdMarkDelegate;
-		Plugins::tExpPluginList _teplExpPlugins;
+		Plugins::ExpPluginList _teplExpPlugins;
 		Ui::qdWordsExport _qdweWordsExport;
 		QHash<int, int> _qhExpPluginPage;
 		const Vocabulary *_vVocabulary;

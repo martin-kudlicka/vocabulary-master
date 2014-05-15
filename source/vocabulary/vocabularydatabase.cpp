@@ -85,7 +85,7 @@ const int VocabularyDatabase::AddField() const
 } // AddField
 #endif
 
-const int VocabularyDatabase::AddField(const QString &pTemplate, const QString &pName, const eFieldType &pType, const qfFieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const
+const int VocabularyDatabase::AddField(const QString &pTemplate, const QString &pName, const FieldType &pType, const qfFieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const
 {
     QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " + COLUMN_NAME + ", " + COLUMN_TYPE + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_BUILTIN + ", " + COLUMN_LANGUAGE + ") VALUES ('" + pTemplate + "', '" + pName + "', '" + QString::number(pType) + "', '" + QString::number(pAttributes) + "', '" + QString::number(pBuiltIn) + "', '" + QString::number(pLanguage) + "')");
 	return qsqQuery.lastInsertId().toInt();
@@ -361,11 +361,11 @@ const QString VocabularyDatabase::GetFieldTemplateName(const int &pFieldId) cons
     return QString();
 } // GetFieldTemplateName
 
-const VocabularyDatabase::eFieldType VocabularyDatabase::GetFieldType(const int &pFieldId) const
+const VocabularyDatabase::FieldType VocabularyDatabase::GetFieldType(const int &pFieldId) const
 {
 	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_TYPE + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
 	if (qsqQuery.next()) {
-		return static_cast<eFieldType>(qsqQuery.value(ColumnPosition1).toInt());
+		return static_cast<FieldType>(qsqQuery.value(ColumnPosition1).toInt());
 	} // if
 
 	return FieldTypeUnknown;
