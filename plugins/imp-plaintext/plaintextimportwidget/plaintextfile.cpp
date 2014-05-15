@@ -1,61 +1,65 @@
 #include "plaintextimportwidget/plaintextfile.h"
 
-const bool PlaintextFile::AtEnd() const
+const bool PlaintextFile::atEnd() const
 {
-	return _qtsFile.atEnd();
-} // AtEnd
+	return _textStream.atEnd();
+} // atEnd
 
-const void PlaintextFile::Close()
+const void PlaintextFile::close()
 {
-	_qfFile.close();
-} // Close
+	_file.close();
+} // close
 
-const QString PlaintextFile::GetCodecName() const
+const QString PlaintextFile::codecName() const
 {
-	return _qtcCodec->name();
-} // GetCodecName
+	return _textCodec->name();
+} // codecName
 
-const bool PlaintextFile::IsOpen() const
+const bool PlaintextFile::isOpen() const
 {
-	return _qfFile.isOpen();
-} // IsOpen
+	return _file.isOpen();
+} // isOpen
 
-const bool PlaintextFile::Open(const QString &pFile)
+const bool PlaintextFile::open(const QString &fileName)
 {
-	_qfFile.setFileName(pFile);
-	bool bOpen = _qfFile.open(QIODevice::ReadOnly | QIODevice::Text);
-	if (!bOpen) {
+	_file.setFileName(fileName);
+	const bool fileOpen = _file.open(QIODevice::ReadOnly | QIODevice::Text);
+	if (!fileOpen)
+	{
 		return false;
 	} // if
 
-	OpenTextStream();
+	openTextStream();
 	return true;
-} // Open
+} // open
 
-const void PlaintextFile::OpenTextStream(const QString *pCodec /* NULL */)
+const QString PlaintextFile::readLine()
 {
-	QByteArray qbaContent = _qfFile.readAll();
-	if (pCodec) {
-		_qtcCodec = QTextCodec::codecForName(pCodec->toLocal8Bit());
-	} else {
-		_qtcCodec = QTextCodec::codecForUtfText(qbaContent);
+	return _textStream.readLine();
+} // readLine
+
+const void PlaintextFile::seek(const qint64 &position)
+{
+	_textStream.seek(position);
+} // seek
+
+const void PlaintextFile::setCodecName(const QString &codec)
+{
+	_file.seek(0);
+	openTextStream(&codec);
+} // setCodecName
+
+const void PlaintextFile::openTextStream(const QString *codec /* NULL */)
+{
+	const QByteArray fileContent = _file.readAll();
+	if (codec)
+	{
+		_textCodec = QTextCodec::codecForName(codec->toLocal8Bit());
+	}
+	else
+	{
+		_textCodec = QTextCodec::codecForUtfText(fileContent);
 	} // if else
-	_qsCodecContent = _qtcCodec->toUnicode(qbaContent);
-	_qtsFile.setString(&_qsCodecContent, QIODevice::ReadOnly | QIODevice::Text);
-} // OpenTextStream
-
-const QString PlaintextFile::ReadLine()
-{
-	return _qtsFile.readLine();
-} // ReadLine
-
-const void PlaintextFile::Seek(const qint64 &pPosition)
-{
-	_qtsFile.seek(pPosition);
-} // Seek
-
-const void PlaintextFile::SetCodecName(const QString &pCodec)
-{
-	_qfFile.seek(0);
-	OpenTextStream(&pCodec);
-} // SetCodecName
+	_codecContent = _textCodec->toUnicode(fileContent);
+	_textStream.setString(&_codecContent, QIODevice::ReadOnly | QIODevice::Text);
+} // openTextStream

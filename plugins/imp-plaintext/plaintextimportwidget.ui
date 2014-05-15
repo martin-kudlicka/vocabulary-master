@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qwPlaintextImport</class>
- <widget class="QWidget" name="qwPlaintextImport">
+ <class>PlaintextImportWidget</class>
+ <widget class="QWidget" name="PlaintextImportWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,7 +14,16 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -23,12 +32,12 @@
       <string>Regular &amp;expression:</string>
      </property>
      <property name="buddy">
-      <cstring>qleRegExp</cstring>
+      <cstring>regExp</cstring>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="qleRegExp"/>
+    <widget class="QLineEdit" name="regExp"/>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -41,7 +50,16 @@
         </sizepolicy>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
-        <property name="margin">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
          <number>0</number>
         </property>
         <item>
@@ -56,12 +74,12 @@
            <string>Source record preview:</string>
           </property>
           <property name="buddy">
-           <cstring>qptePreview</cstring>
+           <cstring>preview</cstring>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPlainTextEdit" name="qptePreview">
+         <widget class="QPlainTextEdit" name="preview">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -77,7 +95,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QTreeView" name="qtvCodecs">
+      <widget class="QTreeView" name="codecs">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>1</horstretch>
@@ -94,7 +112,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QSpinBox" name="qsbLinesPerRecord">
+      <widget class="QSpinBox" name="linesPerRecord">
        <property name="minimum">
         <number>1</number>
        </property>
@@ -112,7 +130,7 @@
         <string>&amp;Lines per record</string>
        </property>
        <property name="buddy">
-        <cstring>qsbLinesPerRecord</cstring>
+        <cstring>linesPerRecord</cstring>
        </property>
       </widget>
      </item>

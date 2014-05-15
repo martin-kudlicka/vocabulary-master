@@ -11,23 +11,23 @@ class PlaintextImportWidget : public QWidget
     Q_OBJECT
 
     public:
-        PlaintextImportWidget(PlaintextFile *pFile, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+        PlaintextImportWidget(PlaintextFile *file, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
 
-		const int GetLineCount() const;
-		const int GetLinesPerRecord() const;
-		const QString GetRegExp() const;
+		const quint16 lineCount     () const;
+		const quint16 linesPerRecord() const;
+		const QString regExp        () const;
 
     private:
-        CodecsModel _cmCodecsModel;
-		PlaintextFile *_pfFile;
-        Ui::qwPlaintextImport _qwpiPlaintextImport;
+        CodecsModel               _codecsModel;
+		PlaintextFile            *_file;
+        Ui::PlaintextImportWidget _ui;
 
-		const void PreselectCodec() const;
-		const void RefreshPreview() const;
+		const void preselectCodec() const;
+		const void refreshPreview() const;
 
 	private slots:
-		const void on_qsbLinesPerRecord_valueChanged(int i) const;
-		const void on_qtvCodecsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
+		const void on_codecs_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
+		const void on_linesPerRecord_valueChanged           (int i)                                                            const;
 }; // PlaintextImportWidget
 
 #endif // PLAINTEXTIMPORTWIDGET_H

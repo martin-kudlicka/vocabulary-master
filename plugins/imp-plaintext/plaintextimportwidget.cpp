@@ -1,82 +1,85 @@
 #include "plaintextimportwidget.h"
 
-const int PlaintextImportWidget::GetLineCount() const
+PlaintextImportWidget::PlaintextImportWidget(PlaintextFile *file, QWidget *parent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(parent, pFlags), _file(file)
 {
-	int iFileLines = 0;
-	_pfFile->Seek(PlaintextFile::PFILE_BEGIN);
-	while (!_pfFile->ReadLine().isNull()) {
-		iFileLines++;
-	} // while
+	_ui.setupUi(this);
 
-	return iFileLines;
-} // GetLineCount
+	_ui.codecs->setModel(&_codecsModel);
+	connect(_ui.codecs->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_codecs_selectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 
-const int PlaintextImportWidget::GetLinesPerRecord() const
-{
-	return _qwpiPlaintextImport.qsbLinesPerRecord->value();
-} // GetLinesPerRecord
+	preselectCodec();
 
-const QString PlaintextImportWidget::GetRegExp() const
-{
-	return _qwpiPlaintextImport.qleRegExp->text();
-} // GetRegExp
-
-const void PlaintextImportWidget::on_qsbLinesPerRecord_valueChanged(int i) const
-{
-	RefreshPreview();
-} // on_qsbLinesPerRecord_valueChanged
-
-const void PlaintextImportWidget::on_qtvCodecsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
-{
-	QModelIndex qmiIndex = _qwpiPlaintextImport.qtvCodecs->currentIndex();
-	QString qsCodec = _cmCodecsModel.data(qmiIndex).toString();
-	_pfFile->SetCodecName(qsCodec);
-
-	_qwpiPlaintextImport.qsbLinesPerRecord->setMaximum(GetLineCount());
-	RefreshPreview();
-} // on_qtvCodecsSelectionModel_selectionChanged
-
-PlaintextImportWidget::PlaintextImportWidget(PlaintextFile *pFile, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QWidget(pParent, pFlags)
-{
-	_pfFile = pFile;
-
-    _qwpiPlaintextImport.setupUi(this);
-
-    _qwpiPlaintextImport.qtvCodecs->setModel(&_cmCodecsModel);
-	connect(_qwpiPlaintextImport.qtvCodecs->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvCodecsSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
-
-	PreselectCodec();
-
-	_qwpiPlaintextImport.qsbLinesPerRecord->setMaximum(GetLineCount());
+	_ui.linesPerRecord->setMaximum(lineCount());
 } // PlaintextImportWidget
 
-const void PlaintextImportWidget::PreselectCodec() const
+const quint16 PlaintextImportWidget::lineCount() const
 {
-	QString qsFileCodec = _pfFile->GetCodecName();
-	for (int iRow = 0; iRow < _cmCodecsModel.rowCount(); iRow++) {
-		QModelIndex qmiIndex = _cmCodecsModel.index(iRow, CodecsModel::ColumnCodec);
-		QString qsCodec = _cmCodecsModel.data(qmiIndex).toString();
+	quint16 fileLines = 0;
+	_file->seek(PlaintextFile::PFILE_BEGIN);
+	while (!_file->readLine().isNull())
+	{
+		fileLines++;
+	} // while
 
-		if (qsFileCodec == qsCodec) {
-			_qwpiPlaintextImport.qtvCodecs->blockSignals(true);
-			_qwpiPlaintextImport.qtvCodecs->setCurrentIndex(qmiIndex);
-			_qwpiPlaintextImport.qtvCodecs->blockSignals(false);
-			RefreshPreview();
+	return fileLines;
+} // lineCount
+
+const quint16 PlaintextImportWidget::linesPerRecord() const
+{
+	return _ui.linesPerRecord->value();
+} // linesPerRecord
+
+const QString PlaintextImportWidget::regExp() const
+{
+	return _ui.regExp->text();
+} // regExp
+
+const void PlaintextImportWidget::preselectCodec() const
+{
+	const QString fileCodec = _file->codecName();
+	for (quint8 codecIndex = 0; codecIndex < _codecsModel.rowCount(); codecIndex++)
+	{
+		const QModelIndex modelIndex = _codecsModel.index(codecIndex, CodecsModel::ColumnCodec);
+		const QString codec          = _codecsModel.data(modelIndex).toString();
+
+		if (fileCodec == codec)
+		{
+			_ui.codecs->blockSignals(true);
+			_ui.codecs->setCurrentIndex(modelIndex);
+			_ui.codecs->blockSignals(false);
+			refreshPreview();
 			return;
 		} // if
 	} // for
-} // PreselectCodec
+} // preselectCodec
 
-const void PlaintextImportWidget::RefreshPreview() const
+const void PlaintextImportWidget::refreshPreview() const
 {
-	_pfFile->Seek(PlaintextFile::PFILE_BEGIN);
-	QString qsText;
-	for (int iI = 0; iI < GetLinesPerRecord(); iI++) {
-		if (!qsText.isEmpty()) {
-			qsText += "\n";
+	_file->seek(PlaintextFile::PFILE_BEGIN);
+	QString text;
+	for (quint16 lineIndex = 0; lineIndex < linesPerRecord(); lineIndex++)
+	{
+		if (!text.isEmpty())
+		{
+			text += "\n";
 		} // if
-		qsText += _pfFile->ReadLine();
+		text += _file->readLine();
 	} // for
 
-	_qwpiPlaintextImport.qptePreview->setPlainText(qsText);
-} // RefreshPreview
+	_ui.preview->setPlainText(text);
+} // refreshPreview
+
+const void PlaintextImportWidget::on_codecs_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
+{
+	const QModelIndex modelIndex = _ui.codecs->currentIndex();
+	const QString codec          = _codecsModel.data(modelIndex).toString();
+	_file->setCodecName(codec);
+
+	_ui.linesPerRecord->setMaximum(lineCount());
+	refreshPreview();
+} // on_codecs_selectionModel_selectionChanged
+
+const void PlaintextImportWidget::on_linesPerRecord_valueChanged(int i) const
+{
+	refreshPreview();
+} // on_linesPerRecord_valueChanged

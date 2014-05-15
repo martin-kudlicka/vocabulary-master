@@ -10,22 +10,22 @@ class PlaintextFile
 	public:
 		static const qint64 PFILE_BEGIN = 0;
 
-		const bool AtEnd() const;
-		const void Close();
-		const QString GetCodecName() const;
-		const bool IsOpen() const;
-		const bool Open(const QString &pFile);
-		const QString ReadLine();
-		const void Seek(const qint64 &pPosition);
-		const void SetCodecName(const QString &pCodec);
+		const bool    atEnd       () const;
+		const void    close       ();
+		const QString codecName   () const;
+		const bool    isOpen      () const;
+		const bool    open        (const QString &fileName);
+		const QString readLine    ();
+		const void    seek        (const qint64 &position);
+		const void    setCodecName(const QString &codec);
 
 	private:
-		QFile _qfFile;
-		QString _qsCodecContent;
-		const QTextCodec *_qtcCodec;
-		QTextStream _qtsFile;
+		      QFile       _file;
+		      QString     _codecContent;
+		const QTextCodec *_textCodec;
+		      QTextStream _textStream;
 
-		const void OpenTextStream(const QString *pCodec = NULL);
+		const void openTextStream(const QString *codec = NULL);
 }; // PlaintextFile
 
 #endif // PLAINTEXTFILE_H
