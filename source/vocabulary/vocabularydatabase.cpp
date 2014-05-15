@@ -93,7 +93,7 @@ const int VocabularyDatabase::AddField(const QString &pTemplate, const QString &
 
 const void VocabularyDatabase::AddLanguage(const QString &pName, const QString &pLearningTemplate
 #ifndef EDITION_FREE
-    , const QString &pTrayTemplate, const TTSInterface::eTTSPlugin &pTTSPlugin, const QString &pVoice
+    , const QString &pTrayTemplate, const TTSInterface::TTSPlugin &pTTSPlugin, const QString &pVoice
 #endif
     ) const
 {
@@ -412,11 +412,11 @@ const QString VocabularyDatabase::GetLanguageName(const int &pLanguageId) const
 } // GetLanguageName
 
 #ifndef EDITION_FREE
-const TTSInterface::eTTSPlugin VocabularyDatabase::GetLanguageSpeech(const int &pLanguageId) const
+const TTSInterface::TTSPlugin VocabularyDatabase::GetLanguageSpeech(const int &pLanguageId) const
 {
     QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_SPEECH + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
     if (qsqQuery.next()) {
-        return static_cast<const TTSInterface::eTTSPlugin>(qsqQuery.value(ColumnPosition1).toInt());
+        return static_cast<const TTSInterface::TTSPlugin>(qsqQuery.value(ColumnPosition1).toInt());
     } // while
 
     return TTSInterface::TTPluginNone;
@@ -804,7 +804,7 @@ const void VocabularyDatabase::SetLanguageName(const int &pLanguageId, const QSt
 } // SetLanguageName
 
 #ifndef EDITION_FREE
-const void VocabularyDatabase::SetLanguageSpeech(const int &pLanguageId, const TTSInterface::eTTSPlugin &pSpeech) const
+const void VocabularyDatabase::SetLanguageSpeech(const int &pLanguageId, const TTSInterface::TTSPlugin &pSpeech) const
 {
     _qsdDatabase.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_SPEECH + " = '" + QString::number(pSpeech)+ "' WHERE " + COLUMN_ID + " = " + QString::number(pLanguageId));
 } // SetLanguageSpeech
@@ -911,12 +911,12 @@ const void VocabularyDatabase::UpdateDatabase()
         // copy existing language settings values to language table
         AddLanguage(GetSettings(KEY_LANGUAGE1), GetSettings(KEY_LEARNINGTEMPLATE1)
 #ifndef EDITION_FREE
-            , GetSettings(KEY_TRAYTEMPLATE1), static_cast<TTSInterface::eTTSPlugin>(GetSettings(KEY_SPEECH1).toInt()), GetSettings(KEY_VOICE1)
+            , GetSettings(KEY_TRAYTEMPLATE1), static_cast<TTSInterface::TTSPlugin>(GetSettings(KEY_SPEECH1).toInt()), GetSettings(KEY_VOICE1)
 #endif
             );
         AddLanguage(GetSettings(KEY_LANGUAGE2), GetSettings(KEY_LEARNINGTEMPLATE2)
 #ifndef EDITION_FREE
-            , GetSettings(KEY_TRAYTEMPLATE2), static_cast<TTSInterface::eTTSPlugin>(GetSettings(KEY_SPEECH2).toInt()), GetSettings(KEY_VOICE2)
+            , GetSettings(KEY_TRAYTEMPLATE2), static_cast<TTSInterface::TTSPlugin>(GetSettings(KEY_SPEECH2).toInt()), GetSettings(KEY_VOICE2)
 #endif
             );
         // delete old language settings

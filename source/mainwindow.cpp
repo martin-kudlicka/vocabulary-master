@@ -844,12 +844,12 @@ const void MainWindow::Say(const bool &pDirectionSwitched, const bool &pAnswer) 
         } // foreach
 
         if (!qsText.isEmpty()) {
-			TTSInterface::eTTSPlugin etpSpeech = _sriCurrentRecord.vVocabulary->GetLanguageSpeech(eflLanguage);
+			TTSInterface::TTSPlugin etpSpeech = _sriCurrentRecord.vVocabulary->GetLanguageSpeech(eflLanguage);
 	        if (etpSpeech != TTSInterface::TTPluginNone) {
 		        TTSInterface *tiPlugin = _pPlugins.GetTTSPlugin(etpSpeech);
                 if (tiPlugin) {
 					QString qsVoice = _sriCurrentRecord.vVocabulary->GetLanguageVoice(eflLanguage);
-		            tiPlugin->Say(qsVoice, qsText);
+		            tiPlugin->say(qsVoice, qsText);
                 } // if
 	        } // if
         } // if

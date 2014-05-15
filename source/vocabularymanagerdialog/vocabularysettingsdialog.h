@@ -32,7 +32,7 @@ class VocabularySettingsDialog : public QDialog
 		}; // eTab
 #else
 		struct sSpeechVoice {
-			TTSInterface::eTTSPlugin etpPlugin;
+			TTSInterface::TTSPlugin etpPlugin;
 			QString qsVoiceId;
 		};
 

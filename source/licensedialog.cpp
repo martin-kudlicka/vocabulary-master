@@ -53,7 +53,7 @@ LicenseDialog::LicenseDialog(License *pLicense, Settings *pSettings, QWidget *pP
 
 const void LicenseDialog::on_qpbEULA_clicked(bool checked /* false */)
 {
-	LicenseTextDialog ltdEula(LicenseCommon::tLicenseContentList(), _sSettings, this);
+	LicenseTextDialog ltdEula(LicenseCommon::LicenseContentList(), _sSettings, this);
 	ltdEula.exec();
 } // on_qpbEULA_clicked
 
