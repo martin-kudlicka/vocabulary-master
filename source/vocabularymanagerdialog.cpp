@@ -335,7 +335,7 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
 	QStringList qslFilters;
     foreach (Plugins::sImpPlugin sipPlugin, _pPlugins->GetImpPlugins()) {
         const ImpInterface *iiPlugin = sipPlugin.iiInterface;
-		qslFilters.append(iiPlugin->GetFilter());
+		qslFilters.append(iiPlugin->filter());
 	} // foreach
 
 	QString qsFilter;

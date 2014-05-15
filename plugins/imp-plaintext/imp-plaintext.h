@@ -18,13 +18,13 @@ class ImpPlaintext : public QObject, private ImpInterface
 		PlaintextImportWidget *_piwWidget;
 		QStringList _qslCachedCapture;
 
-        virtual const void Close();
-        virtual const QString GetFilter() const;
-        virtual const QStringList GetMarks() const;
-        virtual const int GetRecordCount() const;
-        virtual const QString GetRecordData(const int &pRecord, const QString &pMark);
-        virtual const bool Open(const QString &pFile);
-        virtual const void SetupUI(QGroupBox *pParent);
+        virtual const void close();
+        virtual const QString filter() const;
+        virtual const QStringList marks() const;
+        virtual const quint16 recordCount() const;
+        virtual const QString recordData(const quint16 &pRecord, const QString &pMark);
+        virtual const bool open(const QString &pFile);
+        virtual const void setupUI(QGroupBox *pParent);
 }; // ImpPlaintext
 
 #endif // IMPPLAINTEXT_H

@@ -3,9 +3,25 @@
 #include <QtSql/QSqlQuery>
 
 const QString COLUMN_DECKID = "deckId";
-const QString COLUMN_ID = "id";
-const QString COLUMN_NAME = "name";
-const QString TABLE_MODELS = "models";
+const QString COLUMN_ID     = "id";
+const QString COLUMN_NAME   = "name";
+const QString TABLE_MODELS  = "models";
+
+ModelsModel::ModelsModel(const QSqlDatabase *database, QObject *parent /* NULL */) : QAbstractItemModel(parent), _deckId(0), _database(database)
+{
+} // DecksModel
+
+const void ModelsModel::deckId(const quint8 &deckId)
+{
+	_deckId = deckId;
+} // deckId
+
+const qlonglong ModelsModel::modelId(const quint8 &row) const
+{
+	QSqlQuery query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_MODELS + " WHERE " + COLUMN_DECKID + " = " + QString::number(_deckId));
+	query.seek(row);
+	return query.value(ColumnPosition1).toLongLong();
+} // modelId
 
 int ModelsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
@@ -14,15 +30,17 @@ int ModelsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) cons
 
 QVariant ModelsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
-    switch (role) {
+    switch (role)
+	{
         case Qt::DisplayRole:
             {
-                QSqlQuery qsqQuery = _qsdAnki->exec("SELECT " + COLUMN_NAME + " FROM " + TABLE_MODELS + " WHERE " + COLUMN_DECKID + " = " + QString::number(_iDeckId));
-                qsqQuery.seek(index.row());
+                QSqlQuery query = _database->exec("SELECT " + COLUMN_NAME + " FROM " + TABLE_MODELS + " WHERE " + COLUMN_DECKID + " = " + QString::number(_deckId));
+                query.seek(index.row());
 
-                switch (index.column()) {
+                switch (index.column())
+				{
                     case ColumnName:
-                        return qsqQuery.value(ColumnPosition1);
+                        return query.value(ColumnPosition1);
                 } // switch
             }
         default:
@@ -30,25 +48,13 @@ QVariant ModelsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
     } // switch
 } // data
 
-ModelsModel::ModelsModel(const QSqlDatabase *pAnki, QObject *pParent /* NULL */) : QAbstractItemModel(pParent)
-{
-    _qsdAnki = pAnki;
-
-    _iDeckId = 0;
-} // DecksModel
-
-const qlonglong ModelsModel::GetModelId(const int &pRow) const
-{
-    QSqlQuery qsqQuery = _qsdAnki->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_MODELS + " WHERE " + COLUMN_DECKID + " = " + QString::number(_iDeckId));
-    qsqQuery.seek(pRow);
-    return qsqQuery.value(ColumnPosition1).toLongLong();
-} // GetModelId
-
 QVariant ModelsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
-    switch (role) {
+    switch (role)
+	{
         case Qt::DisplayRole:
-            switch (section) {
+            switch (section)
+			{
                 case ColumnName:
                     return tr("Model");
             } // switch
@@ -69,19 +75,20 @@ QModelIndex ModelsModel::parent(const QModelIndex &index) const
 
 int ModelsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-    if (parent == QModelIndex()) {
-        QSqlQuery qsqQuery = _qsdAnki->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_MODELS + " WHERE " + COLUMN_DECKID + " = " + QString::number(_iDeckId));
-        if (qsqQuery.last()) {
-            return qsqQuery.at() + 1;
-        } else {
+    if (parent == QModelIndex())
+	{
+        QSqlQuery query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_MODELS + " WHERE " + COLUMN_DECKID + " = " + QString::number(_deckId));
+        if (query.last())
+		{
+            return query.at() + 1;
+        }
+		else
+		{
             return 0;
         } // if else
-    } else {
+    }
+	else
+	{
         return 0;
     } // if else
 } // rowCount
-
-const void ModelsModel::SetDeckId(const int &pDeckId)
-{
-    _iDeckId = pDeckId;
-} // SetDeckId

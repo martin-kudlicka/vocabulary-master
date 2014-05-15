@@ -2,36 +2,40 @@
 
 #include <QtGui/QFocusEvent>
 
+MarkLineEdit::MarkLineEdit(QWidget *parent /* NULL */) : QLineEdit(parent)
+{
+	initialize();
+} // MarkLineEdit
+
+MarkLineEdit::MarkLineEdit(const QString &contents, QWidget *parent /* NULL */) : QLineEdit(contents, parent)
+{
+	initialize();
+} // MarkLineEdit
+
 void MarkLineEdit::focusInEvent(QFocusEvent *e)
 {
     QLineEdit::focusInEvent(e);
-    if (e->gotFocus()) {
+    if (e->gotFocus())
+	{
         selectAll();
-        _bFocusedIn = true;
+        _focusedIn = true;
     } // if
 } // focusInEvent
 
-const void MarkLineEdit::Initialize()
+const void MarkLineEdit::initialize()
 {
-    _bFocusedIn = false;
+    _focusedIn = false;
     setReadOnly(true);
-} // Initialize
-
-MarkLineEdit::MarkLineEdit(QWidget *pParent /* NULL */) : QLineEdit(pParent)
-{
-    Initialize();
-} // MarkLineEdit
-
-MarkLineEdit::MarkLineEdit(const QString &pContents, QWidget *pParent /* NULL */) : QLineEdit(pContents, pParent)
-{
-    Initialize();
-} // MarkLineEdit
+} // initialize
 
 void MarkLineEdit::mousePressEvent(QMouseEvent *e)
 {
-    if (_bFocusedIn) {
-        _bFocusedIn = false;
-    } else {
+    if (_focusedIn)
+	{
+        _focusedIn = false;
+    }
+	else
+	{
         QLineEdit::mousePressEvent(e);
     } // if else
 } // mousePressEvent

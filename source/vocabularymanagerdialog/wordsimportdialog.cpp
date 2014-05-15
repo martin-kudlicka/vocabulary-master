@@ -5,7 +5,7 @@
 
 WordsImportDialog::~WordsImportDialog()
 {
-    _iiPlugin->Close();
+    _iiPlugin->close();
 } // ~WordsImportDialog
 
 void WordsImportDialog::accept()
@@ -52,7 +52,7 @@ const void WordsImportDialog::EnableControls() const
 
 int WordsImportDialog::exec()
 {
-    if (!_iiPlugin->Open(_qsFile)) {
+    if (!_iiPlugin->open(_qsFile)) {
         QMessageBox::critical(QApplication::activeWindow(), tr("Words import"), tr("Can't import data from selected file."));
         return QDialog::Rejected;
     } // if
@@ -73,7 +73,7 @@ int WordsImportDialog::exec()
 
     // plugin UI
     new QBoxLayout(QBoxLayout::LeftToRight, _qdwiWordsImport.qgbSource);
-    _iiPlugin->SetupUI(_qdwiWordsImport.qgbSource);
+    _iiPlugin->setupUI(_qdwiWordsImport.qgbSource);
 
 	return QDialog::exec();
 } // exec
@@ -85,7 +85,7 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
     _bInterrupt = false;
 
 	// setup progessbar
-	_qdwiWordsImport.qpbProgress->setMaximum(_iiPlugin->GetRecordCount());
+	_qdwiWordsImport.qpbProgress->setMaximum(_iiPlugin->recordCount());
 
 	// patterns
 	QStringList qslPatterns;
@@ -95,8 +95,8 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
 		qslPatterns.append(qsData);
 	} // for
 
-	QStringList qslMarks = _iiPlugin->GetMarks();
-	int iRecordCount = _iiPlugin->GetRecordCount();
+	QStringList qslMarks = _iiPlugin->marks();
+	int iRecordCount = _iiPlugin->recordCount();
 
 	int iCategoryId;
 	switch (pTarget) {
@@ -114,7 +114,7 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
 		bool bSkip = false;
 		QStringList qslMarkData;
 		foreach (QString qsMark, qslMarks) {
-			QString qsData = _iiPlugin->GetRecordData(iRecord, qsMark);
+			QString qsData = _iiPlugin->recordData(iRecord, qsMark);
 			if (_qdwiWordsImport.qcbSkipPartialRecords->isChecked() && qsData.isEmpty()) {
 				bSkip = true;
 				iSkipCount++;

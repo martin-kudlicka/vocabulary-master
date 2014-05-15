@@ -11,15 +11,15 @@
 class ImpInterface : public TranslationHandler
 {
 	public:
-        static const int WIDGET_POSITION = 0;
+        static const quint8 WIDGET_POSITION = 0;
 
-        virtual const void Close() = 0;
-		virtual const QString GetFilter() const = 0;
-		virtual const QStringList GetMarks() const = 0;
-		virtual const int GetRecordCount() const = 0;
-		virtual const QString GetRecordData(const int &pRecord, const QString &pMark) = 0;
-		virtual const bool Open(const QString &pFile) = 0;
-        virtual const void SetupUI(QGroupBox *pParent) = 0;
+        virtual const void        close      ()                                             = 0;
+		virtual const QString     filter     () const                                       = 0;
+		virtual const QStringList marks      () const                                       = 0;
+		virtual const quint16     recordCount() const                                       = 0;
+		virtual const QString     recordData (const quint16 &recordId, const QString &mark) = 0;
+		virtual const bool        open       (const QString &fileName)                      = 0;
+        virtual const void        setupUI    (QGroupBox *parent)                            = 0;
 }; // ImpInterface
 
 Q_DECLARE_INTERFACE(ImpInterface, IID_IMPINTERFACE);

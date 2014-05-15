@@ -13,26 +13,24 @@ class AnkiImportWidget : public QWidget
     Q_OBJECT
 
     public:
-        AnkiImportWidget(const QSqlDatabase *pAnki, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+        AnkiImportWidget(const QSqlDatabase *database, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
 
-		const qlonglong GetFieldId(const int &pPosition) const;
-		const QStringList GetMarks() const;
+		const qlonglong   fieldId(const quint8 &position) const;
+		const QStringList marks()                         const;
 
     private:
-        typedef QList<QLineEdit *> tFieldMarkEditorList;
+              DecksModel                     _decksModel;
+              FieldsModel                    _fieldsModel;
+              MarkLineEditPersistentDelegate _markEditDelegate;
+              ModelsModel                    _modelsModel;
+        const QSqlDatabase                  *_database;
+              Ui::AnkiImportWidget           _ui;
 
-        DecksModel _dmDecksModel;
-        FieldsModel _fmFieldsModel;
-        MarkLineEditPersistentDelegate _mlepdMarkDelegate;
-        ModelsModel _mmModelsModel;
-        const QSqlDatabase *_qsdAnki;
-        Ui::qwAnkiImport _qwaiAnkiImport;
-
-        const void PrepareTreeView(QTreeView *pTreeView, QAbstractItemModel *pItemModel);
+        const void prepareTreeView(QTreeView *treeView, QAbstractItemModel *itemModel);
 
     private slots:
-        const void on_qtvDecksSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
-        const void on_qtvModelsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+        const void on_decks_selectionModel_selectionChanged (const QItemSelection &selected, const QItemSelection &deselected);
+        const void on_models_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 }; // AnkiImportWidget
 
 #endif // ANKIIMPORTWIDGET_H

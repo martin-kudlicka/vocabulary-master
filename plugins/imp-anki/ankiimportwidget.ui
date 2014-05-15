@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qwAnkiImport</class>
- <widget class="QWidget" name="qwAnkiImport">
+ <class>AnkiImportWidget</class>
+ <widget class="QWidget" name="AnkiImportWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,11 +14,20 @@
    <string>Form</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
-    <widget class="QTreeView" name="qtvDecks">
+    <widget class="QTreeView" name="decks">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>1</horstretch>
@@ -34,7 +43,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QTreeView" name="qtvModels">
+    <widget class="QTreeView" name="models">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>1</horstretch>
@@ -50,7 +59,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QTreeView" name="qtvFields">
+    <widget class="QTreeView" name="fields">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>2</horstretch>
