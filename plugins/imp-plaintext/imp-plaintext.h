@@ -11,20 +11,20 @@ class ImpPlaintext : public QObject, private ImpInterface
     Q_INTERFACES(ImpInterface)
 
     private:
-		static const int CACHED_NONE = -2;
+		static const qint8 CACHED_NONE = -2;
 
-		int _iCachedRecord;
-		PlaintextFile _pfPlaintext;
-		PlaintextImportWidget *_piwWidget;
-		QStringList _qslCachedCapture;
+		qint16                 _cachedRecord;
+		PlaintextFile          _plaintextFile;
+		PlaintextImportWidget *_widget;
+		QStringList            _cachedCapture;
 
-        virtual const void close();
-        virtual const QString filter() const;
-        virtual const QStringList marks() const;
-        virtual const quint16 recordCount() const;
-        virtual const QString recordData(const quint16 &pRecord, const QString &pMark);
-        virtual const bool open(const QString &pFile);
-        virtual const void setupUI(QGroupBox *pParent);
+        virtual const void        close      ();
+        virtual const QString     filter     () const;
+        virtual const QStringList marks      () const;
+		virtual const bool        open       (const QString &fileName);
+        virtual const quint16     recordCount() const;
+        virtual const QString     recordData (const quint16 &record, const QString &mark);
+        virtual const void        setupUI    (QGroupBox *parent);
 }; // ImpPlaintext
 
 #endif // IMPPLAINTEXT_H

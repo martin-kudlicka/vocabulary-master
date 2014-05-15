@@ -6,8 +6,9 @@ const QString TEMPLATE_MARK = "${%1}";
 
 const void ImpPlaintext::close()
 {
-    if (_pfPlaintext.IsOpen()) {
-        _pfPlaintext.Close();
+    if (_plaintextFile.isOpen())
+	{
+        _plaintextFile.close();
     } // if
 } // close
 
@@ -18,86 +19,101 @@ const QString ImpPlaintext::filter() const
 
 const QStringList ImpPlaintext::marks() const
 {
-    QString qsRegExp = _piwWidget->GetRegExp();
-	QStringList qslMarks;
-	for (QString::const_iterator ciChar = qsRegExp.constBegin(); ciChar != qsRegExp.constEnd(); ciChar++) {
-		if (*ciChar == '(') {
-			QString qsMark = TEMPLATE_MARK.arg(QString::number(qslMarks.size() + 1));
-			qslMarks.append(qsMark);
+    const QString regExp = _widget->regExp();
+	QStringList markList;
+	for (QString::const_iterator regExpChar = regExp.constBegin(); regExpChar != regExp.constEnd(); regExpChar++)
+	{
+		if (*regExpChar == '(')
+		{
+			const QString mark = TEMPLATE_MARK.arg(QString::number(markList.size() + 1));
+			markList.append(mark);
 		} // if
 	} // for
 
-	return qslMarks;
+	return markList;
 } // marks
+
+const bool ImpPlaintext::open(const QString &fileName)
+{
+	close();
+	_cachedRecord = CACHED_NONE;
+	return _plaintextFile.open(fileName);
+} // open
 
 const quint16 ImpPlaintext::recordCount() const
 {
-	int iFileLines = _piwWidget->GetLineCount();
-	int iLines = iFileLines / _piwWidget->GetLinesPerRecord();
-	if (iFileLines % _piwWidget->GetLinesPerRecord()) {
-		iLines++;
+	const quint16 fileLines = _widget->lineCount();
+	quint16 lines           = fileLines / _widget->linesPerRecord();
+	if (fileLines % _widget->linesPerRecord())
+	{
+		lines++;
 	} // if
 
-	return iLines;
+	return lines;
 } // recordCount
 
-const QString ImpPlaintext::recordData(const quint16 &pRecord, const QString &pMark)
+const QString ImpPlaintext::recordData(const quint16 &record, const QString &mark)
 {
-	if (_iCachedRecord != pRecord) {
-		if (_iCachedRecord + 1 != pRecord) {
+	if (_cachedRecord != record)
+	{
+		if (_cachedRecord + 1 != record)
+		{
 			// seek to record in file
-			int iLine = 0;
-			_pfPlaintext.Seek(PlaintextFile::PFILE_BEGIN);
-			while (iLine != pRecord) {
-				for (int iI = 0; iI < _piwWidget->GetLinesPerRecord(); iI++) {
-					_pfPlaintext.ReadLine();
+			quint16 line = 0;
+			_plaintextFile.seek(PlaintextFile::PFILE_BEGIN);
+			while (line != record)
+			{
+				for (quint16 lineIndex = 0; lineIndex < _widget->linesPerRecord(); lineIndex++)
+				{
+					_plaintextFile.readLine();
 				} // for
-				iLine++;
+				line++;
 			} // while
 		} // if
 
 		// read record from file
-		QString qsLine;
-		for (int iI = 0; iI < _piwWidget->GetLinesPerRecord() && !_pfPlaintext.AtEnd(); iI++) {
-			if (!qsLine.isEmpty()) {
-				qsLine += ' ';
+		QString line;
+		for (quint16 lineIndex = 0; lineIndex < _widget->linesPerRecord() && !_plaintextFile.atEnd(); lineIndex++)
+		{
+			if (!line.isEmpty())
+			{
+				line += ' ';
 			} // if
-			qsLine += _pfPlaintext.ReadLine();
+			line += _plaintextFile.readLine();
 		} // for
 
 		// get capture
-		QRegExp qreRegExp(_piwWidget->GetRegExp());
-		if (qreRegExp.indexIn(qsLine) != -1) {
-			_qslCachedCapture = qreRegExp.capturedTexts();
-		} else {
-			_qslCachedCapture.clear();
+		QRegExp regExp(_widget->regExp());
+		if (regExp.indexIn(line) != -1)
+		{
+			_cachedCapture = regExp.capturedTexts();
+		}
+		else
+		{
+			_cachedCapture.clear();
 		} // if else
 
-		_iCachedRecord = pRecord;
+		_cachedRecord = record;
 	} // if
 
 	// get mark ID
-	QStringList qslMarks = marks();
-	int iIndex = qslMarks.indexOf(pMark);
+	const QStringList markList = marks();
+	const quint8 markIndex     = markList.indexOf(mark);
 
 	// get data
-	if (_qslCachedCapture.size() > iIndex + 1) {
-		return _qslCachedCapture.at(iIndex + 1);
-	} else {
+	if (_cachedCapture.size() > markIndex + 1)
+	{
+		return _cachedCapture.at(markIndex + 1);
+	}
+	else
+	{
 		return QString();
 	} // if else
 } // recordData
 
-const bool ImpPlaintext::open(const QString &pFile)
+const void ImpPlaintext::setupUI(QGroupBox *parent)
 {
-    close();
-	_iCachedRecord = CACHED_NONE;
-    return _pfPlaintext.Open(pFile);
-} // open
-
-const void ImpPlaintext::setupUI(QGroupBox *pParent)
-{
-    _piwWidget = new PlaintextImportWidget(&_pfPlaintext, pParent);
-    QBoxLayout *pLayout = qobject_cast<QBoxLayout *>(pParent->layout());
-    pLayout->insertWidget(WIDGET_POSITION, _piwWidget);
+    _widget = new PlaintextImportWidget(&_plaintextFile, parent);
+    QBoxLayout *boxLayout = qobject_cast<QBoxLayout *>(parent->layout());
+    boxLayout->insertWidget(WIDGET_POSITION, _widget);
 } // setupUI
