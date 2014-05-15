@@ -5,25 +5,25 @@
 #include <sapi.h>
 #include <sphelper.h>
 
-const LicenseCommon::tLicenseContentList TTSSAPI::GetLicenseText() const
+const LicenseCommon::LicenseContentList TTSSAPI::licenseText() const
 {
-    return LicenseCommon::tLicenseContentList();
-} // GetLicenseText
+    return LicenseCommon::LicenseContentList();
+} // licenseText
 
-const TTSInterface::eTTSPlugin TTSSAPI::GetPluginId() const
+const TTSInterface::TTSPlugin TTSSAPI::pluginId() const
 {
     return TTSInterface::TTSPluginSAPI;
-} // GetPluginId
+} // pluginId
 
-const QString TTSSAPI::GetPluginName() const
+const QString TTSSAPI::pluginName() const
 {
     return "SAPI";
 } // Initialize
 
-const TTSInterface::tVoiceInfoList TTSSAPI::GetVoicesInfo() const
+const TTSInterface::VoiceInfoList TTSSAPI::voicesInfo() const
 {
 	CComPtr<IEnumSpObjectTokens> ccpVoices;
-    TTSInterface::tVoiceInfoList tvilVoices;
+    TTSInterface::VoiceInfoList tvilVoices;
 	ULONG ulCount;
 
 	SpEnumTokens(SPCAT_VOICES, NULL, NULL, &ccpVoices);
@@ -37,21 +37,21 @@ const TTSInterface::tVoiceInfoList TTSSAPI::GetVoicesInfo() const
 		ccpVoiceInfo->GetId(&wcId);
 		SpGetDescription(ccpVoiceInfo, &wcDescription);
 
-        TTSInterface::sVoiceInfo sviVoice;
-        sviVoice.qsId = QString::fromWCharArray(wcId);
-        sviVoice.qsDescription = QString::fromWCharArray(wcDescription);
+        TTSInterface::VoiceInfo sviVoice;
+        sviVoice.id = QString::fromWCharArray(wcId);
+        sviVoice.description = QString::fromWCharArray(wcDescription);
 		tvilVoices.append(sviVoice);
 	} // for
 
 	return tvilVoices;
-} // GetVoicesInfo
+} // voicesInfo
 
-const void TTSSAPI::Initialize()
+const void TTSSAPI::initialize()
 {
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);
-} // Initialize
+} // initialize
 
-const void TTSSAPI::Say(const QString &pVoice, const QString &pText)
+const void TTSSAPI::say(const QString &pVoice, const QString &pText)
 {
     CComPtr<IEnumSpObjectTokens> ccpVoices;
     ULONG ulCount;
@@ -74,9 +74,9 @@ const void TTSSAPI::Say(const QString &pVoice, const QString &pText)
             //ccpVoiceInfo->Speak();
         } // if
     } // for
-} // Say
+} // say
 
-const void TTSSAPI::Uninitialize()
+const void TTSSAPI::uninitialize()
 {
 	CoUninitialize();
-} // Uninitialize
+} // uninitialize

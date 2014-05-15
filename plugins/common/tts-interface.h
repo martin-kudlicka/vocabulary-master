@@ -12,29 +12,29 @@ const QString DIR_PLUGINS = "plugins";
 
 class TTSInterface
 {
-	Q_ENUMS(eTTSPlugin)
-
 	public:
-		enum eTTSPlugin {
+		enum TTSPlugin
+		{
 			TTPluginNone,
 			TTSPluginOpenJTalk,
             TTSPluginSAPI
-		}; // eTTS
+		}; // TTSPlugin
 
-        struct sVoiceInfo {
-            QString qsId;
-            QString qsDescription;
-        }; // sVoiceInfo
+        struct VoiceInfo
+		{
+            QString id;
+            QString description;
+        }; // VoiceInfo
 
-        typedef QList<sVoiceInfo> tVoiceInfoList;
+        typedef QList<VoiceInfo> VoiceInfoList;
 
-        virtual const LicenseCommon::tLicenseContentList GetLicenseText() const = 0;
-		virtual const eTTSPlugin GetPluginId() const = 0;
-		virtual const QString GetPluginName() const = 0;
-        virtual const tVoiceInfoList GetVoicesInfo() const = 0;
-		virtual const void Initialize() = 0;
-		virtual const void Say(const QString &pVoice, const QString &pText) = 0;
-		virtual const void Uninitialize() = 0;
+		virtual const void                              initialize  ()                                          = 0;
+        virtual const LicenseCommon::LicenseContentList licenseText () const                                    = 0;
+		virtual const TTSPlugin                         pluginId    () const                                    = 0;
+		virtual const QString                           pluginName  () const                                    = 0;
+		virtual const void                              say         (const QString &voice, const QString &text) = 0;
+		virtual const void                              uninitialize()                                          = 0;
+		virtual const VoiceInfoList                     voicesInfo  () const                                    = 0;
 }; // TTSInterface
 
 Q_DECLARE_INTERFACE(TTSInterface, IID_TTSINTERFACE);

@@ -188,10 +188,10 @@ const void SettingsDialog::on_qpbShowLicense_clicked(bool checked /* false */)
     } // for
 
     // license
-    LicenseCommon::tLicenseContentList tlclLicenses;
+    LicenseCommon::LicenseContentList tlclLicenses;
     if (qtvTreeView == _usdSettingsDialog.qtvPluginsTTS) {
         const Plugins::sTTSPlugin stpPlugin = _pPlugins->GetTTSPlugins().at(iRow);
-        tlclLicenses = stpPlugin.tiInterface->GetLicenseText();
+        tlclLicenses = stpPlugin.tiInterface->licenseText();
     } // if
 
     // show license

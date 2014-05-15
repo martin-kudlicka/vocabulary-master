@@ -82,7 +82,7 @@ class VocabularyDatabase : public QObject
         const QString GetLanguageLearningTemplate(const int &pLanguageId) const;
         const QString GetLanguageName(const int &pLanguageId) const;
 #ifndef EDITION_FREE
-        const TTSInterface::eTTSPlugin GetLanguageSpeech(const int &pLanguageId) const;
+        const TTSInterface::TTSPlugin GetLanguageSpeech(const int &pLanguageId) const;
 		const QString GetLanguageTrayTemplate(const int &pLanguageId) const;
         const QString GetLanguageVoice(const int &pLanguageId) const;
 #endif
@@ -101,7 +101,7 @@ class VocabularyDatabase : public QObject
 #endif
         const void SetLanguageName(const int &pLanguageId, const QString &pName) const;
 #ifndef EDITION_FREE
-        const void SetLanguageSpeech(const int &pLanguageId, const TTSInterface::eTTSPlugin &pSpeech) const;
+        const void SetLanguageSpeech(const int &pLanguageId, const TTSInterface::TTSPlugin &pSpeech) const;
         const void SetLanguageTrayTemplate(const int &pLanguageId, const QString &pTemplate) const;
         const void SetLanguageVoice(const int &pLanguageId, const QString &pVoice) const;
 #endif
@@ -193,7 +193,7 @@ class VocabularyDatabase : public QObject
         const int AddField(const QString &pTemplate, const QString &pName, const eFieldType &pType, const qfFieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const;
         const void AddLanguage(const QString &pName, const QString &pLearningTemplate
 #ifndef EDITION_FREE
-            , const QString &pTrayTemplate, const TTSInterface::eTTSPlugin &pTTSPlugin, const QString &pVoice
+            , const QString &pTrayTemplate, const TTSInterface::TTSPlugin &pTTSPlugin, const QString &pVoice
 #endif
             ) const;
 		const void CloseDatabase();

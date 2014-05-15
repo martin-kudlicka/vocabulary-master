@@ -4,7 +4,7 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QPluginLoader>
 
-TTSInterface *Plugins::GetTTSPlugin(const TTSInterface::eTTSPlugin &pPluginId) const
+TTSInterface *Plugins::GetTTSPlugin(const TTSInterface::TTSPlugin &pPluginId) const
 {
 	return _qhTTSPlugins.value(pPluginId).tiInterface;
 } // GetTTSPlugin
@@ -28,7 +28,7 @@ const void Plugins::Initialize()
 {
 	foreach (sTTSPlugin stpPlugin, _qhTTSPlugins.values()) {
         TTSInterface *tiPlugin = stpPlugin.tiInterface;
-		tiPlugin->Initialize();
+		tiPlugin->initialize();
 	} // foreach
 } // Initialize
 
@@ -52,7 +52,7 @@ const void Plugins::Load()
 						sTTSPlugin stpPlugin;
 						stpPlugin.spiInfo.qsLibraryName = qfiPlugin.fileName();
 						stpPlugin.tiInterface = tiPlugin;
-						_qhTTSPlugins.insert(tiPlugin->GetPluginId(), stpPlugin);
+						_qhTTSPlugins.insert(tiPlugin->pluginId(), stpPlugin);
 					} // if
 				} else {
 					if (qfiPlugin.fileName().startsWith("imp-")) {
@@ -94,6 +94,6 @@ const void Plugins::Uninitialize()
 {
 	foreach (sTTSPlugin stpPlugin, _qhTTSPlugins.values()) {
         TTSInterface *tiPlugin = stpPlugin.tiInterface;
-		tiPlugin->Uninitialize();
+		tiPlugin->uninitialize();
 	} // foreach
 } // Uninitialize

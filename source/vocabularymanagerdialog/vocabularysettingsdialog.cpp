@@ -69,7 +69,7 @@ const void VocabularySettingsDialog::FillSpeech(QComboBox *pComboBox, const QStr
 
     // add unknown speech module when selected not found
     sSpeechVoice spvVoice;
-    spvVoice.etpPlugin = static_cast<TTSInterface::eTTSPlugin>(iSpeech);
+    spvVoice.etpPlugin = static_cast<TTSInterface::TTSPlugin>(iSpeech);
     spvVoice.qsVoiceId = qsVoice;
     _tvVoiceList.append(spvVoice);
     pComboBox->addItem(tr("Unknown"));
@@ -170,12 +170,12 @@ const void VocabularySettingsDialog::PrepareSpeechPlugins(QComboBox *pComboBox)
     foreach (Plugins::sTTSPlugin stpPlugin, _pPlugins->GetTTSPlugins()) {
         const TTSInterface *tiPlugin = stpPlugin.tiInterface;
 
-        TTSInterface::tVoiceInfoList tvilVoices = tiPlugin->GetVoicesInfo();
-        foreach (TTSInterface::sVoiceInfo sviVoice, tvilVoices) {
-			spvVoice.etpPlugin = tiPlugin->GetPluginId();
-			spvVoice.qsVoiceId = sviVoice.qsId;
+        TTSInterface::VoiceInfoList tvilVoices = tiPlugin->voicesInfo();
+        foreach (TTSInterface::VoiceInfo sviVoice, tvilVoices) {
+			spvVoice.etpPlugin = tiPlugin->pluginId();
+			spvVoice.qsVoiceId = sviVoice.id;
 			_tvVoiceList.append(spvVoice);
-			pComboBox->addItem(QString("%1 (%2)").arg(tiPlugin->GetPluginName()).arg(sviVoice.qsDescription));
+			pComboBox->addItem(QString("%1 (%2)").arg(tiPlugin->pluginName()).arg(sviVoice.description));
 			pComboBox->setItemData(pComboBox->count() - 1, _tvVoiceList.size() - 1);
 		} // foreach
 	} // foreach
