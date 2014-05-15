@@ -3,7 +3,7 @@
 #include <QtWidgets/QStylePainter>
 #include <QtGui/QPaintEvent>
 
-ColorComboBox::ColorComboBox(QWidget *pParent /* NULL */) : QComboBox(pParent)
+ColorComboBox::ColorComboBox(QWidget *parent /* NULL */) : QComboBox(parent)
 {
 } // ColorComboBox
 
@@ -11,12 +11,12 @@ void ColorComboBox::paintEvent(QPaintEvent * e)
 {
 	QComboBox::paintEvent(e);
 
-    QStyleOptionComboBox qsocbComboBox;
-    initStyleOption(&qsocbComboBox);
+    QStyleOptionComboBox styleOptionComboBox;
+    initStyleOption(&styleOptionComboBox);
 
-    QStylePainter qspPainter(this);
-    QRect qrRect = qspPainter.style()->subElementRect(QStyle::SE_ComboBoxFocusRect, &qsocbComboBox, this);
-    qrRect.adjust(BORDER_WIDTH, BORDER_WIDTH, - BORDER_WIDTH, - BORDER_WIDTH);
+    QStylePainter stylePainter(this);
+    QRect rect = stylePainter.style()->subElementRect(QStyle::SE_ComboBoxFocusRect, &styleOptionComboBox, this);
+    rect.adjust(BORDER_WIDTH, BORDER_WIDTH, - BORDER_WIDTH, - BORDER_WIDTH);
 
-    qspPainter.fillRect(qrRect, QColor(itemData(currentIndex(), Qt::UserRole).toString()));
+    stylePainter.fillRect(rect, QColor(itemData(currentIndex(), Qt::UserRole).toString()));
 } // paintEvent

@@ -7,10 +7,10 @@
 class ClearCacheWorker : public QThread
 {
     public:
-        ClearCacheWorker(VocabularyDatabase::tRecordDataHash *pRecordData, QObject *pParent = NULL);
+        ClearCacheWorker(VocabularyDatabase::tRecordDataHash *recordData, QObject *parent = NULL);
 
     private:
-        VocabularyDatabase::tRecordDataHash *_trdhRecordData;
+        VocabularyDatabase::tRecordDataHash *_recordData;
 
         virtual void run();
 }; // ClearCacheWorker

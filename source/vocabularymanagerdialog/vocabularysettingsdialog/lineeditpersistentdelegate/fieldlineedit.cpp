@@ -1,16 +1,19 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate/fieldlineedit.h"
 
-FieldLineEdit::FieldLineEdit(QWidget *pParent /* NULL */) : QLineEdit(pParent)
+FieldLineEdit::FieldLineEdit(QWidget *parent /* NULL */) : QLineEdit(parent)
 {
-	_qsDefaultSheet = styleSheet();
+	_defaultSheet = styleSheet();
 	connect(this, SIGNAL(textEdited(const QString &)), SLOT(on_textEdited(const QString &)));
 } // FieldLineEdit
 
 const void FieldLineEdit::on_textEdited(const QString &text)
 {
-	if (hasAcceptableInput()) {
-		setStyleSheet(_qsDefaultSheet);
-	} else {
+	if (hasAcceptableInput())
+	{
+		setStyleSheet(_defaultSheet);
+	}
+	else
+	{
 		setStyleSheet("background: tomato");
 	} // if else
 } // on_textEdited

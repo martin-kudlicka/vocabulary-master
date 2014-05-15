@@ -8,10 +8,10 @@ class FieldLineEdit : public QLineEdit
 	Q_OBJECT
 
 	public:
-		FieldLineEdit(QWidget *pParent = NULL);
+		FieldLineEdit(QWidget *parent = NULL);
 
 	private:
-		QString _qsDefaultSheet;
+		QString _defaultSheet;
 
 		virtual void showEvent(QShowEvent *event);
 

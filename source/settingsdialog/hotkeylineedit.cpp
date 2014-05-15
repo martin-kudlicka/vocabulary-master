@@ -2,39 +2,46 @@
 
 #include <QtGui/QKeyEvent>
 
-HotkeyLineEdit::HotkeyLineEdit(QWidget *pParent /* NULL */) : QLineEdit(pParent)
+HotkeyLineEdit::HotkeyLineEdit(QWidget *parent /* NULL */) : QLineEdit(parent)
 {
 } // HotkeyLineEdit
 
 void HotkeyLineEdit::keyPressEvent(QKeyEvent *event)
 {
-	QString qsKey;
+	QString keySequence;
 
 	// get shortcut
-	const QKeyEvent *qkeKey = static_cast<QKeyEvent *>(event);
-	if (qkeKey->modifiers() & Qt::ControlModifier) {
-		qsKey = MODIFIER_CTRL;
+	const QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+	if (keyEvent->modifiers() & Qt::ControlModifier)
+	{
+		keySequence = MODIFIER_CTRL;
 	} // if
-	if (qkeKey->modifiers() & Qt::AltModifier) {
-		if (!qsKey.isEmpty()) {
-			qsKey += MODIFIER_SEPARATOR;
+	if (keyEvent->modifiers() & Qt::AltModifier)
+	{
+		if (!keySequence.isEmpty())
+		{
+			keySequence += MODIFIER_SEPARATOR;
 		} // if
-		qsKey += MODIFIER_ALT;
+		keySequence += MODIFIER_ALT;
 	} // if
-	if (qkeKey->modifiers() & Qt::ShiftModifier) {
-		if (!qsKey.isEmpty()) {
-			qsKey += MODIFIER_SEPARATOR;
+	if (keyEvent->modifiers() & Qt::ShiftModifier)
+	{
+		if (!keySequence.isEmpty())
+		{
+			keySequence += MODIFIER_SEPARATOR;
 		} // if
-		qsKey += MODIFIER_SHIFT;
+		keySequence += MODIFIER_SHIFT;
 	} // if
-	if (!qsKey.isEmpty()) {
-		qsKey += MODIFIER_SEPARATOR;
+	if (!keySequence.isEmpty())
+	{
+		keySequence += MODIFIER_SEPARATOR;
 	} // if
 
-	if (QKeySequence(qkeKey->key()).toString().at(0) != 0x17C0) {
+	if (QKeySequence(keyEvent->key()).toString().at(0) != 0x17C0)
+	{
 		// not only Ctrl, Alt or Shift keys pressed
-		qsKey += QKeySequence(qkeKey->key()).toString();
-		setText(qsKey);
-		setProperty(PROPERTY_VIRTUALKEY, qkeKey->nativeVirtualKey());
+		keySequence += QKeySequence(keyEvent->key()).toString();
+		setText(keySequence);
+		setProperty(PROPERTY_VIRTUALKEY, keyEvent->nativeVirtualKey());
 	} // if
 } // keyPressEvent

@@ -18,7 +18,7 @@ class VocabularyDatabase : public QObject
     Q_ENUMS(eFieldAttribute)
     Q_ENUMS(eFieldBuiltIn)
     Q_ENUMS(eFieldLanguage)
-	Q_ENUMS(eFieldType)
+	Q_ENUMS(FieldType)
 	Q_ENUMS(eLanguageIds)
 
     public:
@@ -48,12 +48,12 @@ class VocabularyDatabase : public QObject
 			FieldLanguageRight,
             FieldLanguageAll = INT_MAX
 		}; // eFieldLanguage
-		enum eFieldType {
+		enum FieldType {
 			FieldTypeUnknown,
 			FieldTypeLineEdit,
 			FieldTypeCheckBox,
 			FieldTypeSpinBox
-		}; // eFieldType
+		}; // FieldType
 #ifndef EDITION_FREE
 		enum eLanguageIds {
 			LanguageIdsNone,
@@ -135,7 +135,7 @@ class VocabularyDatabase : public QObject
         const eFieldLanguage GetFieldLanguage(const int &pFieldId) const;
         const QString GetFieldName(const int &pFieldId) const;
         const QString GetFieldTemplateName(const int &pFieldId) const;
-        const eFieldType GetFieldType(const int &pFieldId) const;
+        const FieldType GetFieldType(const int &pFieldId) const;
         /*const int GetRecordCategory(const int &pRecordId) const;
         const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
@@ -190,7 +190,7 @@ class VocabularyDatabase : public QObject
         QString _qsVocabularyFile;
 #endif
 
-        const int AddField(const QString &pTemplate, const QString &pName, const eFieldType &pType, const qfFieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const;
+        const int AddField(const QString &pTemplate, const QString &pName, const FieldType &pType, const qfFieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const;
         const void AddLanguage(const QString &pName, const QString &pLearningTemplate
 #ifndef EDITION_FREE
             , const QString &pTrayTemplate, const TTSInterface::TTSPlugin &pTTSPlugin, const QString &pVoice

@@ -5,127 +5,137 @@
 #include <QtCore/QFile>
 #include "../common/rsa.h"
 
-const QString ELEM_EMAIL = "Email";
+const QString ELEM_EMAIL     = "Email";
 const QString ELEM_FIRSTNAME = "FirstName";
-const QString ELEM_LASTNAME = "LastName";
-const QString ELEM_UID = "UId";
-const QString ELEM_VALIDTO = "ValidTo";
+const QString ELEM_LASTNAME  = "LastName";
+const QString ELEM_UID       = "UId";
+const QString ELEM_VALIDTO   = "ValidTo";
 
-const QString &License::GetEmail() const
+License::License(const Settings *settings) : _settings(settings)
 {
-	return _qsEmail;
-} // GetEmail
-
-const QString &License::GetFirstName() const
-{
-    return _qsFirstName;
-} // GetFirstName
-
-const QString &License::GetLastName() const
-{
-	return _qsLastName;
-} // GetLastName
-
-const License::eStatus &License::GetStatus() const
-{
-	return _esStatus;
-} // GetStatus
-
-const QUuid &License::GetUid() const
-{
-	return _quIdentifier;
-} // GetUid
-
-const QDate &License::GetValidTo() const
-{
-	return _qdValidTo;
-} // GetValidTo
-
-const bool License::IsLoaded() const
-{
-	return _esStatus == StatusOk || _esStatus == StatusExpired;
-} // IsLoaded
-
-/*const bool License::IsOk() const
-{
-	return _esStatus == StatusOk;
-} // IsOk*/
-
-License::License(const Settings *pSettings)
-{
-	_sSettings = pSettings;
-
-    RefreshLicense();
+	refreshLicense();
 } // License
 
-const void License::RefreshLicense()
+const QString &License::email() const
+{
+	return _email;
+} // email
+
+const QString &License::firstName() const
+{
+    return _firstName;
+} // firstName
+
+const bool License::isLoaded() const
+{
+	return _status == StatusOk || _status == StatusExpired;
+} // isLoaded
+
+/*const bool License::isOk() const
+{
+	return _esStatus == StatusOk;
+} // isOk*/
+
+const QString &License::lastName() const
+{
+	return _lastName;
+} // lastName
+
+const void License::refreshLicense()
 {
 	// split license into content and signature
-	QByteArray qbaLicense = _sSettings->GetLicense();
-	qint16 qi16Size = *reinterpret_cast<const qint16 *>(qbaLicense.left(sizeof(qi16Size)).constData());
-	QByteArray qbaContent = qbaLicense.mid(sizeof(qi16Size), qi16Size);
-	QByteArray qbaSignature = qbaLicense.mid(sizeof(qi16Size) + qi16Size);
+	const QByteArray licenseData      = _settings->GetLicense();
+	const qint16 dataSize             = *reinterpret_cast<const qint16 *>(licenseData.left(sizeof(dataSize)).constData());
+	const QByteArray encryptedContent = licenseData.mid(sizeof(dataSize), dataSize);
+	const QByteArray signature        = licenseData.mid(sizeof(dataSize) + dataSize);
 
-	if (qbaLicense.isEmpty()) {
-		_esStatus = StatusNone;
+	if (licenseData.isEmpty())
+	{
+		_status = StatusNone;
 		return;
 	} // if
 
 	// get sign key
-	QFile qfSignKey(":/res/license/signpublic.der");
-	qfSignKey.open(QIODevice::ReadOnly);
-	QByteArray qbaSignKey = qfSignKey.readAll();
+	QFile signKeyFile(":/res/license/signpublic.der");
+	signKeyFile.open(QIODevice::ReadOnly);
+	const QByteArray signKeyData = signKeyFile.readAll();
 
 	// verify license
-	RSA rRSA;
-	bool bVerify = rRSA.verify(qbaSignKey, qbaContent, qbaSignature);
-	if (!bVerify) {
-		_esStatus = StatusInvalid;
+	const RSA rsa;
+	bool verified = rsa.verify(signKeyData, encryptedContent, signature);
+	if (!verified)
+	{
+		_status = StatusInvalid;
 		return;
 	} // if
 
 	// get decrypt key
-	QFile qfDecryptKey(":/res/license/encryptprivate.der");
-	qfDecryptKey.open(QIODevice::ReadOnly);
-	QByteArray qbaDecryptKey = qfDecryptKey.readAll();
+	QFile decryptKeyFile(":/res/license/encryptprivate.der");
+	decryptKeyFile.open(QIODevice::ReadOnly);
+	const QByteArray decryptKeyData = decryptKeyFile.readAll();
 
 	// decrypt license
-	QByteArray qbaDecrypted = rRSA.decrypt(qbaDecryptKey, qbaContent);
+	const QByteArray decryptedContent = rsa.decrypt(decryptKeyData, encryptedContent);
 
-	QXmlStreamReader qxsrXmlReader(qbaDecrypted);
-	while (!qxsrXmlReader.atEnd()) {
-		QXmlStreamReader::TokenType ttType = qxsrXmlReader.readNext();
-		if (ttType != QXmlStreamReader::StartElement) {
+	QXmlStreamReader xmlReader(decryptedContent);
+	while (!xmlReader.atEnd())
+	{
+		const QXmlStreamReader::TokenType tokenType = xmlReader.readNext();
+		if (tokenType != QXmlStreamReader::StartElement)
+		{
 			continue;
 		} // if
 
 		// general
-		if (qxsrXmlReader.name() == ELEM_UID) {
-			_quIdentifier = qxsrXmlReader.readElementText();
+		if (xmlReader.name() == ELEM_UID)
+		{
+			_identifier = xmlReader.readElementText();
 			continue;
 		} // if
-		if (qxsrXmlReader.name() == ELEM_VALIDTO) {
-			_qdValidTo = QDate::fromString(qxsrXmlReader.readElementText(), Qt::ISODate);
+		if (xmlReader.name() == ELEM_VALIDTO)
+		{
+			_validTo = QDate::fromString(xmlReader.readElementText(), Qt::ISODate);
 			continue;
 		} // if
 		// personal
-		if (qxsrXmlReader.name() == ELEM_FIRSTNAME) {
-			_qsFirstName = qxsrXmlReader.readElementText();
+		if (xmlReader.name() == ELEM_FIRSTNAME)
+		{
+			_firstName = xmlReader.readElementText();
 			continue;
 		} // if
-		if (qxsrXmlReader.name() == ELEM_LASTNAME) {
-			_qsLastName = qxsrXmlReader.readElementText();
+		if (xmlReader.name() == ELEM_LASTNAME)
+		{
+			_lastName = xmlReader.readElementText();
 			continue;
 		} // if
-		if (qxsrXmlReader.name() == ELEM_EMAIL) {
-			_qsEmail = qxsrXmlReader.readElementText();
+		if (xmlReader.name() == ELEM_EMAIL)
+		{
+			_email = xmlReader.readElementText();
 			continue;
 		} // if
 	} // while
 
-	if (QDate::currentDate() > _qdValidTo) {
-		_esStatus = StatusExpired;
-	} else {
-		_esStatus = StatusOk;
+	if (QDate::currentDate() > _validTo)
+	{
+		_status = StatusExpired;
+	}
+	else
+	{
+		_status = StatusOk;
 	} // if
-} // RefreshLicense
+} // refreshLicense
+
+const License::Status &License::status() const
+{
+	return _status;
+} // status
+
+const QUuid &License::uid() const
+{
+	return _identifier;
+} // uid
+
+const QDate &License::validTo() const
+{
+	return _validTo;
+} // validTo

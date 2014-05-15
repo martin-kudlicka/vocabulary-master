@@ -6,10 +6,10 @@
 class ColorDelegate : public QStyledItemDelegate
 {
 	public:
-		ColorDelegate(QObject *pParent = NULL);
+		ColorDelegate(QObject *parent = NULL);
 
 	private:
-		static const int BORDER_WIDTH = 2;
+		static const quint8 BORDER_WIDTH = 2;
 
 		virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index ) const;
 }; // ColorDelegate

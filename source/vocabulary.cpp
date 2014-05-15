@@ -168,7 +168,7 @@ const QString Vocabulary::GetFieldTemplateName(const int &pFieldId) const
     return _tfdmFieldData.value(pFieldId).qsTemplateName;
 } // GetFieldTemplateName
 
-const VocabularyDatabase::eFieldType Vocabulary::GetFieldType(const int &pFieldId) const
+const VocabularyDatabase::FieldType Vocabulary::GetFieldType(const int &pFieldId) const
 {
     return _tfdmFieldData.value(pFieldId).eftType;
 } // GetFieldType

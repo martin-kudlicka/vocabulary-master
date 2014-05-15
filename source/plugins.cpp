@@ -9,7 +9,7 @@ TTSInterface *Plugins::GetTTSPlugin(const TTSInterface::TTSPlugin &pPluginId) co
 	return _qhTTSPlugins.value(pPluginId).tiInterface;
 } // GetTTSPlugin
 
-const Plugins::tExpPluginList &Plugins::GetExpPlugins() const
+const Plugins::ExpPluginList &Plugins::GetExpPlugins() const
 {
 	return _teplExpPlugins;
 } // GetExpPlugins

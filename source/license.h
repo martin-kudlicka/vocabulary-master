@@ -7,35 +7,35 @@
 
 class License
 {
-	Q_ENUMS(eStatus)
-
     public:
-		enum eStatus {
+		enum Status
+		{
 			StatusNone,
 			StatusOk,
 			StatusExpired,
 			StatusInvalid
-		}; // eStatus
-        License(const Settings *pSettings);
+		}; // Status
 
-		const QString &GetEmail() const;
-        const QString &GetFirstName() const;
-		const QString &GetLastName() const;
-		const eStatus &GetStatus() const;
-		const QUuid &GetUid() const;
-		const QDate &GetValidTo() const;
-		const bool IsLoaded() const;
-		//const bool IsOk() const;
-		const void RefreshLicense();
+        License(const Settings *settings);
+
+		const QString &email()     const;
+        const QString &firstName() const;
+		const bool     isLoaded()  const;
+		//const bool     isOk()      const;
+		const QString &lastName()  const;
+		const void     refreshLicense();
+		const Status  &status()    const;
+		const QUuid   &uid()      const;
+		const QDate   &validTo()   const;
 
     private:
-		eStatus _esStatus;
-		QDate _qdValidTo;
-		QString _qsEmail;
-		QString _qsFirstName;
-		QString _qsLastName;
-		QUuid _quIdentifier;
-		const Settings *_sSettings;
+		      QDate     _validTo;
+		      QString   _email;
+		      QString   _firstName;
+		      QString   _lastName;
+		      QUuid     _identifier;
+		const Settings *_settings;
+		      Status    _status;
 }; // License
 
 #endif // LICENSE_H

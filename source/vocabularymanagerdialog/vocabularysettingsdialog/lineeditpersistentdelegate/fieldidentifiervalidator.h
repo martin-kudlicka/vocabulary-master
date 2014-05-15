@@ -7,11 +7,11 @@
 class FieldIdentifierValidator : public QValidator
 {
 	public:
-		FieldIdentifierValidator(const int &pRow, const FieldsModel *pModel, QObject *pParent = NULL);
+		FieldIdentifierValidator(const quint8 &row, const FieldsModel *model, QObject *parent = NULL);
 
 	private:
-		const FieldsModel *_fmModel;
-		int _iRow;
+		const FieldsModel *_fieldsModel;
+		      quint8       _row;
 
 		virtual State validate(QString &input, int &pos) const;
 }; // FieldIdentifierValidator

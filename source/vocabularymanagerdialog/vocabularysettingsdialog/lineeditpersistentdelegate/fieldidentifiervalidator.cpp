@@ -1,18 +1,19 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate/fieldidentifiervalidator.h"
 
-FieldIdentifierValidator::FieldIdentifierValidator(const int &pRow, const FieldsModel *pModel, QObject *pParent /* NULL */) : QValidator(pParent)
+FieldIdentifierValidator::FieldIdentifierValidator(const quint8 &row, const FieldsModel *model, QObject *parent /* NULL */) : QValidator(parent), _fieldsModel(model), _row(row)
 {
-	_iRow = pRow;
-	_fmModel = pModel;
 } // FieldIdentifierValidator
 
 QValidator::State FieldIdentifierValidator::validate(QString &input, int &pos) const
 {
-	for (int iRow = 0; iRow < _fmModel->rowCount(); iRow++) {
-		if (iRow != _iRow) {
-			QModelIndex qmiIndex = _fmModel->index(iRow, FieldsModel::ColumnTemplateName);
-			QString qsIdentifier = _fmModel->data(qmiIndex).toString();
-			if (input == qsIdentifier) {
+	for (quint8 rowIndex = 0; rowIndex < _fieldsModel->rowCount(); rowIndex++)
+	{
+		if (rowIndex != _row)
+		{
+			const QModelIndex modelIndex = _fieldsModel->index(rowIndex, FieldsModel::ColumnTemplateName);
+			const QString identifier     = _fieldsModel->data(modelIndex).toString();
+			if (input == identifier)
+			{
 				return Intermediate;
 			} // if
 		} // if

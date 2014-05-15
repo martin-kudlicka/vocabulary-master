@@ -1,8 +1,8 @@
 #include "common/categoriesmodel.h"
 
-CategoriesModel::CategoriesModel(const Vocabulary *pVocabulary, QObject *pParent /* NULL */) : QAbstractItemModel(pParent)
+CategoriesModel::CategoriesModel(const Vocabulary *vocabulary, QObject *parent /* NULL */) : QAbstractItemModel(parent)
 {
-    _vVocabulary = pVocabulary;
+    _vocabulary = vocabulary;
 } // CategoriesModel
 
 int CategoriesModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
@@ -12,11 +12,12 @@ int CategoriesModel::columnCount(const QModelIndex &parent /* QModelIndex() */) 
 
 QVariant CategoriesModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
-    switch (role) {
+    switch (role)
+	{
         case Qt::DisplayRole:
             {
-                int iCategoryId = _vVocabulary->GetCategoryId(index.row());
-                return _vVocabulary->GetCategoryName(iCategoryId);
+                const quint8 categoryId = _vocabulary->GetCategoryId(index.row());
+                return _vocabulary->GetCategoryName(categoryId);
             }
         default:
             return QVariant();
@@ -25,7 +26,8 @@ QVariant CategoriesModel::data(const QModelIndex &index, int role /* Qt::Display
 
 QVariant CategoriesModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
-    switch (role) {
+    switch (role)
+	{
         case Qt::DisplayRole:
             return tr("Category");
         default:
@@ -45,9 +47,12 @@ QModelIndex CategoriesModel::parent(const QModelIndex &index) const
 
 int CategoriesModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-    if (parent == QModelIndex()) {
-        return _vVocabulary->GetCategoryCount();
-    } else {
+    if (parent == QModelIndex())
+	{
+        return _vocabulary->GetCategoryCount();
+    }
+	else
+	{
         return 0;
     } // if else
 } // rowCount
