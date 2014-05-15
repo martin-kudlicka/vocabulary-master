@@ -5,6 +5,11 @@
 #include <sapi.h>
 #include <sphelper.h>
 
+const void TTSSAPI::initialize()
+{
+	CoInitializeEx(NULL, COINIT_MULTITHREADED);
+} // initialize
+
 const LicenseCommon::LicenseContentList TTSSAPI::licenseText() const
 {
     return LicenseCommon::LicenseContentList();
@@ -18,65 +23,63 @@ const TTSInterface::TTSPlugin TTSSAPI::pluginId() const
 const QString TTSSAPI::pluginName() const
 {
     return "SAPI";
-} // Initialize
+} // pluginName
 
-const TTSInterface::VoiceInfoList TTSSAPI::voicesInfo() const
+const void TTSSAPI::say(const QString &voice, const QString &text)
 {
-	CComPtr<IEnumSpObjectTokens> ccpVoices;
-    TTSInterface::VoiceInfoList tvilVoices;
-	ULONG ulCount;
+	CComPtr<IEnumSpObjectTokens> voiceTokens;
+	ULONG count;
 
-	SpEnumTokens(SPCAT_VOICES, NULL, NULL, &ccpVoices);
-	ccpVoices->GetCount(&ulCount);
+	SpEnumTokens(SPCAT_VOICES, NULL, NULL, &voiceTokens);
+	voiceTokens->GetCount(&count);
 
-	for(ULONG ulI = 0; ulI < ulCount; ulI++) {
-		CComPtr<ISpObjectToken> ccpVoiceInfo;
-		WCHAR *wcDescription, *wcId;
+	for(ULONG voiceIndex = 0; voiceIndex < count; voiceIndex++)
+	{
+		CComPtr<ISpObjectToken> voiceInfo;
+		WCHAR *id;
 
-		ccpVoices->Next(1, &ccpVoiceInfo, NULL);
-		ccpVoiceInfo->GetId(&wcId);
-		SpGetDescription(ccpVoiceInfo, &wcDescription);
+		voiceTokens->Next(1, &voiceInfo, NULL);
+		voiceInfo->GetId(&id);
 
-        TTSInterface::VoiceInfo sviVoice;
-        sviVoice.id = QString::fromWCharArray(wcId);
-        sviVoice.description = QString::fromWCharArray(wcDescription);
-		tvilVoices.append(sviVoice);
+		if (voice == QString::fromWCharArray(id))
+		{
+			CComPtr<ISpVoice> voice;
+			voice.CoCreateInstance(CLSID_SpVoice);
+			voice->SetVoice(voiceInfo);
+			voice->Speak(reinterpret_cast<LPCWSTR>(text.unicode()), SPF_IS_NOT_XML, NULL);
+			//voiceInfo->Speak();
+		} // if
 	} // for
-
-	return tvilVoices;
-} // voicesInfo
-
-const void TTSSAPI::initialize()
-{
-	CoInitializeEx(NULL, COINIT_MULTITHREADED);
-} // initialize
-
-const void TTSSAPI::say(const QString &pVoice, const QString &pText)
-{
-    CComPtr<IEnumSpObjectTokens> ccpVoices;
-    ULONG ulCount;
-
-    SpEnumTokens(SPCAT_VOICES, NULL, NULL, &ccpVoices);
-    ccpVoices->GetCount(&ulCount);
-
-    for(ULONG ulI = 0; ulI < ulCount; ulI++) {
-        CComPtr<ISpObjectToken> ccpVoiceInfo;
-        WCHAR *wcId;
-
-        ccpVoices->Next(1, &ccpVoiceInfo, NULL);
-        ccpVoiceInfo->GetId(&wcId);
-
-        if (pVoice == QString::fromWCharArray(wcId)) {
-            CComPtr<ISpVoice> ccpVoice;
-            ccpVoice.CoCreateInstance(CLSID_SpVoice);
-            ccpVoice->SetVoice(ccpVoiceInfo);
-            ccpVoice->Speak(reinterpret_cast<LPCWSTR>(pText.unicode()), SPF_IS_NOT_XML, NULL);
-            //ccpVoiceInfo->Speak();
-        } // if
-    } // for
 } // say
 
 const void TTSSAPI::uninitialize()
 {
 	CoUninitialize();
 } // uninitialize
+
+const TTSInterface::VoiceInfoList TTSSAPI::voicesInfo() const
+{
+	CComPtr<IEnumSpObjectTokens> voiceTokens;
+    TTSInterface::VoiceInfoList voices;
+	ULONG count;
+
+	SpEnumTokens(SPCAT_VOICES, NULL, NULL, &voiceTokens);
+	voiceTokens->GetCount(&count);
+
+	for(ULONG voiceIndex = 0; voiceIndex < count; voiceIndex++)
+	{
+		CComPtr<ISpObjectToken> voiceInfo;
+		WCHAR *description, *id;
+
+		voiceTokens->Next(1, &voiceInfo, NULL);
+		voiceInfo->GetId(&id);
+		SpGetDescription(voiceInfo, &description);
+
+        TTSInterface::VoiceInfo voice;
+        voice.id          = QString::fromWCharArray(id);
+        voice.description = QString::fromWCharArray(description);
+		voices.append(voice);
+	} // for
+
+	return voices;
+} // voicesInfo
