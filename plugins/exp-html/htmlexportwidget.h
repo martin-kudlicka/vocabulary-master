@@ -46,6 +46,8 @@ class HtmlExportWidget : public QWidget
         QList<TableColumn>   _tableColumns;
 		Ui::HtmlExportWidget _ui;
 
+		virtual ~HtmlExportWidget();
+
         const void addTableColumn   ();
         const void initTableColumns ();
         const void insertTableText  (const QTextTable *tablePreview, const quint32 &row, const quint8 &column, const QString &text) const;

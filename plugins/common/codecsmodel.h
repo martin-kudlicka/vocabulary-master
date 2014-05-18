@@ -14,7 +14,8 @@ class CodecsModel : public QAbstractItemModel
 			ColumnCount
 		}; // Column
 
-        CodecsModel(QObject *parent = NULL);
+                 CodecsModel(QObject *parent = NULL);
+		virtual ~CodecsModel();
 
 		virtual QVariant    data    (const QModelIndex &index, int role = Qt::DisplayRole)           const;
 		virtual QModelIndex index   (int row, int column, const QModelIndex &parent = QModelIndex()) const;

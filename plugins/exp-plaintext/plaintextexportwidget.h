@@ -21,6 +21,8 @@ class PlaintextExportWidget : public QWidget
         CodecsModel               _codecsModel;
 		Ui::PlaintextExportWidget _ui;
 
+		virtual ~PlaintextExportWidget();
+
         const void preselectCodec(const QString &pCodec) const;
 
     signals:

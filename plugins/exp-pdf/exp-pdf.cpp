@@ -4,6 +4,10 @@
 #include <QtCore/QTextCodec>
 #include <hpdf.h>
 
+ExpPdf::~ExpPdf()
+{
+} // ~ExpPdf
+
 const void ExpPdf::addFont(const HPDF_Doc &pdfDocument, FontList *fontList, const PdfExportWidget::FontRole &fontRole, const qint8 &num /* PdfExportWidget::FONTROLE_NONE */) const
 {
 	const PdfExportWidget::FontRoleInfo fontRoleInfo = _widget->fontRoleInfo(fontRole, num);

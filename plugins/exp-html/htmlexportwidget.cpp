@@ -13,6 +13,10 @@ HtmlExportWidget::HtmlExportWidget(QWidget *parent /* NULL */, Qt::WindowFlags f
 	initTableColumns();
 } // HtmlExportWidget
 
+HtmlExportWidget::~HtmlExportWidget()
+{
+} // ~HtmlExportWidget
+
 const QString HtmlExportWidget::codec() const
 {
 	const QModelIndex modelIndex = _ui.codecs->currentIndex();

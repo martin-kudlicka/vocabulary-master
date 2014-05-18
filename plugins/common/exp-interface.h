@@ -20,6 +20,9 @@ class ExpInterface : public QObject, public TranslationHandler
 		virtual const QString pluginName()  const      = 0;
 		virtual const void    setupUi(QWidget *parent) = 0;
 
+	protected:
+		virtual ~ExpInterface();
+
     signals:
         void progressExportSetMax     (const quint32 &pMax)                                               const;
         void progressExportSetValue   (const quint32 &pValue)                                             const;

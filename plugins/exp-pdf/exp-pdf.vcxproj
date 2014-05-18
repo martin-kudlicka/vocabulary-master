@@ -42,6 +42,7 @@
     <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-pdf\moc_pdfexportwidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\common\exp-interface.cpp" />
     <ClCompile Include="..\common\translationhandler.cpp" />
     <ClCompile Include="exp-pdf.cpp" />
     <ClCompile Include="pdfexportwidget.cpp" />
