@@ -18,6 +18,10 @@ MainWindow::MainWindow(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */
 	on_generateUid_clicked();
 } // MainWindow
 
+MainWindow::~MainWindow()
+{
+} // ~MainWindow
+
 const void MainWindow::writeLicense()
 {
 	_xmlStreamWriter.writeStartElement("License");
