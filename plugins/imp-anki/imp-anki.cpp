@@ -15,6 +15,10 @@ ImpAnki::ImpAnki() : ImpInterface()
 	_database = QSqlDatabase::addDatabase("QSQLITE", "Anki");
 } // ImpAnki
 
+ImpAnki::~ImpAnki()
+{
+} // ~ImpAnki
+
 const void ImpAnki::close()
 {
     if (_database.isOpen())

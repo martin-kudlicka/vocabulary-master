@@ -22,6 +22,8 @@ class PlaintextImportWidget : public QWidget
 		PlaintextFile            *_file;
         Ui::PlaintextImportWidget _ui;
 
+		virtual ~PlaintextImportWidget();
+
 		const void preselectCodec() const;
 		const void refreshPreview() const;
 

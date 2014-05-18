@@ -14,6 +14,8 @@ class MarkLineEdit : public QLineEdit
     private:
         bool _focusedIn;
 
+		virtual ~MarkLineEdit();
+
         virtual void focusInEvent   (QFocusEvent *e);
         const   void initialize     ();
         virtual void mousePressEvent(QMouseEvent *e);

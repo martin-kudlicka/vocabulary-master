@@ -18,6 +18,8 @@ class ImpPlaintext : public QObject, private ImpInterface
 		PlaintextImportWidget *_widget;
 		QStringList            _cachedCapture;
 
+		virtual ~ImpPlaintext();
+
         virtual const void        close      ();
         virtual const QString     filter     () const;
         virtual const QStringList marks      () const;

@@ -12,6 +12,10 @@ MarkLineEdit::MarkLineEdit(const QString &contents, QWidget *parent /* NULL */) 
 	initialize();
 } // MarkLineEdit
 
+MarkLineEdit::~MarkLineEdit()
+{
+} // ~MarkLineEdit
+
 void MarkLineEdit::focusInEvent(QFocusEvent *e)
 {
     QLineEdit::focusInEvent(e);

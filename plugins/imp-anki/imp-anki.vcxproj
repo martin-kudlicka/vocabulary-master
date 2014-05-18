@@ -49,6 +49,7 @@
     <ClCompile Include="..\..\temp\GeneratedFiles\Release\imp-anki\moc_modelsmodel.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\common\imp-interface.cpp" />
     <ClCompile Include="..\common\translationhandler.cpp" />
     <ClCompile Include="ankiimportwidget.cpp" />
     <ClCompile Include="ankiimportwidget\decksmodel.cpp" />

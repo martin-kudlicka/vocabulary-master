@@ -11,6 +11,10 @@ ModelsModel::ModelsModel(const QSqlDatabase *database, QObject *parent /* NULL *
 {
 } // DecksModel
 
+ModelsModel::~ModelsModel()
+{
+} // ~ModelsModel
+
 const void ModelsModel::deckId(const quint8 &deckId)
 {
 	_deckId = deckId;

@@ -2,14 +2,18 @@
 
 #include "marklineedit.h"
 
+MarkLineEditPersistentDelegate::MarkLineEditPersistentDelegate(QObject *pParent /* NULL */) : QStyledItemDelegate(pParent)
+{
+} // MarkLineEditPersistentDelegate
+
+MarkLineEditPersistentDelegate::~MarkLineEditPersistentDelegate()
+{
+} // ~MarkLineEditPersistentDelegate
+
 QWidget *MarkLineEditPersistentDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     return new MarkLineEdit(parent);
 } // createEditor
-
-MarkLineEditPersistentDelegate::MarkLineEditPersistentDelegate(QObject *pParent /* NULL */) : QStyledItemDelegate(pParent)
-{
-} // MarkLineEditPersistentDelegate
 
 void MarkLineEditPersistentDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {

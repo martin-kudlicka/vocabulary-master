@@ -20,6 +20,9 @@ class ImpInterface : public TranslationHandler
 		virtual const QString     recordData (const quint16 &recordId, const QString &mark) = 0;
 		virtual const bool        open       (const QString &fileName)                      = 0;
         virtual const void        setupUI    (QGroupBox *parent)                            = 0;
+
+	protected:
+		virtual ~ImpInterface();
 }; // ImpInterface
 
 Q_DECLARE_INTERFACE(ImpInterface, IID_IMPINTERFACE);

@@ -4,6 +4,10 @@
 
 const QString TEMPLATE_MARK = "${%1}";
 
+ImpPlaintext::~ImpPlaintext()
+{
+} // ~ImpPlaintext
+
 const void ImpPlaintext::close()
 {
     if (_plaintextFile.isOpen())

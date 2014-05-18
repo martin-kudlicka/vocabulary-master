@@ -26,6 +26,8 @@ class AnkiImportWidget : public QWidget
         const QSqlDatabase                  *_database;
               Ui::AnkiImportWidget           _ui;
 
+		virtual ~AnkiImportWidget();
+
         const void prepareTreeView(QTreeView *treeView, QAbstractItemModel *itemModel);
 
     private slots:
