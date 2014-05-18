@@ -24,6 +24,8 @@ class ExpPdf : public ExpInterface
 
 		PdfExportWidget *_widget;
 
+		virtual ~ExpPdf();
+
 		        const void    addFont           (const HPDF_Doc &pdfDocument, FontList *fontList, const PdfExportWidget::FontRole &fontRole, const qint8 &num = PdfExportWidget::FONTROLE_NONE) const;
 		virtual const void    beginExport       ()                                                                                                                                              const;
 		        const void    exportTable       (const quint32 &recordId, const HPDF_Page &pdfPage, const FontList &fontList, const QStringList &marks)                                         const;

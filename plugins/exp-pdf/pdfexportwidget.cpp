@@ -112,6 +112,10 @@ PdfExportWidget::PdfExportWidget(QWidget *parent /* NULL */, Qt::WindowFlags fla
 	connect(_ui.templateFont, SIGNAL(currentIndexChanged(int)), SLOT(on_font_currentIndexChanged(int)));
 } // PdfExportWidget
 
+PdfExportWidget::~PdfExportWidget()
+{
+} // ~PdfExportWidget
+
 const quint8 PdfExportWidget::border() const
 {
 	return _ui.border->value();

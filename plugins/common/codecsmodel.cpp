@@ -7,6 +7,10 @@ CodecsModel::CodecsModel(QObject *pParent /* NULL */) : QAbstractItemModel(pPare
     _codecs = QTextCodec::availableCodecs();
 } // CodecsModel
 
+CodecsModel::~CodecsModel()
+{
+} // ~CodecsModel
+
 QVariant CodecsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
     switch (role)

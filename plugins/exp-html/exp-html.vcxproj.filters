@@ -74,6 +74,9 @@
     <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-html\moc_exp-html.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="..\common\exp-interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="exp-html.h">

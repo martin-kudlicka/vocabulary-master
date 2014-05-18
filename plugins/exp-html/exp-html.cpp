@@ -3,6 +3,10 @@
 #include <QtWidgets/QFileDialog>
 #include <QtCore/QTextStream>
 
+ExpHtml::~ExpHtml()
+{
+} // ~ExpHtml
+
 const void ExpHtml::beginExport() const
 {
     // get filename

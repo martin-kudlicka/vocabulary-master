@@ -70,6 +70,9 @@
     <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-pdf\moc_pdfexportwidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="..\common\exp-interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\translationhandler.h">

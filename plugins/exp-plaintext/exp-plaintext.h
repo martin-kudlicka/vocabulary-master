@@ -12,6 +12,8 @@ class ExpPlaintext : public ExpInterface
 	private:
         PlaintextExportWidget *_widget;
 
+		virtual ~ExpPlaintext();
+
         virtual const void    beginExport() const;
 		virtual const QString pluginName () const;
 		virtual const void    setupUi    (QWidget *parent);
