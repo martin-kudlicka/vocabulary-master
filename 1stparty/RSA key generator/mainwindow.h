@@ -9,7 +9,8 @@ class MainWindow : public QMainWindow
 	Q_OBJECT
 
 	public:
-		MainWindow(QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		         MainWindow(QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		virtual ~MainWindow();
 
 	private:
 		static const quint16 KEY_SIZE = 3072;
