@@ -9,6 +9,10 @@ DecksModel::DecksModel(const QSqlDatabase *database, QObject *parent /* NULL */)
 {
 } // DecksModel
 
+DecksModel::~DecksModel()
+{
+} // ~DecksModel
+
 const quint8 DecksModel::deckId(const quint8 &row) const
 {
 	QSqlQuery query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DECKS);

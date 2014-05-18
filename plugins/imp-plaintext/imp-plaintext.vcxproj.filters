@@ -71,6 +71,9 @@
     <ClCompile Include="..\..\temp\GeneratedFiles\Release\imp-plaintext\moc_codecsmodel.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="..\common\imp-interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="plaintextimportwidget\plaintextfile.h">

@@ -6,7 +6,8 @@
 class MarkLineEditPersistentDelegate : public QStyledItemDelegate
 {
     public:
-        MarkLineEditPersistentDelegate(QObject *parent = NULL);
+                 MarkLineEditPersistentDelegate(QObject *parent = NULL);
+		virtual ~MarkLineEditPersistentDelegate();
 
     private:
         virtual QWidget *createEditor (QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;

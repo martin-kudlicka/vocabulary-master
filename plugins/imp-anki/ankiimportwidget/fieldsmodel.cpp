@@ -13,6 +13,10 @@ FieldsModel::FieldsModel(const QSqlDatabase *database, QObject *parent /* NULL *
 {
 } // DecksModel
 
+FieldsModel::~FieldsModel()
+{
+} // ~FieldsModel
+
 QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
 	switch (role)

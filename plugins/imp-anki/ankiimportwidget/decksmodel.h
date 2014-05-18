@@ -9,7 +9,8 @@ class DecksModel : public QAbstractItemModel
     Q_OBJECT
 
     public:
-        DecksModel(const QSqlDatabase *database, QObject *parent = NULL);
+                 DecksModel(const QSqlDatabase *database, QObject *parent = NULL);
+		virtual ~DecksModel();
 
         const quint8 deckId(const quint8 &row) const;
 
