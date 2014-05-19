@@ -2,8 +2,8 @@
 
 int main(int argc, char *argv[])
 {
-	QApplication qaApplication(argc, argv);
-	MainWindow mwMainWindow;
+	QApplication application(argc, argv);
+	const MainWindow mainWindow;
 
-	return qaApplication.exec();
+	return application.exec();
 } // main

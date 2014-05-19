@@ -6,6 +6,10 @@ HotkeyLineEdit::HotkeyLineEdit(QWidget *parent /* NULL */) : QLineEdit(parent)
 {
 } // HotkeyLineEdit
 
+HotkeyLineEdit::~HotkeyLineEdit()
+{
+} // ~HotkeyLineEdit
+
 void HotkeyLineEdit::keyPressEvent(QKeyEvent *event)
 {
 	QString keySequence;

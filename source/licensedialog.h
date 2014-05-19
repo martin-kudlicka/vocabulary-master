@@ -12,20 +12,21 @@ class LicenseDialog : public QDialog
 	Q_OBJECT
 
 	public:
-		LicenseDialog(License *pLicense, Settings *pSettings, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+		         LicenseDialog(License *license, Settings *settings, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		virtual ~LicenseDialog();
 
     private:
-		bool _bRefreshed;
-        License *_lLicense;
-		Settings *_sSettings;
-        Ui::qdLicense _qdlLicenseDialog;
+		bool              _refreshed;
+        License          *_license;
+		Settings         *_settings;
+        Ui::LicenseDialog _ui;
 
-        const void FillLicenseInfo() const;
+        const void fillLicenseInfo() const;
 
 	private slots:
-		const void on_qpbEULA_clicked(bool checked = false);
-		const void on_qpbLoad_clicked(bool checked = false);
-		const void on_qpbOk_clicked(bool checked = false);
+		const void on_eula_clicked(bool checked = false);
+		const void on_load_clicked(bool checked = false);
+		const void on_ok_clicked  (bool checked = false);
 }; // LicenseDialog
 
 #endif // LICENSEDIALOG_H

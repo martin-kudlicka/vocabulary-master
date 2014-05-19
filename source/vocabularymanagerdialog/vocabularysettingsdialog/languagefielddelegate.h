@@ -7,7 +7,8 @@
 class LanguageFieldDelegate : public QStyledItemDelegate
 {
     public:
-        LanguageFieldDelegate(const Vocabulary *vocabulary, QObject *parent = NULL);
+                 LanguageFieldDelegate(const Vocabulary *vocabulary, QObject *parent = NULL);
+		virtual ~LanguageFieldDelegate();
 
     private:
         const Vocabulary *_vocabulary;

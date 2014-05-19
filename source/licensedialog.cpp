@@ -3,84 +3,94 @@
 #include <QtWidgets/QFileDialog>
 #include "common/licensetextdialog.h"
 
-const void LicenseDialog::FillLicenseInfo() const
+LicenseDialog::LicenseDialog(License *license, Settings *settings, QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _refreshed(false), _license(license), _settings(settings)
 {
-	if (_lLicense->status() == License::StatusOk || _lLicense->status() == License::StatusExpired) {
-		_qdlLicenseDialog.qlFirstName->setText(_lLicense->firstName());
-		_qdlLicenseDialog.qlLastName->setText(_lLicense->lastName());
-		_qdlLicenseDialog.qlEmail->setText(_lLicense->email());
-		_qdlLicenseDialog.qlValidTo->setText(_lLicense->validTo().toString(Qt::DefaultLocaleLongDate));
+	_ui.setupUi(this);
 
-		_qdlLicenseDialog.qlFirstName->show();
-		_qdlLicenseDialog.qlLastName->show();
-		_qdlLicenseDialog.qlEmail->show();
-		_qdlLicenseDialog.qlValidTo->show();
-	} else {
-		_qdlLicenseDialog.qlFirstName->hide();
-		_qdlLicenseDialog.qlLastName->hide();
-		_qdlLicenseDialog.qlEmail->hide();
-		_qdlLicenseDialog.qlValidTo->hide();
-	} // if else
-
-	switch (_lLicense->status()) {
-		case License::StatusNone:
-			_qdlLicenseDialog.qlStatus->setText(tr("No license."));
-			break;
-		case License::StatusExpired:
-			_qdlLicenseDialog.qlStatus->setText(tr("License has been expired."));
-			break;
-		case License::StatusInvalid:
-			_qdlLicenseDialog.qlStatus->setText(tr("License is invalid."));
-	} // switch
-	if (_lLicense->status() == License::StatusOk) {
-		_qdlLicenseDialog.qlStatus->hide();
-	} else {
-		_qdlLicenseDialog.qlStatus->show();
-	} // if else
-} // FillLicenseInfo
-
-LicenseDialog::LicenseDialog(License *pLicense, Settings *pSettings, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
-{
-    _lLicense = pLicense;
-	_sSettings = pSettings;
-
-	_bRefreshed = false;
-
-    _qdlLicenseDialog.setupUi(this);
-
-    FillLicenseInfo();
+	fillLicenseInfo();
 } // LicenseDialog
 
-const void LicenseDialog::on_qpbEULA_clicked(bool checked /* false */)
+LicenseDialog::~LicenseDialog()
 {
-	LicenseTextDialog ltdEula(LicenseCommon::LicenseContentList(), _sSettings, this);
-	ltdEula.exec();
-} // on_qpbEULA_clicked
+} // ~LicenseDialog
 
-const void LicenseDialog::on_qpbLoad_clicked(bool checked /* false */)
+const void LicenseDialog::fillLicenseInfo() const
 {
-	QString qsFile = QFileDialog::getOpenFileName(this, tr("Load license"), QString(), tr("license (*.lic)"));
-	if (qsFile.isEmpty()) {
+	if (_license->status() == License::StatusOk || _license->status() == License::StatusExpired)
+	{
+		_ui.firstName->setText(_license->firstName());
+		_ui.lastName->setText(_license->lastName());
+		_ui.email->setText(_license->email());
+		_ui.validTo->setText(_license->validTo().toString(Qt::DefaultLocaleLongDate));
+
+		_ui.firstName->show();
+		_ui.lastName->show();
+		_ui.email->show();
+		_ui.validTo->show();
+	}
+	else
+	{
+		_ui.firstName->hide();
+		_ui.lastName->hide();
+		_ui.email->hide();
+		_ui.validTo->hide();
+	} // if else
+
+	switch (_license->status())
+	{
+		case License::StatusNone:
+			_ui.status->setText(tr("No license."));
+			break;
+		case License::StatusExpired:
+			_ui.status->setText(tr("License has been expired."));
+			break;
+		case License::StatusInvalid:
+			_ui.status->setText(tr("License is invalid."));
+	} // switch
+	if (_license->status() == License::StatusOk)
+	{
+		_ui.status->hide();
+	}
+	else
+	{
+		_ui.status->show();
+	} // if else
+} // fillLicenseInfo
+
+const void LicenseDialog::on_eula_clicked(bool checked /* false */)
+{
+	LicenseTextDialog licenseTextDialog(LicenseCommon::LicenseContentList(), _settings, this);
+	licenseTextDialog.exec();
+} // on_eula_clicked
+
+const void LicenseDialog::on_load_clicked(bool checked /* false */)
+{
+	const QString fileName = QFileDialog::getOpenFileName(this, tr("Load license"), QString(), tr("license (*.lic)"));
+	if (fileName.isEmpty())
+	{
 		return;
 	} // if
 
-	QFile qfFile(qsFile);
-	qfFile.open(QIODevice::ReadOnly);
-	QByteArray qbaData = qfFile.readAll();
+	QFile file(fileName);
+	file.open(QIODevice::ReadOnly);
+	const QByteArray licenseData = file.readAll();
 
-	_sSettings->SetLicense(qbaData);
-	_lLicense->refreshLicense();
+	_settings->SetLicense(licenseData);
+	_license->refreshLicense();
 
-	FillLicenseInfo();
+	fillLicenseInfo();
 
-	_bRefreshed = true;
-} // on_qpbLoad_clicked
+	_refreshed = true;
+} // on_load_clicked
 
-const void LicenseDialog::on_qpbOk_clicked(bool checked /* false */)
+const void LicenseDialog::on_ok_clicked(bool checked /* false */)
 {
-	if (_bRefreshed) {
+	if (_refreshed)
+	{
 		accept();
-	} else {
+	}
+	else
+	{
 		reject();
 	} // if else
-} // on_qpbOk_clicked
+} // on_ok_clicked

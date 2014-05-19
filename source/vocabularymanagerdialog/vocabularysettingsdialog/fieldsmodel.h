@@ -19,7 +19,8 @@ class FieldsModel : public QAbstractItemModel
             ColumnCount
         }; // Column
 
-        FieldsModel(Vocabulary *vocabulary, QObject *parent = NULL);
+                 FieldsModel(Vocabulary *vocabulary, QObject *parent = NULL);
+		virtual ~FieldsModel();
 
                 const void        addRow   ();
 		virtual       QVariant    data     (const QModelIndex &index, int role = Qt::DisplayRole)           const;

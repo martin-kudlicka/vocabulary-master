@@ -6,6 +6,10 @@ ColorDelegate::ColorDelegate(QObject *parent /* NULL */) : QStyledItemDelegate(p
 {
 } // ColorDelegate
 
+ColorDelegate::~ColorDelegate()
+{
+} // ~ColorDelegate
+
 void ColorDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	QStyledItemDelegate::paint(painter, option, index);

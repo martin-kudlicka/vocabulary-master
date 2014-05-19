@@ -11,7 +11,7 @@ QVariant PluginsModel::data(const QModelIndex &index, int role /* Qt::DisplayRol
         case Qt::DisplayRole:
             switch (index.column()) {
                 case ColumnName:
-                    return GetPluginInfo(index.row()).qsLibraryName;
+                    return GetPluginInfo(index.row()).libraryName;
                 case ColumnLicense:
                     return QVariant();
             } // switch
@@ -20,17 +20,17 @@ QVariant PluginsModel::data(const QModelIndex &index, int role /* Qt::DisplayRol
     } // switch
 } // data
 
-const Plugins::sPluginInfo PluginsModel::GetPluginInfo(const int &pNum) const
+const Plugins::PluginInfo PluginsModel::GetPluginInfo(const int &pNum) const
 {
     switch (_eptType) {
         case PluginTypeImp:
-            return _pPlugins->GetImpPlugins().at(pNum).spiInfo;
+            return _pPlugins->impPlugins().at(pNum).info;
         case PluginTypeExp:
-            return _pPlugins->GetExpPlugins().at(pNum).spiInfo;
+            return _pPlugins->explugins().at(pNum).info;
         case PluginTypeTTS:
-            return _pPlugins->GetTTSPlugins().at(pNum).spiInfo;
+            return _pPlugins->ttsPlugins().at(pNum).info;
         default:
-            return Plugins::sPluginInfo();
+            return Plugins::PluginInfo();
     } // switch
 } // GetPluginInfo
 
@@ -70,11 +70,11 @@ int PluginsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
     if (parent == QModelIndex()) {
         switch (_eptType) {
             case PluginTypeImp:
-                return _pPlugins->GetImpPlugins().size();
+                return _pPlugins->impPlugins().size();
             case PluginTypeExp:
-                return _pPlugins->GetExpPlugins().size();
+                return _pPlugins->explugins().size();
             case PluginTypeTTS:
-                return _pPlugins->GetTTSPlugins().size();
+                return _pPlugins->ttsPlugins().size();
             default:
                 return 0;
         } // switch

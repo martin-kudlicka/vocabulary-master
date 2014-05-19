@@ -6,6 +6,10 @@ FieldLineEdit::FieldLineEdit(QWidget *parent /* NULL */) : QLineEdit(parent)
 	connect(this, SIGNAL(textEdited(const QString &)), SLOT(on_textEdited(const QString &)));
 } // FieldLineEdit
 
+FieldLineEdit::~FieldLineEdit()
+{
+} // ~FieldLineEdit
+
 const void FieldLineEdit::on_textEdited(const QString &text)
 {
 	if (hasAcceptableInput())

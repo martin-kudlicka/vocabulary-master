@@ -7,6 +7,10 @@ ColorComboBox::ColorComboBox(QWidget *parent /* NULL */) : QComboBox(parent)
 {
 } // ColorComboBox
 
+ColorComboBox::~ColorComboBox()
+{
+} // ~ColorComboBox
+
 void ColorComboBox::paintEvent(QPaintEvent * e)
 {
 	QComboBox::paintEvent(e);

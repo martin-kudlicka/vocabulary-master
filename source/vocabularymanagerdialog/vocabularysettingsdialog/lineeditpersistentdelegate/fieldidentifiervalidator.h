@@ -13,6 +13,8 @@ class FieldIdentifierValidator : public QValidator
 		const FieldsModel *_fieldsModel;
 		      quint8       _row;
 
+		virtual ~FieldIdentifierValidator();
+
 		virtual State validate(QString &input, int &pos) const;
 }; // FieldIdentifierValidator
 

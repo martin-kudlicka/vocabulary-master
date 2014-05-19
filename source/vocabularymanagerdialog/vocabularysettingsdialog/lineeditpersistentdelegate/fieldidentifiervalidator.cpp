@@ -4,6 +4,10 @@ FieldIdentifierValidator::FieldIdentifierValidator(const quint8 &row, const Fiel
 {
 } // FieldIdentifierValidator
 
+FieldIdentifierValidator::~FieldIdentifierValidator()
+{
+} // ~FieldIdentifierValidator
+
 QValidator::State FieldIdentifierValidator::validate(QString &input, int &pos) const
 {
 	for (quint8 rowIndex = 0; rowIndex < _fieldsModel->rowCount(); rowIndex++)

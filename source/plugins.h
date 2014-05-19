@@ -9,39 +9,43 @@
 class Plugins
 {
 	public:
-        struct sPluginInfo {
-            QString qsLibraryName;
-        }; // sPluginInfo
-        struct sExpPlugin {
-            sPluginInfo spiInfo;
-            ExpInterface *eiInterface;
-        }; // sExpPlugin
-        struct sImpPlugin {
-            sPluginInfo spiInfo;
-            ImpInterface *iiInterface;
-        }; // sImpPlugin
-        struct sTTSPlugin {
-            sPluginInfo spiInfo;
-            TTSInterface *tiInterface;
-        }; // sTTSPlugin
+        struct PluginInfo
+		{
+            QString libraryName;
+        }; // PluginInfo
+        struct ExpPlugin
+		{
+            PluginInfo    info;
+            ExpInterface *expInterface;
+        }; // ExpPlugin
+        struct ImpPlugin
+		{
+            PluginInfo    info;
+            ImpInterface *impInterface;
+        }; // ImpPlugin
+        struct TTSPlugin
+		{
+            PluginInfo    info;
+            TTSInterface *ttsInterface;
+        }; // TTSPlugin
 
-		typedef QList<sExpPlugin> ExpPluginList;
-		typedef QList<sImpPlugin> tImpPluginList;
-		typedef QList<sTTSPlugin> tTTSPluginList;
+		typedef QList<ExpPlugin> ExpPluginList;
+		typedef QList<ImpPlugin> ImpPluginList;
+		typedef QList<TTSPlugin> TTSPluginList;
 
-		TTSInterface *GetTTSPlugin(const TTSInterface::TTSPlugin &pPluginId) const;
-		const ExpPluginList &GetExpPlugins() const;
-		const tImpPluginList &GetImpPlugins() const;
-		const tTTSPluginList GetTTSPlugins() const;
-		const void Initialize();
-		const void Load();
-		const void SetLanguage(const QString &pLanguage) const;
-		const void Uninitialize();
+		const ExpPluginList &explugins   ()                                        const;
+		const ImpPluginList &impPlugins  ()                                        const;
+		const void           initialize  ();
+		const void           load        ();
+		const void           setLanguage (const QString &language)                 const;
+		      TTSInterface  *ttsPlugin   (const TTSInterface::TTSPlugin &pluginId) const;
+		const TTSPluginList  ttsPlugins  ()                                        const;
+		const void           uninitialize();
 
 	private:
-		QHash<TTSInterface::TTSPlugin, sTTSPlugin> _qhTTSPlugins;
-		ExpPluginList _teplExpPlugins;
-		tImpPluginList _tiplImpPlugins;
+		ExpPluginList                             _expPlugins;
+		ImpPluginList                             _impPlugins;
+		QHash<TTSInterface::TTSPlugin, TTSPlugin> _ttsPlugins;
 }; // Plugins
 
 #endif // PLUGINS_H

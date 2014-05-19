@@ -4,6 +4,10 @@ ExpPluginsModel::ExpPluginsModel(const Plugins::ExpPluginList *expPlugins, QObje
 {
 } // ExpPluginsModel
 
+ExpPluginsModel::~ExpPluginsModel()
+{
+} // ~ExpPluginsModel
+
 int ExpPluginsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return ColumnCount;
@@ -14,7 +18,7 @@ QVariant ExpPluginsModel::data(const QModelIndex &index, int role /* Qt::Display
     switch (role)
 	{
         case Qt::DisplayRole:
-			return _expPlugins->at(index.row()).eiInterface->pluginName();
+			return _expPlugins->at(index.row()).expInterface->pluginName();
         default:
             return QVariant();
     } // switch

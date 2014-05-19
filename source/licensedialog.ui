@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qdLicense</class>
- <widget class="QDialog" name="qdLicense">
+ <class>LicenseDialog</class>
+ <widget class="QDialog" name="LicenseDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -31,7 +31,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLabel" name="qlFirstName">
+       <widget class="QLabel" name="firstName">
         <property name="text">
          <string>TextLabel</string>
         </property>
@@ -45,7 +45,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLabel" name="qlLastName">
+       <widget class="QLabel" name="lastName">
         <property name="text">
          <string>TextLabel</string>
         </property>
@@ -59,7 +59,7 @@
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QLabel" name="qlValidTo">
+       <widget class="QLabel" name="validTo">
         <property name="text">
          <string>TextLabel</string>
         </property>
@@ -73,7 +73,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLabel" name="qlEmail">
+       <widget class="QLabel" name="email">
         <property name="text">
          <string>TextLabel</string>
         </property>
@@ -95,7 +95,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="qpbLoad">
+         <widget class="QPushButton" name="load">
           <property name="text">
            <string>&amp;Load</string>
           </property>
@@ -107,7 +107,7 @@
        </layout>
       </item>
       <item row="4" column="1">
-       <widget class="QLabel" name="qlStatus">
+       <widget class="QLabel" name="status">
         <property name="palette">
          <palette>
           <active>
@@ -158,11 +158,20 @@
      <property name="spacing">
       <number>6</number>
      </property>
-     <property name="margin">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
       <number>0</number>
      </property>
      <item>
-      <widget class="QPushButton" name="qpbEULA">
+      <widget class="QPushButton" name="eula">
        <property name="text">
         <string>EULA</string>
        </property>
@@ -182,7 +191,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="qpbOk">
+      <widget class="QPushButton" name="ok">
        <property name="text">
         <string>OK</string>
        </property>

@@ -4,72 +4,73 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QPluginLoader>
 
-TTSInterface *Plugins::GetTTSPlugin(const TTSInterface::TTSPlugin &pPluginId) const
+const Plugins::ExpPluginList &Plugins::explugins() const
 {
-	return _qhTTSPlugins.value(pPluginId).tiInterface;
-} // GetTTSPlugin
+	return _expPlugins;
+} // explugins
 
-const Plugins::ExpPluginList &Plugins::GetExpPlugins() const
+const Plugins::ImpPluginList &Plugins::impPlugins() const
 {
-	return _teplExpPlugins;
-} // GetExpPlugins
+	return _impPlugins;
+} // impPlugins
 
-const Plugins::tImpPluginList &Plugins::GetImpPlugins() const
+const void Plugins::initialize()
 {
-	return _tiplImpPlugins;
-} // GetImpPlugins
-
-const Plugins::tTTSPluginList Plugins::GetTTSPlugins() const
-{
-	return _qhTTSPlugins.values();
-} // GetTTSPlugins
-
-const void Plugins::Initialize()
-{
-	foreach (sTTSPlugin stpPlugin, _qhTTSPlugins.values()) {
-        TTSInterface *tiPlugin = stpPlugin.tiInterface;
-		tiPlugin->initialize();
+	foreach (const TTSPlugin &ttsPlugin, _ttsPlugins.values())
+	{
+        TTSInterface *ttsInterface = ttsPlugin.ttsInterface;
+		ttsInterface->initialize();
 	} // foreach
-} // Initialize
+} // initialize
 
-const void Plugins::Load()
+const void Plugins::load()
 {
 #ifdef _DEBUG
-	QDir qdPluginDir(QCoreApplication::applicationDirPath());
+	const QDir pluginDir(QCoreApplication::applicationDirPath());
 #else
-	QDir qdPlugins(QCoreApplication::applicationDirPath());
-	qdPlugins.cd(DIR_PLUGINS);
+	const QDir pluginsDir(QCoreApplication::applicationDirPath());
+	pluginsDir.cd(DIR_PLUGINS);
 
-	foreach (QFileInfo qfiPluginDir, qdPlugins.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot)) {
-		QDir qdPluginDir(qfiPluginDir.filePath());
+	foreach (const QFileInfo &pluginDir, pluginsDir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot))
+	{
+		const QDir pluginDir(pluginDir.filePath());
 #endif
-		foreach (QFileInfo qfiPlugin, qdPluginDir.entryInfoList(QDir::Files)) {
-			QPluginLoader qplLoader(qfiPlugin.filePath());
-			if (qplLoader.instance()) {
-				if (qfiPlugin.fileName().startsWith("tts-")) {
-					TTSInterface *tiPlugin = qobject_cast<TTSInterface *>(qplLoader.instance());
-					if (tiPlugin) {
-						sTTSPlugin stpPlugin;
-						stpPlugin.spiInfo.qsLibraryName = qfiPlugin.fileName();
-						stpPlugin.tiInterface = tiPlugin;
-						_qhTTSPlugins.insert(tiPlugin->pluginId(), stpPlugin);
+		foreach (const QFileInfo &plugin, pluginDir.entryInfoList(QDir::Files))
+		{
+			QPluginLoader pluginLoader(plugin.filePath());
+			if (pluginLoader.instance())
+			{
+				if (plugin.fileName().startsWith("tts-"))
+				{
+					TTSInterface *ttsInterface = qobject_cast<TTSInterface *>(pluginLoader.instance());
+					if (ttsInterface)
+					{
+						TTSPlugin ttsPlugin;
+						ttsPlugin.info.libraryName = plugin.fileName();
+						ttsPlugin.ttsInterface     = ttsInterface;
+						_ttsPlugins.insert(ttsInterface->pluginId(), ttsPlugin);
 					} // if
-				} else {
-					if (qfiPlugin.fileName().startsWith("imp-")) {
-						ImpInterface *iiPlugin = qobject_cast<ImpInterface *>(qplLoader.instance());
-						if (iiPlugin) {
-							sImpPlugin sipPlugin;
-							sipPlugin.spiInfo.qsLibraryName = qfiPlugin.fileName();
-							sipPlugin.iiInterface = iiPlugin;
-							_tiplImpPlugins.append(sipPlugin);
+				}
+				else
+				{
+					if (plugin.fileName().startsWith("imp-"))
+					{
+						ImpInterface *impInterface = qobject_cast<ImpInterface *>(pluginLoader.instance());
+						if (impInterface)
+						{
+							ImpPlugin impPlugin;
+							impPlugin.info.libraryName = plugin.fileName();
+							impPlugin.impInterface     = impInterface;
+							_impPlugins.append(impPlugin);
 						} // if
 					} else {
-						ExpInterface *eiPlugin = qobject_cast<ExpInterface *>(qplLoader.instance());
-						if (eiPlugin) {
-							sExpPlugin sepPlugin;
-							sepPlugin.spiInfo.qsLibraryName = qfiPlugin.fileName();
-							sepPlugin.eiInterface = eiPlugin;
-							_teplExpPlugins.append(sepPlugin);
+						ExpInterface *expInterface = qobject_cast<ExpInterface *>(pluginLoader.instance());
+						if (expInterface)
+						{
+							ExpPlugin expPlugin;
+							expPlugin.info.libraryName = plugin.fileName();
+							expPlugin.expInterface     = expInterface;
+							_expPlugins.append(expPlugin);
 						} // if
 					} // if else
 				} // if else
@@ -78,22 +79,35 @@ const void Plugins::Load()
 #ifndef _DEBUG
 	} // foreach
 #endif
-} // Load
+} // load
 
-const void Plugins::SetLanguage(const QString &pLanguage) const
+const void Plugins::setLanguage(const QString &language) const
 {
-	foreach (sImpPlugin sipPlugin, _tiplImpPlugins) {
-		sipPlugin.iiInterface->setLanguage(pLanguage);
+	foreach (const ImpPlugin &impPlugin, _impPlugins)
+	{
+		impPlugin.impInterface->setLanguage(language);
 	} // foreach
-	foreach (sExpPlugin sepPlugin, _teplExpPlugins) {
-		sepPlugin.eiInterface->setLanguage(pLanguage);
+	foreach (const ExpPlugin &expPlugin, _expPlugins)
+	{
+		expPlugin.expInterface->setLanguage(language);
 	} // foreach
-} // SetLanguage
+} // setLanguage
 
-const void Plugins::Uninitialize()
+TTSInterface *Plugins::ttsPlugin(const TTSInterface::TTSPlugin &pPluginId) const
 {
-	foreach (sTTSPlugin stpPlugin, _qhTTSPlugins.values()) {
-        TTSInterface *tiPlugin = stpPlugin.tiInterface;
-		tiPlugin->uninitialize();
+	return _ttsPlugins.value(pPluginId).ttsInterface;
+} // ttsPlugin
+
+const Plugins::TTSPluginList Plugins::ttsPlugins() const
+{
+	return _ttsPlugins.values();
+} // ttsPlugins
+
+const void Plugins::uninitialize()
+{
+	foreach (const TTSPlugin &ttsPlugin, _ttsPlugins.values())
+	{
+        TTSInterface *ttsInterface = ttsPlugin.ttsInterface;
+		ttsInterface->uninitialize();
 	} // foreach
-} // Uninitialize
+} // uninitialize

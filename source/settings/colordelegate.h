@@ -11,6 +11,8 @@ class ColorDelegate : public QStyledItemDelegate
 	private:
 		static const quint8 BORDER_WIDTH = 2;
 
+		virtual ~ColorDelegate();
+
 		virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index ) const;
 }; // ColorDelegate
 

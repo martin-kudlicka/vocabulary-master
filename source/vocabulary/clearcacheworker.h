@@ -12,6 +12,8 @@ class ClearCacheWorker : public QThread
     private:
         VocabularyDatabase::tRecordDataHash *_recordData;
 
+		virtual ~ClearCacheWorker();
+
         virtual void run();
 }; // ClearCacheWorker
 

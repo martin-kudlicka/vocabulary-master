@@ -3,7 +3,7 @@
 #ifndef EDITION_TRY
 # include "common/vocabularyopenprogressdialog.h"
 
-const void VocabularyOrganizer::AddExisting(sVocabulary &pVocabulary, QWidget *pParent)
+const void VocabularyOrganizer::AddExisting(VocabularyInfo &pVocabulary, QWidget *pParent)
 {
 	pVocabulary.vVocabulary = new Vocabulary;
 
@@ -25,7 +25,7 @@ const void VocabularyOrganizer::AddNew(
 #endif
 	)
 {
-	sVocabulary svVocabulary;
+	VocabularyInfo svVocabulary;
 #ifndef EDITION_TRY
 	svVocabulary.sviVocabularyInfo.qsFile = pFile;
 #endif
@@ -46,7 +46,7 @@ const int VocabularyOrganizer::GetRecordCount() const
 {
 	int iCount = 0;
 
-	foreach (sVocabulary svVocabulary, _qlVocabularies) {
+	foreach (VocabularyInfo svVocabulary, _qlVocabularies) {
 		if (svVocabulary.vVocabulary->IsOpen()) {
 			iCount += svVocabulary.vVocabulary->GetRecordCount();
 		} // if
@@ -59,7 +59,7 @@ const int VocabularyOrganizer::GetRecordCount(const bool &pEnabled) const
 {
 	int iCount = 0;
 
-	foreach (sVocabulary svVocabulary, _qlVocabularies) {
+	foreach (VocabularyInfo svVocabulary, _qlVocabularies) {
 		if (svVocabulary.vVocabulary->IsOpen()) {
 			iCount += svVocabulary.vVocabulary->GetRecordCount(pEnabled);
 		} // if
@@ -68,12 +68,12 @@ const int VocabularyOrganizer::GetRecordCount(const bool &pEnabled) const
 	return iCount;
 } // GetRecordCount
 
-const VocabularyOrganizer::sRecordInfo VocabularyOrganizer::GetRecordInfo(const int &pRow) const
+const VocabularyOrganizer::RecordInfo VocabularyOrganizer::GetRecordInfo(const int &pRow) const
 {
 	int iCurrentRow = 0;
-	sRecordInfo sriRecordInfo;
+	RecordInfo sriRecordInfo;
 
-	foreach (sVocabulary svVocabulary, _qlVocabularies) {
+	foreach (VocabularyInfo svVocabulary, _qlVocabularies) {
 		if (svVocabulary.vVocabulary->IsOpen()) {
 			int iRecords = svVocabulary.vVocabulary->GetRecordCount();
 			if (iCurrentRow + iRecords > pRow) {
@@ -97,14 +97,14 @@ const int VocabularyOrganizer::GetVocabularyCount() const
 	return _qlVocabularies.size();
 } // GetVocabularyCount
 
-const VocabularyOrganizer::sVocabulary &VocabularyOrganizer::GetVocabularyInfo(const int &pIndex) const
+const VocabularyOrganizer::VocabularyInfo &VocabularyOrganizer::GetVocabularyInfo(const int &pIndex) const
 {
 	return _qlVocabularies.at(pIndex);
 } // GetVocabularyInfo
 
 const bool VocabularyOrganizer::IsOpen() const
 {
-	foreach (sVocabulary svVocabulary, _qlVocabularies) {
+	foreach (VocabularyInfo svVocabulary, _qlVocabularies) {
 		if (svVocabulary.vVocabulary->IsOpen()) {
 			return true;
 		} // if
@@ -114,7 +114,7 @@ const bool VocabularyOrganizer::IsOpen() const
 } // IsOpen
 
 #ifndef EDITION_TRY
-const void VocabularyOrganizer::Open(sVocabulary *pVocabulary, QWidget *pParent)
+const void VocabularyOrganizer::Open(VocabularyInfo *pVocabulary, QWidget *pParent)
 {
 	VocabularyOpenProgressDialog vopdOpenProgress(pVocabulary->vVocabulary, pParent);
 	vopdOpenProgress.show();
@@ -131,7 +131,7 @@ const void VocabularyOrganizer::OpenAll(QWidget *pParent)
 {
 	int iVocabularies = _sSettings->GetVocabularyCount();
 	for (int iI = 0; iI < iVocabularies; iI++) {
-		sVocabulary svVocabulary;
+		VocabularyInfo svVocabulary;
 		svVocabulary.sviVocabularyInfo = _sSettings->GetVocabularyInfo(iI);
 		AddExisting(svVocabulary, pParent);
 	} // for
@@ -163,7 +163,7 @@ const void VocabularyOrganizer::SaveAll()
 # ifndef EDITION_FREE
 const void VocabularyOrganizer::SetVocabularyEnabled(const int &pIndex, const bool &pEnabled, QWidget *pParent)
 {
-	sVocabulary *svVocabulary = &_qlVocabularies[pIndex];
+	VocabularyInfo *svVocabulary = &_qlVocabularies[pIndex];
 	svVocabulary->sviVocabularyInfo.bEnabled = pEnabled;
 
 	if (pEnabled) {

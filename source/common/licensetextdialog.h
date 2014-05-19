@@ -10,15 +10,16 @@
 class LicenseTextDialog : public QDialog
 {
     public:
-        LicenseTextDialog(const LicenseCommon::LicenseContentList &pLicenses, const Settings *pSettings, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+                 LicenseTextDialog(const LicenseCommon::LicenseContentList &licenses, const Settings *settings, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		virtual ~LicenseTextDialog();
 
     private:
-        static const int TAB_INVALID = -1;
+        static const qint8 TAB_INVALID = -1;
 
-		Ui::qdLicenseText _qdltLicenseText;
+		Ui::LicenseTextDialog _ui;
 
-        const void ShowLicenses(const LicenseCommon::LicenseContentList &pLicenses) const;
-        const void ShowMainLicense(const Settings *pSettings) const;
+        const void showLicenses   (const LicenseCommon::LicenseContentList &pLicenses) const;
+        const void showMainLicense(const Settings *pSettings)                          const;
 }; // LicenseTextDialog
 
 #endif // LICENSETEXTDIALOG_H

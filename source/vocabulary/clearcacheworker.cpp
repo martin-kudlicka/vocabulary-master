@@ -5,6 +5,10 @@ ClearCacheWorker::ClearCacheWorker(VocabularyDatabase::tRecordDataHash *recordDa
 	connect(this, SIGNAL(finished()), SLOT(deleteLater()));
 } // ClearCacheWorker
 
+ClearCacheWorker::~ClearCacheWorker()
+{
+} // ~ClearCacheWorker
+
 void ClearCacheWorker::run()
 {
     _recordData->clear();

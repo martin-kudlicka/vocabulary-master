@@ -9,7 +9,8 @@ class ExpPluginsModel : public QAbstractItemModel
     Q_OBJECT
 
     public:
-        ExpPluginsModel(const Plugins::ExpPluginList *expPlugins, QObject *parent = NULL);
+                 ExpPluginsModel(const Plugins::ExpPluginList *expPlugins, QObject *parent = NULL);
+		virtual ~ExpPluginsModel();
 
     private:
 		enum Column

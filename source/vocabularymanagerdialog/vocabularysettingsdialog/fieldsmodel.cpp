@@ -4,6 +4,10 @@ FieldsModel::FieldsModel(Vocabulary *vocabulary, QObject *parent /* NULL */) : Q
 {
 } // FieldsModel
 
+FieldsModel::~FieldsModel()
+{
+} // ~FieldsModel
+
 const void FieldsModel::addRow()
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());

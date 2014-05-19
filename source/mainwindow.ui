@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qmwUiMain</class>
- <widget class="QMainWindow" name="qmwUiMain">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,7 +17,7 @@
    <iconset resource="mainwindow.qrc">
     <normaloff>:/res/mainwindow/mainwindow.png</normaloff>:/res/mainwindow/mainwindow.png</iconset>
   </property>
-  <widget class="QWidget" name="qwCentral">
+  <widget class="QWidget" name="centralWidget">
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
@@ -27,16 +27,16 @@
       <height>213</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="qvblAnswer">
+    <layout class="QVBoxLayout" name="answerLayout">
      <item>
-      <widget class="QLabel" name="qlLanguage2">
+      <widget class="QLabel" name="language2">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QTextBrowser" name="qtbWindow2">
+      <widget class="QTextBrowser" name="window2">
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -56,16 +56,16 @@
       <height>213</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="qvblQuestion">
+    <layout class="QVBoxLayout" name="questionLayout">
      <item>
-      <widget class="QLabel" name="qlLanguage1">
+      <widget class="QLabel" name="language1">
        <property name="text">
         <string>TextLabel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QTextBrowser" name="qtbWindow1">
+      <widget class="QTextBrowser" name="window1">
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -76,7 +76,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="qlCategory">
+   <widget class="QLabel" name="category">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -101,7 +101,7 @@
       <height>80</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="qhblRecordControls">
+    <layout class="QHBoxLayout" name="recordControls">
      <property name="spacing">
       <number>0</number>
      </property>
@@ -119,7 +119,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QToolButton" name="qtbPriority1">
+      <widget class="QToolButton" name="priority1">
        <property name="text">
         <string>1</string>
        </property>
@@ -132,7 +132,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="qtbPriority2">
+      <widget class="QToolButton" name="priority2">
        <property name="text">
         <string>2</string>
        </property>
@@ -145,7 +145,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="qtbPriority3">
+      <widget class="QToolButton" name="priority3">
        <property name="text">
         <string>3</string>
        </property>
@@ -158,7 +158,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="qtbPriority4">
+      <widget class="QToolButton" name="priority4">
        <property name="text">
         <string>4</string>
        </property>
@@ -171,7 +171,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="qtbPriority5">
+      <widget class="QToolButton" name="priority5">
        <property name="text">
         <string>5</string>
        </property>
@@ -184,7 +184,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="qtbPriority6">
+      <widget class="QToolButton" name="priority6">
        <property name="text">
         <string>6</string>
        </property>
@@ -197,7 +197,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="qtbPriority7">
+      <widget class="QToolButton" name="priority7">
        <property name="text">
         <string>7</string>
        </property>
@@ -210,7 +210,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="qtbPriority8">
+      <widget class="QToolButton" name="priority8">
        <property name="text">
         <string>8</string>
        </property>
@@ -223,7 +223,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="qtbPriority9">
+      <widget class="QToolButton" name="priority9">
        <property name="text">
         <string>9</string>
        </property>
@@ -236,7 +236,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="qcbRecordEnabled">
+      <widget class="QCheckBox" name="recordEnabled">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -277,17 +277,17 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="qaOrganizer"/>
+    <addaction name="actionOrganizer"/>
     <addaction name="separator"/>
-    <addaction name="qaExit"/>
+    <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="qmOptions">
+   <widget class="QMenu" name="menuOptions">
     <property name="title">
      <string>&amp;Options</string>
     </property>
-    <addaction name="qaSettings"/>
+    <addaction name="actionSettings"/>
    </widget>
-   <widget class="QMenu" name="qmVocabularies">
+   <widget class="QMenu" name="menuVocabularies">
     <property name="title">
      <string>&amp;Vocabularies</string>
     </property>
@@ -296,15 +296,15 @@
     <property name="title">
      <string>&amp;Help</string>
     </property>
-    <addaction name="qaLicense"/>
-    <addaction name="qaAbout"/>
+    <addaction name="actionLicense"/>
+    <addaction name="actionAbout"/>
    </widget>
    <addaction name="menu_File"/>
-   <addaction name="qmVocabularies"/>
-   <addaction name="qmOptions"/>
+   <addaction name="menuVocabularies"/>
+   <addaction name="menuOptions"/>
    <addaction name="menuHelp"/>
   </widget>
-  <widget class="QToolBar" name="qtbToolBar">
+  <widget class="QToolBar" name="toolBar">
    <property name="iconSize">
     <size>
      <width>16</width>
@@ -317,17 +317,17 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="qaStart"/>
-   <addaction name="qaNext"/>
-   <addaction name="qaStop"/>
+   <addaction name="actionStart"/>
+   <addaction name="actionNext"/>
+   <addaction name="actionStop"/>
    <addaction name="separator"/>
-   <addaction name="qaAnswer"/>
-   <addaction name="qaFindInVocabulary"/>
+   <addaction name="actionAnswer"/>
+   <addaction name="actionFindInVocabulary"/>
    <addaction name="separator"/>
-   <addaction name="qaMute"/>
+   <addaction name="actionMute"/>
   </widget>
-  <widget class="QStatusBar" name="qsbStatusBar"/>
-  <action name="qaExit">
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionExit">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
      <normaloff>:/res/mainwindow/menubar/exit.png</normaloff>:/res/mainwindow/menubar/exit.png</iconset>
@@ -336,7 +336,7 @@
     <string>E&amp;xit</string>
    </property>
   </action>
-  <action name="qaSettings">
+  <action name="actionSettings">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
      <normaloff>:/res/mainwindow/menubar/settings.png</normaloff>:/res/mainwindow/menubar/settings.png</iconset>
@@ -345,7 +345,7 @@
     <string>&amp;Settings...</string>
    </property>
   </action>
-  <action name="qaOrganizer">
+  <action name="actionOrganizer">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
      <normaloff>:/res/mainwindow/menubar/new.png</normaloff>:/res/mainwindow/menubar/new.png</iconset>
@@ -354,9 +354,9 @@
     <string>&amp;Organizer...</string>
    </property>
   </action>
-  <action name="qaOpen">
+  <action name="actionOpen">
    <property name="icon">
-    <iconset resource="mainwindow.qrc">
+    <iconset>
      <normaloff>:/res/mainwindow/menubar/open.png</normaloff>:/res/mainwindow/menubar/open.png</iconset>
    </property>
    <property name="text">
@@ -372,7 +372,7 @@
     <string>&amp;Manage...</string>
    </property>
   </action>
-  <action name="qaStart">
+  <action name="actionStart">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
      <normaloff>:/res/mainwindow/toolbar/play.png</normaloff>:/res/mainwindow/toolbar/play.png</iconset>
@@ -381,7 +381,7 @@
     <string>Start</string>
    </property>
   </action>
-  <action name="qaStop">
+  <action name="actionStop">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
      <normaloff>:/res/mainwindow/toolbar/stop.png</normaloff>:/res/mainwindow/toolbar/stop.png</iconset>
@@ -390,7 +390,7 @@
     <string>Stop</string>
    </property>
   </action>
-  <action name="qaNext">
+  <action name="actionNext">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
      <normaloff>:/res/mainwindow/toolbar/next.png</normaloff>:/res/mainwindow/toolbar/next.png</iconset>
@@ -399,7 +399,7 @@
     <string>Next</string>
    </property>
   </action>
-  <action name="qaMute">
+  <action name="actionMute">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -411,7 +411,7 @@
     <string>Mute</string>
    </property>
   </action>
-  <action name="qaAnswer">
+  <action name="actionAnswer">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
      <normaloff>:/res/mainwindow/toolbar/answer.png</normaloff>:/res/mainwindow/toolbar/answer.png</iconset>
@@ -420,7 +420,7 @@
     <string>Answer</string>
    </property>
   </action>
-  <action name="qaAbout">
+  <action name="actionAbout">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
      <normaloff>:/res/mainwindow/menubar/about.png</normaloff>:/res/mainwindow/menubar/about.png</iconset>
@@ -429,7 +429,7 @@
     <string>&amp;About...</string>
    </property>
   </action>
-  <action name="qaLicense">
+  <action name="actionLicense">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
      <normaloff>:/res/mainwindow/menubar/license.png</normaloff>:/res/mainwindow/menubar/license.png</iconset>
@@ -438,7 +438,7 @@
     <string>&amp;License...</string>
    </property>
   </action>
-  <action name="qaFindInVocabulary">
+  <action name="actionFindInVocabulary">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
      <normaloff>:/res/mainwindow/toolbar/findinvocabulary.png</normaloff>:/res/mainwindow/toolbar/findinvocabulary.png</iconset>
@@ -454,9 +454,9 @@
  </resources>
  <connections>
   <connection>
-   <sender>qaExit</sender>
+   <sender>actionExit</sender>
    <signal>activated()</signal>
-   <receiver>qmwUiMain</receiver>
+   <receiver>MainWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
