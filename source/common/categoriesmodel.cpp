@@ -5,6 +5,10 @@ CategoriesModel::CategoriesModel(const Vocabulary *vocabulary, QObject *parent /
     _vocabulary = vocabulary;
 } // CategoriesModel
 
+CategoriesModel::~CategoriesModel()
+{
+} // ~CategoriesModel
+
 int CategoriesModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return ColumnCount;
