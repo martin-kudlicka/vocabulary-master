@@ -9,7 +9,8 @@ class CategoriesModel : public QAbstractItemModel
     Q_OBJECT
 
     public:
-        CategoriesModel(const Vocabulary *vocabulary, QObject *parent = NULL);
+                 CategoriesModel(const Vocabulary *vocabulary, QObject *parent = NULL);
+		virtual ~CategoriesModel();
 
     private:
         enum Column
