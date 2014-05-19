@@ -3,30 +3,36 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate/fieldlineedit.h"
 #include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate/fieldidentifiervalidator.h"
 
-QWidget *LineEditPersistentDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
-{
-	FieldLineEdit *fleEditor = new FieldLineEdit(parent);
-	if (index.column() == FieldsModel::ColumnTemplateName) {
-		fleEditor->setValidator(new FieldIdentifierValidator(index.row(), qobject_cast<const FieldsModel *>(index.model()), fleEditor));
-	} // if
-
-	return fleEditor;
-} // createEditor
-
-LineEditPersistentDelegate::LineEditPersistentDelegate(QObject *pParent /* NULL */) : QStyledItemDelegate(pParent)
+LineEditPersistentDelegate::LineEditPersistentDelegate(QObject *parent /* NULL */) : QStyledItemDelegate(parent)
 {
 } // LineEditPersistentDelegate
 
+LineEditPersistentDelegate::~LineEditPersistentDelegate()
+{
+} // ~LineEditPersistentDelegate
+
+QWidget *LineEditPersistentDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+	FieldLineEdit *fieldLineEditor = new FieldLineEdit(parent);
+	if (index.column() == FieldsModel::ColumnTemplateName)
+	{
+		fieldLineEditor->setValidator(new FieldIdentifierValidator(index.row(), qobject_cast<const FieldsModel *>(index.model()), fieldLineEditor));
+	} // if
+
+	return fieldLineEditor;
+} // createEditor
+
 void LineEditPersistentDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-    FieldLineEdit *qleEditor = qobject_cast<FieldLineEdit *>(editor);
-    qleEditor->setText(index.model()->data(index).toString());
+    FieldLineEdit *fieldLineEditor = qobject_cast<FieldLineEdit *>(editor);
+    fieldLineEditor->setText(index.model()->data(index).toString());
 } // setEditorData
 
 void LineEditPersistentDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
-	FieldLineEdit *qleEditor = qobject_cast<FieldLineEdit *>(editor);
-	if (qleEditor->hasAcceptableInput()) {
+	const const FieldLineEdit *fieldLineEditor = qobject_cast<FieldLineEdit *>(editor);
+	if (fieldLineEditor->hasAcceptableInput())
+	{
 		QStyledItemDelegate::setModelData(editor, model, index);
 	} // if
 } // setModelData

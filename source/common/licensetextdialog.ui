@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qdLicenseText</class>
- <widget class="QDialog" name="qdLicenseText">
+ <class>LicenseTextDialog</class>
+ <widget class="QDialog" name="LicenseTextDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,14 +15,23 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTabWidget" name="qtwTabs"/>
+    <widget class="QTabWidget" name="tabs"/>
    </item>
    <item>
     <layout class="QHBoxLayout">
      <property name="spacing">
       <number>6</number>
      </property>
-     <property name="margin">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
       <number>0</number>
      </property>
      <item>
@@ -39,7 +48,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="okButton">
+      <widget class="QPushButton" name="ok">
        <property name="text">
         <string>OK</string>
        </property>
@@ -52,9 +61,9 @@
  <resources/>
  <connections>
   <connection>
-   <sender>okButton</sender>
+   <sender>ok</sender>
    <signal>clicked()</signal>
-   <receiver>qdLicenseText</receiver>
+   <receiver>LicenseTextDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">

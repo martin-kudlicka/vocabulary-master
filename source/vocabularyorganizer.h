@@ -8,19 +8,19 @@ class VocabularyOrganizer : public QObject
 	Q_OBJECT
 
 	public:
-		struct sRecordInfo {
+		struct RecordInfo {
 			Vocabulary *vVocabulary;
 			int iId;
-		}; // sRecordInfo
-		struct sVocabulary {
+		}; // RecordInfo
+		struct VocabularyInfo {
 			Settings::sVocabularyInfo sviVocabularyInfo;
 			Vocabulary *vVocabulary;
-		}; // sVocabulary
+		}; // VocabularyInfo
 
 		VocabularyOrganizer(Settings *pSettings);
 
 #ifndef EDITION_TRY
-		const void AddExisting(sVocabulary &pVocabulary, QWidget *pParent);
+		const void AddExisting(VocabularyInfo &pVocabulary, QWidget *pParent);
 #endif
 		const void AddNew(
 #ifndef EDITION_TRY
@@ -29,9 +29,9 @@ class VocabularyOrganizer : public QObject
 			);
 		const int GetRecordCount() const;
 		const int GetRecordCount(const bool &pEnabled) const;
-		const sRecordInfo GetRecordInfo(const int &pRow) const;
+		const RecordInfo GetRecordInfo(const int &pRow) const;
 		const int GetVocabularyCount() const;
-		const sVocabulary &GetVocabularyInfo(const int &pIndex) const;
+		const VocabularyInfo &GetVocabularyInfo(const int &pIndex) const;
 		const bool IsOpen() const;
 #ifndef EDITION_TRY
 		const void OpenAll(QWidget *pParent);
@@ -45,11 +45,11 @@ class VocabularyOrganizer : public QObject
 #endif
 
 	private:
-		QList<sVocabulary> _qlVocabularies;
+		QList<VocabularyInfo> _qlVocabularies;
 		Settings *_sSettings;
 
 #ifndef EDITION_TRY
-		const void Open(sVocabulary *pVocabulary, QWidget *pParent);
+		const void Open(VocabularyInfo *pVocabulary, QWidget *pParent);
 #endif
 
 	signals:

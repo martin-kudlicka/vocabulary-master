@@ -13,6 +13,8 @@ class FieldLineEdit : public QLineEdit
 	private:
 		QString _defaultSheet;
 
+		virtual ~FieldLineEdit();
+
 		virtual void showEvent(QShowEvent *event);
 
 	private slots:

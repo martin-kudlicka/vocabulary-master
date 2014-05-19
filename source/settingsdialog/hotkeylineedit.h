@@ -15,6 +15,8 @@ class HotkeyLineEdit : public QLineEdit
         HotkeyLineEdit(QWidget *parent = NULL);
 
     private:
+		virtual ~HotkeyLineEdit();
+
         virtual void keyPressEvent(QKeyEvent *event);
 }; // HotkeyLineEdit
 

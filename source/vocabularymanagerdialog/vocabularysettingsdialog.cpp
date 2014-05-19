@@ -167,8 +167,8 @@ const void VocabularySettingsDialog::PrepareSpeechPlugins(QComboBox *pComboBox)
 	pComboBox->addItem(tr("None"));
 	pComboBox->setItemData(pComboBox->count() - 1, _tvVoiceList.size() - 1);
 
-    foreach (Plugins::sTTSPlugin stpPlugin, _pPlugins->GetTTSPlugins()) {
-        const TTSInterface *tiPlugin = stpPlugin.tiInterface;
+    foreach (Plugins::TTSPlugin stpPlugin, _pPlugins->ttsPlugins()) {
+        const TTSInterface *tiPlugin = stpPlugin.ttsInterface;
 
         TTSInterface::VoiceInfoList tvilVoices = tiPlugin->voicesInfo();
         foreach (TTSInterface::VoiceInfo sviVoice, tvilVoices) {

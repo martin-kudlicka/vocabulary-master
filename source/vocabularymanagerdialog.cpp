@@ -325,7 +325,7 @@ const void VocabularyManagerDialog::on_qpbWordCopyMove_clicked(bool checked /* f
 
 const void VocabularyManagerDialog::on_qpbWordExport_clicked(bool checked /* false */)
 {
-	WordsExportDialog wedExport(_vVocabulary, _pPlugins->GetExpPlugins(), this);
+	WordsExportDialog wedExport(_vVocabulary, _pPlugins->explugins(), this);
 	wedExport.exec();
 } // on_qpbWordExport_clicked
 
@@ -333,8 +333,8 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
 {
 	// prepare filter
 	QStringList qslFilters;
-    foreach (Plugins::sImpPlugin sipPlugin, _pPlugins->GetImpPlugins()) {
-        const ImpInterface *iiPlugin = sipPlugin.iiInterface;
+    foreach (Plugins::ImpPlugin sipPlugin, _pPlugins->impPlugins()) {
+        const ImpInterface *iiPlugin = sipPlugin.impInterface;
 		qslFilters.append(iiPlugin->filter());
 	} // foreach
 
@@ -342,7 +342,7 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
 	QString qsFile = QFileDialog::getOpenFileName(this, tr("Import words"), QString(), qslFilters.join(";;"), &qsFilter);
 	if (!qsFile.isEmpty()) {
         int iFilter = qslFilters.indexOf(qsFilter);
-        ImpInterface *iiPlugin = _pPlugins->GetImpPlugins().at(iFilter).iiInterface;
+        ImpInterface *iiPlugin = _pPlugins->impPlugins().at(iFilter).impInterface;
 		WordsImportDialog widImport(qsFile, _vVocabulary, iiPlugin, this);
 
 		_vVocabulary->EndEdit();

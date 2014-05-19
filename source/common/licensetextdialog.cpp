@@ -3,56 +3,66 @@
 #include <QtWidgets/QPlainTextEdit>
 #include <QtCore/QFile>
 
-LicenseTextDialog::LicenseTextDialog(const LicenseCommon::LicenseContentList &pLicenses, const Settings *pSettings, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
+LicenseTextDialog::LicenseTextDialog(const LicenseCommon::LicenseContentList &licenses, const Settings *settings, QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags)
 {
-    _qdltLicenseText.setupUi(this);
+    _ui.setupUi(this);
 
-    ShowMainLicense(pSettings);
-    ShowLicenses(pLicenses);
+    showMainLicense(settings);
+    showLicenses(licenses);
 } // LicenseTextDialog
 
-const void LicenseTextDialog::ShowLicenses(const LicenseCommon::LicenseContentList &pLicenses) const
+LicenseTextDialog::~LicenseTextDialog()
 {
-    int iTab = TAB_INVALID;
+} // ~LicenseTextDialog
 
-    foreach (LicenseCommon::LicenseContent slcLicense, pLicenses) {
-        QPlainTextEdit *qpteLicense = new QPlainTextEdit(slcLicense.text, _qdltLicenseText.qtwTabs);
-        qpteLicense->setReadOnly(true);
-        int iNewTab = _qdltLicenseText.qtwTabs->addTab(qpteLicense, slcLicense.title);
-        if (iTab == TAB_INVALID) {
-            iTab = iNewTab;
+const void LicenseTextDialog::showLicenses(const LicenseCommon::LicenseContentList &licenses) const
+{
+    int tab = TAB_INVALID;
+
+    foreach (const LicenseCommon::LicenseContent &license, licenses)
+	{
+        QPlainTextEdit *licenseEdit = new QPlainTextEdit(license.text, _ui.tabs);
+        licenseEdit->setReadOnly(true);
+        const int newTab = _ui.tabs->addTab(licenseEdit, license.title);
+        if (tab == TAB_INVALID)
+		{
+            tab = newTab;
         } // if
     } // foreach
 
-    if (iTab != TAB_INVALID) {
-        _qdltLicenseText.qtwTabs->setCurrentIndex(iTab);
+    if (tab != TAB_INVALID)
+	{
+        _ui.tabs->setCurrentIndex(tab);
     } // if
-} // ShowLicenses
+} // showLicenses
 
-const void LicenseTextDialog::ShowMainLicense(const Settings *pSettings) const
+const void LicenseTextDialog::showMainLicense(const Settings *settings) const
 {
-    LicenseCommon::LicenseContentList tlclLicenses;
+    LicenseCommon::LicenseContentList licenses;
 
 	// EULA
-    LicenseCommon::LicenseContent slcLicense;
-    slcLicense.title = "Vocabulary Master";
-    QFile qfLicense;
-    if (pSettings->GetTranslation() == "cs_CZ.qm") {
-        qfLicense.setFileName(":/res/eula/cze.txt");
-    } else {
-        qfLicense.setFileName(":/res/eula/eng.txt");
+    LicenseCommon::LicenseContent licenseContent;
+    licenseContent.title = "Vocabulary Master";
+    QFile licenseFile;
+    if (settings->GetTranslation() == "cs_CZ.qm")
+	{
+        licenseFile.setFileName(":/res/eula/cze.txt");
+    }
+	else
+	{
+        licenseFile.setFileName(":/res/eula/eng.txt");
     } // if else
-    qfLicense.open(QIODevice::ReadOnly);
-    slcLicense.text = qfLicense.readAll();
-	qfLicense.close();
-    tlclLicenses.append(slcLicense);
+    licenseFile.open(QIODevice::ReadOnly);
+    licenseContent.text = licenseFile.readAll();
+	licenseFile.close();
+    licenses.append(licenseContent);
 
 	// fugue-icons
-	slcLicense.title = "Fugue Icons";
-	qfLicense.setFileName(":/res/eula/fugue-icons/README.txt");
-	qfLicense.open(QIODevice::ReadOnly);
-	slcLicense.text = qfLicense.readAll();
-	tlclLicenses.append(slcLicense);
+	licenseContent.title = "Fugue Icons";
+	licenseFile.setFileName(":/res/eula/fugue-icons/README.txt");
+	licenseFile.open(QIODevice::ReadOnly);
+	licenseContent.text = licenseFile.readAll();
+	licenses.append(licenseContent);
 
-    ShowLicenses(tlclLicenses);
-} // ShowMainLicense
+    showLicenses(licenses);
+} // showMainLicense

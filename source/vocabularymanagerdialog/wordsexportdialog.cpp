@@ -60,7 +60,7 @@ const void WordsExportDialog::on_eiPlugin_VocabularyGetRecordIds(const int &pCat
 const void WordsExportDialog::on_qpbExport_clicked(bool checked /* false */)
 {
     QModelIndex qmiIndex = _qdweWordsExport.qtvExpPlugins->currentIndex();
-    ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row()).eiInterface;
+    ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row()).expInterface;
     eiPlugin->beginExport();
 } // on_qpbExport_clicked
 
@@ -77,7 +77,7 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
 		int iPage = _qdweWordsExport.qswExpPlugins->addWidget(qwExpPlugin);
 		_qhExpPluginPage.insert(qmiIndex.row(), iPage);
 
-		ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row()).eiInterface;
+		ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row()).expInterface;
 
         // connections
         connect(eiPlugin, SIGNAL(ProgressExportSetMax(const int &)), SLOT(on_eiPlugin_ProgressExportSetMax(const int &)));

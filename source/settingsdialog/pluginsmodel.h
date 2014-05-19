@@ -32,7 +32,7 @@ class PluginsModel : public QAbstractItemModel
         const Plugins *_pPlugins;
 
         virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
-        const Plugins::sPluginInfo GetPluginInfo(const int &pNum) const;
+        const Plugins::PluginInfo GetPluginInfo(const int &pNum) const;
         virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
         virtual QModelIndex parent(const QModelIndex &index) const;
 }; // PluginsModel

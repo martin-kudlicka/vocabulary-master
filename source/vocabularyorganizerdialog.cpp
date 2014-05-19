@@ -24,7 +24,7 @@ const void VocabularyOrganizerDialog::EnableControls() const
 const QString VocabularyOrganizerDialog::GetOpenPath() const
 {
 	if (_voOrganizer->GetVocabularyCount() > 0) {
-		VocabularyOrganizer::sVocabulary svVocabulary = _voOrganizer->GetVocabularyInfo(0);
+		VocabularyOrganizer::VocabularyInfo svVocabulary = _voOrganizer->GetVocabularyInfo(0);
 		return QFileInfo(svVocabulary.sviVocabularyInfo.qsFile).absolutePath();
 	} else {
 		return QDir::homePath();
@@ -78,7 +78,7 @@ const void VocabularyOrganizerDialog::on_qpbOpen_clicked(bool checked /* false *
 {
 	QString qsFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), GetOpenPath(), tr(VOCABULARY_FILTER));
 	if (!qsFile.isEmpty()) {
-		VocabularyOrganizer::sVocabulary svVocabulary;
+		VocabularyOrganizer::VocabularyInfo svVocabulary;
 		svVocabulary.sviVocabularyInfo.qsFile = qsFile;
 #ifndef EDITION_FREE
 		svVocabulary.sviVocabularyInfo.bEnabled = true;

@@ -6,6 +6,10 @@ LanguageFieldDelegate::LanguageFieldDelegate(const Vocabulary *vocabulary, QObje
 {
 } // LanguageFieldDelegate
 
+LanguageFieldDelegate::~LanguageFieldDelegate()
+{
+} // ~LanguageFieldDelegate
+
 QWidget *LanguageFieldDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	const qint8 fieldId = _vocabulary->GetFieldId(index.row());
