@@ -41,6 +41,10 @@ const QString FN_WS_MGC_2   = "mgc.win2";
 const QString FN_WS_MGC_3   = "mgc.win3";
 const QString VOICE_DIR     = "hts_voice_nitech_jp_atr503_m001";
 
+TTSOpenJTalk::~TTSOpenJTalk()
+{
+} // ~TTSOpenJTalk
+
 const QString TTSOpenJTalk::fileInSubdir(const QString &file, const QString &dir) const
 {
 	return subdir(dir) + QDir::separator() + file;

@@ -11,6 +11,8 @@ class TTSSAPI : public QObject, private TTSInterface
     Q_INTERFACES(TTSInterface)
 
     private:
+		virtual ~TTSSAPI();
+
 		virtual const void                              initialize  ();
         virtual const LicenseCommon::LicenseContentList licenseText () const;
         virtual const TTSPlugin                         pluginId    () const;
