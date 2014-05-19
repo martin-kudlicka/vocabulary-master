@@ -28,6 +28,8 @@ class TTSOpenJTalk : public QObject, private TTSInterface
 		NJD        _njd;
 		JPCommon   _jpCommon;
 
+		virtual ~TTSOpenJTalk();
+
 		        const QString                           fileInSubdir(const QString &file, const QString &dir) const;
 		virtual const void                              initialize  ();
         virtual const LicenseCommon::LicenseContentList licenseText () const;

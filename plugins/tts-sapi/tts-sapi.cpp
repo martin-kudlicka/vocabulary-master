@@ -5,6 +5,10 @@
 #include <sapi.h>
 #include <sphelper.h>
 
+TTSSAPI::~TTSSAPI()
+{
+} // ~TTSSAPI
+
 const void TTSSAPI::initialize()
 {
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);
