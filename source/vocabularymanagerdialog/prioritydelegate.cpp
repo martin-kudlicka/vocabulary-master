@@ -4,14 +4,22 @@
 #include <QtWidgets/QApplication>
 #include "vocabularymanagerdialog/vocabularyview.h"
 
+PriorityDelegate::PriorityDelegate(QObject *pParent /* NULL */) : QStyledItemDelegate(pParent)
+{
+} // PriorityDelegate
+
+PriorityDelegate::~PriorityDelegate()
+{
+} // ~PriorityDelegate
+
 QWidget *PriorityDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-	QSpinBox *qsbEditor = new QSpinBox(parent);
-	qsbEditor->setFrame(false);
-	qsbEditor->setMinimum(RECORD_PRIORITY_MIN);
-	qsbEditor->setMaximum(RECORD_PRIORITY_MAX);
+	QSpinBox *editor = new QSpinBox(parent);
+	editor->setFrame(false);
+	editor->setMinimum(RECORD_PRIORITY_MIN);
+	editor->setMaximum(RECORD_PRIORITY_MAX);
 
-	return qsbEditor;
+	return editor;
 } // createEditor
 
 void PriorityDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -19,36 +27,36 @@ void PriorityDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
 	QStyledItemDelegate::paint(painter, option, index);
 
     // general spinbox style
-	QStyleOptionSpinBox qsosbSpinBox;
-	qsosbSpinBox.rect = option.rect;
-	qsosbSpinBox.state |= QStyle::State_Enabled;
-	qsosbSpinBox.stepEnabled = QAbstractSpinBox::StepUpEnabled | QAbstractSpinBox::StepDownEnabled;
+	QStyleOptionSpinBox styleOptionSpinBox;
+	styleOptionSpinBox.rect        = option.rect;
+	styleOptionSpinBox.state      |= QStyle::State_Enabled;
+	styleOptionSpinBox.stepEnabled = QAbstractSpinBox::StepUpEnabled | QAbstractSpinBox::StepDownEnabled;
 
     // check if mouse cursor is over spin button
-    QRect qrSpinButtons = option.rect;
-    qrSpinButtons.setLeft(qrSpinButtons.right() - SPINBOX_BUTTONS_WIDTH);
-    const VocabularyView *vvView = qobject_cast<VocabularyView *>(index.model()->parent());
-    QPoint qpCursor = vvView->viewport()->mapFromGlobal(QCursor::pos());
-    if (qrSpinButtons.contains(qpCursor)) {
-        qsosbSpinBox.state |= QStyle::State_MouseOver;
+    QRect spinButtonRect = option.rect;
+    spinButtonRect.setLeft(spinButtonRect.right() - SPINBOX_BUTTONS_WIDTH);
+    const VocabularyView *vocabularyView = qobject_cast<VocabularyView *>(index.model()->parent());
+    const QPoint cursor                  = vocabularyView->viewport()->mapFromGlobal(QCursor::pos());
+    if (spinButtonRect.contains(cursor))
+	{
+        styleOptionSpinBox.state |= QStyle::State_MouseOver;
 
-        int iSpinButtonUpHeight = qrSpinButtons.height() / 2;
-        if (qpCursor.y() < qrSpinButtons.top() + iSpinButtonUpHeight) {
-            qsosbSpinBox.activeSubControls |= QStyle::SC_SpinBoxUp;
-        } else {
-            qsosbSpinBox.activeSubControls |= QStyle::SC_SpinBoxDown;
+        const quint8 spinButtonUpHeight = spinButtonRect.height() / 2;
+        if (cursor.y() < spinButtonRect.top() + spinButtonUpHeight)
+		{
+            styleOptionSpinBox.activeSubControls |= QStyle::SC_SpinBoxUp;
+        }
+		else
+		{
+            styleOptionSpinBox.activeSubControls |= QStyle::SC_SpinBoxDown;
         } // if else
     } // if
 
-	QApplication::style()->drawComplexControl(QStyle::CC_SpinBox, &qsosbSpinBox, painter);
+	QApplication::style()->drawComplexControl(QStyle::CC_SpinBox, &styleOptionSpinBox, painter);
 } // paint
-
-PriorityDelegate::PriorityDelegate(QObject *pParent /* NULL */) : QStyledItemDelegate(pParent)
-{
-} // PriorityDelegate
 
 void PriorityDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-	QSpinBox *qsbEditor = qobject_cast<QSpinBox *>(editor);
-	qsbEditor->setValue(index.model()->data(index).toInt());
+	QSpinBox *spinBoxEditor = qobject_cast<QSpinBox *>(editor);
+	spinBoxEditor->setValue(index.model()->data(index).toUInt());
 } // setEditorData

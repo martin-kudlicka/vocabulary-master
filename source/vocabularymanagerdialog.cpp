@@ -187,8 +187,8 @@ const void VocabularyManagerDialog::InitTabs()
 {
     VocabularyTabWidget *vtwTabs = _qdvmVocabularyManager.vtwTabs;
 #ifndef EDITION_FREE
-    vtwTabs->SetShowEnabled(_sSettings->GetCanEnableCategories());
-	vtwTabs->SetShowPriorities(_sSettings->GetCanChangeCategoryPriority());
+    vtwTabs->SetShowEnabled(_sSettings->canEnableCategories());
+	vtwTabs->SetShowPriorities(_sSettings->canChangeCategoryPriority());
 #endif
 
     VocabularyDatabase::tCategoryIdList tcilCategories = _vVocabulary->GetCategoryIds();

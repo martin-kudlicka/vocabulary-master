@@ -54,7 +54,7 @@ class SettingsDialog : public QDialog
 # endif
         const void FillColorFlash();
 # ifdef Q_OS_WIN
-		const void FillHotkey(HotkeyLineEdit *pControl, const Settings::eHotkey &pHotkey) const;
+		const void FillHotkey(HotkeyLineEdit *pControl, const Settings::Hotkey &pHotkey) const;
 # endif
 #endif
         const void FillOptions();
@@ -65,7 +65,7 @@ class SettingsDialog : public QDialog
 #endif
         const void PrepareTranslations();
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
-		const void SaveHotkey(const HotkeyLineEdit *pControl, const Settings::eHotkey &pHotkey) const;
+		const void SaveHotkey(const HotkeyLineEdit *pControl, const Settings::Hotkey &pHotkey) const;
 #endif
         const void SaveOptions();
 

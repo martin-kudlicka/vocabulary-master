@@ -21,8 +21,8 @@ const void UpdateChecker::AnalyzeReply()
 const void UpdateChecker::CheckForUpdate()
 {
 	// proxy settings
-	if (_sSettings->GetUseProxy()) {
-		QNetworkProxy qnpProxy(_sSettings->GetProxyType(), _sSettings->GetProxyHostname(), _sSettings->GetProxyPort(), _sSettings->GetProxyUsername(), _sSettings->GetProxyPassword());
+	if (_sSettings->useProxy()) {
+		QNetworkProxy qnpProxy(_sSettings->proxyType(), _sSettings->proxyHostname(), _sSettings->proxyPort(), _sSettings->proxyUsername(), _sSettings->proxyPassword());
 		_qnamNetworkManager.setProxy(qnpProxy);
 	} else {
 		_qnamNetworkManager.setProxy(QNetworkProxy());

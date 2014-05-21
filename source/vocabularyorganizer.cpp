@@ -8,7 +8,7 @@ const void VocabularyOrganizer::AddExisting(VocabularyInfo &pVocabulary, QWidget
 	pVocabulary.vVocabulary = new Vocabulary;
 
 # ifndef EDITION_FREE
-	if (pVocabulary.sviVocabularyInfo.bEnabled) {
+	if (pVocabulary.sviVocabularyInfo.enabled) {
 # endif
 		Open(&pVocabulary, pParent);
 # ifndef EDITION_FREE
@@ -27,10 +27,10 @@ const void VocabularyOrganizer::AddNew(
 {
 	VocabularyInfo svVocabulary;
 #ifndef EDITION_TRY
-	svVocabulary.sviVocabularyInfo.qsFile = pFile;
+	svVocabulary.sviVocabularyInfo.filePath = pFile;
 #endif
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-	svVocabulary.sviVocabularyInfo.bEnabled = true;
+	svVocabulary.sviVocabularyInfo.enabled = true;
 #endif
 	svVocabulary.vVocabulary = new Vocabulary;
 	svVocabulary.vVocabulary->New(
@@ -118,21 +118,21 @@ const void VocabularyOrganizer::Open(VocabularyInfo *pVocabulary, QWidget *pPare
 {
 	VocabularyOpenProgressDialog vopdOpenProgress(pVocabulary->vVocabulary, pParent);
 	vopdOpenProgress.show();
-	pVocabulary->vVocabulary->Open(pVocabulary->sviVocabularyInfo.qsFile);
+	pVocabulary->vVocabulary->Open(pVocabulary->sviVocabularyInfo.filePath);
 
 # ifndef EDITION_FREE
 	if (!pVocabulary->vVocabulary->IsOpen()) {
-		pVocabulary->sviVocabularyInfo.bEnabled = false;
+		pVocabulary->sviVocabularyInfo.enabled = false;
 	} // if
 #endif
 } // Open
 
 const void VocabularyOrganizer::OpenAll(QWidget *pParent)
 {
-	int iVocabularies = _sSettings->GetVocabularyCount();
+	int iVocabularies = _sSettings->vocabularyCount();
 	for (int iI = 0; iI < iVocabularies; iI++) {
 		VocabularyInfo svVocabulary;
-		svVocabulary.sviVocabularyInfo = _sSettings->GetVocabularyInfo(iI);
+		svVocabulary.sviVocabularyInfo = _sSettings->vocabularyInfo(iI);
 		AddExisting(svVocabulary, pParent);
 	} // for
 } // OpenAll
@@ -155,16 +155,16 @@ const void VocabularyOrganizer::SaveAll()
 	int iVocabularies = _qlVocabularies.size();
 
 	for (int iI = 0; iI < iVocabularies; iI++) {
-		_sSettings->SetVocabularyInfo(iI, _qlVocabularies.at(iI).sviVocabularyInfo);
+		_sSettings->setVocabularyInfo(iI, _qlVocabularies.at(iI).sviVocabularyInfo);
 	} // for
-	_sSettings->SetVocabularyCount(iVocabularies);
+	_sSettings->setVocabularyCount(iVocabularies);
 } // SaveAll
 
 # ifndef EDITION_FREE
 const void VocabularyOrganizer::SetVocabularyEnabled(const int &pIndex, const bool &pEnabled, QWidget *pParent)
 {
 	VocabularyInfo *svVocabulary = &_qlVocabularies[pIndex];
-	svVocabulary->sviVocabularyInfo.bEnabled = pEnabled;
+	svVocabulary->sviVocabularyInfo.enabled = pEnabled;
 
 	if (pEnabled) {
 		Open(svVocabulary, pParent);

@@ -75,7 +75,7 @@ const void LicenseDialog::on_load_clicked(bool checked /* false */)
 	file.open(QIODevice::ReadOnly);
 	const QByteArray licenseData = file.readAll();
 
-	_settings->SetLicense(licenseData);
+	_settings->setLicense(licenseData);
 	_license->refreshLicense();
 
 	fillLicenseInfo();
