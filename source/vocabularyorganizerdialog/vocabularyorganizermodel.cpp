@@ -25,7 +25,7 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 #ifdef EDITION_TRY
 						return _voOrganizer->GetVocabularyInfo(index.row()).vVocabulary->GetName();
 #else
-						QString qsFile = _voOrganizer->GetVocabularyInfo(index.row()).sviVocabularyInfo.qsFile;
+						QString qsFile = _voOrganizer->GetVocabularyInfo(index.row()).sviVocabularyInfo.filePath;
 						return QDir::toNativeSeparators(qsFile);
 #endif
 					}
@@ -37,7 +37,7 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 			switch (role) {
 				case Qt::CheckStateRole:
 					{
-						bool bEnabled = _voOrganizer->GetVocabularyInfo(index.row()).sviVocabularyInfo.bEnabled;
+						bool bEnabled = _voOrganizer->GetVocabularyInfo(index.row()).sviVocabularyInfo.enabled;
 						if (bEnabled) {
 							return Qt::Checked;
 						} else {

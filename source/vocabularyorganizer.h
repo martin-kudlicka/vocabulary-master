@@ -13,7 +13,7 @@ class VocabularyOrganizer : public QObject
 			int iId;
 		}; // RecordInfo
 		struct VocabularyInfo {
-			Settings::sVocabularyInfo sviVocabularyInfo;
+			Settings::VocabularyInfo sviVocabularyInfo;
 			Vocabulary *vVocabulary;
 		}; // VocabularyInfo
 

@@ -44,7 +44,7 @@ const void LicenseTextDialog::showMainLicense(const Settings *settings) const
     LicenseCommon::LicenseContent licenseContent;
     licenseContent.title = "Vocabulary Master";
     QFile licenseFile;
-    if (settings->GetTranslation() == "cs_CZ.qm")
+    if (settings->translation() == "cs_CZ.qm")
 	{
         licenseFile.setFileName(":/res/eula/cze.txt");
     }

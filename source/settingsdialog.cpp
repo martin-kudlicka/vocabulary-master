@@ -28,7 +28,7 @@ const void SettingsDialog::ClearHotkey(HotkeyLineEdit *pControl) const
 const void SettingsDialog::FillColorFlash()
 {
     for (int iI = 0; iI < _usdSettingsDialog.qcbColorFlash->count(); iI++) {
-        if (_usdSettingsDialog.qcbColorFlash->itemData(iI, Qt::UserRole).toString() == _sSettings->GetColorFlash()) {
+        if (_usdSettingsDialog.qcbColorFlash->itemData(iI, Qt::UserRole).toString() == _sSettings->colorFlash()) {
             _usdSettingsDialog.qcbColorFlash->setCurrentIndex(iI);
             return;
         } // if
@@ -36,11 +36,11 @@ const void SettingsDialog::FillColorFlash()
 } // FillColorFlash
 
 # ifdef Q_OS_WIN
-const void SettingsDialog::FillHotkey(HotkeyLineEdit *pControl, const Settings::eHotkey &pHotkey) const
+const void SettingsDialog::FillHotkey(HotkeyLineEdit *pControl, const Settings::Hotkey &pHotkey) const
 {
-	Settings::sHotKeyInfo shkiHotkey = _sSettings->GetHotkey(pHotkey);
-	pControl->setText(shkiHotkey.qsText);
-	pControl->setProperty(PROPERTY_VIRTUALKEY, shkiHotkey.qui32VirtualKey);
+	Settings::HotKeyInfo shkiHotkey = _sSettings->hotkey(pHotkey);
+	pControl->setText(shkiHotkey.text);
+	pControl->setProperty(PROPERTY_VIRTUALKEY, shkiHotkey.virtualKey);
 } // FillHotkey
 # endif
 #endif
@@ -49,49 +49,49 @@ const void SettingsDialog::FillOptions()
 {
     // general
 #ifndef EDITION_FREE
-    _usdSettingsDialog.qcbHorizontalLayout->setChecked(_sSettings->GetHorizontalLayout());
+    _usdSettingsDialog.qcbHorizontalLayout->setChecked(_sSettings->horizontalLayout());
 #endif
-    _usdSettingsDialog.qcbAlwaysOnTop->setChecked(_sSettings->GetAlwaysOnTop());
+    _usdSettingsDialog.qcbAlwaysOnTop->setChecked(_sSettings->alwaysOnTop());
 #ifndef EDITION_FREE
-    _usdSettingsDialog.qcbRememberWindowPosition->setChecked(_sSettings->GetRememberWindowPosition());
-    _usdSettingsDialog.qcbSystemTrayIcon->setChecked(_sSettings->GetSystemTrayIcon());
+    _usdSettingsDialog.qcbRememberWindowPosition->setChecked(_sSettings->rememberWindowPosition());
+    _usdSettingsDialog.qcbSystemTrayIcon->setChecked(_sSettings->systemTrayIcon());
 	on_qcbSystemTrayIcon_stateChanged(_usdSettingsDialog.qcbSystemTrayIcon->checkState());
-	_usdSettingsDialog.qcbShowWordsInTrayBalloon->setChecked(_sSettings->GetShowWordsInTrayBalloon());
-	_usdSettingsDialog.qcbMinimizeToTray->setChecked(_sSettings->GetMinimizeToTray());
+	_usdSettingsDialog.qcbShowWordsInTrayBalloon->setChecked(_sSettings->showWordsInTrayBalloon());
+	_usdSettingsDialog.qcbMinimizeToTray->setChecked(_sSettings->minimizeToTray());
 #endif
 	FillTranslation();
-	_usdSettingsDialog.qcbUpdateCheck->setChecked(_sSettings->GetUpdateCheck());
+	_usdSettingsDialog.qcbUpdateCheck->setChecked(_sSettings->updateCheck());
 
     // learning
-    _usdSettingsDialog.qsbWordsFrequency->setValue(_sSettings->GetWordsFrequency());
+    _usdSettingsDialog.qsbWordsFrequency->setValue(_sSettings->wordsFrequency());
 #ifndef EDITION_FREE
-	_usdSettingsDialog.qsbWaitForAnswer->setMaximum(_sSettings->GetWordsFrequency() - 1);
-	_usdSettingsDialog.qsbWaitForAnswer->setValue(_sSettings->GetWaitForAnswer());
-	_usdSettingsDialog.qcbNewWordSound->setChecked(_sSettings->GetNewWordSound());
-    if (_sSettings->GetNewWordSoundType() == Settings::NewWordSoundTypeSystem) {
+	_usdSettingsDialog.qsbWaitForAnswer->setMaximum(_sSettings->wordsFrequency() - 1);
+	_usdSettingsDialog.qsbWaitForAnswer->setValue(_sSettings->waitForAnswer());
+	_usdSettingsDialog.qcbNewWordSound->setChecked(_sSettings->newWordSound());
+    if (_sSettings->newWordSoundType() == Settings::NewWordSoundTypeSystem) {
         _usdSettingsDialog.qrbSoundSystem->click();
     } else {
         _usdSettingsDialog.qrbSoundCustom->click();
     } // if else
-    _usdSettingsDialog.qleSoundCustom->setText(_sSettings->GetNewWordSoundFile());
-	_usdSettingsDialog.qcbNewWordFlash->setChecked(_sSettings->GetNewWordFlash());
-	_usdSettingsDialog.qcbLearnDisabledWords->setChecked(_sSettings->GetLearnDisabledWords());
+    _usdSettingsDialog.qleSoundCustom->setText(_sSettings->newWordSoundFile());
+	_usdSettingsDialog.qcbNewWordFlash->setChecked(_sSettings->newWordFlash());
+	_usdSettingsDialog.qcbLearnDisabledWords->setChecked(_sSettings->learnDisabledWords());
 #endif
-	_usdSettingsDialog.qcbSwitchLearningDirection->setCheckState(_sSettings->GetSwitchLearningDirection());
+	_usdSettingsDialog.qcbSwitchLearningDirection->setCheckState(_sSettings->switchLearningDirection());
 #ifndef EDITION_FREE
-	_usdSettingsDialog.qcbStartLearningOnStartup->setChecked(_sSettings->GetStartLearningOnStartup());
+	_usdSettingsDialog.qcbStartLearningOnStartup->setChecked(_sSettings->startLearningOnStartup());
 #endif
 
 #ifndef EDITION_FREE
     // appearance
-	_usdSettingsDialog.qcbMainWindowToolBar->setChecked(_sSettings->GetShowToolBar());
-	_usdSettingsDialog.qcbMainWindowLanguageNames->setChecked(_sSettings->GetShowLanguageNames());
-	_usdSettingsDialog.qcbMainWindowCategoryName->setChecked(_sSettings->GetShowCategoryName());
-	_usdSettingsDialog.qcbMainWindowRecordControls->setChecked(_sSettings->GetShowRecordControls());
-	_usdSettingsDialog.qcbMainWindowStatusBar->setChecked(_sSettings->GetShowStatusBar());
+	_usdSettingsDialog.qcbMainWindowToolBar->setChecked(_sSettings->showToolBar());
+	_usdSettingsDialog.qcbMainWindowLanguageNames->setChecked(_sSettings->showLanguageNames());
+	_usdSettingsDialog.qcbMainWindowCategoryName->setChecked(_sSettings->showCategoryName());
+	_usdSettingsDialog.qcbMainWindowRecordControls->setChecked(_sSettings->showRecordControls());
+	_usdSettingsDialog.qcbMainWindowStatusBar->setChecked(_sSettings->showStatusBar());
 	FillColorFlash();
-    _usdSettingsDialog.qcbVocabularyManagerCategoriesEnable->setChecked(_sSettings->GetCanEnableCategories());
-	_usdSettingsDialog.qcbVocabularyManagerCategoryPriority->setChecked(_sSettings->GetCanChangeCategoryPriority());
+    _usdSettingsDialog.qcbVocabularyManagerCategoriesEnable->setChecked(_sSettings->canEnableCategories());
+	_usdSettingsDialog.qcbVocabularyManagerCategoryPriority->setChecked(_sSettings->canChangeCategoryPriority());
 
 # ifdef Q_OS_WIN
     // hotkeys
@@ -110,12 +110,12 @@ const void SettingsDialog::FillOptions()
 #endif
 
 	// network
-	_usdSettingsDialog.qgbUseProxy->setChecked(_sSettings->GetUseProxy());
-	_usdSettingsDialog.qleProxyHostname->setText(_sSettings->GetProxyHostname());
-	_usdSettingsDialog.qsbProxyPort->setValue(_sSettings->GetProxyPort());
-	_usdSettingsDialog.qleProxyUsername->setText(_sSettings->GetProxyUsername());
-	_usdSettingsDialog.qleProxyPassword->setText(_sSettings->GetProxyPassword());
-	switch (_sSettings->GetProxyType()) {
+	_usdSettingsDialog.qgbUseProxy->setChecked(_sSettings->useProxy());
+	_usdSettingsDialog.qleProxyHostname->setText(_sSettings->proxyHostname());
+	_usdSettingsDialog.qsbProxyPort->setValue(_sSettings->proxyPort());
+	_usdSettingsDialog.qleProxyUsername->setText(_sSettings->proxyUsername());
+	_usdSettingsDialog.qleProxyPassword->setText(_sSettings->proxyPassword());
+	switch (_sSettings->proxyType()) {
 		case QNetworkProxy::HttpProxy:
 			_usdSettingsDialog.qrbProxyTypeHttp->setChecked(true);
 			break;
@@ -130,7 +130,7 @@ const void SettingsDialog::FillOptions()
 const void SettingsDialog::FillTranslation()
 {
 	for (int iI = 0; iI < _usdSettingsDialog.qcbLanguage->count(); iI++) {
-		if (_usdSettingsDialog.qcbLanguage->itemData(iI) == _sSettings->GetTranslation()) {
+		if (_usdSettingsDialog.qcbLanguage->itemData(iI) == _sSettings->translation()) {
 			_usdSettingsDialog.qcbLanguage->setCurrentIndex(iI);
 			return;
 		} // if
@@ -202,7 +202,7 @@ const void SettingsDialog::on_qpbShowLicense_clicked(bool checked /* false */)
 
 const void SettingsDialog::on_qbpSoundBrowse_clicked(bool checked /* false */)
 {
-    QString qsOldFile = _sSettings->GetNewWordSoundFile();
+    QString qsOldFile = _sSettings->newWordSoundFile();
     QString qsFile = QFileDialog::getOpenFileName(this, tr("Sound file"), QFileInfo(qsOldFile).path()
 #ifdef Q_OS_WIN
         , tr("sound files (*.wav)")
@@ -269,14 +269,14 @@ const void SettingsDialog::PrepareTranslations()
 } // PrepareTranslations
 
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
-const void SettingsDialog::SaveHotkey(const HotkeyLineEdit *pControl, const Settings::eHotkey &pHotkey) const
+const void SettingsDialog::SaveHotkey(const HotkeyLineEdit *pControl, const Settings::Hotkey &pHotkey) const
 {
-	Settings::sHotKeyInfo shkiHotkey;
+	Settings::HotKeyInfo shkiHotkey;
 
-	shkiHotkey.qsText = pControl->text();
-	shkiHotkey.qui32VirtualKey = pControl->property(PROPERTY_VIRTUALKEY).toUInt();
+	shkiHotkey.text = pControl->text();
+	shkiHotkey.virtualKey = pControl->property(PROPERTY_VIRTUALKEY).toUInt();
 
-	_sSettings->SetHotkey(pHotkey, shkiHotkey);
+	_sSettings->setHotkey(pHotkey, shkiHotkey);
 } // SaveHotkey
 #endif
 
@@ -284,47 +284,47 @@ const void SettingsDialog::SaveOptions()
 {
     // general
 #ifndef EDITION_FREE
-    _sSettings->SetHorizontalLayout(_usdSettingsDialog.qcbHorizontalLayout->isChecked());
+    _sSettings->setHorizontalLayout(_usdSettingsDialog.qcbHorizontalLayout->isChecked());
 #endif
-    _sSettings->SetAlwaysOnTop(_usdSettingsDialog.qcbAlwaysOnTop->isChecked());
+    _sSettings->setAlwaysOnTop(_usdSettingsDialog.qcbAlwaysOnTop->isChecked());
 #ifndef EDITION_FREE
-    _sSettings->SetRememberWindowPosition(_usdSettingsDialog.qcbRememberWindowPosition->isChecked());
-    _sSettings->SetSystemTrayIcon(_usdSettingsDialog.qcbSystemTrayIcon->isChecked());
-	_sSettings->SetShowWordsInTrayBalloon(_usdSettingsDialog.qcbShowWordsInTrayBalloon->isChecked());
-	_sSettings->SetMinimizeToTray(_usdSettingsDialog.qcbMinimizeToTray->isChecked());
+    _sSettings->setRememberWindowPosition(_usdSettingsDialog.qcbRememberWindowPosition->isChecked());
+    _sSettings->setSystemTrayIcon(_usdSettingsDialog.qcbSystemTrayIcon->isChecked());
+	_sSettings->setShowWordsInTrayBalloon(_usdSettingsDialog.qcbShowWordsInTrayBalloon->isChecked());
+	_sSettings->setMinimizeToTray(_usdSettingsDialog.qcbMinimizeToTray->isChecked());
 #endif
-	_sSettings->SetTranslation(_usdSettingsDialog.qcbLanguage->itemData(_usdSettingsDialog.qcbLanguage->currentIndex()).toString());
-	_sSettings->SetUpdateCheck(_usdSettingsDialog.qcbUpdateCheck->isChecked());
+	_sSettings->setTranslation(_usdSettingsDialog.qcbLanguage->itemData(_usdSettingsDialog.qcbLanguage->currentIndex()).toString());
+	_sSettings->setUpdateCheck(_usdSettingsDialog.qcbUpdateCheck->isChecked());
 
     // learning
-    _sSettings->SetWordsFrequency(_usdSettingsDialog.qsbWordsFrequency->value());
+    _sSettings->setWordsFrequency(_usdSettingsDialog.qsbWordsFrequency->value());
 #ifndef EDITION_FREE
-	_sSettings->SetWaitForAnswer(_usdSettingsDialog.qsbWaitForAnswer->value());
-	_sSettings->SetNewWordSound(_usdSettingsDialog.qcbNewWordSound->isChecked());
+	_sSettings->setWaitForAnswer(_usdSettingsDialog.qsbWaitForAnswer->value());
+	_sSettings->setNewWordSound(_usdSettingsDialog.qcbNewWordSound->isChecked());
     if (_usdSettingsDialog.qrbSoundSystem->isChecked()) {
-        _sSettings->SetNewWordSoundType(Settings::NewWordSoundTypeSystem);
+        _sSettings->setNewWordSoundType(Settings::NewWordSoundTypeSystem);
     } else {
-        _sSettings->SetNewWordSoundType(Settings::NewWordSoundTypeCustom);
+        _sSettings->setNewWordSoundType(Settings::NewWordSoundTypeCustom);
     } // if else
-    _sSettings->SetNewWordSoundFile(_usdSettingsDialog.qleSoundCustom->text());
-	_sSettings->SetNewWordFlash(_usdSettingsDialog.qcbNewWordFlash->isChecked());
-	_sSettings->SetLearnDisabledWords(_usdSettingsDialog.qcbLearnDisabledWords->isChecked());
+    _sSettings->setNewWordSoundFile(_usdSettingsDialog.qleSoundCustom->text());
+	_sSettings->setNewWordFlash(_usdSettingsDialog.qcbNewWordFlash->isChecked());
+	_sSettings->setLearnDisabledWords(_usdSettingsDialog.qcbLearnDisabledWords->isChecked());
 #endif
-	_sSettings->SetSwitchLearningDirection(_usdSettingsDialog.qcbSwitchLearningDirection->checkState());
+	_sSettings->setSwitchLearningDirection(_usdSettingsDialog.qcbSwitchLearningDirection->checkState());
 #ifndef EDITION_FREE
-	_sSettings->SetStartLearningOnStartup(_usdSettingsDialog.qcbStartLearningOnStartup->isChecked());
+	_sSettings->setStartLearningOnStartup(_usdSettingsDialog.qcbStartLearningOnStartup->isChecked());
 #endif
 
 #ifndef EDITION_FREE
     // appearance
-	_sSettings->SetShowToolBar(_usdSettingsDialog.qcbMainWindowToolBar->isChecked());
-	_sSettings->SetShowLanguageNames(_usdSettingsDialog.qcbMainWindowLanguageNames->isChecked());
-	_sSettings->SetShowCategoryName(_usdSettingsDialog.qcbMainWindowCategoryName->isChecked());
-	_sSettings->SetShowRecordControls(_usdSettingsDialog.qcbMainWindowRecordControls->isChecked());
-	_sSettings->SetShowStatusBar(_usdSettingsDialog.qcbMainWindowStatusBar->isChecked());
-	_sSettings->SetColorFlash(_usdSettingsDialog.qcbColorFlash->itemData(_usdSettingsDialog.qcbColorFlash->currentIndex()).toString());
-    _sSettings->SetCanEnableCategories(_usdSettingsDialog.qcbVocabularyManagerCategoriesEnable->isChecked());
-	_sSettings->SetCanChangeCategoryPriority(_usdSettingsDialog.qcbVocabularyManagerCategoryPriority->isChecked());
+	_sSettings->setShowToolBar(_usdSettingsDialog.qcbMainWindowToolBar->isChecked());
+	_sSettings->setShowLanguageNames(_usdSettingsDialog.qcbMainWindowLanguageNames->isChecked());
+	_sSettings->setShowCategoryName(_usdSettingsDialog.qcbMainWindowCategoryName->isChecked());
+	_sSettings->setShowRecordControls(_usdSettingsDialog.qcbMainWindowRecordControls->isChecked());
+	_sSettings->setShowStatusBar(_usdSettingsDialog.qcbMainWindowStatusBar->isChecked());
+	_sSettings->setColorFlash(_usdSettingsDialog.qcbColorFlash->itemData(_usdSettingsDialog.qcbColorFlash->currentIndex()).toString());
+    _sSettings->setCanEnableCategories(_usdSettingsDialog.qcbVocabularyManagerCategoriesEnable->isChecked());
+	_sSettings->setCanChangeCategoryPriority(_usdSettingsDialog.qcbVocabularyManagerCategoryPriority->isChecked());
 
 # ifdef Q_OS_WIN
 	// hotkeys
@@ -338,18 +338,18 @@ const void SettingsDialog::SaveOptions()
 #endif
 
 	// network
-	_sSettings->SetUseProxy(_usdSettingsDialog.qgbUseProxy->isChecked());
-	_sSettings->SetProxyHostname(_usdSettingsDialog.qleProxyHostname->text());
-	_sSettings->SetProxyPort(_usdSettingsDialog.qsbProxyPort->value());
-	_sSettings->SetProxyUsername(_usdSettingsDialog.qleProxyUsername->text());
-	_sSettings->SetProxyPassword(_usdSettingsDialog.qleProxyPassword->text());
+	_sSettings->setUseProxy(_usdSettingsDialog.qgbUseProxy->isChecked());
+	_sSettings->setProxyHostname(_usdSettingsDialog.qleProxyHostname->text());
+	_sSettings->setProxyPort(_usdSettingsDialog.qsbProxyPort->value());
+	_sSettings->setProxyUsername(_usdSettingsDialog.qleProxyUsername->text());
+	_sSettings->setProxyPassword(_usdSettingsDialog.qleProxyPassword->text());
 	if (_usdSettingsDialog.qrbProxyTypeHttp->isChecked()) {
-		_sSettings->SetProxyType(QNetworkProxy::HttpProxy);
+		_sSettings->setProxyType(QNetworkProxy::HttpProxy);
 	} else {
 		if (_usdSettingsDialog.qrbProxyTypeSocks5->isChecked()) {
-			_sSettings->SetProxyType(QNetworkProxy::Socks5Proxy);
+			_sSettings->setProxyType(QNetworkProxy::Socks5Proxy);
 		} else {
-			_sSettings->SetProxyType(QNetworkProxy::HttpCachingProxy);
+			_sSettings->setProxyType(QNetworkProxy::HttpCachingProxy);
 		} // if else
 	} // if else
 } // SaveOptions

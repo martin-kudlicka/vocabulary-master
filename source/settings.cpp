@@ -68,44 +68,44 @@ const QString SHORTCUT_NEXT = "Next";
 const QString SHORTCUT_RESTORE = "Restore";
 #endif
 
-const bool Settings::GetAlwaysOnTop() const
+const bool Settings::alwaysOnTop() const
 {
-    return _qsSettings.value(KEY_ALWAYSONTOP, false).toBool();
-} // GetAlwaysOnTop
+    return _settings.value(KEY_ALWAYSONTOP, false).toBool();
+} // alwaysOnTop
 
 #ifndef EDITION_FREE
-const bool Settings::GetCanChangeCategoryPriority() const
+const bool Settings::canChangeCategoryPriority() const
 {
-    return _qsSettings.value(KEY_CANCHANGECATEGORYPRIORITY, true).toBool();
-} // GetCanChangeCategoryPriority
+    return _settings.value(KEY_CANCHANGECATEGORYPRIORITY, true).toBool();
+} // canChangeCategoryPriority
 
-const bool Settings::GetCanEnableCategories() const
+const bool Settings::canEnableCategories() const
 {
-    return _qsSettings.value(KEY_CANENABLECATEGORIES, true).toBool();
-} // GetCanEnableCategories
+    return _settings.value(KEY_CANENABLECATEGORIES, true).toBool();
+} // canEnableCategories
 
-const QString Settings::GetColorFlash() const
+const QString Settings::colorFlash() const
 {
-    return _qsSettings.value(KEY_COLORFLASH, DEFAULT_COLORFLASH).toString();
-} // GetColorFlash
+    return _settings.value(KEY_COLORFLASH, DEFAULT_COLORFLASH).toString();
+} // colorFlash
 
-const bool Settings::GetHorizontalLayout() const
+const bool Settings::horizontalLayout() const
 {
-    return _qsSettings.value(KEY_HORIZONTALLAYOUT, false).toBool();
-} // GetHorizontalLayout
+    return _settings.value(KEY_HORIZONTALLAYOUT, false).toBool();
+} // horizontalLayout
 
 # ifdef Q_OS_WIN
-const Settings::sHotKeyInfo Settings::GetHotkey(const eHotkey &pType) const
+const Settings::HotKeyInfo Settings::hotkey(const Hotkey &pType) const
 {
-	sHotKeyInfo shkiHotKey;
+	HotKeyInfo shkiHotKey;
 
-	shkiHotKey.qsText = _qsSettings.value(GetHotkeyKeyText(pType)).toString();
-	shkiHotKey.qui32VirtualKey = _qsSettings.value(GetHotkeyKeyVirtualKey(pType)).toUInt();
+	shkiHotKey.text = _settings.value(hotkeyKeyText(pType)).toString();
+	shkiHotKey.virtualKey = _settings.value(hotkeyKeyVirtualKey(pType)).toUInt();
 
     return shkiHotKey;
-} // GetHotkey
+} // hotkey
 
-const QString Settings::GetHotkeyKey(const eHotkey &pType) const
+const QString Settings::hotkeyKey(const Hotkey &pType) const
 {
     QString qsKey = KEY_HOTKEY;
 
@@ -125,463 +125,463 @@ const QString Settings::GetHotkeyKey(const eHotkey &pType) const
     } // switch
 
     return qsKey;
-} // GetHotkeyKey
+} // hotkeyKey
 
-const QString Settings::GetHotkeyKeyText(const eHotkey &pType) const
+const QString Settings::hotkeyKeyText(const Hotkey &pType) const
 {
-	return GetHotkeyKey(pType) + "Text";
-} // GetHotkeyKeyText
+	return hotkeyKey(pType) + "Text";
+} // hotkeyKeyText
 
-const QString Settings::GetHotkeyKeyVirtualKey(const eHotkey &pType) const
+const QString Settings::hotkeyKeyVirtualKey(const Hotkey &pType) const
 {
-	return GetHotkeyKey(pType) + "VirtualKey";
-} // GetHotkeyKeyVirtualKey
+	return hotkeyKey(pType) + "VirtualKey";
+} // hotkeyKeyVirtualKey
 # endif
 
-const bool Settings::GetLearnDisabledWords() const
+const bool Settings::learnDisabledWords() const
 {
-	return _qsSettings.value(KEY_LEARNDISABLEDWORDS, false).toBool();
-} // GetLearnDisabledWords
+	return _settings.value(KEY_LEARNDISABLEDWORDS, false).toBool();
+} // learnDisabledWords
 
-const QByteArray Settings::GetLicense() const
+const QByteArray Settings::license() const
 {
-    return _qsSettings.value(KEY_LICENSE).toByteArray();
-} // GetLicense
+    return _settings.value(KEY_LICENSE).toByteArray();
+} // license
 
-const bool Settings::GetMinimizeToTray() const
+const bool Settings::minimizeToTray() const
 {
-	return _qsSettings.value(KEY_MINIMIZETOTRAY, false).toBool();
-} // GetMinimizeToTray
+	return _settings.value(KEY_MINIMIZETOTRAY, false).toBool();
+} // minimizeToTray
 
-const bool Settings::GetMute() const
+const bool Settings::mute() const
 {
-    return _qsSettings.value(KEY_MUTE, false).toBool();
-} // GetMute
+    return _settings.value(KEY_MUTE, false).toBool();
+} // mute
 
-const bool Settings::GetNewWordFlash() const
+const bool Settings::newWordFlash() const
 {
-	return _qsSettings.value(KEY_NEWWORDFLASH, false).toBool();
-} // GetNewWordFlash
+	return _settings.value(KEY_NEWWORDFLASH, false).toBool();
+} // newWordFlash
 
-const bool Settings::GetNewWordSound() const
+const bool Settings::newWordSound() const
 {
-	return _qsSettings.value(KEY_NEWWORDSOUND, true).toBool();
-} // GetNewWordSound
+	return _settings.value(KEY_NEWWORDSOUND, true).toBool();
+} // newWordSound
 
-const QString Settings::GetNewWordSoundFile() const
+const QString Settings::newWordSoundFile() const
 {
-    return _qsSettings.value(KEY_NEWWORDSOUNDFILE).toString();
-} // GetNewWordSoundFile
+    return _settings.value(KEY_NEWWORDSOUNDFILE).toString();
+} // newWordSoundFile
 
-const Settings::eNewWordSoundType Settings::GetNewWordSoundType() const
+const Settings::NewWordSoundType Settings::newWordSoundType() const
 {
-    return static_cast<eNewWordSoundType>(_qsSettings.value(KEY_NEWWORDSOUNDTYPE, NewWordSoundTypeSystem).toInt());
-} // GetNewWordSoundType
+    return static_cast<NewWordSoundType>(_settings.value(KEY_NEWWORDSOUNDTYPE, NewWordSoundTypeSystem).toInt());
+} // newWordSoundType
 #endif
 
-const QString Settings::GetProxyHostname() const
+const QString Settings::proxyHostname() const
 {
-	return _qsSettings.value(KEY_PROXYHOSTNAME).toString();
-} // GetProxyHostname
+	return _settings.value(KEY_PROXYHOSTNAME).toString();
+} // proxyHostname
 
-const QString Settings::GetProxyPassword() const
+const QString Settings::proxyPassword() const
 {
-	return _qsSettings.value(KEY_PROXYPASSWORD).toString();
-} // GetProxyPassword
+	return _settings.value(KEY_PROXYPASSWORD).toString();
+} // proxyPassword
 
-const quint16 Settings::GetProxyPort() const
+const quint16 Settings::proxyPort() const
 {
-	return _qsSettings.value(KEY_PROXYPORT, 8080).toInt();
-} // GetProxyPort
+	return _settings.value(KEY_PROXYPORT, 8080).toInt();
+} // proxyPort
 
-const QNetworkProxy::ProxyType Settings::GetProxyType() const
+const QNetworkProxy::ProxyType Settings::proxyType() const
 {
-	return static_cast<QNetworkProxy::ProxyType>(_qsSettings.value(KEY_PROXYTYPE, QNetworkProxy::HttpProxy).toInt());
-} // GetProxyType
+	return static_cast<QNetworkProxy::ProxyType>(_settings.value(KEY_PROXYTYPE, QNetworkProxy::HttpProxy).toInt());
+} // proxyType
 
-const QString Settings::GetProxyUsername() const
+const QString Settings::proxyUsername() const
 {
-	return _qsSettings.value(KEY_PROXYUSERNAME).toString();
-} // GetProxyUsername
+	return _settings.value(KEY_PROXYUSERNAME).toString();
+} // proxyUsername
 
 #ifndef EDITION_FREE
-const bool Settings::GetRememberWindowPosition() const
+const bool Settings::rememberWindowPosition() const
 {
-    return _qsSettings.value(KEY_REMEMBERWINDOWPOSITION, true).toBool();
-} // GetRememberWindowPosition
+    return _settings.value(KEY_REMEMBERWINDOWPOSITION, true).toBool();
+} // rememberWindowPosition
 
-const bool Settings::GetShowCategoryName() const
+const bool Settings::showCategoryName() const
 {
-	return _qsSettings.value(KEY_SHOWCATEGORYNAME, true).toBool();
-} // GetShowCategoryName
+	return _settings.value(KEY_SHOWCATEGORYNAME, true).toBool();
+} // showCategoryName
 
-const bool Settings::GetShowLanguageNames() const
+const bool Settings::showLanguageNames() const
 {
-	return _qsSettings.value(KEY_SHOWLANGUAGENAMES, true).toBool();
-} // GetShowLanguageNames
+	return _settings.value(KEY_SHOWLANGUAGENAMES, true).toBool();
+} // showLanguageNames
 
-const bool Settings::GetShowRecordControls() const
+const bool Settings::showRecordControls() const
 {
-	return _qsSettings.value(KEY_SHOWRECORDCONTROLS, true).toBool();
-} // GetShowRecordControls
+	return _settings.value(KEY_SHOWRECORDCONTROLS, true).toBool();
+} // showRecordControls
 
-const bool Settings::GetShowStatusBar() const
+const bool Settings::showStatusBar() const
 {
-	return _qsSettings.value(KEY_SHOWSTATUSBAR, true).toBool();
-} // GetShowStatusBar
+	return _settings.value(KEY_SHOWSTATUSBAR, true).toBool();
+} // showStatusBar
 
-const bool Settings::GetShowToolBar() const
+const bool Settings::showToolBar() const
 {
-	return _qsSettings.value(KEY_SHOWTOOLBAR, true).toBool();
-} // GetShowToolBar
+	return _settings.value(KEY_SHOWTOOLBAR, true).toBool();
+} // showToolBar
 
-const bool Settings::GetShowWordsInTrayBalloon() const
+const bool Settings::showWordsInTrayBalloon() const
 {
-	return _qsSettings.value(KEY_SHOWWORDSINTRAYBALLOON, false).toBool();
-} // GetShowWordsInTrayBalloon
+	return _settings.value(KEY_SHOWWORDSINTRAYBALLOON, false).toBool();
+} // showWordsInTrayBalloon
 
-const bool Settings::GetStartLearningOnStartup() const
+const bool Settings::startLearningOnStartup() const
 {
-	return _qsSettings.value(KEY_STARTLEARNINGONSTARTUP, false).toBool();
-} // GetStartLearningOnStartup
+	return _settings.value(KEY_STARTLEARNINGONSTARTUP, false).toBool();
+} // startLearningOnStartup
 #endif
 
-const Qt::CheckState Settings::GetSwitchLearningDirection() const
+const Qt::CheckState Settings::switchLearningDirection() const
 {
-	return static_cast<Qt::CheckState>(_qsSettings.value(KEY_SWITCHLEARNINGDIRECTION, false).toInt());
-} // GetSwitchLearningDirection
+	return static_cast<Qt::CheckState>(_settings.value(KEY_SWITCHLEARNINGDIRECTION, false).toInt());
+} // switchLearningDirection
 
 #ifndef EDITION_FREE
-const bool Settings::GetSystemTrayIcon() const
+const bool Settings::systemTrayIcon() const
 {
-    return _qsSettings.value(KEY_SYSTEMTRAYICON, false).toBool();
-} // GetSystemTrayIcon
+    return _settings.value(KEY_SYSTEMTRAYICON, false).toBool();
+} // systemTrayIcon
 #endif
 
-const QString Settings::GetTranslation() const
+const QString Settings::translation() const
 {
-    return _qsSettings.value(KEY_TRANSLATION).toString();
-} // GetTranslation
+    return _settings.value(KEY_TRANSLATION).toString();
+} // translation
 
-const bool Settings::GetUpdateCheck() const
+const bool Settings::updateCheck() const
 {
-	return _qsSettings.value(KEY_UPDATECHECK, true).toBool();
-} // GetUpdateCheck
+	return _settings.value(KEY_UPDATECHECK, true).toBool();
+} // updateCheck
 
-const bool Settings::GetUseProxy() const
+const bool Settings::useProxy() const
 {
-	return _qsSettings.value(KEY_USEPROXY, false).toBool();
-} // GetUseProxy
+	return _settings.value(KEY_USEPROXY, false).toBool();
+} // useProxy
 
 #ifndef EDITION_TRY
-const int Settings::GetVocabularyCount()
+const int Settings::vocabularyCount()
 {
-	int iCount = _qsSettings.beginReadArray(ARRAY_VOCABULARIES);
-	_qsSettings.endArray();
+	int iCount = _settings.beginReadArray(ARRAY_VOCABULARIES);
+	_settings.endArray();
 
 #ifdef EDITION_FREE
 	return qMin(iCount, EDITION_FREE_VOCABULARIES_MAX);
 #else
 	return iCount;
 #endif
-} // GetVocabularyCount
+} // vocabularyCount
 
-const Settings::sVocabularyInfo Settings::GetVocabularyInfo(const int &pIndex)
+const Settings::VocabularyInfo Settings::vocabularyInfo(const int &pIndex)
 {
-	sVocabularyInfo sviVocabularyInfo;
+	VocabularyInfo sviVocabularyInfo;
 
-	_qsSettings.beginReadArray(ARRAY_VOCABULARIES);
-	_qsSettings.setArrayIndex(pIndex);
-	sviVocabularyInfo.qsFile = _qsSettings.value(KEY_VOCABULARYFILE).toString();
+	_settings.beginReadArray(ARRAY_VOCABULARIES);
+	_settings.setArrayIndex(pIndex);
+	sviVocabularyInfo.filePath = _settings.value(KEY_VOCABULARYFILE).toString();
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-	sviVocabularyInfo.bEnabled = _qsSettings.value(KEY_ENABLED, true).toBool();
+	sviVocabularyInfo.enabled = _settings.value(KEY_ENABLED, true).toBool();
 #endif
-	_qsSettings.endArray();
+	_settings.endArray();
 
 	return sviVocabularyInfo;
-} // GetVocabularyInfo
+} // vocabularyInfo
 #endif
 
-const int Settings::GetWaitForAnswer() const
+const int Settings::waitForAnswer() const
 {
 #ifndef EDITION_FREE
-	return _qsSettings.value(KEY_WAITFORANSWER, DEFAULT_WAIT).toInt();
+	return _settings.value(KEY_WAITFORANSWER, DEFAULT_WAIT).toInt();
 #else
     return DEFAULT_WAIT;
 #endif
-} // GetWaitForAnswer
+} // waitForAnswer
 
 #ifndef EDITION_FREE
-const int Settings::GetWindowHeight() const
+const int Settings::windowHeight() const
 {
-	return _qsSettings.value(KEY_WINDOWHEIGHT, DEFAULT_DIMENSION).toInt();
-} // GetWindowHeight
+	return _settings.value(KEY_WINDOWHEIGHT, DEFAULT_DIMENSION).toInt();
+} // windowHeight
 
-const int Settings::GetWindowWidth() const
+const int Settings::windowWidth() const
 {
-	return _qsSettings.value(KEY_WINDOWWIDTH, DEFAULT_DIMENSION).toInt();
-} // GetWindowWidth
+	return _settings.value(KEY_WINDOWWIDTH, DEFAULT_DIMENSION).toInt();
+} // windowWidth
 
-const int Settings::GetWindowX() const
+const int Settings::windowX() const
 {
-	return _qsSettings.value(KEY_WINDOWX, DEFAULT_DIMENSION).toInt();
-} // GetWindowX
+	return _settings.value(KEY_WINDOWX, DEFAULT_DIMENSION).toInt();
+} // windowX
 
-const int Settings::GetWindowY() const
+const int Settings::windowY() const
 {
-	return _qsSettings.value(KEY_WINDOWY, DEFAULT_DIMENSION).toInt();
-} // GetWindowY
+	return _settings.value(KEY_WINDOWY, DEFAULT_DIMENSION).toInt();
+} // windowY
 #endif
 
-const int Settings::GetWordsFrequency() const
+const int Settings::wordsFrequency() const
 {
-    return _qsSettings.value(KEY_WORDSFREQUENCY, DEFAULT_FREQUENCY).toInt();
-} // GetWordsFrequency
+    return _settings.value(KEY_WORDSFREQUENCY, DEFAULT_FREQUENCY).toInt();
+} // wordsFrequency
 
-const void Settings::SetAlwaysOnTop(const bool &pEnable)
+const void Settings::setAlwaysOnTop(const bool &pEnable)
 {
-    _qsSettings.setValue(KEY_ALWAYSONTOP, pEnable);
-} // SetAlwaysOnTop
+    _settings.setValue(KEY_ALWAYSONTOP, pEnable);
+} // setAlwaysOnTop
 
 #ifndef EDITION_FREE
-const void Settings::SetCanChangeCategoryPriority(const bool &pEnable)
+const void Settings::setCanChangeCategoryPriority(const bool &pEnable)
 {
-    _qsSettings.setValue(KEY_CANCHANGECATEGORYPRIORITY, pEnable);
-} // SetCanChangeCategoryPriority
+    _settings.setValue(KEY_CANCHANGECATEGORYPRIORITY, pEnable);
+} // setCanChangeCategoryPriority
 
-const void Settings::SetCanEnableCategories(const bool &pEnable)
+const void Settings::setCanEnableCategories(const bool &pEnable)
 {
-    _qsSettings.setValue(KEY_CANENABLECATEGORIES, pEnable);
-} // SetCanEnableCategories
+    _settings.setValue(KEY_CANENABLECATEGORIES, pEnable);
+} // setCanEnableCategories
 
-const void Settings::SetColorFlash(const QString &pColor)
+const void Settings::setColorFlash(const QString &pColor)
 {
-    _qsSettings.setValue(KEY_COLORFLASH, pColor);
-} // SetColorFlash
+    _settings.setValue(KEY_COLORFLASH, pColor);
+} // setColorFlash
 
-const void Settings::SetHorizontalLayout(const bool &pEnable)
+const void Settings::setHorizontalLayout(const bool &pEnable)
 {
-    _qsSettings.setValue(KEY_HORIZONTALLAYOUT, pEnable);
-} // SetHorizontalLayout
+    _settings.setValue(KEY_HORIZONTALLAYOUT, pEnable);
+} // setHorizontalLayout
 
 # ifdef Q_OS_WIN
-const void Settings::SetHotkey(const eHotkey &pType, const sHotKeyInfo &pHotkey)
+const void Settings::setHotkey(const Hotkey &pType, const HotKeyInfo &pHotkey)
 {
-    _qsSettings.setValue(GetHotkeyKeyText(pType), pHotkey.qsText);
-	_qsSettings.setValue(GetHotkeyKeyVirtualKey(pType), pHotkey.qui32VirtualKey);
-} // SetHotkey
+    _settings.setValue(hotkeyKeyText(pType), pHotkey.text);
+	_settings.setValue(hotkeyKeyVirtualKey(pType), pHotkey.virtualKey);
+} // setHotkey
 # endif
 
-const void Settings::SetLearnDisabledWords(const bool &pEnable)
+const void Settings::setLearnDisabledWords(const bool &pEnable)
 {
-	_qsSettings.setValue(KEY_LEARNDISABLEDWORDS, pEnable);
-} // SetLearnDisabledWords
+	_settings.setValue(KEY_LEARNDISABLEDWORDS, pEnable);
+} // setLearnDisabledWords
 
-const void Settings::SetLicense(const QByteArray &pLicense)
+const void Settings::setLicense(const QByteArray &pLicense)
 {
-	_qsSettings.setValue(KEY_LICENSE, pLicense);
-} // SetLicense
+	_settings.setValue(KEY_LICENSE, pLicense);
+} // setLicense
 
-const void Settings::SetMinimizeToTray(const bool &pEnable)
+const void Settings::setMinimizeToTray(const bool &pEnable)
 {
-	_qsSettings.setValue(KEY_MINIMIZETOTRAY, pEnable);
-} // SetMinimizeToTray
+	_settings.setValue(KEY_MINIMIZETOTRAY, pEnable);
+} // setMinimizeToTray
 
-const void Settings::SetMute(const bool &pEnable)
+const void Settings::setMute(const bool &pEnable)
 {
-    _qsSettings.setValue(KEY_MUTE, pEnable);
-} // SetMute
+    _settings.setValue(KEY_MUTE, pEnable);
+} // setMute
 
-const void Settings::SetNewWordFlash(const bool &pEnable)
+const void Settings::setNewWordFlash(const bool &pEnable)
 {
-	_qsSettings.setValue(KEY_NEWWORDFLASH, pEnable);
-} // SetNewWordFlash
+	_settings.setValue(KEY_NEWWORDFLASH, pEnable);
+} // setNewWordFlash
 
-const void Settings::SetNewWordSound(const bool &pEnable)
+const void Settings::setNewWordSound(const bool &pEnable)
 {
-	_qsSettings.setValue(KEY_NEWWORDSOUND, pEnable);
-} // SetNewWordSound
+	_settings.setValue(KEY_NEWWORDSOUND, pEnable);
+} // setNewWordSound
 
-const void Settings::SetNewWordSoundFile(const QString &pFile)
+const void Settings::setNewWordSoundFile(const QString &pFile)
 {
-    _qsSettings.setValue(KEY_NEWWORDSOUNDFILE, pFile);
-} // SetNewWordSoundFile
+    _settings.setValue(KEY_NEWWORDSOUNDFILE, pFile);
+} // setNewWordSoundFile
 
-const void Settings::SetNewWordSoundType(const eNewWordSoundType &pType)
+const void Settings::setNewWordSoundType(const NewWordSoundType &pType)
 {
-    _qsSettings.setValue(KEY_NEWWORDSOUNDTYPE, pType);
-} // SetNewWordSoundType
+    _settings.setValue(KEY_NEWWORDSOUNDTYPE, pType);
+} // setNewWordSoundType
 #endif
 
-const void Settings::SetProxyHostname(const QString &pHostname)
+const void Settings::setProxyHostname(const QString &pHostname)
 {
-	_qsSettings.setValue(KEY_PROXYHOSTNAME, pHostname);
-} // SetProxyHostname
+	_settings.setValue(KEY_PROXYHOSTNAME, pHostname);
+} // setProxyHostname
 
-const void Settings::SetProxyPassword(const QString &pPassword)
+const void Settings::setProxyPassword(const QString &pPassword)
 {
-	_qsSettings.setValue(KEY_PROXYPASSWORD, pPassword);
-} // SetProxyPassword
+	_settings.setValue(KEY_PROXYPASSWORD, pPassword);
+} // setProxyPassword
 
-const void Settings::SetProxyPort(const quint16 &pPort)
+const void Settings::setProxyPort(const quint16 &pPort)
 {
-	_qsSettings.setValue(KEY_PROXYPORT, pPort);
-} // SetProxyPort
+	_settings.setValue(KEY_PROXYPORT, pPort);
+} // setProxyPort
 
-const void Settings::SetProxyType(const QNetworkProxy::ProxyType &pType)
+const void Settings::setProxyType(const QNetworkProxy::ProxyType &pType)
 {
-	_qsSettings.setValue(KEY_PROXYTYPE, pType);
-} // SetProxyType
+	_settings.setValue(KEY_PROXYTYPE, pType);
+} // setProxyType
 
-const void Settings::SetProxyUsername(const QString &pUsername)
+const void Settings::setProxyUsername(const QString &pUsername)
 {
-	_qsSettings.setValue(KEY_PROXYUSERNAME, pUsername);
-} // SetProxyUsername
+	_settings.setValue(KEY_PROXYUSERNAME, pUsername);
+} // setProxyUsername
 
 #ifndef EDITION_FREE
-const void Settings::SetRememberWindowPosition(const bool &pEnable)
+const void Settings::setRememberWindowPosition(const bool &pEnable)
 {
-    _qsSettings.setValue(KEY_REMEMBERWINDOWPOSITION, pEnable);
-} // SetRememberWindowPosition
+    _settings.setValue(KEY_REMEMBERWINDOWPOSITION, pEnable);
+} // setRememberWindowPosition
 
-const void Settings::SetShowCategoryName(const bool &pShow)
+const void Settings::setShowCategoryName(const bool &pShow)
 {
-	_qsSettings.setValue(KEY_SHOWCATEGORYNAME, pShow);
-} // SetShowCategoryName
+	_settings.setValue(KEY_SHOWCATEGORYNAME, pShow);
+} // setShowCategoryName
 
-const void Settings::SetShowLanguageNames(const bool &pShow)
+const void Settings::setShowLanguageNames(const bool &pShow)
 {
-	_qsSettings.setValue(KEY_SHOWLANGUAGENAMES, pShow);
-} // SetShowLanguageNames
+	_settings.setValue(KEY_SHOWLANGUAGENAMES, pShow);
+} // setShowLanguageNames
 
-const void Settings::SetShowRecordControls(const bool &pShow)
+const void Settings::setShowRecordControls(const bool &pShow)
 {
-	_qsSettings.setValue(KEY_SHOWRECORDCONTROLS, pShow);
-} // SetShowRecordControls
+	_settings.setValue(KEY_SHOWRECORDCONTROLS, pShow);
+} // setShowRecordControls
 
-const void Settings::SetShowStatusBar(const bool &pShow)
+const void Settings::setShowStatusBar(const bool &pShow)
 {
-	_qsSettings.setValue(KEY_SHOWSTATUSBAR, pShow);
-} // SetShowStatusBar
+	_settings.setValue(KEY_SHOWSTATUSBAR, pShow);
+} // setShowStatusBar
 
-const void Settings::SetShowToolBar(const bool &pShow)
+const void Settings::setShowToolBar(const bool &pShow)
 {
-	_qsSettings.setValue(KEY_SHOWTOOLBAR, pShow);
-} // SetShowToolBar
+	_settings.setValue(KEY_SHOWTOOLBAR, pShow);
+} // setShowToolBar
 
-const void Settings::SetShowWordsInTrayBalloon(const bool &pEnable)
+const void Settings::setShowWordsInTrayBalloon(const bool &pEnable)
 {
-	_qsSettings.setValue(KEY_SHOWWORDSINTRAYBALLOON, pEnable);
-} // SetShowWordsInTrayBalloon
+	_settings.setValue(KEY_SHOWWORDSINTRAYBALLOON, pEnable);
+} // setShowWordsInTrayBalloon
 
-const void Settings::SetStartLearningOnStartup(const bool &pEnable)
+const void Settings::setStartLearningOnStartup(const bool &pEnable)
 {
-	_qsSettings.setValue(KEY_STARTLEARNINGONSTARTUP, pEnable);
-} // SetStartLearningOnStartup
+	_settings.setValue(KEY_STARTLEARNINGONSTARTUP, pEnable);
+} // setStartLearningOnStartup
 #endif
 
-const void Settings::SetSwitchLearningDirection(const Qt::CheckState &pSwitch)
+const void Settings::setSwitchLearningDirection(const Qt::CheckState &pSwitch)
 {
-	_qsSettings.setValue(KEY_SWITCHLEARNINGDIRECTION, pSwitch);
-} // SetSwitchLearningDirection
+	_settings.setValue(KEY_SWITCHLEARNINGDIRECTION, pSwitch);
+} // setSwitchLearningDirection
 
 #ifndef EDITION_FREE
-const void Settings::SetSystemTrayIcon(const bool &pEnable)
+const void Settings::setSystemTrayIcon(const bool &pEnable)
 {
-    _qsSettings.setValue(KEY_SYSTEMTRAYICON, pEnable);
-} // SetSystemTrayIcon
+    _settings.setValue(KEY_SYSTEMTRAYICON, pEnable);
+} // setSystemTrayIcon
 #endif
 
-Settings::Settings() : _qsSettings(ORGANIZATION, APPLICATION)
+Settings::Settings() : _settings(ORGANIZATION, APPLICATION)
 {
 #ifndef EDITION_TRY
-	UpdateSettings();
+	updateSettings();
 #endif
 } // Settings
 
-const void Settings::SetTranslation(const QString &pTranslation)
+const void Settings::setTranslation(const QString &pTranslation)
 {
-    _qsSettings.setValue(KEY_TRANSLATION, pTranslation);
-} // SetTranslation
+    _settings.setValue(KEY_TRANSLATION, pTranslation);
+} // setTranslation
 
-const void Settings::SetUpdateCheck(const bool &pCheck)
+const void Settings::setUpdateCheck(const bool &pCheck)
 {
-	_qsSettings.setValue(KEY_UPDATECHECK, pCheck);
-} // SetUpdateCheck
+	_settings.setValue(KEY_UPDATECHECK, pCheck);
+} // setUpdateCheck
 
-const void Settings::SetUseProxy(const bool &pUse)
+const void Settings::setUseProxy(const bool &pUse)
 {
-	_qsSettings.setValue(KEY_USEPROXY, pUse);
-} // SetUseProxy
+	_settings.setValue(KEY_USEPROXY, pUse);
+} // setUseProxy
 
 #ifndef EDITION_TRY
-const void Settings::SetVocabularyCount(const int &pCount)
+const void Settings::setVocabularyCount(const int &pCount)
 {
-	_qsSettings.beginWriteArray(ARRAY_VOCABULARIES, pCount);
-	_qsSettings.endArray();
-} // SetVocabularyCount
+	_settings.beginWriteArray(ARRAY_VOCABULARIES, pCount);
+	_settings.endArray();
+} // setVocabularyCount
 
-const void Settings::SetVocabularyInfo(const int &pIndex, const sVocabularyInfo &pInfo)
+const void Settings::setVocabularyInfo(const int &pIndex, const VocabularyInfo &pInfo)
 {
-	_qsSettings.beginWriteArray(ARRAY_VOCABULARIES);
-	_qsSettings.setArrayIndex(pIndex);
-	_qsSettings.setValue(KEY_VOCABULARYFILE, pInfo.qsFile);
+	_settings.beginWriteArray(ARRAY_VOCABULARIES);
+	_settings.setArrayIndex(pIndex);
+	_settings.setValue(KEY_VOCABULARYFILE, pInfo.filePath);
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-	_qsSettings.setValue(KEY_ENABLED, pInfo.bEnabled);
+	_settings.setValue(KEY_ENABLED, pInfo.enabled);
 #endif
-	_qsSettings.endArray();
-} // SetVocabularyInfo
+	_settings.endArray();
+} // setVocabularyInfo
 #endif
 
 #ifndef EDITION_FREE
-const void Settings::SetWaitForAnswer(const int &pTime)
+const void Settings::setWaitForAnswer(const int &pTime)
 {
-	_qsSettings.setValue(KEY_WAITFORANSWER, pTime);
-} // SetWaitForAnswer
+	_settings.setValue(KEY_WAITFORANSWER, pTime);
+} // setWaitForAnswer
 
-const void Settings::SetWindowHeight(const int &pHeight)
+const void Settings::setWindowHeight(const int &pHeight)
 {
-	_qsSettings.setValue(KEY_WINDOWHEIGHT, pHeight);
-} // SetWindowHeight
+	_settings.setValue(KEY_WINDOWHEIGHT, pHeight);
+} // setWindowHeight
 
-const void Settings::SetWindowWidth(const int &pWidth)
+const void Settings::setWindowWidth(const int &pWidth)
 {
-	_qsSettings.setValue(KEY_WINDOWWIDTH, pWidth);
-} // SetWindowWidth
+	_settings.setValue(KEY_WINDOWWIDTH, pWidth);
+} // setWindowWidth
 
-const void Settings::SetWindowX(const int &pX)
+const void Settings::setWindowX(const int &pX)
 {
-	_qsSettings.setValue(KEY_WINDOWX, pX);
-} // SetWindowX
+	_settings.setValue(KEY_WINDOWX, pX);
+} // setWindowX
 
-const void Settings::SetWindowY(const int &pY)
+const void Settings::setWindowY(const int &pY)
 {
-	_qsSettings.setValue(KEY_WINDOWY, pY);
-} // SetWindowY
+	_settings.setValue(KEY_WINDOWY, pY);
+} // setWindowY
 #endif
 
-const void Settings::SetWordsFrequency(const int &pFrequency)
+const void Settings::setWordsFrequency(const int &pFrequency)
 {
-    _qsSettings.setValue(KEY_WORDSFREQUENCY, pFrequency);
-} // SetWordsFrequency
+    _settings.setValue(KEY_WORDSFREQUENCY, pFrequency);
+} // setWordsFrequency
 
 #ifndef EDITION_TRY
-const void Settings::UpdateSettings()
+const void Settings::updateSettings()
 {
-	eVersion evCurrent = static_cast<eVersion>(_qsSettings.value(KEY_VERSION, Version1).toInt());
+	Version evCurrent = static_cast<Version>(_settings.value(KEY_VERSION, Version1).toInt());
 
 	if (evCurrent < Version2) {
 		// move vocabulary to vocabularies group
-		QString qsVocabulary = _qsSettings.value(KEY_VOCABULARYFILE).toString();
+		QString qsVocabulary = _settings.value(KEY_VOCABULARYFILE).toString();
 		if (!qsVocabulary.isEmpty()) {
-			_qsSettings.beginWriteArray(ARRAY_VOCABULARIES);
-			_qsSettings.setArrayIndex(VocabularyPosition1);
-			_qsSettings.setValue(KEY_VOCABULARYFILE, qsVocabulary);
-			_qsSettings.endArray();
+			_settings.beginWriteArray(ARRAY_VOCABULARIES);
+			_settings.setArrayIndex(VocabularyPosition1);
+			_settings.setValue(KEY_VOCABULARYFILE, qsVocabulary);
+			_settings.endArray();
 		} // if
-		_qsSettings.remove(KEY_VOCABULARYFILE);
+		_settings.remove(KEY_VOCABULARYFILE);
 
-		_qsSettings.setValue(KEY_VERSION, Version2);
+		_settings.setValue(KEY_VERSION, Version2);
 	} // if
-} // UpdateSettings
+} // updateSettings
 #endif

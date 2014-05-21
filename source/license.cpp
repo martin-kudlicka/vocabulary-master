@@ -44,7 +44,7 @@ const QString &License::lastName() const
 const void License::refreshLicense()
 {
 	// split license into content and signature
-	const QByteArray licenseData      = _settings->GetLicense();
+	const QByteArray licenseData      = _settings->license();
 	const qint16 dataSize             = *reinterpret_cast<const qint16 *>(licenseData.left(sizeof(dataSize)).constData());
 	const QByteArray encryptedContent = licenseData.mid(sizeof(dataSize), dataSize);
 	const QByteArray signature        = licenseData.mid(sizeof(dataSize) + dataSize);

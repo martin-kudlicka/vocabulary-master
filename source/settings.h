@@ -7,181 +7,180 @@ const QString DIR_LANG = "lang";
 
 class Settings
 {
-#ifndef EDITION_FREE
-# ifdef Q_OS_WIN
-    Q_ENUMS(eHotkey)
-# endif
-	Q_ENUMS(eNewWordSoundType)
-#endif
-
 	public:
 #ifndef EDITION_FREE
 # ifdef Q_OS_WIN
-        enum eHotkey {
+        enum Hotkey
+		{
             HotkeyAnswer,
             HotkeyMinimize,
             HotkeyNext,
             HotkeyRestore,
 			HotkeyCount
-        }; // eHotkey
+        }; // Hotkey
 # endif
-        enum eNewWordSoundType {
+        enum NewWordSoundType
+		{
             NewWordSoundTypeSystem,
             NewWordSoundTypeCustom
-        }; // eNewWordSoundType
+        }; // NewWordSoundType
 #endif
 
 #ifndef EDITION_FREE
 # ifdef Q_OS_WIN
-		struct sHotKeyInfo {
-			QString qsText;
-			quint32 qui32VirtualKey;
-		}; // sHotKeyInfo
+		struct HotKeyInfo
+		{
+			QString text;
+			quint32 virtualKey;
+		}; // HotKeyInfo
 # endif
 #endif
-		struct sVocabularyInfo {
+		struct VocabularyInfo
+		{
 #ifndef EDITION_TRY
-			QString qsFile;
+			QString filePath;
 #endif
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-			bool bEnabled;
+			bool    enabled;
 #endif
-		}; // sVocabularyInfo
+		}; // VocabularyInfo
 
-		static const int DEFAULT_DIMENSION = -1;
+		static const qint8  DEFAULT_DIMENSION             = -1;
 #ifdef EDITION_FREE
-		static const int EDITION_FREE_VOCABULARIES_MAX = 1;
+		static const quint8 EDITION_FREE_VOCABULARIES_MAX = 1;
 #endif
 
 		Settings();
 
-        const bool GetAlwaysOnTop() const;
+        const bool alwaysOnTop() const;
 #ifndef EDITION_FREE
-        const bool GetCanChangeCategoryPriority() const;
-        const bool GetCanEnableCategories() const;
-        const QString GetColorFlash() const;
-        const bool GetHorizontalLayout() const;
+        const bool canChangeCategoryPriority() const;
+        const bool canEnableCategories() const;
+        const QString colorFlash() const;
+        const bool horizontalLayout() const;
 # ifdef Q_OS_WIN
-        const sHotKeyInfo GetHotkey(const eHotkey &pType) const;
+        const HotKeyInfo hotkey(const Hotkey &pType) const;
 # endif
-		const bool GetLearnDisabledWords() const;
-        const QByteArray GetLicense() const;
-        const bool GetMinimizeToTray() const;
-        const bool GetMute() const;
-		const bool GetNewWordFlash() const;
-		const bool GetNewWordSound() const;
-        const QString GetNewWordSoundFile() const;
-        const eNewWordSoundType GetNewWordSoundType() const;
+		const bool learnDisabledWords() const;
+        const QByteArray license() const;
+        const bool minimizeToTray() const;
+        const bool mute() const;
+		const bool newWordFlash() const;
+		const bool newWordSound() const;
+        const QString newWordSoundFile() const;
+        const NewWordSoundType newWordSoundType() const;
 #endif
-		const QString GetProxyHostname() const;
-		const QString GetProxyPassword() const;
-		const quint16 GetProxyPort() const;
-		const QNetworkProxy::ProxyType GetProxyType() const;
-		const QString GetProxyUsername() const;
+		const QString proxyHostname() const;
+		const QString proxyPassword() const;
+		const quint16 proxyPort() const;
+		const QNetworkProxy::ProxyType proxyType() const;
+		const QString proxyUsername() const;
 #ifndef EDITION_FREE
-        const bool GetRememberWindowPosition() const;
-		const bool GetShowCategoryName() const;
-		const bool GetShowLanguageNames() const;
-		const bool GetShowRecordControls() const;
-		const bool GetShowStatusBar() const;
-		const bool GetShowToolBar() const;
-		const bool GetShowWordsInTrayBalloon() const;
-		const bool GetStartLearningOnStartup() const;
+        const bool rememberWindowPosition() const;
+		const bool showCategoryName() const;
+		const bool showLanguageNames() const;
+		const bool showRecordControls() const;
+		const bool showStatusBar() const;
+		const bool showToolBar() const;
+		const bool showWordsInTrayBalloon() const;
+		const bool startLearningOnStartup() const;
 #endif
-		const Qt::CheckState GetSwitchLearningDirection() const;
+		const Qt::CheckState switchLearningDirection() const;
 #ifndef EDITION_FREE
-        const bool GetSystemTrayIcon() const;
+        const bool systemTrayIcon() const;
 #endif
-        const QString GetTranslation() const;
-		const bool GetUpdateCheck() const;
-		const bool GetUseProxy() const;
+        const QString translation() const;
+		const bool updateCheck() const;
+		const bool useProxy() const;
 #ifndef EDITION_TRY
-		const int GetVocabularyCount();
-		const sVocabularyInfo GetVocabularyInfo(const int &pIndex);
+		const int vocabularyCount();
+		const VocabularyInfo vocabularyInfo(const int &pIndex);
 #endif
-		const int GetWaitForAnswer() const;
+		const int waitForAnswer() const;
 #ifndef EDITION_FREE
-		const int GetWindowHeight() const;
-		const int GetWindowWidth() const;
-		const int GetWindowX() const;
-		const int GetWindowY() const;
+		const int windowHeight() const;
+		const int windowWidth() const;
+		const int windowX() const;
+		const int windowY() const;
 #endif
-        const int GetWordsFrequency() const;
-        const void SetAlwaysOnTop(const bool &pEnable);
+        const int wordsFrequency() const;
+        const void setAlwaysOnTop(const bool &pEnable);
 #ifndef EDITION_FREE
-        const void SetCanChangeCategoryPriority(const bool &pEnable);
-        const void SetCanEnableCategories(const bool &pEnable);
-        const void SetColorFlash(const QString &pColor);
-        const void SetHorizontalLayout(const bool &pEnable);
+        const void setCanChangeCategoryPriority(const bool &pEnable);
+        const void setCanEnableCategories(const bool &pEnable);
+        const void setColorFlash(const QString &pColor);
+        const void setHorizontalLayout(const bool &pEnable);
 # ifdef Q_OS_WIN
-        const void SetHotkey(const eHotkey &pType, const sHotKeyInfo &pHotkey);
+        const void setHotkey(const Hotkey &pType, const HotKeyInfo &pHotkey);
 # endif
-		const void SetLearnDisabledWords(const bool &pEnable);
-		const void SetLicense(const QByteArray &pLicense);
-		const void SetMinimizeToTray(const bool &pEnable);
-        const void SetMute(const bool &pEnable);
-		const void SetNewWordFlash(const bool &pEnable);
-		const void SetNewWordSound(const bool &pEnable);
-        const void SetNewWordSoundFile(const QString &pFile);
-        const void SetNewWordSoundType(const eNewWordSoundType &pType);
+		const void setLearnDisabledWords(const bool &pEnable);
+		const void setLicense(const QByteArray &pLicense);
+		const void setMinimizeToTray(const bool &pEnable);
+        const void setMute(const bool &pEnable);
+		const void setNewWordFlash(const bool &pEnable);
+		const void setNewWordSound(const bool &pEnable);
+        const void setNewWordSoundFile(const QString &pFile);
+        const void setNewWordSoundType(const NewWordSoundType &pType);
 #endif
-		const void SetProxyHostname(const QString &pHostname);
-		const void SetProxyPassword(const QString &pPassword);
-		const void SetProxyPort(const quint16 &pPort);
-		const void SetProxyType(const QNetworkProxy::ProxyType &pType);
-		const void SetProxyUsername(const QString &pUsername);
+		const void setProxyHostname(const QString &pHostname);
+		const void setProxyPassword(const QString &pPassword);
+		const void setProxyPort(const quint16 &pPort);
+		const void setProxyType(const QNetworkProxy::ProxyType &pType);
+		const void setProxyUsername(const QString &pUsername);
 #ifndef EDITION_FREE
-        const void SetRememberWindowPosition(const bool &pEnable);
-		const void SetShowCategoryName(const bool &pShow);
-		const void SetShowLanguageNames(const bool &pShow);
-		const void SetShowRecordControls(const bool &pShow);
-		const void SetShowStatusBar(const bool &pShow);
-		const void SetShowToolBar(const bool &pShow);
-		const void SetShowWordsInTrayBalloon(const bool &pEnable);
-		const void SetStartLearningOnStartup(const bool &pEnable);
+        const void setRememberWindowPosition(const bool &pEnable);
+		const void setShowCategoryName(const bool &pShow);
+		const void setShowLanguageNames(const bool &pShow);
+		const void setShowRecordControls(const bool &pShow);
+		const void setShowStatusBar(const bool &pShow);
+		const void setShowToolBar(const bool &pShow);
+		const void setShowWordsInTrayBalloon(const bool &pEnable);
+		const void setStartLearningOnStartup(const bool &pEnable);
 #endif
-		const void SetSwitchLearningDirection(const Qt::CheckState &pSwitch);
+		const void setSwitchLearningDirection(const Qt::CheckState &pSwitch);
 #ifndef EDITION_FREE
-        const void SetSystemTrayIcon(const bool &pEnable);
+        const void setSystemTrayIcon(const bool &pEnable);
 #endif
-        const void SetTranslation(const QString &pTranslation);
-		const void SetUpdateCheck(const bool &pCheck);
-		const void SetUseProxy(const bool &pUse);
+        const void setTranslation(const QString &pTranslation);
+		const void setUpdateCheck(const bool &pCheck);
+		const void setUseProxy(const bool &pUse);
 #ifndef EDITION_TRY
-		const void SetVocabularyCount(const int &pCount);
-		const void SetVocabularyInfo(const int &pIndex, const sVocabularyInfo &pInfo);
+		const void setVocabularyCount(const int &pCount);
+		const void setVocabularyInfo(const int &pIndex, const VocabularyInfo &pInfo);
 #endif
 #ifndef EDITION_FREE
-		const void SetWaitForAnswer(const int &pTime);
-		const void SetWindowHeight(const int &pHeight);
-		const void SetWindowWidth(const int &pWidth);
-		const void SetWindowX(const int &pX);
-		const void SetWindowY(const int &pY);
+		const void setWaitForAnswer(const int &pTime);
+		const void setWindowHeight(const int &pHeight);
+		const void setWindowWidth(const int &pWidth);
+		const void setWindowX(const int &pX);
+		const void setWindowY(const int &pY);
 #endif
-        const void SetWordsFrequency(const int &pFrequency);
+        const void setWordsFrequency(const int &pFrequency);
 
 	private:
-		static const int DEFAULT_FREQUENCY = 60;
-		static const int DEFAULT_WAIT = 0;
+		static const quint8 DEFAULT_FREQUENCY = 60;
+		static const quint8 DEFAULT_WAIT      = 0;
 
 #ifndef EDITION_TRY
-		enum eVersion {
+		enum Version
+		{
 			Version1,
 			Version2,
-		}; // eVersion
-		enum eVocabularyPosition {
+		}; // Version
+		enum VocabularyPosition
+		{
 			VocabularyPosition1
-		}; // eVocabularyPosition
+		}; // VocabularyPosition
 #endif
 
-		QSettings _qsSettings;
+		QSettings _settings;
 
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
-        const QString GetHotkeyKey(const eHotkey &pType) const;
-		const QString GetHotkeyKeyText(const eHotkey &pType) const;
-		const QString GetHotkeyKeyVirtualKey(const eHotkey &pType) const;
+        const QString hotkeyKey          (const Hotkey &pType) const;
+		const QString hotkeyKeyText      (const Hotkey &pType) const;
+		const QString hotkeyKeyVirtualKey(const Hotkey &pType) const;
 #endif
 #ifndef EDITION_TRY
-		const void UpdateSettings();
+		const void    updateSettings     ();
 #endif
 }; // Settings

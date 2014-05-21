@@ -7,34 +7,36 @@
 class PluginsModel : public QAbstractItemModel
 {
     Q_OBJECT
-    Q_ENUMS(ePluginType)
 
     public:
-        enum eColumn {
+        enum Column
+		{
             ColumnName,
             ColumnLicense,
             ColumnCount
-        }; // eColumn
-        enum ePluginType {
+        }; // Column
+        enum PluginType
+		{
             PluginTypeImp,
             PluginTypeExp,
             PluginTypeTTS
-        }; // ePluginType
+        }; // PluginType
 
-        PluginsModel(const Plugins *pPlugins, const ePluginType &pType, QObject *pParent = NULL);
+                 PluginsModel(const Plugins *plugins, const PluginType &type, QObject *parent = NULL);
+		virtual ~PluginsModel();
 
-        virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-        virtual QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
-        virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
+        virtual QVariant    data    (const QModelIndex &index, int role = Qt::DisplayRole)           const;
+        virtual QModelIndex index   (int row, int column, const QModelIndex &parent = QModelIndex()) const;
+        virtual int         rowCount(const QModelIndex &parent = QModelIndex())                      const;
 
     private:
-        ePluginType _eptType;
-        const Plugins *_pPlugins;
+              PluginType _type;
+        const Plugins   *_plugins;
 
-        virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
-        const Plugins::PluginInfo GetPluginInfo(const int &pNum) const;
-        virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-        virtual QModelIndex parent(const QModelIndex &index) const;
+        virtual       int                 columnCount(const QModelIndex &parent = QModelIndex())                            const;
+        virtual       QVariant            headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+        virtual       QModelIndex         parent     (const QModelIndex &index)                                             const;
+		        const Plugins::PluginInfo pluginInfo (const quint8 &number)                                                 const;
 }; // PluginsModel
 
 #endif // PLUGINSMODEL_H

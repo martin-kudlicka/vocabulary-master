@@ -103,7 +103,7 @@ MainWindow::MainWindow(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */
     // controls
     enableControls();
 #ifndef EDITION_FREE
-    _ui.actionMute->setChecked(_settings.GetMute());
+    _ui.actionMute->setChecked(_settings.mute());
 #endif
 
 	// connections
@@ -121,14 +121,14 @@ MainWindow::MainWindow(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */
 # ifndef EDITION_TRY
 		_license->isLoaded() &&
 # endif
-		_settings.GetStartLearningOnStartup() && _vocabularyOrganizer.IsOpen())
+		_settings.startLearningOnStartup() && _vocabularyOrganizer.IsOpen())
 	{
 		on_actionStart_triggered();
 	} // if
 #endif
 
 	// update check
-	if (_settings.GetUpdateCheck())
+	if (_settings.updateCheck())
 	{
 		_updateChecker.CheckForUpdate();
 	} // if
@@ -137,10 +137,10 @@ MainWindow::MainWindow(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */
 MainWindow::~MainWindow()
 {
 #ifndef EDITION_FREE
-	_settings.SetWindowX(geometry().x());
-	_settings.SetWindowY(geometry().y());
-	_settings.SetWindowHeight(geometry().height());
-	_settings.SetWindowWidth(geometry().width());
+	_settings.setWindowX(geometry().x());
+	_settings.setWindowY(geometry().y());
+	_settings.setWindowHeight(geometry().height());
+	_settings.setWindowWidth(geometry().width());
 
 	_plugins.uninitialize();
 # ifndef EDITION_TRY
@@ -154,28 +154,28 @@ const void MainWindow::applySettings(const bool &startup)
     setLayout();
 
 	// change translation
-	if (!_translator.load(_settings.GetTranslation(), DIR_LANG))
+	if (!_translator.load(_settings.translation(), DIR_LANG))
 	{
-		if (_settings.GetTranslation().isEmpty())
+		if (_settings.translation().isEmpty())
 		{
             if (_translator.load(QLocale::system().name(), DIR_LANG))
 			{
-                _settings.SetTranslation(QLocale::system().name() + '.' + LANG_SUFFIX);
+                _settings.setTranslation(QLocale::system().name() + '.' + LANG_SUFFIX);
             } // if
 		} // if
 	} // if
 #ifndef EDITION_FREE
-	_plugins.setLanguage(_settings.GetTranslation());
+	_plugins.setLanguage(_settings.translation());
 
-	_ui.toolBar->setVisible(_settings.GetShowToolBar());
-	_ui.language1->setVisible(_learning && _settings.GetShowLanguageNames());
-	_ui.language2->setVisible(_learning && _settings.GetShowLanguageNames());
-	_ui.category->setVisible(_learning && _settings.GetShowCategoryName());
-	_ui.recordControls->parentWidget()->setVisible(_learning && _settings.GetShowRecordControls());
-	_ui.statusBar->setVisible(_settings.GetShowStatusBar());
+	_ui.toolBar->setVisible(_settings.showToolBar());
+	_ui.language1->setVisible(_learning && _settings.showLanguageNames());
+	_ui.language2->setVisible(_learning && _settings.showLanguageNames());
+	_ui.category->setVisible(_learning && _settings.showCategoryName());
+	_ui.recordControls->parentWidget()->setVisible(_learning && _settings.showRecordControls());
+	_ui.statusBar->setVisible(_settings.showStatusBar());
 #endif
 
-    if (_settings.GetAlwaysOnTop())
+    if (_settings.alwaysOnTop())
 	{
         setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
     }
@@ -184,15 +184,15 @@ const void MainWindow::applySettings(const bool &startup)
         setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint);
     } // if else
 #ifndef EDITION_FREE
-    if (startup && _settings.GetWindowX() != Settings::DEFAULT_DIMENSION)
+    if (startup && _settings.windowX() != Settings::DEFAULT_DIMENSION)
 	{
-        setGeometry(_settings.GetWindowX(), _settings.GetWindowY(), _settings.GetWindowWidth(), _settings.GetWindowHeight());
+        setGeometry(_settings.windowX(), _settings.windowY(), _settings.windowWidth(), _settings.windowHeight());
     } // if
 #endif
     show();
 
 #ifndef EDITION_FREE
-    _trayIcon.setVisible(_settings.GetSystemTrayIcon());
+    _trayIcon.setVisible(_settings.systemTrayIcon());
 #endif
 
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
@@ -300,7 +300,7 @@ bool MainWindow::event(QEvent *event)
             break;
 #ifndef EDITION_FREE
         case QEvent::WindowStateChange:
-		    if (isMinimized() && _settings.GetSystemTrayIcon() && _settings.GetMinimizeToTray())
+		    if (isMinimized() && _settings.systemTrayIcon() && _settings.minimizeToTray())
 			{
 			    setWindowFlags(windowFlags() | Qt::CustomizeWindowHint); // just add some flag to hide window
 		    } // if
@@ -324,9 +324,9 @@ const QString MainWindow::languageText(const bool &directionSwitched, const bool
 
 const bool MainWindow::learningDirection() const
 {
-	if (_settings.GetSwitchLearningDirection() != Qt::PartiallyChecked)
+	if (_settings.switchLearningDirection() != Qt::PartiallyChecked)
 	{
-		return _settings.GetSwitchLearningDirection();
+		return _settings.switchLearningDirection();
 	}
 	else
 	{
@@ -452,16 +452,16 @@ const void MainWindow::registerHotkeys() const
 {
 	for (quint8 hotKeyIndex = 0; hotKeyIndex < Settings::HotkeyCount - 1; hotKeyIndex++)
 	{
-		const Settings::sHotKeyInfo hotKeyInfo = _settings.GetHotkey(static_cast<Settings::eHotkey>(hotKeyIndex));
+		const Settings::HotKeyInfo hotKeyInfo = _settings.hotkey(static_cast<Settings::Hotkey>(hotKeyIndex));
 
-		if (hotKeyInfo.qui32VirtualKey == SettingsDialog::VIRTUALKEY_NONE)
+		if (hotKeyInfo.virtualKey == SettingsDialog::VIRTUALKEY_NONE)
 		{
 			UnregisterHotKey(reinterpret_cast<HWND>(winId()), hotKeyIndex);
 		}
 		else
 		{
 			UINT modifiers;
-			if (hotKeyInfo.qsText.contains(MODIFIER_ALT))
+			if (hotKeyInfo.text.contains(MODIFIER_ALT))
 			{
 				modifiers = MOD_ALT;
 			}
@@ -469,16 +469,16 @@ const void MainWindow::registerHotkeys() const
 			{
 				modifiers = 0;
 			} // if else
-			if (hotKeyInfo.qsText.contains(MODIFIER_CTRL))
+			if (hotKeyInfo.text.contains(MODIFIER_CTRL))
 			{
 				modifiers |= MOD_CONTROL;
 			} // if
-			if (hotKeyInfo.qsText.contains(MODIFIER_SHIFT))
+			if (hotKeyInfo.text.contains(MODIFIER_SHIFT))
 			{
 				modifiers |= MOD_SHIFT;
 			} // if
 
-			RegisterHotKey(reinterpret_cast<HWND>(winId()), hotKeyIndex, modifiers, hotKeyInfo.qui32VirtualKey);
+			RegisterHotKey(reinterpret_cast<HWND>(winId()), hotKeyIndex, modifiers, hotKeyInfo.virtualKey);
 		} // if else
 	} // for
 } // registerHotkeys
@@ -487,7 +487,7 @@ const void MainWindow::registerHotkeys() const
 #ifndef EDITION_FREE
 const void MainWindow::say(const bool &directionSwitched, const bool &answer) const
 {
-    if (!_settings.GetMute())
+    if (!_settings.mute())
 	{
 	    VocabularyDatabase::eFieldLanguage fieldLanguage;
 	    if ((!directionSwitched && !answer) || (directionSwitched && answer))
@@ -546,7 +546,7 @@ const void MainWindow::setLayout()
 
     QVBoxLayout *mainLayout = new QVBoxLayout(_ui.centralWidget);
 #ifndef EDITION_FREE
-    if (_settings.GetHorizontalLayout())
+    if (_settings.horizontalLayout())
 	{
         mainLayout->addWidget(_ui.category);
 		mainLayout->addWidget(_ui.recordControls->parentWidget());
@@ -633,7 +633,7 @@ const void MainWindow::showAnswer()
 
 #ifndef EDITION_FREE
     // tray
-    if (_settings.GetSystemTrayIcon() && _settings.GetShowWordsInTrayBalloon())
+    if (_settings.systemTrayIcon() && _settings.showWordsInTrayBalloon())
 	{
         showTrayBalloon(_directionSwitched, true);
     } // if
@@ -729,7 +729,7 @@ const void MainWindow::on_actionLicense_triggered(bool checked /* false */)
 
 const void MainWindow::on_actionMute_toggled(bool checked)
 {
-    _settings.SetMute(checked);
+    _settings.setMute(checked);
 } // on_actionMute_toggled
 #endif
 
@@ -779,8 +779,8 @@ const void MainWindow::on_actionStart_triggered(bool checked /* false */)
 #ifdef EDITION_FREE
 	_ui.category->show();
 #else
-    _ui.category->setVisible(_settings.GetShowCategoryName());
-	_ui.recordControls->parentWidget()->setVisible(_settings.GetShowRecordControls());
+    _ui.category->setVisible(_settings.showCategoryName());
+	_ui.recordControls->parentWidget()->setVisible(_settings.showRecordControls());
 #endif
 
 	_currentRecord.vVocabulary = NULL;
@@ -855,7 +855,7 @@ const void MainWindow::on_learningTimer_timeout()
 					nextRecordTry++;
 				} // if else
 
-				if ((!_settings.GetLearnDisabledWords() && !_currentRecord.vVocabulary->GetRecordEnabled(_currentRecord.iId)) || recordPriority() > maxRecordPriority)
+				if ((!_settings.learnDisabledWords() && !_currentRecord.vVocabulary->GetRecordEnabled(_currentRecord.iId)) || recordPriority() > maxRecordPriority)
 				{
 					continue;
 				} // if
@@ -876,7 +876,7 @@ const void MainWindow::on_learningTimer_timeout()
 #endif*/
 
 			// answer time
-			_timeAnswer = _settings.GetWaitForAnswer();
+			_timeAnswer = _settings.waitForAnswer();
 			// progress
 			_progressBarTimer.setMaximum(_timeAnswer);
 			_progressBarTimer.setValue(_timeAnswer);
@@ -895,7 +895,7 @@ const void MainWindow::on_learningTimer_timeout()
 #ifdef EDITION_FREE
 				_ui.language1->show();
 #else
-			    _ui.language1->setVisible(_settings.GetShowLanguageNames());
+			    _ui.language1->setVisible(_settings.showLanguageNames());
 #endif
 			    _ui.language1->setText(lang1);
 		    } // if else
@@ -909,7 +909,7 @@ const void MainWindow::on_learningTimer_timeout()
 #ifdef EDITION_FREE
 				_ui.language2->show();
 #else
-			    _ui.language2->setVisible(_settings.GetShowLanguageNames());
+			    _ui.language2->setVisible(_settings.showLanguageNames());
 #endif
 			    _ui.language2->setText(lang2);
 		    } // if else
@@ -922,32 +922,32 @@ const void MainWindow::on_learningTimer_timeout()
 
 #ifndef EDITION_FREE
 		    // tray
-		    if (_settings.GetSystemTrayIcon() && _settings.GetShowWordsInTrayBalloon())
+		    if (_settings.systemTrayIcon() && _settings.showWordsInTrayBalloon())
 			{
 			    showTrayBalloon(_directionSwitched, false);
 		    } // if
 
             // sound
-	        if (_settings.GetNewWordSound() && !_settings.GetMute())
+	        if (_settings.newWordSound() && !_settings.mute())
 			{
-                if (_settings.GetNewWordSoundType() == Settings::NewWordSoundTypeSystem)
+                if (_settings.newWordSoundType() == Settings::NewWordSoundTypeSystem)
 				{
 		            QApplication::beep();
                 }
 				else
 				{
-                    QSound::play(_settings.GetNewWordSoundFile());
+                    QSound::play(_settings.newWordSoundFile());
                 } // if else
 	        } // if
 
             // flash
-	        if (_settings.GetNewWordFlash())
+	        if (_settings.newWordFlash())
 			{
                 const QString styleSheet = _ui.window1->styleSheet();
 
 		        for (quint8 flashNum = 0; flashNum < FLASH_COUNT; flashNum++)
 				{
-                    _ui.window1->setStyleSheet(QString("QAbstractScrollArea { background-color: %1 }").arg(_settings.GetColorFlash()));
+                    _ui.window1->setStyleSheet(QString("QAbstractScrollArea { background-color: %1 }").arg(_settings.colorFlash()));
 			        QTest::qWait(FLASH_WAIT);
                     _ui.window1->setStyleSheet(styleSheet);
 			        if (flashNum < FLASH_COUNT - 1)
@@ -958,7 +958,7 @@ const void MainWindow::on_learningTimer_timeout()
 	        } // if
 
             // speech
-            if (_settings.GetNewWordSound())
+            if (_settings.newWordSound())
 			{
                 QTest::qWait(SAY_BEEP_WAIT);
                 say(_directionSwitched, false);
@@ -966,7 +966,7 @@ const void MainWindow::on_learningTimer_timeout()
 #endif
 
             // next question time
-            _timeQuestion = _settings.GetWordsFrequency();
+            _timeQuestion = _settings.wordsFrequency();
 
 #ifndef EDITION_FREE
             // enable answer
