@@ -38,7 +38,7 @@ const void SettingsDialog::FillColorFlash()
 # ifdef Q_OS_WIN
 const void SettingsDialog::FillHotkey(HotkeyLineEdit *pControl, const Settings::Hotkey &pHotkey) const
 {
-	Settings::HotKeyInfo shkiHotkey = _sSettings->hotkey(pHotkey);
+	Settings::HotkeyInfo shkiHotkey = _sSettings->hotkey(pHotkey);
 	pControl->setText(shkiHotkey.text);
 	pControl->setProperty(PROPERTY_VIRTUALKEY, shkiHotkey.virtualKey);
 } // FillHotkey
@@ -271,7 +271,7 @@ const void SettingsDialog::PrepareTranslations()
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
 const void SettingsDialog::SaveHotkey(const HotkeyLineEdit *pControl, const Settings::Hotkey &pHotkey) const
 {
-	Settings::HotKeyInfo shkiHotkey;
+	Settings::HotkeyInfo shkiHotkey;
 
 	shkiHotkey.text = pControl->text();
 	shkiHotkey.virtualKey = pControl->property(PROPERTY_VIRTUALKEY).toUInt();

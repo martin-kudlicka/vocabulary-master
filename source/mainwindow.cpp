@@ -452,16 +452,16 @@ const void MainWindow::registerHotkeys() const
 {
 	for (quint8 hotKeyIndex = 0; hotKeyIndex < Settings::HotkeyCount - 1; hotKeyIndex++)
 	{
-		const Settings::HotKeyInfo hotKeyInfo = _settings.hotkey(static_cast<Settings::Hotkey>(hotKeyIndex));
+		const Settings::HotkeyInfo hotkeyInfo = _settings.hotkey(static_cast<Settings::Hotkey>(hotKeyIndex));
 
-		if (hotKeyInfo.virtualKey == SettingsDialog::VIRTUALKEY_NONE)
+		if (hotkeyInfo.virtualKey == SettingsDialog::VIRTUALKEY_NONE)
 		{
 			UnregisterHotKey(reinterpret_cast<HWND>(winId()), hotKeyIndex);
 		}
 		else
 		{
 			UINT modifiers;
-			if (hotKeyInfo.text.contains(MODIFIER_ALT))
+			if (hotkeyInfo.text.contains(MODIFIER_ALT))
 			{
 				modifiers = MOD_ALT;
 			}
@@ -469,16 +469,16 @@ const void MainWindow::registerHotkeys() const
 			{
 				modifiers = 0;
 			} // if else
-			if (hotKeyInfo.text.contains(MODIFIER_CTRL))
+			if (hotkeyInfo.text.contains(MODIFIER_CTRL))
 			{
 				modifiers |= MOD_CONTROL;
 			} // if
-			if (hotKeyInfo.text.contains(MODIFIER_SHIFT))
+			if (hotkeyInfo.text.contains(MODIFIER_SHIFT))
 			{
 				modifiers |= MOD_SHIFT;
 			} // if
 
-			RegisterHotKey(reinterpret_cast<HWND>(winId()), hotKeyIndex, modifiers, hotKeyInfo.virtualKey);
+			RegisterHotKey(reinterpret_cast<HWND>(winId()), hotKeyIndex, modifiers, hotkeyInfo.virtualKey);
 		} // if else
 	} // for
 } // registerHotkeys
