@@ -180,9 +180,9 @@ class Settings
 		QSettings _settings;
 
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
-        QString hotkeyKey          (Hotkey pType) const;
-		QString hotkeyKeyText      (Hotkey pType) const;
-		QString hotkeyKeyVirtualKey(Hotkey pType) const;
+        QString hotkeyKey          (Hotkey type) const;
+		QString hotkeyKeyText      (Hotkey type) const;
+		QString hotkeyKeyVirtualKey(Hotkey type) const;
 #endif
 #ifndef EDITION_TRY
 		void    updateSettings     ();

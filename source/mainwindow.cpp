@@ -450,13 +450,13 @@ void MainWindow::refreshStatusBar()
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
 void MainWindow::registerHotkeys() const
 {
-	for (quint8 hotKeyIndex = 0; hotKeyIndex < Settings::HotkeyCount - 1; hotKeyIndex++)
+	for (quint8 hotkeyIndex = 0; hotkeyIndex < Settings::HotkeyCount - 1; hotkeyIndex++)
 	{
-		const Settings::HotkeyInfo hotkeyInfo = _settings.hotkey(static_cast<Settings::Hotkey>(hotKeyIndex));
+		const Settings::HotkeyInfo hotkeyInfo = _settings.hotkey(static_cast<Settings::Hotkey>(hotkeyIndex));
 
 		if (hotkeyInfo.virtualKey == SettingsDialog::VIRTUALKEY_NONE)
 		{
-			UnregisterHotKey(reinterpret_cast<HWND>(winId()), hotKeyIndex);
+			UnregisterHotKey(reinterpret_cast<HWND>(winId()), hotkeyIndex);
 		}
 		else
 		{
@@ -478,7 +478,7 @@ void MainWindow::registerHotkeys() const
 				modifiers |= MOD_SHIFT;
 			} // if
 
-			RegisterHotKey(reinterpret_cast<HWND>(winId()), hotKeyIndex, modifiers, hotkeyInfo.virtualKey);
+			RegisterHotKey(reinterpret_cast<HWND>(winId()), hotkeyIndex, modifiers, hotkeyInfo.virtualKey);
 		} // if else
 	} // for
 } // registerHotkeys
