@@ -41,7 +41,7 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 	} // switch
 } // data
 
-const qlonglong FieldsModel::fieldId(const quint8 &row) const
+qlonglong FieldsModel::fieldId(quint8 row) const
 {
 	QSqlQuery query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDMODELS + " WHERE " + COLUMN_MODELID + " = " + QString::number(_modelId) + " ORDER BY " + COLUMN_ORDINAL);
 	query.seek(row);
@@ -73,7 +73,7 @@ int FieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 	} // if else
 } // rowCount
 
-const void FieldsModel::setModelId(const qlonglong &modelId)
+void FieldsModel::setModelId(qlonglong modelId)
 {
 	_modelId = modelId;
 } // setModelId

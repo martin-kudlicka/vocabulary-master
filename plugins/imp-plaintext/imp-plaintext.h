@@ -20,13 +20,13 @@ class ImpPlaintext : public QObject, private ImpInterface
 
 		virtual ~ImpPlaintext();
 
-        virtual const void        close      ();
-        virtual const QString     filter     () const;
-        virtual const QStringList marks      () const;
-		virtual const bool        open       (const QString &fileName);
-        virtual const quint16     recordCount() const;
-        virtual const QString     recordData (const quint16 &record, const QString &mark);
-        virtual const void        setupUI    (QGroupBox *parent);
+        virtual void        close      ();
+        virtual QString     filter     () const;
+        virtual QStringList marks      () const;
+		virtual bool        open       (const QString &fileName);
+        virtual quint16     recordCount() const;
+        virtual QString     recordData (quint16 record, const QString &mark);
+        virtual void        setupUI    (QGroupBox *parent);
 }; // ImpPlaintext
 
 #endif // IMPPLAINTEXT_H

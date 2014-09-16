@@ -15,8 +15,8 @@ class AnkiImportWidget : public QWidget
     public:
         AnkiImportWidget(const QSqlDatabase *database, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
 
-		const qlonglong   fieldId(const quint8 &position) const;
-		const QStringList marks()                         const;
+		qlonglong   fieldId(quint8 position) const;
+		QStringList marks()                  const;
 
     private:
               DecksModel                     _decksModel;
@@ -28,11 +28,11 @@ class AnkiImportWidget : public QWidget
 
 		virtual ~AnkiImportWidget();
 
-        const void prepareTreeView(QTreeView *treeView, QAbstractItemModel *itemModel);
+        void prepareTreeView(QTreeView *treeView, QAbstractItemModel *itemModel);
 
     private slots:
-        const void on_decks_selectionModel_selectionChanged (const QItemSelection &selected, const QItemSelection &deselected);
-        const void on_models_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+        void on_decks_selectionModel_selectionChanged (const QItemSelection &selected, const QItemSelection &deselected);
+        void on_models_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 }; // AnkiImportWidget
 
 #endif // ANKIIMPORTWIDGET_H

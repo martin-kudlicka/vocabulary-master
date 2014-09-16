@@ -19,7 +19,7 @@ ImpAnki::~ImpAnki()
 {
 } // ~ImpAnki
 
-const void ImpAnki::close()
+void ImpAnki::close()
 {
     if (_database.isOpen())
 	{
@@ -27,24 +27,24 @@ const void ImpAnki::close()
     } // if
 } // close
 
-const QString ImpAnki::filter() const
+QString ImpAnki::filter() const
 {
 	return "Anki (*.anki)";
 } // filter
 
-const QStringList ImpAnki::marks() const
+QStringList ImpAnki::marks() const
 {
 	return _widget->marks();
 } // marks
 
-const bool ImpAnki::open(const QString &fileName)
+bool ImpAnki::open(const QString &fileName)
 {
 	close();
 	_database.setDatabaseName(fileName);
 	return _database.open();
 } // open
 
-const quint16 ImpAnki::recordCount() const
+quint16 ImpAnki::recordCount() const
 {
 	const qlonglong fieldId = _widget->fieldId(FieldNum1);
 	QSqlQuery query         = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FIELDMODELID + " = " + QString::number(fieldId));
@@ -58,7 +58,7 @@ const quint16 ImpAnki::recordCount() const
 	} // if else
 } // recordCount
 
-const QString ImpAnki::recordData(const quint16 &recordId, const QString &mark)
+QString ImpAnki::recordData(quint16 recordId, const QString &mark)
 {
 	// query records by first field ID to get always same sequence
 	const qlonglong fieldId = _widget->fieldId(FieldNum1);
@@ -83,7 +83,7 @@ const QString ImpAnki::recordData(const quint16 &recordId, const QString &mark)
 	return data;
 } // recordData
 
-const void ImpAnki::setupUI(QGroupBox *parent)
+void ImpAnki::setupUI(QGroupBox *parent)
 {
     _widget = new AnkiImportWidget(&_database, parent);
     QBoxLayout *boxLayout = qobject_cast<QBoxLayout *>(parent->layout());

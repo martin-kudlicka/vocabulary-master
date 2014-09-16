@@ -15,12 +15,12 @@ ModelsModel::~ModelsModel()
 {
 } // ~ModelsModel
 
-const void ModelsModel::deckId(const quint8 &deckId)
+void ModelsModel::deckId(quint8 deckId)
 {
 	_deckId = deckId;
 } // deckId
 
-const qlonglong ModelsModel::modelId(const quint8 &row) const
+qlonglong ModelsModel::modelId(quint8 row) const
 {
 	QSqlQuery query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_MODELS + " WHERE " + COLUMN_DECKID + " = " + QString::number(_deckId));
 	query.seek(row);

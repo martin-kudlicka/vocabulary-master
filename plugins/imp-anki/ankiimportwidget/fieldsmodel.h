@@ -19,11 +19,11 @@ class FieldsModel : public QAbstractItemModel
                  FieldsModel(const QSqlDatabase *database, QObject *parent = NULL);
 		virtual ~FieldsModel();
 
-        virtual       QVariant    data      (const QModelIndex &index, int role = Qt::DisplayRole)           const;
-		        const qlonglong   fieldId   (const quint8 &row)                                              const;
-        virtual       QModelIndex index     (int row, int column, const QModelIndex &parent = QModelIndex()) const;
-        virtual       int         rowCount  (const QModelIndex &parent = QModelIndex())                      const;
-                const void        setModelId(const qlonglong &pModelId);
+        virtual QVariant    data      (const QModelIndex &index, int role = Qt::DisplayRole)           const;
+		        qlonglong   fieldId   (quint8 row)                                                     const;
+        virtual QModelIndex index     (int row, int column, const QModelIndex &parent = QModelIndex()) const;
+        virtual int         rowCount  (const QModelIndex &parent = QModelIndex())                      const;
+                void        setModelId(qlonglong pModelId);
 
     private:
         enum ColumnPosition

@@ -13,7 +13,7 @@ DecksModel::~DecksModel()
 {
 } // ~DecksModel
 
-const quint8 DecksModel::deckId(const quint8 &row) const
+quint8 DecksModel::deckId(quint8 row) const
 {
 	QSqlQuery query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DECKS);
 	query.seek(row);
