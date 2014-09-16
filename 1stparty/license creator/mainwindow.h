@@ -18,13 +18,13 @@ class MainWindow : public QMainWindow
 		QXmlStreamWriter _xmlStreamWriter;
 		Ui::MainWindow   _ui;
 
-		const void writeLicense        ();
-		const void writeLicenseGeneral ();
-		const void writeLicensePersonal();
+		void writeLicense        ();
+		void writeLicenseGeneral ();
+		void writeLicensePersonal();
 
 	private slots:
-		const void on_create_clicked     (bool checked = false);
-		const void on_generateUid_clicked(bool checked = false);
+		void on_create_clicked     (bool checked = false);
+		void on_generateUid_clicked(bool checked = false);
 }; // MainWindow
 
 #endif // MAINWINDOW_H

@@ -22,7 +22,7 @@ MainWindow::~MainWindow()
 {
 } // ~MainWindow
 
-const void MainWindow::writeLicense()
+void MainWindow::writeLicense()
 {
 	_xmlStreamWriter.writeStartElement("License");
 	writeLicenseGeneral();
@@ -32,20 +32,20 @@ const void MainWindow::writeLicense()
 	_xmlStreamWriter.writeEndElement();
 } // writeLicense
 
-const void MainWindow::writeLicenseGeneral()
+void MainWindow::writeLicenseGeneral()
 {
 	_xmlStreamWriter.writeTextElement("UId", _ui.uid->text());
 	_xmlStreamWriter.writeTextElement("ValidTo", _ui.validTo->date().toString(Qt::ISODate));
 } // writeLicenseGeneral
 
-const void MainWindow::writeLicensePersonal()
+void MainWindow::writeLicensePersonal()
 {
 	_xmlStreamWriter.writeTextElement("FirstName", _ui.firstName->text());
 	_xmlStreamWriter.writeTextElement("LastName", _ui.lastName->text());
 	_xmlStreamWriter.writeTextElement("Email", _ui.email->text());
 } // writeLicensePersonal
 
-const void MainWindow::on_create_clicked(bool checked /* false */)
+void MainWindow::on_create_clicked(bool checked /* false */)
 {
 	const QString fileName = QFileDialog::getSaveFileName(this, tr("Create license"), QString(), tr("license (*.lic)"));
 	if (fileName.isEmpty())
@@ -99,7 +99,7 @@ const void MainWindow::on_create_clicked(bool checked /* false */)
 	QMessageBox::information(this, windowTitle(), tr("License created, encrypted and signed."));
 } // on_create_clicked
 
-const void MainWindow::on_generateUid_clicked(bool checked /* false */)
+void MainWindow::on_generateUid_clicked(bool checked /* false */)
 {
 	const QUuid uuid = QUuid::createUuid();
 	_ui.uid->setText(uuid.toString());
