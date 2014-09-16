@@ -45,12 +45,12 @@ TTSOpenJTalk::~TTSOpenJTalk()
 {
 } // ~TTSOpenJTalk
 
-const QString TTSOpenJTalk::fileInSubdir(const QString &file, const QString &dir) const
+QString TTSOpenJTalk::fileInSubdir(const QString &file, const QString &dir) const
 {
 	return subdir(dir) + QDir::separator() + file;
 } // fileInSubdir
 
-const void TTSOpenJTalk::initialize()
+void TTSOpenJTalk::initialize()
 {
 	// initialize
 	Mecab_initialize(&_mecab);
@@ -122,7 +122,7 @@ const void TTSOpenJTalk::initialize()
 	free(cPaths);
 } // initialize
 
-const LicenseCommon::LicenseContentList TTSOpenJTalk::licenseText() const
+LicenseCommon::LicenseContentList TTSOpenJTalk::licenseText() const
 {
     LicenseCommon::LicenseContentList licenses;
     LicenseCommon::LicenseContent content;
@@ -143,17 +143,17 @@ const LicenseCommon::LicenseContentList TTSOpenJTalk::licenseText() const
     return licenses;
 } // licenseText
 
-const TTSInterface::TTSPlugin TTSOpenJTalk::pluginId() const
+TTSInterface::TTSPlugin TTSOpenJTalk::pluginId() const
 {
 	return TTSPluginOpenJTalk;
 } // pluginId
 
-const QString TTSOpenJTalk::pluginName() const
+QString TTSOpenJTalk::pluginName() const
 {
 	return "Open JTalk";
 } // pluginName
 
-const void TTSOpenJTalk::say(const QString &voice, const QString &text)
+void TTSOpenJTalk::say(const QString &voice, const QString &text)
 {
 	char *cBuffer = static_cast<char *>(calloc(2 * text.toUtf8().size() + 1, sizeof(char)));
 	text2mecab(cBuffer, text.toUtf8().data());
@@ -181,7 +181,7 @@ const void TTSOpenJTalk::say(const QString &voice, const QString &text)
 	Mecab_refresh(&_mecab);
 } // say
 
-const QString TTSOpenJTalk::subdir(const QString &dir) const
+QString TTSOpenJTalk::subdir(const QString &dir) const
 {
 	return QCoreApplication::applicationDirPath() + QDir::separator() +
 #ifndef _DEBUG
@@ -190,7 +190,7 @@ const QString TTSOpenJTalk::subdir(const QString &dir) const
 		dir;
 } // subdir
 
-const void TTSOpenJTalk::uninitialize()
+void TTSOpenJTalk::uninitialize()
 {
 	Mecab_clear(&_mecab);
 	NJD_clear(&_njd);
@@ -198,7 +198,7 @@ const void TTSOpenJTalk::uninitialize()
 	HTS_Engine_clear(&_htsEngine);
 } // uninitialize
 
-const TTSInterface::VoiceInfoList TTSOpenJTalk::voicesInfo() const
+TTSInterface::VoiceInfoList TTSOpenJTalk::voicesInfo() const
 {
 	TTSInterface::VoiceInfo sviVoice;
 	sviVoice.description = "NIT ATR503 M001";

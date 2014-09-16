@@ -30,15 +30,15 @@ class TTSOpenJTalk : public QObject, private TTSInterface
 
 		virtual ~TTSOpenJTalk();
 
-		        const QString                           fileInSubdir(const QString &file, const QString &dir) const;
-		virtual const void                              initialize  ();
-        virtual const LicenseCommon::LicenseContentList licenseText () const;
-		virtual const TTSPlugin                         pluginId    () const;
-		virtual const QString                           pluginName  () const;
-		virtual const void                              say         (const QString &voice, const QString &text);
-		        const QString                           subdir      (const QString &dir) const;
-		virtual const void                              uninitialize();
-        virtual const VoiceInfoList                     voicesInfo  () const;
+		        QString                           fileInSubdir(const QString &file, const QString &dir) const;
+		virtual void                              initialize  ();
+        virtual LicenseCommon::LicenseContentList licenseText () const;
+		virtual TTSPlugin                         pluginId    () const;
+		virtual QString                           pluginName  () const;
+		virtual void                              say         (const QString &voice, const QString &text);
+		        QString                           subdir      (const QString &dir) const;
+		virtual void                              uninitialize();
+        virtual VoiceInfoList                     voicesInfo  () const;
 }; // TTSOpenJTalk
 
 #endif // TTSOPENJTALK_H

@@ -13,13 +13,13 @@ class TTSSAPI : public QObject, private TTSInterface
     private:
 		virtual ~TTSSAPI();
 
-		virtual const void                              initialize  ();
-        virtual const LicenseCommon::LicenseContentList licenseText () const;
-        virtual const TTSPlugin                         pluginId    () const;
-        virtual const QString                           pluginName  () const;
-		virtual const void                              say         (const QString &voice, const QString &text);
-		virtual const void                              uninitialize();
-		virtual const VoiceInfoList                     voicesInfo  () const;
+		virtual void                              initialize  ();
+        virtual LicenseCommon::LicenseContentList licenseText () const;
+        virtual TTSPlugin                         pluginId    () const;
+        virtual QString                           pluginName  () const;
+		virtual void                              say         (const QString &voice, const QString &text);
+		virtual void                              uninitialize();
+		virtual VoiceInfoList                     voicesInfo  () const;
 }; // TTSSAPI
 
 #endif // TTSSAPI_H
