@@ -17,13 +17,13 @@ HtmlExportWidget::~HtmlExportWidget()
 {
 } // ~HtmlExportWidget
 
-const QString HtmlExportWidget::codec() const
+QString HtmlExportWidget::codec() const
 {
 	const QModelIndex modelIndex = _ui.codecs->currentIndex();
 	return _codecsModel.data(modelIndex).toString();
 } // codec
 
-const void HtmlExportWidget::refresh() const
+void HtmlExportWidget::refresh() const
 {
 	if (_ui.styleText->isChecked())
 	{
@@ -35,7 +35,7 @@ const void HtmlExportWidget::refresh() const
 	} // if else
 } // refresh
 
-const QString HtmlExportWidget::text() const
+QString HtmlExportWidget::text() const
 {
 	if (_ui.styleText->isChecked())
 	{
@@ -47,7 +47,7 @@ const QString HtmlExportWidget::text() const
 	} // if else
 } // text
 
-const void HtmlExportWidget::addTableColumn()
+void HtmlExportWidget::addTableColumn()
 {
     // controls
     TableColumn tableColumn;
@@ -69,7 +69,7 @@ const void HtmlExportWidget::addTableColumn()
     _ui.tableColumns->addWidget(tableColumn.templateEdit, TableRowTemplate, _tableColumns.size() + LABEL_COLUMN);
 } // addTableColumn
 
-const void HtmlExportWidget::initTableColumns()
+void HtmlExportWidget::initTableColumns()
 {
     for (quint8 columnIndex = 0; columnIndex < _ui.tableColums->value(); columnIndex++)
 	{
@@ -77,14 +77,14 @@ const void HtmlExportWidget::initTableColumns()
     } // for
 } // initTableColumns
 
-const void HtmlExportWidget::insertTableText(const QTextTable *tablePreview, const quint32 &row, const quint8 &column, const QString &text) const
+void HtmlExportWidget::insertTableText(const QTextTable *tablePreview, quint32 row, quint8 column, const QString &text) const
 {
     const QTextTableCell cell = tablePreview->cellAt(row, column);
     QTextCursor cursor        = cell.firstCursorPosition();
     cursor.insertText(text);
 } // insertTableText
 
-const void HtmlExportWidget::preselectCodec(const QString &codec) const
+void HtmlExportWidget::preselectCodec(const QString &codec) const
 {
     for (quint8 codecIndex = 0; codecIndex < _codecsModel.rowCount(); codecIndex++)
 	{
@@ -97,7 +97,7 @@ const void HtmlExportWidget::preselectCodec(const QString &codec) const
     } // for
 } // preselectCodec
 
-const void HtmlExportWidget::refreshTable() const
+void HtmlExportWidget::refreshTable() const
 {
     // prepare table
     _ui.tablePreview->clear();
@@ -193,7 +193,7 @@ const void HtmlExportWidget::refreshTable() const
     emit progressExportSetValue(0);
 } // refreshTable
 
-const void HtmlExportWidget::refreshText() const
+void HtmlExportWidget::refreshText() const
 {
     _ui.textPreview->clear();
 
@@ -264,7 +264,7 @@ const void HtmlExportWidget::refreshText() const
     emit progressExportSetValue(0);
 } // refreshText
 
-const void HtmlExportWidget::removeTableColumn()
+void HtmlExportWidget::removeTableColumn()
 {
     TableColumn tableColumn = _tableColumns.takeLast();
     // header
@@ -275,17 +275,17 @@ const void HtmlExportWidget::removeTableColumn()
     tableColumn.templateEdit->deleteLater();
 } // removeTableColumn
 
-const void HtmlExportWidget::on_styleTable_clicked(bool checked /* false */) const
+void HtmlExportWidget::on_styleTable_clicked(bool checked /* false */) const
 {
 	_ui.styles->setCurrentIndex(StyleTable);
 } // on_styleTable_clicked
 
-const void HtmlExportWidget::on_styleText_clicked(bool checked /* false */) const
+void HtmlExportWidget::on_styleText_clicked(bool checked /* false */) const
 {
 	_ui.styles->setCurrentIndex(StyleText);
 } // on_styleText_clicked
 
-const void HtmlExportWidget::on_tableColums_valueChanged(int i)
+void HtmlExportWidget::on_tableColums_valueChanged(int i)
 {
 	if (i < _tableColumns.size())
 	{
@@ -297,12 +297,12 @@ const void HtmlExportWidget::on_tableColums_valueChanged(int i)
 	} // if else
 } // on_tableColums_valueChanged
 
-const void HtmlExportWidget::on_tableRefresh_clicked(bool checked /* false */) const
+void HtmlExportWidget::on_tableRefresh_clicked(bool checked /* false */) const
 {
 	refreshTable();
 } // on_tableRefresh_clicked
 
-const void HtmlExportWidget::on_textRefresh_clicked(bool checked /* false */) const
+void HtmlExportWidget::on_textRefresh_clicked(bool checked /* false */) const
 {
 	refreshText();
 } // on_textRefresh_clicked

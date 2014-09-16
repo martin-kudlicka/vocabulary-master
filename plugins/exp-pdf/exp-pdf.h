@@ -27,7 +27,7 @@ class ExpPdf : public ExpInterface
 		virtual ~ExpPdf();
 
 		        const void    addFont           (const HPDF_Doc &pdfDocument, FontList *fontList, const PdfExportWidget::FontRole &fontRole, const qint8 &num = PdfExportWidget::FONTROLE_NONE) const;
-		virtual const void    beginExport       ()                                                                                                                                              const;
+		virtual       void    beginExport       ()                                                                                                                                              const;
 		        const void    exportTable       (const quint32 &recordId, const HPDF_Page &pdfPage, const FontList &fontList, const QStringList &marks)                                         const;
 		        const void    exportText        (const quint32 &recordId, const HPDF_Page &pdfPage, const FontList &fontList, const QStringList &marks, const QString &templateText)            const;
 		        const void    initFonts         (const HPDF_Doc &pdfDocument, FontList *fontList, const quint8 &markCount)                                                                      const;
@@ -36,8 +36,8 @@ class ExpPdf : public ExpInterface
 		        const void    pdfSetFont        (const HPDF_Page &pdfPage, const HPDF_Font &pdfFont, const quint8 &size)                                                                        const;
 		        const void    pdfShowTableHeader(const HPDF_Page &pdfPage, const FontList &fontList)                                                                                            const;
 		        const void    pdfShowText       (const HPDF_Page &pdfPage, const QString &text, const QTextCodec *textCodec)                                                                    const;
-		virtual const QString pluginName        ()                                                                                                                                              const;
-		virtual const void    setupUi           (QWidget *parent);
+		virtual       QString pluginName        ()                                                                                                                                              const;
+		virtual       void    setupUi           (QWidget *parent);
 
 	private slots:
 		const void on_widget_vocabularyGetMarks(QStringList *marks) const;

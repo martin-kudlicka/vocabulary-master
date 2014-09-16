@@ -35,7 +35,7 @@ TranslationHandler::TranslationHandler()
 #endif
 } // TranslationHandler
 
-const void TranslationHandler::setLanguage(const QString &language)
+void TranslationHandler::setLanguage(const QString &language)
 {
 	if (!_translator.load(language,
 #ifdef Q_OS_WIN

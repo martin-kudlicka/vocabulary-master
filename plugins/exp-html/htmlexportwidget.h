@@ -13,9 +13,9 @@ class HtmlExportWidget : public QWidget
 	public:
 		HtmlExportWidget(QWidget *parent = NULL, Qt::WindowFlags flags = 0);
 
-        const QString codec  () const;
-        const void    refresh() const;
-		const QString text   () const;
+        QString codec  () const;
+        void    refresh() const;
+		QString text   () const;
 
 	private:
 		enum Style
@@ -48,30 +48,30 @@ class HtmlExportWidget : public QWidget
 
 		virtual ~HtmlExportWidget();
 
-        const void addTableColumn   ();
-        const void initTableColumns ();
-        const void insertTableText  (const QTextTable *tablePreview, const quint32 &row, const quint8 &column, const QString &text) const;
-        const void preselectCodec   (const QString &codec)                                                                          const;
-        const void refreshTable     ()                                                                                              const;
-        const void refreshText      ()                                                                                              const;
-        const void removeTableColumn();
+        void addTableColumn   ();
+        void initTableColumns ();
+        void insertTableText  (const QTextTable *tablePreview, quint32 row, quint8 column, const QString &text) const;
+        void preselectCodec   (const QString &codec)                                                            const;
+        void refreshTable     ()                                                                                const;
+        void refreshText      ()                                                                                const;
+        void removeTableColumn();
 
     signals:
-        void progressExportSetMax     (const quint32 &max)                                              const;
-        void progressExportSetValue   (const quint32 &value)                                            const;
-        void vocabularyGetCategoryIds (ExpInterface::CategoryIdList *categoryIds)                       const;
-        void vocabularyGetCategoryName(const quint8 &categoryId, QString *name)                         const;
-        void vocabularyGetMarks       (QStringList *marks)                                              const;
-        void vocabularyGetMarkText    (const quint32 &recordId, const QString &mark, QString *text)     const;
-        void vocabularyGetRecordCount (const quint8 &categoryId, quint32 *count)                        const;
-        void vocabularyGetRecordIds   (const quint8 &categoryId, ExpInterface::RecordIdList *recordIds) const;
+        void progressExportSetMax     (quint32 max)                                              const;
+        void progressExportSetValue   (quint32 value)                                            const;
+        void vocabularyGetCategoryIds (ExpInterface::CategoryIdList *categoryIds)                const;
+        void vocabularyGetCategoryName(quint8 categoryId, QString *name)                         const;
+        void vocabularyGetMarks       (QStringList *marks)                                       const;
+        void vocabularyGetMarkText    (quint32 recordId, const QString &mark, QString *text)     const;
+        void vocabularyGetRecordCount (quint8 categoryId, quint32 *count)                        const;
+        void vocabularyGetRecordIds   (quint8 categoryId, ExpInterface::RecordIdList *recordIds) const;
 
     private slots:
-		const void on_styleTable_clicked      (bool checked = false) const;
-        const void on_styleText_clicked       (bool checked = false) const;
-		const void on_tableColums_valueChanged(int i);
-		const void on_tableRefresh_clicked    (bool checked = false) const;
-		const void on_textRefresh_clicked     (bool checked = false) const;
+		void on_styleTable_clicked      (bool checked = false) const;
+        void on_styleText_clicked       (bool checked = false) const;
+		void on_tableColums_valueChanged(int i);
+		void on_tableRefresh_clicked    (bool checked = false) const;
+		void on_textRefresh_clicked     (bool checked = false) const;
 }; // HtmlExportWidget
 
 #endif // HTMLEXPORTWIDGET_H

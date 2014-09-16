@@ -16,22 +16,22 @@ class ExpInterface : public QObject, public TranslationHandler
 
 		static const quint8 WIDGET_POSITION = 0;
 
-        virtual const void    beginExport() const      = 0;
-		virtual const QString pluginName()  const      = 0;
-		virtual const void    setupUi(QWidget *parent) = 0;
+        virtual void    beginExport() const      = 0;
+		virtual QString pluginName()  const      = 0;
+		virtual void    setupUi(QWidget *parent) = 0;
 
 	protected:
 		virtual ~ExpInterface();
 
     signals:
-        void progressExportSetMax     (const quint32 &pMax)                                               const;
-        void progressExportSetValue   (const quint32 &pValue)                                             const;
-        void vocabularyGetCategoryIds (ExpInterface::CategoryIdList *pCategoryIds)                        const;
-        void vocabularyGetCategoryName(const quint8 &pCategoryId, QString *pName)                         const;
-        void vocabularyGetMarks       (QStringList *pMarks)                                               const;
-        void vocabularyGetMarkText    (const quint32 &pRecordId, const QString &pMark, QString *pText)    const;
-        void vocabularyGetRecordCount (const quint8 &pCategoryId, quint32 *pCount)                        const;
-        void vocabularyGetRecordIds   (const quint8 &pCategoryId, ExpInterface::RecordIdList *pRecordIds) const;
+        void progressExportSetMax     (quint32 pMax)                                               const;
+        void progressExportSetValue   (quint32 pValue)                                             const;
+        void vocabularyGetCategoryIds (ExpInterface::CategoryIdList *pCategoryIds)                 const;
+        void vocabularyGetCategoryName(quint8 pCategoryId, QString *pName)                         const;
+        void vocabularyGetMarks       (QStringList *pMarks)                                        const;
+        void vocabularyGetMarkText    (quint32 pRecordId, const QString &pMark, QString *pText)    const;
+        void vocabularyGetRecordCount (quint8 pCategoryId, quint32 *pCount)                        const;
+        void vocabularyGetRecordIds   (quint8 pCategoryId, ExpInterface::RecordIdList *pRecordIds) const;
 }; // ExpInterface
 
 Q_DECLARE_INTERFACE(ExpInterface, IID_EXPINTERFACE);
