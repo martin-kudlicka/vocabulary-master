@@ -8,7 +8,7 @@ ExpPdf::~ExpPdf()
 {
 } // ~ExpPdf
 
-const void ExpPdf::addFont(const HPDF_Doc &pdfDocument, FontList *fontList, const PdfExportWidget::FontRole &fontRole, const qint8 &num /* PdfExportWidget::FONTROLE_NONE */) const
+void ExpPdf::addFont(HPDF_Doc pdfDocument, FontList *fontList, PdfExportWidget::FontRole fontRole, qint8 num /* PdfExportWidget::FONTROLE_NONE */) const
 {
 	const PdfExportWidget::FontRoleInfo fontRoleInfo = _widget->fontRoleInfo(fontRole, num);
 
@@ -121,7 +121,7 @@ void ExpPdf::beginExport() const
 	HPDF_Free(pdfDocument);
 } // beginExport
 
-const void ExpPdf::exportTable(const quint32 &recordId, const HPDF_Page &pdfPage, const FontList &fontList, const QStringList &marks) const
+void ExpPdf::exportTable(quint32 recordId, HPDF_Page pdfPage, const FontList &fontList, const QStringList &marks) const
 {
 	const PdfExportWidget::TableColumns *tableColumns = _widget->tableColumns();
 	foreach (const PdfExportWidget::TableColumn &tableColumn, *tableColumns)
@@ -134,7 +134,7 @@ const void ExpPdf::exportTable(const quint32 &recordId, const HPDF_Page &pdfPage
 	} // foreach
 } // exportTable
 
-const void ExpPdf::exportText(const quint32 &recordId, const HPDF_Page &pdfPage, const FontList &fontList, const QStringList &marks, const QString &templateText) const
+void ExpPdf::exportText(quint32 recordId, HPDF_Page pdfPage, const FontList &fontList, const QStringList &marks, const QString &templateText) const
 {
 	// analyze template
 	quint8 pos = 0;
@@ -186,7 +186,7 @@ const void ExpPdf::exportText(const quint32 &recordId, const HPDF_Page &pdfPage,
 	} // while
 } // exportText
 
-const void ExpPdf::initFonts(const HPDF_Doc &pdfDocument, FontList *fontList, const quint8 &markCount) const
+void ExpPdf::initFonts(HPDF_Doc pdfDocument, FontList *fontList, quint8 markCount) const
 {
 	// get demanded fonts and encodings
 	PdfExportWidget::FontRoleInfo font         = _widget->fontRoleInfo(PdfExportWidget::FontRoleCategory);
@@ -247,12 +247,12 @@ const void ExpPdf::initFonts(const HPDF_Doc &pdfDocument, FontList *fontList, co
 	} // for
 } // initFonts
 
-const void ExpPdf::on_widget_vocabularyGetMarks(QStringList *marks) const
+void ExpPdf::on_widget_vocabularyGetMarks(QStringList *marks) const
 {
 	emit vocabularyGetMarks(marks);
 } // on_widget_vocabularyGetMarks
 
-const void ExpPdf::pdfAddPage(const HPDF_Doc &pdfDocument, HPDF_Page *pdfPage, const HPDF_REAL &defaultSize /* 0 */) const
+void ExpPdf::pdfAddPage(HPDF_Doc pdfDocument, HPDF_Page *pdfPage, HPDF_REAL defaultSize /* 0 */) const
 {
 	// remember current font and size
 	HPDF_Font pdfFont;
@@ -282,7 +282,7 @@ const void ExpPdf::pdfAddPage(const HPDF_Doc &pdfDocument, HPDF_Page *pdfPage, c
 	} // if
 } // pdfAddPage
 
-const bool ExpPdf::pdfNextLine(const HPDF_Doc &pdfDocument, HPDF_Page *pdfPage) const
+bool ExpPdf::pdfNextLine(HPDF_Doc pdfDocument, HPDF_Page *pdfPage) const
 {
 	// check current position
 	const HPDF_REAL pdfSize = HPDF_Page_GetCurrentFontSize(*pdfPage);
@@ -304,13 +304,13 @@ const bool ExpPdf::pdfNextLine(const HPDF_Doc &pdfDocument, HPDF_Page *pdfPage) 
 	} // if else
 } // pdfNextLine
 
-const void ExpPdf::pdfSetFont(const HPDF_Page &pdfPage, const HPDF_Font &pdfFont, const quint8 &size) const
+void ExpPdf::pdfSetFont(HPDF_Page pdfPage, HPDF_Font pdfFont, quint8 size) const
 {
 	HPDF_Page_SetFontAndSize(pdfPage, pdfFont, size);
 	HPDF_Page_SetTextLeading(pdfPage, size);
 } // pdfSetFont
 
-const void ExpPdf::pdfShowTableHeader(const HPDF_Page &pdfPage, const FontList &fontList) const
+void ExpPdf::pdfShowTableHeader(HPDF_Page pdfPage, const FontList &fontList) const
 {
 	const PdfExportWidget::TableColumns *columns = _widget->tableColumns();
 	foreach (const PdfExportWidget::TableColumn &column, *columns)
@@ -323,7 +323,7 @@ const void ExpPdf::pdfShowTableHeader(const HPDF_Page &pdfPage, const FontList &
 	} // foreach
 } // pdfShowTableHeader
 
-const void ExpPdf::pdfShowText(const HPDF_Page &pdfPage, const QString &text, const QTextCodec *textCodec) const
+void ExpPdf::pdfShowText(HPDF_Page pdfPage, const QString &text, const QTextCodec *textCodec) const
 {
 	QByteArray encoded;
 	if (textCodec)

@@ -87,14 +87,14 @@ class PdfExportWidget : public QWidget
 
 		PdfExportWidget(QWidget *parent = NULL, Qt::WindowFlags flags = 0);
 
-		const quint8         border       ()                                                           const;
-		const quint8         compression  ()                                                           const;
-		const FontRoleInfo   fontRoleInfo (const FontRole &fontRole, const qint8 &num = FONTROLE_NONE) const;
-		const void           initMarkFonts();
-		const HPDF_PageSizes pageSize     ()                                                           const;
-		const Style          style        ()                                                           const;
-		const TableColumns  *tableColumns ()                                                           const;
-		const QString        textTemplate ()                                                           const;
+		      quint8         border       ()                                             const;
+		      quint8         compression  ()                                             const;
+		      FontRoleInfo   fontRoleInfo (FontRole fontRole, qint8 num = FONTROLE_NONE) const;
+		      void           initMarkFonts();
+		      HPDF_PageSizes pageSize     ()                                             const;
+		      Style          style        ()                                             const;
+		const TableColumns  *tableColumns ()                                             const;
+		      QString        textTemplate ()                                             const;
 
 	private:
 		static const quint8 DEFAULT_FONT_COUNT = 2;
@@ -128,24 +128,24 @@ class PdfExportWidget : public QWidget
 
 		virtual ~PdfExportWidget();
 
-        const void        addTableColumn   ();
-		const void        fillEncodings    (QComboBox *comboBox, const QString &font) const;
-		const void        fillFonts        (QComboBox *comboBox)                      const;
-		const void        fillPageSizes    ()                                         const;
-		const EncodingSet encodingSet      (const QString &encoding)                  const;
-		const FontSet     fontSet          (const QString &font)                      const;
-		const char       *textCodec        (const QString &encoding)                  const;
-        const void        initTableColumns ();
-        const void        removeTableColumn();
+        void        addTableColumn   ();
+		void        fillEncodings    (QComboBox *comboBox, const QString &font) const;
+		void        fillFonts        (QComboBox *comboBox)                      const;
+		void        fillPageSizes    ()                                         const;
+		EncodingSet encodingSet      (const QString &encoding)                  const;
+		FontSet     fontSet          (const QString &font)                      const;
+		char       *textCodec        (const QString &encoding)                  const;
+        void        initTableColumns ();
+        void        removeTableColumn();
 
 	signals:
 		void vocabularyGetMarks(QStringList *marks) const;
 
     private slots:
-		const void on_font_currentIndexChanged(int index)            const;
-		const void on_styleTable_clicked      (bool checked = false) const;
-        const void on_styleText_clicked       (bool checked = false) const;
-        const void on_tableColums_valueChanged(int i);
+		void on_font_currentIndexChanged(int index)            const;
+		void on_styleTable_clicked      (bool checked = false) const;
+        void on_styleText_clicked       (bool checked = false) const;
+        void on_tableColums_valueChanged(int i);
 }; // PdfExportWidget
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(PdfExportWidget::EncodingSets)

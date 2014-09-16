@@ -116,12 +116,12 @@ PdfExportWidget::~PdfExportWidget()
 {
 } // ~PdfExportWidget
 
-const quint8 PdfExportWidget::border() const
+quint8 PdfExportWidget::border() const
 {
 	return _ui.border->value();
 } // border
 
-const quint8 PdfExportWidget::compression() const
+quint8 PdfExportWidget::compression() const
 {
 	quint8 compression;
 
@@ -140,7 +140,7 @@ const quint8 PdfExportWidget::compression() const
 	return compression;
 } // compression
 
-const PdfExportWidget::FontRoleInfo PdfExportWidget::fontRoleInfo(const FontRole &fontRole, const qint8 &num /* FONTROLE_NONE */) const
+PdfExportWidget::FontRoleInfo PdfExportWidget::fontRoleInfo(FontRole fontRole, qint8 num /* FONTROLE_NONE */) const
 {
 	FontRoleInfo fontRoleInfo;
 
@@ -171,7 +171,7 @@ const PdfExportWidget::FontRoleInfo PdfExportWidget::fontRoleInfo(const FontRole
 	return fontRoleInfo;
 } // fontRoleInfo
 
-const void PdfExportWidget::initMarkFonts()
+void PdfExportWidget::initMarkFonts()
 {
 	// mark fonts
 	QStringList marks;
@@ -211,12 +211,12 @@ const void PdfExportWidget::initMarkFonts()
 	} // foreach
 } // initMarkFonts
 
-const HPDF_PageSizes PdfExportWidget::pageSize() const
+HPDF_PageSizes PdfExportWidget::pageSize() const
 {
 	return static_cast<const HPDF_PageSizes>(_ui.pageSize->itemData(_ui.pageSize->currentIndex()).toInt());
 } // pageSize
 
-const PdfExportWidget::Style PdfExportWidget::style() const
+PdfExportWidget::Style PdfExportWidget::style() const
 {
 	if (_ui.styleText->isChecked())
 	{
@@ -231,12 +231,12 @@ const PdfExportWidget::TableColumns *PdfExportWidget::tableColumns() const
 	return &_tableColumns;
 } // tableColumns
 
-const QString PdfExportWidget::textTemplate() const
+QString PdfExportWidget::textTemplate() const
 {
 	return _ui.textEdit->text();
 } // textTemplate
 
-const void PdfExportWidget::addTableColumn()
+void PdfExportWidget::addTableColumn()
 {
     // controls
     TableColumn tableColumn;
@@ -258,7 +258,7 @@ const void PdfExportWidget::addTableColumn()
     _ui.tableColumns->addWidget(tableColumn.templateEdit, TableRowTemplate, _tableColumns.size() + LABEL_COLUMN);
 } // addTableColumn
 
-const void PdfExportWidget::fillEncodings(QComboBox *comboBox, const QString &font) const
+void PdfExportWidget::fillEncodings(QComboBox *comboBox, const QString &font) const
 {
 	// get font encoding type
 	EncodingType encoding;
@@ -281,7 +281,7 @@ const void PdfExportWidget::fillEncodings(QComboBox *comboBox, const QString &fo
 	} // for
 } // fillEncodings
 
-const void PdfExportWidget::fillFonts(QComboBox *comboBox) const
+void PdfExportWidget::fillFonts(QComboBox *comboBox) const
 {
 	for (quint8 fontIndex = 0; fontIndex < sizeof(FONTS) / sizeof(FontInfo); fontIndex++)
 	{
@@ -289,7 +289,7 @@ const void PdfExportWidget::fillFonts(QComboBox *comboBox) const
 	} // for
 } // fillFonts
 
-const void PdfExportWidget::fillPageSizes() const
+void PdfExportWidget::fillPageSizes() const
 {
 	for (quint8 sizeIndex = 0; sizeIndex < sizeof(PAGE_SIZES) / sizeof(PageSize); sizeIndex++)
 	{
@@ -302,7 +302,7 @@ const void PdfExportWidget::fillPageSizes() const
 	} // for
 } // fillPageSizes
 
-const PdfExportWidget::EncodingSet PdfExportWidget::encodingSet(const QString &encoding) const
+PdfExportWidget::EncodingSet PdfExportWidget::encodingSet(const QString &encoding) const
 {
 	for (quint8 encodingIndex = 0; encodingIndex < sizeof(ENCODINGS) / sizeof(EncodingInfo); encodingIndex++)
 	{
@@ -315,7 +315,7 @@ const PdfExportWidget::EncodingSet PdfExportWidget::encodingSet(const QString &e
 	return EncodingSetNone;
 } // encodingSet
 
-const PdfExportWidget::FontSet PdfExportWidget::fontSet(const QString &font) const
+PdfExportWidget::FontSet PdfExportWidget::fontSet(const QString &font) const
 {
 	for (quint8 fontIndex = 0; fontIndex < sizeof(FONTS) / sizeof(FontInfo); fontIndex++)
 	{
@@ -328,7 +328,7 @@ const PdfExportWidget::FontSet PdfExportWidget::fontSet(const QString &font) con
 	return FontSetNone;
 } // fontSet
 
-const char *PdfExportWidget::textCodec(const QString &encoding) const
+char *PdfExportWidget::textCodec(const QString &encoding) const
 {
 	for (quint8 encodingIndex = 0; encodingIndex < sizeof(ENCODINGS) / sizeof(EncodingInfo); encodingIndex++)
 	{
@@ -341,7 +341,7 @@ const char *PdfExportWidget::textCodec(const QString &encoding) const
 	return NULL;
 } // textCodec
 
-const void PdfExportWidget::initTableColumns()
+void PdfExportWidget::initTableColumns()
 {
     for (quint8 column = 0; column < _ui.tableColums->value(); column++)
 	{
@@ -349,7 +349,7 @@ const void PdfExportWidget::initTableColumns()
     } // for
 } // initTableColumns
 
-const void PdfExportWidget::removeTableColumn()
+void PdfExportWidget::removeTableColumn()
 {
 	TableColumn tableColumn = _tableColumns.takeLast();
 	// header
@@ -360,7 +360,7 @@ const void PdfExportWidget::removeTableColumn()
 	tableColumn.templateEdit->deleteLater();
 } // removeTableColumn
 
-const void PdfExportWidget::on_font_currentIndexChanged(int index) const
+void PdfExportWidget::on_font_currentIndexChanged(int index) const
 {
 	// get font controls
 	FontControls controls;
@@ -384,17 +384,17 @@ const void PdfExportWidget::on_font_currentIndexChanged(int index) const
 	} // if
 } // on_font_currentIndexChanged
 
-const void PdfExportWidget::on_styleTable_clicked(bool checked /* false */) const
+void PdfExportWidget::on_styleTable_clicked(bool checked /* false */) const
 {
 	_ui.styles->setCurrentIndex(StyleTable);
 } // on_styleTable_clicked
 
-const void PdfExportWidget::on_styleText_clicked(bool checked /* false */) const
+void PdfExportWidget::on_styleText_clicked(bool checked /* false */) const
 {
     _ui.styles->setCurrentIndex(StyleText);
 } // on_styleText_clicked
 
-const void PdfExportWidget::on_tableColums_valueChanged(int i)
+void PdfExportWidget::on_tableColums_valueChanged(int i)
 {
     if (i < _tableColumns.size())
 	{
