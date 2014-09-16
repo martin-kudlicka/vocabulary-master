@@ -12,7 +12,7 @@ class DecksModel : public QAbstractItemModel
                  DecksModel(const QSqlDatabase *database, QObject *parent = NULL);
 		virtual ~DecksModel();
 
-        const quint8 deckId(const quint8 &row) const;
+        quint8 deckId(quint8 row) const;
 
     private:
         enum Column

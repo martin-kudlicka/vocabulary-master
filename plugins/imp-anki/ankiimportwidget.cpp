@@ -21,12 +21,12 @@ AnkiImportWidget::~AnkiImportWidget()
 {
 } // ~AnkiImportWidget
 
-const qlonglong AnkiImportWidget::fieldId(const quint8 &position) const
+qlonglong AnkiImportWidget::fieldId(quint8 position) const
 {
 	return _fieldsModel.fieldId(position);
 } // fieldId
 
-const QStringList AnkiImportWidget::marks() const
+QStringList AnkiImportWidget::marks() const
 {
 	QStringList marks;
 	for (quint8 rowIndex = 0; rowIndex < _fieldsModel.rowCount(); rowIndex++)
@@ -39,7 +39,7 @@ const QStringList AnkiImportWidget::marks() const
 	return marks;
 } // marks
 
-const void AnkiImportWidget::prepareTreeView(QTreeView *treeView, QAbstractItemModel *itemModel)
+void AnkiImportWidget::prepareTreeView(QTreeView *treeView, QAbstractItemModel *itemModel)
 {
 	treeView->setModel(itemModel);
 	treeView->setItemDelegateForColumn(FieldsModel::ColumnMark, &_markEditDelegate);
@@ -49,14 +49,14 @@ const void AnkiImportWidget::prepareTreeView(QTreeView *treeView, QAbstractItemM
 	} // for
 } // prepareTreeView
 
-const void AnkiImportWidget::on_decks_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
+void AnkiImportWidget::on_decks_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
     const quint8 deckId = _decksModel.deckId(_ui.decks->currentIndex().row());
     _modelsModel.deckId(deckId);
     _ui.models->reset();
 } // on_decks_selectionModel_selectionChanged
 
-const void AnkiImportWidget::on_models_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
+void AnkiImportWidget::on_models_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
     const qlonglong modelId = _modelsModel.modelId(_ui.models->currentIndex().row());
     _fieldsModel.setModelId(modelId);

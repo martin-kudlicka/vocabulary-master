@@ -8,7 +8,7 @@ ImpPlaintext::~ImpPlaintext()
 {
 } // ~ImpPlaintext
 
-const void ImpPlaintext::close()
+void ImpPlaintext::close()
 {
     if (_plaintextFile.isOpen())
 	{
@@ -16,12 +16,12 @@ const void ImpPlaintext::close()
     } // if
 } // close
 
-const QString ImpPlaintext::filter() const
+QString ImpPlaintext::filter() const
 {
     return tr("text file (*.txt)");
 } // filter
 
-const QStringList ImpPlaintext::marks() const
+QStringList ImpPlaintext::marks() const
 {
     const QString regExp = _widget->regExp();
 	QStringList markList;
@@ -37,14 +37,14 @@ const QStringList ImpPlaintext::marks() const
 	return markList;
 } // marks
 
-const bool ImpPlaintext::open(const QString &fileName)
+bool ImpPlaintext::open(const QString &fileName)
 {
 	close();
 	_cachedRecord = CACHED_NONE;
 	return _plaintextFile.open(fileName);
 } // open
 
-const quint16 ImpPlaintext::recordCount() const
+quint16 ImpPlaintext::recordCount() const
 {
 	const quint16 fileLines = _widget->lineCount();
 	quint16 lines           = fileLines / _widget->linesPerRecord();
@@ -56,7 +56,7 @@ const quint16 ImpPlaintext::recordCount() const
 	return lines;
 } // recordCount
 
-const QString ImpPlaintext::recordData(const quint16 &record, const QString &mark)
+QString ImpPlaintext::recordData(quint16 record, const QString &mark)
 {
 	if (_cachedRecord != record)
 	{
@@ -115,7 +115,7 @@ const QString ImpPlaintext::recordData(const quint16 &record, const QString &mar
 	} // if else
 } // recordData
 
-const void ImpPlaintext::setupUI(QGroupBox *parent)
+void ImpPlaintext::setupUI(QGroupBox *parent)
 {
     _widget = new PlaintextImportWidget(&_plaintextFile, parent);
     QBoxLayout *boxLayout = qobject_cast<QBoxLayout *>(parent->layout());
