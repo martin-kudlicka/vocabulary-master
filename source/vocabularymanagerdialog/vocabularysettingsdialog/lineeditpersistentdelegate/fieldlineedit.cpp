@@ -10,7 +10,7 @@ FieldLineEdit::~FieldLineEdit()
 {
 } // ~FieldLineEdit
 
-const void FieldLineEdit::on_textEdited(const QString &text)
+void FieldLineEdit::on_textEdited(const QString &text)
 {
 	if (hasAcceptableInput())
 	{

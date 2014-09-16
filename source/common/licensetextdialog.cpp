@@ -15,7 +15,7 @@ LicenseTextDialog::~LicenseTextDialog()
 {
 } // ~LicenseTextDialog
 
-const void LicenseTextDialog::showLicenses(const LicenseCommon::LicenseContentList &licenses) const
+void LicenseTextDialog::showLicenses(const LicenseCommon::LicenseContentList &licenses) const
 {
     int tab = TAB_INVALID;
 
@@ -36,7 +36,7 @@ const void LicenseTextDialog::showLicenses(const LicenseCommon::LicenseContentLi
     } // if
 } // showLicenses
 
-const void LicenseTextDialog::showMainLicense(const Settings *settings) const
+void LicenseTextDialog::showMainLicense(const Settings *settings) const
 {
     LicenseCommon::LicenseContentList licenses;
 

@@ -22,7 +22,7 @@ class PluginsModel : public QAbstractItemModel
             PluginTypeTTS
         }; // PluginType
 
-                 PluginsModel(const Plugins *plugins, const PluginType &type, QObject *parent = NULL);
+                 PluginsModel(const Plugins *plugins, PluginType type, QObject *parent = NULL);
 		virtual ~PluginsModel();
 
         virtual QVariant    data    (const QModelIndex &index, int role = Qt::DisplayRole)           const;
@@ -33,10 +33,10 @@ class PluginsModel : public QAbstractItemModel
               PluginType _type;
         const Plugins   *_plugins;
 
-        virtual       int                 columnCount(const QModelIndex &parent = QModelIndex())                            const;
-        virtual       QVariant            headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-        virtual       QModelIndex         parent     (const QModelIndex &index)                                             const;
-		        const Plugins::PluginInfo pluginInfo (const quint8 &number)                                                 const;
+        virtual int                 columnCount(const QModelIndex &parent = QModelIndex())                            const;
+        virtual QVariant            headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+        virtual QModelIndex         parent     (const QModelIndex &index)                                             const;
+		        Plugins::PluginInfo pluginInfo (quint8 number)                                                        const;
 }; // PluginsModel
 
 #endif // PLUGINSMODEL_H

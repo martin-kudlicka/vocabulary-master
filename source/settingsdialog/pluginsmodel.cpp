@@ -1,6 +1,6 @@
 #include "settingsdialog/pluginsmodel.h"
 
-PluginsModel::PluginsModel(const Plugins *plugins, const PluginType &type, QObject *parent /* NULL */) : QAbstractItemModel(parent), _plugins(plugins), _type(type)
+PluginsModel::PluginsModel(const Plugins *plugins, PluginType type, QObject *parent /* NULL */) : QAbstractItemModel(parent), _plugins(plugins), _type(type)
 {
 } // PluginsModel
 
@@ -57,7 +57,7 @@ int PluginsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) con
     return ColumnCount;
 } // columnCount
 
-const Plugins::PluginInfo PluginsModel::pluginInfo(const quint8 &number) const
+Plugins::PluginInfo PluginsModel::pluginInfo(quint8 number) const
 {
     switch (_type)
 	{

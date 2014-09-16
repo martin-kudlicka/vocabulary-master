@@ -79,80 +79,80 @@ class MainWindow : public QMainWindow
 		      UpdateChecker                   _updateChecker;
 		      VocabularyOrganizer             _vocabularyOrganizer;
 
-                const void    applySettings         (const bool &startup);
+                void    applySettings         (bool startup);
 #ifndef EDITION_FREE
-		        const void    createTrayMenu        ();
+		        void    createTrayMenu        ();
 #endif
-		        const void    createVocabulariesMenu();
-                const void    enableControls        ();
-		virtual       bool    event                 (QEvent *event);
-                const QString languageText          (const bool &directionSwitched, const bool &answer)                               const;
-		        const bool    learningDirection     ()                                                                                const;
-                const QString learningText          (const Template &templateType, const bool &directionSwitched, const bool &answer) const;
-                const void    openVocabulary        (Vocabulary *vocabulary
+		        void    createVocabulariesMenu();
+                void    enableControls        ();
+		virtual bool    event                 (QEvent *event);
+                QString languageText          (bool directionSwitched, bool answer)                        const;
+		        bool    learningDirection     ()                                                           const;
+                QString learningText          (Template templateType, bool directionSwitched, bool answer) const;
+                void    openVocabulary        (Vocabulary *vocabulary
 #ifndef EDITION_FREE
-            , const bool &currentRecord
+            , bool currentRecord
 #endif
             );
 #ifndef EDITION_FREE
-				const quint8  recordPriority        ()                                                                                const;
+				quint8  recordPriority        ()                                                           const;
 #endif
-                const void    refreshStatusBar      ();
+                void    refreshStatusBar      ();
 #ifndef EDITION_FREE
 # ifdef Q_OS_WIN
-                const void    registerHotkeys       ()                                                                                const;
+                void    registerHotkeys       ()                                                           const;
 # endif
-		        const void    say                   (const bool &directionSwitched, const bool &answer)                               const;
+		        void    say                   (bool directionSwitched, bool answer)                        const;
 #endif
-                const void    setLayout             ();
+                void    setLayout             ();
 #ifndef EDITION_FREE
-		        const void    setRecordEnabled      (const bool &enabled);
-		        const void    setRecordPriority     (const quint8 &priority);
-		        const void    setupRecordControls   ()                                                                                const;
+		        void    setRecordEnabled      (bool enabled);
+		        void    setRecordPriority     (quint8 priority);
+		        void    setupRecordControls   ()                                                           const;
 #endif
-                const void    showAnswer            ();
+                void    showAnswer            ();
 #ifndef EDITION_FREE
-		        const void    showTrayBalloon       (const bool &directionSwitched, const bool &answer);
+		        void    showTrayBalloon       (bool directionSwitched, bool answer);
 #endif
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
-		virtual       bool    winEvent              (MSG *message, long *result);
+		virtual bool    winEvent              (MSG *message, long *result);
 #endif
 
 	private slots:
-        const void on_actionAbout_triggered              (bool checked = false);
+        void on_actionAbout_triggered              (bool checked = false);
 #ifndef EDITION_FREE
-        const void on_actionAnswer_triggered             (bool checked = false);
-        const void on_actionFindInVocabulary_triggered   (bool checked = false);
+        void on_actionAnswer_triggered             (bool checked = false);
+        void on_actionFindInVocabulary_triggered   (bool checked = false);
 # ifndef EDITION_TRY
-        const void on_actionLicense_triggered            (bool checked = false);
+        void on_actionLicense_triggered            (bool checked = false);
 # endif
-        const void on_actionMute_toggled                 (bool checked);
+        void on_actionMute_toggled                 (bool checked);
 #endif
-		const void on_actionNext_triggered               (bool checked = false);
-        const void on_actionOrganizer_triggered          (bool checked = false);
-		const void on_actionSettings_triggered           (bool checked = false);
-		const void on_actionStart_triggered              (bool checked = false);
-		const void on_actionStop_triggered               (bool checked = false);
-		const void on_learningTimer_timeout              ();
+		void on_actionNext_triggered               (bool checked = false);
+        void on_actionOrganizer_triggered          (bool checked = false);
+		void on_actionSettings_triggered           (bool checked = false);
+		void on_actionStart_triggered              (bool checked = false);
+		void on_actionStop_triggered               (bool checked = false);
+		void on_learningTimer_timeout              ();
 #ifndef EDITION_FREE
-		const void on_menuTray_triggered                 (QAction *action);
+		void on_menuTray_triggered                 (QAction *action);
 #endif
-		const void on_menuVocabularies_triggered         (QAction *action);
+		void on_menuVocabularies_triggered         (QAction *action);
 #ifndef EDITION_FREE
-		const void on_priority1_clicked                  (bool checked = false);
-		const void on_priority2_clicked                  (bool checked = false);
-		const void on_priority3_clicked                  (bool checked = false);
-		const void on_priority4_clicked                  (bool checked = false);
-		const void on_priority5_clicked                  (bool checked = false);
-		const void on_priority6_clicked                  (bool checked = false);
-		const void on_priority7_clicked                  (bool checked = false);
-		const void on_priority8_clicked                  (bool checked = false);
-		const void on_priority9_clicked                  (bool checked = false);
-		const void on_recordEnabled_clicked              (bool checked = false);
-		const void on_trayIcon_activated                 (QSystemTrayIcon::ActivationReason reason);
+		void on_priority1_clicked                  (bool checked = false);
+		void on_priority2_clicked                  (bool checked = false);
+		void on_priority3_clicked                  (bool checked = false);
+		void on_priority4_clicked                  (bool checked = false);
+		void on_priority5_clicked                  (bool checked = false);
+		void on_priority6_clicked                  (bool checked = false);
+		void on_priority7_clicked                  (bool checked = false);
+		void on_priority8_clicked                  (bool checked = false);
+		void on_priority9_clicked                  (bool checked = false);
+		void on_recordEnabled_clicked              (bool checked = false);
+		void on_trayIcon_activated                 (QSystemTrayIcon::ActivationReason reason);
 #endif
-		const void on_updateChecker_finished             ();
-		const void on_vocabularyOrganizer_vocabularyClose(const Vocabulary *pVocabulary);
+		void on_updateChecker_finished             ();
+		void on_vocabularyOrganizer_vocabularyClose(const Vocabulary *pVocabulary);
 }; // MainWindow
 
 #endif // MAINWINDOW_H

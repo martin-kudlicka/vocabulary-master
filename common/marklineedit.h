@@ -17,7 +17,7 @@ class MarkLineEdit : public QLineEdit
 		virtual ~MarkLineEdit();
 
         virtual void focusInEvent   (QFocusEvent *e);
-        const   void initialize     ();
+                void initialize     ();
         virtual void mousePressEvent(QMouseEvent *e);
         virtual void showEvent      (QShowEvent *event);
 }; // MarkLineEdit

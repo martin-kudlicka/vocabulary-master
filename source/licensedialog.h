@@ -21,12 +21,12 @@ class LicenseDialog : public QDialog
 		Settings         *_settings;
         Ui::LicenseDialog _ui;
 
-        const void fillLicenseInfo() const;
+        void fillLicenseInfo() const;
 
 	private slots:
-		const void on_eula_clicked(bool checked = false);
-		const void on_load_clicked(bool checked = false);
-		const void on_ok_clicked  (bool checked = false);
+		void on_eula_clicked(bool checked = false);
+		void on_load_clicked(bool checked = false);
+		void on_ok_clicked  (bool checked = false);
 }; // LicenseDialog
 
 #endif // LICENSEDIALOG_H

@@ -19,13 +19,13 @@ class License
         License(const Settings *settings);
 
 		const QString &email()     const;
-        const QString &firstName() const;
-		const bool     isLoaded()  const;
-		//const bool     isOk()      const;
+		const QString &firstName() const;
+		      bool     isLoaded()  const;
+		//    bool     isOk()      const;
 		const QString &lastName()  const;
-		const void     refreshLicense();
+		      void     refreshLicense();
 		const Status  &status()    const;
-		const QUuid   &uid()      const;
+		const QUuid   &uid()       const;
 		const QDate   &validTo()   const;
 
     private:
