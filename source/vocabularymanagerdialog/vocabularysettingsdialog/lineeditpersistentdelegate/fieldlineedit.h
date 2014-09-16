@@ -18,7 +18,7 @@ class FieldLineEdit : public QLineEdit
 		virtual void showEvent(QShowEvent *event);
 
 	private slots:
-		const void on_textEdited(const QString &text);
+		void on_textEdited(const QString &text);
 }; // FieldLineEdit
 
 #endif // FIELDLINEEDIT_H

@@ -35,12 +35,12 @@ class Plugins
 
 		const ExpPluginList &explugins   ()                                        const;
 		const ImpPluginList &impPlugins  ()                                        const;
-		const void           initialize  ();
-		const void           load        ();
-		const void           setLanguage (const QString &language)                 const;
+		      void           initialize  ();
+		      void           load        ();
+		      void           setLanguage (const QString &language)                 const;
 		      TTSInterface  *ttsPlugin   (const TTSInterface::TTSPlugin &pluginId) const;
 		const TTSPluginList  ttsPlugins  ()                                        const;
-		const void           uninitialize();
+		      void           uninitialize();
 
 	private:
 		ExpPluginList                             _expPlugins;

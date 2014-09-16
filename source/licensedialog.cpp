@@ -14,7 +14,7 @@ LicenseDialog::~LicenseDialog()
 {
 } // ~LicenseDialog
 
-const void LicenseDialog::fillLicenseInfo() const
+void LicenseDialog::fillLicenseInfo() const
 {
 	if (_license->status() == License::StatusOk || _license->status() == License::StatusExpired)
 	{
@@ -57,13 +57,13 @@ const void LicenseDialog::fillLicenseInfo() const
 	} // if else
 } // fillLicenseInfo
 
-const void LicenseDialog::on_eula_clicked(bool checked /* false */)
+void LicenseDialog::on_eula_clicked(bool checked /* false */)
 {
 	LicenseTextDialog licenseTextDialog(LicenseCommon::LicenseContentList(), _settings, this);
 	licenseTextDialog.exec();
 } // on_eula_clicked
 
-const void LicenseDialog::on_load_clicked(bool checked /* false */)
+void LicenseDialog::on_load_clicked(bool checked /* false */)
 {
 	const QString fileName = QFileDialog::getOpenFileName(this, tr("Load license"), QString(), tr("license (*.lic)"));
 	if (fileName.isEmpty())
@@ -83,7 +83,7 @@ const void LicenseDialog::on_load_clicked(bool checked /* false */)
 	_refreshed = true;
 } // on_load_clicked
 
-const void LicenseDialog::on_ok_clicked(bool checked /* false */)
+void LicenseDialog::on_ok_clicked(bool checked /* false */)
 {
 	if (_refreshed)
 	{

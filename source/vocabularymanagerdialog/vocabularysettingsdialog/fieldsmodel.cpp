@@ -8,7 +8,7 @@ FieldsModel::~FieldsModel()
 {
 } // ~FieldsModel
 
-const void FieldsModel::addRow()
+void FieldsModel::addRow()
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     _vocabulary->AddField();
@@ -85,7 +85,7 @@ QModelIndex FieldsModel::index(int row, int column, const QModelIndex &parent /*
 	return createIndex(row, column);
 } // index
 
-const void FieldsModel::removeRow(const quint8 &row)
+void FieldsModel::removeRow(quint8 row)
 {
 	beginRemoveRows(QModelIndex(), row, row);
 	const qint8 fieldId = _vocabulary->GetFieldId(row);
@@ -105,7 +105,7 @@ int FieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 	} // if
 } // rowCount
 
-const void FieldsModel::swap(const quint8 &sourceRow, const quint8 &destinationRow)
+void FieldsModel::swap(quint8 sourceRow, quint8 destinationRow)
 {
 	const qint8 sourceFieldId      = _vocabulary->GetFieldId(sourceRow);
 	const qint8 destinationFieldId = _vocabulary->GetFieldId(destinationRow);

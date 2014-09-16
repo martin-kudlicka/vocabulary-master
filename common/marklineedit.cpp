@@ -26,7 +26,7 @@ void MarkLineEdit::focusInEvent(QFocusEvent *e)
     } // if
 } // focusInEvent
 
-const void MarkLineEdit::initialize()
+void MarkLineEdit::initialize()
 {
     _focusedIn = false;
     setReadOnly(true);

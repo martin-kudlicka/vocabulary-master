@@ -26,12 +26,12 @@ const QString &License::firstName() const
     return _firstName;
 } // firstName
 
-const bool License::isLoaded() const
+bool License::isLoaded() const
 {
 	return _status == StatusOk || _status == StatusExpired;
 } // isLoaded
 
-/*const bool License::isOk() const
+/*bool License::isOk() const
 {
 	return _esStatus == StatusOk;
 } // isOk*/
@@ -41,7 +41,7 @@ const QString &License::lastName() const
 	return _lastName;
 } // lastName
 
-const void License::refreshLicense()
+void License::refreshLicense()
 {
 	// split license into content and signature
 	const QByteArray licenseData      = _settings->license();

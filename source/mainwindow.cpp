@@ -149,7 +149,7 @@ MainWindow::~MainWindow()
 #endif
 } // ~MainWindow
 
-const void MainWindow::applySettings(const bool &startup)
+void MainWindow::applySettings(bool startup)
 {
     setLayout();
 
@@ -201,7 +201,7 @@ const void MainWindow::applySettings(const bool &startup)
 } // applySettings
 
 #ifndef EDITION_FREE
-const void MainWindow::createTrayMenu()
+void MainWindow::createTrayMenu()
 {
     _trayVocabularies = _menuTray.addAction(QIcon(":/res/mainwindow/menubar/manage.png"), tr("&Vocabularies"));
 	_trayVocabularies->setMenu(&_menuTrayVocabularies);
@@ -214,7 +214,7 @@ const void MainWindow::createTrayMenu()
 } // createTrayMenu
 #endif
 
-const void MainWindow::createVocabulariesMenu()
+void MainWindow::createVocabulariesMenu()
 {
 	_ui.menuVocabularies->clear();
 #ifndef EDITION_FREE
@@ -238,7 +238,7 @@ const void MainWindow::createVocabulariesMenu()
 	} // for
 } // createVocabulariesMenu
 
-const void MainWindow::enableControls()
+void MainWindow::enableControls()
 {
 	// menu
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
@@ -310,7 +310,7 @@ bool MainWindow::event(QEvent *event)
 	return QMainWindow::event(event);
 } // event
 
-const QString MainWindow::languageText(const bool &directionSwitched, const bool &answer) const
+QString MainWindow::languageText(bool directionSwitched, bool answer) const
 {
     if ((!directionSwitched && !answer) || (directionSwitched && answer))
 	{
@@ -322,7 +322,7 @@ const QString MainWindow::languageText(const bool &directionSwitched, const bool
     } // if else
 } // languageText
 
-const bool MainWindow::learningDirection() const
+bool MainWindow::learningDirection() const
 {
 	if (_settings.switchLearningDirection() != Qt::PartiallyChecked)
 	{
@@ -334,7 +334,7 @@ const bool MainWindow::learningDirection() const
 	} // if else
 } // learningDirection
 
-const QString MainWindow::learningText(const Template &templateType, const bool &directionSwitched, const bool &answer) const
+QString MainWindow::learningText(Template templateType, bool directionSwitched, bool answer) const
 {
 	QString templateText;
 	VocabularyDatabase::eFieldLanguage fieldLanguage;
@@ -381,9 +381,9 @@ const QString MainWindow::learningText(const Template &templateType, const bool 
 	return templateText;
 } // learningText
 
-const void MainWindow::openVocabulary(Vocabulary *vocabulary
+void MainWindow::openVocabulary(Vocabulary *vocabulary
 #ifndef EDITION_FREE
-    , const bool &currentRecord
+    , bool currentRecord
 #endif
     )
 {
@@ -411,7 +411,7 @@ const void MainWindow::openVocabulary(Vocabulary *vocabulary
 } // openVocabulary
 
 #ifndef EDITION_FREE
-const quint8 MainWindow::recordPriority() const
+quint8 MainWindow::recordPriority() const
 {
     foreach (const quint8 &fieldId, _currentRecord.vVocabulary->GetFieldIds())
 	{
@@ -430,7 +430,7 @@ const quint8 MainWindow::recordPriority() const
 } // recordPriority
 #endif
 
-const void MainWindow::refreshStatusBar()
+void MainWindow::refreshStatusBar()
 {
     if (!_vocabularyOrganizer.IsOpen())
 	{
@@ -448,7 +448,7 @@ const void MainWindow::refreshStatusBar()
 } // refreshStatusBar
 
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
-const void MainWindow::registerHotkeys() const
+void MainWindow::registerHotkeys() const
 {
 	for (quint8 hotKeyIndex = 0; hotKeyIndex < Settings::HotkeyCount - 1; hotKeyIndex++)
 	{
@@ -485,7 +485,7 @@ const void MainWindow::registerHotkeys() const
 #endif
 
 #ifndef EDITION_FREE
-const void MainWindow::say(const bool &directionSwitched, const bool &answer) const
+void MainWindow::say(bool directionSwitched, bool answer) const
 {
     if (!_settings.mute())
 	{
@@ -530,7 +530,7 @@ const void MainWindow::say(const bool &directionSwitched, const bool &answer) co
 } // say
 #endif
 
-const void MainWindow::setLayout()
+void MainWindow::setLayout()
 {
 #ifndef EDITION_FREE
     if (_hboxLayoutInner)
@@ -570,7 +570,7 @@ const void MainWindow::setLayout()
 } // setLayout
 
 #ifndef EDITION_FREE
-const void MainWindow::setRecordEnabled(const bool &enabled)
+void MainWindow::setRecordEnabled(bool enabled)
 {
 	foreach (quint8 fieldId, _currentRecord.vVocabulary->GetFieldIds())
 	{
@@ -587,7 +587,7 @@ const void MainWindow::setRecordEnabled(const bool &enabled)
 	} // foreach
 } // setRecordEnabled
 
-const void MainWindow::setRecordPriority(const quint8 &priority)
+void MainWindow::setRecordPriority(quint8 priority)
 {
 	foreach (quint8 fieldId, _currentRecord.vVocabulary->GetFieldIds())
 	{
@@ -604,7 +604,7 @@ const void MainWindow::setRecordPriority(const quint8 &priority)
 	} // foreach
 } // setRecordPriority
 
-const void MainWindow::setupRecordControls() const
+void MainWindow::setupRecordControls() const
 {
 	const quint8 priority = recordPriority();
 	_ui.priority1->setChecked(priority == 1);
@@ -620,7 +620,7 @@ const void MainWindow::setupRecordControls() const
 } // setupRecordControls
 #endif
 
-const void MainWindow::showAnswer()
+void MainWindow::showAnswer()
 {
 #ifndef EDITION_FREE
     // answer
@@ -648,7 +648,7 @@ const void MainWindow::showAnswer()
 } // showAnswer
 
 #ifndef EDITION_FREE
-const void MainWindow::showTrayBalloon(const bool &directionSwitched, const bool &answer)
+void MainWindow::showTrayBalloon(bool directionSwitched, bool answer)
 {
 	QString text = learningText(TemplateTray, directionSwitched, false);
 	if (answer)
@@ -691,7 +691,7 @@ bool MainWindow::winEvent(MSG *message, long *result)
 } // winEvent
 #endif
 
-const void MainWindow::on_actionAbout_triggered(bool checked /* false */)
+void MainWindow::on_actionAbout_triggered(bool checked /* false */)
 {
     QMessageBox::about(this, tr("About Vocabulary Master"), "<center><b>" + tr(VOCABULARY_MASTER)
 #ifdef EDITION_FREE
@@ -704,19 +704,19 @@ const void MainWindow::on_actionAbout_triggered(bool checked /* false */)
 } // on_actionAbout_triggered
 
 #ifndef EDITION_FREE
-const void MainWindow::on_actionAnswer_triggered(bool checked /* false */)
+void MainWindow::on_actionAnswer_triggered(bool checked /* false */)
 {
     _timeAnswer = TIME_NONE;
     showAnswer();
 } // on_actionAnswer_triggered
 
-const void MainWindow::on_actionFindInVocabulary_triggered(bool checked /* false */)
+void MainWindow::on_actionFindInVocabulary_triggered(bool checked /* false */)
 {
     openVocabulary(_currentRecord.vVocabulary, true);
 } // on_actionFindInVocabulary_triggered
 
 # ifndef EDITION_TRY
-const void MainWindow::on_actionLicense_triggered(bool checked /* false */)
+void MainWindow::on_actionLicense_triggered(bool checked /* false */)
 {
     LicenseDialog ldLicenseDialog(_license, &_settings, this);
 	if (ldLicenseDialog.exec() == QDialog::Accepted)
@@ -727,13 +727,13 @@ const void MainWindow::on_actionLicense_triggered(bool checked /* false */)
 } // on_actionLicense_triggered
 # endif
 
-const void MainWindow::on_actionMute_toggled(bool checked)
+void MainWindow::on_actionMute_toggled(bool checked)
 {
     _settings.setMute(checked);
 } // on_actionMute_toggled
 #endif
 
-const void MainWindow::on_actionNext_triggered(bool checked /* false */)
+void MainWindow::on_actionNext_triggered(bool checked /* false */)
 {
 	if (_learningTimer.isActive())
 	{
@@ -745,7 +745,7 @@ const void MainWindow::on_actionNext_triggered(bool checked /* false */)
 	_learningTimer.start(0);
 } // on_actionNext_triggered
 
-const void MainWindow::on_actionOrganizer_triggered(bool checked /* false */)
+void MainWindow::on_actionOrganizer_triggered(bool checked /* false */)
 {
 	VocabularyOrganizerDialog vodOrganizerDialog(&_vocabularyOrganizer, this);
 	if (vodOrganizerDialog.exec() == QDialog::Accepted)
@@ -756,7 +756,7 @@ const void MainWindow::on_actionOrganizer_triggered(bool checked /* false */)
 	} // if
 } // on_actionOrganizer_triggered
 
-const void MainWindow::on_actionSettings_triggered(bool checked /* false */)
+void MainWindow::on_actionSettings_triggered(bool checked /* false */)
 {
 	SettingsDialog sdDialog(
 #ifndef EDITION_FREE
@@ -769,7 +769,7 @@ const void MainWindow::on_actionSettings_triggered(bool checked /* false */)
     } // if
 } // on_actionSettings_triggered
 
-const void MainWindow::on_actionStart_triggered(bool checked /* false */)
+void MainWindow::on_actionStart_triggered(bool checked /* false */)
 {
     _timeQuestion = TIME_NOW;
     _timeAnswer   = TIME_NONE;
@@ -788,7 +788,7 @@ const void MainWindow::on_actionStart_triggered(bool checked /* false */)
 	_learningTimer.start(0);
 } // on_actionStart_triggered
 
-const void MainWindow::on_actionStop_triggered(bool checked /* false */)
+void MainWindow::on_actionStop_triggered(bool checked /* false */)
 {
 	_learningTimer.stop();
 	_learning = false;
@@ -806,7 +806,7 @@ const void MainWindow::on_actionStop_triggered(bool checked /* false */)
 #endif
 } // on_actionStop_triggered
 
-const void MainWindow::on_learningTimer_timeout()
+void MainWindow::on_learningTimer_timeout()
 {
     if (_timeQuestion != TIME_NONE)
 	{
@@ -988,7 +988,7 @@ const void MainWindow::on_learningTimer_timeout()
 } // on_learningTimer_timeout
 
 #ifndef EDITION_FREE
-const void MainWindow::on_menuTray_triggered(QAction *action)
+void MainWindow::on_menuTray_triggered(QAction *action)
 {
     if (action == _traySettings)
 	{
@@ -1004,7 +1004,7 @@ const void MainWindow::on_menuTray_triggered(QAction *action)
 } // on_menuTray_triggered
 #endif
 
-const void MainWindow::on_menuVocabularies_triggered(QAction *action)
+void MainWindow::on_menuVocabularies_triggered(QAction *action)
 {
 	const quint8 vocabularyIndex                             = action->data().toUInt();
 	const VocabularyOrganizer::VocabularyInfo vocabularyInfo = _vocabularyOrganizer.GetVocabularyInfo(vocabularyIndex);
@@ -1017,7 +1017,7 @@ const void MainWindow::on_menuVocabularies_triggered(QAction *action)
 } // on_menuVocabularies_triggered
 
 #ifndef EDITION_FREE
-const void MainWindow::on_priority1_clicked(bool checked /* false */)
+void MainWindow::on_priority1_clicked(bool checked /* false */)
 {
 	if (checked)
 	{
@@ -1025,7 +1025,7 @@ const void MainWindow::on_priority1_clicked(bool checked /* false */)
 	} // if
 } // on_priority1_clicked
 
-const void MainWindow::on_priority2_clicked(bool checked /* false */)
+void MainWindow::on_priority2_clicked(bool checked /* false */)
 {
 	if (checked)
 	{
@@ -1033,7 +1033,7 @@ const void MainWindow::on_priority2_clicked(bool checked /* false */)
 	} // if
 } // on_priority2_clicked
 
-const void MainWindow::on_priority3_clicked(bool checked /* false */)
+void MainWindow::on_priority3_clicked(bool checked /* false */)
 {
 	if (checked)
 	{
@@ -1041,7 +1041,7 @@ const void MainWindow::on_priority3_clicked(bool checked /* false */)
 	} // if
 } // on_priority3_clicked
 
-const void MainWindow::on_priority4_clicked(bool checked /* false */)
+void MainWindow::on_priority4_clicked(bool checked /* false */)
 {
 	if (checked)
 	{
@@ -1049,7 +1049,7 @@ const void MainWindow::on_priority4_clicked(bool checked /* false */)
 	} // if
 } // on_priority4_clicked
 
-const void MainWindow::on_priority5_clicked(bool checked /* false */)
+void MainWindow::on_priority5_clicked(bool checked /* false */)
 {
 	if (checked)
 	{
@@ -1057,7 +1057,7 @@ const void MainWindow::on_priority5_clicked(bool checked /* false */)
 	} // if
 } // on_priority5_clicked
 
-const void MainWindow::on_priority6_clicked(bool checked /* false */)
+void MainWindow::on_priority6_clicked(bool checked /* false */)
 {
 	if (checked)
 	{
@@ -1065,7 +1065,7 @@ const void MainWindow::on_priority6_clicked(bool checked /* false */)
 	} // if
 } // on_priority6_clicked
 
-const void MainWindow::on_priority7_clicked(bool checked /* false */)
+void MainWindow::on_priority7_clicked(bool checked /* false */)
 {
 	if (checked)
 	{
@@ -1073,7 +1073,7 @@ const void MainWindow::on_priority7_clicked(bool checked /* false */)
 	} // if
 } // on_priority7_clicked
 
-const void MainWindow::on_priority8_clicked(bool checked /* false */)
+void MainWindow::on_priority8_clicked(bool checked /* false */)
 {
 	if (checked)
 	{
@@ -1081,7 +1081,7 @@ const void MainWindow::on_priority8_clicked(bool checked /* false */)
 	} // if
 } // on_priority8_clicked
 
-const void MainWindow::on_priority9_clicked(bool checked /* false */)
+void MainWindow::on_priority9_clicked(bool checked /* false */)
 {
 	if (checked)
 	{
@@ -1089,12 +1089,12 @@ const void MainWindow::on_priority9_clicked(bool checked /* false */)
 	} // if
 } // on_priority9_clicked
 
-const void MainWindow::on_recordEnabled_clicked(bool checked /* false */)
+void MainWindow::on_recordEnabled_clicked(bool checked /* false */)
 {
 	setRecordEnabled(checked);
 } // on_recordEnabled_clicked
 
-const void MainWindow::on_trayIcon_activated(QSystemTrayIcon::ActivationReason reason)
+void MainWindow::on_trayIcon_activated(QSystemTrayIcon::ActivationReason reason)
 {
 	if (reason == QSystemTrayIcon::DoubleClick && isMinimized())
 	{
@@ -1104,7 +1104,7 @@ const void MainWindow::on_trayIcon_activated(QSystemTrayIcon::ActivationReason r
 } // on_trayIcon_activated
 #endif
 
-const void MainWindow::on_updateChecker_finished()
+void MainWindow::on_updateChecker_finished()
 {
 	if (_updateChecker.GetCheckResult() != QNetworkReply::NoError)
 	{
@@ -1118,7 +1118,7 @@ const void MainWindow::on_updateChecker_finished()
 	} // if
 } // on_updateChecker_finished
 
-const void MainWindow::on_vocabularyOrganizer_vocabularyClose(const Vocabulary *vocabulary)
+void MainWindow::on_vocabularyOrganizer_vocabularyClose(const Vocabulary *vocabulary)
 {
 	if (_currentRecord.vVocabulary == vocabulary)
 	{

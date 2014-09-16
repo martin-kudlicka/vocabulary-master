@@ -14,7 +14,7 @@ const Plugins::ImpPluginList &Plugins::impPlugins() const
 	return _impPlugins;
 } // impPlugins
 
-const void Plugins::initialize()
+void Plugins::initialize()
 {
 	foreach (const TTSPlugin &ttsPlugin, _ttsPlugins.values())
 	{
@@ -23,7 +23,7 @@ const void Plugins::initialize()
 	} // foreach
 } // initialize
 
-const void Plugins::load()
+void Plugins::load()
 {
 #ifdef _DEBUG
 	const QDir pluginDir(QCoreApplication::applicationDirPath());
@@ -81,7 +81,7 @@ const void Plugins::load()
 #endif
 } // load
 
-const void Plugins::setLanguage(const QString &language) const
+void Plugins::setLanguage(const QString &language) const
 {
 	foreach (const ImpPlugin &impPlugin, _impPlugins)
 	{
@@ -103,7 +103,7 @@ const Plugins::TTSPluginList Plugins::ttsPlugins() const
 	return _ttsPlugins.values();
 } // ttsPlugins
 
-const void Plugins::uninitialize()
+void Plugins::uninitialize()
 {
 	foreach (const TTSPlugin &ttsPlugin, _ttsPlugins.values())
 	{

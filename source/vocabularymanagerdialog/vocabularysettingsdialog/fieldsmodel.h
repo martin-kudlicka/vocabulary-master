@@ -22,12 +22,12 @@ class FieldsModel : public QAbstractItemModel
                  FieldsModel(Vocabulary *vocabulary, QObject *parent = NULL);
 		virtual ~FieldsModel();
 
-                const void        addRow   ();
-		virtual       QVariant    data     (const QModelIndex &index, int role = Qt::DisplayRole)           const;
-		virtual       QModelIndex index    (int row, int column, const QModelIndex &parent = QModelIndex()) const;
-		        const void        removeRow(const quint8 &row);
-        virtual       int         rowCount (const QModelIndex &parent = QModelIndex())                      const;
-		        const void        swap     (const quint8 &sourceRow, const quint8 &destinationRow);
+                void        addRow   ();
+		virtual QVariant    data     (const QModelIndex &index, int role = Qt::DisplayRole)           const;
+		virtual QModelIndex index    (int row, int column, const QModelIndex &parent = QModelIndex()) const;
+		        void        removeRow(quint8 row);
+        virtual int         rowCount (const QModelIndex &parent = QModelIndex())                      const;
+		        void        swap     (quint8 sourceRow, quint8 destinationRow);
 
     private:
         Vocabulary *_vocabulary;

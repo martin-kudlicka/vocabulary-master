@@ -18,8 +18,8 @@ class LicenseTextDialog : public QDialog
 
 		Ui::LicenseTextDialog _ui;
 
-        const void showLicenses   (const LicenseCommon::LicenseContentList &pLicenses) const;
-        const void showMainLicense(const Settings *pSettings)                          const;
+        void showLicenses   (const LicenseCommon::LicenseContentList &pLicenses) const;
+        void showMainLicense(const Settings *pSettings)                          const;
 }; // LicenseTextDialog
 
 #endif // LICENSETEXTDIALOG_H
