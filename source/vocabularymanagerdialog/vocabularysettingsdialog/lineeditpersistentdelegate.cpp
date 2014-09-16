@@ -30,7 +30,7 @@ void LineEditPersistentDelegate::setEditorData(QWidget *editor, const QModelInde
 
 void LineEditPersistentDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
-	const const FieldLineEdit *fieldLineEditor = qobject_cast<FieldLineEdit *>(editor);
+	const FieldLineEdit *fieldLineEditor = qobject_cast<FieldLineEdit *>(editor);
 	if (fieldLineEditor->hasAcceptableInput())
 	{
 		QStyledItemDelegate::setModelData(editor, model, index);
