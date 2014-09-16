@@ -14,18 +14,18 @@ PlaintextExportWidget::~PlaintextExportWidget()
 {
 } // ~PlaintextExportWidget
 
-const QString PlaintextExportWidget::codec() const
+QString PlaintextExportWidget::codec() const
 {
     const QModelIndex modelIndex = _ui.codecs->currentIndex();
     return _codecsModel.data(modelIndex).toString();
 } // codec
 
-const QString PlaintextExportWidget::text() const
+QString PlaintextExportWidget::text() const
 {
     return _ui.plainPreview->toPlainText();
 } // text
 
-const void PlaintextExportWidget::refresh() const
+void PlaintextExportWidget::refresh() const
 {
 	_ui.plainPreview->clear();
 
@@ -91,7 +91,7 @@ const void PlaintextExportWidget::refresh() const
 	emit progressExportSetValue(0);
 } // refresh
 
-const void PlaintextExportWidget::preselectCodec(const QString &codec) const
+void PlaintextExportWidget::preselectCodec(const QString &codec) const
 {
 	for (quint8 codecIndex = 0; codecIndex < _codecsModel.rowCount(); codecIndex++)
 	{
@@ -104,7 +104,7 @@ const void PlaintextExportWidget::preselectCodec(const QString &codec) const
 	} // for
 } // preselectCodec
 
-const void PlaintextExportWidget::on_refresh_clicked(bool checked /* false */) const
+void PlaintextExportWidget::on_refresh_clicked(bool checked /* false */) const
 {
     refresh();
 } // on_refresh_clicked
