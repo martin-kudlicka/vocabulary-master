@@ -14,7 +14,7 @@ MainWindow::~MainWindow()
 {
 } // ~MainWindow
 
-const void MainWindow::on_browsePrivate_clicked(bool checked /* false */)
+void MainWindow::on_browsePrivate_clicked(bool checked /* false */)
 {
 	const QString fileName = QFileDialog::getSaveFileName(this, tr("Private key file"), QString(), tr("private key (*.der)"));
 	if (!fileName.isEmpty())
@@ -23,7 +23,7 @@ const void MainWindow::on_browsePrivate_clicked(bool checked /* false */)
 	} // if
 } // on_browsePrivate_clicked
 
-const void MainWindow::on_browsePublic_clicked(bool checked /* false */)
+void MainWindow::on_browsePublic_clicked(bool checked /* false */)
 {
 	const QString fileName = QFileDialog::getSaveFileName(this, tr("Public key file"), QString(), tr("public key (*.der)"));
 	if (!fileName.isEmpty())
@@ -32,7 +32,7 @@ const void MainWindow::on_browsePublic_clicked(bool checked /* false */)
 	} // if
 } // on_browsePublic_clicked
 
-const void MainWindow::on_generate_clicked(bool checked /* false */) const
+void MainWindow::on_generate_clicked(bool checked /* false */) const
 {
 	CryptoPP::AutoSeededRandomPool randomPool;
 	CryptoPP::InvertibleRSAFunction rsaFunc;
