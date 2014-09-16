@@ -26,14 +26,14 @@ class WordsExportDialog : public QDialog
 		WordsExportFieldsModel _wefmFieldsModel;
 
 	private slots:
-        const void on_eiPlugin_ProgressExportSetMax(const int &pMax) const;
-        const void on_eiPlugin_ProgressExportSetValue(const int &pValue) const;
+        const void on_eiPlugin_ProgressExportSetMax(quint32 pMax) const;
+		const void on_eiPlugin_ProgressExportSetValue(quint32 pValue) const;
         const void on_eiPlugin_VocabularyGetCategoryIds(ExpInterface::CategoryIdList *pCategoryIds) const;
-        const void on_eiPlugin_VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const;
+		const void on_eiPlugin_VocabularyGetCategoryName(quint8 pCategoryId, QString *pName) const;
         const void on_eiPlugin_VocabularyGetMarks(QStringList *pMarks) const;
-        const void on_eiPlugin_VocabularyGetMarkText(const int &pRecordId, const QString &pMark, QString *pText) const;
-        const void on_eiPlugin_VocabularyGetRecordCount(const int &pCategoryId, int *pCount) const;
-        const void on_eiPlugin_VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::RecordIdList *pRecordIds) const;
+		const void on_eiPlugin_VocabularyGetMarkText(quint32 pRecordId, const QString &pMark, QString *pText) const;
+		const void on_eiPlugin_VocabularyGetRecordCount(quint8 pCategoryId, quint32 *pCount) const;
+		const void on_eiPlugin_VocabularyGetRecordIds(quint8 pCategoryId, ExpInterface::RecordIdList *pRecordIds) const;
         const void on_qpbExport_clicked(bool checked = false);
 		const void on_qtvExpPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 }; // WordsExportDialog

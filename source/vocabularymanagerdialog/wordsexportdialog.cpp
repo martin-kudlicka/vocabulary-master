@@ -2,12 +2,12 @@
 
 #include "../../common/marklineedit.h"
 
-const void WordsExportDialog::on_eiPlugin_ProgressExportSetMax(const int &pMax) const
+const void WordsExportDialog::on_eiPlugin_ProgressExportSetMax(quint32 pMax) const
 {
     _qdweWordsExport.qpbProgress->setMaximum(pMax);
 } // on_eiPlugin_ProgressExportSetMax
 
-const void WordsExportDialog::on_eiPlugin_ProgressExportSetValue(const int &pValue) const
+const void WordsExportDialog::on_eiPlugin_ProgressExportSetValue(quint32 pValue) const
 {
     _qdweWordsExport.qpbProgress->setValue(pValue);
 } // on_eiPlugin_ProgressExportSetValue
@@ -23,7 +23,7 @@ const void WordsExportDialog::on_eiPlugin_VocabularyGetCategoryIds(ExpInterface:
     } // foreach
 } // on_eiPlugin_VocabularyGetCategoryIds
 
-const void WordsExportDialog::on_eiPlugin_VocabularyGetCategoryName(const int &pCategoryId, QString *pName) const
+const void WordsExportDialog::on_eiPlugin_VocabularyGetCategoryName(quint8 pCategoryId, QString *pName) const
 {
     *pName = _vVocabulary->GetCategoryName(pCategoryId);
 } // on_eiPlugin_VocabularyGetCategoryName
@@ -37,7 +37,7 @@ const void WordsExportDialog::on_eiPlugin_VocabularyGetMarks(QStringList *pMarks
     } // for
 } // on_eiPlugin_VocabularyGetMarks
 
-const void WordsExportDialog::on_eiPlugin_VocabularyGetMarkText(const int &pRecordId, const QString &pMark, QString *pText) const
+const void WordsExportDialog::on_eiPlugin_VocabularyGetMarkText(quint32 pRecordId, const QString &pMark, QString *pText) const
 {
     QStringList qslMarks;
     on_eiPlugin_VocabularyGetMarks(&qslMarks);
@@ -47,12 +47,12 @@ const void WordsExportDialog::on_eiPlugin_VocabularyGetMarkText(const int &pReco
     *pText = _vVocabulary->GetDataText(pRecordId, iFieldId);
 } // on_eiPlugin_VocabularyGetMarkText
 
-const void WordsExportDialog::on_eiPlugin_VocabularyGetRecordCount(const int &pCategoryId, int *pCount) const
+const void WordsExportDialog::on_eiPlugin_VocabularyGetRecordCount(quint8 pCategoryId, quint32 *pCount) const
 {
     *pCount = _vVocabulary->GetRecordCount(pCategoryId, _qdweWordsExport.qcbExportEnabledOnly->isChecked());
 } // on_eiPlugin_VocabularyGetRecordCount
 
-const void WordsExportDialog::on_eiPlugin_VocabularyGetRecordIds(const int &pCategoryId, ExpInterface::RecordIdList *pRecordIds) const
+const void WordsExportDialog::on_eiPlugin_VocabularyGetRecordIds(quint8 pCategoryId, ExpInterface::RecordIdList *pRecordIds) const
 {
     *pRecordIds = _vVocabulary->GetRecordIds(pCategoryId);
 } // on_eiPlugin_VocabularyGetRecordCount
@@ -80,14 +80,14 @@ const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(co
 		ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row()).expInterface;
 
         // connections
-        connect(eiPlugin, SIGNAL(ProgressExportSetMax(const int &)), SLOT(on_eiPlugin_ProgressExportSetMax(const int &)));
-        connect(eiPlugin, SIGNAL(ProgressExportSetValue(const int &)), SLOT(on_eiPlugin_ProgressExportSetValue(const int &)));
+		connect(eiPlugin, SIGNAL(ProgressExportSetMax(quint32)), SLOT(on_eiPlugin_ProgressExportSetMax(quint32)));
+		connect(eiPlugin, SIGNAL(ProgressExportSetValue(quint32)), SLOT(on_eiPlugin_ProgressExportSetValue(quint32)));
         connect(eiPlugin, SIGNAL(VocabularyGetCategoryIds(ExpInterface::CategoryIdList *)), SLOT(on_eiPlugin_VocabularyGetCategoryIds(ExpInterface::CategoryIdList *)));
-        connect(eiPlugin, SIGNAL(VocabularyGetCategoryName(const int &, QString *)), SLOT(on_eiPlugin_VocabularyGetCategoryName(const int &, QString *)));
+		connect(eiPlugin, SIGNAL(VocabularyGetCategoryName(quint8, QString *)), SLOT(on_eiPlugin_VocabularyGetCategoryName(quint8, QString *)));
         connect(eiPlugin, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_eiPlugin_VocabularyGetMarks(QStringList *)));
-        connect(eiPlugin, SIGNAL(VocabularyGetMarkText(const int &, const QString &, QString *)), SLOT(on_eiPlugin_VocabularyGetMarkText(const int &, const QString &, QString *)));
-        connect(eiPlugin, SIGNAL(VocabularyGetRecordCount(const int &, int *)), SLOT(on_eiPlugin_VocabularyGetRecordCount(const int &, int *)));
-        connect(eiPlugin, SIGNAL(VocabularyGetRecordIds(const int &, ExpInterface::RecordIdList *)), SLOT(on_eiPlugin_VocabularyGetRecordIds(const int &, ExpInterface::RecordIdList *)));
+		connect(eiPlugin, SIGNAL(VocabularyGetMarkText(quint32, const QString &, QString *)), SLOT(on_eiPlugin_VocabularyGetMarkText(quint32, const QString &, QString *)));
+		connect(eiPlugin, SIGNAL(VocabularyGetRecordCount(quint8, quint32 *)), SLOT(on_eiPlugin_VocabularyGetRecordCount(quint8, quint32 *)));
+		connect(eiPlugin, SIGNAL(VocabularyGetRecordIds(quint8, ExpInterface::RecordIdList *)), SLOT(on_eiPlugin_VocabularyGetRecordIds(quint8, ExpInterface::RecordIdList *)));
 
 		// setup page
 		eiPlugin->setupUi(qwExpPlugin);
