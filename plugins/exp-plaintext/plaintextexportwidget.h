@@ -13,9 +13,9 @@ class PlaintextExportWidget : public QWidget
 	public:
 		PlaintextExportWidget(QWidget *parent = NULL, Qt::WindowFlags flags = 0);
 
-        const QString codec  () const;
-        const QString text   () const;
-        const void    refresh() const;
+        QString codec  () const;
+        QString text   () const;
+        void    refresh() const;
 
 	private:
         CodecsModel               _codecsModel;
@@ -23,7 +23,7 @@ class PlaintextExportWidget : public QWidget
 
 		virtual ~PlaintextExportWidget();
 
-        const void preselectCodec(const QString &pCodec) const;
+        void preselectCodec(const QString &pCodec) const;
 
     signals:
         void progressExportSetMax     (quint32 max)                                              const;
@@ -36,7 +36,7 @@ class PlaintextExportWidget : public QWidget
         void vocabularyGetRecordIds   (quint8 categoryId, ExpInterface::RecordIdList *recordIds) const;
 
     private slots:
-        const void on_refresh_clicked(bool checked = false) const;
+        void on_refresh_clicked(bool checked = false) const;
 }; // PlaintextExportWidget
 
 #endif // PLAINTEXTEXPORTWIDGET_H
