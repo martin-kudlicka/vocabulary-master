@@ -28,13 +28,13 @@ class TTSInterface
 
         typedef QList<VoiceInfo> VoiceInfoList;
 
-		virtual const void                              initialize  ()                                          = 0;
-        virtual const LicenseCommon::LicenseContentList licenseText () const                                    = 0;
-		virtual const TTSPlugin                         pluginId    () const                                    = 0;
-		virtual const QString                           pluginName  () const                                    = 0;
-		virtual const void                              say         (const QString &voice, const QString &text) = 0;
-		virtual const void                              uninitialize()                                          = 0;
-		virtual const VoiceInfoList                     voicesInfo  () const                                    = 0;
+		virtual void                              initialize  ()                                          = 0;
+        virtual LicenseCommon::LicenseContentList licenseText () const                                    = 0;
+		virtual TTSPlugin                         pluginId    () const                                    = 0;
+		virtual QString                           pluginName  () const                                    = 0;
+		virtual void                              say         (const QString &voice, const QString &text) = 0;
+		virtual void                              uninitialize()                                          = 0;
+		virtual VoiceInfoList                     voicesInfo  () const                                    = 0;
 }; // TTSInterface
 
 Q_DECLARE_INTERFACE(TTSInterface, IID_TTSINTERFACE);

@@ -9,27 +9,27 @@ TTSSAPI::~TTSSAPI()
 {
 } // ~TTSSAPI
 
-const void TTSSAPI::initialize()
+void TTSSAPI::initialize()
 {
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);
 } // initialize
 
-const LicenseCommon::LicenseContentList TTSSAPI::licenseText() const
+LicenseCommon::LicenseContentList TTSSAPI::licenseText() const
 {
     return LicenseCommon::LicenseContentList();
 } // licenseText
 
-const TTSInterface::TTSPlugin TTSSAPI::pluginId() const
+TTSInterface::TTSPlugin TTSSAPI::pluginId() const
 {
     return TTSInterface::TTSPluginSAPI;
 } // pluginId
 
-const QString TTSSAPI::pluginName() const
+QString TTSSAPI::pluginName() const
 {
     return "SAPI";
 } // pluginName
 
-const void TTSSAPI::say(const QString &voice, const QString &text)
+void TTSSAPI::say(const QString &voice, const QString &text)
 {
 	CComPtr<IEnumSpObjectTokens> voiceTokens;
 	ULONG count;
@@ -56,12 +56,12 @@ const void TTSSAPI::say(const QString &voice, const QString &text)
 	} // for
 } // say
 
-const void TTSSAPI::uninitialize()
+void TTSSAPI::uninitialize()
 {
 	CoUninitialize();
 } // uninitialize
 
-const TTSInterface::VoiceInfoList TTSSAPI::voicesInfo() const
+TTSInterface::VoiceInfoList TTSSAPI::voicesInfo() const
 {
 	CComPtr<IEnumSpObjectTokens> voiceTokens;
     TTSInterface::VoiceInfoList voices;
