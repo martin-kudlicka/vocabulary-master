@@ -4,7 +4,7 @@
 #include "../../3rdparty/Crypto++/source/osrng.h"
 #include <string>
 
-const QByteArray RSA::decrypt(const QByteArray &privateKey, const QByteArray &content) const
+QByteArray RSA::decrypt(const QByteArray &privateKey, const QByteArray &content) const
 {
 	CryptoPP::ArraySource keyBuffer(reinterpret_cast<const byte *>(privateKey.constData()), privateKey.size(), true);
 	const CryptoPP::RSAES_OAEP_SHA_Decryptor decryptor(keyBuffer);
@@ -16,7 +16,7 @@ const QByteArray RSA::decrypt(const QByteArray &privateKey, const QByteArray &co
 	return decryptedString.c_str();
 } // decrypt
 
-const bool RSA::verify(const QByteArray &publicKey, const QByteArray &content, const QByteArray &signature) const
+bool RSA::verify(const QByteArray &publicKey, const QByteArray &content, const QByteArray &signature) const
 {
 	CryptoPP::ArraySource keyBuffer(reinterpret_cast<const byte *>(publicKey.constData()), publicKey.size(), true);
 	const CryptoPP::RSASS<CryptoPP::PKCS1v15, CryptoPP::SHA>::Verifier verifier(keyBuffer);
