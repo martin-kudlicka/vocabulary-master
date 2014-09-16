@@ -19,7 +19,7 @@ const void ExpPdf::addFont(const HPDF_Doc &pdfDocument, FontList *fontList, cons
 	fontList->append(font);
 } // addFont
 
-const void ExpPdf::beginExport() const
+void ExpPdf::beginExport() const
 {
 	// get filename
 	const QString fileName = QFileDialog::getSaveFileName(_widget, QString(), QString(), tr("pdf (*.pdf)"));
@@ -338,12 +338,12 @@ const void ExpPdf::pdfShowText(const HPDF_Page &pdfPage, const QString &text, co
 	HPDF_Page_ShowText(pdfPage, encoded);
 } // pdfShowText
 
-const QString ExpPdf::pluginName() const
+QString ExpPdf::pluginName() const
 {
 	return tr("Adobe Reader (pdf)");
 } // pluginName
 
-const void ExpPdf::setupUi(QWidget *parent)
+void ExpPdf::setupUi(QWidget *parent)
 {
 	_widget = new PdfExportWidget(parent);
 	QBoxLayout *boxLayout = qobject_cast<QBoxLayout *>(parent->layout());

@@ -16,7 +16,7 @@ class TranslationHandler
 
 		TranslationHandler();
 
-		virtual const void setLanguage(const QString &language);
+		virtual void setLanguage(const QString &language);
 
 	private:
 #ifdef Q_OS_WIN
