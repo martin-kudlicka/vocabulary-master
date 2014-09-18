@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTabWidget" name="qtwTabs">
+    <widget class="QTabWidget" name="tabs">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -25,21 +25,21 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QCheckBox" name="qcbHorizontalLayout">
+        <widget class="QCheckBox" name="horizontalLayout">
          <property name="text">
           <string>&amp;Horizontal layout</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="qcbAlwaysOnTop">
+        <widget class="QCheckBox" name="alwaysOnTop">
          <property name="text">
           <string>Always &amp;on top</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="qcbRememberWindowPosition">
+        <widget class="QCheckBox" name="rememberWindowPosition">
          <property name="text">
           <string>Remember window &amp;position</string>
          </property>
@@ -58,14 +58,14 @@
           <number>15</number>
          </property>
          <item>
-          <widget class="QCheckBox" name="qcbShowWordsInTrayBalloon">
+          <widget class="QCheckBox" name="showWordsInTrayBalloon">
            <property name="text">
             <string>Show words in tray &amp;balloon</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="qcbMinimizeToTray">
+          <widget class="QCheckBox" name="minimizeToTray">
            <property name="text">
             <string>&amp;Minimize to tray</string>
            </property>
@@ -74,7 +74,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
           <widget class="QLabel" name="label_2">
            <property name="sizePolicy">
@@ -87,12 +87,12 @@
             <string>&amp;Language:</string>
            </property>
            <property name="buddy">
-            <cstring>qcbLanguage</cstring>
+            <cstring>language</cstring>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="qcbLanguage">
+          <widget class="QComboBox" name="language">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -104,7 +104,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QCheckBox" name="qcbUpdateCheck">
+        <widget class="QCheckBox" name="updateCheck">
          <property name="text">
           <string>Check for update</string>
          </property>
@@ -169,7 +169,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QSpinBox" name="qsbWaitForAnswer">
+          <widget class="QSpinBox" name="waitForAnswerValue">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -182,7 +182,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="qlWaitForAnswer">
+          <widget class="QLabel" name="waitForAnswerLabel">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -193,7 +193,7 @@
             <string>Wait for &amp;answer</string>
            </property>
            <property name="buddy">
-            <cstring>qsbWaitForAnswer</cstring>
+            <cstring>waitForAnswerValue</cstring>
            </property>
           </widget>
          </item>
@@ -228,7 +228,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="qleSoundCustom"/>
+            <widget class="QLineEdit" name="soundCustomEdit"/>
            </item>
            <item>
             <widget class="QPushButton" name="soundBrowse">
@@ -242,21 +242,21 @@
         </layout>
        </item>
        <item>
-        <widget class="QCheckBox" name="qcbNewWordFlash">
+        <widget class="QCheckBox" name="newWordFlash">
          <property name="text">
           <string>F&amp;lash with new word</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="qcbLearnDisabledWords">
+        <widget class="QCheckBox" name="learnDisabledWords">
          <property name="text">
           <string>Learn disabled words</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="qcbSwitchLearningDirection">
+        <widget class="QCheckBox" name="switchLearningDirection">
          <property name="text">
           <string>Switch learning &amp;direction</string>
          </property>
@@ -266,7 +266,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="qcbStartLearningOnStartup">
+        <widget class="QCheckBox" name="startLearningOnStartup">
          <property name="text">
           <string>Start learning on s&amp;tartup</string>
          </property>
@@ -299,35 +299,35 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_13">
           <item>
-           <widget class="QCheckBox" name="qcbMainWindowToolBar">
+           <widget class="QCheckBox" name="mainWindowToolBar">
             <property name="text">
              <string>Tool bar</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="qcbMainWindowLanguageNames">
+           <widget class="QCheckBox" name="mainWindowLanguageNames">
             <property name="text">
              <string>Language names</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="qcbMainWindowCategoryName">
+           <widget class="QCheckBox" name="mainWindowCategoryName">
             <property name="text">
              <string>Category name</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="qcbMainWindowRecordControls">
+           <widget class="QCheckBox" name="mainWindowRecordControls">
             <property name="text">
              <string>Record controls</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="qcbMainWindowStatusBar">
+           <widget class="QCheckBox" name="mainWindowStatusBar">
             <property name="text">
              <string>Status bar</string>
             </property>
@@ -336,7 +336,7 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_7">
             <item>
-             <widget class="ColorComboBox" name="qcbColorFlash">
+             <widget class="ColorComboBox" name="colorFlashCombo">
               <property name="minimumSize">
                <size>
                 <width>65</width>
@@ -357,7 +357,7 @@
                <string>Flash &amp;color</string>
               </property>
               <property name="buddy">
-               <cstring>qcbColorFlash</cstring>
+               <cstring>colorFlashCombo</cstring>
               </property>
              </widget>
             </item>
@@ -373,14 +373,14 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_11">
           <item>
-           <widget class="QCheckBox" name="qcbVocabularyManagerCategoriesEnable">
+           <widget class="QCheckBox" name="vocabularyManagerCategoriesEnable">
             <property name="text">
              <string>Enable/disable categories</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="qcbVocabularyManagerCategoryPriority">
+           <widget class="QCheckBox" name="vocabularyManagerCategoryPriority">
             <property name="text">
              <string>Change category priority</string>
             </property>
@@ -421,12 +421,12 @@
              <string>&amp;Next</string>
             </property>
             <property name="buddy">
-             <cstring>qleHotkeyNext</cstring>
+             <cstring>hotkeyNext</cstring>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="HotkeyLineEdit" name="qleHotkeyNext"/>
+           <widget class="HotkeyLineEdit" name="hotkeyNext"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_4">
@@ -434,12 +434,12 @@
              <string>&amp;Answer</string>
             </property>
             <property name="buddy">
-             <cstring>qleHotkeyAnswer</cstring>
+             <cstring>hotkeyAnswer</cstring>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="HotkeyLineEdit" name="qleHotkeyAnswer"/>
+           <widget class="HotkeyLineEdit" name="hotkeyAnswer"/>
           </item>
           <item row="0" column="2">
            <widget class="QPushButton" name="hotkeyNextClear">
@@ -470,12 +470,12 @@
              <string>&amp;Minimize</string>
             </property>
             <property name="buddy">
-             <cstring>qleHotkeyMinimize</cstring>
+             <cstring>hotkeyMinimize</cstring>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="HotkeyLineEdit" name="qleHotkeyMinimize"/>
+           <widget class="HotkeyLineEdit" name="hotkeyMinimize"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_6">
@@ -483,12 +483,12 @@
              <string>&amp;Restore</string>
             </property>
             <property name="buddy">
-             <cstring>qleHotkeyRestore</cstring>
+             <cstring>hotkeyRestore</cstring>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="HotkeyLineEdit" name="qleHotkeyRestore"/>
+           <widget class="HotkeyLineEdit" name="hotkeyRestore"/>
           </item>
           <item row="0" column="2">
            <widget class="QPushButton" name="hotkeyMinimizeClear">
@@ -534,7 +534,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_8">
           <item>
-           <widget class="QTreeView" name="qtvPluginsImp">
+           <widget class="QTreeView" name="pluginsImp">
             <property name="rootIsDecorated">
              <bool>false</bool>
             </property>
@@ -553,7 +553,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_9">
           <item>
-           <widget class="QTreeView" name="qtvPluginsExp">
+           <widget class="QTreeView" name="pluginsExp">
             <property name="rootIsDecorated">
              <bool>false</bool>
             </property>
@@ -572,7 +572,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_10">
           <item>
-           <widget class="QTreeView" name="qtvPluginsTTS">
+           <widget class="QTreeView" name="pluginsTTS">
             <property name="rootIsDecorated">
              <bool>false</bool>
             </property>
@@ -592,7 +592,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_14">
        <item>
-        <widget class="QGroupBox" name="qgbUseProxy">
+        <widget class="QGroupBox" name="useProxy">
          <property name="title">
           <string>Use proxy</string>
          </property>
@@ -608,7 +608,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="qleProxyHostname"/>
+           <widget class="QLineEdit" name="proxyHostname"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_8">
@@ -618,7 +618,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QSpinBox" name="qsbProxyPort">
+           <widget class="QSpinBox" name="proxyPort">
             <property name="minimum">
              <number>1</number>
             </property>
@@ -649,29 +649,29 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="qleProxyUsername"/>
+           <widget class="QLineEdit" name="proxyUsername"/>
           </item>
           <item row="3" column="1">
-           <widget class="QLineEdit" name="qleProxyPassword"/>
+           <widget class="QLineEdit" name="proxyPassword"/>
           </item>
           <item row="4" column="1">
            <layout class="QVBoxLayout" name="verticalLayout_15">
             <item>
-             <widget class="QRadioButton" name="qrbProxyTypeHttp">
+             <widget class="QRadioButton" name="proxyTypeHttp">
               <property name="text">
                <string>HTTP</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="qrbProxyTypeSocks5">
+             <widget class="QRadioButton" name="proxyTypeSocks5">
               <property name="text">
                <string>Socks 5</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="qrbProxyTypeCachingOnlyHttp">
+             <widget class="QRadioButton" name="proxyTypeCachingOnlyHttp">
               <property name="text">
                <string>Caching-only HTTP</string>
               </property>
@@ -760,21 +760,21 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>qtwTabs</tabstop>
-  <tabstop>qcbHorizontalLayout</tabstop>
-  <tabstop>qcbAlwaysOnTop</tabstop>
-  <tabstop>qcbRememberWindowPosition</tabstop>
+  <tabstop>tabs</tabstop>
+  <tabstop>horizontalLayout</tabstop>
+  <tabstop>alwaysOnTop</tabstop>
+  <tabstop>rememberWindowPosition</tabstop>
   <tabstop>systemTrayIcon</tabstop>
-  <tabstop>qcbShowWordsInTrayBalloon</tabstop>
-  <tabstop>qcbMinimizeToTray</tabstop>
-  <tabstop>qcbLanguage</tabstop>
+  <tabstop>showWordsInTrayBalloon</tabstop>
+  <tabstop>minimizeToTray</tabstop>
+  <tabstop>language</tabstop>
   <tabstop>wordsFrequency</tabstop>
-  <tabstop>qsbWaitForAnswer</tabstop>
+  <tabstop>waitForAnswerValue</tabstop>
   <tabstop>newWordSound</tabstop>
-  <tabstop>qcbNewWordFlash</tabstop>
-  <tabstop>qcbSwitchLearningDirection</tabstop>
-  <tabstop>qcbStartLearningOnStartup</tabstop>
-  <tabstop>qcbColorFlash</tabstop>
+  <tabstop>newWordFlash</tabstop>
+  <tabstop>switchLearningDirection</tabstop>
+  <tabstop>startLearningOnStartup</tabstop>
+  <tabstop>colorFlashCombo</tabstop>
   <tabstop>qpbOk</tabstop>
   <tabstop>qpbCancel</tabstop>
  </tabstops>
