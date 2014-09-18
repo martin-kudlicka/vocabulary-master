@@ -1,67 +1,80 @@
 #include "updatechecker.h"
 
+UpdateChecker::UpdateChecker(const Settings *settings, QObject *parent /* NULL */) : QObject(parent), _settings(settings)
+{
+	_lastReply = NULL;
+
+	_currentVersion.usMajor    = 1;
+	_currentVersion.usMinor    = 3;
+	_currentVersion.usMinor2   = 0;
+	_currentVersion.usRevision = 654;
+
+	connect(&_networkAccessManager, SIGNAL(finished(QNetworkReply *)), SLOT(on_networkAccessManager_finished(QNetworkReply *)));
+} // UpdateChecker
+
 UpdateChecker::~UpdateChecker()
 {
-	if (_qnrLastReply) {
-		_qnrLastReply->deleteLater();
+	if (_lastReply)
+	{
+		_lastReply->deleteLater();
 	} // if
 } // ~UpdateChecker
 
-const void UpdateChecker::AnalyzeReply()
-{
-	QByteArray qbaVersion = _qnrLastReply->readAll();
-	QList<QByteArray> qlVerInfo = qbaVersion.split('.');
-
-	_svUpdate.usMajor = qlVerInfo.at(VerInfoMajor).toUShort();
-	_svUpdate.usMinor = qlVerInfo.at(VerInfoMinor).toUShort();
-	_svUpdate.usMinor2 = qlVerInfo.at(VerInfoMinor2).toUShort();
-	_svUpdate.usRevision = qlVerInfo.at(VerInfoRevision).toUShort();
-} // AnalyzeReply
-
-const void UpdateChecker::CheckForUpdate()
+void UpdateChecker::checkForUpdate()
 {
 	// proxy settings
-	if (_sSettings->useProxy()) {
-		QNetworkProxy qnpProxy(_sSettings->proxyType(), _sSettings->proxyHostname(), _sSettings->proxyPort(), _sSettings->proxyUsername(), _sSettings->proxyPassword());
-		_qnamNetworkManager.setProxy(qnpProxy);
-	} else {
-		_qnamNetworkManager.setProxy(QNetworkProxy());
+	if (_settings->useProxy())
+	{
+		QNetworkProxy networkProxy(_settings->proxyType(), _settings->proxyHostname(), _settings->proxyPort(), _settings->proxyUsername(), _settings->proxyPassword());
+		_networkAccessManager.setProxy(networkProxy);
+	}
+	else
+	{
+		_networkAccessManager.setProxy(QNetworkProxy());
 	} // if else
 
 	// check
-	_qnamNetworkManager.get(QNetworkRequest(QUrl("http://vocabulary-master.cz/sites/default/files/releases/version.txt")));
-} // CheckForUpdate
+	_networkAccessManager.get(QNetworkRequest(QUrl("http://vocabulary-master.cz/sites/default/files/releases/version.txt")));
+} // checkForUpdate
 
-const QNetworkReply::NetworkError UpdateChecker::GetCheckResult() const
+QNetworkReply::NetworkError UpdateChecker::checkResult() const
 {
-	return _qnrLastReply->error();
-} // GetCheckResult
+	return _lastReply->error();
+} // checkResult
 
-const QString UpdateChecker::GetCurrentVersion() const
+QString UpdateChecker::currentVersion() const
 {
-	return QString("%1.%2.%3.%4").arg(_svCurrent.usMajor).arg(_svCurrent.usMinor).arg(_svCurrent.usMinor2).arg(_svCurrent.usRevision);
-} // GetCurrentVersion
+	return QString("%1.%2.%3.%4").arg(_currentVersion.usMajor).arg(_currentVersion.usMinor).arg(_currentVersion.usMinor2).arg(_currentVersion.usRevision);
+} // currentVersion
 
-const QString UpdateChecker::GetUpdateVersion() const
+bool UpdateChecker::updateAvailable() const
 {
-	return QString("%1.%2.%3.%4").arg(_svUpdate.usMajor).arg(_svUpdate.usMinor).arg(_svUpdate.usMinor2).arg(_svUpdate.usRevision);
-} // GetUpdateVersion
-
-const bool UpdateChecker::IsUpdateAvailable() const
-{
-	if (_svUpdate.usMajor >= _svCurrent.usMajor) {
-		if (_svUpdate.usMajor > _svCurrent.usMajor) {
+	if (_updateVersion.usMajor >= _currentVersion.usMajor)
+	{
+		if (_updateVersion.usMajor > _currentVersion.usMajor)
+		{
 			return true;
-		} else {
-			if (_svUpdate.usMinor >= _svCurrent.usMinor) {
-				if (_svUpdate.usMinor > _svCurrent.usMinor) {
+		}
+		else
+		{
+			if (_updateVersion.usMinor >= _currentVersion.usMinor)
+			{
+				if (_updateVersion.usMinor > _currentVersion.usMinor)
+				{
 					return true;
-				} else {
-					if (_svUpdate.usMinor2 >= _svCurrent.usMinor2) {
-						if (_svUpdate.usMinor2 > _svCurrent.usMinor2) {
+				}
+				else
+				{
+					if (_updateVersion.usMinor2 >= _currentVersion.usMinor2)
+					{
+						if (_updateVersion.usMinor2 > _currentVersion.usMinor2)
+						{
 							return true;
-						} else {
-							if (_svUpdate.usRevision > _svCurrent.usRevision) {
+						}
+						else
+						{
+							if (_updateVersion.usRevision > _currentVersion.usRevision)
+							{
 								return true;
 							} // if
 						} // if else
@@ -72,32 +85,36 @@ const bool UpdateChecker::IsUpdateAvailable() const
 	} // if
 
 	return false;
-} // IsUpdateAvailable
+} // updateAvailable
 
-void UpdateChecker::on_qnamNetworkManager_finished(QNetworkReply *reply)
+QString UpdateChecker::updateVersion() const
 {
-	if (_qnrLastReply) {
-		_qnrLastReply->deleteLater();
+	return QString("%1.%2.%3.%4").arg(_updateVersion.usMajor).arg(_updateVersion.usMinor).arg(_updateVersion.usMinor2).arg(_updateVersion.usRevision);
+} // updateVersion
+
+void UpdateChecker::analyzeReply()
+{
+	const QByteArray version        = _lastReply->readAll();
+	const QList<QByteArray> verInfo = version.split('.');
+
+	_updateVersion.usMajor    = verInfo.at(VerInfoMajor).toUShort();
+	_updateVersion.usMinor    = verInfo.at(VerInfoMinor).toUShort();
+	_updateVersion.usMinor2   = verInfo.at(VerInfoMinor2).toUShort();
+	_updateVersion.usRevision = verInfo.at(VerInfoRevision).toUShort();
+} // analyzeReply
+
+void UpdateChecker::on_networkAccessManager_finished(QNetworkReply *reply)
+{
+	if (_lastReply) 
+	{
+		_lastReply->deleteLater();
 	} // if
 
-	_qnrLastReply = reply;
-	if (reply->error() == QNetworkReply::NoError) {
-		AnalyzeReply();
+	_lastReply = reply;
+	if (reply->error() == QNetworkReply::NoError)
+	{
+		analyzeReply();
 	} // if
 
-	emit Finished();
-} // on_qnamNetworkManager_finished
-
-UpdateChecker::UpdateChecker(const Settings *pSettings, QObject *pParent /* NULL */) : QObject(pParent)
-{
-	_sSettings = pSettings;
-
-	_qnrLastReply = NULL;
-
-	_svCurrent.usMajor = 1;
-	_svCurrent.usMinor = 3;
-	_svCurrent.usMinor2 = 0;
-	_svCurrent.usRevision = 654;
-
-	connect(&_qnamNetworkManager, SIGNAL(finished(QNetworkReply *)), SLOT(on_qnamNetworkManager_finished(QNetworkReply *)));
-} // UpdateChecker
+	emit finished();
+} // on_networkAccessManager_finished

@@ -12,43 +12,43 @@ class UpdateChecker : public QObject
 	Q_OBJECT
 
 	public:
-		~UpdateChecker();
-		UpdateChecker(const Settings *pSettings, QObject *pParent = NULL);
+		         UpdateChecker(const Settings *settings, QObject *parent = NULL);
+		virtual ~UpdateChecker();
 
-		const void CheckForUpdate();
-		const QNetworkReply::NetworkError GetCheckResult() const;
-		const QString GetCurrentVersion() const;
-		const QString GetUpdateVersion() const;
-		const bool IsUpdateAvailable() const;
+		void                        checkForUpdate ();
+		QNetworkReply::NetworkError checkResult    () const;
+		QString                     currentVersion () const;
+		bool                        updateAvailable() const;
+		QString                     updateVersion  () const;
 
 	private:
-		enum eVerInfo {
+		enum VerInfo {
 			VerInfoMajor,
 			VerInfoMinor,
 			VerInfoMinor2,
 			VerInfoRevision
-		}; // eVerInfo
+		}; // VerInfo
 
-		struct sVersion {
+		struct Version {
 			ushort usMajor;
 			ushort usMinor;
 			ushort usMinor2;
 			ushort usRevision;
-		}; // sVersion
+		}; // Version
 
-		QNetworkAccessManager _qnamNetworkManager;
-		QNetworkReply *_qnrLastReply;
-		const Settings *_sSettings;
-		sVersion _svCurrent;
-		sVersion _svUpdate;
+		      QNetworkAccessManager _networkAccessManager;
+		      QNetworkReply        *_lastReply;
+		const Settings             *_settings;
+		      Version               _currentVersion;
+		      Version               _updateVersion;
 
-		const void AnalyzeReply();
+		void analyzeReply();
 
 	signals:
-		void Finished() const;
+		void finished() const;
 
 	private slots:
-		void on_qnamNetworkManager_finished(QNetworkReply *reply);
+		void on_networkAccessManager_finished(QNetworkReply *reply);
 }; // UpdateChecker
 
 #endif // UPDATECHECKER_H
