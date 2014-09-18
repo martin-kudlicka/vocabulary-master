@@ -6,9 +6,9 @@
 
 QWidget *WordsImportEditorDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-	int iFieldId = _vVocabulary->GetFieldId(index.row());
-	if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-		VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
+	int iFieldId = _vVocabulary->fieldId(index.row());
+	if (_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
+		VocabularyDatabase::FieldBuiltIn efbBuiltIn = _vVocabulary->fieldBuiltIn(iFieldId);
 		if (efbBuiltIn == VocabularyDatabase::FieldBuiltInPriority) {
 			QSpinBox *qsbEditor = new QSpinBox(parent);
 			qsbEditor->setMinimum(PriorityDelegate::RECORD_PRIORITY_MIN);

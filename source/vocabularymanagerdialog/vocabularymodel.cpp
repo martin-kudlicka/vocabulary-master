@@ -7,24 +7,24 @@
 const void VocabularyModel::AddRow()
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    _vVocabulary->AddRecord(_iCategoryId);
+    _vVocabulary->addRecord(_iCategoryId);
     endInsertRows();
 } // AddRow
 
 int VocabularyModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-    return _vVocabulary->GetFieldCount();
+    return _vVocabulary->fieldCount();
 } // columnCount
 
 QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
-	int iFieldId = _vVocabulary->GetFieldId(index.column());
+	int iFieldId = _vVocabulary->fieldId(index.column());
 
-	switch (_vVocabulary->GetFieldType(iFieldId)) {
+	switch (_vVocabulary->fieldType(iFieldId)) {
 		case VocabularyDatabase::FieldTypeLineEdit:
 			switch (role) {
 				case Qt::DisplayRole:
-					return _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
+					return _vVocabulary->dataText(_iCategoryId, index.row(), iFieldId);
 				default:
 					return QVariant();
 			} // switch
@@ -33,7 +33,7 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 			switch (role) {
 				case Qt::CheckStateRole:
 					{
-						QString qsChecked = _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
+						QString qsChecked = _vVocabulary->dataText(_iCategoryId, index.row(), iFieldId);
 						if (qsChecked.isEmpty()) {
 							return Qt::Checked;
 						} else {
@@ -47,7 +47,7 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 			switch (role) {
 				case Qt::DisplayRole:
 					{
-						QString qsPriority = _vVocabulary->GetDataText(_iCategoryId, index.row(), iFieldId);
+						QString qsPriority = _vVocabulary->dataText(_iCategoryId, index.row(), iFieldId);
 						if (qsPriority.isEmpty()) {
 							return PriorityDelegate::RECORD_PRIORITY_MIN;
 						} else {
@@ -68,9 +68,9 @@ Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
 {
 	Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index);
 
-	int iFieldId = _vVocabulary->GetFieldId(index.column());
-	if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-		VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
+	int iFieldId = _vVocabulary->fieldId(index.column());
+	if (_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
+		VocabularyDatabase::FieldBuiltIn efbBuiltIn = _vVocabulary->fieldBuiltIn(iFieldId);
 		switch (efbBuiltIn) {
 			case VocabularyDatabase::FieldBuiltInEnabled:
 				ifFlags |= Qt::ItemIsUserCheckable;
@@ -89,7 +89,7 @@ QVariant VocabularyModel::headerData(int section, Qt::Orientation orientation, i
     switch (role) {
         case Qt::DisplayRole:
             if (orientation == Qt::Horizontal) {
-                return _vVocabulary->GetFieldName(_vVocabulary->GetFieldId(section));
+                return _vVocabulary->fieldName(_vVocabulary->fieldId(section));
             } else {
                 return section + 1;
             } // if else
@@ -101,19 +101,19 @@ QVariant VocabularyModel::headerData(int section, Qt::Orientation orientation, i
 const void VocabularyModel::RemoveRow(const int &pRow)
 {
     beginRemoveRows(QModelIndex(), pRow, pRow);
-    _vVocabulary->RemoveRecord(_iCategoryId, pRow);
+    _vVocabulary->removeRecord(_iCategoryId, pRow);
     endRemoveRows();
 } // RemoveRow
 
 int VocabularyModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-    return _vVocabulary->GetRecordCount(_iCategoryId);
+    return _vVocabulary->recordCount(_iCategoryId);
 } // rowCount
 
 bool VocabularyModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)
 {
-	int iFieldId = _vVocabulary->GetFieldId(index.column());
-	_vVocabulary->SetDataText(_iCategoryId, index.row(), iFieldId, value.toString());
+	int iFieldId = _vVocabulary->fieldId(index.column());
+	_vVocabulary->setDataText(_iCategoryId, index.row(), iFieldId, value.toString());
 
 	emit dataChanged(index, index);
 	return true;

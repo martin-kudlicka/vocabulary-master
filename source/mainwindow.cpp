@@ -337,7 +337,7 @@ bool MainWindow::learningDirection() const
 QString MainWindow::learningText(Template templateType, bool directionSwitched, bool answer) const
 {
 	QString templateText;
-	VocabularyDatabase::eFieldLanguage fieldLanguage;
+	VocabularyDatabase::FieldLanguage fieldLanguage;
 	if ((!directionSwitched && !answer) || (directionSwitched && answer))
 	{
 		if (templateType == TemplateLearning)
@@ -368,12 +368,12 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
 	} // if else
 
 	// substitute variables in template
-	foreach (const quint8 &fieldId, _currentRecord.vVocabulary->GetFieldIds())
+	foreach (const quint8 &fieldId, _currentRecord.vVocabulary->fieldIds())
 	{
-		if (_currentRecord.vVocabulary->GetFieldLanguage(fieldId) == fieldLanguage) {
-			const QString data = _currentRecord.vVocabulary->GetDataText(_currentRecord.iId, fieldId);
+		if (_currentRecord.vVocabulary->fieldLanguage(fieldId) == fieldLanguage) {
+			const QString data = _currentRecord.vVocabulary->dataText(_currentRecord.iId, fieldId);
 
-			QString field = _currentRecord.vVocabulary->GetFieldTemplateName(fieldId);
+			QString field = _currentRecord.vVocabulary->fieldTemplateName(fieldId);
 			templateText.replace(VARIABLE_MARK + field, data);
 		} // if
 	} // foreach
@@ -413,15 +413,15 @@ void MainWindow::openVocabulary(Vocabulary *vocabulary
 #ifndef EDITION_FREE
 quint8 MainWindow::recordPriority() const
 {
-    foreach (const quint8 &fieldId, _currentRecord.vVocabulary->GetFieldIds())
+    foreach (const quint8 &fieldId, _currentRecord.vVocabulary->fieldIds())
 	{
-        if (_currentRecord.vVocabulary->FieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+        if (_currentRecord.vVocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
 		{
-            const VocabularyDatabase::eFieldBuiltIn builtInType = _currentRecord.vVocabulary->GetFieldBuiltIn(fieldId);
+            const VocabularyDatabase::FieldBuiltIn builtInType = _currentRecord.vVocabulary->fieldBuiltIn(fieldId);
             switch (builtInType)
 			{
                 case VocabularyDatabase::FieldBuiltInPriority:
-                    return _currentRecord.vVocabulary->GetDataText(_currentRecord.iId, fieldId).toInt();
+                    return _currentRecord.vVocabulary->dataText(_currentRecord.iId, fieldId).toInt();
             } // switch
         } // if
     } // foreach
@@ -489,7 +489,7 @@ void MainWindow::say(bool directionSwitched, bool answer) const
 {
     if (!_settings.mute())
 	{
-	    VocabularyDatabase::eFieldLanguage fieldLanguage;
+	    VocabularyDatabase::FieldLanguage fieldLanguage;
 	    if ((!directionSwitched && !answer) || (directionSwitched && answer))
 		{
 		    fieldLanguage = VocabularyDatabase::FieldLanguageLeft;
@@ -501,15 +501,15 @@ void MainWindow::say(bool directionSwitched, bool answer) const
 
         // get text to speech
         QString text;
-        foreach (const quint8 &fieldId, _currentRecord.vVocabulary->GetFieldIds())
+        foreach (const quint8 &fieldId, _currentRecord.vVocabulary->fieldIds())
 		{
-            if (_currentRecord.vVocabulary->GetFieldLanguage(fieldId) == fieldLanguage && _currentRecord.vVocabulary->FieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeSpeech))
+            if (_currentRecord.vVocabulary->fieldLanguage(fieldId) == fieldLanguage && _currentRecord.vVocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeSpeech))
 			{
                 if (!text.isEmpty())
 				{
                     text += ' ';
                 } // if
-                text += _currentRecord.vVocabulary->GetDataText(_currentRecord.iId, fieldId);
+                text += _currentRecord.vVocabulary->dataText(_currentRecord.iId, fieldId);
             } // if
         } // foreach
 
@@ -572,15 +572,15 @@ void MainWindow::setLayout()
 #ifndef EDITION_FREE
 void MainWindow::setRecordEnabled(bool enabled)
 {
-	foreach (quint8 fieldId, _currentRecord.vVocabulary->GetFieldIds())
+	foreach (quint8 fieldId, _currentRecord.vVocabulary->fieldIds())
 	{
-		if (_currentRecord.vVocabulary->FieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+		if (_currentRecord.vVocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
 		{
-			const VocabularyDatabase::eFieldBuiltIn builtInType = _currentRecord.vVocabulary->GetFieldBuiltIn(fieldId);
+			const VocabularyDatabase::FieldBuiltIn builtInType = _currentRecord.vVocabulary->fieldBuiltIn(fieldId);
 			switch (builtInType)
 			{
 				case VocabularyDatabase::FieldBuiltInEnabled:
-					_currentRecord.vVocabulary->SetDataText(_currentRecord.iId, fieldId, QString::number(enabled ? Qt::Checked : Qt::Unchecked));
+					_currentRecord.vVocabulary->setDataText(_currentRecord.iId, fieldId, QString::number(enabled ? Qt::Checked : Qt::Unchecked));
 					return;
 			} // switch
 		} // if
@@ -589,15 +589,15 @@ void MainWindow::setRecordEnabled(bool enabled)
 
 void MainWindow::setRecordPriority(quint8 priority)
 {
-	foreach (quint8 fieldId, _currentRecord.vVocabulary->GetFieldIds())
+	foreach (quint8 fieldId, _currentRecord.vVocabulary->fieldIds())
 	{
-		if (_currentRecord.vVocabulary->FieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+		if (_currentRecord.vVocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
 		{
-			const VocabularyDatabase::eFieldBuiltIn builtInType = _currentRecord.vVocabulary->GetFieldBuiltIn(fieldId);
+			const VocabularyDatabase::FieldBuiltIn builtInType = _currentRecord.vVocabulary->fieldBuiltIn(fieldId);
 			switch (builtInType)
 			{
 				case VocabularyDatabase::FieldBuiltInPriority:
-					_currentRecord.vVocabulary->SetDataText(_currentRecord.iId, fieldId, QString::number(priority));
+					_currentRecord.vVocabulary->setDataText(_currentRecord.iId, fieldId, QString::number(priority));
 					return;
 			} // switch
 		} // if
@@ -616,7 +616,7 @@ void MainWindow::setupRecordControls() const
 	_ui.priority7->setChecked(priority == 7);
 	_ui.priority8->setChecked(priority == 8);
 	_ui.priority9->setChecked(priority == 9);
-	_ui.recordEnabled->setChecked(_currentRecord.vVocabulary->GetRecordEnabled(_currentRecord.iId));
+	_ui.recordEnabled->setChecked(_currentRecord.vVocabulary->recordEnabled(_currentRecord.iId));
 } // setupRecordControls
 #endif
 
@@ -855,15 +855,15 @@ void MainWindow::on_learningTimer_timeout()
 					nextRecordTry++;
 				} // if else
 
-				if ((!_settings.learnDisabledWords() && !_currentRecord.vVocabulary->GetRecordEnabled(_currentRecord.iId)) || recordPriority() > maxRecordPriority)
+				if ((!_settings.learnDisabledWords() && !_currentRecord.vVocabulary->recordEnabled(_currentRecord.iId)) || recordPriority() > maxRecordPriority)
 				{
 					continue;
 				} // if
 #endif
 
-                categoryId = _currentRecord.vVocabulary->GetRecordCategory(_currentRecord.iId);
+                categoryId = _currentRecord.vVocabulary->recordCategory(_currentRecord.iId);
 #ifndef EDITION_FREE
-                if (_currentRecord.vVocabulary->GetCategoryEnabled(categoryId) && _currentRecord.vVocabulary->GetCategoryPriority(categoryId) <= maxCategoryPriority  && (_currentRecord.vVocabulary->GetRecordCount(true) == 1 || _currentRecord.vVocabulary != lastRecord.vVocabulary || _currentRecord.iId != lastRecord.iId))
+                if (_currentRecord.vVocabulary->GetCategoryEnabled(categoryId) && _currentRecord.vVocabulary->GetCategoryPriority(categoryId) <= maxCategoryPriority  && (_currentRecord.vVocabulary->recordCount(true) == 1 || _currentRecord.vVocabulary != lastRecord.vVocabulary || _currentRecord.iId != lastRecord.iId))
 				{
 #endif
                     break;

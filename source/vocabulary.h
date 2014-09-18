@@ -9,96 +9,96 @@ class Vocabulary : public VocabularyDatabase
 	public:
         Vocabulary();
 
-		const int AddCategory(const QString &pName);
+		const int addCategory(const QString &name);
 #ifndef EDITION_FREE
-        const void AddField();
+        const void addField();
 #endif
-		const void AddRecord(const int &pCategoryId);
+		const void addRecord(quint8 categoryId);
 #ifndef EDITION_FREE
-		const void AddRecord(const int &pCategoryId, const QStringList &pData);
+		const void addRecord(quint8 categoryId, const QStringList &data);
 #endif
-        const void BeginEdit();
-		const void Close();
-        const void EndEdit(const bool &pSave = true);
-		const bool FieldHasAttribute(const int &pFieldId, const eFieldAttribute &pAttribute) const;
-        const tCategoryIdList GetCategoryIds() const;
-        const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
-        const QString GetDataText(const int &pRecordId, const int &pFieldId) const;
-		const qfFieldAttributes GetFieldAttributes(const int &pFieldId) const;
+        const void beginEdit();
+		const void close();
+        const void endEdit(bool save = true);
+		const bool fieldHasAttribute(quint8 fieldId, FieldAttribute attribute) const;
+        const CategoryIdList categoryIds() const;
+		const QString dataText(quint8 categoryId, quint32 row, quint8 fieldId) const;
+		const QString dataText(quint32 recordId, quint8 fieldId) const;
+		const FieldAttributes fieldAttributes(quint8 fieldId) const;
 #ifndef EDITION_FREE
-        const eFieldBuiltIn GetFieldBuiltIn(const int &pFieldId) const;
+		const FieldBuiltIn fieldBuiltIn(quint8 fieldId) const;
 #endif
-        const int GetFieldCount() const;
-        const int GetFieldId(const int &pPosition) const;
-        const tFieldIdList GetFieldIds() const;
-        const eFieldLanguage GetFieldLanguage(const int &pFieldId) const;
-        const QString GetFieldName(const int &pFieldId) const;
-        const QString GetFieldTemplateName(const int &pFieldId) const;
-		const FieldType GetFieldType(const int &pFieldId) const;
+        const int fieldCount() const;
+		const int fieldId(quint8 position) const;
+        const FieldIdList fieldIds() const;
+		const FieldLanguage fieldLanguage(quint8 fieldId) const;
+		const QString fieldName(quint8 fieldId) const;
+		const QString fieldTemplateName(quint8 fieldId) const;
+		const FieldType fieldType(quint8 fieldId) const;
 #ifndef EDITION_FREE
-        const QStringList GetRecord(const int &pRecordId) const;
+        const QStringList record(quint32 recordId) const;
 #endif
-        const int GetRecordCategory(const int &pRecordId) const;
-		const int GetRecordCount() const;
-		const int GetRecordCount(const int &pCategoryId) const;
+		const int recordCategory(quint32 recordId) const;
+		const int recordCount() const;
+		const int recordCount(quint8 categoryId) const;
 #ifndef EDITION_FREE
-		const int GetRecordCount(const int &pCategoryId, const bool &pEnabled) const;
-		const int GetRecordCount(const bool &pEnabled) const;
-		const bool GetRecordEnabled(const int &pRecordId) const;
+		const int recordCount(quint8 categoryId, bool enabled) const;
+		const int recordCount(bool enabled) const;
+		const bool recordEnabled(quint32 recordId) const;
 #endif
-        const int GetRecordId(const int &pRow) const;
-        const int GetRecordId(const int &pCategoryId, const int &pRow) const;
-        const tRecordIdList GetRecordIds(const int &pCategoryId) const;
-		const void New(
+        const int recordId(quint32 row) const;
+        const int recordId(quint8 categoryId, quint32 row) const;
+        const RecordIdList recordIds(quint8 categoryId) const;
+		const void new2(
 #ifndef EDITION_TRY
-			const QString &pFilePath
+			const QString &filePath
 #endif
 			);
 #ifndef EDITION_TRY
-		const void Open(const QString &pFilePath);
+		const void open(const QString &filePath);
 #else
-        const void OpenMemory();
+        const void openMemory();
 #endif
-		const void RemoveCategory(const int &pCategoryId);
+		const void removeCategory(quint8 categoryId);
 #ifndef EDITION_FREE
-        const void RemoveField(const int &pFieldId);
+        const void removeField(quint8 fieldId);
 #endif
-		const void RemoveRecord(const int &pCategoryId, const int &pRow);
-        const void SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData);
-		const void SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData);
+		const void removeRecord(quint8 categoryId, quint32 row);
+		const void setDataText(quint8 categoryId, quint32 row, quint8 fieldId, const QString &data);
+		const void setDataText(quint32 recordId, quint8 fieldId, const QString &data);
 #ifndef EDITION_FREE
-		const void SetFieldAttributes(const int &pFieldId, const qfFieldAttributes &pAttributes);
-        const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage);
-        const void SetFieldName(const int &pFieldId, const QString &pName);
-        const void SetFieldTemplateName(const int &pFieldId, const QString &pTemplateName);
-		const void SetRecordByRowCategory(const int &pOldCategoryId, const int &pRecordRow, const int &pNewCategoryId);
-        const void SwapFields(const int &pSourceId, const int &pDestinationId);
+		const void setFieldAttributes(quint8 fieldId, FieldAttributes attributes);
+		const void setFieldLanguage(quint8 fieldId, FieldLanguage language);
+		const void setFieldName(quint8 fieldId, const QString &name);
+		const void setFieldTemplateName(quint8 fieldId, const QString &templateName);
+		const void setRecordByRowCategory(quint8 oldCategoryId, quint32 recordRow, quint8 newCategoryId);
+		const void swapFields(quint8 sourceId, quint8 destinationId);
 #endif
 
 	private:
-        struct sFieldData {
-            QString qsTemplateName;
-            QString qsName;
-            FieldType eftType;
-            qfFieldAttributes qfaAttributes;
+        struct FieldData {
+            QString templateName;
+            QString name;
+            FieldType type;
+            FieldAttributes attributes;
 #ifndef EDITION_FREE
-            eFieldBuiltIn efbBuiltIn;
+            FieldBuiltIn builtIn;
 #endif
-            eFieldLanguage eflLanguage;
-        }; // sFieldData
+            FieldLanguage language;
+        }; // FieldData
 
-        typedef QHash<int, tRecordIdList> tCategoryRecordsMap;
-        typedef QMap<int, sFieldData> tFieldDataMap;
+        typedef QHash<int, RecordIdList> CategoryRecordsMap;
+        typedef QMap<int, FieldData> FieldDataMap;
 
-		tCategoryRecordsMap _tcrmCategoryRecords;
-        tFieldDataMap _tfdmFieldData;
-        tFieldDataMap _tfdmFieldDataBackup;
-        tRecordDataHash *_trdhRecordData;
-        tRecordDataHash _trdhRecordDataBackup;
+		CategoryRecordsMap _tcrmCategoryRecords;
+        FieldDataMap _tfdmFieldData;
+        FieldDataMap _tfdmFieldDataBackup;
+        RecordDataHash *_trdhRecordData;
+        RecordDataHash _trdhRecordDataBackup;
 
-		const void ClearCache();
-        const sFieldData GetFieldData(const int &pFieldId) const;
-		const void InitCache();
-}; // VocabularyDatabase
+		const void clearCache();
+		const FieldData getFieldData(quint8 fieldId) const;
+		const void initCache();
+}; // Vocabulary
 
 #endif // VOCABULARY_H

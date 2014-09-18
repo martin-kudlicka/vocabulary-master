@@ -18,7 +18,7 @@ class VocabularyModel : public QAbstractTableModel
 		virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
 
     private:
-        int _iCategoryId;
+        quint8 _iCategoryId;
         Vocabulary *_vVocabulary;
 
         virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
