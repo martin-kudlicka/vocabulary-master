@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qdUiSettings</class>
- <widget class="QDialog" name="qdUiSettings">
+ <class>SettingsDialog</class>
+ <widget class="QDialog" name="SettingsDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -46,7 +46,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="qcbSystemTrayIcon">
+        <widget class="QCheckBox" name="systemTrayIcon">
          <property name="text">
           <string>System &amp;tray icon</string>
          </property>
@@ -133,7 +133,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QSpinBox" name="qsbWordsFrequency">
+          <widget class="QSpinBox" name="wordsFrequency">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -160,7 +160,7 @@
             <string>Words &amp;frequency</string>
            </property>
            <property name="buddy">
-            <cstring>qsbWordsFrequency</cstring>
+            <cstring>wordsFrequency</cstring>
            </property>
           </widget>
          </item>
@@ -200,7 +200,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QCheckBox" name="qcbNewWordSound">
+        <widget class="QCheckBox" name="newWordSound">
          <property name="text">
           <string>Play &amp;sound with new word</string>
          </property>
@@ -212,7 +212,7 @@
           <number>15</number>
          </property>
          <item>
-          <widget class="QRadioButton" name="qrbSoundSystem">
+          <widget class="QRadioButton" name="soundSystem">
            <property name="text">
             <string>System</string>
            </property>
@@ -221,7 +221,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QRadioButton" name="qrbSoundCustom">
+            <widget class="QRadioButton" name="soundCustomRadio">
              <property name="text">
               <string>Custom</string>
              </property>
@@ -231,7 +231,7 @@
             <widget class="QLineEdit" name="qleSoundCustom"/>
            </item>
            <item>
-            <widget class="QPushButton" name="qbpSoundBrowse">
+            <widget class="QPushButton" name="soundBrowse">
              <property name="text">
               <string>Browse...</string>
              </property>
@@ -442,14 +442,14 @@
            <widget class="HotkeyLineEdit" name="qleHotkeyAnswer"/>
           </item>
           <item row="0" column="2">
-           <widget class="QPushButton" name="qpbHotkeyNextClear">
+           <widget class="QPushButton" name="hotkeyNextClear">
             <property name="text">
              <string>Clear</string>
             </property>
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="QPushButton" name="qpbHotkeyAnswerClear">
+           <widget class="QPushButton" name="hotkeyAnswerClear">
             <property name="text">
              <string>Clear</string>
             </property>
@@ -491,14 +491,14 @@
            <widget class="HotkeyLineEdit" name="qleHotkeyRestore"/>
           </item>
           <item row="0" column="2">
-           <widget class="QPushButton" name="qpbHotkeyMinimizeClear">
+           <widget class="QPushButton" name="hotkeyMinimizeClear">
             <property name="text">
              <string>Clear</string>
             </property>
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="QPushButton" name="qpbHotkeyRestoreClear">
+           <widget class="QPushButton" name="hotkeyRestoreClear">
             <property name="text">
              <string>Clear</string>
             </property>
@@ -704,7 +704,16 @@
      <property name="spacing">
       <number>6</number>
      </property>
-     <property name="margin">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
       <number>0</number>
      </property>
      <item>
@@ -755,13 +764,13 @@
   <tabstop>qcbHorizontalLayout</tabstop>
   <tabstop>qcbAlwaysOnTop</tabstop>
   <tabstop>qcbRememberWindowPosition</tabstop>
-  <tabstop>qcbSystemTrayIcon</tabstop>
+  <tabstop>systemTrayIcon</tabstop>
   <tabstop>qcbShowWordsInTrayBalloon</tabstop>
   <tabstop>qcbMinimizeToTray</tabstop>
   <tabstop>qcbLanguage</tabstop>
-  <tabstop>qsbWordsFrequency</tabstop>
+  <tabstop>wordsFrequency</tabstop>
   <tabstop>qsbWaitForAnswer</tabstop>
-  <tabstop>qcbNewWordSound</tabstop>
+  <tabstop>newWordSound</tabstop>
   <tabstop>qcbNewWordFlash</tabstop>
   <tabstop>qcbSwitchLearningDirection</tabstop>
   <tabstop>qcbStartLearningOnStartup</tabstop>
@@ -774,7 +783,7 @@
   <connection>
    <sender>qpbOk</sender>
    <signal>clicked()</signal>
-   <receiver>qdUiSettings</receiver>
+   <receiver>SettingsDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -790,7 +799,7 @@
   <connection>
    <sender>qpbCancel</sender>
    <signal>clicked()</signal>
-   <receiver>qdUiSettings</receiver>
+   <receiver>SettingsDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
