@@ -62,28 +62,28 @@ class SettingsDialog : public QDialog
         void fillTranslation    ();
 #ifndef EDITION_FREE
 		void prepareColorFlash  ();
-        void preparePlugins     (QTreeView *pTreeView, PluginsModel *pModel)              const;
+        void preparePlugins     (QTreeView *treeView, PluginsModel *model)              const;
 #endif
         void prepareTranslations();
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
-		void saveHotkey         (const HotkeyLineEdit *pControl, Settings::Hotkey hotkey) const;
+		void saveHotkey         (const HotkeyLineEdit *control, Settings::Hotkey hotkey) const;
 #endif
         void saveOptions        ();
 
 	private slots:
 #ifndef EDITION_FREE
-        void on_newWordSound_stateChanged  (int state)            const;
-		void on_systemTrayIcon_stateChanged(int state)            const;
 # ifdef Q_OS_WIN
 		void on_hotkeyAnswerClear_clicked  (bool checked = false) const;
 		void on_hotkeyMinimizeClear_clicked(bool checked = false) const;
 		void on_hotkeyNextClear_clicked    (bool checked = false) const;
 		void on_hotkeyRestoreClear_clicked (bool checked = false) const;
 # endif
+		void on_newWordSound_stateChanged  (int state)            const;
         void on_showLicense_clicked        (bool checked = false);
         void on_soundBrowse_clicked        (bool checked = false);
         void on_soundCustomRadio_clicked   (bool checked = false) const;
         void on_soundSystem_clicked        (bool checked = false) const;
+		void on_systemTrayIcon_stateChanged(int state)            const;
 		void on_wordsFrequency_valueChanged(int i)                const;
 #endif
 }; // MainWindow
