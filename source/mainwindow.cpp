@@ -130,7 +130,7 @@ MainWindow::MainWindow(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */
 	// update check
 	if (_settings.updateCheck())
 	{
-		_updateChecker.CheckForUpdate();
+		_updateChecker.checkForUpdate();
 	} // if
 } // MainWindow
 
@@ -700,7 +700,7 @@ void MainWindow::on_actionAbout_triggered(bool checked /* false */)
 #ifdef EDITION_TRY
         + tr(EDITION_TRY_SUFFIX)
 #endif
-        + "</b></center><center>Version " + _updateChecker.GetCurrentVersion() + "</center><br />Copyright (C) 2011 Isshou");
+        + "</b></center><center>Version " + _updateChecker.currentVersion() + "</center><br />Copyright (C) 2011 Isshou");
 } // on_actionAbout_triggered
 
 #ifndef EDITION_FREE
@@ -1106,14 +1106,14 @@ void MainWindow::on_trayIcon_activated(QSystemTrayIcon::ActivationReason reason)
 
 void MainWindow::on_updateChecker_finished()
 {
-	if (_updateChecker.GetCheckResult() != QNetworkReply::NoError)
+	if (_updateChecker.checkResult() != QNetworkReply::NoError)
 	{
 		return;
 	} // if
 
-	if (_updateChecker.IsUpdateAvailable())
+	if (_updateChecker.updateAvailable())
 	{
-		const QString text = tr("New version %1 of Vocabulary Master available at <a href=\"http://vocabulary-master.cz/\">homepage</a>.").arg(_updateChecker.GetUpdateVersion());
+		const QString text = tr("New version %1 of Vocabulary Master available at <a href=\"http://vocabulary-master.cz/\">homepage</a>.").arg(_updateChecker.updateVersion());
 		QMessageBox::information(this, tr("Update available"), text);
 	} // if
 } // on_updateChecker_finished
