@@ -9,170 +9,226 @@
 # include <QtWidgets/QFileDialog>
 #endif
 
+SettingsDialog::SettingsDialog(
+#ifndef EDITION_FREE
+    const Plugins *plugins,
+#endif
+    Settings *settings, QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags)
+#ifndef EDITION_FREE
+    , _expPluginsModel(plugins, PluginsModel::PluginTypeExp), _impPluginsModel(plugins, PluginsModel::PluginTypeImp), _ttsPluginsModel(plugins, PluginsModel::PluginTypeTTS)
+#endif
+{
+#ifndef EDITION_FREE
+    _plugins = plugins;
+#endif
+	_settings = settings;
+
+	_ui.setupUi(this);
+#ifdef EDITION_FREE
+    // general
+    delete _ui.qcbHorizontalLayout;
+    delete _ui.qcbRememberWindowPosition;
+    delete _ui.qcbSystemTrayIcon;
+    delete _ui.qcbShowWordsInTrayBalloon;
+    delete _ui.qcbMinimizeToTray;
+
+    // learning
+    delete _ui.qlWaitForAnswer;
+    delete _ui.qsbWaitForAnswer;
+    delete _ui.qcbNewWordSound;
+    delete _ui.qrbSoundSystem;
+    delete _ui.qrbSoundCustom;
+    delete _ui.qleSoundCustom;
+    delete _ui.qbpSoundBrowse;
+    delete _ui.qcbNewWordFlash;
+	delete _ui.qcbLearnDisabledWords;
+    delete _ui.qcbStartLearningOnStartup;
+
+	// plugins
+	_ui.qtwTabs->removeTab(TabPlugins);
+
+    // appearance
+    _ui.qtwTabs->removeTab(TabHotkey);
+    _ui.qtwTabs->removeTab(TabAppearance);
+#elif !defined(Q_OS_WIN)
+    _ui.qtwTabs->removeTab(TabHotkey);
+#else
+	_ui.qcbColorFlash->setItemDelegate(new ColorDelegate(_ui.qcbColorFlash));
+
+	prepareColorFlash();
+#endif
+    prepareTranslations();
+    fillOptions();
+} // SettingsDialog
+
+SettingsDialog::~SettingsDialog()
+{
+}
+
 void SettingsDialog::accept()
 {
-    SaveOptions();
+    saveOptions();
 
     QDialog::accept();
 } // accept
 
 #ifndef EDITION_FREE
 # ifdef Q_OS_WIN
-const void SettingsDialog::ClearHotkey(HotkeyLineEdit *pControl) const
+void SettingsDialog::clearHotkey(HotkeyLineEdit *pControl) const
 {
 	pControl->clear();
 	pControl->setProperty(PROPERTY_VIRTUALKEY, VIRTUALKEY_NONE);
-} // ClearHotkey
+} // clearHotkey
 # endif
 
-const void SettingsDialog::FillColorFlash()
+void SettingsDialog::fillColorFlash()
 {
-    for (int iI = 0; iI < _usdSettingsDialog.qcbColorFlash->count(); iI++) {
-        if (_usdSettingsDialog.qcbColorFlash->itemData(iI, Qt::UserRole).toString() == _sSettings->colorFlash()) {
-            _usdSettingsDialog.qcbColorFlash->setCurrentIndex(iI);
+    for (int iI = 0; iI < _ui.qcbColorFlash->count(); iI++) {
+        if (_ui.qcbColorFlash->itemData(iI, Qt::UserRole).toString() == _settings->colorFlash()) {
+            _ui.qcbColorFlash->setCurrentIndex(iI);
             return;
         } // if
     } // for
-} // FillColorFlash
+} // fillColorFlash
 
 # ifdef Q_OS_WIN
-const void SettingsDialog::FillHotkey(HotkeyLineEdit *pControl, const Settings::Hotkey &pHotkey) const
+void SettingsDialog::fillHotkey(HotkeyLineEdit *pControl, Settings::Hotkey pHotkey) const
 {
-	Settings::HotkeyInfo shkiHotkey = _sSettings->hotkey(pHotkey);
+	Settings::HotkeyInfo shkiHotkey = _settings->hotkey(pHotkey);
 	pControl->setText(shkiHotkey.text);
 	pControl->setProperty(PROPERTY_VIRTUALKEY, shkiHotkey.virtualKey);
 } // FillHotkey
 # endif
 #endif
 
-const void SettingsDialog::FillOptions()
+void SettingsDialog::fillOptions()
 {
     // general
 #ifndef EDITION_FREE
-    _usdSettingsDialog.qcbHorizontalLayout->setChecked(_sSettings->horizontalLayout());
+    _ui.qcbHorizontalLayout->setChecked(_settings->horizontalLayout());
 #endif
-    _usdSettingsDialog.qcbAlwaysOnTop->setChecked(_sSettings->alwaysOnTop());
+    _ui.qcbAlwaysOnTop->setChecked(_settings->alwaysOnTop());
 #ifndef EDITION_FREE
-    _usdSettingsDialog.qcbRememberWindowPosition->setChecked(_sSettings->rememberWindowPosition());
-    _usdSettingsDialog.qcbSystemTrayIcon->setChecked(_sSettings->systemTrayIcon());
-	on_qcbSystemTrayIcon_stateChanged(_usdSettingsDialog.qcbSystemTrayIcon->checkState());
-	_usdSettingsDialog.qcbShowWordsInTrayBalloon->setChecked(_sSettings->showWordsInTrayBalloon());
-	_usdSettingsDialog.qcbMinimizeToTray->setChecked(_sSettings->minimizeToTray());
+    _ui.qcbRememberWindowPosition->setChecked(_settings->rememberWindowPosition());
+    _ui.systemTrayIcon->setChecked(_settings->systemTrayIcon());
+	on_systemTrayIcon_stateChanged(_ui.systemTrayIcon->checkState());
+	_ui.qcbShowWordsInTrayBalloon->setChecked(_settings->showWordsInTrayBalloon());
+	_ui.qcbMinimizeToTray->setChecked(_settings->minimizeToTray());
 #endif
-	FillTranslation();
-	_usdSettingsDialog.qcbUpdateCheck->setChecked(_sSettings->updateCheck());
+	fillTranslation();
+	_ui.qcbUpdateCheck->setChecked(_settings->updateCheck());
 
     // learning
-    _usdSettingsDialog.qsbWordsFrequency->setValue(_sSettings->wordsFrequency());
+    _ui.wordsFrequency->setValue(_settings->wordsFrequency());
 #ifndef EDITION_FREE
-	_usdSettingsDialog.qsbWaitForAnswer->setMaximum(_sSettings->wordsFrequency() - 1);
-	_usdSettingsDialog.qsbWaitForAnswer->setValue(_sSettings->waitForAnswer());
-	_usdSettingsDialog.qcbNewWordSound->setChecked(_sSettings->newWordSound());
-    if (_sSettings->newWordSoundType() == Settings::NewWordSoundTypeSystem) {
-        _usdSettingsDialog.qrbSoundSystem->click();
+	_ui.qsbWaitForAnswer->setMaximum(_settings->wordsFrequency() - 1);
+	_ui.qsbWaitForAnswer->setValue(_settings->waitForAnswer());
+	_ui.newWordSound->setChecked(_settings->newWordSound());
+    if (_settings->newWordSoundType() == Settings::NewWordSoundTypeSystem) {
+        _ui.soundSystem->click();
     } else {
-        _usdSettingsDialog.qrbSoundCustom->click();
+        _ui.soundCustomRadio->click();
     } // if else
-    _usdSettingsDialog.qleSoundCustom->setText(_sSettings->newWordSoundFile());
-	_usdSettingsDialog.qcbNewWordFlash->setChecked(_sSettings->newWordFlash());
-	_usdSettingsDialog.qcbLearnDisabledWords->setChecked(_sSettings->learnDisabledWords());
+    _ui.qleSoundCustom->setText(_settings->newWordSoundFile());
+	_ui.qcbNewWordFlash->setChecked(_settings->newWordFlash());
+	_ui.qcbLearnDisabledWords->setChecked(_settings->learnDisabledWords());
 #endif
-	_usdSettingsDialog.qcbSwitchLearningDirection->setCheckState(_sSettings->switchLearningDirection());
+	_ui.qcbSwitchLearningDirection->setCheckState(_settings->switchLearningDirection());
 #ifndef EDITION_FREE
-	_usdSettingsDialog.qcbStartLearningOnStartup->setChecked(_sSettings->startLearningOnStartup());
+	_ui.qcbStartLearningOnStartup->setChecked(_settings->startLearningOnStartup());
 #endif
 
 #ifndef EDITION_FREE
     // appearance
-	_usdSettingsDialog.qcbMainWindowToolBar->setChecked(_sSettings->showToolBar());
-	_usdSettingsDialog.qcbMainWindowLanguageNames->setChecked(_sSettings->showLanguageNames());
-	_usdSettingsDialog.qcbMainWindowCategoryName->setChecked(_sSettings->showCategoryName());
-	_usdSettingsDialog.qcbMainWindowRecordControls->setChecked(_sSettings->showRecordControls());
-	_usdSettingsDialog.qcbMainWindowStatusBar->setChecked(_sSettings->showStatusBar());
-	FillColorFlash();
-    _usdSettingsDialog.qcbVocabularyManagerCategoriesEnable->setChecked(_sSettings->canEnableCategories());
-	_usdSettingsDialog.qcbVocabularyManagerCategoryPriority->setChecked(_sSettings->canChangeCategoryPriority());
+	_ui.qcbMainWindowToolBar->setChecked(_settings->showToolBar());
+	_ui.qcbMainWindowLanguageNames->setChecked(_settings->showLanguageNames());
+	_ui.qcbMainWindowCategoryName->setChecked(_settings->showCategoryName());
+	_ui.qcbMainWindowRecordControls->setChecked(_settings->showRecordControls());
+	_ui.qcbMainWindowStatusBar->setChecked(_settings->showStatusBar());
+	fillColorFlash();
+    _ui.qcbVocabularyManagerCategoriesEnable->setChecked(_settings->canEnableCategories());
+	_ui.qcbVocabularyManagerCategoryPriority->setChecked(_settings->canChangeCategoryPriority());
 
 # ifdef Q_OS_WIN
     // hotkeys
     // learning
-	FillHotkey(_usdSettingsDialog.qleHotkeyNext, Settings::HotkeyNext);
-    FillHotkey(_usdSettingsDialog.qleHotkeyAnswer, Settings::HotkeyAnswer);
+	fillHotkey(_ui.qleHotkeyNext, Settings::HotkeyNext);
+    fillHotkey(_ui.qleHotkeyAnswer, Settings::HotkeyAnswer);
     // window
-	FillHotkey(_usdSettingsDialog.qleHotkeyMinimize, Settings::HotkeyMinimize);
-	FillHotkey(_usdSettingsDialog.qleHotkeyRestore, Settings::HotkeyRestore);
+	fillHotkey(_ui.qleHotkeyMinimize, Settings::HotkeyMinimize);
+	fillHotkey(_ui.qleHotkeyRestore, Settings::HotkeyRestore);
 # endif
 
     // plugins
-    PreparePlugins(_usdSettingsDialog.qtvPluginsImp, &_pmImpPlugins);
-    PreparePlugins(_usdSettingsDialog.qtvPluginsExp, &_pmExpPlugins);
-    PreparePlugins(_usdSettingsDialog.qtvPluginsTTS, &_pmTTSPlugins);
+    preparePlugins(_ui.qtvPluginsImp, &_impPluginsModel);
+    preparePlugins(_ui.qtvPluginsExp, &_expPluginsModel);
+    preparePlugins(_ui.qtvPluginsTTS, &_ttsPluginsModel);
 #endif
 
 	// network
-	_usdSettingsDialog.qgbUseProxy->setChecked(_sSettings->useProxy());
-	_usdSettingsDialog.qleProxyHostname->setText(_sSettings->proxyHostname());
-	_usdSettingsDialog.qsbProxyPort->setValue(_sSettings->proxyPort());
-	_usdSettingsDialog.qleProxyUsername->setText(_sSettings->proxyUsername());
-	_usdSettingsDialog.qleProxyPassword->setText(_sSettings->proxyPassword());
-	switch (_sSettings->proxyType()) {
+	_ui.qgbUseProxy->setChecked(_settings->useProxy());
+	_ui.qleProxyHostname->setText(_settings->proxyHostname());
+	_ui.qsbProxyPort->setValue(_settings->proxyPort());
+	_ui.qleProxyUsername->setText(_settings->proxyUsername());
+	_ui.qleProxyPassword->setText(_settings->proxyPassword());
+	switch (_settings->proxyType()) {
 		case QNetworkProxy::HttpProxy:
-			_usdSettingsDialog.qrbProxyTypeHttp->setChecked(true);
+			_ui.qrbProxyTypeHttp->setChecked(true);
 			break;
 		case QNetworkProxy::Socks5Proxy:
-			_usdSettingsDialog.qrbProxyTypeSocks5->setChecked(true);
+			_ui.qrbProxyTypeSocks5->setChecked(true);
 			break;
 		case QNetworkProxy::HttpCachingProxy:
-			_usdSettingsDialog.qrbProxyTypeCachingOnlyHttp->setChecked(true);
+			_ui.qrbProxyTypeCachingOnlyHttp->setChecked(true);
 	} // switch
-} // FillOptions
+} // fillOptions
 
-const void SettingsDialog::FillTranslation()
+void SettingsDialog::fillTranslation()
 {
-	for (int iI = 0; iI < _usdSettingsDialog.qcbLanguage->count(); iI++) {
-		if (_usdSettingsDialog.qcbLanguage->itemData(iI) == _sSettings->translation()) {
-			_usdSettingsDialog.qcbLanguage->setCurrentIndex(iI);
+	for (int iI = 0; iI < _ui.qcbLanguage->count(); iI++) {
+		if (_ui.qcbLanguage->itemData(iI) == _settings->translation()) {
+			_ui.qcbLanguage->setCurrentIndex(iI);
 			return;
 		} // if
 	} // for
-} // FillTranslation
+} // fillTranslation
 
 #ifndef EDITION_FREE
-const void SettingsDialog::on_qcbNewWordSound_stateChanged(int state) const
+void SettingsDialog::on_newWordSound_stateChanged(int state) const
 {
-    _usdSettingsDialog.qrbSoundSystem->setEnabled(state == Qt::Checked);
-    _usdSettingsDialog.qrbSoundCustom->setEnabled(state == Qt::Checked);
-    on_qrbSoundCustom_clicked(state == Qt::Checked && _usdSettingsDialog.qrbSoundCustom->isChecked());
-} // on_qcbNewWordSound_stateChanged
+    _ui.soundSystem->setEnabled(state == Qt::Checked);
+    _ui.soundCustomRadio->setEnabled(state == Qt::Checked);
+    on_soundCustomRadio_clicked(state == Qt::Checked && _ui.soundCustomRadio->isChecked());
+} // on_newWordSound_stateChanged
 
-const void SettingsDialog::on_qcbSystemTrayIcon_stateChanged(int state) const
+void SettingsDialog::on_systemTrayIcon_stateChanged(int state) const
 {
-	_usdSettingsDialog.qcbMinimizeToTray->setEnabled(state == Qt::Checked);
-	_usdSettingsDialog.qcbShowWordsInTrayBalloon->setEnabled(state == Qt::Checked);
-} // on_qcbSystemTrayIcon_stateChanged
+	_ui.qcbMinimizeToTray->setEnabled(state == Qt::Checked);
+	_ui.qcbShowWordsInTrayBalloon->setEnabled(state == Qt::Checked);
+} // on_systemTrayIcon_stateChanged
 
 # ifdef Q_OS_WIN
-const void SettingsDialog::on_qpbHotkeyAnswerClear_clicked(bool checked /* false */) const
+void SettingsDialog::on_hotkeyAnswerClear_clicked(bool checked /* false */) const
 {
-	ClearHotkey(_usdSettingsDialog.qleHotkeyAnswer);
-} // on_qpbHotkeyAnswerClear_clicked
+	clearHotkey(_ui.qleHotkeyAnswer);
+} // on_hotkeyAnswerClear_clicked
 
-const void SettingsDialog::on_qpbHotkeyMinimizeClear_clicked(bool checked /* false */) const
+void SettingsDialog::on_hotkeyMinimizeClear_clicked(bool checked /* false */) const
 {
-	ClearHotkey(_usdSettingsDialog.qleHotkeyMinimize);
-} // on_qpbHotkeyMinimizeClear_clicked
+	clearHotkey(_ui.qleHotkeyMinimize);
+} // on_hotkeyMinimizeClear_clicked
 
-const void SettingsDialog::on_qpbHotkeyNextClear_clicked(bool checked /* false */) const
+void SettingsDialog::on_hotkeyNextClear_clicked(bool checked /* false */) const
 {
-	ClearHotkey(_usdSettingsDialog.qleHotkeyNext);
-} // on_qpbHotkeyNextClear_clicked
+	clearHotkey(_ui.qleHotkeyNext);
+} // on_hotkeyNextClear_clicked
 
-const void SettingsDialog::on_qpbHotkeyRestoreClear_clicked(bool checked /* false */) const
+void SettingsDialog::on_hotkeyRestoreClear_clicked(bool checked /* false */) const
 {
-	ClearHotkey(_usdSettingsDialog.qleHotkeyRestore);
-} // on_qpbHotkeyRestoreClear_clicked
+	clearHotkey(_ui.qleHotkeyRestore);
+} // on_hotkeyRestoreClear_clicked
 
-const void SettingsDialog::on_qpbShowLicense_clicked(bool checked /* false */)
+void SettingsDialog::on_showLicense_clicked(bool checked /* false */)
 {
     const QPushButton *qpbButton = qobject_cast<const QPushButton *>(sender());
     const QTreeView *qtvTreeView = qobject_cast<const QTreeView *>(qpbButton->parent()->parent());
@@ -189,54 +245,54 @@ const void SettingsDialog::on_qpbShowLicense_clicked(bool checked /* false */)
 
     // license
     LicenseCommon::LicenseContentList tlclLicenses;
-    if (qtvTreeView == _usdSettingsDialog.qtvPluginsTTS) {
-        const Plugins::TTSPlugin stpPlugin = _pPlugins->ttsPlugins().at(iRow);
+    if (qtvTreeView == _ui.qtvPluginsTTS) {
+        const Plugins::TTSPlugin stpPlugin = _plugins->ttsPlugins().at(iRow);
         tlclLicenses = stpPlugin.ttsInterface->licenseText();
     } // if
 
     // show license
-    LicenseTextDialog ltdLicense(tlclLicenses, _sSettings, this);
+    LicenseTextDialog ltdLicense(tlclLicenses, _settings, this);
     ltdLicense.exec();
-} // on_qpbShowLicense_clicked
+} // on_showLicense_clicked
 # endif
 
-const void SettingsDialog::on_qbpSoundBrowse_clicked(bool checked /* false */)
+void SettingsDialog::on_soundBrowse_clicked(bool checked /* false */)
 {
-    QString qsOldFile = _sSettings->newWordSoundFile();
+    QString qsOldFile = _settings->newWordSoundFile();
     QString qsFile = QFileDialog::getOpenFileName(this, tr("Sound file"), QFileInfo(qsOldFile).path()
 #ifdef Q_OS_WIN
         , tr("sound files (*.wav)")
 #endif
         );
     if (!qsFile.isEmpty()) {
-        _usdSettingsDialog.qleSoundCustom->setText(qsFile);
+        _ui.qleSoundCustom->setText(qsFile);
     } // if
-} // on_qbpSoundBrowse_clicked
+} // on_soundBrowse_clicked
 
-const void SettingsDialog::on_qrbSoundCustom_clicked(bool checked /* false */) const
+void SettingsDialog::on_soundCustomRadio_clicked(bool checked /* false */) const
 {
-    _usdSettingsDialog.qleSoundCustom->setEnabled(checked);
-    _usdSettingsDialog.qbpSoundBrowse->setEnabled(checked);
-} // on_qrbSoundCustom_clicked
+    _ui.qleSoundCustom->setEnabled(checked);
+    _ui.soundBrowse->setEnabled(checked);
+} // on_soundCustomRadio_clicked
 
-const void SettingsDialog::on_qrbSoundSystem_clicked(bool checked /* false */) const
+void SettingsDialog::on_soundSystem_clicked(bool checked /* false */) const
 {
-    on_qrbSoundCustom_clicked(false);
-} // on_qrbSoundSystem_clicked
+    on_soundCustomRadio_clicked(false);
+} // on_soundSystem_clicked
 
-const void SettingsDialog::on_qsbWordsFrequency_valueChanged(int i) const
+void SettingsDialog::on_wordsFrequency_valueChanged(int i) const
 {
-	_usdSettingsDialog.qsbWaitForAnswer->setMaximum(i - 1);
-} // on_qsbWordsFrequency_valueChanged
+	_ui.qsbWaitForAnswer->setMaximum(i - 1);
+} // on_wordsFrequency_valueChanged
 
-const void SettingsDialog::PrepareColorFlash()
+void SettingsDialog::prepareColorFlash()
 {
 	foreach (QString qsColor, QColor::colorNames()) {
-		_usdSettingsDialog.qcbColorFlash->addItem(QString(), qsColor);
+		_ui.qcbColorFlash->addItem(QString(), qsColor);
 	} // foreach
-} // PrepareColorFlash
+} // prepareColorFlash
 
-const void SettingsDialog::PreparePlugins(QTreeView *pTreeView, PluginsModel *pModel) const
+void SettingsDialog::preparePlugins(QTreeView *pTreeView, PluginsModel *pModel) const
 {
     pTreeView->setModel(pModel);
     for (int iRow = 0; iRow < pModel->rowCount(); iRow++) {
@@ -245,17 +301,17 @@ const void SettingsDialog::PreparePlugins(QTreeView *pTreeView, PluginsModel *pM
         QPushButton *qpbShow = new QPushButton(tr("Show"), pTreeView);
         pTreeView->setIndexWidget(qmiIndex, qpbShow);
 
-        connect(qpbShow, SIGNAL(clicked(bool)), SLOT(on_qpbShowLicense_clicked(bool)));
+        connect(qpbShow, SIGNAL(clicked(bool)), SLOT(on_showLicense_clicked(bool)));
     } // for
     pTreeView->header()->setSectionResizeMode(PluginsModel::ColumnName, QHeaderView::Stretch);
     pTreeView->header()->setSectionResizeMode(PluginsModel::ColumnLicense, QHeaderView::ResizeToContents);
-} // PreparePlugins
+} // preparePlugins
 #endif
 
-const void SettingsDialog::PrepareTranslations()
+void SettingsDialog::prepareTranslations()
 {
     // add default language
-    _usdSettingsDialog.qcbLanguage->addItem(tr("English"), QLocale(QLocale::English).name() + '.' + LANG_SUFFIX);
+    _ui.qcbLanguage->addItem(tr("English"), QLocale(QLocale::English).name() + '.' + LANG_SUFFIX);
 
     // get installed languages
     QDir qdDir;
@@ -264,144 +320,92 @@ const void SettingsDialog::PrepareTranslations()
 
     foreach (QFileInfo qfiFile, qfilFiles) {
         QLocale qlLocale(qfiFile.completeBaseName());
-        _usdSettingsDialog.qcbLanguage->addItem(QLocale::languageToString(qlLocale.language()) + " (" + QLocale::countryToString(qlLocale.country()) + ')', qfiFile.fileName());
+        _ui.qcbLanguage->addItem(QLocale::languageToString(qlLocale.language()) + " (" + QLocale::countryToString(qlLocale.country()) + ')', qfiFile.fileName());
     } // foreach
-} // PrepareTranslations
+} // prepareTranslations
 
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
-const void SettingsDialog::SaveHotkey(const HotkeyLineEdit *pControl, const Settings::Hotkey &pHotkey) const
+void SettingsDialog::saveHotkey(const HotkeyLineEdit *pControl, Settings::Hotkey pHotkey) const
 {
 	Settings::HotkeyInfo shkiHotkey;
 
 	shkiHotkey.text = pControl->text();
 	shkiHotkey.virtualKey = pControl->property(PROPERTY_VIRTUALKEY).toUInt();
 
-	_sSettings->setHotkey(pHotkey, shkiHotkey);
-} // SaveHotkey
+	_settings->setHotkey(pHotkey, shkiHotkey);
+} // saveHotkey
 #endif
 
-const void SettingsDialog::SaveOptions()
+void SettingsDialog::saveOptions()
 {
     // general
 #ifndef EDITION_FREE
-    _sSettings->setHorizontalLayout(_usdSettingsDialog.qcbHorizontalLayout->isChecked());
+    _settings->setHorizontalLayout(_ui.qcbHorizontalLayout->isChecked());
 #endif
-    _sSettings->setAlwaysOnTop(_usdSettingsDialog.qcbAlwaysOnTop->isChecked());
+    _settings->setAlwaysOnTop(_ui.qcbAlwaysOnTop->isChecked());
 #ifndef EDITION_FREE
-    _sSettings->setRememberWindowPosition(_usdSettingsDialog.qcbRememberWindowPosition->isChecked());
-    _sSettings->setSystemTrayIcon(_usdSettingsDialog.qcbSystemTrayIcon->isChecked());
-	_sSettings->setShowWordsInTrayBalloon(_usdSettingsDialog.qcbShowWordsInTrayBalloon->isChecked());
-	_sSettings->setMinimizeToTray(_usdSettingsDialog.qcbMinimizeToTray->isChecked());
+    _settings->setRememberWindowPosition(_ui.qcbRememberWindowPosition->isChecked());
+    _settings->setSystemTrayIcon(_ui.systemTrayIcon->isChecked());
+	_settings->setShowWordsInTrayBalloon(_ui.qcbShowWordsInTrayBalloon->isChecked());
+	_settings->setMinimizeToTray(_ui.qcbMinimizeToTray->isChecked());
 #endif
-	_sSettings->setTranslation(_usdSettingsDialog.qcbLanguage->itemData(_usdSettingsDialog.qcbLanguage->currentIndex()).toString());
-	_sSettings->setUpdateCheck(_usdSettingsDialog.qcbUpdateCheck->isChecked());
+	_settings->setTranslation(_ui.qcbLanguage->itemData(_ui.qcbLanguage->currentIndex()).toString());
+	_settings->setUpdateCheck(_ui.qcbUpdateCheck->isChecked());
 
     // learning
-    _sSettings->setWordsFrequency(_usdSettingsDialog.qsbWordsFrequency->value());
+    _settings->setWordsFrequency(_ui.wordsFrequency->value());
 #ifndef EDITION_FREE
-	_sSettings->setWaitForAnswer(_usdSettingsDialog.qsbWaitForAnswer->value());
-	_sSettings->setNewWordSound(_usdSettingsDialog.qcbNewWordSound->isChecked());
-    if (_usdSettingsDialog.qrbSoundSystem->isChecked()) {
-        _sSettings->setNewWordSoundType(Settings::NewWordSoundTypeSystem);
+	_settings->setWaitForAnswer(_ui.qsbWaitForAnswer->value());
+	_settings->setNewWordSound(_ui.newWordSound->isChecked());
+    if (_ui.soundSystem->isChecked()) {
+        _settings->setNewWordSoundType(Settings::NewWordSoundTypeSystem);
     } else {
-        _sSettings->setNewWordSoundType(Settings::NewWordSoundTypeCustom);
+        _settings->setNewWordSoundType(Settings::NewWordSoundTypeCustom);
     } // if else
-    _sSettings->setNewWordSoundFile(_usdSettingsDialog.qleSoundCustom->text());
-	_sSettings->setNewWordFlash(_usdSettingsDialog.qcbNewWordFlash->isChecked());
-	_sSettings->setLearnDisabledWords(_usdSettingsDialog.qcbLearnDisabledWords->isChecked());
+    _settings->setNewWordSoundFile(_ui.qleSoundCustom->text());
+	_settings->setNewWordFlash(_ui.qcbNewWordFlash->isChecked());
+	_settings->setLearnDisabledWords(_ui.qcbLearnDisabledWords->isChecked());
 #endif
-	_sSettings->setSwitchLearningDirection(_usdSettingsDialog.qcbSwitchLearningDirection->checkState());
+	_settings->setSwitchLearningDirection(_ui.qcbSwitchLearningDirection->checkState());
 #ifndef EDITION_FREE
-	_sSettings->setStartLearningOnStartup(_usdSettingsDialog.qcbStartLearningOnStartup->isChecked());
+	_settings->setStartLearningOnStartup(_ui.qcbStartLearningOnStartup->isChecked());
 #endif
 
 #ifndef EDITION_FREE
     // appearance
-	_sSettings->setShowToolBar(_usdSettingsDialog.qcbMainWindowToolBar->isChecked());
-	_sSettings->setShowLanguageNames(_usdSettingsDialog.qcbMainWindowLanguageNames->isChecked());
-	_sSettings->setShowCategoryName(_usdSettingsDialog.qcbMainWindowCategoryName->isChecked());
-	_sSettings->setShowRecordControls(_usdSettingsDialog.qcbMainWindowRecordControls->isChecked());
-	_sSettings->setShowStatusBar(_usdSettingsDialog.qcbMainWindowStatusBar->isChecked());
-	_sSettings->setColorFlash(_usdSettingsDialog.qcbColorFlash->itemData(_usdSettingsDialog.qcbColorFlash->currentIndex()).toString());
-    _sSettings->setCanEnableCategories(_usdSettingsDialog.qcbVocabularyManagerCategoriesEnable->isChecked());
-	_sSettings->setCanChangeCategoryPriority(_usdSettingsDialog.qcbVocabularyManagerCategoryPriority->isChecked());
+	_settings->setShowToolBar(_ui.qcbMainWindowToolBar->isChecked());
+	_settings->setShowLanguageNames(_ui.qcbMainWindowLanguageNames->isChecked());
+	_settings->setShowCategoryName(_ui.qcbMainWindowCategoryName->isChecked());
+	_settings->setShowRecordControls(_ui.qcbMainWindowRecordControls->isChecked());
+	_settings->setShowStatusBar(_ui.qcbMainWindowStatusBar->isChecked());
+	_settings->setColorFlash(_ui.qcbColorFlash->itemData(_ui.qcbColorFlash->currentIndex()).toString());
+    _settings->setCanEnableCategories(_ui.qcbVocabularyManagerCategoriesEnable->isChecked());
+	_settings->setCanChangeCategoryPriority(_ui.qcbVocabularyManagerCategoryPriority->isChecked());
 
 # ifdef Q_OS_WIN
 	// hotkeys
     // learning
-	SaveHotkey(_usdSettingsDialog.qleHotkeyNext, Settings::HotkeyNext);
-	SaveHotkey(_usdSettingsDialog.qleHotkeyAnswer, Settings::HotkeyAnswer);
+	saveHotkey(_ui.qleHotkeyNext, Settings::HotkeyNext);
+	saveHotkey(_ui.qleHotkeyAnswer, Settings::HotkeyAnswer);
     // window
-	SaveHotkey(_usdSettingsDialog.qleHotkeyMinimize, Settings::HotkeyMinimize);
-	SaveHotkey(_usdSettingsDialog.qleHotkeyRestore, Settings::HotkeyRestore);
+	saveHotkey(_ui.qleHotkeyMinimize, Settings::HotkeyMinimize);
+	saveHotkey(_ui.qleHotkeyRestore, Settings::HotkeyRestore);
 # endif
 #endif
 
 	// network
-	_sSettings->setUseProxy(_usdSettingsDialog.qgbUseProxy->isChecked());
-	_sSettings->setProxyHostname(_usdSettingsDialog.qleProxyHostname->text());
-	_sSettings->setProxyPort(_usdSettingsDialog.qsbProxyPort->value());
-	_sSettings->setProxyUsername(_usdSettingsDialog.qleProxyUsername->text());
-	_sSettings->setProxyPassword(_usdSettingsDialog.qleProxyPassword->text());
-	if (_usdSettingsDialog.qrbProxyTypeHttp->isChecked()) {
-		_sSettings->setProxyType(QNetworkProxy::HttpProxy);
+	_settings->setUseProxy(_ui.qgbUseProxy->isChecked());
+	_settings->setProxyHostname(_ui.qleProxyHostname->text());
+	_settings->setProxyPort(_ui.qsbProxyPort->value());
+	_settings->setProxyUsername(_ui.qleProxyUsername->text());
+	_settings->setProxyPassword(_ui.qleProxyPassword->text());
+	if (_ui.qrbProxyTypeHttp->isChecked()) {
+		_settings->setProxyType(QNetworkProxy::HttpProxy);
 	} else {
-		if (_usdSettingsDialog.qrbProxyTypeSocks5->isChecked()) {
-			_sSettings->setProxyType(QNetworkProxy::Socks5Proxy);
+		if (_ui.qrbProxyTypeSocks5->isChecked()) {
+			_settings->setProxyType(QNetworkProxy::Socks5Proxy);
 		} else {
-			_sSettings->setProxyType(QNetworkProxy::HttpCachingProxy);
+			_settings->setProxyType(QNetworkProxy::HttpCachingProxy);
 		} // if else
 	} // if else
-} // SaveOptions
-
-SettingsDialog::SettingsDialog(
-#ifndef EDITION_FREE
-    const Plugins *pPlugins,
-#endif
-    Settings *pSettings, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags)
-#ifndef EDITION_FREE
-    , _pmExpPlugins(pPlugins, PluginsModel::PluginTypeExp), _pmImpPlugins(pPlugins, PluginsModel::PluginTypeImp), _pmTTSPlugins(pPlugins, PluginsModel::PluginTypeTTS)
-#endif
-{
-#ifndef EDITION_FREE
-    _pPlugins = pPlugins;
-#endif
-	_sSettings = pSettings;
-
-	_usdSettingsDialog.setupUi(this);
-#ifdef EDITION_FREE
-    // general
-    delete _usdSettingsDialog.qcbHorizontalLayout;
-    delete _usdSettingsDialog.qcbRememberWindowPosition;
-    delete _usdSettingsDialog.qcbSystemTrayIcon;
-    delete _usdSettingsDialog.qcbShowWordsInTrayBalloon;
-    delete _usdSettingsDialog.qcbMinimizeToTray;
-
-    // learning
-    delete _usdSettingsDialog.qlWaitForAnswer;
-    delete _usdSettingsDialog.qsbWaitForAnswer;
-    delete _usdSettingsDialog.qcbNewWordSound;
-    delete _usdSettingsDialog.qrbSoundSystem;
-    delete _usdSettingsDialog.qrbSoundCustom;
-    delete _usdSettingsDialog.qleSoundCustom;
-    delete _usdSettingsDialog.qbpSoundBrowse;
-    delete _usdSettingsDialog.qcbNewWordFlash;
-	delete _usdSettingsDialog.qcbLearnDisabledWords;
-    delete _usdSettingsDialog.qcbStartLearningOnStartup;
-
-	// plugins
-	_usdSettingsDialog.qtwTabs->removeTab(TabPlugins);
-
-    // appearance
-    _usdSettingsDialog.qtwTabs->removeTab(TabHotkey);
-    _usdSettingsDialog.qtwTabs->removeTab(TabAppearance);
-#elif !defined(Q_OS_WIN)
-    _usdSettingsDialog.qtwTabs->removeTab(TabHotkey);
-#else
-	_usdSettingsDialog.qcbColorFlash->setItemDelegate(new ColorDelegate(_usdSettingsDialog.qcbColorFlash));
-
-	PrepareColorFlash();
-#endif
-    PrepareTranslations();
-    FillOptions();
-} // SettingsDialog
+} // saveOptions
