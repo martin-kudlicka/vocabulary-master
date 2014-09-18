@@ -12,10 +12,10 @@ LanguageFieldDelegate::~LanguageFieldDelegate()
 
 QWidget *LanguageFieldDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-	const qint8 fieldId = _vocabulary->GetFieldId(index.row());
+	const qint8 fieldId = _vocabulary->fieldId(index.row());
 
 	VocabularyDatabase::tLanguageIdList languageIds;
-	if (_vocabulary->FieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
 	{
 		languageIds = _vocabulary->GetLanguageIds(VocabularyDatabase::LanguageIdsAllOnly);
 	}

@@ -23,9 +23,9 @@ const void WordsImportDialog::CreateFieldEditors()
     for (int iRow = 0; iRow < _wifmFieldsModel.rowCount(); iRow++) {
 		bool bPersistentEditor = true;
 
-		int iFieldId = _vVocabulary->GetFieldId(iRow);
-		if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
+		int iFieldId = _vVocabulary->fieldId(iRow);
+		if (_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
+			VocabularyDatabase::FieldBuiltIn efbBuiltIn = _vVocabulary->fieldBuiltIn(iFieldId);
 			if (efbBuiltIn == VocabularyDatabase::FieldBuiltInEnabled) {
 				bPersistentEditor = false;
 			} // if
@@ -89,7 +89,7 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
 
 	// patterns
 	QStringList qslPatterns;
-	for (int iPattern = 0; iPattern < _vVocabulary->GetFieldCount(); iPattern++) {
+	for (int iPattern = 0; iPattern < _vVocabulary->fieldCount(); iPattern++) {
 		QModelIndex qmiIndex = _wifmFieldsModel.index(iPattern, WordsImportFieldsModel::ColumnEditor);
 		QString qsData = _wifmFieldsModel.data(qmiIndex, Qt::EditRole).toString();
 		qslPatterns.append(qsData);
@@ -128,7 +128,7 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
 
         // get data
         QStringList qslData;
-		for (int iColumn = 0; iColumn < _vVocabulary->GetFieldCount(); iColumn++) {
+		for (int iColumn = 0; iColumn < _vVocabulary->fieldCount(); iColumn++) {
 			QString qsText = qslPatterns.at(iColumn);
 
 			for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
@@ -140,11 +140,11 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
         // insert data into target
         switch (pTarget) {
             case TargetPreview:
-                for (int iColumn = 0; iColumn < _vVocabulary->GetFieldCount(); iColumn++) {
+                for (int iColumn = 0; iColumn < _vVocabulary->fieldCount(); iColumn++) {
 					QTableWidgetItem *qtwiTableItem;
 
-					int iFieldId = _vVocabulary->GetFieldId(iColumn);
-					switch (_vVocabulary->GetFieldType(iFieldId)) {
+					int iFieldId = _vVocabulary->fieldId(iColumn);
+					switch (_vVocabulary->fieldType(iFieldId)) {
 						case VocabularyDatabase::FieldTypeLineEdit:
 							qtwiTableItem = new QTableWidgetItem(qslData.at(iColumn));
 							break;
@@ -162,7 +162,7 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
 				} // for
 				break;
 			case TargetVocabulary:
-				_vVocabulary->AddRecord(iCategoryId, qslData);
+				_vVocabulary->addRecord(iCategoryId, qslData);
 		} // switch
 
 		// progress
@@ -197,8 +197,8 @@ const void WordsImportDialog::on_qtvCategoriesSelectionModel_selectionChanged(co
 const void WordsImportDialog::PreparePreviewColumns() const
 {
 	QStringList qslColumns;
-	foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
-		qslColumns.append(_vVocabulary->GetFieldName(iFieldId));
+	foreach (int iFieldId, _vVocabulary->fieldIds()) {
+		qslColumns.append(_vVocabulary->fieldName(iFieldId));
 	} // foreach
 
 	_qdwiWordsImport.qtwPreview->setColumnCount(qslColumns.size());

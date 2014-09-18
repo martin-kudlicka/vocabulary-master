@@ -33,7 +33,7 @@ const void VocabularyOrganizer::AddNew(
 	svVocabulary.sviVocabularyInfo.enabled = true;
 #endif
 	svVocabulary.vVocabulary = new Vocabulary;
-	svVocabulary.vVocabulary->New(
+	svVocabulary.vVocabulary->new2(
 #ifndef EDITION_TRY
 		pFile
 #endif
@@ -48,7 +48,7 @@ const int VocabularyOrganizer::GetRecordCount() const
 
 	foreach (VocabularyInfo svVocabulary, _qlVocabularies) {
 		if (svVocabulary.vVocabulary->IsOpen()) {
-			iCount += svVocabulary.vVocabulary->GetRecordCount();
+			iCount += svVocabulary.vVocabulary->recordCount();
 		} // if
 	} // foreach
 
@@ -61,7 +61,7 @@ const int VocabularyOrganizer::GetRecordCount(const bool &pEnabled) const
 
 	foreach (VocabularyInfo svVocabulary, _qlVocabularies) {
 		if (svVocabulary.vVocabulary->IsOpen()) {
-			iCount += svVocabulary.vVocabulary->GetRecordCount(pEnabled);
+			iCount += svVocabulary.vVocabulary->recordCount(pEnabled);
 		} // if
 	} // foreach
 
@@ -75,10 +75,10 @@ const VocabularyOrganizer::RecordInfo VocabularyOrganizer::GetRecordInfo(const i
 
 	foreach (VocabularyInfo svVocabulary, _qlVocabularies) {
 		if (svVocabulary.vVocabulary->IsOpen()) {
-			int iRecords = svVocabulary.vVocabulary->GetRecordCount();
+			int iRecords = svVocabulary.vVocabulary->recordCount();
 			if (iCurrentRow + iRecords > pRow) {
 				sriRecordInfo.vVocabulary = svVocabulary.vVocabulary;
-				sriRecordInfo.iId = svVocabulary.vVocabulary->GetRecordId(pRow - iCurrentRow);
+				sriRecordInfo.iId = svVocabulary.vVocabulary->recordId(pRow - iCurrentRow);
 
 				return sriRecordInfo;
 			} else {
@@ -118,7 +118,7 @@ const void VocabularyOrganizer::Open(VocabularyInfo *pVocabulary, QWidget *pPare
 {
 	VocabularyOpenProgressDialog vopdOpenProgress(pVocabulary->vVocabulary, pParent);
 	vopdOpenProgress.show();
-	pVocabulary->vVocabulary->Open(pVocabulary->sviVocabularyInfo.filePath);
+	pVocabulary->vVocabulary->open(pVocabulary->sviVocabularyInfo.filePath);
 
 # ifndef EDITION_FREE
 	if (!pVocabulary->vVocabulary->IsOpen()) {
@@ -145,7 +145,7 @@ const void VocabularyOrganizer::Remove(const int &pIndex)
 	_qlVocabularies.removeAt(pIndex);
 	emit VocabularyClose(vVocabulary);
 
-	vVocabulary->Close();
+	vVocabulary->close();
 	delete vVocabulary;
 } // Remove
 
@@ -170,7 +170,7 @@ const void VocabularyOrganizer::SetVocabularyEnabled(const int &pIndex, const bo
 		Open(svVocabulary, pParent);
 	} else {
 		emit VocabularyClose(svVocabulary->vVocabulary);
-		svVocabulary->vVocabulary->Close();
+		svVocabulary->vVocabulary->close();
 	} // if else
 } // SetVocabularyEnabled
 # endif

@@ -6,7 +6,7 @@ WordsImportFieldsModel::WordsImportFieldsModel(const Vocabulary *pVocabulary, QO
 {
     _vVocabulary = pVocabulary;
 
-	for (int iI = 0; iI < _vVocabulary->GetFieldCount(); iI++) {
+	for (int iI = 0; iI < _vVocabulary->fieldCount(); iI++) {
 		_qslEditorData.append(QString());
 	} // for
 } // WordsImportFieldsModel
@@ -23,8 +23,8 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 			switch (role) {
 				case Qt::DisplayRole:
 					{
-						int iFieldId = _vVocabulary->GetFieldId(index.row());
-						VocabularyDatabase::eFieldLanguage eflLanguage = _vVocabulary->GetFieldLanguage(iFieldId);
+						int iFieldId = _vVocabulary->fieldId(index.row());
+						VocabularyDatabase::FieldLanguage eflLanguage = _vVocabulary->fieldLanguage(iFieldId);
 						return _vVocabulary->GetLanguageName(eflLanguage);
 					}
 				default:
@@ -34,18 +34,18 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 			switch (role) {
 				case Qt::DisplayRole:
 					{
-						int iFieldId = _vVocabulary->GetFieldId(index.row());
-						return _vVocabulary->GetFieldName(iFieldId);
+						int iFieldId = _vVocabulary->fieldId(index.row());
+						return _vVocabulary->fieldName(iFieldId);
 					}
 				default:
 					return QVariant();
 			} // switch
 		case ColumnEditor:
 			{
-				int iFieldId = _vVocabulary->GetFieldId(index.row());
+				int iFieldId = _vVocabulary->fieldId(index.row());
 
-				if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-					VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
+				if (_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
+					VocabularyDatabase::FieldBuiltIn efbBuiltIn = _vVocabulary->fieldBuiltIn(iFieldId);
 					switch (efbBuiltIn) {
 						case VocabularyDatabase::FieldBuiltInEnabled:
 							switch (role) {
@@ -90,8 +90,8 @@ Qt::ItemFlags WordsImportFieldsModel::flags(const QModelIndex &index) const
 	Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index);
 
 	if (index.column() == ColumnEditor) {
-		int iFieldId = _vVocabulary->GetFieldId(index.row());
-		VocabularyDatabase::FieldType eftType = _vVocabulary->GetFieldType(iFieldId);
+		int iFieldId = _vVocabulary->fieldId(index.row());
+		VocabularyDatabase::FieldType eftType = _vVocabulary->fieldType(iFieldId);
 		if (eftType == VocabularyDatabase::FieldTypeCheckBox) {
 			ifFlags |= Qt::ItemIsUserCheckable;
 		} // if
@@ -130,7 +130,7 @@ QModelIndex WordsImportFieldsModel::parent(const QModelIndex &index) const
 int WordsImportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     if (parent == QModelIndex()) {
-        return _vVocabulary->GetFieldCount();
+        return _vVocabulary->fieldCount();
     } else {
         return 0;
     } // if else

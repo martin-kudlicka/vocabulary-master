@@ -18,7 +18,7 @@ const char *PROPERTY_COLUMN = "Column";
 
 VocabularyManagerDialog::~VocabularyManagerDialog()
 {
-    _vVocabulary->EndEdit();
+    _vVocabulary->endEdit();
 } // ~VocabularyManagerDialog
 
 const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
@@ -88,7 +88,7 @@ int VocabularyManagerDialog::ExecOnRecord(const int &pRecordId)
 const void VocabularyManagerDialog::FocusOnRecord(const int &pRecordId) const
 {
     // get found word category
-    int iCategory = _vVocabulary->GetRecordCategory(pRecordId);
+    int iCategory = _vVocabulary->recordCategory(pRecordId);
 
     // get tab for category
     int iTab;
@@ -120,11 +120,11 @@ const void VocabularyManagerDialog::HideColumns() const
 const void VocabularyManagerDialog::HideColumns(VocabularyView *pTableView) const
 {
 	int iColumn = 0;
-	foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
+	foreach (int iFieldId, _vVocabulary->fieldIds()) {
 #ifdef EDITION_FREE
-		if (!_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
+		if (!_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
 #else
-		if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeShow)) {
+		if (_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeShow)) {
 #endif
 			pTableView->showColumn(iColumn);
 		} else {
@@ -142,18 +142,18 @@ const void VocabularyManagerDialog::InitEditor()
     int iPosLeft = 0;
     int iPosRight = 0;
 
-	foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
+	foreach (int iFieldId, _vVocabulary->fieldIds()) {
 		int iColumn, iRow;
 
         // update field count
-        if (_vVocabulary->GetFieldLanguage(iFieldId) == VocabularyDatabase::FieldLanguageLeft) {
+        if (_vVocabulary->fieldLanguage(iFieldId) == VocabularyDatabase::FieldLanguageLeft) {
             iFieldsLeft++;
         } else {
             iFieldsRight++;
         } // if else
 
 		// check if visible or builtin field
-		VocabularyDatabase::qfFieldAttributes qfaAttributes = _vVocabulary->GetFieldAttributes(iFieldId);
+		VocabularyDatabase::FieldAttributes qfaAttributes = _vVocabulary->fieldAttributes(iFieldId);
         if (
 #ifndef EDITION_FREE
 			!(qfaAttributes & VocabularyDatabase::FieldAttributeShow) ||
@@ -163,7 +163,7 @@ const void VocabularyManagerDialog::InitEditor()
 		} // if
 
         // get field language
-        if (_vVocabulary->GetFieldLanguage(iFieldId) == VocabularyDatabase::FieldLanguageLeft) {
+        if (_vVocabulary->fieldLanguage(iFieldId) == VocabularyDatabase::FieldLanguageLeft) {
             iRow = iPosLeft++;
             iColumn = EditorColumnLeftLabel;
         } else {
@@ -172,7 +172,7 @@ const void VocabularyManagerDialog::InitEditor()
         } // if else
 
 		// label
-		QLabel *qlLabel = new QLabel(_vVocabulary->GetFieldName(iFieldId) + ':', _qdvmVocabularyManager.qgbEditor);
+		QLabel *qlLabel = new QLabel(_vVocabulary->fieldName(iFieldId) + ':', _qdvmVocabularyManager.qgbEditor);
 		_qdvmVocabularyManager.qglEditor->addWidget(qlLabel, iRow, iColumn);
 
 		// control
@@ -191,8 +191,8 @@ const void VocabularyManagerDialog::InitTabs()
 	vtwTabs->SetShowPriorities(_sSettings->canChangeCategoryPriority());
 #endif
 
-    VocabularyDatabase::tCategoryIdList tcilCategories = _vVocabulary->GetCategoryIds();
-    VocabularyDatabase::tCategoryIdList::const_iterator ciCategoryId;
+    VocabularyDatabase::CategoryIdList tcilCategories = _vVocabulary->categoryIds();
+    VocabularyDatabase::CategoryIdList::const_iterator ciCategoryId;
     for (ciCategoryId = tcilCategories.constBegin(); ciCategoryId != tcilCategories.constEnd(); ciCategoryId++) {
         AddTab(*ciCategoryId);
         _qlCategories.append(*ciCategoryId);
@@ -219,7 +219,7 @@ const void VocabularyManagerDialog::on_qpbCategoryAdd_clicked(bool checked /* fa
 {
     QString qsCategory = QInputDialog::getText(this, tr("Add category"), tr("New category name"));
     if (!qsCategory.isEmpty()) {
-        int iCategory = _vVocabulary->AddCategory(qsCategory);
+        int iCategory = _vVocabulary->addCategory(qsCategory);
 		AddTab(iCategory);
         _qlCategories.append(iCategory);
 
@@ -232,7 +232,7 @@ const void VocabularyManagerDialog::on_qpbCategoryRemove_clicked(bool checked /*
 {
     int iTab = _qdvmVocabularyManager.vtwTabs->currentIndex();
     _qdvmVocabularyManager.vtwTabs->removeTab(iTab);
-    _vVocabulary->RemoveCategory(_qlCategories.takeAt(iTab));
+    _vVocabulary->removeCategory(_qlCategories.takeAt(iTab));
 
 	EnableTabControls();
 } // on_qpbCategoryRemove_clicked
@@ -243,7 +243,7 @@ const void VocabularyManagerDialog::on_qpbSearch_clicked(bool checked /* false *
     VocabularyView *qtvVocabularyView = qobject_cast<VocabularyView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
     const VocabularyModel *vmVocabularyModel = qobject_cast<const VocabularyModel *>(qtvVocabularyView->model());
     const QItemSelectionModel *qismSelection = qtvVocabularyView->selectionModel();
-    int iCurrentRecord = _vVocabulary->GetRecordId(_qlCategories.at(_qdvmVocabularyManager.vtwTabs->currentIndex()), qismSelection->currentIndex().row());
+    int iCurrentRecord = _vVocabulary->recordId(_qlCategories.at(_qdvmVocabularyManager.vtwTabs->currentIndex()), qismSelection->currentIndex().row());
 
     // search for next word
     int iRecordId = _vVocabulary->Search(_qdvmVocabularyManager.qleSearch->text(), iCurrentRecord + 1);
@@ -263,15 +263,15 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
         this);
 
 #ifndef EDITION_FREE
-	int iOldColumnCount = _vVocabulary->GetFieldCount();
+	int iOldColumnCount = _vVocabulary->fieldCount();
 #endif
 
-    _vVocabulary->EndEdit();
-    _vVocabulary->BeginEdit();
+    _vVocabulary->endEdit();
+    _vVocabulary->beginEdit();
 
     if (vsdSettings.exec() == QDialog::Accepted) {
 #ifndef EDITION_FREE
-		if (iOldColumnCount != _vVocabulary->GetFieldCount()) {
+		if (iOldColumnCount != _vVocabulary->fieldCount()) {
 			ReassignModels();
 		} // if
         SetPriorityDelegate();
@@ -282,8 +282,8 @@ const void VocabularyManagerDialog::on_qpbVocabularySettings_clicked(bool checke
 		HideColumns();
 #endif
 	} else {
-        _vVocabulary->EndEdit(false);
-        _vVocabulary->BeginEdit();
+        _vVocabulary->endEdit(false);
+        _vVocabulary->beginEdit();
     } // if else
 } // on_qpbVocabularySettings_clicked
 
@@ -345,29 +345,29 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
         ImpInterface *iiPlugin = _pPlugins->impPlugins().at(iFilter).impInterface;
 		WordsImportDialog widImport(qsFile, _vVocabulary, iiPlugin, this);
 
-		_vVocabulary->EndEdit();
-		_vVocabulary->BeginEdit();
+		_vVocabulary->endEdit();
+		_vVocabulary->beginEdit();
 
         if (widImport.exec() == QDialog::Accepted) {
-            _vVocabulary->EndEdit();
+            _vVocabulary->endEdit();
 
             VocabularyOpenProgressDialog vopdOpenProgress(_vVocabulary, this);
             vopdOpenProgress.show();
-			_vVocabulary->Close();
+			_vVocabulary->close();
 # ifdef EDITION_TRY
-            _vVocabulary->OpenMemory();
+            _vVocabulary->openMemory();
 # else
-            _vVocabulary->Open(_vVocabulary->GetVocabularyFile());
+            _vVocabulary->open(_vVocabulary->GetVocabularyFile());
 # endif
             vopdOpenProgress.hide();
 
-            _vVocabulary->BeginEdit();
+            _vVocabulary->beginEdit();
             ReassignModels();
             StretchColumns();
 			HideColumns();
 		} else {
-			_vVocabulary->EndEdit(false);
-			_vVocabulary->BeginEdit();
+			_vVocabulary->endEdit(false);
+			_vVocabulary->beginEdit();
 		} // if else
 	} // if
 } // on_qpbWordImport_clicked
@@ -449,9 +449,9 @@ const void VocabularyManagerDialog::SetPriorityDelegate()
 const void VocabularyManagerDialog::SetPriorityDelegate(VocabularyView *pTableView)
 {
 	for (int iColumn = 0; iColumn < pTableView->horizontalHeader()->count(); iColumn++) {
-		int iFieldId = _vVocabulary->GetFieldId(iColumn);
-		if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-			VocabularyDatabase::eFieldBuiltIn efbBuiltIn = _vVocabulary->GetFieldBuiltIn(iFieldId);
+		int iFieldId = _vVocabulary->fieldId(iColumn);
+		if (_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
+			VocabularyDatabase::FieldBuiltIn efbBuiltIn = _vVocabulary->fieldBuiltIn(iFieldId);
 			if (efbBuiltIn == VocabularyDatabase::FieldBuiltInPriority) {
 				PriorityDelegate *sbpdPriorityDelegate = new PriorityDelegate(pTableView);
 				pTableView->setItemDelegateForColumn(iColumn, sbpdPriorityDelegate);
@@ -477,8 +477,8 @@ const void VocabularyManagerDialog::StretchColumns(const VocabularyView *pTableV
 {
 	for (int iColumn = 0; iColumn < pTableView->horizontalHeader()->count(); iColumn++) {
 #ifndef EDITION_FREE
-		int iFieldId = _vVocabulary->GetFieldId(iColumn);
-		if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
+		int iFieldId = _vVocabulary->fieldId(iColumn);
+		if (_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
 			pTableView->horizontalHeader()->setSectionResizeMode(iColumn, QHeaderView::Fixed);
             pTableView->horizontalHeader()->resizeSection(iColumn, BUILTIN_COLUMN_SIZE);
 		} else {
@@ -535,7 +535,7 @@ const void VocabularyManagerDialog::UpdateEditor(const eEditorColumn &pControlsC
 				int iTab = _qdvmVocabularyManager.vtwTabs->currentIndex();
 				QModelIndex qmiIndex = qtvVocabularyView->currentIndex();
 				int iColumn = qleControl->property(PROPERTY_COLUMN).toInt();
-				qleControl->setText(_vVocabulary->GetDataText(_qlCategories.at(iTab), qmiIndex.row(), _vVocabulary->GetFieldId(iColumn)));
+				qleControl->setText(_vVocabulary->dataText(_qlCategories.at(iTab), qmiIndex.row(), _vVocabulary->fieldId(iColumn)));
 			} else {
 				qleControl->clear();
 			} // if else
@@ -578,5 +578,5 @@ VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *pVocabulary,
 	connect(_qdvmVocabularyManager.vtwTabs, SIGNAL(TabPriorityChanged(const int &, const int &)), SLOT(on_vtwTabs_TabPriorityChanged(const int &, const int &)));
 #endif
 
-    pVocabulary->BeginEdit();
+    pVocabulary->beginEdit();
 } // VocabularyManagerDialog

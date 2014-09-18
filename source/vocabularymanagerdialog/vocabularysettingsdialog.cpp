@@ -17,18 +17,18 @@ const void VocabularySettingsDialog::ActualizeFieldsEditor() const
 
 const void VocabularySettingsDialog::ActualizeFieldsEditor(const int &pRow) const
 {
-	int iFieldId = _vVocabulary->GetFieldId(pRow);
+	int iFieldId = _vVocabulary->fieldId(pRow);
 
 	QModelIndex qmiIndex = _fmFieldsModel.index(pRow, FieldsModel::ColumnTemplateName);
 	_qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
 	qmiIndex = _fmFieldsModel.index(pRow, FieldsModel::ColumnName);
-	if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
+	if (_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
 		_qdvsdVocabularySettingsDialog.qtvFields->closePersistentEditor(qmiIndex);
 	} else {
 		_qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
 	} // if else
 	qmiIndex = _fmFieldsModel.index(pRow, FieldsModel::ColumnLanguage);
-	if (_vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
+	if (_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
 		_qdvsdVocabularySettingsDialog.qtvFields->closePersistentEditor(qmiIndex);
 	} else {
 		_qdvsdVocabularySettingsDialog.qtvFields->openPersistentEditor(qmiIndex);
@@ -122,8 +122,8 @@ const void VocabularySettingsDialog::on_qtvFieldsSelectionModel_selectionChanged
 	const QItemSelectionModel *qismSelection = _qdvsdVocabularySettingsDialog.qtvFields->selectionModel();
     bool bBuiltIn;
     if (qismSelection->hasSelection()) {
-        int iFieldId = _vVocabulary->GetFieldId(_qdvsdVocabularySettingsDialog.qtvFields->currentIndex().row());
-        bBuiltIn = _vVocabulary->FieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn);
+        int iFieldId = _vVocabulary->fieldId(_qdvsdVocabularySettingsDialog.qtvFields->currentIndex().row());
+        bBuiltIn = _vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn);
     } // if
 
 	_qdvsdVocabularySettingsDialog.qpbFieldUp->setEnabled(qismSelection->hasSelection() && _qdvsdVocabularySettingsDialog.qtvFields->currentIndex().row() > 0);

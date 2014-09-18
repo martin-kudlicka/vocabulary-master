@@ -15,39 +15,39 @@ const QString VARIABLE_MARK = "$";
 class VocabularyDatabase : public QObject
 {
 	Q_OBJECT
-    Q_ENUMS(eFieldAttribute)
-    Q_ENUMS(eFieldBuiltIn)
-    Q_ENUMS(eFieldLanguage)
+    Q_ENUMS(FieldAttribute)
+    Q_ENUMS(FieldBuiltIn)
+    Q_ENUMS(FieldLanguage)
 	Q_ENUMS(FieldType)
 	Q_ENUMS(eLanguageIds)
 
     public:
         typedef QHash<int, QString> tDataHash;
-        typedef QHash<int, tDataHash> tRecordDataHash;
-        typedef QList<int> tCategoryIdList;
-		typedef QList<int> tFieldIdList;
+        typedef QHash<int, tDataHash> RecordDataHash;
+        typedef QList<int> CategoryIdList;
+		typedef QList<int> FieldIdList;
         typedef QList<int> tLanguageIdList;
 
-        enum eFieldAttribute {
+        enum FieldAttribute {
             FieldAttributeNone,
 #ifndef EDITION_FREE
             FieldAttributeSpeech,
 #endif
             FieldAttributeShow = 2,
             FieldAttributeBuiltIn = 4
-        }; // eFieldAttribute
-        Q_DECLARE_FLAGS(qfFieldAttributes, eFieldAttribute)
-        enum eFieldBuiltIn {
+        }; // FieldAttribute
+        Q_DECLARE_FLAGS(FieldAttributes, FieldAttribute)
+        enum FieldBuiltIn {
             FieldBuiltInNone,
             FieldBuiltInEnabled,
 			FieldBuiltInPriority
-        }; // eFieldBuiltIn
-		enum eFieldLanguage {
+        }; // FieldBuiltIn
+		enum FieldLanguage {
 			FieldLanguageUnknown,
 			FieldLanguageLeft,
 			FieldLanguageRight,
             FieldLanguageAll = INT_MAX
-		}; // eFieldLanguage
+		}; // FieldLanguage
 		enum FieldType {
 			FieldTypeUnknown,
 			FieldTypeLineEdit,
@@ -108,63 +108,63 @@ class VocabularyDatabase : public QObject
 		const void SetSettings(const QString &pKey, const QString &pValue) const;
 
     protected:
-        typedef QList<quint32> tRecordIdList;
+        typedef QList<quint32> RecordIdList;
 
-        const int AddCategory(const QString &pName) const;
+        const int addCategory(const QString &pName) const;
 #ifndef EDITION_FREE
-        const int AddField() const;
+        const int addField() const;
 #endif
-        const int AddRecord(const int &pCategoryId) const;
+        const int addRecord(const int &pCategoryId) const;
 #ifndef EDITION_FREE
-        const int AddRecord(const int &pCategoryId, const QStringList &pData) const;
+        const int addRecord(const int &pCategoryId, const QStringList &pData) const;
 #endif
-        const void BeginEdit();
-		const void Close();
-        const void EndEdit(const bool &pSave = true);
-        const tCategoryIdList GetCategoryIds() const;
-        /*const QString GetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
-        const QString GetDataText(const int &pRecordId, const int &pFieldId) const;*/
-        tRecordDataHash *GetDataText() const;
-        const qfFieldAttributes GetFieldAttributes(const int &pFieldId) const;
+        const void beginEdit();
+		const void close();
+        const void endEdit(const bool &pSave = true);
+        const CategoryIdList categoryIds() const;
+        /*const QString dataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
+        const QString dataText(const int &pRecordId, const int &pFieldId) const;*/
+        RecordDataHash *dataText() const;
+        const FieldAttributes fieldAttributes(const int &pFieldId) const;
 #ifndef EDITION_FREE
-        const eFieldBuiltIn GetFieldBuiltIn(const int &pFieldId) const;
-        const int GetFieldCount() const;
+        const FieldBuiltIn fieldBuiltIn(const int &pFieldId) const;
+        const int fieldCount() const;
 #endif
         //const int GetFieldId(const int &pPosition) const;
-        const tFieldIdList GetFieldIds() const;
-        const eFieldLanguage GetFieldLanguage(const int &pFieldId) const;
-        const QString GetFieldName(const int &pFieldId) const;
-        const QString GetFieldTemplateName(const int &pFieldId) const;
-        const FieldType GetFieldType(const int &pFieldId) const;
+        const FieldIdList fieldIds() const;
+        const FieldLanguage fieldLanguage(const int &pFieldId) const;
+        const QString fieldName(const int &pFieldId) const;
+        const QString fieldTemplateName(const int &pFieldId) const;
+        const FieldType fieldType(const int &pFieldId) const;
         /*const int GetRecordCategory(const int &pRecordId) const;
         const int GetRecordCount() const;
 		const int GetRecordCount(const int &pCategoryId) const;
         const int GetRecordCount(const bool &pEnabled) const;
         const int GetRecordId(const int &pRow) const;
         const int GetRecordId(const int &pCategoryId, const int &pRow) const;*/
-        const tRecordIdList GetRecordIds(const int &pCategoryId) const;
-        const void New(
+        const RecordIdList recordIds(const int &pCategoryId) const;
+        const void new2(
 #ifndef EDITION_TRY
 			const QString &pFilePath
 #endif
 			);
 #ifndef EDITION_TRY
-        const void Open(const QString &pFilePath);
+        const void open(const QString &pFilePath);
 #endif
-        const void RemoveCategory(const int &pCategoryId) const;
+        const void removeCategory(const int &pCategoryId) const;
 #ifndef EDITION_FREE
-        const void RemoveField(const int &pFieldId) const;
+        const void removeField(const int &pFieldId) const;
 #endif
-        const void RemoveRecord(const int &pCategoryId, const int &pRow) const;
-        //const void SetDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData) const;
-        const void SetDataText(const int &pRecordId, const int &pFieldId, const QString &pData) const;
-        const void SetFieldAttributes(const int &pFieldId, const qfFieldAttributes &pAttributes) const;
+        const void removeRecord(const int &pCategoryId, const int &pRow) const;
+        //const void setDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData) const;
+        const void setDataText(const int &pRecordId, const int &pFieldId, const QString &pData) const;
+        const void setFieldAttributes(const int &pFieldId, const FieldAttributes &pAttributes) const;
 #ifndef EDITION_FREE
-        const void SetFieldLanguage(const int &pFieldId, const eFieldLanguage &pLanguage) const;
-        const void SetFieldName(const int &pFieldId, const QString &pName) const;
-        const void SetFieldTemplateName(const int &pFieldId, const QString &pTemplateName) const;
+        const void setFieldLanguage(const int &pFieldId, const FieldLanguage &pLanguage) const;
+        const void setFieldName(const int &pFieldId, const QString &pName) const;
+        const void setFieldTemplateName(const int &pFieldId, const QString &pTemplateName) const;
 		const void SetRecordCategory(const int &pRecordId, const int &pCategoryId) const;
-        const void SwapFields(const int &pSourceId, const int &pDestinationId) const;
+        const void swapFields(const int &pSourceId, const int &pDestinationId) const;
 #endif
 
     private:
@@ -190,7 +190,7 @@ class VocabularyDatabase : public QObject
         QString _qsVocabularyFile;
 #endif
 
-        const int AddField(const QString &pTemplate, const QString &pName, const FieldType &pType, const qfFieldAttributes &pAttributes, const eFieldBuiltIn &pBuiltIn, const eFieldLanguage &pLanguage) const;
+        const int addField(const QString &pTemplate, const QString &pName, const FieldType &pType, const FieldAttributes &pAttributes, const FieldBuiltIn &pBuiltIn, const FieldLanguage &pLanguage) const;
         const void AddLanguage(const QString &pName, const QString &pLearningTemplate
 #ifndef EDITION_FREE
             , const QString &pTrayTemplate, const TTSInterface::TTSPlugin &pTTSPlugin, const QString &pVoice
@@ -198,11 +198,11 @@ class VocabularyDatabase : public QObject
             ) const;
 		const void CloseDatabase();
 #ifndef EDITION_TRY
-        const tRecordIdList GetRecordIds() const;
+        const RecordIdList recordIds() const;
 #endif
 		const void Initialize() const;
 		const void OpenDatabase();
-		const void RemoveRecord(const int &pRecordId) const;
+		const void removeRecord(const int &pRecordId) const;
 #ifndef EDITION_FREE
 		const void Update(const QString &pTable, const int &pColumnId, const QSqlRecord &pRecord) const;
 #endif
@@ -216,7 +216,7 @@ class VocabularyDatabase : public QObject
 		void SetVocabularyName(const QString &pName) const;
 }; // VocabularyDatabase
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(VocabularyDatabase::qfFieldAttributes)
+Q_DECLARE_OPERATORS_FOR_FLAGS(VocabularyDatabase::FieldAttributes)
 #ifndef EDITION_FREE
 Q_DECLARE_OPERATORS_FOR_FLAGS(VocabularyDatabase::qfLanguageIds)
 #endif

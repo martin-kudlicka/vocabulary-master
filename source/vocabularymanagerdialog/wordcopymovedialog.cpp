@@ -7,13 +7,13 @@ void WordsCopyMoveDialog::accept()
 
     if (_qdwcmCopyMove.qrbCopy->isChecked()) {
         for (tRowNumList::const_iterator ciRow = _trnlRowNums.constBegin(); ciRow != _trnlRowNums.constEnd(); ciRow++) {
-            QStringList qslData = _vVocabulary->GetRecord(*ciRow);
-            _vVocabulary->AddRecord(iNewCategoryId, qslData);
+            QStringList qslData = _vVocabulary->record(*ciRow);
+            _vVocabulary->addRecord(iNewCategoryId, qslData);
         } // for
     } else {
         for (tRowNumList::const_iterator ciRow = _trnlRowNums.constEnd(); ciRow != _trnlRowNums.constBegin();) {
             ciRow--;
-            _vVocabulary->SetRecordByRowCategory(_iOldCategoryId, *ciRow, iNewCategoryId);
+            _vVocabulary->setRecordByRowCategory(_iOldCategoryId, *ciRow, iNewCategoryId);
         } // for
     } // if else
 

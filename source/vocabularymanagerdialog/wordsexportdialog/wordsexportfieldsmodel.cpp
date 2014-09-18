@@ -20,17 +20,17 @@ QVariant WordsExportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 				case ColumnLanguage:
 					{
 						int iFieldId = GetFieldId(index.row());
-						VocabularyDatabase::eFieldLanguage eflLanguage = _vVocabulary->GetFieldLanguage(iFieldId);
+						VocabularyDatabase::FieldLanguage eflLanguage = _vVocabulary->fieldLanguage(iFieldId);
 						return _vVocabulary->GetLanguageName(eflLanguage);
 					}
                 case ColumnName:
                     {
                         int iFieldId = GetFieldId(index.row());
-                        return _vVocabulary->GetFieldName(iFieldId);
+                        return _vVocabulary->fieldName(iFieldId);
                     }
                 case ColumnMark:
                     int iFieldId = GetFieldId(index.row());
-                    QString qsTemplate = _vVocabulary->GetFieldTemplateName(iFieldId);
+                    QString qsTemplate = _vVocabulary->fieldTemplateName(iFieldId);
                     return TEMPLATE_MARK.arg(qsTemplate);
             } // switch
         default:
@@ -41,8 +41,8 @@ QVariant WordsExportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 const int WordsExportFieldsModel::GetFieldId(const int &pRow) const
 {
     int iNum = 0;
-    foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
-        if (!_vVocabulary->GetFieldBuiltIn(iFieldId)) {
+    foreach (int iFieldId, _vVocabulary->fieldIds()) {
+        if (!_vVocabulary->fieldBuiltIn(iFieldId)) {
             if (pRow == iNum) {
                 return iFieldId;
             } else {
@@ -86,8 +86,8 @@ int WordsExportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() 
     if (parent == QModelIndex()) {
         // ignore built-in fields
         int iCount = 0;
-        foreach (int iFieldId, _vVocabulary->GetFieldIds()) {
-            if (!_vVocabulary->GetFieldBuiltIn(iFieldId)) {
+        foreach (int iFieldId, _vVocabulary->fieldIds()) {
+            if (!_vVocabulary->fieldBuiltIn(iFieldId)) {
                 iCount++;
             } // if
         } // foreach

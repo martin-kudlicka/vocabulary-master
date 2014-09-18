@@ -42,19 +42,19 @@ const void WordsExportDialog::on_eiPlugin_VocabularyGetMarkText(quint32 pRecordI
     QStringList qslMarks;
     on_eiPlugin_VocabularyGetMarks(&qslMarks);
     int iMark = qslMarks.indexOf(pMark);
-    int iFieldId = _vVocabulary->GetFieldId(iMark);
+    int iFieldId = _vVocabulary->fieldId(iMark);
 
-    *pText = _vVocabulary->GetDataText(pRecordId, iFieldId);
+    *pText = _vVocabulary->dataText(pRecordId, iFieldId);
 } // on_eiPlugin_VocabularyGetMarkText
 
 const void WordsExportDialog::on_eiPlugin_VocabularyGetRecordCount(quint8 pCategoryId, quint32 *pCount) const
 {
-    *pCount = _vVocabulary->GetRecordCount(pCategoryId, _qdweWordsExport.qcbExportEnabledOnly->isChecked());
+    *pCount = _vVocabulary->recordCount(pCategoryId, _qdweWordsExport.qcbExportEnabledOnly->isChecked());
 } // on_eiPlugin_VocabularyGetRecordCount
 
 const void WordsExportDialog::on_eiPlugin_VocabularyGetRecordIds(quint8 pCategoryId, ExpInterface::RecordIdList *pRecordIds) const
 {
-    *pRecordIds = _vVocabulary->GetRecordIds(pCategoryId);
+    *pRecordIds = _vVocabulary->recordIds(pCategoryId);
 } // on_eiPlugin_VocabularyGetRecordCount
 
 const void WordsExportDialog::on_qpbExport_clicked(bool checked /* false */)
