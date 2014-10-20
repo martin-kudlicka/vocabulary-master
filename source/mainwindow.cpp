@@ -368,7 +368,7 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
 	} // if else
 
 	// substitute variables in template
-	foreach (const quint8 &fieldId, _currentRecord.vVocabulary->fieldIds())
+	foreach (quint8 fieldId, _currentRecord.vVocabulary->fieldIds())
 	{
 		if (_currentRecord.vVocabulary->fieldLanguage(fieldId) == fieldLanguage) {
 			const QString data = _currentRecord.vVocabulary->dataText(_currentRecord.iId, fieldId);
@@ -413,7 +413,7 @@ void MainWindow::openVocabulary(Vocabulary *vocabulary
 #ifndef EDITION_FREE
 quint8 MainWindow::recordPriority() const
 {
-    foreach (const quint8 &fieldId, _currentRecord.vVocabulary->fieldIds())
+    foreach (quint8 fieldId, _currentRecord.vVocabulary->fieldIds())
 	{
         if (_currentRecord.vVocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
 		{
@@ -501,7 +501,7 @@ void MainWindow::say(bool directionSwitched, bool answer) const
 
         // get text to speech
         QString text;
-        foreach (const quint8 &fieldId, _currentRecord.vVocabulary->fieldIds())
+        foreach (quint8 fieldId, _currentRecord.vVocabulary->fieldIds())
 		{
             if (_currentRecord.vVocabulary->fieldLanguage(fieldId) == fieldLanguage && _currentRecord.vVocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeSpeech))
 			{
