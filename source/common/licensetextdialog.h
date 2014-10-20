@@ -14,7 +14,7 @@ class LicenseTextDialog : public QDialog
 		virtual ~LicenseTextDialog();
 
     private:
-        static const qint8 TAB_INVALID = -1;
+        static const quint8 TAB_INVALID = -1;
 
 		Ui::LicenseTextDialog _ui;
 

@@ -45,7 +45,7 @@ class Settings
 #endif
 		}; // VocabularyInfo
 
-		static const qint8  DEFAULT_DIMENSION             = -1;
+		static const qint8  DEFAULT_DIMENSION             = 0;
 #ifdef EDITION_FREE
 		static const quint8 EDITION_FREE_VOCABULARIES_MAX = 1;
 #endif

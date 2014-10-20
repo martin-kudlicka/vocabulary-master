@@ -17,13 +17,13 @@ LicenseTextDialog::~LicenseTextDialog()
 
 void LicenseTextDialog::showLicenses(const LicenseCommon::LicenseContentList &licenses) const
 {
-    int tab = TAB_INVALID;
+    quint8 tab = TAB_INVALID;
 
     foreach (const LicenseCommon::LicenseContent &license, licenses)
 	{
         QPlainTextEdit *licenseEdit = new QPlainTextEdit(license.text, _ui.tabs);
         licenseEdit->setReadOnly(true);
-        const int newTab = _ui.tabs->addTab(licenseEdit, license.title);
+		const quint8 newTab = _ui.tabs->addTab(licenseEdit, license.title);
         if (tab == TAB_INVALID)
 		{
             tab = newTab;
