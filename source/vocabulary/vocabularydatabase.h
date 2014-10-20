@@ -24,8 +24,8 @@ class VocabularyDatabase : public QObject
     public:
         typedef QHash<int, QString> tDataHash;
         typedef QHash<int, tDataHash> RecordDataHash;
-        typedef QList<int> CategoryIdList;
-		typedef QList<int> FieldIdList;
+        typedef QList<quint8> CategoryIdList;
+		typedef QList<quint8> FieldIdList;
         typedef QList<int> tLanguageIdList;
 
         enum FieldAttribute {

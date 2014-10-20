@@ -3,258 +3,288 @@
 #include <QtCore/QStringList>
 #include "vocabulary/clearcacheworker.h"
 
-const int Vocabulary::addCategory(const QString &pName)
+Vocabulary::Vocabulary()
 {
-	int iCategoryId = VocabularyDatabase::addCategory(pName);
-	_tcrmCategoryRecords.insert(iCategoryId, RecordIdList());
-	return iCategoryId;
+	_recordData = NULL;
+} // Vocabulary
+
+Vocabulary::~Vocabulary()
+{
+}
+
+quint8 Vocabulary::addCategory(const QString &name)
+{
+	const quint8 categoryId = VocabularyDatabase::addCategory(name);
+	_categoryRecords.insert(categoryId, RecordIdList());
+	return categoryId;
 } // addCategory
 
 #ifndef EDITION_FREE
-const void Vocabulary::addField()
+void Vocabulary::addField()
 {
-    int iFieldId = VocabularyDatabase::addField();
+    const quint8 fieldId = VocabularyDatabase::addField();
 
-    FieldData sfdFieldData = getFieldData(iFieldId);
-    _tfdmFieldData.insert(iFieldId, sfdFieldData);
+    const FieldData fieldData = getFieldData(fieldId);
+    _fieldData.insert(fieldId, fieldData);
 } // addField
 #endif
 
-const void Vocabulary::addRecord(quint8 pCategoryId)
+void Vocabulary::addRecord(quint8 categoryId)
 {
-	int iRecordId = VocabularyDatabase::addRecord(pCategoryId);
-	_tcrmCategoryRecords[pCategoryId].append(iRecordId);
+	const quint32 recordId = VocabularyDatabase::addRecord(categoryId);
+	_categoryRecords[categoryId].append(recordId);
 } // addRecord
 
 #ifndef EDITION_FREE
-const void Vocabulary::addRecord(quint8 pCategoryId, const QStringList &pData)
+void Vocabulary::addRecord(quint8 categoryId, const QStringList &data)
 {
-	int iRecordId = VocabularyDatabase::addRecord(pCategoryId, pData);
-	/*_tcrmCategoryRecords[pCategoryId].append(iRecordId);
+	const quint32 recordId = VocabularyDatabase::addRecord(categoryId, data);
+	/*_categoryRecords[categoryId].append(recordId);
 
     // insert data to cache
-    int iData = 0;
-    tFieldDataHash *tfdhFieldData = &_trdhRecordData->operator[](iRecordId);
-    foreach (int iFieldId, fieldIds()) {
-        tfdhFieldData->insert(iFieldId, pData.at(iData));
-        iData++;
+    quint8 dataIndex = 0;
+    FieldDataHash *fieldData = &_recordData->operator[](recordId);
+    foreach (quint8 fieldId, fieldIds())
+	{
+        fieldData->insert(fieldId, data.at(dataIndex));
+        dataIndex++;
     } // foreach*/
 } // addRecord
 #endif
 
-const void Vocabulary::beginEdit()
+void Vocabulary::beginEdit()
 {
-    _tfdmFieldDataBackup = _tfdmFieldData;
-    _trdhRecordDataBackup = *_trdhRecordData;
+    _fieldDataBackup  = _fieldData;
+    _recordDataBackup = *_recordData;
 
     VocabularyDatabase::beginEdit();
 } // beginEdit
 
-const void Vocabulary::close()
+void Vocabulary::close()
 {
 	clearCache();
 	VocabularyDatabase::close();
 } // close
 
-const void Vocabulary::endEdit(bool pSave /* true */)
+void Vocabulary::endEdit(bool save /* true */)
 {
-    if (!pSave) {
-        _tfdmFieldData = _tfdmFieldDataBackup;
-        *_trdhRecordData = _trdhRecordDataBackup;
+    if (!save)
+	{
+        _fieldData   = _fieldDataBackup;
+        *_recordData = _recordDataBackup;
     } // if
 
-    VocabularyDatabase::endEdit(pSave);
+    VocabularyDatabase::endEdit(save);
 } // endEdit
 
-const void Vocabulary::clearCache()
+void Vocabulary::clearCache()
 {
-	_tcrmCategoryRecords.clear();
-	_tfdmFieldData.clear();
+	_categoryRecords.clear();
+	_fieldData.clear();
 
     // clear large cache in background
-    if (_trdhRecordData) {
-        ClearCacheWorker *ccwClearCacheWorker = new ClearCacheWorker(_trdhRecordData);
-        ccwClearCacheWorker->start(QThread::LowPriority);
-        _trdhRecordData = NULL;
+    if (_recordData)
+	{
+        ClearCacheWorker *clearCacheWorker = new ClearCacheWorker(_recordData);
+        clearCacheWorker->start(QThread::LowPriority);
+        _recordData = NULL;
     } // if
 } // clearCache
 
-const bool Vocabulary::fieldHasAttribute(quint8 pFieldId, FieldAttribute pAttribute) const
+bool Vocabulary::fieldHasAttribute(quint8 fieldId, FieldAttribute attribute) const
 {
-	FieldAttributes qfaAttributes = fieldAttributes(pFieldId);
-	return qfaAttributes & pAttribute;
+	const FieldAttributes attributes = fieldAttributes(fieldId);
+	return attributes & attribute;
 } // fieldHasAttribute
 
-const VocabularyDatabase::CategoryIdList Vocabulary::categoryIds() const
+VocabularyDatabase::CategoryIdList Vocabulary::categoryIds() const
 {
-    return _tcrmCategoryRecords.keys();
+    return _categoryRecords.keys();
 } // categoryIds
 
-const QString Vocabulary::dataText(quint8 pCategoryId, quint32 pRow, quint8 pFieldId) const
+QString Vocabulary::dataText(quint8 categoryId, quint32 row, quint8 fieldId) const
 {
-    int iRecordId = _tcrmCategoryRecords.value(pCategoryId).at(pRow);
-    return dataText(iRecordId, pFieldId);
+    const quint32 recordId = _categoryRecords.value(categoryId).at(row);
+    return dataText(recordId, fieldId);
 } // dataText
 
-const QString Vocabulary::dataText(quint32 pRecordId, quint8 pFieldId) const
+QString Vocabulary::dataText(quint32 recordId, quint8 fieldId) const
 {
-    return _trdhRecordData->value(pRecordId).value(pFieldId);
+    return _recordData->value(recordId).value(fieldId);
 } // dataText
 
-const VocabularyDatabase::FieldAttributes Vocabulary::fieldAttributes(quint8 pFieldId) const
+VocabularyDatabase::FieldAttributes Vocabulary::fieldAttributes(quint8 fieldId) const
 {
-    return _tfdmFieldData.value(pFieldId).attributes;
+    return _fieldData.value(fieldId).attributes;
 } // fieldAttributes
 
 #ifndef EDITION_FREE
-const VocabularyDatabase::FieldBuiltIn Vocabulary::fieldBuiltIn(quint8 pFieldId) const
+VocabularyDatabase::FieldBuiltIn Vocabulary::fieldBuiltIn(quint8 fieldId) const
 {
-    return _tfdmFieldData.value(pFieldId).builtIn;
+    return _fieldData.value(fieldId).builtIn;
 } // fieldBuiltIn
 #endif
 
-const int Vocabulary::fieldCount() const
+quint8 Vocabulary::fieldCount() const
 {
-    return _tfdmFieldData.size();
+    return _fieldData.size();
 } // fieldCount
 
-const Vocabulary::FieldData Vocabulary::getFieldData(quint8 pFieldId) const
+Vocabulary::FieldData Vocabulary::getFieldData(quint8 fieldId) const
 {
-    FieldData sfdFieldData;
+    FieldData fieldData;
 
-    sfdFieldData.templateName = VocabularyDatabase::fieldTemplateName(pFieldId);
-    sfdFieldData.name = VocabularyDatabase::fieldName(pFieldId);
-	sfdFieldData.type = VocabularyDatabase::fieldType(pFieldId);
-	sfdFieldData.attributes = VocabularyDatabase::fieldAttributes(pFieldId);
+    fieldData.templateName = VocabularyDatabase::fieldTemplateName(fieldId);
+    fieldData.name         = VocabularyDatabase::fieldName(fieldId);
+	fieldData.type         = VocabularyDatabase::fieldType(fieldId);
+	fieldData.attributes   = VocabularyDatabase::fieldAttributes(fieldId);
 #ifndef EDITION_FREE
-    sfdFieldData.builtIn = VocabularyDatabase::fieldBuiltIn(pFieldId);
+    fieldData.builtIn      = VocabularyDatabase::fieldBuiltIn(fieldId);
 #endif
-    sfdFieldData.language = VocabularyDatabase::fieldLanguage(pFieldId);
+    fieldData.language     = VocabularyDatabase::fieldLanguage(fieldId);
 
-    return sfdFieldData;
+    return fieldData;
 } // getFieldData
 
-const int Vocabulary::fieldId(quint8 pPosition) const
+quint8 Vocabulary::fieldId(quint8 position) const
 {
-    int iPos = 0;
-    for (FieldDataMap::const_iterator ciFieldId = _tfdmFieldData.constBegin(); ciFieldId != _tfdmFieldData.constEnd(); ciFieldId++) {
-        if (iPos == pPosition) {
-            return ciFieldId.key();
-        } else {
-            iPos++;
+    quint8 pos = 0;
+    for (FieldDataMap::const_iterator fieldId = _fieldData.constBegin(); fieldId != _fieldData.constEnd(); fieldId++)
+	{
+        if (pos == position)
+		{
+            return fieldId.key();
+        }
+		else
+		{
+            pos++;
         } // if else
     } // for
 
     return NOT_FOUND;
 } // fieldId
 
-const VocabularyDatabase::FieldIdList Vocabulary::fieldIds() const
+VocabularyDatabase::FieldIdList Vocabulary::fieldIds() const
 {
-    return _tfdmFieldData.keys();
+    return _fieldData.keys();
 } // fieldIds
 
-const VocabularyDatabase::FieldLanguage Vocabulary::fieldLanguage(quint8 pFieldId) const
+VocabularyDatabase::FieldLanguage Vocabulary::fieldLanguage(quint8 fieldId) const
 {
-    return _tfdmFieldData.value(pFieldId).language;
+    return _fieldData.value(fieldId).language;
 } // fieldLanguage
 
-const QString Vocabulary::fieldName(quint8 pFieldId) const
+QString Vocabulary::fieldName(quint8 fieldId) const
 {
-    return _tfdmFieldData.value(pFieldId).name;
+    return _fieldData.value(fieldId).name;
 } // fieldName
 
-const QString Vocabulary::fieldTemplateName(quint8 pFieldId) const
+QString Vocabulary::fieldTemplateName(quint8 fieldId) const
 {
-    return _tfdmFieldData.value(pFieldId).templateName;
+    return _fieldData.value(fieldId).templateName;
 } // fieldTemplateName
 
-const VocabularyDatabase::FieldType Vocabulary::fieldType(quint8 pFieldId) const
+VocabularyDatabase::FieldType Vocabulary::fieldType(quint8 fieldId) const
 {
-    return _tfdmFieldData.value(pFieldId).type;
+    return _fieldData.value(fieldId).type;
 } // fieldType
 
 #ifndef EDITION_FREE
-const QStringList Vocabulary::record(quint32 pRecordId) const
+QStringList Vocabulary::record(quint32 recordId) const
 {
-    QStringList qslData;
+    QStringList data;
 
-    FieldIdList tfilFieldIds = fieldIds();
-    foreach (int iFieldId, tfilFieldIds) {
-        qslData.append(dataText(pRecordId, iFieldId));
+    const FieldIdList fieldIdList = fieldIds();
+    foreach (quint8 fieldId, fieldIdList)
+	{
+        data.append(dataText(recordId, fieldId));
     } // foreach
 
-    return qslData;
+    return data;
 } // record
 #endif
 
-const int Vocabulary::recordCategory(quint32 pRecordId) const
+quint8 Vocabulary::recordCategory(quint32 recordId) const
 {
-    for (CategoryRecordsMap::const_iterator ciCategory = _tcrmCategoryRecords.constBegin(); ciCategory != _tcrmCategoryRecords.constEnd(); ciCategory++) {
-        if (ciCategory->contains(pRecordId)) {
-            return ciCategory.key();
+    for (CategoryRecordsMap::const_iterator category = _categoryRecords.constBegin(); category != _categoryRecords.constEnd(); category++)
+	{
+        if (category->contains(recordId))
+		{
+            return category.key();
         } // if
     } // for
 
     return NOT_FOUND;
 } // recordCategory
 
-const int Vocabulary::recordCount() const
+quint32 Vocabulary::recordCount() const
 {
-	int iRecordCount = 0;
-	QList<RecordIdList> qlAllRecordIds = _tcrmCategoryRecords.values();
-	foreach (RecordIdList trilRecordIds, qlAllRecordIds) {
-		iRecordCount += trilRecordIds.size();
+	quint32 recordCount = 0;
+	const QList<RecordIdList> allRecordIds = _categoryRecords.values();
+	foreach (RecordIdList recordIds, allRecordIds)
+	{
+		recordCount += recordIds.size();
 	} // foreach
 
-	return iRecordCount;
+	return recordCount;
 } // recordCount
 
-const int Vocabulary::recordCount(quint8 pCategoryId) const
+quint32 Vocabulary::recordCount(quint8 categoryId) const
 {
-	return _tcrmCategoryRecords.value(pCategoryId).size();
+	return _categoryRecords.value(categoryId).size();
 } // recordCount
 
 #ifndef EDITION_FREE
-const int Vocabulary::recordCount(quint8 pCategoryId, bool pEnabled) const
+quint32 Vocabulary::recordCount(quint8 categoryId, bool enabled) const
 {
-	int iRecordCount = 0;
+	quint32 recordCount = 0;
 
-	RecordIdList trilRecordIds = _tcrmCategoryRecords.value(pCategoryId);
-	foreach (int iRecordId, trilRecordIds) {
-		if (recordEnabled(iRecordId)) {
-			iRecordCount++;
+	const RecordIdList recordIds = _categoryRecords.value(categoryId);
+	foreach (quint32 recordId, recordIds)
+	{
+		if (recordEnabled(recordId))
+		{
+			recordCount++;
 		} // if
 	} // foreach
 
-	return iRecordCount;
+	return recordCount;
 } // recordCount
 
-const int Vocabulary::recordCount(bool pEnabled) const
+quint32 Vocabulary::recordCount(bool enabled) const
 {
-	int iRecordCount = 0;
+	quint32 records = 0;
 
-	CategoryIdList tcilCategoryIds = categoryIds();
-	foreach (int iCategoryId, tcilCategoryIds) {
-		if (GetCategoryEnabled(iCategoryId)) {
-			iRecordCount += recordCount(iCategoryId, pEnabled);
+	const CategoryIdList categoryIdList = categoryIds();
+	foreach (quint8 categoryId, categoryIdList)
+	{
+		if (GetCategoryEnabled(categoryId))
+		{
+			records += recordCount(categoryId, enabled);
 		} // if
 	} // foreach
 
-	return iRecordCount;
+	return records;
 } // recordCount
 
-const bool Vocabulary::recordEnabled(quint32 pRecordId) const
+bool Vocabulary::recordEnabled(quint32 recordId) const
 {
-	foreach (int iFieldId, fieldIds()) {
-		if (fieldHasAttribute(iFieldId, FieldAttributeBuiltIn)) {
-			FieldBuiltIn efbBuiltIn = fieldBuiltIn(iFieldId);
-			switch (efbBuiltIn) {
+	foreach (quint8 fieldId, fieldIds())
+	{
+		if (fieldHasAttribute(fieldId, FieldAttributeBuiltIn))
+		{
+			const FieldBuiltIn builtIn = fieldBuiltIn(fieldId);
+			switch (builtIn)
+			{
 				case VocabularyDatabase::FieldBuiltInEnabled:
-					QString qsData = dataText(pRecordId, iFieldId);
-					if (qsData.isNull()) {
+					const QString data = dataText(recordId, fieldId);
+					if (data.isNull())
+					{
 						return true;
-					} else {
-						return qsData.toInt();
+					}
+					else
+					{
+						return data.toInt();
 					} // if else
 			} // switch
 		} // if
@@ -264,184 +294,192 @@ const bool Vocabulary::recordEnabled(quint32 pRecordId) const
 } // recordEnabled
 #endif
 
-const int Vocabulary::recordId(quint32 pRow) const
+quint32 Vocabulary::recordId(quint32 row) const
 {
-    int iRecordsTotal = 0;
-    for (CategoryRecordsMap::const_iterator ciCategory = _tcrmCategoryRecords.constBegin(); ciCategory != _tcrmCategoryRecords.constEnd(); ciCategory++) {
-        int iRecords = iRecordsTotal + ciCategory->size();
-        if (pRow < iRecords) {
-            return ciCategory->at(pRow - iRecordsTotal);
-        } else {
-            iRecordsTotal = iRecords;
+    quint32 recordsTotal = 0;
+    for (CategoryRecordsMap::const_iterator category = _categoryRecords.constBegin(); category != _categoryRecords.constEnd(); category++)
+	{
+        const quint32 records = recordsTotal + category->size();
+        if (row < records)
+		{
+            return category->at(row - recordsTotal);
+        }
+		else
+		{
+            recordsTotal = records;
         } // if else
     } // for
 
     return NOT_FOUND;
 } // recordId
 
-const int Vocabulary::recordId(quint8 pCategoryId, quint32 pRow) const
+quint32 Vocabulary::recordId(quint8 categoryId, quint32 row) const
 {
-    if (pRow == NOT_FOUND) {
+    if (row == NOT_FOUND)
+	{
         return NOT_FOUND;
-    } else {
-        return _tcrmCategoryRecords.value(pCategoryId).at(pRow);
+    }
+	else
+	{
+        return _categoryRecords.value(categoryId).at(row);
     } // if else
 } // recordId
 
-const VocabularyDatabase::RecordIdList Vocabulary::recordIds(quint8 pCategoryId) const
+VocabularyDatabase::RecordIdList Vocabulary::recordIds(quint8 categoryId) const
 {
-    return _tcrmCategoryRecords.value(pCategoryId);
+    return _categoryRecords.value(categoryId);
 } // recordIds
 
-const void Vocabulary::initCache()
+void Vocabulary::initCache()
 {
-	if (IsOpen()) {
+	if (IsOpen())
+	{
         // fields
-        FieldIdList tfilFieldIds = VocabularyDatabase::fieldIds();
-        foreach (int iFieldId, tfilFieldIds) {
-            FieldData sfdFieldData = getFieldData(iFieldId);
-            _tfdmFieldData.insert(iFieldId, sfdFieldData);
+        const FieldIdList fieldIdList = VocabularyDatabase::fieldIds();
+        foreach (quint8 fieldId, fieldIdList)
+		{
+            const FieldData fieldData = getFieldData(fieldId);
+            _fieldData.insert(fieldId, fieldData);
         } // foreach
 
 		// categories
-		CategoryIdList tcilCategoryIds = VocabularyDatabase::categoryIds();
-		foreach (int iCategoryId, tcilCategoryIds) {
-            RecordIdList tdilRecordIds = VocabularyDatabase::recordIds(iCategoryId);
-			_tcrmCategoryRecords.insert(iCategoryId, tdilRecordIds);
+		CategoryIdList categoryIdList = VocabularyDatabase::categoryIds();
+		foreach (quint8 categoryId, categoryIdList)
+		{
+            const RecordIdList recordIdList = VocabularyDatabase::recordIds(categoryId);
+			_categoryRecords.insert(categoryId, recordIdList);
 		} // foreach
 
         // records
-        _trdhRecordData = new RecordDataHash();
-        _trdhRecordData = VocabularyDatabase::dataText();
+        _recordData = new RecordDataHash();
+        _recordData = VocabularyDatabase::dataText();
 	} // if
 } // initCache
 
-const void Vocabulary::new2(
+void Vocabulary::new2(
 #ifndef EDITION_TRY
-	const QString &pFilePath
+	const QString &filePath
 #endif
 	)
 {
 	VocabularyDatabase::new2(
 #ifndef EDITION_TRY
-		pFilePath
+		filePath
 #endif
 		);
 	initCache();
 } // new
 
 #ifndef EDITION_TRY
-const void Vocabulary::open(const QString &pFilePath)
+void Vocabulary::open(const QString &filePath)
 {
-	VocabularyDatabase::open(pFilePath);
+	VocabularyDatabase::open(filePath);
 	initCache();
 } // open
 #else
 
-const void Vocabulary::openMemory()
+void Vocabulary::openMemory()
 {
     initCache();
 } // openMemory
 #endif
 
-const void Vocabulary::removeCategory(quint8 pCategoryId)
+void Vocabulary::removeCategory(quint8 categoryId)
 {
-    RecordIdList trilRecords = _tcrmCategoryRecords.value(pCategoryId);
-    foreach (int iRecordId, trilRecords) {
-        _trdhRecordData->remove(iRecordId);
+    const RecordIdList records = _categoryRecords.value(categoryId);
+    foreach (quint32 recordId, records)
+	{
+        _recordData->remove(recordId);
     } // foreach
-	_tcrmCategoryRecords.remove(pCategoryId);
+	_categoryRecords.remove(categoryId);
 
-	VocabularyDatabase::removeCategory(pCategoryId);
+	VocabularyDatabase::removeCategory(categoryId);
 } // removeCategory
 
 #ifndef EDITION_FREE
-const void Vocabulary::removeField(quint8 pFieldId)
+void Vocabulary::removeField(quint8 fieldId)
 {
-    for (RecordDataHash::iterator iFieldData = _trdhRecordData->begin(); iFieldData != _trdhRecordData->end(); iFieldData++) {
-        iFieldData->remove(pFieldId);
+    for (RecordDataHash::iterator fieldData = _recordData->begin(); fieldData != _recordData->end(); fieldData++)
+	{
+        fieldData->remove(fieldId);
     } // for
 
-    VocabularyDatabase::removeField(pFieldId);
+    VocabularyDatabase::removeField(fieldId);
 } // removeField
 #endif
 
-const void Vocabulary::removeRecord(quint8 pCategoryId, quint32 pRow)
+void Vocabulary::removeRecord(quint8 categoryId, quint32 row)
 {
-    _trdhRecordData->remove(_tcrmCategoryRecords.value(pCategoryId).at(pRow));
-    _tcrmCategoryRecords[pCategoryId].removeAt(pRow);
+    _recordData->remove(_categoryRecords.value(categoryId).at(row));
+    _categoryRecords[categoryId].removeAt(row);
 
-	VocabularyDatabase::removeRecord(pCategoryId, pRow);
+	VocabularyDatabase::removeRecord(categoryId, row);
 } // removeRecord
 
-const void Vocabulary::setDataText(quint8 pCategoryId, quint32 pRow, quint8 pFieldId, const QString &pData)
+void Vocabulary::setDataText(quint8 categoryId, quint32 row, quint8 fieldId, const QString &data)
 {
-    int iRecordId = _tcrmCategoryRecords.value(pCategoryId).at(pRow);
-    setDataText(iRecordId, pFieldId, pData);
+    const quint32 recordId = _categoryRecords.value(categoryId).at(row);
+    setDataText(recordId, fieldId, data);
 } // setDataText
 
-const void Vocabulary::setDataText(quint32 pRecordId, quint8 pFieldId, const QString &pData)
+void Vocabulary::setDataText(quint32 recordId, quint8 fieldId, const QString &data)
 {
-    _trdhRecordData->operator[](pRecordId).operator[](pFieldId) = pData;
-    VocabularyDatabase::setDataText(pRecordId, pFieldId, pData);
+    _recordData->operator[](recordId).operator[](fieldId) = data;
+    VocabularyDatabase::setDataText(recordId, fieldId, data);
 } // setDataText
 
 #ifndef EDITION_FREE
-const void Vocabulary::setFieldAttributes(quint8 pFieldId, VocabularyDatabase::FieldAttributes pAttributes)
+void Vocabulary::setFieldAttributes(quint8 fieldId, VocabularyDatabase::FieldAttributes attributes)
 {
-    _tfdmFieldData[pFieldId].attributes = pAttributes;
-    VocabularyDatabase::setFieldAttributes(pFieldId, pAttributes);
+    _fieldData[fieldId].attributes = attributes;
+    VocabularyDatabase::setFieldAttributes(fieldId, attributes);
 } // setFieldAttributes
 
-const void Vocabulary::setFieldLanguage(quint8 pFieldId, VocabularyDatabase::FieldLanguage pLanguage)
+void Vocabulary::setFieldLanguage(quint8 fieldId, VocabularyDatabase::FieldLanguage language)
 {
-    _tfdmFieldData[pFieldId].language = pLanguage;
-    VocabularyDatabase::setFieldLanguage(pFieldId, pLanguage);
+    _fieldData[fieldId].language = language;
+    VocabularyDatabase::setFieldLanguage(fieldId, language);
 } // setFieldLanguage
 
-const void Vocabulary::setFieldName(quint8 pFieldId, const QString &pName)
+void Vocabulary::setFieldName(quint8 fieldId, const QString &name)
 {
-    _tfdmFieldData[pFieldId].name = pName;
-    VocabularyDatabase::setFieldName(pFieldId, pName);
+    _fieldData[fieldId].name = name;
+    VocabularyDatabase::setFieldName(fieldId, name);
 } // setFieldName
 
-const void Vocabulary::setFieldTemplateName(quint8 pFieldId, const QString &pTemplateName)
+void Vocabulary::setFieldTemplateName(quint8 fieldId, const QString &templateName)
 {
-    _tfdmFieldData[pFieldId].templateName = pTemplateName;
-    VocabularyDatabase::setFieldTemplateName(pFieldId, pTemplateName);
+    _fieldData[fieldId].templateName = templateName;
+    VocabularyDatabase::setFieldTemplateName(fieldId, templateName);
 } // setFieldTemplateName
 
-const void Vocabulary::setRecordByRowCategory(quint8 pOldCategoryId, quint32 pRecordRow, quint8 pNewCategoryId)
+void Vocabulary::setRecordByRowCategory(quint8 oldCategoryId, quint32 recordRow, quint8 newCategoryId)
 {
-    int iRecordId = _tcrmCategoryRecords[pOldCategoryId].takeAt(pRecordRow);
-    RecordIdList *trilRecordIds = &_tcrmCategoryRecords[pNewCategoryId];
-    RecordIdList::iterator iLowerBound = qLowerBound(trilRecordIds->begin(), trilRecordIds->end(), iRecordId);
-    trilRecordIds->insert(iLowerBound, iRecordId);
+    const quint32 recordId                   = _categoryRecords[oldCategoryId].takeAt(recordRow);
+    RecordIdList *trilRecordIds              = &_categoryRecords[newCategoryId];
+    const RecordIdList::iterator iLowerBound = qLowerBound(trilRecordIds->begin(), trilRecordIds->end(), recordId);
+    trilRecordIds->insert(iLowerBound, recordId);
 
-    VocabularyDatabase::SetRecordCategory(iRecordId, pNewCategoryId);
+    VocabularyDatabase::SetRecordCategory(recordId, newCategoryId);
 } // setRecordByRowCategory
 
-const void Vocabulary::swapFields(quint8 pSourceId, quint8 pDestinationId)
+void Vocabulary::swapFields(quint8 sourceId, quint8 destinationId)
 {
     // swap in fields table
-    FieldData sfdFieldTemp = _tfdmFieldData.value(pSourceId);
-    _tfdmFieldData[pSourceId] = _tfdmFieldData.value(pDestinationId);
-    _tfdmFieldData[pDestinationId] = sfdFieldTemp;
+    const FieldData fieldTemp = _fieldData.value(sourceId);
+    _fieldData[sourceId]      = _fieldData.value(destinationId);
+    _fieldData[destinationId] = fieldTemp;
 
     // swap in data table
-    for (RecordDataHash::iterator iRecord = _trdhRecordData->begin(); iRecord != _trdhRecordData->end(); iRecord++) {
-        tDataHash *tdhData = iRecord.operator->();
+    for (RecordDataHash::iterator record = _recordData->begin(); record != _recordData->end(); record++)
+	{
+        tDataHash *data = record.operator->();
 
-        QString qsDataTemp = tdhData->value(pSourceId);
-        tdhData->operator[](pSourceId) = tdhData->value(pDestinationId);
-        tdhData->operator[](pDestinationId) = qsDataTemp;
+		QString dataTemp                = data->value(sourceId);
+		data->operator[](sourceId)      = data->value(destinationId);
+		data->operator[](destinationId) = dataTemp;
     } // for
 
-    VocabularyDatabase::swapFields(pSourceId, pDestinationId);
+    VocabularyDatabase::swapFields(sourceId, destinationId);
 } // swapFields
 #endif
-
-Vocabulary::Vocabulary()
-{
-    _trdhRecordData = NULL;
-} // Vocabulary
