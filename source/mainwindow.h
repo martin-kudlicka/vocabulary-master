@@ -41,11 +41,11 @@ class MainWindow : public QMainWindow
 		static const quint16 MAX_NEXTRECORD_TRIES   = 9999;
 #endif
 		static const quint16 MILISECONDS_PER_SECOND = 1000;
-        static const qint8   RECORD_NONE            = -1;
+        static const quint8  RECORD_NONE            = -1;
 #ifndef EDITION_FREE
         static const quint16 SAY_BEEP_WAIT          = 500;
 #endif
-        static const qint8   TIME_NONE              = -1;
+        static const quint8  TIME_NONE              = 0;
         static const quint8  TIME_NOW               = 1;
 
 		      bool                            _directionSwitched;
