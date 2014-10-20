@@ -25,7 +25,7 @@ QWidget *LanguageFieldDelegate::createEditor(QWidget *parent, const QStyleOption
 	} // if else
 
 	QComboBox *editorBox = new QComboBox(parent);
-    foreach (const quint8 &languageId, languageIds)
+    foreach (quint8 languageId, languageIds)
 	{
         editorBox->addItem(_vocabulary->GetLanguageName(languageId), languageId);
     } // foreach
