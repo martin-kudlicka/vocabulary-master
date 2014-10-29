@@ -23,7 +23,7 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 				case Qt::DisplayRole:
 					{
 #ifdef EDITION_TRY
-						return _voOrganizer->GetVocabularyInfo(index.row()).vVocabulary->GetName();
+						return _voOrganizer->GetVocabularyInfo(index.row()).vVocabulary->name();
 #else
 						QString qsFile = _voOrganizer->GetVocabularyInfo(index.row()).sviVocabularyInfo.filePath;
 						return QDir::toNativeSeparators(qsFile);

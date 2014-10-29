@@ -15,26 +15,21 @@ const QString VARIABLE_MARK = "$";
 class VocabularyDatabase : public QObject
 {
 	Q_OBJECT
-    Q_ENUMS(FieldAttribute)
-    Q_ENUMS(FieldBuiltIn)
-    Q_ENUMS(FieldLanguage)
-	Q_ENUMS(FieldType)
-	Q_ENUMS(eLanguageIds)
 
     public:
-        typedef QHash<int, QString> tDataHash;
-        typedef QHash<int, tDataHash> RecordDataHash;
-        typedef QList<quint8> CategoryIdList;
-		typedef QList<quint8> FieldIdList;
-        typedef QList<int> tLanguageIdList;
+        typedef QHash<quint8, QString>   DataHash;
+        typedef QHash<quint32, DataHash> RecordDataHash;
+        typedef QList<quint8>            CategoryIdList;
+		typedef QList<quint8>            FieldIdList;
+        typedef QList<quint8>            LanguageIdList;
 
         enum FieldAttribute {
             FieldAttributeNone,
 #ifndef EDITION_FREE
             FieldAttributeSpeech,
 #endif
-            FieldAttributeShow = 2,
-            FieldAttributeBuiltIn = 4
+            FieldAttributeShow    = 0x2,
+            FieldAttributeBuiltIn = 0x4
         }; // FieldAttribute
         Q_DECLARE_FLAGS(FieldAttributes, FieldAttribute)
         enum FieldBuiltIn {
@@ -46,7 +41,7 @@ class VocabularyDatabase : public QObject
 			FieldLanguageUnknown,
 			FieldLanguageLeft,
 			FieldLanguageRight,
-            FieldLanguageAll = INT_MAX
+            FieldLanguageAll
 		}; // FieldLanguage
 		enum FieldType {
 			FieldTypeUnknown,
@@ -55,116 +50,116 @@ class VocabularyDatabase : public QObject
 			FieldTypeSpinBox
 		}; // FieldType
 #ifndef EDITION_FREE
-		enum eLanguageIds {
+		enum LanguageId {
 			LanguageIdsNone,
 			LanguageIdsUserDefined,
 			LanguageIdsAllOnly,
-			LanguageIdsAll = 4
-		}; // eLanguageIds
-		Q_DECLARE_FLAGS(qfLanguageIds, eLanguageIds)
+			LanguageIdsAll = 0x4
+		}; // LanguageIds
+		Q_DECLARE_FLAGS(LanguageIds, LanguageId)
 #endif
 
-        static const int NOT_FOUND = -1;
+        static const qint8 NOT_FOUND = -1;
 
-		~VocabularyDatabase();
-        VocabularyDatabase(QObject *pParent = NULL);
+                 VocabularyDatabase(QObject *parent = NULL);
+		virtual ~VocabularyDatabase();
 
 #ifndef EDITION_FREE
-        const int GetCategoryCount() const;
-        const bool GetCategoryEnabled(const int &pCategoryId) const;
-        const int GetCategoryId(const int &pRow) const;
+		quint8                  categoryCount              ()                                                  const;
+		bool                    categoryEnabled            (quint8 categoryId)                                 const;
+		quint8                  categoryId                 (quint8 row)                                        const;
 #endif
-        const QString GetCategoryName(const int &pCategoryId) const;
+		QString                 categoryName               (quint8 categoryId)                                 const;
 #ifndef EDITION_FREE
-		const int GetCategoryPriority(const int &pCategoryId) const;
-        const tLanguageIdList GetLanguageIds(const qfLanguageIds &pType) const;
+		quint8                  categoryPriority           (quint8 categoryId)                                 const;
+		bool                    isOpen                     ()                                                  const;
+        LanguageIdList          languageIds                (LanguageIds type)                                  const;
 #endif
-        const QString GetLanguageLearningTemplate(const int &pLanguageId) const;
-        const QString GetLanguageName(const int &pLanguageId) const;
+		QString                 languageLearningTemplate   (quint8 languageId)                                 const;
+		QString                 languageName               (quint8 languageId)                                 const;
 #ifndef EDITION_FREE
-        const TTSInterface::TTSPlugin GetLanguageSpeech(const int &pLanguageId) const;
-		const QString GetLanguageTrayTemplate(const int &pLanguageId) const;
-        const QString GetLanguageVoice(const int &pLanguageId) const;
+		TTSInterface::TTSPlugin languageSpeech             (quint8 languageId)                                 const;
+		QString                 languageTrayTemplate       (quint8 languageId)                                 const;
+		QString                 languageVoice              (quint8 languageId)                                 const;
 #endif
-        const QString GetName() const;
-		const int GetRow(const int &pRecordId, const int &pCategoryId) const;
-		const QString GetSettings(const QString &pKey) const;
+		QString                 name                       ()                                                  const;
+		quint32                 row                        (quint32 recordId, quint8 categoryId)               const;
+		quint32                 search                     (const QString &word, quint32 startId)              const;
+#ifndef EDITION_FREE
+		void                    setCategoryEnabled         (quint8 categoryId, bool enabled)                   const;
+		void                    setCategoryPriority        (quint8 categoryId, quint8 priority)                const;
+		void                    setLanguageLearningTemplate(quint8 languageId, const QString &templateText)    const;
+#endif
+		void                    setLanguageName            (quint8 languageId, const QString &name)            const;
+#ifndef EDITION_FREE
+		void                    setLanguageSpeech          (quint8 languageId, TTSInterface::TTSPlugin speech) const;
+		void                    setLanguageTrayTemplate    (quint8 languageId, const QString &templateText)    const;
+		void                    setLanguageVoice           (quint8 languageId, const QString &voice)           const;
+#endif
+		void                    setSettings                (const QString &key, const QString &value)          const;
+		QString                 settings                   (const QString &key)                                const;
 #ifndef EDITION_TRY
-        const QString &GetVocabularyFile() const;
+		const QString          &vocabularyFile             ()                                                  const;
 #endif
-        const bool IsOpen() const;
-		const int Search(const QString &pWord, const int &pStartId) const;
-#ifndef EDITION_FREE
-        const void SetCategoryEnabled(const int &pCategoryId, const bool &pEnabled) const;
-		const void SetCategoryPriority(const int &pCategoryId, const int &pPriority) const;
-        const void SetLanguageLearningTemplate(const int &pLanguageId, const QString &pTemplate) const;
-#endif
-        const void SetLanguageName(const int &pLanguageId, const QString &pName) const;
-#ifndef EDITION_FREE
-        const void SetLanguageSpeech(const int &pLanguageId, const TTSInterface::TTSPlugin &pSpeech) const;
-        const void SetLanguageTrayTemplate(const int &pLanguageId, const QString &pTemplate) const;
-        const void SetLanguageVoice(const int &pLanguageId, const QString &pVoice) const;
-#endif
-		const void SetSettings(const QString &pKey, const QString &pValue) const;
 
     protected:
         typedef QList<quint32> RecordIdList;
 
-        const int addCategory(const QString &pName) const;
+        int addCategory(const QString &pName) const;
 #ifndef EDITION_FREE
-        const int addField() const;
+        int addField() const;
 #endif
-        const int addRecord(const int &pCategoryId) const;
+        int addRecord(const int &pCategoryId) const;
 #ifndef EDITION_FREE
-        const int addRecord(const int &pCategoryId, const QStringList &pData) const;
+        int addRecord(const int &pCategoryId, const QStringList &pData) const;
 #endif
-        const void beginEdit();
-		const void close();
-        const void endEdit(const bool &pSave = true);
-        const CategoryIdList categoryIds() const;
-        /*const QString dataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
-        const QString dataText(const int &pRecordId, const int &pFieldId) const;*/
+        void beginEdit();
+		void close();
+        void endEdit(const bool &pSave = true);
+        CategoryIdList categoryIds() const;
+        /*QString dataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const;
+        QString dataText(const int &pRecordId, const int &pFieldId) const;*/
         RecordDataHash *dataText() const;
-        const FieldAttributes fieldAttributes(const int &pFieldId) const;
+        FieldAttributes fieldAttributes(const int &pFieldId) const;
 #ifndef EDITION_FREE
-        const FieldBuiltIn fieldBuiltIn(const int &pFieldId) const;
-        const int fieldCount() const;
+        FieldBuiltIn fieldBuiltIn(const int &pFieldId) const;
+        int fieldCount() const;
 #endif
-        //const int GetFieldId(const int &pPosition) const;
-        const FieldIdList fieldIds() const;
-        const FieldLanguage fieldLanguage(const int &pFieldId) const;
-        const QString fieldName(const int &pFieldId) const;
-        const QString fieldTemplateName(const int &pFieldId) const;
-        const FieldType fieldType(const int &pFieldId) const;
-        /*const int GetRecordCategory(const int &pRecordId) const;
-        const int GetRecordCount() const;
-		const int GetRecordCount(const int &pCategoryId) const;
-        const int GetRecordCount(const bool &pEnabled) const;
-        const int GetRecordId(const int &pRow) const;
-        const int GetRecordId(const int &pCategoryId, const int &pRow) const;*/
-        const RecordIdList recordIds(const int &pCategoryId) const;
-        const void new2(
+        //int GetFieldId(const int &pPosition) const;
+        FieldIdList fieldIds() const;
+        FieldLanguage fieldLanguage(const int &pFieldId) const;
+        QString fieldName(const int &pFieldId) const;
+        QString fieldTemplateName(const int &pFieldId) const;
+        FieldType fieldType(const int &pFieldId) const;
+        /*int GetRecordCategory(const int &pRecordId) const;
+        int GetRecordCount() const;
+		int GetRecordCount(const int &pCategoryId) const;
+        int GetRecordCount(const bool &pEnabled) const;
+        int GetRecordId(const int &pRow) const;
+        int GetRecordId(const int &pCategoryId, const int &pRow) const;*/
+        RecordIdList recordIds(const int &pCategoryId) const;
+        void new2(
 #ifndef EDITION_TRY
 			const QString &pFilePath
 #endif
 			);
 #ifndef EDITION_TRY
-        const void open(const QString &pFilePath);
+        void open(const QString &pFilePath);
 #endif
-        const void removeCategory(const int &pCategoryId) const;
+        void removeCategory(const int &pCategoryId) const;
 #ifndef EDITION_FREE
-        const void removeField(const int &pFieldId) const;
+        void removeField(const int &pFieldId) const;
 #endif
-        const void removeRecord(const int &pCategoryId, const int &pRow) const;
-        //const void setDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData) const;
-        const void setDataText(const int &pRecordId, const int &pFieldId, const QString &pData) const;
-        const void setFieldAttributes(const int &pFieldId, const FieldAttributes &pAttributes) const;
+        void removeRecord(const int &pCategoryId, const int &pRow) const;
+        //void setDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData) const;
+        void setDataText(const int &pRecordId, const int &pFieldId, const QString &pData) const;
+        void setFieldAttributes(const int &pFieldId, const FieldAttributes &pAttributes) const;
 #ifndef EDITION_FREE
-        const void setFieldLanguage(const int &pFieldId, const FieldLanguage &pLanguage) const;
-        const void setFieldName(const int &pFieldId, const QString &pName) const;
-        const void setFieldTemplateName(const int &pFieldId, const QString &pTemplateName) const;
-		const void SetRecordCategory(const int &pRecordId, const int &pCategoryId) const;
-        const void swapFields(const int &pSourceId, const int &pDestinationId) const;
+        void setFieldLanguage(const int &pFieldId, const FieldLanguage &pLanguage) const;
+        void setFieldName(const int &pFieldId, const QString &pName) const;
+        void setFieldTemplateName(const int &pFieldId, const QString &pTemplateName) const;
+		void SetRecordCategory(const int &pRecordId, const int &pCategoryId) const;
+        void swapFields(const int &pSourceId, const int &pDestinationId) const;
 #endif
 
     private:
@@ -190,24 +185,24 @@ class VocabularyDatabase : public QObject
         QString _qsVocabularyFile;
 #endif
 
-        const int addField(const QString &pTemplate, const QString &pName, const FieldType &pType, const FieldAttributes &pAttributes, const FieldBuiltIn &pBuiltIn, const FieldLanguage &pLanguage) const;
-        const void AddLanguage(const QString &pName, const QString &pLearningTemplate
+        int addField(const QString &pTemplate, const QString &pName, const FieldType &pType, const FieldAttributes &pAttributes, const FieldBuiltIn &pBuiltIn, const FieldLanguage &pLanguage) const;
+        void AddLanguage(const QString &pName, const QString &pLearningTemplate
 #ifndef EDITION_FREE
             , const QString &pTrayTemplate, const TTSInterface::TTSPlugin &pTTSPlugin, const QString &pVoice
 #endif
             ) const;
-		const void CloseDatabase();
+		void CloseDatabase();
 #ifndef EDITION_TRY
-        const RecordIdList recordIds() const;
+        RecordIdList recordIds() const;
 #endif
-		const void Initialize() const;
-		const void OpenDatabase();
-		const void removeRecord(const int &pRecordId) const;
+		void Initialize() const;
+		void OpenDatabase();
+		void removeRecord(const int &pRecordId) const;
 #ifndef EDITION_FREE
-		const void Update(const QString &pTable, const int &pColumnId, const QSqlRecord &pRecord) const;
+		void Update(const QString &pTable, const int &pColumnId, const QSqlRecord &pRecord) const;
 #endif
 #ifndef EDITION_TRY
-        const void UpdateDatabase();
+        void UpdateDatabase();
 #endif
 
 	signals:
@@ -218,7 +213,7 @@ class VocabularyDatabase : public QObject
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(VocabularyDatabase::FieldAttributes)
 #ifndef EDITION_FREE
-Q_DECLARE_OPERATORS_FOR_FLAGS(VocabularyDatabase::qfLanguageIds)
+Q_DECLARE_OPERATORS_FOR_FLAGS(VocabularyDatabase::LanguageIds)
 #endif
 
 #endif // VOCABULARYDATABASE_H
