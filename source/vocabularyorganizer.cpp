@@ -47,7 +47,7 @@ const int VocabularyOrganizer::GetRecordCount() const
 	int iCount = 0;
 
 	foreach (VocabularyInfo svVocabulary, _qlVocabularies) {
-		if (svVocabulary.vVocabulary->IsOpen()) {
+		if (svVocabulary.vVocabulary->isOpen()) {
 			iCount += svVocabulary.vVocabulary->recordCount();
 		} // if
 	} // foreach
@@ -60,7 +60,7 @@ const int VocabularyOrganizer::GetRecordCount(const bool &pEnabled) const
 	int iCount = 0;
 
 	foreach (VocabularyInfo svVocabulary, _qlVocabularies) {
-		if (svVocabulary.vVocabulary->IsOpen()) {
+		if (svVocabulary.vVocabulary->isOpen()) {
 			iCount += svVocabulary.vVocabulary->recordCount(pEnabled);
 		} // if
 	} // foreach
@@ -74,7 +74,7 @@ const VocabularyOrganizer::RecordInfo VocabularyOrganizer::GetRecordInfo(const i
 	RecordInfo sriRecordInfo;
 
 	foreach (VocabularyInfo svVocabulary, _qlVocabularies) {
-		if (svVocabulary.vVocabulary->IsOpen()) {
+		if (svVocabulary.vVocabulary->isOpen()) {
 			int iRecords = svVocabulary.vVocabulary->recordCount();
 			if (iCurrentRow + iRecords > pRow) {
 				sriRecordInfo.vVocabulary = svVocabulary.vVocabulary;
@@ -105,7 +105,7 @@ const VocabularyOrganizer::VocabularyInfo &VocabularyOrganizer::GetVocabularyInf
 const bool VocabularyOrganizer::IsOpen() const
 {
 	foreach (VocabularyInfo svVocabulary, _qlVocabularies) {
-		if (svVocabulary.vVocabulary->IsOpen()) {
+		if (svVocabulary.vVocabulary->isOpen()) {
 			return true;
 		} // if
 	} // foreach
@@ -121,7 +121,7 @@ const void VocabularyOrganizer::Open(VocabularyInfo *pVocabulary, QWidget *pPare
 	pVocabulary->vVocabulary->open(pVocabulary->sviVocabularyInfo.filePath);
 
 # ifndef EDITION_FREE
-	if (!pVocabulary->vVocabulary->IsOpen()) {
+	if (!pVocabulary->vVocabulary->isOpen()) {
 		pVocabulary->sviVocabularyInfo.enabled = false;
 	} // if
 #endif

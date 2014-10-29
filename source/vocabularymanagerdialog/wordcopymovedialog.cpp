@@ -3,7 +3,7 @@
 void WordsCopyMoveDialog::accept()
 {
     QModelIndex qmiIndex = _qdwcmCopyMove.qtvCategories->currentIndex();
-    int iNewCategoryId = _vVocabulary->GetCategoryId(qmiIndex.row());
+    int iNewCategoryId = _vVocabulary->categoryId(qmiIndex.row());
 
     if (_qdwcmCopyMove.qrbCopy->isChecked()) {
         for (tRowNumList::const_iterator ciRow = _trnlRowNums.constBegin(); ciRow != _trnlRowNums.constEnd(); ciRow++) {

@@ -258,7 +258,7 @@ quint32 Vocabulary::recordCount(bool enabled) const
 	const CategoryIdList categoryIdList = categoryIds();
 	foreach (quint8 categoryId, categoryIdList)
 	{
-		if (GetCategoryEnabled(categoryId))
+		if (categoryEnabled(categoryId))
 		{
 			records += recordCount(categoryId, enabled);
 		} // if
@@ -332,7 +332,7 @@ VocabularyDatabase::RecordIdList Vocabulary::recordIds(quint8 categoryId) const
 
 void Vocabulary::initCache()
 {
-	if (IsOpen())
+	if (isOpen())
 	{
         // fields
         const FieldIdList fieldIdList = VocabularyDatabase::fieldIds();
@@ -473,7 +473,7 @@ void Vocabulary::swapFields(quint8 sourceId, quint8 destinationId)
     // swap in data table
     for (RecordDataHash::iterator record = _recordData->begin(); record != _recordData->end(); record++)
 	{
-        tDataHash *data = record.operator->();
+        DataHash *data = record.operator->();
 
 		QString dataTemp                = data->value(sourceId);
 		data->operator[](sourceId)      = data->value(destinationId);

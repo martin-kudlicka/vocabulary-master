@@ -105,7 +105,7 @@ const void WordsImportDialog::ImportData(const eTarget &pTarget)
 			break;
 		case TargetVocabulary:
 			QModelIndex qmiCategory = _qdwiWordsImport.qtvCategories->currentIndex();
-			iCategoryId = _vVocabulary->GetCategoryId(qmiCategory.row());
+			iCategoryId = _vVocabulary->categoryId(qmiCategory.row());
 	} // switch
 
 	int iSkipCount = 0;

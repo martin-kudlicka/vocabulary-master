@@ -224,7 +224,7 @@ void MainWindow::createVocabulariesMenu()
 	for (quint8 vocabularyIndex = 0; vocabularyIndex < _vocabularyOrganizer.GetVocabularyCount(); vocabularyIndex++)
 	{
 		const VocabularyOrganizer::VocabularyInfo vocabularyInfo = _vocabularyOrganizer.GetVocabularyInfo(vocabularyIndex);
-		const QString name                                       = vocabularyInfo.vVocabulary->GetName();
+		const QString name                                       = vocabularyInfo.vVocabulary->name();
 
 		// main menu
 		QAction *action = _ui.menuVocabularies->addAction(QIcon(":/res/mainwindow/menubar/vocabulary.png"), name);
@@ -314,11 +314,11 @@ QString MainWindow::languageText(bool directionSwitched, bool answer) const
 {
     if ((!directionSwitched && !answer) || (directionSwitched && answer))
 	{
-		return _currentRecord.vVocabulary->GetLanguageName(VocabularyDatabase::FieldLanguageLeft);
+		return _currentRecord.vVocabulary->languageName(VocabularyDatabase::FieldLanguageLeft);
     }
 	else
 	{
-        return _currentRecord.vVocabulary->GetLanguageName(VocabularyDatabase::FieldLanguageRight);
+        return _currentRecord.vVocabulary->languageName(VocabularyDatabase::FieldLanguageRight);
     } // if else
 } // languageText
 
@@ -342,12 +342,12 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
 	{
 		if (templateType == TemplateLearning)
 		{
-			templateText = _currentRecord.vVocabulary->GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageLeft);
+			templateText = _currentRecord.vVocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguageLeft);
 		}
 #ifndef EDITION_FREE
 		else
 		{
-			templateText = _currentRecord.vVocabulary->GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageLeft);
+			templateText = _currentRecord.vVocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguageLeft);
 		} // if else
 #endif
 		fieldLanguage = VocabularyDatabase::FieldLanguageLeft;
@@ -356,12 +356,12 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
 	{
 		if (templateType == TemplateLearning)
 		{
-			templateText = _currentRecord.vVocabulary->GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageRight);
+			templateText = _currentRecord.vVocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguageRight);
 		}
 #ifndef EDITION_FREE
 		else
 		{
-			templateText = _currentRecord.vVocabulary->GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageRight);
+			templateText = _currentRecord.vVocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguageRight);
 		} // if else
 #endif
 		fieldLanguage = VocabularyDatabase::FieldLanguageRight;
@@ -515,13 +515,13 @@ void MainWindow::say(bool directionSwitched, bool answer) const
 
         if (!text.isEmpty())
 		{
-			const TTSInterface::TTSPlugin speechPlugin = _currentRecord.vVocabulary->GetLanguageSpeech(fieldLanguage);
+			const TTSInterface::TTSPlugin speechPlugin = _currentRecord.vVocabulary->languageSpeech(fieldLanguage);
 	        if (speechPlugin != TTSInterface::TTPluginNone)
 			{
 		        TTSInterface *speechInterface = _plugins.ttsPlugin(speechPlugin);
                 if (speechInterface)
 				{
-					const QString voice = _currentRecord.vVocabulary->GetLanguageVoice(fieldLanguage);
+					const QString voice = _currentRecord.vVocabulary->languageVoice(fieldLanguage);
 		            speechInterface->say(voice, text);
                 } // if
 	        } // if
@@ -863,7 +863,7 @@ void MainWindow::on_learningTimer_timeout()
 
                 categoryId = _currentRecord.vVocabulary->recordCategory(_currentRecord.iId);
 #ifndef EDITION_FREE
-                if (_currentRecord.vVocabulary->GetCategoryEnabled(categoryId) && _currentRecord.vVocabulary->GetCategoryPriority(categoryId) <= maxCategoryPriority  && (_currentRecord.vVocabulary->recordCount(true) == 1 || _currentRecord.vVocabulary != lastRecord.vVocabulary || _currentRecord.iId != lastRecord.iId))
+                if (_currentRecord.vVocabulary->categoryEnabled(categoryId) && _currentRecord.vVocabulary->categoryPriority(categoryId) <= maxCategoryPriority  && (_currentRecord.vVocabulary->recordCount(true) == 1 || _currentRecord.vVocabulary != lastRecord.vVocabulary || _currentRecord.iId != lastRecord.iId))
 				{
 #endif
                     break;
@@ -915,7 +915,7 @@ void MainWindow::on_learningTimer_timeout()
 		    } // if else
 	        _ui.window1->setText(learningText(TemplateLearning, _directionSwitched, false));
 	        _ui.window2->clear();
-            _ui.category->setText(_currentRecord.vVocabulary->GetName() + ", " + _currentRecord.vVocabulary->GetCategoryName(categoryId));
+            _ui.category->setText(_currentRecord.vVocabulary->name() + ", " + _currentRecord.vVocabulary->categoryName(categoryId));
 #ifndef EDITION_FREE
 			setupRecordControls();
 #endif

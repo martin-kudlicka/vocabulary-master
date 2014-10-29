@@ -14,20 +14,20 @@ QWidget *LanguageFieldDelegate::createEditor(QWidget *parent, const QStyleOption
 {
 	const qint8 fieldId = _vocabulary->fieldId(index.row());
 
-	VocabularyDatabase::tLanguageIdList languageIds;
+	VocabularyDatabase::LanguageIdList languageIds;
 	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
 	{
-		languageIds = _vocabulary->GetLanguageIds(VocabularyDatabase::LanguageIdsAllOnly);
+		languageIds = _vocabulary->languageIds(VocabularyDatabase::LanguageIdsAllOnly);
 	}
 	else
 	{
-		languageIds = _vocabulary->GetLanguageIds(VocabularyDatabase::LanguageIdsUserDefined);
+		languageIds = _vocabulary->languageIds(VocabularyDatabase::LanguageIdsUserDefined);
 	} // if else
 
 	QComboBox *editorBox = new QComboBox(parent);
     foreach (quint8 languageId, languageIds)
 	{
-        editorBox->addItem(_vocabulary->GetLanguageName(languageId), languageId);
+        editorBox->addItem(_vocabulary->languageName(languageId), languageId);
     } // foreach
 
     return editorBox;

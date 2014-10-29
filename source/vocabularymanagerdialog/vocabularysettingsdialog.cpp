@@ -39,25 +39,25 @@ const void VocabularySettingsDialog::ActualizeFieldsEditor(const int &pRow) cons
 const void VocabularySettingsDialog::FillOptions()
 {
     // languages
-    _qdvsdVocabularySettingsDialog.leLanguageLeft->setText(_vVocabulary->GetLanguageName(VocabularyDatabase::FieldLanguageLeft));
-    _qdvsdVocabularySettingsDialog.leLanguageRight->setText(_vVocabulary->GetLanguageName(VocabularyDatabase::FieldLanguageRight));
+    _qdvsdVocabularySettingsDialog.leLanguageLeft->setText(_vVocabulary->languageName(VocabularyDatabase::FieldLanguageLeft));
+    _qdvsdVocabularySettingsDialog.leLanguageRight->setText(_vVocabulary->languageName(VocabularyDatabase::FieldLanguageRight));
 #ifndef EDITION_FREE
-    FillSpeech(_qdvsdVocabularySettingsDialog.qcbSpeechLeft, QString::number(_vVocabulary->GetLanguageSpeech(VocabularyDatabase::FieldLanguageLeft)), _vVocabulary->GetLanguageVoice(VocabularyDatabase::FieldLanguageLeft));
-	FillSpeech(_qdvsdVocabularySettingsDialog.qcbSpeechRight, QString::number(_vVocabulary->GetLanguageSpeech(VocabularyDatabase::FieldLanguageRight)), _vVocabulary->GetLanguageVoice(VocabularyDatabase::FieldLanguageRight));
+    FillSpeech(_qdvsdVocabularySettingsDialog.qcbSpeechLeft, QString::number(_vVocabulary->languageSpeech(VocabularyDatabase::FieldLanguageLeft)), _vVocabulary->languageVoice(VocabularyDatabase::FieldLanguageLeft));
+	FillSpeech(_qdvsdVocabularySettingsDialog.qcbSpeechRight, QString::number(_vVocabulary->languageSpeech(VocabularyDatabase::FieldLanguageRight)), _vVocabulary->languageVoice(VocabularyDatabase::FieldLanguageRight));
 
 	// templates
-	_qdvsdVocabularySettingsDialog.qteLearningLeft->setPlainText(_vVocabulary->GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageLeft));
-	_qdvsdVocabularySettingsDialog.qteLearningRight->setPlainText(_vVocabulary->GetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageRight));
-    _qdvsdVocabularySettingsDialog.qteTrayLeft->setPlainText(_vVocabulary->GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageLeft));
-    _qdvsdVocabularySettingsDialog.qteTrayRight->setPlainText(_vVocabulary->GetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageRight));
+	_qdvsdVocabularySettingsDialog.qteLearningLeft->setPlainText(_vVocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguageLeft));
+	_qdvsdVocabularySettingsDialog.qteLearningRight->setPlainText(_vVocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguageRight));
+    _qdvsdVocabularySettingsDialog.qteTrayLeft->setPlainText(_vVocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguageLeft));
+    _qdvsdVocabularySettingsDialog.qteTrayRight->setPlainText(_vVocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguageRight));
 #endif
 } // FillOptions
 
 #ifndef EDITION_FREE
 const void VocabularySettingsDialog::FillSpeech(QComboBox *pComboBox, const QString &pSpeech, const QString &pVoice)
 {
-	int iSpeech = _vVocabulary->GetSettings(pSpeech).toInt();
-	QString qsVoice = _vVocabulary->GetSettings(pVoice);
+	int iSpeech = _vVocabulary->settings(pSpeech).toInt();
+	QString qsVoice = _vVocabulary->settings(pVoice);
 
 	for (int iI = 0; iI < pComboBox->count(); iI++) {
 		sSpeechVoice spvVoice = _tvVoiceList.at(pComboBox->itemData(iI).toInt());
@@ -184,8 +184,8 @@ const void VocabularySettingsDialog::PrepareSpeechPlugins(QComboBox *pComboBox)
 const void VocabularySettingsDialog::RefreshLanguageNameFields() const
 {
     for (int iRow = 0; iRow < _fmFieldsModel.rowCount(); iRow++) {
-        _vVocabulary->SetLanguageName(VocabularyDatabase::FieldLanguageLeft, _qdvsdVocabularySettingsDialog.leLanguageLeft->text());
-        _vVocabulary->SetLanguageName(VocabularyDatabase::FieldLanguageRight, _qdvsdVocabularySettingsDialog.leLanguageRight->text());
+        _vVocabulary->setLanguageName(VocabularyDatabase::FieldLanguageLeft, _qdvsdVocabularySettingsDialog.leLanguageLeft->text());
+        _vVocabulary->setLanguageName(VocabularyDatabase::FieldLanguageRight, _qdvsdVocabularySettingsDialog.leLanguageRight->text());
 
         QModelIndex qmiIndex = _fmFieldsModel.index(iRow, FieldsModel::ColumnLanguage);
         _qdvsdVocabularySettingsDialog.qtvFields->closePersistentEditor(qmiIndex);
@@ -198,21 +198,21 @@ const void VocabularySettingsDialog::SaveOptions()
 {
     // languages
 #ifdef EDITION_FREE
-    _vVocabulary->SetLanguageName(VocabularyDatabase::FieldLanguageLeft, _qdvsdVocabularySettingsDialog.leLanguageLeft->text());
-    _vVocabulary->SetLanguageName(VocabularyDatabase::FieldLanguageRight, _qdvsdVocabularySettingsDialog.leLanguageRight->text());
+    _vVocabulary->setLanguageName(VocabularyDatabase::FieldLanguageLeft, _qdvsdVocabularySettingsDialog.leLanguageLeft->text());
+    _vVocabulary->setLanguageName(VocabularyDatabase::FieldLanguageRight, _qdvsdVocabularySettingsDialog.leLanguageRight->text());
 #else
 	sSpeechVoice spvVoice = _tvVoiceList.at(_qdvsdVocabularySettingsDialog.qcbSpeechLeft->itemData(_qdvsdVocabularySettingsDialog.qcbSpeechLeft->currentIndex()).toInt());
-	_vVocabulary->SetLanguageSpeech(VocabularyDatabase::FieldLanguageLeft, spvVoice.etpPlugin);
-	_vVocabulary->SetLanguageVoice(VocabularyDatabase::FieldLanguageLeft, spvVoice.qsVoiceId);
+	_vVocabulary->setLanguageSpeech(VocabularyDatabase::FieldLanguageLeft, spvVoice.etpPlugin);
+	_vVocabulary->setLanguageVoice(VocabularyDatabase::FieldLanguageLeft, spvVoice.qsVoiceId);
 	spvVoice = _tvVoiceList.at(_qdvsdVocabularySettingsDialog.qcbSpeechRight->itemData(_qdvsdVocabularySettingsDialog.qcbSpeechRight->currentIndex()).toInt());
-	_vVocabulary->SetLanguageSpeech(VocabularyDatabase::FieldLanguageRight, spvVoice.etpPlugin);
-	_vVocabulary->SetLanguageVoice(VocabularyDatabase::FieldLanguageRight, spvVoice.qsVoiceId);
+	_vVocabulary->setLanguageSpeech(VocabularyDatabase::FieldLanguageRight, spvVoice.etpPlugin);
+	_vVocabulary->setLanguageVoice(VocabularyDatabase::FieldLanguageRight, spvVoice.qsVoiceId);
 
 	// templates
-	_vVocabulary->SetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageLeft, _qdvsdVocabularySettingsDialog.qteLearningLeft->toPlainText());
-	_vVocabulary->SetLanguageLearningTemplate(VocabularyDatabase::FieldLanguageRight, _qdvsdVocabularySettingsDialog.qteLearningRight->toPlainText());
-    _vVocabulary->SetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageLeft, _qdvsdVocabularySettingsDialog.qteTrayLeft->toPlainText());
-    _vVocabulary->SetLanguageTrayTemplate(VocabularyDatabase::FieldLanguageRight, _qdvsdVocabularySettingsDialog.qteTrayRight->toPlainText());
+	_vVocabulary->setLanguageLearningTemplate(VocabularyDatabase::FieldLanguageLeft, _qdvsdVocabularySettingsDialog.qteLearningLeft->toPlainText());
+	_vVocabulary->setLanguageLearningTemplate(VocabularyDatabase::FieldLanguageRight, _qdvsdVocabularySettingsDialog.qteLearningRight->toPlainText());
+    _vVocabulary->setLanguageTrayTemplate(VocabularyDatabase::FieldLanguageLeft, _qdvsdVocabularySettingsDialog.qteTrayLeft->toPlainText());
+    _vVocabulary->setLanguageTrayTemplate(VocabularyDatabase::FieldLanguageRight, _qdvsdVocabularySettingsDialog.qteTrayRight->toPlainText());
 #endif
 } // SaveOptions
 

@@ -21,7 +21,7 @@ QVariant WordsExportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 					{
 						int iFieldId = GetFieldId(index.row());
 						VocabularyDatabase::FieldLanguage eflLanguage = _vVocabulary->fieldLanguage(iFieldId);
-						return _vVocabulary->GetLanguageName(eflLanguage);
+						return _vVocabulary->languageName(eflLanguage);
 					}
                 case ColumnName:
                     {

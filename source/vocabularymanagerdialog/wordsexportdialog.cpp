@@ -18,14 +18,14 @@ const void WordsExportDialog::on_eiPlugin_VocabularyGetCategoryIds(ExpInterface:
     QModelIndexList qmilSelected = qismSelection->selectedRows();
 
     foreach (QModelIndex qmiIndex, qmilSelected) {
-        int iCategoryId = _vVocabulary->GetCategoryId(qmiIndex.row());
+        int iCategoryId = _vVocabulary->categoryId(qmiIndex.row());
         pCategoryIds->append(iCategoryId);
     } // foreach
 } // on_eiPlugin_VocabularyGetCategoryIds
 
 const void WordsExportDialog::on_eiPlugin_VocabularyGetCategoryName(quint8 pCategoryId, QString *pName) const
 {
-    *pName = _vVocabulary->GetCategoryName(pCategoryId);
+    *pName = _vVocabulary->categoryName(pCategoryId);
 } // on_eiPlugin_VocabularyGetCategoryName
 
 const void WordsExportDialog::on_eiPlugin_VocabularyGetMarks(QStringList *pMarks) const

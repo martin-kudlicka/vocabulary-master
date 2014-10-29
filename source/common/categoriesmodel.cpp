@@ -20,8 +20,8 @@ QVariant CategoriesModel::data(const QModelIndex &index, int role /* Qt::Display
 	{
         case Qt::DisplayRole:
             {
-                const quint8 categoryId = _vocabulary->GetCategoryId(index.row());
-                return _vocabulary->GetCategoryName(categoryId);
+                const quint8 categoryId = _vocabulary->categoryId(index.row());
+                return _vocabulary->categoryName(categoryId);
             }
         default:
             return QVariant();
@@ -53,7 +53,7 @@ int CategoriesModel::rowCount(const QModelIndex &parent /* QModelIndex() */) con
 {
     if (parent == QModelIndex())
 	{
-        return _vocabulary->GetCategoryCount();
+        return _vocabulary->categoryCount();
     }
 	else
 	{

@@ -40,13 +40,13 @@ const void VocabularyManagerDialog::AddTab(const int &pCategoryId)
     StretchColumns(vvVocabularyView);
 
     VocabularyTabWidget *vtwTabs = _qdvmVocabularyManager.vtwTabs;
-    int iTab = vtwTabs->addTab(vvVocabularyView, _vVocabulary->GetCategoryName(pCategoryId)
+    int iTab = vtwTabs->addTab(vvVocabularyView, _vVocabulary->categoryName(pCategoryId)
 #ifndef EDITION_FREE
-        , _vVocabulary->GetCategoryEnabled(pCategoryId), _vVocabulary->GetCategoryPriority(pCategoryId)
+        , _vVocabulary->categoryEnabled(pCategoryId), _vVocabulary->categoryPriority(pCategoryId)
 #endif
         );
 #ifndef EDITION_FREE
-    vtwTabs->setTabEnabled(iTab, _vVocabulary->GetCategoryEnabled(pCategoryId));
+    vtwTabs->setTabEnabled(iTab, _vVocabulary->categoryEnabled(pCategoryId));
 #endif
 } // AddTab
 
@@ -104,7 +104,7 @@ const void VocabularyManagerDialog::FocusOnRecord(const int &pRecordId) const
     // focus on word
     VocabularyView *qtvVocabularyView = qobject_cast<VocabularyView *>(_qdvmVocabularyManager.vtwTabs->currentWidget());
     const VocabularyModel *vmVocabularyModel = qobject_cast<const VocabularyModel *>(qtvVocabularyView->model());
-    qtvVocabularyView->setCurrentIndex(vmVocabularyModel->index(_vVocabulary->GetRow(pRecordId, iCategory), 0));
+    qtvVocabularyView->setCurrentIndex(vmVocabularyModel->index(_vVocabulary->row(pRecordId, iCategory), 0));
 } // FocusOnRecord
 
 #ifndef EDITION_FREE
@@ -246,7 +246,7 @@ const void VocabularyManagerDialog::on_qpbSearch_clicked(bool checked /* false *
     int iCurrentRecord = _vVocabulary->recordId(_qlCategories.at(_qdvmVocabularyManager.vtwTabs->currentIndex()), qismSelection->currentIndex().row());
 
     // search for next word
-    int iRecordId = _vVocabulary->Search(_qdvmVocabularyManager.qleSearch->text(), iCurrentRecord + 1);
+    int iRecordId = _vVocabulary->search(_qdvmVocabularyManager.qleSearch->text(), iCurrentRecord + 1);
     if (iRecordId == VocabularyDatabase::NOT_FOUND) {
         return;
     } // if
@@ -357,7 +357,7 @@ const void VocabularyManagerDialog::on_qpbWordImport_clicked(bool checked /* fal
 # ifdef EDITION_TRY
             _vVocabulary->openMemory();
 # else
-            _vVocabulary->open(_vVocabulary->GetVocabularyFile());
+            _vVocabulary->open(_vVocabulary->vocabularyFile());
 # endif
             vopdOpenProgress.hide();
 
@@ -390,7 +390,7 @@ const void VocabularyManagerDialog::on_vtwTabs_currentChanged(int index) const
 #ifndef EDITION_FREE
 const void VocabularyManagerDialog::on_vtwTabs_TabEnableChanged(const int &pIndex, const Qt::CheckState &pState) const
 {
-    _vVocabulary->SetCategoryEnabled(_qlCategories.at(pIndex), pState);
+    _vVocabulary->setCategoryEnabled(_qlCategories.at(pIndex), pState);
     _qdvmVocabularyManager.vtwTabs->setTabEnabled(pIndex, pState);
 
 	EnableTabControls();
@@ -399,7 +399,7 @@ const void VocabularyManagerDialog::on_vtwTabs_TabEnableChanged(const int &pInde
 
 const void VocabularyManagerDialog::on_vtwTabs_TabPriorityChanged(const int &pIndex, const int &pValue) const
 {
-	_vVocabulary->SetCategoryPriority(_qlCategories.at(pIndex), pValue);
+	_vVocabulary->setCategoryPriority(_qlCategories.at(pIndex), pValue);
 } // on_vtwTabs_TabPriorityChanged
 #endif
 
@@ -563,7 +563,7 @@ VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *pVocabulary,
 	delete _qdvmVocabularyManager.qpbWordExport;
 #endif
 
-	setWindowTitle(windowTitle() + " - " + pVocabulary->GetName());
+	setWindowTitle(windowTitle() + " - " + pVocabulary->name());
 
     InitTabs();
 	InitEditor();
