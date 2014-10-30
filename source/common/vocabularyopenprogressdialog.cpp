@@ -1,11 +1,11 @@
 #include "common/vocabularyopenprogressdialog.h"
 
-const void VocabularyOpenProgressDialog::on_vVocabulary_SetOpenProgressValue(const int &pValue) const
+const void VocabularyOpenProgressDialog::on_vVocabulary_SetOpenProgressValue(quint8 pValue) const
 {
 	_qdvopVocabularyOpenProgress.qpbProgress->setValue(pValue);
 } // on_vVocabulary_SetOpenProgressValue
 
-const void VocabularyOpenProgressDialog::on_vVocabulary_SetOpenProgressMax(const int &pMax) const
+const void VocabularyOpenProgressDialog::on_vVocabulary_SetOpenProgressMax(quint8 pMax) const
 {
 	_qdvopVocabularyOpenProgress.qpbProgress->setMaximum(pMax);
 } // on_vVocabulary_SetOpenProgressMax
@@ -20,7 +20,7 @@ VocabularyOpenProgressDialog::VocabularyOpenProgressDialog(const Vocabulary *pVo
 	_qdvopVocabularyOpenProgress.setupUi(this);
 
 	// connect to vocabulary database
-	connect(pVocabulary, SIGNAL(SetOpenProgressValue(const int &)), SLOT(on_vVocabulary_SetOpenProgressValue(const int &)));
-	connect(pVocabulary, SIGNAL(SetOpenProgressMax(const int &)), SLOT(on_vVocabulary_SetOpenProgressMax(const int &)));
-	connect(pVocabulary, SIGNAL(SetVocabularyName(const QString &)), SLOT(on_vVocabulary_SetVocabularyName(const QString &)));
+	connect(pVocabulary, SIGNAL(setOpenProgressValue(quint8)), SLOT(on_vVocabulary_SetOpenProgressValue(quint8)));
+	connect(pVocabulary, SIGNAL(setOpenProgressMax(quint8)), SLOT(on_vVocabulary_SetOpenProgressMax(quint8)));
+	connect(pVocabulary, SIGNAL(setVocabularyName(const QString &)), SLOT(on_vVocabulary_SetVocabularyName(const QString &)));
 } // VocabularyOpenProgressDialog
