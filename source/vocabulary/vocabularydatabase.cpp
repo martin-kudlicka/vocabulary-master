@@ -13,7 +13,7 @@
 #endif
 
 #ifdef EDITION_TRY
-int VocabularyDatabase::_iMemoryVocabularies = 0;
+int VocabularyDatabase::_memoryVocabularies = 0;
 #endif
 
 const QString COLUMN_ATTRIBUTES = "attributes";
@@ -66,22 +66,22 @@ const QString TABLE_SETTINGS = "settings";
 VocabularyDatabase::VocabularyDatabase(QObject *pParent /* NULL */) : QObject(pParent)
 {
 	// create empty database
-	_qsdDatabase = QSqlDatabase::addDatabase("QSQLITE", QString::number(qrand()));
+	_database = QSqlDatabase::addDatabase("QSQLITE", QString::number(qrand()));
 } // VocabularyDatabase
 
 VocabularyDatabase::~VocabularyDatabase()
 {
-	CloseDatabase();
+	closeDatabase();
 } // ~VocabularyDatabase
 
-int VocabularyDatabase::addCategory(const QString &pName) const
+quint8 VocabularyDatabase::addCategory(const QString &name) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_CATEGORIES + " (" + COLUMN_NAME + ", " + COLUMN_PRIORITY +  ", " + COLUMN_ENABLED + ") VALUES ('" + pName + "', '" + QString::number(PRIORITY_DEFAULT) + "', '" + QString::number(true) + "')");
+	QSqlQuery qsqQuery = _database.exec("INSERT INTO " + TABLE_CATEGORIES + " (" + COLUMN_NAME + ", " + COLUMN_PRIORITY +  ", " + COLUMN_ENABLED + ") VALUES ('" + name + "', '" + QString::number(PRIORITY_DEFAULT) + "', '" + QString::number(true) + "')");
     return qsqQuery.lastInsertId().toInt();
 } // addCategory
 
 #ifndef EDITION_FREE
-int VocabularyDatabase::addField() const
+quint8 VocabularyDatabase::addField() const
 {
 	int iNum = fieldCount() + 1;
 	QString qsTemplate = tr("Field") + QString::number(iNum);
@@ -91,55 +91,55 @@ int VocabularyDatabase::addField() const
 } // addField
 #endif
 
-int VocabularyDatabase::addField(const QString &pTemplate, const QString &pName, const FieldType &pType, const FieldAttributes &pAttributes, const FieldBuiltIn &pBuiltIn, const FieldLanguage &pLanguage) const
+quint8 VocabularyDatabase::addField(const QString &templateText, const QString &name, const FieldType &type, FieldAttributes attributes, FieldBuiltIn builtIn, FieldLanguage language) const
 {
-    QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " + COLUMN_NAME + ", " + COLUMN_TYPE + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_BUILTIN + ", " + COLUMN_LANGUAGE + ") VALUES ('" + pTemplate + "', '" + pName + "', '" + QString::number(pType) + "', '" + QString::number(pAttributes) + "', '" + QString::number(pBuiltIn) + "', '" + QString::number(pLanguage) + "')");
+    QSqlQuery qsqQuery = _database.exec("INSERT INTO " + TABLE_FIELDS + " (" + COLUMN_TEMPLATENAME + ", " + COLUMN_NAME + ", " + COLUMN_TYPE + ", " + COLUMN_ATTRIBUTES + ", " + COLUMN_BUILTIN + ", " + COLUMN_LANGUAGE + ") VALUES ('" + templateText + "', '" + name + "', '" + QString::number(type) + "', '" + QString::number(attributes) + "', '" + QString::number(builtIn) + "', '" + QString::number(language) + "')");
 	return qsqQuery.lastInsertId().toInt();
 } // addField
 
-void VocabularyDatabase::AddLanguage(const QString &pName, const QString &pLearningTemplate
+void VocabularyDatabase::addLanguage(const QString &name, const QString &learningTemplate
 #ifndef EDITION_FREE
-    , const QString &pTrayTemplate, const TTSInterface::TTSPlugin &pTTSPlugin, const QString &pVoice
+    , const QString &trayTemplate, TTSInterface::TTSPlugin ttsPlugin, const QString &voice
 #endif
     ) const
 {
-    _qsdDatabase.exec("INSERT INTO " + TABLE_LANGUAGES + " (" + COLUMN_NAME + ", " + COLUMN_LEARNINGTEMPLATE + ", " + COLUMN_TRAYTEMPLATE + ", " + COLUMN_SPEECH + ", " + COLUMN_VOICE + ") VALUES ('" + pName + "', '" + pLearningTemplate + "', '" +
+    _database.exec("INSERT INTO " + TABLE_LANGUAGES + " (" + COLUMN_NAME + ", " + COLUMN_LEARNINGTEMPLATE + ", " + COLUMN_TRAYTEMPLATE + ", " + COLUMN_SPEECH + ", " + COLUMN_VOICE + ") VALUES ('" + name + "', '" + learningTemplate + "', '" +
 #ifndef EDITION_FREE
-        pTrayTemplate +
+        trayTemplate +
 #endif
         "', '" +
 #ifdef EDITION_FREE
         QString::number(TTSInterface::TTPluginNone)
 #else
-        QString::number(pTTSPlugin)
+        QString::number(ttsPlugin)
 #endif
         + "', '" +
 #ifndef EDITION_FREE
-        pVoice +
+        voice +
 #endif
         "')");
-} // AddLanguage
+} // addLanguage
 
-int VocabularyDatabase::addRecord(const int &pCategoryId) const
+quint32 VocabularyDatabase::addRecord(quint8 categoryId) const
 {
 	// create new record
-	QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_RECORDS + " (" + COLUMN_CATEGORYID + ") VALUES ('" + QString::number(pCategoryId) + "')");
+	QSqlQuery qsqQuery = _database.exec("INSERT INTO " + TABLE_RECORDS + " (" + COLUMN_CATEGORYID + ") VALUES ('" + QString::number(categoryId) + "')");
 	int iRecordId = qsqQuery.lastInsertId().toInt();
 
     return iRecordId;
 } // addRecord
 
 #ifndef EDITION_FREE
-int VocabularyDatabase::addRecord(const int &pCategoryId, const QStringList &pData) const
+quint32 VocabularyDatabase::addRecord(quint8 categoryId, const QStringList &data) const
 {
     // create new record
-    QSqlQuery qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_RECORDS + " (" + COLUMN_CATEGORYID + ") VALUES ('" + QString::number(pCategoryId) + "')");
+    QSqlQuery qsqQuery = _database.exec("INSERT INTO " + TABLE_RECORDS + " (" + COLUMN_CATEGORYID + ") VALUES ('" + QString::number(categoryId) + "')");
     int iRecordId = qsqQuery.lastInsertId().toInt();
 
     // create new data
     int iData = 0;
     foreach (int iFieldId, fieldIds()) {
-        qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(iFieldId) + "', '" + QString::number(iRecordId) + "', '" + pData.at(iData) + "')");
+        qsqQuery = _database.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(iFieldId) + "', '" + QString::number(iRecordId) + "', '" + data.at(iData) + "')");
         iData++;
     } // foreach
 
@@ -149,34 +149,34 @@ int VocabularyDatabase::addRecord(const int &pCategoryId, const QStringList &pDa
 
 void VocabularyDatabase::beginEdit()
 {
-    _qsdDatabase.transaction();
+    _database.transaction();
 } // beginEdit
 
 void VocabularyDatabase::close()
 {
-	CloseDatabase();
+	closeDatabase();
 } // close
 
-void VocabularyDatabase::CloseDatabase()
+void VocabularyDatabase::closeDatabase()
 {
-	if (_qsdDatabase.isOpen()) {
-		_qsdDatabase.close();
+	if (_database.isOpen()) {
+		_database.close();
 	} // if
-} // CloseDatabase
+} // closeDatabase
 
-void VocabularyDatabase::endEdit(const bool &pSave /* true */)
+void VocabularyDatabase::endEdit(bool save /* true */)
 {
-    if (pSave) {
-        _qsdDatabase.commit();
+    if (save) {
+        _database.commit();
     } else {
-        _qsdDatabase.rollback();
+        _database.rollback();
     } // if else
 } // endEdit
 
 #ifndef EDITION_FREE
 quint8 VocabularyDatabase::categoryCount() const
 {
-    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_CATEGORIES);
+    QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_CATEGORIES);
     if (qsqQuery.last()) {
         return qsqQuery.at() + 1;
     } else {
@@ -186,14 +186,14 @@ quint8 VocabularyDatabase::categoryCount() const
 
 bool VocabularyDatabase::categoryEnabled(quint8 categoryId) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ENABLED + " FROM " + TABLE_CATEGORIES + " WHERE " + COLUMN_ID + " = " + QString::number(categoryId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ENABLED + " FROM " + TABLE_CATEGORIES + " WHERE " + COLUMN_ID + " = " + QString::number(categoryId));
     qsqQuery.next();
     return qsqQuery.value(ColumnPosition1).toBool();
 } // categoryEnabled
 
 quint8 VocabularyDatabase::categoryId(quint8 row) const
 {
-    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_CATEGORIES);
+    QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_CATEGORIES);
     int iPosition = 0;
     while (qsqQuery.next()) {
 		if (iPosition == row) {
@@ -211,7 +211,7 @@ VocabularyDatabase::CategoryIdList VocabularyDatabase::categoryIds() const
 {
     CategoryIdList tcilCategories;
 
-    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_CATEGORIES);
+    QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_CATEGORIES);
     while (qsqQuery.next()) {
         tcilCategories.append(qsqQuery.value(ColumnPosition1).toInt());
     } // while
@@ -221,20 +221,20 @@ VocabularyDatabase::CategoryIdList VocabularyDatabase::categoryIds() const
 
 QString VocabularyDatabase::categoryName(quint8 categoryId) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_NAME + " FROM " + TABLE_CATEGORIES + " WHERE " + COLUMN_ID + " = " + QString::number(categoryId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_NAME + " FROM " + TABLE_CATEGORIES + " WHERE " + COLUMN_ID + " = " + QString::number(categoryId));
     qsqQuery.next();
     return qsqQuery.value(ColumnPosition1).toString();
 } // categoryName
 
-/*QString VocabularyDatabase::dataText(const int &pCategoryId, const int &pRow, const int &pFieldId) const
+/*QString VocabularyDatabase::dataText(quint8 categoryId, quint32 row, quint8 fieldId) const
 {
-    int iRecordId = GetRecordId(pCategoryId, pRow);
-	return dataText(iRecordId, pFieldId);
+    int iRecordId = GetRecordId(categoryId, row);
+	return dataText(iRecordId, fieldId);
 } // dataText
 
-QString VocabularyDatabase::dataText(const int &pRecordId, const int &pFieldId) const
+QString VocabularyDatabase::dataText(quint32 recordId, quint8 fieldId) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_TEXT + " FROM " + TABLE_DATA + " WHERE " + COLUMN_RECORDID + " = " + QString::number(pRecordId) + " AND " + COLUMN_FIELDID + " = " + QString::number(pFieldId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_TEXT + " FROM " + TABLE_DATA + " WHERE " + COLUMN_RECORDID + " = " + QString::number(recordId) + " AND " + COLUMN_FIELDID + " = " + QString::number(fieldId));
     if (qsqQuery.next()) {
 	    return qsqQuery.value(ColumnPosition1).toString();
     } else {
@@ -246,11 +246,11 @@ VocabularyDatabase::RecordDataHash *VocabularyDatabase::dataText() const
 {
     RecordDataHash *trdhRecordData = new RecordDataHash();
 
-    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + " FROM " + TABLE_DATA);
+    QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + " FROM " + TABLE_DATA);
 
 	// set progress maximum
 	if (qsqQuery.last()) {
-		emit SetOpenProgressMax(qsqQuery.at() + 1);
+		emit setOpenProgressMax(qsqQuery.at() + 1);
 	} // if
 
 	if (qsqQuery.first()) {
@@ -260,7 +260,7 @@ VocabularyDatabase::RecordDataHash *VocabularyDatabase::dataText() const
 			tdhData->insert(qsqQuery.value(ColumnPosition1).toInt(), qsqQuery.value(ColumnPosition3).toString());
 
             if (iProgress % OPENPROGRESS_REFRESHINTERVAL == 0) {
-			    emit SetOpenProgressValue(iProgress);
+			    emit setOpenProgressValue(iProgress);
             } // if
             iProgress++;
 		} while (qsqQuery.next());
@@ -272,15 +272,15 @@ VocabularyDatabase::RecordDataHash *VocabularyDatabase::dataText() const
 #ifndef EDITION_FREE
 quint8 VocabularyDatabase::categoryPriority(quint8 categoryId) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_PRIORITY + " FROM " + TABLE_CATEGORIES + " WHERE " + COLUMN_ID + " = " + QString::number(categoryId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_PRIORITY + " FROM " + TABLE_CATEGORIES + " WHERE " + COLUMN_ID + " = " + QString::number(categoryId));
 	qsqQuery.next();
 	return qsqQuery.value(ColumnPosition1).toInt();
 } // categoryPriority
 #endif
 
-VocabularyDatabase::FieldAttributes VocabularyDatabase::fieldAttributes(const int &pFieldId) const
+VocabularyDatabase::FieldAttributes VocabularyDatabase::fieldAttributes(quint8 fieldId) const
 {
-    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ATTRIBUTES + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+    QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ATTRIBUTES + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(fieldId));
     if (qsqQuery.next()) {
         return qsqQuery.value(ColumnPosition1).toInt();
     } // if
@@ -289,9 +289,9 @@ VocabularyDatabase::FieldAttributes VocabularyDatabase::fieldAttributes(const in
 } // fieldAttributes
 
 #ifndef EDITION_FREE
-VocabularyDatabase::FieldBuiltIn VocabularyDatabase::fieldBuiltIn(const int &pFieldId) const
+VocabularyDatabase::FieldBuiltIn VocabularyDatabase::fieldBuiltIn(quint8 fieldId) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_BUILTIN + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_BUILTIN + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(fieldId));
 	if (qsqQuery.next()) {
 		return static_cast<FieldBuiltIn>(qsqQuery.value(ColumnPosition1).toInt());
 	} // if
@@ -299,9 +299,9 @@ VocabularyDatabase::FieldBuiltIn VocabularyDatabase::fieldBuiltIn(const int &pFi
 	return FieldBuiltInNone;
 } // fieldBuiltIn
 
-int VocabularyDatabase::fieldCount() const
+quint8 VocabularyDatabase::fieldCount() const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS);
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS);
 	if (qsqQuery.last()) {
 		return qsqQuery.at() + 1;
 	} else {
@@ -310,12 +310,12 @@ int VocabularyDatabase::fieldCount() const
 } // fieldCount
 #endif
 
-/*int VocabularyDatabase::GetFieldId(const int &pPosition) const
+/*quint8 VocabularyDatabase::getFieldId(quint8 position) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS);
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS);
 	int iPosition = 0;
 	while (qsqQuery.next()) {
-		if (iPosition == pPosition) {
+		if (iPosition == position) {
 			return qsqQuery.value(ColumnPosition1).toInt();
 		} else {
 			iPosition++;
@@ -323,13 +323,13 @@ int VocabularyDatabase::fieldCount() const
 	} // while
 
 	return NOT_FOUND;
-} // GetFieldId*/
+} // getFieldId*/
 
 VocabularyDatabase::FieldIdList VocabularyDatabase::fieldIds() const
 {
 	FieldIdList tfilIds;
 
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS);
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS);
 	while (qsqQuery.next()) {
 		tfilIds.append(qsqQuery.value(ColumnPosition1).toInt());
 	} // while
@@ -337,9 +337,9 @@ VocabularyDatabase::FieldIdList VocabularyDatabase::fieldIds() const
 	return tfilIds;
 } // fieldIds
 
-VocabularyDatabase::FieldLanguage VocabularyDatabase::fieldLanguage(const int &pFieldId) const
+VocabularyDatabase::FieldLanguage VocabularyDatabase::fieldLanguage(quint8 fieldId) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_LANGUAGE + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_LANGUAGE + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(fieldId));
 	if (qsqQuery.next()) {
 		return static_cast<FieldLanguage>(qsqQuery.value(ColumnPosition1).toInt());
 	} // if
@@ -347,9 +347,9 @@ VocabularyDatabase::FieldLanguage VocabularyDatabase::fieldLanguage(const int &p
 	return FieldLanguageUnknown;
 } // fieldLanguage
 
-QString VocabularyDatabase::fieldName(const int &pFieldId) const
+QString VocabularyDatabase::fieldName(quint8 fieldId) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_NAME + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_NAME + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(fieldId));
 	if (qsqQuery.next()) {
 		return qsqQuery.value(ColumnPosition1).toString();
 	} // while
@@ -357,9 +357,9 @@ QString VocabularyDatabase::fieldName(const int &pFieldId) const
 	return QString();
 } // fieldName
 
-QString VocabularyDatabase::fieldTemplateName(const int &pFieldId) const
+QString VocabularyDatabase::fieldTemplateName(quint8 fieldId) const
 {
-    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_TEMPLATENAME + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+    QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_TEMPLATENAME + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(fieldId));
     if (qsqQuery.next()) {
         return qsqQuery.value(ColumnPosition1).toString();
     } // while
@@ -367,9 +367,9 @@ QString VocabularyDatabase::fieldTemplateName(const int &pFieldId) const
     return QString();
 } // fieldTemplateName
 
-VocabularyDatabase::FieldType VocabularyDatabase::fieldType(const int &pFieldId) const
+VocabularyDatabase::FieldType VocabularyDatabase::fieldType(quint8 fieldId) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_TYPE + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_TYPE + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(fieldId));
 	if (qsqQuery.next()) {
 		return static_cast<FieldType>(qsqQuery.value(ColumnPosition1).toInt());
 	} // if
@@ -379,7 +379,7 @@ VocabularyDatabase::FieldType VocabularyDatabase::fieldType(const int &pFieldId)
 
 bool VocabularyDatabase::isOpen() const
 {
-	return _qsdDatabase.isOpen();
+	return _database.isOpen();
 } // isOpen
 
 #ifndef EDITION_FREE
@@ -388,7 +388,7 @@ VocabularyDatabase::LanguageIdList VocabularyDatabase::languageIds(LanguageIds t
     LanguageIdList tlilIds;
 
 	if (type & LanguageIdsUserDefined) {
-		QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_LANGUAGES);
+		QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_LANGUAGES);
 		while (qsqQuery.next()) {
 			tlilIds.append(qsqQuery.value(ColumnPosition1).toInt());
 		} // while
@@ -404,7 +404,7 @@ VocabularyDatabase::LanguageIdList VocabularyDatabase::languageIds(LanguageIds t
 
 QString VocabularyDatabase::languageLearningTemplate(quint8 languageId) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_LEARNINGTEMPLATE + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(languageId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_LEARNINGTEMPLATE + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(languageId));
     if (qsqQuery.next()) {
         return qsqQuery.value(ColumnPosition1).toString();
     } // while
@@ -414,7 +414,7 @@ QString VocabularyDatabase::languageLearningTemplate(quint8 languageId) const
 
 QString VocabularyDatabase::languageName(quint8 languageId) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_NAME + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(languageId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_NAME + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(languageId));
     if (qsqQuery.next()) {
         return qsqQuery.value(ColumnPosition1).toString();
     } else {
@@ -425,7 +425,7 @@ QString VocabularyDatabase::languageName(quint8 languageId) const
 #ifndef EDITION_FREE
 TTSInterface::TTSPlugin VocabularyDatabase::languageSpeech(quint8 languageId) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_SPEECH + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(languageId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_SPEECH + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(languageId));
     if (qsqQuery.next()) {
         return static_cast<const TTSInterface::TTSPlugin>(qsqQuery.value(ColumnPosition1).toInt());
     } // while
@@ -435,7 +435,7 @@ TTSInterface::TTSPlugin VocabularyDatabase::languageSpeech(quint8 languageId) co
 
 QString VocabularyDatabase::languageTrayTemplate(quint8 languageId) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_TRAYTEMPLATE + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(languageId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_TRAYTEMPLATE + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(languageId));
 	if (qsqQuery.next()) {
 		return qsqQuery.value(ColumnPosition1).toString();
 	} // while
@@ -445,7 +445,7 @@ QString VocabularyDatabase::languageTrayTemplate(quint8 languageId) const
 
 QString VocabularyDatabase::languageVoice(quint8 languageId) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_VOICE + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(languageId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_VOICE + " FROM " + TABLE_LANGUAGES + " WHERE " + COLUMN_ID + " = " + QString::number(languageId));
     if (qsqQuery.next()) {
         return qsqQuery.value(ColumnPosition1).toString();
     } // while
@@ -457,68 +457,68 @@ QString VocabularyDatabase::languageVoice(quint8 languageId) const
 QString VocabularyDatabase::name() const
 {
 #ifdef EDITION_TRY
-	return tr("memory %1").arg(_iVocabularyNumber);
+	return tr("memory %1").arg(_vocabularyNumber);
 #else
-    return QFileInfo(_qsVocabularyFile).completeBaseName();
+    return QFileInfo(_vocabularyFile).completeBaseName();
 #endif
 } // name
 
-/*int VocabularyDatabase::GetRecordCategory(const int &pRecordId) const
+/*quint8 VocabularyDatabase::recordCategory(quint32 recordId) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_CATEGORYID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_ID + " = " + QString::number(pRecordId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_CATEGORYID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_ID + " = " + QString::number(recordId));
 	qsqQuery.next();
 	return qsqQuery.value(ColumnPosition1).toInt();
-} // GetRecordCategory
+} // recordCategory
 
-int VocabularyDatabase::GetRecordCount() const
+quint32 VocabularyDatabase::recordCount() const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS);
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS);
 	if (qsqQuery.last()) {
 		return qsqQuery.at() + 1;
 	} else {
 		return 0;
 	} // if else
-} // GetRecordCount
+} // recordCount
 
-int VocabularyDatabase::GetRecordCount(const int &pCategoryId) const
+quint32 VocabularyDatabase::recordCount(quint8 categoryId) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(categoryId));
 	if (qsqQuery.last()) {
 		return qsqQuery.at() + 1;
 	} else {
 		return 0;
 	} // if else
-} // GetRecordCount
+} // recordCount
 
-int VocabularyDatabase::GetRecordCount(const bool &pEnabled) const
+quint32 VocabularyDatabase::recordCount(bool enabled) const
 {
-    QSqlQuery qsqQuery("SELECT " + TABLE_RECORDS + '.' + COLUMN_ID + " FROM " + TABLE_RECORDS + " JOIN " + TABLE_CATEGORIES + " ON " + TABLE_RECORDS + '.' + COLUMN_CATEGORYID + " = " + TABLE_CATEGORIES + '.' + COLUMN_ID + " WHERE " + TABLE_CATEGORIES + '.' + COLUMN_ENABLED + " = " + QString::number(pEnabled));
+    QSqlQuery qsqQuery("SELECT " + TABLE_RECORDS + '.' + COLUMN_ID + " FROM " + TABLE_RECORDS + " JOIN " + TABLE_CATEGORIES + " ON " + TABLE_RECORDS + '.' + COLUMN_CATEGORYID + " = " + TABLE_CATEGORIES + '.' + COLUMN_ID + " WHERE " + TABLE_CATEGORIES + '.' + COLUMN_ENABLED + " = " + QString::number(enabled));
     if (qsqQuery.last()) {
         return qsqQuery.at() + 1;
     } else {
         return 0;
     } // if else
-} // GetRecordCount
+} // recordCount
 
-int VocabularyDatabase::GetRecordId(const int &pRow) const
+quint32 VocabularyDatabase::recordId(quint32 row) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS);
-	qsqQuery.seek(pRow);
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS);
+	qsqQuery.seek(row);
 	return qsqQuery.value(ColumnPosition1).toInt();
-} // GetRecordId
+} // recordId
 
-int VocabularyDatabase::GetRecordId(const int &pCategoryId, const int &pRow) const
+quint32 VocabularyDatabase::recordId(quint8 categoryId, quint32 row) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
-	qsqQuery.seek(pRow);
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(categoryId));
+	qsqQuery.seek(row);
 	return qsqQuery.value(ColumnPosition1).toInt();
-} // GetRecordId*/
+} // recordId*/
 
 #ifndef EDITION_TRY
 VocabularyDatabase::RecordIdList VocabularyDatabase::recordIds() const
 {
     RecordIdList trilRecordIds;
-    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS);
+    QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS);
     while (qsqQuery.next()) {
         trilRecordIds.append(qsqQuery.value(ColumnPosition1).toInt());
     } // while
@@ -527,10 +527,10 @@ VocabularyDatabase::RecordIdList VocabularyDatabase::recordIds() const
 } // recordIds
 #endif
 
-VocabularyDatabase::RecordIdList VocabularyDatabase::recordIds(const int &pCategoryId) const
+VocabularyDatabase::RecordIdList VocabularyDatabase::recordIds(quint8 categoryId) const
 {
     RecordIdList trilRecordIds;
-    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
+    QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(categoryId));
     while (qsqQuery.next()) {
         trilRecordIds.append(qsqQuery.value(ColumnPosition1).toInt());
     } // while
@@ -542,7 +542,7 @@ quint32 VocabularyDatabase::row(quint32 recordId, quint8 categoryId) const
 {
 	int iRow = 0;
 
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(categoryId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(categoryId));
 	while (qsqQuery.next()) {
 		if (qsqQuery.value(ColumnPosition1).toInt() == recordId) {
 			return iRow;
@@ -554,24 +554,24 @@ quint32 VocabularyDatabase::row(quint32 recordId, quint8 categoryId) const
 	return NOT_FOUND;
 } // row
 
-void VocabularyDatabase::Initialize() const
+void VocabularyDatabase::initialize() const
 {
-    _qsdDatabase.exec("CREATE TABLE " + TABLE_SETTINGS + " ("
+    _database.exec("CREATE TABLE " + TABLE_SETTINGS + " ("
 					  + COLUMN_KEY + " TEXT NOT NULL,"
 					  + COLUMN_VALUE + " TEXT NOT NULL)");
-    _qsdDatabase.exec("CREATE TABLE " + TABLE_CATEGORIES + " ("
+    _database.exec("CREATE TABLE " + TABLE_CATEGORIES + " ("
 					  + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 					  + COLUMN_NAME + " TEXT NOT NULL,"
 					  + COLUMN_PRIORITY + " INTEGER,"
 					  + COLUMN_ENABLED + " INTEGER NOT NULL)");
-    _qsdDatabase.exec("CREATE TABLE " + TABLE_LANGUAGES + " ("
+    _database.exec("CREATE TABLE " + TABLE_LANGUAGES + " ("
                       + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                       + COLUMN_NAME + " TEXT NOT NULL,"
                       + COLUMN_LEARNINGTEMPLATE + " TEXT NOT NULL,"
                       + COLUMN_TRAYTEMPLATE + " TEXT NOT NULL,"
                       + COLUMN_SPEECH + " INTEGER NOT NULL,"
                       + COLUMN_VOICE + " TEXT NOT NULL)");
-	_qsdDatabase.exec("CREATE TABLE " + TABLE_FIELDS + " ("
+	_database.exec("CREATE TABLE " + TABLE_FIELDS + " ("
 					  + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 					  + COLUMN_TEMPLATENAME + " TEXT NOT NULL,"
 					  + COLUMN_NAME + " TEXT NOT NULL,"
@@ -579,10 +579,10 @@ void VocabularyDatabase::Initialize() const
 					  + COLUMN_ATTRIBUTES + " INTEGER NOT NULL,"
                       + COLUMN_BUILTIN + " INTEGER NOT NULL,"
 					  + COLUMN_LANGUAGE + " INTEGER REFERENCES " + TABLE_LANGUAGES + " ON DELETE CASCADE)");
-	_qsdDatabase.exec("CREATE TABLE " + TABLE_RECORDS + " ("
+	_database.exec("CREATE TABLE " + TABLE_RECORDS + " ("
 					  + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 					  + COLUMN_CATEGORYID + " INTEGER REFERENCES " + TABLE_CATEGORIES + " ON DELETE CASCADE)");
-    _qsdDatabase.exec("CREATE TABLE " + TABLE_DATA + " ("
+    _database.exec("CREATE TABLE " + TABLE_DATA + " ("
 					  + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 					  + COLUMN_FIELDID + " INTEGER REFERENCES " + TABLE_FIELDS + " ON DELETE CASCADE,"
 					  + COLUMN_RECORDID + " INTEGER REFERENCES " + TABLE_RECORDS + " ON DELETE CASCADE,"
@@ -593,14 +593,14 @@ void VocabularyDatabase::Initialize() const
 	const QString LEARNING_TEMPLATE1 = "<center style=\"font-size:20px\">" + VARIABLE_MARK + tr(FIELD_WORD1) + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + tr(FIELD_NOTE1) + "</center>";
 	const QString LEARNING_TEMPLATE2 = "<center style=\"font-size:20px\">" + VARIABLE_MARK + tr(FIELD_WORD2) + "</center><center style=\"font-size:10px\">" + VARIABLE_MARK + tr(FIELD_NOTE2) + "</center>";
 #endif
-    AddLanguage(tr("Language1"),
+    addLanguage(tr("Language1"),
 #ifdef EDITION_FREE
         LEARNING_TEMPLATE1
 #else
         QString(), QString(), TTSInterface::TTPluginNone, QString()
 #endif
         );
-    AddLanguage(tr("Language2"),
+    addLanguage(tr("Language2"),
 #ifdef EDITION_FREE
         LEARNING_TEMPLATE2
 #else
@@ -619,100 +619,100 @@ void VocabularyDatabase::Initialize() const
 #ifndef EDITION_TRY
     setSettings(KEY_VERSION, QString::number(Version2));
 #endif
-} // Initialize
+} // initialize
 
 void VocabularyDatabase::new2(
 #ifndef EDITION_TRY
-	const QString &pFilePath
+	const QString &filePath
 #endif
 	)
 {
 #ifdef EDITION_TRY
-	_iVocabularyNumber = ++_iMemoryVocabularies;
+	_vocabularyNumber = ++_memoryVocabularies;
 #else
-	_qsVocabularyFile = pFilePath;
+	_vocabularyFile = filePath;
 
-	if (QFile::exists(pFilePath)) {
-		QFile::remove(pFilePath);
+	if (QFile::exists(filePath)) {
+		QFile::remove(filePath);
 	} // if
 #endif
 
-	OpenDatabase();
-	Initialize();
+	openDatabase();
+	initialize();
 } // new
 
 #ifndef EDITION_TRY
-void VocabularyDatabase::open(const QString &pFilePath)
+void VocabularyDatabase::open(const QString &filePath)
 {
-    if (!QFile::exists(pFilePath)) {
+    if (!QFile::exists(filePath)) {
         return;
     } // if
 
-    _qsVocabularyFile = pFilePath;
-	emit SetVocabularyName(name());
+    _vocabularyFile = filePath;
+	emit setVocabularyName(name());
 
-    OpenDatabase();
+    openDatabase();
 
-    UpdateDatabase();
+    updateDatabase();
 } // open
 #endif
 
-void VocabularyDatabase::OpenDatabase()
+void VocabularyDatabase::openDatabase()
 {
 #ifdef EDITION_TRY
-    _qsdDatabase.setDatabaseName(":memory:");
+    _database.setDatabaseName(":memory:");
 #else
-	_qsdDatabase.setDatabaseName(_qsVocabularyFile);
+	_database.setDatabaseName(_vocabularyFile);
 #endif
-	_qsdDatabase.open();
-} // OpenDatabase
+	_database.open();
+} // openDatabase
 
-void VocabularyDatabase::removeCategory(const int &pCategoryId) const
+void VocabularyDatabase::removeCategory(quint8 categoryId) const
 {
 	// record
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(categoryId));
 	while (qsqQuery.next()) {
 		int iRecord = qsqQuery.value(ColumnPosition1).toInt();
 		removeRecord(iRecord);
 	} // while
 
-    _qsdDatabase.exec("DELETE FROM " + TABLE_CATEGORIES + " WHERE " + COLUMN_ID + " = " + QString::number(pCategoryId));
+    _database.exec("DELETE FROM " + TABLE_CATEGORIES + " WHERE " + COLUMN_ID + " = " + QString::number(categoryId));
 } // removeCategory
 
 #ifndef EDITION_FREE
-void VocabularyDatabase::removeField(const int &pFieldId) const
+void VocabularyDatabase::removeField(quint8 fieldId) const
 {
-	_qsdDatabase.exec("DELETE FROM " + TABLE_DATA + " WHERE " + COLUMN_FIELDID + " = " + QString::number(pFieldId));
-	_qsdDatabase.exec("DELETE FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+	_database.exec("DELETE FROM " + TABLE_DATA + " WHERE " + COLUMN_FIELDID + " = " + QString::number(fieldId));
+	_database.exec("DELETE FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(fieldId));
 } // removeField
 #endif
 
-void VocabularyDatabase::removeRecord(const int &pCategoryId, const int &pRow) const
+void VocabularyDatabase::removeRecord(quint8 categoryId, quint32 row) const
 {
 	// find record
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
-	qsqQuery.seek(pRow);
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(categoryId));
+	qsqQuery.seek(row);
 	int iRecord = qsqQuery.value(ColumnPosition1).toInt();
 
 	removeRecord(iRecord);
 } // removeRecord
 
-void VocabularyDatabase::removeRecord(const int &pRecordId) const
+void VocabularyDatabase::removeRecord(quint32 recordId) const
 {
 	// remove record's data
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DATA + " WHERE " + COLUMN_RECORDID + " = " + QString::number(pRecordId));
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DATA + " WHERE " + COLUMN_RECORDID + " = " + QString::number(recordId));
 	while (qsqQuery.next()) {
 		int iDataId = qsqQuery.value(ColumnPosition1).toInt();
-		_qsdDatabase.exec("DELETE FROM " + TABLE_DATA + " WHERE " + COLUMN_ID + " = " + QString::number(iDataId));
+		_database.exec("DELETE FROM " + TABLE_DATA + " WHERE " + COLUMN_ID + " = " + QString::number(iDataId));
 	} // while
 
-	_qsdDatabase.exec("DELETE FROM " + TABLE_RECORDS + " WHERE " + COLUMN_ID + " = " + QString::number(pRecordId));
+	_database.exec("DELETE FROM " + TABLE_RECORDS + " WHERE " + COLUMN_ID + " = " + QString::number(recordId));
 } // removeRecord
 
 quint32 VocabularyDatabase::search(const QString &word, quint32 startId) const
 {
 	QString qsWordLike = '%' + word + '%';
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_RECORDID + " FROM " + TABLE_DATA + " WHERE " + COLUMN_TEXT + " LIKE '" + qsWordLike + "' GROUP BY " + COLUMN_RECORDID);
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_RECORDID + " FROM " + TABLE_DATA + " WHERE " + COLUMN_TEXT + " LIKE '" + qsWordLike + "' GROUP BY " + COLUMN_RECORDID);
 	if (!qsqQuery.next()) {
 		return NOT_FOUND;
 	} // if
@@ -730,102 +730,102 @@ quint32 VocabularyDatabase::search(const QString &word, quint32 startId) const
 #ifndef EDITION_FREE
 void VocabularyDatabase::setCategoryEnabled(quint8 categoryId, bool enabled) const
 {
-	_qsdDatabase.exec("UPDATE " + TABLE_CATEGORIES + " SET " + COLUMN_ENABLED + " = " + QString::number(enabled) + " WHERE " + COLUMN_ID + " = " + QString::number(categoryId));
+	_database.exec("UPDATE " + TABLE_CATEGORIES + " SET " + COLUMN_ENABLED + " = " + QString::number(enabled) + " WHERE " + COLUMN_ID + " = " + QString::number(categoryId));
 } // setCategoryEnabled
 
 void VocabularyDatabase::setCategoryPriority(quint8 categoryId, quint8 priority) const
 {
-	_qsdDatabase.exec("UPDATE " + TABLE_CATEGORIES + " SET " + COLUMN_PRIORITY + " = " + QString::number(priority) + " WHERE " + COLUMN_ID + " = " + QString::number(categoryId));
+	_database.exec("UPDATE " + TABLE_CATEGORIES + " SET " + COLUMN_PRIORITY + " = " + QString::number(priority) + " WHERE " + COLUMN_ID + " = " + QString::number(categoryId));
 } // setCategoryPriority
 #endif
 
-/*void VocabularyDatabase::setDataText(const int &pCategoryId, const int &pRow, const int &pFieldId, const QString &pData) const
+/*void VocabularyDatabase::setDataText(quint8 categoryId, quint32 row, quint8 fieldId, const QString &data) const
 {
 	// find data record
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId));
-	qsqQuery.seek(pRow);
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(categoryId));
+	qsqQuery.seek(row);
 	int iRecordId = qsqQuery.value(ColumnPosition1).toInt();
 
-    setDataText(iRecordId, pFieldId, pData);
+    setDataText(iRecordId, fieldId, data);
 } // setDataText*/
 
-void VocabularyDatabase::setDataText(const int &pRecordId, const int &pFieldId, const QString &pData) const
+void VocabularyDatabase::setDataText(quint32 recordId, quint8 fieldId, const QString &data) const
 {
-    QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DATA + " WHERE " + COLUMN_RECORDID + " = " + QString::number(pRecordId) + " AND " + COLUMN_FIELDID + " = " + QString::number(pFieldId));
+    QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DATA + " WHERE " + COLUMN_RECORDID + " = " + QString::number(recordId) + " AND " + COLUMN_FIELDID + " = " + QString::number(fieldId));
     if (qsqQuery.next()) {
         int iDataId = qsqQuery.value(ColumnPosition1).toInt();
-        _qsdDatabase.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_TEXT + " = '" + pData + "' WHERE " + COLUMN_ID + " = " + QString::number(iDataId));
+        _database.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_TEXT + " = '" + data + "' WHERE " + COLUMN_ID + " = " + QString::number(iDataId));
     } else {
-        qsqQuery = _qsdDatabase.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(pFieldId) + "', '" + QString::number(pRecordId) + "', '" + pData + "')");
+        qsqQuery = _database.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(fieldId) + "', '" + QString::number(recordId) + "', '" + data + "')");
     } // if else
 } // setDataText
 
-void VocabularyDatabase::setFieldAttributes(const int &pFieldId, const FieldAttributes &pAttributes) const
+void VocabularyDatabase::setFieldAttributes(quint8 fieldId, FieldAttributes attributes) const
 {
-    _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_ATTRIBUTES + " = '" + QString::number(pAttributes) + "' WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+    _database.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_ATTRIBUTES + " = '" + QString::number(attributes) + "' WHERE " + COLUMN_ID + " = " + QString::number(fieldId));
 } // setFieldAttributes
 
 #ifndef EDITION_FREE
-void VocabularyDatabase::setFieldLanguage(const int &pFieldId, const FieldLanguage &pLanguage) const
+void VocabularyDatabase::setFieldLanguage(quint8 fieldId, FieldLanguage language) const
 {
-    _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_LANGUAGE + " = '" + QString::number(pLanguage) + "' WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+    _database.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_LANGUAGE + " = '" + QString::number(language) + "' WHERE " + COLUMN_ID + " = " + QString::number(fieldId));
 } // setFieldLanguage
 
-void VocabularyDatabase::setFieldName(const int &pFieldId, const QString &pName) const
+void VocabularyDatabase::setFieldName(quint8 fieldId, const QString &name) const
 {
-    _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_NAME + " = '" + pName + "' WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+    _database.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_NAME + " = '" + name + "' WHERE " + COLUMN_ID + " = " + QString::number(fieldId));
 } // setFieldName
 
-void VocabularyDatabase::setFieldTemplateName(const int &pFieldId, const QString &pTemplateName) const
+void VocabularyDatabase::setFieldTemplateName(quint8 fieldId, const QString &templateName) const
 {
-    _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_TEMPLATENAME + " = '" + pTemplateName + "' WHERE " + COLUMN_ID + " = " + QString::number(pFieldId));
+    _database.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_TEMPLATENAME + " = '" + templateName + "' WHERE " + COLUMN_ID + " = " + QString::number(fieldId));
 } // setFieldTemplateName
 
 void VocabularyDatabase::setLanguageLearningTemplate(quint8 languageId, const QString &templateText) const
 {
-    _qsdDatabase.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_LEARNINGTEMPLATE + " = '" + templateText + "' WHERE " + COLUMN_ID + " = " + QString::number(languageId));
+    _database.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_LEARNINGTEMPLATE + " = '" + templateText + "' WHERE " + COLUMN_ID + " = " + QString::number(languageId));
 } // SetLanguageLearningTemplateconst
 #endif
 
 void VocabularyDatabase::setLanguageName(quint8 languageId, const QString &name) const
 {
-    _qsdDatabase.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_NAME + " = '" + name + "' WHERE " + COLUMN_ID + " = " + QString::number(languageId));
+    _database.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_NAME + " = '" + name + "' WHERE " + COLUMN_ID + " = " + QString::number(languageId));
 } // setLanguageName
 
 #ifndef EDITION_FREE
 void VocabularyDatabase::setLanguageSpeech(quint8 languageId, TTSInterface::TTSPlugin speech) const
 {
-    _qsdDatabase.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_SPEECH + " = '" + QString::number(speech)+ "' WHERE " + COLUMN_ID + " = " + QString::number(languageId));
+    _database.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_SPEECH + " = '" + QString::number(speech)+ "' WHERE " + COLUMN_ID + " = " + QString::number(languageId));
 } // setLanguageSpeech
 
 void VocabularyDatabase::setLanguageTrayTemplate(quint8 languageId, const QString &templateText) const
 {
-    _qsdDatabase.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_TRAYTEMPLATE + " = '" + templateText + "' WHERE " + COLUMN_ID + " = " + QString::number(languageId));
+    _database.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_TRAYTEMPLATE + " = '" + templateText + "' WHERE " + COLUMN_ID + " = " + QString::number(languageId));
 } // setLanguageTrayTemplate
 
 void VocabularyDatabase::setLanguageVoice(quint8 languageId, const QString &voice) const
 {
-	_qsdDatabase.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_VOICE + " = '" + voice + "' WHERE " + COLUMN_ID + " = " + QString::number(languageId));
+	_database.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_VOICE + " = '" + voice + "' WHERE " + COLUMN_ID + " = " + QString::number(languageId));
 } // setLanguageVoice
 
-void VocabularyDatabase::SetRecordCategory(const int &pRecordId, const int &pCategoryId) const
+void VocabularyDatabase::SetRecordCategory(quint32 recordId, quint8 categoryId) const
 {
-	_qsdDatabase.exec("UPDATE " + TABLE_RECORDS + " SET " + COLUMN_CATEGORYID + " = " + QString::number(pCategoryId) + " WHERE " + COLUMN_ID + " = " + QString::number(pRecordId));
+	_database.exec("UPDATE " + TABLE_RECORDS + " SET " + COLUMN_CATEGORYID + " = " + QString::number(categoryId) + " WHERE " + COLUMN_ID + " = " + QString::number(recordId));
 } // SetRecordCategory
 #endif
 
 void VocabularyDatabase::setSettings(const QString &key, const QString &value) const
 {
 	if (settings(key).isNull()) {
-		_qsdDatabase.exec("INSERT INTO " + TABLE_SETTINGS + " (" + COLUMN_KEY + ", " + COLUMN_VALUE + ") VALUES ('" + key + "', '" + value + "')");
+		_database.exec("INSERT INTO " + TABLE_SETTINGS + " (" + COLUMN_KEY + ", " + COLUMN_VALUE + ") VALUES ('" + key + "', '" + value + "')");
 	} else {
-		_qsdDatabase.exec("UPDATE " + TABLE_SETTINGS + " SET " + COLUMN_VALUE + " = '" + value + "' WHERE " + COLUMN_KEY + " = '" + key + "'");
+		_database.exec("UPDATE " + TABLE_SETTINGS + " SET " + COLUMN_VALUE + " = '" + value + "' WHERE " + COLUMN_KEY + " = '" + key + "'");
 	} // if else
 } // setSettings
 
 QString VocabularyDatabase::settings(const QString &key) const
 {
-	QSqlQuery qsqQuery = _qsdDatabase.exec("SELECT " + COLUMN_VALUE + " FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + key + "'");
+	QSqlQuery qsqQuery = _database.exec("SELECT " + COLUMN_VALUE + " FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + key + "'");
 	if (qsqQuery.next()) {
 		return qsqQuery.value(ColumnPosition1).toString();
 	} else {
@@ -834,36 +834,36 @@ QString VocabularyDatabase::settings(const QString &key) const
 } // settings
 
 #ifndef EDITION_FREE
-void VocabularyDatabase::swapFields(const int &pSourceId, const int &pDestinationId) const
+void VocabularyDatabase::swapFields(quint8 sourceId, quint8 destinationId) const
 {
-	QSqlQuery qsqSource = _qsdDatabase.exec("SELECT * FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pSourceId));
-	QSqlQuery qsqDestination = _qsdDatabase.exec("SELECT * FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(pDestinationId));
+	QSqlQuery qsqSource = _database.exec("SELECT * FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(sourceId));
+	QSqlQuery qsqDestination = _database.exec("SELECT * FROM " + TABLE_FIELDS + " WHERE " + COLUMN_ID + " = " + QString::number(destinationId));
 
 	qsqSource.next();
 	qsqDestination.next();
 
-	Update(TABLE_FIELDS, pDestinationId, qsqSource.record());
-	Update(TABLE_FIELDS, pSourceId, qsqDestination.record());
+	update(TABLE_FIELDS, destinationId, qsqSource.record());
+	update(TABLE_FIELDS, sourceId, qsqDestination.record());
 
-	_qsdDatabase.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_FIELDID + " = 0 WHERE " + COLUMN_FIELDID + " = " + QString::number(pSourceId));
-	_qsdDatabase.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_FIELDID + " = " + QString::number(pSourceId) + " WHERE " + COLUMN_FIELDID + " = " + QString::number(pDestinationId));
-	_qsdDatabase.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_FIELDID + " = " + QString::number(pDestinationId) + " WHERE " + COLUMN_FIELDID + " = 0");
+	_database.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_FIELDID + " = 0 WHERE " + COLUMN_FIELDID + " = " + QString::number(sourceId));
+	_database.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_FIELDID + " = " + QString::number(sourceId) + " WHERE " + COLUMN_FIELDID + " = " + QString::number(destinationId));
+	_database.exec("UPDATE " + TABLE_DATA + " SET " + COLUMN_FIELDID + " = " + QString::number(destinationId) + " WHERE " + COLUMN_FIELDID + " = 0");
 } // swapFields
 
 #ifndef EDITION_TRY
 const QString &VocabularyDatabase::vocabularyFile() const
 {
-    return _qsVocabularyFile;
+    return _vocabularyFile;
 } // vocabularyFile
 #endif
 
-void VocabularyDatabase::Update(const QString &pTable, const int &pColumnId, const QSqlRecord &pRecord) const
+void VocabularyDatabase::update(const QString &table, quint8 columnId, const QSqlRecord &record) const
 {
-	QString qsQuery = "UPDATE " + pTable + " SET ";
+	QString qsQuery = "UPDATE " + table + " SET ";
 
 	int iSet = 0;
-	for (int iColumn = 0; iColumn < pRecord.count(); iColumn++) {
-		QSqlField qsfField = pRecord.field(iColumn);
+	for (int iColumn = 0; iColumn < record.count(); iColumn++) {
+		QSqlField qsfField = record.field(iColumn);
 		if (qsfField.name() != COLUMN_ID) {
 			if (iSet > 0) {
 				qsQuery += ", ";
@@ -874,29 +874,29 @@ void VocabularyDatabase::Update(const QString &pTable, const int &pColumnId, con
 		} // if
 	} // for
 
-	qsQuery += " WHERE " + COLUMN_ID + " = " + QString::number(pColumnId);
+	qsQuery += " WHERE " + COLUMN_ID + " = " + QString::number(columnId);
 
-	_qsdDatabase.exec(qsQuery);
-} // Update
+	_database.exec(qsQuery);
+} // update
 #endif
 
 #ifndef EDITION_TRY
-void VocabularyDatabase::UpdateDatabase()
+void VocabularyDatabase::updateDatabase()
 {
     QString qsVersion = settings(KEY_VERSION);
-    eVersion evCurrent;
+    Version evCurrent;
     if (qsVersion.isEmpty()) {
         evCurrent = Version1;
     } else {
-        evCurrent = static_cast<eVersion>(qsVersion.toInt());
+        evCurrent = static_cast<Version>(qsVersion.toInt());
     } // if else
 
 	beginEdit();
 
     if (evCurrent < Version2) {
         // add priority column to categories table
-        _qsdDatabase.exec("ALTER TABLE " + TABLE_CATEGORIES + " ADD " + COLUMN_PRIORITY + " INTEGER");
-        _qsdDatabase.exec("UPDATE " + TABLE_CATEGORIES + " SET " + COLUMN_PRIORITY + " = " + QString::number(PRIORITY_DEFAULT));
+        _database.exec("ALTER TABLE " + TABLE_CATEGORIES + " ADD " + COLUMN_PRIORITY + " INTEGER");
+        _database.exec("UPDATE " + TABLE_CATEGORIES + " SET " + COLUMN_PRIORITY + " = " + QString::number(PRIORITY_DEFAULT));
 
         // add show attribute to fields
         FieldIdList tfilFieldIds = fieldIds();
@@ -907,7 +907,7 @@ void VocabularyDatabase::UpdateDatabase()
         } // foreach
 
         // create language table
-        _qsdDatabase.exec("CREATE TABLE " + TABLE_LANGUAGES + " ("
+        _database.exec("CREATE TABLE " + TABLE_LANGUAGES + " ("
                           + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                           + COLUMN_NAME + " TEXT NOT NULL,"
                           + COLUMN_LEARNINGTEMPLATE + " TEXT NOT NULL,"
@@ -915,37 +915,37 @@ void VocabularyDatabase::UpdateDatabase()
                           + COLUMN_SPEECH + " INTEGER NOT NULL,"
                           + COLUMN_VOICE + " TEXT NOT NULL)");
         // copy existing language settings values to language table
-        AddLanguage(settings(KEY_LANGUAGE1), settings(KEY_LEARNINGTEMPLATE1)
+        addLanguage(settings(KEY_LANGUAGE1), settings(KEY_LEARNINGTEMPLATE1)
 #ifndef EDITION_FREE
             , settings(KEY_TRAYTEMPLATE1), static_cast<TTSInterface::TTSPlugin>(settings(KEY_SPEECH1).toInt()), settings(KEY_VOICE1)
 #endif
             );
-        AddLanguage(settings(KEY_LANGUAGE2), settings(KEY_LEARNINGTEMPLATE2)
+        addLanguage(settings(KEY_LANGUAGE2), settings(KEY_LEARNINGTEMPLATE2)
 #ifndef EDITION_FREE
             , settings(KEY_TRAYTEMPLATE2), static_cast<TTSInterface::TTSPlugin>(settings(KEY_SPEECH2).toInt()), settings(KEY_VOICE2)
 #endif
             );
         // delete old language settings
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_LANGUAGE1 + "'");
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_LEARNINGTEMPLATE1 + "'");
+        _database.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_LANGUAGE1 + "'");
+        _database.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_LEARNINGTEMPLATE1 + "'");
 #ifndef EDITION_FREE
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_SPEECH1 + "'");
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_VOICE1 + "'");
+        _database.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_SPEECH1 + "'");
+        _database.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_VOICE1 + "'");
 #endif
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_LANGUAGE2 + "'");
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_LEARNINGTEMPLATE2 + "'");
+        _database.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_LANGUAGE2 + "'");
+        _database.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_LEARNINGTEMPLATE2 + "'");
 #ifndef EDITION_FREE
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_SPEECH2 + "'");
-        _qsdDatabase.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_VOICE2 + "'");
+        _database.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_SPEECH2 + "'");
+        _database.exec("DELETE FROM " + TABLE_SETTINGS + " WHERE " + COLUMN_KEY + " = '" + KEY_VOICE2 + "'");
 #endif
 
 		// add type column to fields table
-		_qsdDatabase.exec("ALTER TABLE " + TABLE_FIELDS + " ADD " + COLUMN_TYPE + " INTEGER");
-		_qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_TYPE + " = " + QString::number(FieldTypeLineEdit));
+		_database.exec("ALTER TABLE " + TABLE_FIELDS + " ADD " + COLUMN_TYPE + " INTEGER");
+		_database.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_TYPE + " = " + QString::number(FieldTypeLineEdit));
 
         // add builtin column to fields table
-        _qsdDatabase.exec("ALTER TABLE " + TABLE_FIELDS + " ADD " + COLUMN_BUILTIN + " INTEGER");
-        _qsdDatabase.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_BUILTIN + " = " + QString::number(FieldBuiltInNone));
+        _database.exec("ALTER TABLE " + TABLE_FIELDS + " ADD " + COLUMN_BUILTIN + " INTEGER");
+        _database.exec("UPDATE " + TABLE_FIELDS + " SET " + COLUMN_BUILTIN + " = " + QString::number(FieldBuiltInNone));
 
         // add enable/disable field
         addField(tr("Enabled"), "", FieldTypeCheckBox, FieldAttributeShow | FieldAttributeBuiltIn, FieldBuiltInEnabled, FieldLanguageAll);
@@ -957,5 +957,5 @@ void VocabularyDatabase::UpdateDatabase()
     } // if
 
 	endEdit(true);
-} // UpdateDatabase
+} // updateDatabase
 #endif
