@@ -14,83 +14,84 @@ class VocabularyManagerDialog : public QDialog
     Q_OBJECT
 
     public:
-        ~VocabularyManagerDialog();
-        VocabularyManagerDialog(Vocabulary *pVocabulary,
+                 VocabularyManagerDialog(Vocabulary *vocabulary,
 #ifndef EDITION_FREE
-            const Settings *pSettings,
-            const Plugins *pPlugins,
+            const Settings *settings,
+            const Plugins *plugins,
 #endif
-            QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+            QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		virtual ~VocabularyManagerDialog();
 
 #ifndef EDITION_FREE
-        int ExecOnRecord(const int &pRecordId);
+        void execOnRecord(quint32 recordId);
 #endif
 
     private:
-		enum eEditorColumn {
+		enum EditorColumn
+		{
 			EditorColumnLeftLabel,
 			EditorColumnLeftControl,
 			EditorColumnRightLabel,
 			EditorColumnRightControl
-		}; // eEditorColumn
+		}; // EditorColumn
 
 #ifndef EDITION_FREE
-		static const int BUILTIN_COLUMN_SIZE = 30;
-		static const int COLUMNS_NONE = -1;
+		static const quint8 BUILTIN_COLUMN_SIZE = 30;
+		static const qint8  COLUMNS_NONE        = -1;
 
-		const Plugins *_pPlugins;
+		const Plugins *_plugins;
 #endif
-        QList<int> _qlCategories;
+        QList<quint8>               _categories;
 #ifndef EDITION_FREE
-        const Settings *_sSettings;
+        const Settings             *_settings;
 #endif
-        Ui::qdVocabularyManager _qdvmVocabularyManager;
-        Vocabulary *_vVocabulary;
+		Ui::VocabularyManagerDialog _ui;
+        Vocabulary                 *_vocabulary;
 
-        const void AddTab(const int &pCategoryId);
-		const void EnableTabControls() const;
-		const void EnableWordControls() const;
-        const void FocusOnRecord(const int &pRecordId) const;
+		void addTab               (quint8 categoryId);
+		void enableTabControls    ()                                const;
+		void enableWordControls   ()                                const;
+		void focusOnRecord        (quint32 recordId)                const;
 #ifndef EDITION_FREE
-		const void HideColumns() const;
+		void hideColumns          ()                                const;
 #endif
-		const void HideColumns(VocabularyView *pTableView) const;
-		const void InitEditor();
-        const void InitTabs();
+		void hideColumns          (VocabularyView *tableView)       const;
+		void initEditor           ();
+        void initTabs             ();
 #ifndef EDITION_FREE
-        const void ReassignModels() const;
-        const void SelectFirstEnabledTab();
-		const void SetPriorityDelegate();
-		const void SetPriorityDelegate(VocabularyView *pTableView);
-        const void StretchColumns() const;
+        void reassignModels       ()                                const;
+        void selectFirstEnabledTab();
+		void setPriorityDelegate  ();
+		void setPriorityDelegate  (VocabularyView *tableView);
+        void stretchColumns       ()                                const;
 #endif
-		const void StretchColumns(const VocabularyView *pTableView) const;
+		void stretchColumns       (const VocabularyView *tableView) const;
 #ifndef EDITION_FREE
-        const void UninitEditor() const;
+        void uninitEditor         ()                                const;
 #endif
-		const void UpdateEditor() const;
-		const void UpdateEditor(const eEditorColumn &pControlsColumn) const;
+		void updateEditor         ()                                const;
+		void updateEditor         (EditorColumn controlsColumn)     const;
 
     private slots:
-		const void on_qleControl_textEdited(const QString &pText) const;
-        const void on_qleSearch_textChanged(const QString &text) const;
-        const void on_qpbCategoryAdd_clicked(bool checked = false);
-        const void on_qpbCategoryRemove_clicked(bool checked = false);
-        const void on_qpbSearch_clicked(bool checked = false) const;
-		const void on_qpbVocabularySettings_clicked(bool checked = false);
-        const void on_qpbWordAdd_clicked(bool checked = false);
+		void on_control_textEdited                           (const QString &text)                                              const;
+        void on_categoryAdd_clicked                          (bool checked = false);
+        void on_categoryRemove_clicked                       (bool checked = false);
+        void on_searchButton_clicked                         (bool checked = false)                                             const;
+		void on_searchEdit_textChanged                       (const QString &text)                                              const;
+		void on_tabs_currentChanged                          (int index)                                                        const;
 #ifndef EDITION_FREE
-		const void on_qpbWordCopyMove_clicked(bool checked = false);
-		const void on_qpbWordExport_clicked(bool checked = false);
-		const void on_qpbWordImport_clicked(bool checked = false);
+        void on_tabs_TabEnableChanged                        (quint8 index, Qt::CheckState state)                               const;
+		void on_tabs_TabPriorityChanged                      (quint8 index, quint8 value)                                       const;
 #endif
-        const void on_qpbWordRemove_clicked(bool checked = false);
-		const void on_vtwTabs_currentChanged(int index) const;
+		void on_vocabularySettings_clicked                   (bool checked = false);
+		void on_vocabularyViewSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
+        void on_wordAdd_clicked                              (bool checked = false);
 #ifndef EDITION_FREE
-        const void on_vtwTabs_TabEnableChanged(const int &pIndex, const Qt::CheckState &pState) const;
-		const void on_vtwTabs_TabPriorityChanged(const int &pIndex, const int &pValue) const;
+		void on_wordCopyMove_clicked                         (bool checked = false);
+		void on_wordExport_clicked                           (bool checked = false);
+		void on_wordImport_clicked                           (bool checked = false);
 #endif
-        const void on_vvVocabularyViewSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
+        void on_wordRemove_clicked                           (bool checked = false);
 }; // VocabularyManagerDialog
 
 #endif // VOCABULARYMANAGERDIALOG_H

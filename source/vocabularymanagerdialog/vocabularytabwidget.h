@@ -33,8 +33,8 @@ class VocabularyTabWidget : public QTabWidget
 		bool _bShowPriorities;
 
     signals:
-        void TabEnableChanged(const int &pIndex, const Qt::CheckState &pState) const;
-		void TabPriorityChanged(const int &pIndex, const int &pValue) const;
+        void TabEnableChanged(quint8 pIndex, Qt::CheckState pState) const;
+		void TabPriorityChanged(quint8 pIndex, quint8 pValue) const;
 
     private slots:
         const void on_qcbEnabled_stateChanged(int state) const;
