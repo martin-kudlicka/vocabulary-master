@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qdVocabularyManager</class>
- <widget class="QDialog" name="qdVocabularyManager">
+ <class>VocabularyManagerDialog</class>
+ <widget class="QDialog" name="VocabularyManagerDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,20 +17,20 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="VocabularyTabWidget" name="vtwTabs">
+      <widget class="VocabularyTabWidget" name="tabs">
        <property name="currentIndex">
         <number>-1</number>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="qgbEditor">
+      <widget class="QGroupBox" name="editorGroup">
        <property name="title">
         <string>Editor</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <layout class="QGridLayout" name="qglEditor"/>
+         <layout class="QGridLayout" name="editorLayout"/>
         </item>
        </layout>
       </widget>
@@ -47,15 +47,15 @@
            <string>&amp;Word</string>
           </property>
           <property name="buddy">
-           <cstring>qleSearch</cstring>
+           <cstring>searchEdit</cstring>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="qleSearch"/>
+         <widget class="QLineEdit" name="searchEdit"/>
         </item>
         <item>
-         <widget class="QPushButton" name="qpbSearch">
+         <widget class="QPushButton" name="searchButton">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -78,14 +78,14 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QPushButton" name="qpbCategoryAdd">
+         <widget class="QPushButton" name="categoryAdd">
           <property name="text">
            <string>A&amp;dd...</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="qpbCategoryRemove">
+         <widget class="QPushButton" name="categoryRemove">
           <property name="text">
            <string>R&amp;emove</string>
           </property>
@@ -101,14 +101,14 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QPushButton" name="qpbWordAdd">
+         <widget class="QPushButton" name="wordAdd">
           <property name="text">
            <string>&amp;Add</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="qpbWordRemove">
+         <widget class="QPushButton" name="wordRemove">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -118,21 +118,21 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="qpbWordCopyMove">
+         <widget class="QPushButton" name="wordCopyMove">
           <property name="text">
            <string>&amp;Copy/Move...</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="qpbWordImport">
+         <widget class="QPushButton" name="wordImport">
           <property name="text">
            <string>&amp;Import...</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="qpbWordExport">
+         <widget class="QPushButton" name="wordExport">
           <property name="text">
            <string>&amp;Export...</string>
           </property>
@@ -142,7 +142,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="qpbVocabularySettings">
+      <widget class="QPushButton" name="vocabularySettings">
        <property name="text">
         <string>Se&amp;ttings...</string>
        </property>
@@ -185,7 +185,7 @@
   <connection>
    <sender>qpbClose</sender>
    <signal>clicked()</signal>
-   <receiver>qdVocabularyManager</receiver>
+   <receiver>VocabularyManagerDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">

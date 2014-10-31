@@ -396,7 +396,7 @@ void MainWindow::openVocabulary(Vocabulary *vocabulary
 #ifndef EDITION_FREE
     if (currentRecord)
 	{
-        vocabularyManagerDialog.ExecOnRecord(_currentRecord.iId);
+        vocabularyManagerDialog.execOnRecord(_currentRecord.iId);
     }
 	else
 	{
