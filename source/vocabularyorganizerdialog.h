@@ -10,31 +10,32 @@ class VocabularyOrganizerDialog : public QDialog
     Q_OBJECT
 
     public:
-        VocabularyOrganizerDialog(VocabularyOrganizer *pOrganizer, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+                 VocabularyOrganizerDialog(VocabularyOrganizer *organizer, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		virtual ~VocabularyOrganizerDialog();
 
 	private:
-		Ui::qdVocabularyOrganizer _qdvmOrganizer;
-		VocabularyOrganizer *_voOrganizer;
-		VocabularyOrganizerModel _vomModel;
+		Ui::VocabularyOrganizerDialog _ui;
+		VocabularyOrganizer          *_organizer;
+		VocabularyOrganizerModel      _model;
 
 #ifndef EDITION_TRY
-		virtual void accept();
+		virtual void    accept        ();
 #endif
 #ifdef EDITION_FREE
-		const void EnableControls() const;
+		        void    enableControls() const;
 #endif
 #ifndef EDITION_TRY
-		const QString GetOpenPath() const;
-		virtual void reject();
+		        QString openPath      () const;
+		virtual void    reject        ();
 #endif
 
 	private slots:
-		const void on_qpbClose_clicked(bool checked = false);
-		const void on_qpbNew_clicked(bool checked = false);
+		void on_close_clicked                              (bool checked = false);
+		void on_new2_clicked                               (bool checked = false);
 #ifndef EDITION_TRY
-		const void on_qpbOpen_clicked(bool checked = false);
+		void on_open_clicked                               (bool checked = false);
 #endif
-		const void on_qtvVocabulariesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+		void on_vocabulariesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 }; // VocabularyOrganizerDialog
 
 #endif // VOCABULARYORGANIZERDIALOG_H
