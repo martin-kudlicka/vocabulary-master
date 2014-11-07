@@ -8,50 +8,53 @@ class VocabularyOrganizer : public QObject
 	Q_OBJECT
 
 	public:
-		struct RecordInfo {
-			Vocabulary *vVocabulary;
-			int iId;
+		struct RecordInfo
+		{
+			Vocabulary *vocabulary;
+			quint32     id;
 		}; // RecordInfo
-		struct VocabularyInfo {
-			Settings::VocabularyInfo sviVocabularyInfo;
-			Vocabulary *vVocabulary;
+		struct VocabularyInfo
+		{
+			Settings::VocabularyInfo vocabularyInfo;
+			Vocabulary              *vocabulary;
 		}; // VocabularyInfo
 
-		VocabularyOrganizer(Settings *pSettings);
+		         VocabularyOrganizer(Settings *settings);
+		virtual ~VocabularyOrganizer();
 
 #ifndef EDITION_TRY
-		const void AddExisting(VocabularyInfo &pVocabulary, QWidget *pParent);
+		      void            addExisting         (VocabularyInfo *vocabularyInfo, QWidget *parent);
 #endif
-		const void AddNew(
+		      void            addNew              (
 #ifndef EDITION_TRY
-			const QString &pFile
+			const QString &file
 #endif
 			);
-		const int GetRecordCount() const;
-		const int GetRecordCount(const bool &pEnabled) const;
-		const RecordInfo GetRecordInfo(const int &pRow) const;
-		const int GetVocabularyCount() const;
-		const VocabularyInfo &GetVocabularyInfo(const int &pIndex) const;
-		const bool IsOpen() const;
+		      bool            isOpen              ()             const;
 #ifndef EDITION_TRY
-		const void OpenAll(QWidget *pParent);
+		      void            openAll             (QWidget *parent);
 #endif
-		const void Remove(const int &pIndex);
+			  quint32         recordCount         ()             const;
+			  quint32         recordCount         (bool enabled) const;
+			  RecordInfo      recordInfo          (quint32 row)  const;
+		      void            remove              (quint8 index);
 #ifndef EDITION_TRY
-		const void SaveAll();
+		      void            saveAll             ();
 # ifndef EDITION_FREE
-		const void SetVocabularyEnabled(const int &pIndex, const bool &pEnabled, QWidget *pParent);
+		      void            setVocabularyEnabled(quint8 index, bool enabled, QWidget *parent);
 # endif
 #endif
+			  quint8          vocabularyCount     ()             const;
+		const VocabularyInfo &vocabularyInfo      (quint8 index) const;
 
 	private:
-		QList<VocabularyInfo> _qlVocabularies;
-		Settings *_sSettings;
+		QList<VocabularyInfo> _vocabularies;
+		Settings             *_settings;
 
 #ifndef EDITION_TRY
-		const void Open(VocabularyInfo *pVocabulary, QWidget *pParent);
+		void open(VocabularyInfo *vocabularyInfo, QWidget *parent);
 #endif
 
 	signals:
-		void VocabularyClose(const Vocabulary *pVocabulary) const;
+		void vocabularyClose(const Vocabulary *vocabulary) const;
 }; // VocabularyOrganizer

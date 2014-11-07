@@ -23,9 +23,9 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 				case Qt::DisplayRole:
 					{
 #ifdef EDITION_TRY
-						return _voOrganizer->GetVocabularyInfo(index.row()).vVocabulary->name();
+						return _voOrganizer->vocabularyInfo(index.row()).vocabulary->name();
 #else
-						QString qsFile = _voOrganizer->GetVocabularyInfo(index.row()).sviVocabularyInfo.filePath;
+						QString qsFile = _voOrganizer->vocabularyInfo(index.row()).vocabularyInfo.filePath;
 						return QDir::toNativeSeparators(qsFile);
 #endif
 					}
@@ -37,7 +37,7 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 			switch (role) {
 				case Qt::CheckStateRole:
 					{
-						bool bEnabled = _voOrganizer->GetVocabularyInfo(index.row()).sviVocabularyInfo.enabled;
+						bool bEnabled = _voOrganizer->vocabularyInfo(index.row()).vocabularyInfo.enabled;
 						if (bEnabled) {
 							return Qt::Checked;
 						} else {
@@ -92,7 +92,7 @@ const void VocabularyOrganizerModel::RemoveRow(const int &pRow)
 int VocabularyOrganizerModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
 	if (parent == QModelIndex()) {
-		return _voOrganizer->GetVocabularyCount();
+		return _voOrganizer->vocabularyCount();
 	} else {
 		return 0;
 	} // if else
@@ -103,7 +103,7 @@ bool VocabularyOrganizerModel::setData(const QModelIndex &index, const QVariant 
 {
 	switch (index.column()) {
 		case ColumnEnabled:
-			_voOrganizer->SetVocabularyEnabled(index.row(), value.toBool(), _qwParent);
+			_voOrganizer->setVocabularyEnabled(index.row(), value.toBool(), _qwParent);
 
 			emit dataChanged(index, index);
 			return true;
