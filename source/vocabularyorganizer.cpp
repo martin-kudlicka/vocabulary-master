@@ -2,181 +2,207 @@
 
 #ifndef EDITION_TRY
 # include "common/vocabularyopenprogressdialog.h"
+#endif
 
-const void VocabularyOrganizer::AddExisting(VocabularyInfo &pVocabulary, QWidget *pParent)
+VocabularyOrganizer::VocabularyOrganizer(Settings *settings) : _settings(settings)
 {
-	pVocabulary.vVocabulary = new Vocabulary;
+} // VocabularyOrganizer
+
+VocabularyOrganizer::~VocabularyOrganizer()
+{
+}
+
+#ifndef EDITION_TRY
+void VocabularyOrganizer::addExisting(VocabularyInfo *vocabularyInfo, QWidget *parent)
+{
+	vocabularyInfo->vocabulary = new Vocabulary;
 
 # ifndef EDITION_FREE
-	if (pVocabulary.sviVocabularyInfo.enabled) {
+	if (vocabularyInfo->vocabularyInfo.enabled)
+	{
 # endif
-		Open(&pVocabulary, pParent);
+		open(vocabularyInfo, parent);
 # ifndef EDITION_FREE
 	} // if
 # endif
 
-	_qlVocabularies.append(pVocabulary);
-} // AddExisting
+	_vocabularies.append(*vocabularyInfo);
+} // addExisting
 #endif
 
-const void VocabularyOrganizer::AddNew(
+void VocabularyOrganizer::addNew(
 #ifndef EDITION_TRY
-	const QString &pFile
+	const QString &file
 #endif
 	)
 {
-	VocabularyInfo svVocabulary;
+	VocabularyInfo vocabularyInfo;
 #ifndef EDITION_TRY
-	svVocabulary.sviVocabularyInfo.filePath = pFile;
+	vocabularyInfo.vocabularyInfo.filePath = file;
 #endif
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-	svVocabulary.sviVocabularyInfo.enabled = true;
+	vocabularyInfo.vocabularyInfo.enabled  = true;
 #endif
-	svVocabulary.vVocabulary = new Vocabulary;
-	svVocabulary.vVocabulary->new2(
+	vocabularyInfo.vocabulary              = new Vocabulary;
+	vocabularyInfo.vocabulary->new2(
 #ifndef EDITION_TRY
-		pFile
+		file
 #endif
 		);
 
-	_qlVocabularies.append(svVocabulary);
-} // AddNew
+	_vocabularies.append(vocabularyInfo);
+} // addNew
 
-const int VocabularyOrganizer::GetRecordCount() const
+bool VocabularyOrganizer::isOpen() const
 {
-	int iCount = 0;
-
-	foreach (VocabularyInfo svVocabulary, _qlVocabularies) {
-		if (svVocabulary.vVocabulary->isOpen()) {
-			iCount += svVocabulary.vVocabulary->recordCount();
-		} // if
-	} // foreach
-
-	return iCount;
-} // GetRecordCount
-
-const int VocabularyOrganizer::GetRecordCount(const bool &pEnabled) const
-{
-	int iCount = 0;
-
-	foreach (VocabularyInfo svVocabulary, _qlVocabularies) {
-		if (svVocabulary.vVocabulary->isOpen()) {
-			iCount += svVocabulary.vVocabulary->recordCount(pEnabled);
-		} // if
-	} // foreach
-
-	return iCount;
-} // GetRecordCount
-
-const VocabularyOrganizer::RecordInfo VocabularyOrganizer::GetRecordInfo(const int &pRow) const
-{
-	int iCurrentRow = 0;
-	RecordInfo sriRecordInfo;
-
-	foreach (VocabularyInfo svVocabulary, _qlVocabularies) {
-		if (svVocabulary.vVocabulary->isOpen()) {
-			int iRecords = svVocabulary.vVocabulary->recordCount();
-			if (iCurrentRow + iRecords > pRow) {
-				sriRecordInfo.vVocabulary = svVocabulary.vVocabulary;
-				sriRecordInfo.iId = svVocabulary.vVocabulary->recordId(pRow - iCurrentRow);
-
-				return sriRecordInfo;
-			} else {
-				iCurrentRow += iRecords;
-			} // if else
-		} // if
-	} // foreach
-
-	sriRecordInfo.vVocabulary = NULL;
-	sriRecordInfo.iId = VocabularyDatabase::NOT_FOUND;
-	return sriRecordInfo;
-} // GetRecordInfo
-
-const int VocabularyOrganizer::GetVocabularyCount() const
-{
-	return _qlVocabularies.size();
-} // GetVocabularyCount
-
-const VocabularyOrganizer::VocabularyInfo &VocabularyOrganizer::GetVocabularyInfo(const int &pIndex) const
-{
-	return _qlVocabularies.at(pIndex);
-} // GetVocabularyInfo
-
-const bool VocabularyOrganizer::IsOpen() const
-{
-	foreach (VocabularyInfo svVocabulary, _qlVocabularies) {
-		if (svVocabulary.vVocabulary->isOpen()) {
+	foreach (const VocabularyInfo &vocabularyInfo, _vocabularies)
+	{
+		if (vocabularyInfo.vocabulary->isOpen())
+		{
 			return true;
 		} // if
 	} // foreach
 
 	return false;
-} // IsOpen
+} // isOpen
 
 #ifndef EDITION_TRY
-const void VocabularyOrganizer::Open(VocabularyInfo *pVocabulary, QWidget *pParent)
+void VocabularyOrganizer::openAll(QWidget *parent)
 {
-	VocabularyOpenProgressDialog vopdOpenProgress(pVocabulary->vVocabulary, pParent);
-	vopdOpenProgress.show();
-	pVocabulary->vVocabulary->open(pVocabulary->sviVocabularyInfo.filePath);
-
-# ifndef EDITION_FREE
-	if (!pVocabulary->vVocabulary->isOpen()) {
-		pVocabulary->sviVocabularyInfo.enabled = false;
-	} // if
-#endif
-} // Open
-
-const void VocabularyOrganizer::OpenAll(QWidget *pParent)
-{
-	int iVocabularies = _sSettings->vocabularyCount();
-	for (int iI = 0; iI < iVocabularies; iI++) {
-		VocabularyInfo svVocabulary;
-		svVocabulary.sviVocabularyInfo = _sSettings->vocabularyInfo(iI);
-		AddExisting(svVocabulary, pParent);
+	const quint8 vocabularies = _settings->vocabularyCount();
+	for (quint8 index = 0; index < vocabularies; index++)
+	{
+		VocabularyInfo vocabularyInfo;
+		vocabularyInfo.vocabularyInfo = _settings->vocabularyInfo(index);
+		addExisting(&vocabularyInfo, parent);
 	} // for
-} // OpenAll
+} // openAll
 #endif
 
-const void VocabularyOrganizer::Remove(const int &pIndex)
+quint32 VocabularyOrganizer::recordCount() const
 {
-	Vocabulary *vVocabulary = _qlVocabularies.at(pIndex).vVocabulary;
+	quint32 count = 0;
 
-	_qlVocabularies.removeAt(pIndex);
-	emit VocabularyClose(vVocabulary);
+	foreach (const VocabularyInfo &vocabularyInfo, _vocabularies)
+	{
+		if (vocabularyInfo.vocabulary->isOpen())
+		{
+			count += vocabularyInfo.vocabulary->recordCount();
+		} // if
+	} // foreach
 
-	vVocabulary->close();
-	delete vVocabulary;
-} // Remove
+	return count;
+} // recordCount
+
+quint32 VocabularyOrganizer::recordCount(bool enabled) const
+{
+	quint32 count = 0;
+
+	foreach (const VocabularyInfo &vocabularyInfo, _vocabularies)
+	{
+		if (vocabularyInfo.vocabulary->isOpen())
+		{
+			count += vocabularyInfo.vocabulary->recordCount(enabled);
+		} // if
+	} // foreach
+
+	return count;
+} // recordCount
+
+VocabularyOrganizer::RecordInfo VocabularyOrganizer::recordInfo(quint32 row) const
+{
+	quint32 currentRow = 0;
+	RecordInfo recordInfo;
+
+	foreach (const VocabularyInfo &vocabularyInfo, _vocabularies)
+	{
+		if (vocabularyInfo.vocabulary->isOpen())
+		{
+			const quint32 records = vocabularyInfo.vocabulary->recordCount();
+			if (currentRow + records > row)
+			{
+				recordInfo.vocabulary = vocabularyInfo.vocabulary;
+				recordInfo.id         = vocabularyInfo.vocabulary->recordId(row - currentRow);
+
+				return recordInfo;
+			}
+			else
+			{
+				currentRow += records;
+			} // if else
+		} // if
+	} // foreach
+
+	recordInfo.vocabulary = NULL;
+	recordInfo.id         = VocabularyDatabase::NOT_FOUND;
+
+	return recordInfo;
+} // recordInfo
+
+void VocabularyOrganizer::remove(quint8 index)
+{
+	Vocabulary *vocabulary = _vocabularies.at(index).vocabulary;
+
+	_vocabularies.removeAt(index);
+	emit vocabularyClose(vocabulary);
+
+	vocabulary->close();
+	delete vocabulary;
+} // remove
 
 #ifndef EDITION_TRY
-const void VocabularyOrganizer::SaveAll()
+void VocabularyOrganizer::saveAll()
 {
-	int iVocabularies = _qlVocabularies.size();
+	const quint8 vocabularies = _vocabularies.size();
 
-	for (int iI = 0; iI < iVocabularies; iI++) {
-		_sSettings->setVocabularyInfo(iI, _qlVocabularies.at(iI).sviVocabularyInfo);
+	for (quint8 index = 0; index < vocabularies; index++)
+	{
+		_settings->setVocabularyInfo(index, _vocabularies.at(index).vocabularyInfo);
 	} // for
-	_sSettings->setVocabularyCount(iVocabularies);
-} // SaveAll
+	_settings->setVocabularyCount(vocabularies);
+} // saveAll
 
 # ifndef EDITION_FREE
-const void VocabularyOrganizer::SetVocabularyEnabled(const int &pIndex, const bool &pEnabled, QWidget *pParent)
+void VocabularyOrganizer::setVocabularyEnabled(quint8 index, bool enabled, QWidget *parent)
 {
-	VocabularyInfo *svVocabulary = &_qlVocabularies[pIndex];
-	svVocabulary->sviVocabularyInfo.enabled = pEnabled;
+	VocabularyInfo *vocabularyInfo         = &_vocabularies[index];
+	vocabularyInfo->vocabularyInfo.enabled = enabled;
 
-	if (pEnabled) {
-		Open(svVocabulary, pParent);
-	} else {
-		emit VocabularyClose(svVocabulary->vVocabulary);
-		svVocabulary->vVocabulary->close();
+	if (enabled)
+	{
+		open(vocabularyInfo, parent);
+	}
+	else
+	{
+		emit vocabularyClose(vocabularyInfo->vocabulary);
+		vocabularyInfo->vocabulary->close();
 	} // if else
-} // SetVocabularyEnabled
+} // setVocabularyEnabled
 # endif
 #endif
 
-VocabularyOrganizer::VocabularyOrganizer(Settings *pSettings)
+quint8 VocabularyOrganizer::vocabularyCount() const
 {
-	_sSettings = pSettings;	
-} // VocabularyOrganizer
+	return _vocabularies.size();
+} // vocabularyCount
+
+const VocabularyOrganizer::VocabularyInfo &VocabularyOrganizer::vocabularyInfo(quint8 index) const
+{
+	return _vocabularies.at(index);
+} // vocabularyInfo
+
+#ifndef EDITION_TRY
+void VocabularyOrganizer::open(VocabularyInfo *vocabularyInfo, QWidget *parent)
+{
+	VocabularyOpenProgressDialog openProgress(vocabularyInfo->vocabulary, parent);
+	openProgress.show();
+	vocabularyInfo->vocabulary->open(vocabularyInfo->vocabularyInfo.filePath);
+
+# ifndef EDITION_FREE
+	if (!vocabularyInfo->vocabulary->isOpen())
+	{
+		vocabularyInfo->vocabularyInfo.enabled = false;
+	} // if
+# endif
+} // open
+#endif

@@ -90,7 +90,7 @@ MainWindow::MainWindow(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */
     applySettings(true);
 
 #ifndef EDITION_TRY
-	_vocabularyOrganizer.OpenAll(this);
+	_vocabularyOrganizer.openAll(this);
 #endif
     refreshStatusBar();
 
@@ -113,7 +113,7 @@ MainWindow::MainWindow(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */
 #endif
 	connect(&_learningTimer,        SIGNAL(timeout()),                                    SLOT(on_learningTimer_timeout()));
 	connect(&_updateChecker,        SIGNAL(Finished()),                                   SLOT(on_updateChecker_finished()));
-	connect(&_vocabularyOrganizer,  SIGNAL(VocabularyClose(const Vocabulary *)),          SLOT(on_vocabularyOrganizer_vocabularyClose(const Vocabulary *)));
+	connect(&_vocabularyOrganizer,  SIGNAL(vocabularyClose(const Vocabulary *)),          SLOT(on_vocabularyOrganizer_vocabularyClose(const Vocabulary *)));
 
 #ifndef EDITION_FREE
 	// learning
@@ -121,7 +121,7 @@ MainWindow::MainWindow(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */
 # ifndef EDITION_TRY
 		_license->isLoaded() &&
 # endif
-		_settings.startLearningOnStartup() && _vocabularyOrganizer.IsOpen())
+		_settings.startLearningOnStartup() && _vocabularyOrganizer.isOpen())
 	{
 		on_actionStart_triggered();
 	} // if
@@ -221,10 +221,10 @@ void MainWindow::createVocabulariesMenu()
 	_menuTrayVocabularies.clear();
 #endif
 
-	for (quint8 vocabularyIndex = 0; vocabularyIndex < _vocabularyOrganizer.GetVocabularyCount(); vocabularyIndex++)
+	for (quint8 vocabularyIndex = 0; vocabularyIndex < _vocabularyOrganizer.vocabularyCount(); vocabularyIndex++)
 	{
-		const VocabularyOrganizer::VocabularyInfo vocabularyInfo = _vocabularyOrganizer.GetVocabularyInfo(vocabularyIndex);
-		const QString name                                       = vocabularyInfo.vVocabulary->name();
+		const VocabularyOrganizer::VocabularyInfo vocabularyInfo = _vocabularyOrganizer.vocabularyInfo(vocabularyIndex);
+		const QString name                                       = vocabularyInfo.vocabulary->name();
 
 		// main menu
 		QAction *action = _ui.menuVocabularies->addAction(QIcon(":/res/mainwindow/menubar/vocabulary.png"), name);
@@ -248,7 +248,7 @@ void MainWindow::enableControls()
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 		_license->isLoaded() &&
 #endif
-		_vocabularyOrganizer.IsOpen());
+		_vocabularyOrganizer.isOpen());
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 	_ui.menuOptions->setEnabled(_license->isLoaded());
 #endif
@@ -258,7 +258,7 @@ void MainWindow::enableControls()
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 		_license->isLoaded() &&
 #endif
-		_vocabularyOrganizer.IsOpen() && !_learning && _vocabularyOrganizer.GetRecordCount(true) > 0);
+		_vocabularyOrganizer.isOpen() && !_learning && _vocabularyOrganizer.recordCount(true) > 0);
 	_ui.actionStop->setEnabled(_learning);
 	_ui.actionNext->setEnabled(_learning);
 #ifndef EDITION_FREE
@@ -266,7 +266,7 @@ void MainWindow::enableControls()
     _ui.actionAnswer->setEnabled(_learning && _timeAnswer >= TIME_NOW);
 
     // tray
-    _trayVocabularies->setEnabled(_vocabularyOrganizer.IsOpen());
+    _trayVocabularies->setEnabled(_vocabularyOrganizer.isOpen());
 #endif
 } // enableControls
 
@@ -314,11 +314,11 @@ QString MainWindow::languageText(bool directionSwitched, bool answer) const
 {
     if ((!directionSwitched && !answer) || (directionSwitched && answer))
 	{
-		return _currentRecord.vVocabulary->languageName(VocabularyDatabase::FieldLanguageLeft);
+		return _currentRecord.vocabulary->languageName(VocabularyDatabase::FieldLanguageLeft);
     }
 	else
 	{
-        return _currentRecord.vVocabulary->languageName(VocabularyDatabase::FieldLanguageRight);
+        return _currentRecord.vocabulary->languageName(VocabularyDatabase::FieldLanguageRight);
     } // if else
 } // languageText
 
@@ -342,12 +342,12 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
 	{
 		if (templateType == TemplateLearning)
 		{
-			templateText = _currentRecord.vVocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguageLeft);
+			templateText = _currentRecord.vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguageLeft);
 		}
 #ifndef EDITION_FREE
 		else
 		{
-			templateText = _currentRecord.vVocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguageLeft);
+			templateText = _currentRecord.vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguageLeft);
 		} // if else
 #endif
 		fieldLanguage = VocabularyDatabase::FieldLanguageLeft;
@@ -356,24 +356,24 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
 	{
 		if (templateType == TemplateLearning)
 		{
-			templateText = _currentRecord.vVocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguageRight);
+			templateText = _currentRecord.vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguageRight);
 		}
 #ifndef EDITION_FREE
 		else
 		{
-			templateText = _currentRecord.vVocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguageRight);
+			templateText = _currentRecord.vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguageRight);
 		} // if else
 #endif
 		fieldLanguage = VocabularyDatabase::FieldLanguageRight;
 	} // if else
 
 	// substitute variables in template
-	foreach (quint8 fieldId, _currentRecord.vVocabulary->fieldIds())
+	foreach (quint8 fieldId, _currentRecord.vocabulary->fieldIds())
 	{
-		if (_currentRecord.vVocabulary->fieldLanguage(fieldId) == fieldLanguage) {
-			const QString data = _currentRecord.vVocabulary->dataText(_currentRecord.iId, fieldId);
+		if (_currentRecord.vocabulary->fieldLanguage(fieldId) == fieldLanguage) {
+			const QString data = _currentRecord.vocabulary->dataText(_currentRecord.id, fieldId);
 
-			QString field = _currentRecord.vVocabulary->fieldTemplateName(fieldId);
+			QString field = _currentRecord.vocabulary->fieldTemplateName(fieldId);
 			templateText.replace(VARIABLE_MARK + field, data);
 		} // if
 	} // foreach
@@ -396,7 +396,7 @@ void MainWindow::openVocabulary(Vocabulary *vocabulary
 #ifndef EDITION_FREE
     if (currentRecord)
 	{
-        vocabularyManagerDialog.execOnRecord(_currentRecord.iId);
+        vocabularyManagerDialog.execOnRecord(_currentRecord.id);
     }
 	else
 	{
@@ -406,22 +406,22 @@ void MainWindow::openVocabulary(Vocabulary *vocabulary
     } // if else
 #endif
 
-	_ui.actionStart->setEnabled(_vocabularyOrganizer.IsOpen() && !_learning && _vocabularyOrganizer.GetRecordCount() > 0);
+	_ui.actionStart->setEnabled(_vocabularyOrganizer.isOpen() && !_learning && _vocabularyOrganizer.recordCount() > 0);
     refreshStatusBar();
 } // openVocabulary
 
 #ifndef EDITION_FREE
 quint8 MainWindow::recordPriority() const
 {
-    foreach (quint8 fieldId, _currentRecord.vVocabulary->fieldIds())
+    foreach (quint8 fieldId, _currentRecord.vocabulary->fieldIds())
 	{
-        if (_currentRecord.vVocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+        if (_currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
 		{
-            const VocabularyDatabase::FieldBuiltIn builtInType = _currentRecord.vVocabulary->fieldBuiltIn(fieldId);
+            const VocabularyDatabase::FieldBuiltIn builtInType = _currentRecord.vocabulary->fieldBuiltIn(fieldId);
             switch (builtInType)
 			{
                 case VocabularyDatabase::FieldBuiltInPriority:
-                    return _currentRecord.vVocabulary->dataText(_currentRecord.iId, fieldId).toInt();
+                    return _currentRecord.vocabulary->dataText(_currentRecord.id, fieldId).toInt();
             } // switch
         } // if
     } // foreach
@@ -432,18 +432,18 @@ quint8 MainWindow::recordPriority() const
 
 void MainWindow::refreshStatusBar()
 {
-    if (!_vocabularyOrganizer.IsOpen())
+    if (!_vocabularyOrganizer.isOpen())
 	{
         _vocabularyStatus.setText(tr("no vocabulary"));
     }
 	else
 	{
 #ifdef EDITION_FREE
-		const QString count = QString("%1").arg(_vocabularyOrganizer.GetRecordCount());
+		const QString count = QString("%1").arg(_vocabularyOrganizer.recordCount());
 #else
-		const QString count = QString("%1/%2").arg(_vocabularyOrganizer.GetRecordCount(true)).arg(_vocabularyOrganizer.GetRecordCount());
+		const QString count = QString("%1/%2").arg(_vocabularyOrganizer.recordCount(true)).arg(_vocabularyOrganizer.recordCount());
 #endif
-		_vocabularyStatus.setText(tr("%1 voc., %2 records").arg(_vocabularyOrganizer.GetVocabularyCount()).arg(count));
+		_vocabularyStatus.setText(tr("%1 voc., %2 records").arg(_vocabularyOrganizer.vocabularyCount()).arg(count));
     } // if else
 } // refreshStatusBar
 
@@ -501,27 +501,27 @@ void MainWindow::say(bool directionSwitched, bool answer) const
 
         // get text to speech
         QString text;
-        foreach (quint8 fieldId, _currentRecord.vVocabulary->fieldIds())
+        foreach (quint8 fieldId, _currentRecord.vocabulary->fieldIds())
 		{
-            if (_currentRecord.vVocabulary->fieldLanguage(fieldId) == fieldLanguage && _currentRecord.vVocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeSpeech))
+            if (_currentRecord.vocabulary->fieldLanguage(fieldId) == fieldLanguage && _currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeSpeech))
 			{
                 if (!text.isEmpty())
 				{
                     text += ' ';
                 } // if
-                text += _currentRecord.vVocabulary->dataText(_currentRecord.iId, fieldId);
+                text += _currentRecord.vocabulary->dataText(_currentRecord.id, fieldId);
             } // if
         } // foreach
 
         if (!text.isEmpty())
 		{
-			const TTSInterface::TTSPlugin speechPlugin = _currentRecord.vVocabulary->languageSpeech(fieldLanguage);
+			const TTSInterface::TTSPlugin speechPlugin = _currentRecord.vocabulary->languageSpeech(fieldLanguage);
 	        if (speechPlugin != TTSInterface::TTPluginNone)
 			{
 		        TTSInterface *speechInterface = _plugins.ttsPlugin(speechPlugin);
                 if (speechInterface)
 				{
-					const QString voice = _currentRecord.vVocabulary->languageVoice(fieldLanguage);
+					const QString voice = _currentRecord.vocabulary->languageVoice(fieldLanguage);
 		            speechInterface->say(voice, text);
                 } // if
 	        } // if
@@ -572,15 +572,15 @@ void MainWindow::setLayout()
 #ifndef EDITION_FREE
 void MainWindow::setRecordEnabled(bool enabled)
 {
-	foreach (quint8 fieldId, _currentRecord.vVocabulary->fieldIds())
+	foreach (quint8 fieldId, _currentRecord.vocabulary->fieldIds())
 	{
-		if (_currentRecord.vVocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+		if (_currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
 		{
-			const VocabularyDatabase::FieldBuiltIn builtInType = _currentRecord.vVocabulary->fieldBuiltIn(fieldId);
+			const VocabularyDatabase::FieldBuiltIn builtInType = _currentRecord.vocabulary->fieldBuiltIn(fieldId);
 			switch (builtInType)
 			{
 				case VocabularyDatabase::FieldBuiltInEnabled:
-					_currentRecord.vVocabulary->setDataText(_currentRecord.iId, fieldId, QString::number(enabled ? Qt::Checked : Qt::Unchecked));
+					_currentRecord.vocabulary->setDataText(_currentRecord.id, fieldId, QString::number(enabled ? Qt::Checked : Qt::Unchecked));
 					return;
 			} // switch
 		} // if
@@ -589,15 +589,15 @@ void MainWindow::setRecordEnabled(bool enabled)
 
 void MainWindow::setRecordPriority(quint8 priority)
 {
-	foreach (quint8 fieldId, _currentRecord.vVocabulary->fieldIds())
+	foreach (quint8 fieldId, _currentRecord.vocabulary->fieldIds())
 	{
-		if (_currentRecord.vVocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+		if (_currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
 		{
-			const VocabularyDatabase::FieldBuiltIn builtInType = _currentRecord.vVocabulary->fieldBuiltIn(fieldId);
+			const VocabularyDatabase::FieldBuiltIn builtInType = _currentRecord.vocabulary->fieldBuiltIn(fieldId);
 			switch (builtInType)
 			{
 				case VocabularyDatabase::FieldBuiltInPriority:
-					_currentRecord.vVocabulary->setDataText(_currentRecord.iId, fieldId, QString::number(priority));
+					_currentRecord.vocabulary->setDataText(_currentRecord.id, fieldId, QString::number(priority));
 					return;
 			} // switch
 		} // if
@@ -616,7 +616,7 @@ void MainWindow::setupRecordControls() const
 	_ui.priority7->setChecked(priority == 7);
 	_ui.priority8->setChecked(priority == 8);
 	_ui.priority9->setChecked(priority == 9);
-	_ui.recordEnabled->setChecked(_currentRecord.vVocabulary->recordEnabled(_currentRecord.iId));
+	_ui.recordEnabled->setChecked(_currentRecord.vocabulary->recordEnabled(_currentRecord.id));
 } // setupRecordControls
 #endif
 
@@ -712,7 +712,7 @@ void MainWindow::on_actionAnswer_triggered(bool checked /* false */)
 
 void MainWindow::on_actionFindInVocabulary_triggered(bool checked /* false */)
 {
-    openVocabulary(_currentRecord.vVocabulary, true);
+    openVocabulary(_currentRecord.vocabulary, true);
 } // on_actionFindInVocabulary_triggered
 
 # ifndef EDITION_TRY
@@ -783,8 +783,8 @@ void MainWindow::on_actionStart_triggered(bool checked /* false */)
 	_ui.recordControls->parentWidget()->setVisible(_settings.showRecordControls());
 #endif
 
-	_currentRecord.vVocabulary = NULL;
-	_currentRecord.iId         = RECORD_NONE;
+	_currentRecord.vocabulary = NULL;
+	_currentRecord.id         = RECORD_NONE;
 	_learningTimer.start(0);
 } // on_actionStart_triggered
 
@@ -827,7 +827,7 @@ void MainWindow::on_learningTimer_timeout()
 		_ui.actionAnswer->setEnabled(false);
 #endif
 
-        if (_vocabularyOrganizer.GetRecordCount(true) == 0)
+        if (_vocabularyOrganizer.recordCount(true) == 0)
 		{
             on_actionStop_triggered();
         }
@@ -843,7 +843,7 @@ void MainWindow::on_learningTimer_timeout()
 #endif
             while (true)
 			{
-	            _currentRecord = _vocabularyOrganizer.GetRecordInfo(qrand() % _vocabularyOrganizer.GetRecordCount());
+	            _currentRecord = _vocabularyOrganizer.recordInfo(qrand() % _vocabularyOrganizer.recordCount());
 #ifndef EDITION_FREE
 				if (nextRecordTry == MAX_NEXTRECORD_TRIES)
 				{
@@ -855,15 +855,15 @@ void MainWindow::on_learningTimer_timeout()
 					nextRecordTry++;
 				} // if else
 
-				if ((!_settings.learnDisabledWords() && !_currentRecord.vVocabulary->recordEnabled(_currentRecord.iId)) || recordPriority() > maxRecordPriority)
+				if ((!_settings.learnDisabledWords() && !_currentRecord.vocabulary->recordEnabled(_currentRecord.id)) || recordPriority() > maxRecordPriority)
 				{
 					continue;
 				} // if
 #endif
 
-                categoryId = _currentRecord.vVocabulary->recordCategory(_currentRecord.iId);
+                categoryId = _currentRecord.vocabulary->recordCategory(_currentRecord.id);
 #ifndef EDITION_FREE
-                if (_currentRecord.vVocabulary->categoryEnabled(categoryId) && _currentRecord.vVocabulary->categoryPriority(categoryId) <= maxCategoryPriority  && (_currentRecord.vVocabulary->recordCount(true) == 1 || _currentRecord.vVocabulary != lastRecord.vVocabulary || _currentRecord.iId != lastRecord.iId))
+                if (_currentRecord.vocabulary->categoryEnabled(categoryId) && _currentRecord.vocabulary->categoryPriority(categoryId) <= maxCategoryPriority  && (_currentRecord.vocabulary->recordCount(true) == 1 || _currentRecord.vocabulary != lastRecord.vocabulary || _currentRecord.id != lastRecord.id))
 				{
 #endif
                     break;
@@ -872,7 +872,7 @@ void MainWindow::on_learningTimer_timeout()
 #endif
             } // while
 /*#ifdef _DEBUG
-            qDebug("Current word: %d", _currentRecord.iId);
+            qDebug("Current word: %d", _currentRecord.id);
 #endif*/
 
 			// answer time
@@ -915,7 +915,7 @@ void MainWindow::on_learningTimer_timeout()
 		    } // if else
 	        _ui.window1->setText(learningText(TemplateLearning, _directionSwitched, false));
 	        _ui.window2->clear();
-            _ui.category->setText(_currentRecord.vVocabulary->name() + ", " + _currentRecord.vVocabulary->categoryName(categoryId));
+            _ui.category->setText(_currentRecord.vocabulary->name() + ", " + _currentRecord.vocabulary->categoryName(categoryId));
 #ifndef EDITION_FREE
 			setupRecordControls();
 #endif
@@ -1007,9 +1007,9 @@ void MainWindow::on_menuTray_triggered(QAction *action)
 void MainWindow::on_menuVocabularies_triggered(QAction *action)
 {
 	const quint8 vocabularyIndex                             = action->data().toUInt();
-	const VocabularyOrganizer::VocabularyInfo vocabularyInfo = _vocabularyOrganizer.GetVocabularyInfo(vocabularyIndex);
+	const VocabularyOrganizer::VocabularyInfo vocabularyInfo = _vocabularyOrganizer.vocabularyInfo(vocabularyIndex);
 
-	openVocabulary(vocabularyInfo.vVocabulary
+	openVocabulary(vocabularyInfo.vocabulary
 #ifndef EDITION_FREE
 		, false
 #endif
@@ -1120,7 +1120,7 @@ void MainWindow::on_updateChecker_finished()
 
 void MainWindow::on_vocabularyOrganizer_vocabularyClose(const Vocabulary *vocabulary)
 {
-	if (_currentRecord.vVocabulary == vocabulary)
+	if (_currentRecord.vocabulary == vocabulary)
 	{
 		on_actionNext_triggered();
 	} // if

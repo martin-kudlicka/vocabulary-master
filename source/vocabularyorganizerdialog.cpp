@@ -7,7 +7,7 @@ const char *VOCABULARY_FILTER = QT_TRANSLATE_NOOP("VocabularyOrganizerDialog", "
 
 void VocabularyOrganizerDialog::accept()
 {
-	_voOrganizer->SaveAll();
+	_voOrganizer->saveAll();
 	QDialog::accept();
 } // accept
 #endif
@@ -15,17 +15,17 @@ void VocabularyOrganizerDialog::accept()
 #ifdef EDITION_FREE
 const void VocabularyOrganizerDialog::EnableControls() const
 {
-	_qdvmOrganizer.qpbNew->setEnabled(_voOrganizer->GetVocabularyCount() < Settings::EDITION_FREE_VOCABULARIES_MAX);
-	_qdvmOrganizer.qpbOpen->setEnabled(_voOrganizer->GetVocabularyCount() < Settings::EDITION_FREE_VOCABULARIES_MAX);
+	_qdvmOrganizer.qpbNew->setEnabled(_voOrganizer->vocabularyCount() < Settings::EDITION_FREE_VOCABULARIES_MAX);
+	_qdvmOrganizer.qpbOpen->setEnabled(_voOrganizer->vocabularyCount() < Settings::EDITION_FREE_VOCABULARIES_MAX);
 } // EnableControls
 #endif
 
 #ifndef EDITION_TRY
 const QString VocabularyOrganizerDialog::GetOpenPath() const
 {
-	if (_voOrganizer->GetVocabularyCount() > 0) {
-		VocabularyOrganizer::VocabularyInfo svVocabulary = _voOrganizer->GetVocabularyInfo(0);
-		return QFileInfo(svVocabulary.sviVocabularyInfo.filePath).absolutePath();
+	if (_voOrganizer->vocabularyCount() > 0) {
+		VocabularyOrganizer::VocabularyInfo svVocabulary = _voOrganizer->vocabularyInfo(0);
+		return QFileInfo(svVocabulary.vocabularyInfo.filePath).absolutePath();
 	} else {
 		return QDir::homePath();
 	} // if else
@@ -36,7 +36,7 @@ const void VocabularyOrganizerDialog::on_qpbClose_clicked(bool checked /* false 
 {
 	int iIndex = _qdvmOrganizer.qtvVocabularies->currentIndex().row();
 
-	_voOrganizer->Remove(iIndex);
+	_voOrganizer->remove(iIndex);
 	_vomModel.RemoveRow(iIndex);
 
 	on_qtvVocabulariesSelectionModel_selectionChanged(QItemSelection(), QItemSelection());
@@ -60,7 +60,7 @@ const void VocabularyOrganizerDialog::on_qpbNew_clicked(bool checked /* false */
 			qsFile = qfdNew.selectedFiles().at(0);
 		} // if else
 
-		_voOrganizer->AddNew(qsFile);
+		_voOrganizer->addNew(qsFile);
 		_vomModel.AddRow();
 
 #ifdef EDITION_FREE
@@ -68,7 +68,7 @@ const void VocabularyOrganizerDialog::on_qpbNew_clicked(bool checked /* false */
 #endif
 	} // if
 #else
-	_voOrganizer->AddNew();
+	_voOrganizer->addNew();
 	_vomModel.AddRow();
 #endif
 } // on_qpbNew_clicked
@@ -79,12 +79,12 @@ const void VocabularyOrganizerDialog::on_qpbOpen_clicked(bool checked /* false *
 	QString qsFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), GetOpenPath(), tr(VOCABULARY_FILTER));
 	if (!qsFile.isEmpty()) {
 		VocabularyOrganizer::VocabularyInfo svVocabulary;
-		svVocabulary.sviVocabularyInfo.filePath = qsFile;
+		svVocabulary.vocabularyInfo.filePath = qsFile;
 #ifndef EDITION_FREE
-		svVocabulary.sviVocabularyInfo.enabled = true;
+		svVocabulary.vocabularyInfo.enabled = true;
 #endif
 
-		_voOrganizer->AddExisting(svVocabulary, this);
+		_voOrganizer->addExisting(&svVocabulary, this);
 		_vomModel.AddRow();
 
 #ifdef EDITION_FREE
