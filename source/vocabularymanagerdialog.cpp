@@ -542,7 +542,7 @@ void VocabularyManagerDialog::on_wordAdd_clicked(bool checked /* false */)
 {
 	VocabularyView *vocabularyView   = qobject_cast<VocabularyView *>(_ui.tabs->currentWidget());
     VocabularyModel *vocabularyModel = qobject_cast<VocabularyModel *>(vocabularyView->model());
-    vocabularyModel->AddRow();
+    vocabularyModel->addRow();
 
 	vocabularyView->setCurrentIndex(vocabularyModel->index(vocabularyModel->rowCount() - 1, 0));
 	vocabularyView->setFocus(Qt::OtherFocusReason);
@@ -637,5 +637,5 @@ void VocabularyManagerDialog::on_wordRemove_clicked(bool checked /* false */)
     const VocabularyView *vocabularyView = qobject_cast<const VocabularyView *>(_ui.tabs->currentWidget());
     VocabularyModel *vocabularyModel     = qobject_cast<VocabularyModel *>(vocabularyView->model());
     const QItemSelectionModel *selection = vocabularyView->selectionModel();
-    vocabularyModel->RemoveRow(selection->currentIndex().row());
+    vocabularyModel->removeRow(selection->currentIndex().row());
 } // on_wordRemove_clicked

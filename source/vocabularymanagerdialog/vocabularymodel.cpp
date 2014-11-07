@@ -4,54 +4,93 @@
 # include "vocabularymanagerdialog/prioritydelegate.h"
 #endif
 
-const void VocabularyModel::AddRow()
+VocabularyModel::VocabularyModel(Vocabulary *vocabulary, quint8 categoryId, QObject *parent /* NULL */) : QAbstractTableModel(parent), _vocabulary(vocabulary), _categoryId(categoryId)
+{
+} // VocabularyModel
+
+VocabularyModel::~VocabularyModel()
+{
+}
+
+void VocabularyModel::addRow()
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    _vVocabulary->addRecord(_iCategoryId);
+    _vocabulary->addRecord(_categoryId);
     endInsertRows();
-} // AddRow
+} // addRow
 
 int VocabularyModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-    return _vVocabulary->fieldCount();
+    return _vocabulary->fieldCount();
 } // columnCount
+
+void VocabularyModel::removeRow(quint32 row)
+{
+    beginRemoveRows(QModelIndex(), row, row);
+    _vocabulary->removeRecord(_categoryId, row);
+    endRemoveRows();
+} // removeRow
+
+int VocabularyModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
+{
+    return _vocabulary->recordCount(_categoryId);
+} // rowCount
+
+bool VocabularyModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)
+{
+	const quint8 fieldId = _vocabulary->fieldId(index.column());
+	_vocabulary->setDataText(_categoryId, index.row(), fieldId, value.toString());
+
+	emit dataChanged(index, index);
+	return true;
+} // setData
 
 QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
-	int iFieldId = _vVocabulary->fieldId(index.column());
+	const quint8 fieldId = _vocabulary->fieldId(index.column());
 
-	switch (_vVocabulary->fieldType(iFieldId)) {
+	switch (_vocabulary->fieldType(fieldId))
+	{
 		case VocabularyDatabase::FieldTypeLineEdit:
-			switch (role) {
+			switch (role)
+			{
 				case Qt::DisplayRole:
-					return _vVocabulary->dataText(_iCategoryId, index.row(), iFieldId);
+					return _vocabulary->dataText(_categoryId, index.row(), fieldId);
 				default:
 					return QVariant();
 			} // switch
 #ifndef EDITION_FREE
 		case VocabularyDatabase::FieldTypeCheckBox:
-			switch (role) {
+			switch (role)
+			{
 				case Qt::CheckStateRole:
 					{
-						QString qsChecked = _vVocabulary->dataText(_iCategoryId, index.row(), iFieldId);
-						if (qsChecked.isEmpty()) {
+						const QString checked = _vocabulary->dataText(_categoryId, index.row(), fieldId);
+						if (checked.isEmpty())
+						{
 							return Qt::Checked;
-						} else {
-							return qsChecked.toInt();
+						}
+						else
+						{
+							return checked.toUInt();
 						} // if else
 					}
 				default:
 					return QVariant();
 			} // switch
 		case VocabularyDatabase::FieldTypeSpinBox:
-			switch (role) {
+			switch (role)
+			{
 				case Qt::DisplayRole:
 					{
-						QString qsPriority = _vVocabulary->dataText(_iCategoryId, index.row(), iFieldId);
-						if (qsPriority.isEmpty()) {
+						const QString priority = _vocabulary->dataText(_categoryId, index.row(), fieldId);
+						if (priority.isEmpty())
+						{
 							return PriorityDelegate::RECORD_PRIORITY_MIN;
-						} else {
-							return qsPriority.toInt();
+						}
+						else
+						{
+							return priority.toUInt();
 						} // if else
 					}
 				default:
@@ -66,61 +105,40 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 #ifndef EDITION_FREE
 Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
 {
-	Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index);
+	Qt::ItemFlags itemFlags = QAbstractItemModel::flags(index);
 
-	int iFieldId = _vVocabulary->fieldId(index.column());
-	if (_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-		VocabularyDatabase::FieldBuiltIn efbBuiltIn = _vVocabulary->fieldBuiltIn(iFieldId);
-		switch (efbBuiltIn) {
+	const quint8 fieldId = _vocabulary->fieldId(index.column());
+	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+	{
+		const VocabularyDatabase::FieldBuiltIn builtIn = _vocabulary->fieldBuiltIn(fieldId);
+		switch (builtIn)
+		{
 			case VocabularyDatabase::FieldBuiltInEnabled:
-				ifFlags |= Qt::ItemIsUserCheckable;
+				itemFlags |= Qt::ItemIsUserCheckable;
 				break;
 			case VocabularyDatabase::FieldBuiltInPriority:
-				ifFlags |= Qt::ItemIsEditable;
+				itemFlags |= Qt::ItemIsEditable;
 		} // switch
 	} // if
 
-	return ifFlags;
+	return itemFlags;
 } // flags
 #endif
 
 QVariant VocabularyModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
-    switch (role) {
+    switch (role)
+	{
         case Qt::DisplayRole:
-            if (orientation == Qt::Horizontal) {
-                return _vVocabulary->fieldName(_vVocabulary->fieldId(section));
-            } else {
+            if (orientation == Qt::Horizontal)
+			{
+                return _vocabulary->fieldName(_vocabulary->fieldId(section));
+            }
+			else
+			{
                 return section + 1;
             } // if else
         default:
             return QVariant();
     } // switch
 } // headerData
-
-const void VocabularyModel::RemoveRow(const int &pRow)
-{
-    beginRemoveRows(QModelIndex(), pRow, pRow);
-    _vVocabulary->removeRecord(_iCategoryId, pRow);
-    endRemoveRows();
-} // RemoveRow
-
-int VocabularyModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
-{
-    return _vVocabulary->recordCount(_iCategoryId);
-} // rowCount
-
-bool VocabularyModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)
-{
-	int iFieldId = _vVocabulary->fieldId(index.column());
-	_vVocabulary->setDataText(_iCategoryId, index.row(), iFieldId, value.toString());
-
-	emit dataChanged(index, index);
-	return true;
-} // setData
-
-VocabularyModel::VocabularyModel(Vocabulary *pVocabulary, const int &pCategoryId, QObject *pParent /* NULL */) : QAbstractTableModel(pParent)
-{
-    _vVocabulary = pVocabulary;
-    _iCategoryId = pCategoryId;
-} // VocabularyModel
