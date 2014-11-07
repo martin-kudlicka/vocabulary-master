@@ -4,11 +4,25 @@
 # include <QtCore/QDir>
 #endif
 
-const void VocabularyOrganizerModel::AddRow()
+VocabularyOrganizerModel::VocabularyOrganizerModel(VocabularyOrganizer *organizer, QWidget *parent) : _organizer(organizer), _parent(parent)
+{
+} // VocabularyOrganizerModel
+
+VocabularyOrganizerModel::~VocabularyOrganizerModel()
+{
+}
+
+void VocabularyOrganizerModel::addRow()
 {
 	beginInsertRows(QModelIndex(), rowCount(), rowCount());
 	endInsertRows();
-} // AddRow
+} // addRow
+
+void VocabularyOrganizerModel::removeRow(quint8 row)
+{
+	beginRemoveRows(QModelIndex(), row, row);
+	endRemoveRows();
+} // removeRow
 
 int VocabularyOrganizerModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
@@ -17,16 +31,18 @@ int VocabularyOrganizerModel::columnCount(const QModelIndex &parent /* QModelInd
 
 QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
-	switch (index.column()) {
+	switch (index.column())
+	{
 		case ColumnVocabularyFile:
-			switch (role) {
+			switch (role)
+			{
 				case Qt::DisplayRole:
 					{
 #ifdef EDITION_TRY
-						return _voOrganizer->vocabularyInfo(index.row()).vocabulary->name();
+						return _organizer->vocabularyInfo(index.row()).vocabulary->name();
 #else
-						QString qsFile = _voOrganizer->vocabularyInfo(index.row()).vocabularyInfo.filePath;
-						return QDir::toNativeSeparators(qsFile);
+						const QString file = _organizer->vocabularyInfo(index.row()).vocabularyInfo.filePath;
+						return QDir::toNativeSeparators(file);
 #endif
 					}
 				default:
@@ -34,13 +50,17 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 			} // switch
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 		case ColumnEnabled:
-			switch (role) {
+			switch (role)
+			{
 				case Qt::CheckStateRole:
 					{
-						bool bEnabled = _voOrganizer->vocabularyInfo(index.row()).vocabularyInfo.enabled;
-						if (bEnabled) {
+						const bool enabled = _organizer->vocabularyInfo(index.row()).vocabularyInfo.enabled;
+						if (enabled)
+						{
 							return Qt::Checked;
-						} else {
+						}
+						else
+						{
 							return Qt::Unchecked;
 						} // if else
 					}
@@ -56,21 +76,24 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 Qt::ItemFlags VocabularyOrganizerModel::flags(const QModelIndex &index) const
 {
-	Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index);
+	Qt::ItemFlags itemFlags = QAbstractItemModel::flags(index);
 
-	if (index.column() == ColumnEnabled) {
-		ifFlags |= Qt::ItemIsUserCheckable;
+	if (index.column() == ColumnEnabled)
+	{
+		itemFlags |= Qt::ItemIsUserCheckable;
 	} // if
 
-	return ifFlags;
+	return itemFlags;
 } // flags
 #endif
 
 QVariant VocabularyOrganizerModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
-	switch (role) {
+	switch (role)
+	{
 		case Qt::DisplayRole:
-			switch (section) {
+			switch (section)
+			{
 				case ColumnVocabularyFile:
 					return tr("Vocabulary");
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
@@ -83,17 +106,14 @@ QVariant VocabularyOrganizerModel::headerData(int section, Qt::Orientation orien
 	} // switch
 } // headerData
 
-const void VocabularyOrganizerModel::RemoveRow(const int &pRow)
-{
-	beginRemoveRows(QModelIndex(), pRow, pRow);
-	endRemoveRows();
-} // RemoveRow
-
 int VocabularyOrganizerModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-	if (parent == QModelIndex()) {
-		return _voOrganizer->vocabularyCount();
-	} else {
+	if (parent == QModelIndex())
+	{
+		return _organizer->vocabularyCount();
+	}
+	else
+	{
 		return 0;
 	} // if else
 } // rowCount
@@ -101,9 +121,10 @@ int VocabularyOrganizerModel::rowCount(const QModelIndex &parent /* QModelIndex(
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 bool VocabularyOrganizerModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)
 {
-	switch (index.column()) {
+	switch (index.column())
+	{
 		case ColumnEnabled:
-			_voOrganizer->setVocabularyEnabled(index.row(), value.toBool(), _qwParent);
+			_organizer->setVocabularyEnabled(index.row(), value.toBool(), _parent);
 
 			emit dataChanged(index, index);
 			return true;
@@ -112,9 +133,3 @@ bool VocabularyOrganizerModel::setData(const QModelIndex &index, const QVariant 
 	} // switch
 } // setData
 #endif
-
-VocabularyOrganizerModel::VocabularyOrganizerModel(VocabularyOrganizer *pOrganizer, QWidget *pParent)
-{
-	_voOrganizer = pOrganizer;
-	_qwParent = pParent;
-} // VocabularyOrganizerModel

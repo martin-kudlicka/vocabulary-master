@@ -70,7 +70,7 @@ void VocabularyOrganizerDialog::on_close_clicked(bool checked /* false */)
 	const quint8 index = _ui.vocabularies->currentIndex().row();
 
 	_organizer->remove(index);
-	_model.RemoveRow(index);
+	_model.removeRow(index);
 
 	on_vocabulariesSelectionModel_selectionChanged(QItemSelection(), QItemSelection());
 
@@ -98,7 +98,7 @@ void VocabularyOrganizerDialog::on_new2_clicked(bool checked /* false */)
 		} // if else
 
 		_organizer->addNew(vocabularyFile);
-		_model.AddRow();
+		_model.addRow();
 
 #ifdef EDITION_FREE
 		enableControls();
@@ -106,7 +106,7 @@ void VocabularyOrganizerDialog::on_new2_clicked(bool checked /* false */)
 	} // if
 #else
 	_organizer->addNew();
-	_model.AddRow();
+	_model.addRow();
 #endif
 } // on_new2_clicked
 
@@ -123,7 +123,7 @@ void VocabularyOrganizerDialog::on_open_clicked(bool checked /* false */)
 #endif
 
 		_organizer->addExisting(&vocabularyInfo, this);
-		_model.AddRow();
+		_model.addRow();
 
 #ifdef EDITION_FREE
 		enableControls();
