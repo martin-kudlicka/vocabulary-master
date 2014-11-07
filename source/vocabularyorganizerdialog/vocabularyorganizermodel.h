@@ -10,32 +10,34 @@ class VocabularyOrganizerModel : public QAbstractTableModel
 	Q_OBJECT
 
 	public:
-		enum eColumn {
+		enum Column
+		{
 			ColumnVocabularyFile,
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 			ColumnEnabled,
 #endif
 			ColumnCount
-		}; // eColumn
+		}; // Column
 
-		VocabularyOrganizerModel(VocabularyOrganizer *pOrganizer, QWidget *pParent);
+		         VocabularyOrganizerModel(VocabularyOrganizer *organizer, QWidget *parent);
+		virtual ~VocabularyOrganizerModel();
 
-		const void AddRow();
-		const void RemoveRow(const int &pRow);
+		void addRow   ();
+		void removeRow(quint8 row);
 
 	private:
-		QWidget *_qwParent;
-		VocabularyOrganizer *_voOrganizer;
+		QWidget             *_parent;
+		VocabularyOrganizer *_organizer;
 
-		virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
-		virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+		virtual int           columnCount(const QModelIndex &parent = QModelIndex())                            const;
+		virtual QVariant      data       (const QModelIndex &index, int role = Qt::DisplayRole)                 const;
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-		virtual Qt::ItemFlags flags(const QModelIndex &index) const;
+		virtual Qt::ItemFlags flags      (const QModelIndex &index)                                             const;
 #endif
-		virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-		virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
+		virtual QVariant      headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+		virtual int           rowCount   (const QModelIndex &parent = QModelIndex())                            const;
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-		virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+		virtual bool          setData    (const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
 #endif
 }; // VocabularyOrganizerModel
 
