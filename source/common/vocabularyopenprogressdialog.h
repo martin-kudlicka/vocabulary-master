@@ -11,15 +11,16 @@ class VocabularyOpenProgressDialog : public QDialog
 	Q_OBJECT
 
 	public:
-		VocabularyOpenProgressDialog(const Vocabulary *pVocabulary, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+		         VocabularyOpenProgressDialog(const Vocabulary *vocabulary, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		virtual ~VocabularyOpenProgressDialog();
 
 	private:
-		Ui::qdVocabularyOpenProgress _qdvopVocabularyOpenProgress;
+		Ui::VocabularyOpenProgressDialog _ui;
 
 	private slots:
-		const void on_vVocabulary_SetOpenProgressValue(quint8 pValue) const;
-		const void on_vVocabulary_SetOpenProgressMax(quint8 pMax) const;
-		const void on_vVocabulary_SetVocabularyName(const QString &pName) const;
+		void on_vocabulary_setOpenProgressValue(quint8 value)        const;
+		void on_vocabulary_setOpenProgressMax  (quint8 max)          const;
+		void on_vocabulary_setVocabularyName   (const QString &name) const;
 }; // VocabularyOpenProgressDialog
 
 #endif // VOCABULARYOPENPROGRESSDIALOG_H
