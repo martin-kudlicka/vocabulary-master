@@ -1,26 +1,30 @@
 #include "common/vocabularyopenprogressdialog.h"
 
-const void VocabularyOpenProgressDialog::on_vVocabulary_SetOpenProgressValue(quint8 pValue) const
+VocabularyOpenProgressDialog::VocabularyOpenProgressDialog(const Vocabulary *vocabulary, QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags | Qt::FramelessWindowHint)
 {
-	_qdvopVocabularyOpenProgress.qpbProgress->setValue(pValue);
-} // on_vVocabulary_SetOpenProgressValue
-
-const void VocabularyOpenProgressDialog::on_vVocabulary_SetOpenProgressMax(quint8 pMax) const
-{
-	_qdvopVocabularyOpenProgress.qpbProgress->setMaximum(pMax);
-} // on_vVocabulary_SetOpenProgressMax
-
-const void VocabularyOpenProgressDialog::on_vVocabulary_SetVocabularyName(const QString &pName) const
-{
-	_qdvopVocabularyOpenProgress.qlLabel->setText(tr("Opening vocabulary %1...").arg(pName));
-} // on_vVocabulary_SetVocabularyName
-
-VocabularyOpenProgressDialog::VocabularyOpenProgressDialog(const Vocabulary *pVocabulary, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags | Qt::FramelessWindowHint)
-{
-	_qdvopVocabularyOpenProgress.setupUi(this);
+	_ui.setupUi(this);
 
 	// connect to vocabulary database
-	connect(pVocabulary, SIGNAL(setOpenProgressValue(quint8)), SLOT(on_vVocabulary_SetOpenProgressValue(quint8)));
-	connect(pVocabulary, SIGNAL(setOpenProgressMax(quint8)), SLOT(on_vVocabulary_SetOpenProgressMax(quint8)));
-	connect(pVocabulary, SIGNAL(setVocabularyName(const QString &)), SLOT(on_vVocabulary_SetVocabularyName(const QString &)));
+	connect(vocabulary, SIGNAL(setOpenProgressValue(quint8)), SLOT(on_vocabulary_setOpenProgressValue(quint8)));
+	connect(vocabulary, SIGNAL(setOpenProgressMax(quint8)), SLOT(on_vocabulary_setOpenProgressMax(quint8)));
+	connect(vocabulary, SIGNAL(setVocabularyName(const QString &)), SLOT(on_vocabulary_setVocabularyName(const QString &)));
 } // VocabularyOpenProgressDialog
+
+VocabularyOpenProgressDialog::~VocabularyOpenProgressDialog()
+{
+}
+
+void VocabularyOpenProgressDialog::on_vocabulary_setOpenProgressValue(quint8 value) const
+{
+	_ui.progress->setValue(value);
+} // on_vocabulary_setOpenProgressValue
+
+void VocabularyOpenProgressDialog::on_vocabulary_setOpenProgressMax(quint8 max) const
+{
+	_ui.progress->setMaximum(max);
+} // on_vocabulary_setOpenProgressMax
+
+void VocabularyOpenProgressDialog::on_vocabulary_setVocabularyName(const QString &name) const
+{
+	_ui.label->setText(tr("Opening vocabulary %1...").arg(name));
+} // on_vocabulary_setVocabularyName

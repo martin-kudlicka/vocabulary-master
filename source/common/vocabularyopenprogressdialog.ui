@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qdVocabularyOpenProgress</class>
- <widget class="QDialog" name="qdVocabularyOpenProgress">
+ <class>VocabularyOpenProgressDialog</class>
+ <widget class="QDialog" name="VocabularyOpenProgressDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -18,14 +18,14 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="qlLabel">
+    <widget class="QLabel" name="label">
      <property name="text">
       <string>TextLabel</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QProgressBar" name="qpbProgress">
+    <widget class="QProgressBar" name="progress">
      <property name="value">
       <number>24</number>
      </property>
