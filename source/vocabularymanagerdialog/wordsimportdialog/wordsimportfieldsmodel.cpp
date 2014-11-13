@@ -2,79 +2,93 @@
 
 #include "vocabularymanagerdialog/prioritydelegate.h"
 
-WordsImportFieldsModel::WordsImportFieldsModel(const Vocabulary *pVocabulary, QObject *pParent /* NULL */) : QAbstractItemModel(pParent)
+WordsImportFieldsModel::WordsImportFieldsModel(const Vocabulary *vocabulary, QObject *parent /* NULL */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
 {
-    _vVocabulary = pVocabulary;
-
-	for (int iI = 0; iI < _vVocabulary->fieldCount(); iI++) {
-		_qslEditorData.append(QString());
+	for (quint8 fieldIndex = 0; fieldIndex < _vocabulary->fieldCount(); fieldIndex++)
+	{
+		_editorData.append(QString());
 	} // for
 } // WordsImportFieldsModel
 
-int WordsImportFieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
+WordsImportFieldsModel::~WordsImportFieldsModel()
 {
-    return ColumnCount;
-} // columnCount
+} // ~WordsImportFieldsModel
 
 QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
-	switch (index.column()) {
+	switch (index.column())
+	{
 		case ColumnLanguage:
-			switch (role) {
+			switch (role)
+			{
 				case Qt::DisplayRole:
 					{
-						int iFieldId = _vVocabulary->fieldId(index.row());
-						VocabularyDatabase::FieldLanguage eflLanguage = _vVocabulary->fieldLanguage(iFieldId);
-						return _vVocabulary->languageName(eflLanguage);
+						const quint8 fieldId                             = _vocabulary->fieldId(index.row());
+						const VocabularyDatabase::FieldLanguage language = _vocabulary->fieldLanguage(fieldId);
+						return _vocabulary->languageName(language);
 					}
 				default:
 					return QVariant();
 			} // switch
 		case ColumnName:
-			switch (role) {
+			switch (role)
+			{
 				case Qt::DisplayRole:
 					{
-						int iFieldId = _vVocabulary->fieldId(index.row());
-						return _vVocabulary->fieldName(iFieldId);
+						const quint8 fieldId = _vocabulary->fieldId(index.row());
+						return _vocabulary->fieldName(fieldId);
 					}
 				default:
 					return QVariant();
 			} // switch
 		case ColumnEditor:
 			{
-				int iFieldId = _vVocabulary->fieldId(index.row());
+				const quint8 fieldId = _vocabulary->fieldId(index.row());
 
-				if (_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-					VocabularyDatabase::FieldBuiltIn efbBuiltIn = _vVocabulary->fieldBuiltIn(iFieldId);
-					switch (efbBuiltIn) {
+				if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+				{
+					const VocabularyDatabase::FieldBuiltIn builtIn = _vocabulary->fieldBuiltIn(fieldId);
+					switch (builtIn)
+					{
 						case VocabularyDatabase::FieldBuiltInEnabled:
-							switch (role) {
+							switch (role)
+							{
 								case Qt::EditRole:
 								case Qt::CheckStateRole:
-									if (_qslEditorData.at(index.row()).isEmpty()) {
+									if (_editorData.at(index.row()).isEmpty())
+									{
 										return Qt::Checked;
-									} else {
-										return _qslEditorData.at(index.row()).toInt();
+									}
+									else
+									{
+										return _editorData.at(index.row()).toInt();
 									} // if else
 								default:
 									return QVariant();
 							} // switch
 						case VocabularyDatabase::FieldBuiltInPriority:
-							switch (role) {
+							switch (role)
+							{
 								case Qt::EditRole:
-									if (_qslEditorData.at(index.row()).isEmpty()) {
+									if (_editorData.at(index.row()).isEmpty())
+									{
 										return PriorityDelegate::RECORD_PRIORITY_MIN;
-									} else {
-										return _qslEditorData.at(index.row()).toInt();
+									}
+									else
+									{
+										return _editorData.at(index.row()).toInt();
 									} // if else
 								default:
 									return QVariant();
 							} // switch
 					} // switch
-				} else {
-					switch (role) {
+				}
+				else
+				{
+					switch (role)
+					{
 						case Qt::EditRole:
-							return _qslEditorData.at(index.row());
+							return _editorData.at(index.row());
 						default:
 							return QVariant();
 					} // switch
@@ -85,26 +99,52 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 	} // switch
 } // data
 
+QModelIndex WordsImportFieldsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
+{
+    return createIndex(row, column);
+} // index
+
+int WordsImportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
+{
+    if (parent == QModelIndex())
+	{
+        return _vocabulary->fieldCount();
+    }
+	else
+	{
+        return 0;
+    } // if else
+} // rowCount
+
+int WordsImportFieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
+{
+    return ColumnCount;
+} // columnCount
+
 Qt::ItemFlags WordsImportFieldsModel::flags(const QModelIndex &index) const
 {
-	Qt::ItemFlags ifFlags = QAbstractItemModel::flags(index);
+	Qt::ItemFlags itemFlags = QAbstractItemModel::flags(index);
 
-	if (index.column() == ColumnEditor) {
-		int iFieldId = _vVocabulary->fieldId(index.row());
-		VocabularyDatabase::FieldType eftType = _vVocabulary->fieldType(iFieldId);
-		if (eftType == VocabularyDatabase::FieldTypeCheckBox) {
-			ifFlags |= Qt::ItemIsUserCheckable;
+	if (index.column() == ColumnEditor)
+	{
+		const quint8 fieldId                          = _vocabulary->fieldId(index.row());
+		const VocabularyDatabase::FieldType fieldType = _vocabulary->fieldType(fieldId);
+		if (fieldType == VocabularyDatabase::FieldTypeCheckBox)
+		{
+			itemFlags |= Qt::ItemIsUserCheckable;
 		} // if
 	} // if
 
-	return ifFlags;
+	return itemFlags;
 } // flags
 
 QVariant WordsImportFieldsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
-    switch (role) {
+    switch (role)
+	{
         case Qt::DisplayRole:
-            switch (section) {
+            switch (section)
+			{
 				case ColumnLanguage:
 					return tr("Language");
                 case ColumnName:
@@ -117,28 +157,14 @@ QVariant WordsImportFieldsModel::headerData(int section, Qt::Orientation orienta
     } // switch
 } // headerData
 
-QModelIndex WordsImportFieldsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
-{
-    return createIndex(row, column);
-} // index
-
 QModelIndex WordsImportFieldsModel::parent(const QModelIndex &index) const
 {
     return QModelIndex();
 } // parent
 
-int WordsImportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
-{
-    if (parent == QModelIndex()) {
-        return _vVocabulary->fieldCount();
-    } else {
-        return 0;
-    } // if else
-} // rowCount
-
 bool WordsImportFieldsModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)
 {
-	_qslEditorData[index.row()] = value.toString();
+	_editorData[index.row()] = value.toString();
 
 	emit dataChanged(index, index);
 	return true;
