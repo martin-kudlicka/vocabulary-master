@@ -4,26 +4,33 @@
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QLineEdit>
 
+WordsImportEditorDelegate::WordsImportEditorDelegate(const Vocabulary *vocabulary, QObject *parent /* NULL */) : QStyledItemDelegate(parent), _vocabulary(vocabulary)
+{
+} // WordsImportEditorDelegate
+
+WordsImportEditorDelegate::~WordsImportEditorDelegate()
+{
+} // ~WordsImportEditorDelegate
+
 QWidget *WordsImportEditorDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-	int iFieldId = _vVocabulary->fieldId(index.row());
-	if (_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-		VocabularyDatabase::FieldBuiltIn efbBuiltIn = _vVocabulary->fieldBuiltIn(iFieldId);
-		if (efbBuiltIn == VocabularyDatabase::FieldBuiltInPriority) {
-			QSpinBox *qsbEditor = new QSpinBox(parent);
-			qsbEditor->setMinimum(PriorityDelegate::RECORD_PRIORITY_MIN);
-			qsbEditor->setMaximum(PriorityDelegate::RECORD_PRIORITY_MAX);
-			return qsbEditor;
+	const quint8 fieldId = _vocabulary->fieldId(index.row());
+	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+	{
+		const VocabularyDatabase::FieldBuiltIn builtIn = _vocabulary->fieldBuiltIn(fieldId);
+		if (builtIn == VocabularyDatabase::FieldBuiltInPriority)
+		{
+			QSpinBox *editor = new QSpinBox(parent);
+			editor->setMinimum(PriorityDelegate::RECORD_PRIORITY_MIN);
+			editor->setMaximum(PriorityDelegate::RECORD_PRIORITY_MAX);
+			return editor;
 		} // if
-	} else {
-		QLineEdit *qleEditor = new QLineEdit(parent);
-		return qleEditor;
+	}
+	else
+	{
+		QLineEdit *editor = new QLineEdit(parent);
+		return editor;
 	} // if else
 
 	return NULL;
 } // createEditor
-
-WordsImportEditorDelegate::WordsImportEditorDelegate(const Vocabulary *pVocabulary, QObject *pParent /* NULL */) : QStyledItemDelegate(pParent)
-{
-	_vVocabulary = pVocabulary;
-} // WordsImportEditorDelegate
