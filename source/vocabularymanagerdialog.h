@@ -37,7 +37,6 @@ class VocabularyManagerDialog : public QDialog
 
 #ifndef EDITION_FREE
 		static const quint8 BUILTIN_COLUMN_SIZE = 30;
-		static const qint8  COLUMNS_NONE        = -1;
 
 		const Plugins *_plugins;
 #endif
