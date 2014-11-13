@@ -10,7 +10,7 @@ VocabularyModel::VocabularyModel(Vocabulary *vocabulary, quint8 categoryId, QObj
 
 VocabularyModel::~VocabularyModel()
 {
-}
+} // ~VocabularyModel
 
 void VocabularyModel::addRow()
 {

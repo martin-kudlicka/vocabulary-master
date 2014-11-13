@@ -59,7 +59,7 @@ SettingsDialog::SettingsDialog(
 
 SettingsDialog::~SettingsDialog()
 {
-}
+} // ~SettingsDialog
 
 void SettingsDialog::accept()
 {

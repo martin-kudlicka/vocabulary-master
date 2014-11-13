@@ -9,7 +9,8 @@ class WordsExportFieldsModel : public QAbstractItemModel
     Q_OBJECT
 
     public:
-		enum Column {
+		enum Column
+		{
 			ColumnLanguage,
 			ColumnName,
 			ColumnMark,

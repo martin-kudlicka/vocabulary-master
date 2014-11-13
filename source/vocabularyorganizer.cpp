@@ -10,7 +10,7 @@ VocabularyOrganizer::VocabularyOrganizer(Settings *settings) : _settings(setting
 
 VocabularyOrganizer::~VocabularyOrganizer()
 {
-}
+} // ~VocabularyOrganizer
 
 #ifndef EDITION_TRY
 void VocabularyOrganizer::addExisting(VocabularyInfo *vocabularyInfo, QWidget *parent)

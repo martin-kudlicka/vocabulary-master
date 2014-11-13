@@ -12,7 +12,7 @@ VocabularyOpenProgressDialog::VocabularyOpenProgressDialog(const Vocabulary *voc
 
 VocabularyOpenProgressDialog::~VocabularyOpenProgressDialog()
 {
-}
+} // ~VocabularyOpenProgressDialog
 
 void VocabularyOpenProgressDialog::on_vocabulary_setOpenProgressValue(quint8 value) const
 {

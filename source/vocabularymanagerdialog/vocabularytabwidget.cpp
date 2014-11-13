@@ -14,7 +14,7 @@ VocabularyTabWidget::VocabularyTabWidget(QWidget *pParent /* NULL */) : QTabWidg
 
 VocabularyTabWidget::~VocabularyTabWidget()
 {
-}
+} // ~VocabularyTabWidget
 
 #ifndef EDITION_FREE
 quint8 VocabularyTabWidget::addTab(QWidget *page, const QString &label, bool enabled, quint8 priority)
@@ -44,6 +44,16 @@ quint8 VocabularyTabWidget::addTab(QWidget *page, const QString &label, bool ena
     return tab;
 } // addTab
 
+void VocabularyTabWidget::setShowEnabled(bool enabled)
+{
+    _showEnabled = enabled;
+} // setShowEnabled
+
+void VocabularyTabWidget::setShowPriorities(bool enabled)
+{
+	_showPriorities = enabled;
+} // setShowPriorities
+
 void VocabularyTabWidget::on_enabled_stateChanged(int state) const
 {
     for (quint8 index = 0; index < count(); index++)
@@ -67,14 +77,4 @@ void VocabularyTabWidget::on_priority_valueChanged(int i) const
 		} // if
 	} // for
 } // on_priority_valueChanged
-
-void VocabularyTabWidget::setShowEnabled(bool enabled)
-{
-    _showEnabled = enabled;
-} // setShowEnabled
-
-void VocabularyTabWidget::setShowPriorities(bool enabled)
-{
-	_showPriorities = enabled;
-} // setShowPriorities
 #endif
