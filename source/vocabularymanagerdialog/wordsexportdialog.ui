@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qdWordsExport</class>
- <widget class="QDialog" name="qdWordsExport">
+ <class>WordsExportDialog</class>
+ <widget class="QDialog" name="WordsExportDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -23,7 +23,16 @@
       </sizepolicy>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
       <item>
@@ -41,7 +50,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QTreeView" name="qtvCategories">
+            <widget class="QTreeView" name="categories">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>1</horstretch>
@@ -57,7 +66,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QTreeView" name="qtvFields">
+            <widget class="QTreeView" name="fields">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>2</horstretch>
@@ -75,7 +84,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QCheckBox" name="qcbExportEnabledOnly">
+          <widget class="QCheckBox" name="exportEnabledOnly">
            <property name="text">
             <string>Export &amp;enabled records only</string>
            </property>
@@ -85,7 +94,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QTreeView" name="qtvExpPlugins">
+       <widget class="QTreeView" name="expPlugins">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>1</horstretch>
@@ -112,17 +121,26 @@
       <string>Target</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
       <item>
-       <widget class="QStackedWidget" name="qswExpPlugins"/>
+       <widget class="QStackedWidget" name="expPluginsStack"/>
       </item>
      </layout>
     </widget>
    </item>
    <item>
-    <widget class="QProgressBar" name="qpbProgress">
+    <widget class="QProgressBar" name="progress">
      <property name="textVisible">
       <bool>false</bool>
      </property>
@@ -133,7 +151,16 @@
      <property name="spacing">
       <number>6</number>
      </property>
-     <property name="margin">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
       <number>0</number>
      </property>
      <item>
@@ -150,7 +177,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="qpbExport">
+      <widget class="QPushButton" name="exportButton">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -175,7 +202,7 @@
   <connection>
    <sender>qpbClose</sender>
    <signal>clicked()</signal>
-   <receiver>qdWordsExport</receiver>
+   <receiver>WordsExportDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

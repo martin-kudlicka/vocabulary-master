@@ -2,126 +2,132 @@
 
 #include "../../common/marklineedit.h"
 
-const void WordsExportDialog::on_eiPlugin_ProgressExportSetMax(quint32 pMax) const
+WordsExportDialog::WordsExportDialog(const Vocabulary *vocabulary, const Plugins::ExpPluginList &expPlugins, QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _categoriesModel(vocabulary), _expPluginsModel(&expPlugins), _expPlugins(expPlugins), _vocabulary(vocabulary), _fieldsModel(vocabulary)
 {
-    _qdweWordsExport.qpbProgress->setMaximum(pMax);
-} // on_eiPlugin_ProgressExportSetMax
+	_ui.setupUi(this);
 
-const void WordsExportDialog::on_eiPlugin_ProgressExportSetValue(quint32 pValue) const
-{
-    _qdweWordsExport.qpbProgress->setValue(pValue);
-} // on_eiPlugin_ProgressExportSetValue
+	// export plugins
+	_ui.expPlugins->setModel(&_expPluginsModel);
+	connect(_ui.expPlugins->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_expPluginsSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 
-const void WordsExportDialog::on_eiPlugin_VocabularyGetCategoryIds(ExpInterface::CategoryIdList *pCategoryIds) const
-{
-    const QItemSelectionModel *qismSelection = _qdweWordsExport.qtvCategories->selectionModel();
-    QModelIndexList qmilSelected = qismSelection->selectedRows();
-
-    foreach (QModelIndex qmiIndex, qmilSelected) {
-        int iCategoryId = _vVocabulary->categoryId(qmiIndex.row());
-        pCategoryIds->append(iCategoryId);
-    } // foreach
-} // on_eiPlugin_VocabularyGetCategoryIds
-
-const void WordsExportDialog::on_eiPlugin_VocabularyGetCategoryName(quint8 pCategoryId, QString *pName) const
-{
-    *pName = _vVocabulary->categoryName(pCategoryId);
-} // on_eiPlugin_VocabularyGetCategoryName
-
-const void WordsExportDialog::on_eiPlugin_VocabularyGetMarks(QStringList *pMarks) const
-{
-    for (int iI = 0; iI < _wefmFieldsModel.rowCount(); iI++) {
-        QModelIndex qmiEditorIndex = _wefmFieldsModel.index(iI, WordsExportFieldsModel::ColumnMark);
-        const MarkLineEdit *mleEditor = qobject_cast<const MarkLineEdit *>(_qdweWordsExport.qtvFields->indexWidget(qmiEditorIndex));
-        pMarks->append(mleEditor->text());
+	// categories
+	_ui.categories->setModel(&_categoriesModel);
+	// fields
+	_ui.fields->setModel(&_fieldsModel);
+    _ui.fields->setItemDelegateForColumn(WordsExportFieldsModel::ColumnMark, &_markDelegate);
+    for (quint8 row = 0; row < _fieldsModel.rowCount(); row++)
+	{
+        const QModelIndex index = _fieldsModel.index(row, WordsExportFieldsModel::ColumnMark);
+        _ui.fields->openPersistentEditor(index);
     } // for
-} // on_eiPlugin_VocabularyGetMarks
+	for (quint8 column = 0; column < _ui.fields->header()->count(); column++)
+	{
+		_ui.fields->header()->setSectionResizeMode(column, QHeaderView::Stretch);
+	} // for
 
-const void WordsExportDialog::on_eiPlugin_VocabularyGetMarkText(quint32 pRecordId, const QString &pMark, QString *pText) const
+	_ui.categories->selectAll();
+} // WordsExportDialog
+
+WordsExportDialog::~WordsExportDialog()
 {
-    QStringList qslMarks;
-    on_eiPlugin_VocabularyGetMarks(&qslMarks);
-    int iMark = qslMarks.indexOf(pMark);
-    int iFieldId = _vVocabulary->fieldId(iMark);
+} // ~WordsExportDialog
 
-    *pText = _vVocabulary->dataText(pRecordId, iFieldId);
-} // on_eiPlugin_VocabularyGetMarkText
-
-const void WordsExportDialog::on_eiPlugin_VocabularyGetRecordCount(quint8 pCategoryId, quint32 *pCount) const
+const void WordsExportDialog::on_exportButton_clicked(bool checked /* false */)
 {
-    *pCount = _vVocabulary->recordCount(pCategoryId, _qdweWordsExport.qcbExportEnabledOnly->isChecked());
-} // on_eiPlugin_VocabularyGetRecordCount
+    const QModelIndex index    = _ui.expPlugins->currentIndex();
+    const ExpInterface *plugin = _expPlugins.at(index.row()).expInterface;
+    plugin->beginExport();
+} // on_exportButton_clicked
 
-const void WordsExportDialog::on_eiPlugin_VocabularyGetRecordIds(quint8 pCategoryId, ExpInterface::RecordIdList *pRecordIds) const
+const void WordsExportDialog::on_expPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
-    *pRecordIds = _vVocabulary->recordIds(pCategoryId);
-} // on_eiPlugin_VocabularyGetRecordCount
-
-const void WordsExportDialog::on_qpbExport_clicked(bool checked /* false */)
-{
-    QModelIndex qmiIndex = _qdweWordsExport.qtvExpPlugins->currentIndex();
-    ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row()).expInterface;
-    eiPlugin->beginExport();
-} // on_qpbExport_clicked
-
-const void WordsExportDialog::on_qtvExpPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
-{
-	QModelIndex qmiIndex = _qdweWordsExport.qtvExpPlugins->currentIndex();
-	if (!_qhExpPluginPage.contains(qmiIndex.row())) {
+	const QModelIndex index = _ui.expPlugins->currentIndex();
+	if (!_expPluginPage.contains(index.row()))
+	{
 		// create page for new new plugin
-		QWidget *qwExpPlugin = new QWidget(_qdweWordsExport.qswExpPlugins);
-		QBoxLayout *qblLayout = new QBoxLayout(QBoxLayout::LeftToRight, qwExpPlugin);
-		qblLayout->setContentsMargins(QMargins());
+		QWidget *pluginWidget = new QWidget(_ui.expPluginsStack);
+		QBoxLayout *layout    = new QBoxLayout(QBoxLayout::LeftToRight, pluginWidget);
+		layout->setContentsMargins(QMargins());
 
 		// insert page to table
-		int iPage = _qdweWordsExport.qswExpPlugins->addWidget(qwExpPlugin);
-		_qhExpPluginPage.insert(qmiIndex.row(), iPage);
+		const quint8 page = _ui.expPluginsStack->addWidget(pluginWidget);
+		_expPluginPage.insert(index.row(), page);
 
-		ExpInterface *eiPlugin = _teplExpPlugins.at(qmiIndex.row()).expInterface;
+		ExpInterface *plugin = _expPlugins.at(index.row()).expInterface;
 
         // connections
-		connect(eiPlugin, SIGNAL(ProgressExportSetMax(quint32)), SLOT(on_eiPlugin_ProgressExportSetMax(quint32)));
-		connect(eiPlugin, SIGNAL(ProgressExportSetValue(quint32)), SLOT(on_eiPlugin_ProgressExportSetValue(quint32)));
-        connect(eiPlugin, SIGNAL(VocabularyGetCategoryIds(ExpInterface::CategoryIdList *)), SLOT(on_eiPlugin_VocabularyGetCategoryIds(ExpInterface::CategoryIdList *)));
-		connect(eiPlugin, SIGNAL(VocabularyGetCategoryName(quint8, QString *)), SLOT(on_eiPlugin_VocabularyGetCategoryName(quint8, QString *)));
-        connect(eiPlugin, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_eiPlugin_VocabularyGetMarks(QStringList *)));
-		connect(eiPlugin, SIGNAL(VocabularyGetMarkText(quint32, const QString &, QString *)), SLOT(on_eiPlugin_VocabularyGetMarkText(quint32, const QString &, QString *)));
-		connect(eiPlugin, SIGNAL(VocabularyGetRecordCount(quint8, quint32 *)), SLOT(on_eiPlugin_VocabularyGetRecordCount(quint8, quint32 *)));
-		connect(eiPlugin, SIGNAL(VocabularyGetRecordIds(quint8, ExpInterface::RecordIdList *)), SLOT(on_eiPlugin_VocabularyGetRecordIds(quint8, ExpInterface::RecordIdList *)));
+		connect(plugin, SIGNAL(ProgressExportSetMax(quint32)), SLOT(on_plugin_ProgressExportSetMax(quint32)));
+		connect(plugin, SIGNAL(ProgressExportSetValue(quint32)), SLOT(on_plugin_ProgressExportSetValue(quint32)));
+        connect(plugin, SIGNAL(VocabularyGetCategoryIds(ExpInterface::CategoryIdList *)), SLOT(on_plugin_VocabularyGetCategoryIds(ExpInterface::CategoryIdList *)));
+		connect(plugin, SIGNAL(VocabularyGetCategoryName(quint8, QString *)), SLOT(on_plugin_VocabularyGetCategoryName(quint8, QString *)));
+        connect(plugin, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_plugin_VocabularyGetMarks(QStringList *)));
+		connect(plugin, SIGNAL(VocabularyGetMarkText(quint32, const QString &, QString *)), SLOT(on_plugin_VocabularyGetMarkText(quint32, const QString &, QString *)));
+		connect(plugin, SIGNAL(VocabularyGetRecordCount(quint8, quint32 *)), SLOT(on_plugin_VocabularyGetRecordCount(quint8, quint32 *)));
+		connect(plugin, SIGNAL(VocabularyGetRecordIds(quint8, ExpInterface::RecordIdList *)), SLOT(on_plugin_VocabularyGetRecordIds(quint8, ExpInterface::RecordIdList *)));
 
 		// setup page
-		eiPlugin->setupUi(qwExpPlugin);
+		plugin->setupUi(pluginWidget);
 	} // if
 
     // set plugin page
-    _qdweWordsExport.qswExpPlugins->setCurrentIndex(_qhExpPluginPage.value(qmiIndex.row()));
+    _ui.expPluginsStack->setCurrentIndex(_expPluginPage.value(index.row()));
 
-    _qdweWordsExport.qpbExport->setEnabled(true);
-} // on_qtvExpPluginsSelectionModel_selectionChanged
+	_ui.exportButton->setEnabled(true);
+} // on_expPluginsSelectionModel_selectionChanged
 
-WordsExportDialog::WordsExportDialog(const Vocabulary *pVocabulary, const Plugins::ExpPluginList &pExpPlugins, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags), _cmCategoriesModel(pVocabulary), _epmExpPluginsModel(&pExpPlugins), _wefmFieldsModel(pVocabulary)
+const void WordsExportDialog::on_plugin_ProgressExportSetMax(quint32 max) const
 {
-	_vVocabulary = pVocabulary;
-	_teplExpPlugins = pExpPlugins;
+    _ui.progress->setMaximum(max);
+} // on_plugin_ProgressExportSetMax
 
-	_qdweWordsExport.setupUi(this);
+const void WordsExportDialog::on_plugin_ProgressExportSetValue(quint32 value) const
+{
+    _ui.progress->setValue(value);
+} // on_plugin_ProgressExportSetValue
 
-	// export plugins
-	_qdweWordsExport.qtvExpPlugins->setModel(&_epmExpPluginsModel);
-	connect(_qdweWordsExport.qtvExpPlugins->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvExpPluginsSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+const void WordsExportDialog::on_plugin_VocabularyGetCategoryIds(ExpInterface::CategoryIdList *categoryIds) const
+{
+    const QItemSelectionModel *selection = _ui.categories->selectionModel();
+    const QModelIndexList selected       = selection->selectedRows();
 
-	// categories
-	_qdweWordsExport.qtvCategories->setModel(&_cmCategoriesModel);
-	// fields
-	_qdweWordsExport.qtvFields->setModel(&_wefmFieldsModel);
-    _qdweWordsExport.qtvFields->setItemDelegateForColumn(WordsExportFieldsModel::ColumnMark, &_mlepdMarkDelegate);
-    for (int iRow = 0; iRow < _wefmFieldsModel.rowCount(); iRow++) {
-        QModelIndex qmiIndex = _wefmFieldsModel.index(iRow, WordsExportFieldsModel::ColumnMark);
-        _qdweWordsExport.qtvFields->openPersistentEditor(qmiIndex);
+    foreach (const QModelIndex &index, selected)
+	{
+        const quint8 categoryId = _vocabulary->categoryId(index.row());
+        categoryIds->append(categoryId);
+    } // foreach
+} // on_plugin_VocabularyGetCategoryIds
+
+const void WordsExportDialog::on_plugin_VocabularyGetCategoryName(quint8 categoryId, QString *name) const
+{
+    *name = _vocabulary->categoryName(categoryId);
+} // on_plugin_VocabularyGetCategoryName
+
+const void WordsExportDialog::on_plugin_VocabularyGetMarks(QStringList *pMarks) const
+{
+    for (quint8 row = 0; row < _fieldsModel.rowCount(); row++)
+	{
+        const QModelIndex editorIndex = _fieldsModel.index(row, WordsExportFieldsModel::ColumnMark);
+        const MarkLineEdit *editor    = qobject_cast<const MarkLineEdit *>(_ui.fields->indexWidget(editorIndex));
+        pMarks->append(editor->text());
     } // for
-	for (int iColumn = 0; iColumn < _qdweWordsExport.qtvFields->header()->count(); iColumn++) {
-		_qdweWordsExport.qtvFields->header()->setSectionResizeMode(iColumn, QHeaderView::Stretch);
-	} // for
+} // on_plugin_VocabularyGetMarks
 
-	_qdweWordsExport.qtvCategories->selectAll();
-} // WordsExportDialog
+const void WordsExportDialog::on_plugin_VocabularyGetMarkText(quint32 recordId, const QString &mark, QString *text) const
+{
+    QStringList marks;
+    on_plugin_VocabularyGetMarks(&marks);
+    const quint8 markIndex = marks.indexOf(mark);
+    const quint8 fieldId   = _vocabulary->fieldId(markIndex);
+
+    *text = _vocabulary->dataText(recordId, fieldId);
+} // on_plugin_VocabularyGetMarkText
+
+const void WordsExportDialog::on_plugin_VocabularyGetRecordCount(quint8 categoryId, quint32 *count) const
+{
+    *count = _vocabulary->recordCount(categoryId, _ui.exportEnabledOnly->isChecked());
+} // on_plugin_VocabularyGetRecordCount
+
+const void WordsExportDialog::on_plugin_VocabularyGetRecordIds(quint8 categoryId, ExpInterface::RecordIdList *recordIds) const
+{
+    *recordIds = _vocabulary->recordIds(categoryId);
+} // on_plugin_VocabularyGetRecordIds
