@@ -22,11 +22,12 @@ SettingsDialog::SettingsDialog(
 	_ui.setupUi(this);
 #ifdef EDITION_FREE
     // general
-    delete _ui.horizontalLayout;
     delete _ui.rememberWindowPosition;
     delete _ui.systemTrayIcon;
     delete _ui.showWordsInTrayBalloon;
     delete _ui.minimizeToTray;
+	delete _ui.cacheVocabulary;
+	delete _ui.recordsToCache;
 
     // learning
     delete _ui.waitForAnswerLabel;
@@ -39,6 +40,9 @@ SettingsDialog::SettingsDialog(
     delete _ui.newWordFlash;
 	delete _ui.learnDisabledWords;
     delete _ui.startLearningOnStartup;
+
+	// appearance
+	delete _ui.horizontalLayout;
 
 	// plugins
 	_ui.tabs->removeTab(TabPlugins);
@@ -112,6 +116,9 @@ void SettingsDialog::fillOptions()
 #endif
 	fillTranslation();
 	_ui.updateCheck->setChecked(_settings->updateCheck());
+	_ui.cacheVocabulary->setChecked(_settings->cacheVocabulary());
+	on_cacheVocabulary_stateChanged(_ui.cacheVocabulary->checkState());
+	_ui.recordsToCache->setValue(_settings->recordsToCache());
 
     // learning
     _ui.wordsFrequency->setValue(_settings->wordsFrequency());
@@ -262,6 +269,8 @@ void SettingsDialog::saveOptions()
 #endif
 	_settings->setTranslation(_ui.language->itemData(_ui.language->currentIndex()).toString());
 	_settings->setUpdateCheck(_ui.updateCheck->isChecked());
+	_settings->setCacheVocabulary(_ui.cacheVocabulary->isChecked());
+	_settings->setRecordsToCache(_ui.recordsToCache->value());
 
     // learning
     _settings->setWordsFrequency(_ui.wordsFrequency->value());
@@ -332,6 +341,11 @@ void SettingsDialog::saveOptions()
 } // saveOptions
 
 #ifndef EDITION_FREE
+void SettingsDialog::on_cacheVocabulary_stateChanged(int state) const
+{
+	_ui.recordsToCache->setEnabled(state == Qt::Checked);
+} // on_cacheVocabulary_stateChanged
+
 # ifdef Q_OS_WIN
 void SettingsDialog::on_hotkeyAnswerClear_clicked(bool checked /* false */) const
 {

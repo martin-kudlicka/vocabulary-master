@@ -51,18 +51,18 @@ class SettingsDialog : public QDialog
         virtual void accept     ();
 #ifndef EDITION_FREE
 # ifdef Q_OS_WIN
-		void clearHotkey        (HotkeyLineEdit *control)                                 const;
+		void clearHotkey        (HotkeyLineEdit *control)                                const;
 # endif
         void fillColorFlash     ();
 # ifdef Q_OS_WIN
-		void fillHotkey         (HotkeyLineEdit *control, Settings::Hotkey hotkey)        const;
+		void fillHotkey         (HotkeyLineEdit *control, Settings::Hotkey hotkey)       const;
 # endif
 #endif
         void fillOptions        ();
         void fillTranslation    ();
 #ifndef EDITION_FREE
 		void prepareColorFlash  ();
-        void preparePlugins     (QTreeView *treeView, PluginsModel *model)              const;
+        void preparePlugins     (QTreeView *treeView, PluginsModel *model)               const;
 #endif
         void prepareTranslations();
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
@@ -72,19 +72,20 @@ class SettingsDialog : public QDialog
 
 	private slots:
 #ifndef EDITION_FREE
+	    void on_cacheVocabulary_stateChanged(int state)            const;
 # ifdef Q_OS_WIN
-		void on_hotkeyAnswerClear_clicked  (bool checked = false) const;
-		void on_hotkeyMinimizeClear_clicked(bool checked = false) const;
-		void on_hotkeyNextClear_clicked    (bool checked = false) const;
-		void on_hotkeyRestoreClear_clicked (bool checked = false) const;
+		void on_hotkeyAnswerClear_clicked   (bool checked = false) const;
+		void on_hotkeyMinimizeClear_clicked (bool checked = false) const;
+		void on_hotkeyNextClear_clicked     (bool checked = false) const;
+		void on_hotkeyRestoreClear_clicked  (bool checked = false) const;
 # endif
-		void on_newWordSound_stateChanged  (int state)            const;
-        void on_showLicense_clicked        (bool checked = false);
-        void on_soundBrowse_clicked        (bool checked = false);
-        void on_soundCustomRadio_clicked   (bool checked = false) const;
-        void on_soundSystem_clicked        (bool checked = false) const;
-		void on_systemTrayIcon_stateChanged(int state)            const;
-		void on_wordsFrequency_valueChanged(int i)                const;
+		void on_newWordSound_stateChanged   (int state)            const;
+        void on_showLicense_clicked         (bool checked = false);
+        void on_soundBrowse_clicked         (bool checked = false);
+        void on_soundCustomRadio_clicked    (bool checked = false) const;
+        void on_soundSystem_clicked         (bool checked = false) const;
+		void on_systemTrayIcon_stateChanged (int state)            const;
+		void on_wordsFrequency_valueChanged (int i)                const;
 #endif
 }; // MainWindow
 

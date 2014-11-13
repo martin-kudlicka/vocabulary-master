@@ -54,6 +54,7 @@ class Settings
 
         bool                     alwaysOnTop                 ()            const;
 #ifndef EDITION_FREE
+		bool                     cacheVocabulary             ()            const;
         bool                     canChangeCategoryPriority   ()            const;
         bool                     canEnableCategories         ()            const;
         QString                  colorFlash                  ()            const;
@@ -76,10 +77,12 @@ class Settings
 		QNetworkProxy::ProxyType proxyType                   ()            const;
 		QString                  proxyUsername               ()            const;
 #ifndef EDITION_FREE
+		quint32                  recordsToCache              ()            const;
         bool                     rememberWindowPosition      ()            const;
 #endif
 		void                     setAlwaysOnTop              (bool enable);
 #ifndef EDITION_FREE
+		void                     setCacheVocabulary          (bool enable);
 		void                     setCanChangeCategoryPriority(bool enable);
 		void                     setCanEnableCategories      (bool enable);
 		void                     setColorFlash               (const QString &color);
@@ -102,6 +105,7 @@ class Settings
 		void                     setProxyType                (QNetworkProxy::ProxyType type);
 		void                     setProxyUsername            (const QString &username);
 #ifndef EDITION_FREE
+		void                     setRecordsToCache           (quint32 count);
         void                     setRememberWindowPosition   (bool enable);
 		void                     setShowCategoryName         (bool show);
 		void                     setShowLanguageNames        (bool show);
