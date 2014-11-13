@@ -13,39 +13,40 @@ class WordsImportDialog : public QDialog
 	Q_OBJECT
 
 	public:
-        ~WordsImportDialog();
-		WordsImportDialog(const QString &pFile, Vocabulary *pVocabulary, ImpInterface *pPlugin, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+		         WordsImportDialog(const QString &file, Vocabulary *vocabulary, ImpInterface *plugin, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		virtual ~WordsImportDialog();
 
 		int exec();
 
 	private:
-        static const int IMPORT_REFRESHINTERVAL = 20;
+        static const quint8 IMPORT_REFRESHINTERVAL = 20;
 
-		enum eTarget {
+		enum Target
+		{
 			TargetPreview,
 			TargetVocabulary
-		}; // eTarget
+		}; // Target
 
-        bool _bImporting;
-        bool _bInterrupt;
-        CategoriesModel _cmCategoriesModel;
-		ImpInterface *_iiPlugin;
-		QString _qsFile;
-		WordsImportEditorDelegate _wiedEditorDelegate;
-		Ui::qdWordsImport _qdwiWordsImport;
-		Vocabulary *_vVocabulary;
-        WordsImportFieldsModel _wifmFieldsModel;
+        bool                      _importing;
+        bool                      _interrupt;
+        CategoriesModel           _categoriesModel;
+		ImpInterface             *_plugin;
+		QString                   _file;
+		WordsImportEditorDelegate _editorDelegate;
+		Ui::WordsImportDialog     _ui;
+		Vocabulary               *_vocabulary;
+        WordsImportFieldsModel    _fieldsModel;
 
-        virtual void accept();
-        const void CreateFieldEditors();
-        const void EnableControls() const;
-		const void ImportData(const eTarget &pTarget);
-		const void PreparePreviewColumns() const;
-        virtual void reject();
+        virtual void accept               ();
+                void createFieldEditors   ();
+                void enableControls       () const;
+		        void importData           (const Target &target);
+		        void preparePreviewColumns() const;
+        virtual void reject               ();
 
 	private slots:
-		const void on_qpbPreviewRefresh_clicked(bool checked = false);
-        const void on_qtvCategoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
+		void on_previewRefresh_clicked                   (bool checked = false);
+        void on_categoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
 }; // WordsImportDialog
 
 #endif // WORDSIMPORTDIALOG_H

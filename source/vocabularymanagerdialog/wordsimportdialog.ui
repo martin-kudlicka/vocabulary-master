@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qdWordsImport</class>
- <widget class="QDialog" name="qdWordsImport">
+ <class>WordsImportDialog</class>
+ <widget class="QDialog" name="WordsImportDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="qgbSource">
+    <widget class="QGroupBox" name="sourceGroup">
      <property name="title">
       <string>Source</string>
      </property>
@@ -30,7 +30,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QTreeView" name="qtvCategories">
+         <widget class="QTreeView" name="categories">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>1</horstretch>
@@ -43,7 +43,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QTreeView" name="qtvFields">
+         <widget class="QTreeView" name="fields">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>2</horstretch>
@@ -61,7 +61,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="qcbSkipPartialRecords">
+       <widget class="QCheckBox" name="skipPartialRecords">
         <property name="text">
          <string>&amp;Skip partial records</string>
         </property>
@@ -77,7 +77,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QTableWidget" name="qtwPreview"/>
+       <widget class="QTableWidget" name="preview"/>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -95,7 +95,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="qpbPreviewRefresh">
+         <widget class="QPushButton" name="previewRefresh">
           <property name="text">
            <string>&amp;Refresh</string>
           </property>
@@ -107,7 +107,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QProgressBar" name="qpbProgress">
+    <widget class="QProgressBar" name="progress">
      <property name="textVisible">
       <bool>false</bool>
      </property>
@@ -118,7 +118,16 @@
      <property name="spacing">
       <number>6</number>
      </property>
-     <property name="margin">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
       <number>0</number>
      </property>
      <item>
@@ -135,7 +144,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="qpbOk">
+      <widget class="QPushButton" name="okButton">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -145,7 +154,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="qpbCancel">
+      <widget class="QPushButton" name="cancelButton">
        <property name="text">
         <string>Cancel</string>
        </property>
@@ -158,9 +167,9 @@
  <resources/>
  <connections>
   <connection>
-   <sender>qpbOk</sender>
+   <sender>okButton</sender>
    <signal>clicked()</signal>
-   <receiver>qdWordsImport</receiver>
+   <receiver>WordsImportDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -174,9 +183,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>qpbCancel</sender>
+   <sender>cancelButton</sender>
    <signal>clicked()</signal>
-   <receiver>qdWordsImport</receiver>
+   <receiver>WordsImportDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

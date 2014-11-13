@@ -3,226 +3,247 @@
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QLineEdit>
 
+WordsImportDialog::WordsImportDialog(const QString &file, Vocabulary *vocabulary, ImpInterface *plugin, QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _importing(false), _interrupt(false), _categoriesModel(vocabulary), _plugin(plugin), _file(file), _editorDelegate(vocabulary), _vocabulary(vocabulary), _fieldsModel(vocabulary)
+{
+} // WordsImportDialog
+
 WordsImportDialog::~WordsImportDialog()
 {
-    _iiPlugin->close();
+    _plugin->close();
 } // ~WordsImportDialog
-
-void WordsImportDialog::accept()
-{
-    ImportData(TargetVocabulary);
-    if (!_bInterrupt) {
-        QDialog::accept();
-    } // if
-} // accept
-
-const void WordsImportDialog::CreateFieldEditors()
-{
-	_qdwiWordsImport.qtvFields->setItemDelegateForColumn(WordsImportFieldsModel::ColumnEditor, &_wiedEditorDelegate);
-
-    for (int iRow = 0; iRow < _wifmFieldsModel.rowCount(); iRow++) {
-		bool bPersistentEditor = true;
-
-		int iFieldId = _vVocabulary->fieldId(iRow);
-		if (_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-			VocabularyDatabase::FieldBuiltIn efbBuiltIn = _vVocabulary->fieldBuiltIn(iFieldId);
-			if (efbBuiltIn == VocabularyDatabase::FieldBuiltInEnabled) {
-				bPersistentEditor = false;
-			} // if
-		} // if
-
-		if (bPersistentEditor) {
-			QModelIndex qmiIndex = _wifmFieldsModel.index(iRow, WordsImportFieldsModel::ColumnEditor);
-			_qdwiWordsImport.qtvFields->openPersistentEditor(qmiIndex);
-		} // if
-    } // for
-} // CreateFieldEditors
-
-const void WordsImportDialog::EnableControls() const
-{
-    const QItemSelectionModel *qismCategorySelection = _qdwiWordsImport.qtvCategories->selectionModel();
-
-    _qdwiWordsImport.qpbOk->setEnabled(!_bImporting && qismCategorySelection->hasSelection());
-    if (_bImporting) {
-	    _qdwiWordsImport.qpbCancel->setText(tr("Stop"));
-    } else {
-        _qdwiWordsImport.qpbCancel->setText(tr("Cancel"));
-    } // if else
-} // EnableControls
 
 int WordsImportDialog::exec()
 {
-    if (!_iiPlugin->open(_qsFile)) {
+    if (!_plugin->open(_file))
+	{
         QMessageBox::critical(QApplication::activeWindow(), tr("Words import"), tr("Can't import data from selected file."));
         return QDialog::Rejected;
     } // if
 
     // vocabulary UI
-    _qdwiWordsImport.setupUi(this);
+    _ui.setupUi(this);
     // categories
-    _qdwiWordsImport.qtvCategories->setModel(&_cmCategoriesModel);
-    connect(_qdwiWordsImport.qtvCategories->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvCategoriesSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+    _ui.categories->setModel(&_categoriesModel);
+    connect(_ui.categories->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_categoriesSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
     // fields
-    _qdwiWordsImport.qtvFields->setModel(&_wifmFieldsModel);
-	CreateFieldEditors();
-    _qdwiWordsImport.qtvFields->header()->setSectionResizeMode(WordsImportFieldsModel::ColumnName, QHeaderView::ResizeToContents);
-	_qdwiWordsImport.qtvFields->header()->setSectionResizeMode(WordsImportFieldsModel::ColumnLanguage, QHeaderView::ResizeToContents);
-    _qdwiWordsImport.qtvFields->header()->setSectionResizeMode(WordsImportFieldsModel::ColumnEditor, QHeaderView::Stretch);
+    _ui.fields->setModel(&_fieldsModel);
+	createFieldEditors();
+    _ui.fields->header()->setSectionResizeMode(WordsImportFieldsModel::ColumnName, QHeaderView::ResizeToContents);
+	_ui.fields->header()->setSectionResizeMode(WordsImportFieldsModel::ColumnLanguage, QHeaderView::ResizeToContents);
+    _ui.fields->header()->setSectionResizeMode(WordsImportFieldsModel::ColumnEditor, QHeaderView::Stretch);
 	// preview
-	PreparePreviewColumns();
+	preparePreviewColumns();
 
     // plugin UI
-    new QBoxLayout(QBoxLayout::LeftToRight, _qdwiWordsImport.qgbSource);
-    _iiPlugin->setupUI(_qdwiWordsImport.qgbSource);
+    new QBoxLayout(QBoxLayout::LeftToRight, _ui.sourceGroup);
+    _plugin->setupUI(_ui.sourceGroup);
 
 	return QDialog::exec();
 } // exec
 
-const void WordsImportDialog::ImportData(const eTarget &pTarget)
+void WordsImportDialog::accept()
 {
-    _bImporting = true;
-	EnableControls();
-    _bInterrupt = false;
+    importData(TargetVocabulary);
+    if (!_interrupt)
+	{
+        QDialog::accept();
+    } // if
+} // accept
+
+void WordsImportDialog::createFieldEditors()
+{
+	_ui.fields->setItemDelegateForColumn(WordsImportFieldsModel::ColumnEditor, &_editorDelegate);
+
+    for (quint8 row = 0; row < _fieldsModel.rowCount(); row++)
+	{
+		bool persistentEditor = true;
+
+		const quint8 fieldId = _vocabulary->fieldId(row);
+		if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+		{
+			const VocabularyDatabase::FieldBuiltIn builtIn = _vocabulary->fieldBuiltIn(fieldId);
+			if (builtIn == VocabularyDatabase::FieldBuiltInEnabled)
+			{
+				persistentEditor = false;
+			} // if
+		} // if
+
+		if (persistentEditor)
+		{
+			const QModelIndex index = _fieldsModel.index(row, WordsImportFieldsModel::ColumnEditor);
+			_ui.fields->openPersistentEditor(index);
+		} // if
+    } // for
+} // createFieldEditors
+
+void WordsImportDialog::enableControls() const
+{
+    const QItemSelectionModel *categorySelection = _ui.categories->selectionModel();
+
+    _ui.okButton->setEnabled(!_importing && categorySelection->hasSelection());
+    if (_importing)
+	{
+	    _ui.cancelButton->setText(tr("Stop"));
+    }
+	else
+	{
+        _ui.cancelButton->setText(tr("Cancel"));
+    } // if else
+} // enableControls
+
+void WordsImportDialog::importData(const Target &target)
+{
+    _importing = true;
+	enableControls();
+    _interrupt = false;
 
 	// setup progessbar
-	_qdwiWordsImport.qpbProgress->setMaximum(_iiPlugin->recordCount());
+	_ui.progress->setMaximum(_plugin->recordCount());
 
 	// patterns
-	QStringList qslPatterns;
-	for (int iPattern = 0; iPattern < _vVocabulary->fieldCount(); iPattern++) {
-		QModelIndex qmiIndex = _wifmFieldsModel.index(iPattern, WordsImportFieldsModel::ColumnEditor);
-		QString qsData = _wifmFieldsModel.data(qmiIndex, Qt::EditRole).toString();
-		qslPatterns.append(qsData);
+	QStringList patterns;
+	for (quint8 pattern = 0; pattern < _vocabulary->fieldCount(); pattern++)
+	{
+		const QModelIndex index = _fieldsModel.index(pattern, WordsImportFieldsModel::ColumnEditor);
+		const QString data      = _fieldsModel.data(index, Qt::EditRole).toString();
+		patterns.append(data);
 	} // for
 
-	QStringList qslMarks = _iiPlugin->marks();
-	int iRecordCount = _iiPlugin->recordCount();
+	const QStringList marks   = _plugin->marks();
+	const quint32 recordCount = _plugin->recordCount();
 
-	int iCategoryId;
-	switch (pTarget) {
+	quint8 categoryId;
+	switch (target)
+	{
 		case TargetPreview:
-			_qdwiWordsImport.qtwPreview->setRowCount(iRecordCount);
+			_ui.preview->setRowCount(recordCount);
 			break;
 		case TargetVocabulary:
-			QModelIndex qmiCategory = _qdwiWordsImport.qtvCategories->currentIndex();
-			iCategoryId = _vVocabulary->categoryId(qmiCategory.row());
+			const QModelIndex category = _ui.categories->currentIndex();
+			categoryId = _vocabulary->categoryId(category.row());
 	} // switch
 
-	int iSkipCount = 0;
-	for (int iRecord = 0; iRecord < iRecordCount && !_bInterrupt; iRecord++) {
+	quint32 skipCount = 0;
+	for (quint32 record = 0; record < recordCount && !_interrupt; record++)
+	{
 		// get mark data
-		bool bSkip = false;
-		QStringList qslMarkData;
-		foreach (QString qsMark, qslMarks) {
-			QString qsData = _iiPlugin->recordData(iRecord, qsMark);
-			if (_qdwiWordsImport.qcbSkipPartialRecords->isChecked() && qsData.isEmpty()) {
-				bSkip = true;
-				iSkipCount++;
+		bool skip = false;
+		QStringList markData;
+		foreach (const QString &mark, marks)
+		{
+			const QString data = _plugin->recordData(record, mark);
+			if (_ui.skipPartialRecords->isChecked() && data.isEmpty())
+			{
+				skip = true;
+				skipCount++;
 				break;
 			} // if
-			qslMarkData.append(qsData);
+			markData.append(data);
 		} // foreach
-		if (bSkip) {
+		if (skip)
+		{
 			continue;
 		} // if
 
         // get data
-        QStringList qslData;
-		for (int iColumn = 0; iColumn < _vVocabulary->fieldCount(); iColumn++) {
-			QString qsText = qslPatterns.at(iColumn);
+        QStringList data;
+		for (quint8 column = 0; column < _vocabulary->fieldCount(); column++)
+		{
+			QString text = patterns.at(column);
 
-			for (int iMark = 0; iMark < qslMarks.size(); iMark++) {
-				qsText.replace(qslMarks.at(iMark), qslMarkData.at(iMark));
+			for (quint8 mark = 0; mark < marks.size(); mark++)
+			{
+				text.replace(marks.at(mark), markData.at(mark));
 			} // for
-            qslData.append(qsText);
+            data.append(text);
         } // for
 
         // insert data into target
-        switch (pTarget) {
+        switch (target)
+		{
             case TargetPreview:
-                for (int iColumn = 0; iColumn < _vVocabulary->fieldCount(); iColumn++) {
-					QTableWidgetItem *qtwiTableItem;
+                for (quint8 column = 0; column < _vocabulary->fieldCount(); column++)
+				{
+					QTableWidgetItem *tableItem;
 
-					int iFieldId = _vVocabulary->fieldId(iColumn);
-					switch (_vVocabulary->fieldType(iFieldId)) {
+					const quint8 fieldId = _vocabulary->fieldId(column);
+					switch (_vocabulary->fieldType(fieldId))
+					{
 						case VocabularyDatabase::FieldTypeLineEdit:
-							qtwiTableItem = new QTableWidgetItem(qslData.at(iColumn));
+							tableItem = new QTableWidgetItem(data.at(column));
 							break;
 						case VocabularyDatabase::FieldTypeCheckBox:
-							qtwiTableItem = new QTableWidgetItem();
-							qtwiTableItem->setCheckState(static_cast<Qt::CheckState>(qslData.at(iColumn).toInt()));
-							qtwiTableItem->setFlags(qtwiTableItem->flags() | Qt::ItemIsUserCheckable);
+							tableItem = new QTableWidgetItem();
+							tableItem->setCheckState(static_cast<Qt::CheckState>(data.at(column).toUInt()));
+							tableItem->setFlags(tableItem->flags() | Qt::ItemIsUserCheckable);
 							break;
 						case VocabularyDatabase::FieldTypeSpinBox:
-							qtwiTableItem = new QTableWidgetItem(qslData.at(iColumn));
+							tableItem = new QTableWidgetItem(data.at(column));
 					} // switch
 
-					qtwiTableItem->setFlags(qtwiTableItem->flags() ^ Qt::ItemIsEditable);
-					_qdwiWordsImport.qtwPreview->setItem(iRecord - iSkipCount, iColumn, qtwiTableItem);
+					tableItem->setFlags(tableItem->flags() ^ Qt::ItemIsEditable);
+					_ui.preview->setItem(record - skipCount, column, tableItem);
 				} // for
 				break;
 			case TargetVocabulary:
-				_vVocabulary->addRecord(iCategoryId, qslData);
+				_vocabulary->addRecord(categoryId, data);
 		} // switch
 
 		// progress
-        if (iRecord % IMPORT_REFRESHINTERVAL == 0) {
-		    _qdwiWordsImport.qpbProgress->setValue(iRecord);
+        if (record % IMPORT_REFRESHINTERVAL == 0)
+		{
+		    _ui.progress->setValue(record);
 		    QCoreApplication::processEvents();
         } // if
 	} // for
 
-	if (pTarget == TargetPreview && iSkipCount > 0) {
-		_qdwiWordsImport.qtwPreview->setRowCount(iRecordCount - iSkipCount);
+	if (target == TargetPreview && skipCount > 0)
+	{
+		_ui.preview->setRowCount(recordCount - skipCount);
 	} // if
 
-	// setup progessbar
-	_qdwiWordsImport.qpbProgress->setValue(0);
-	_qdwiWordsImport.qpbProgress->setMaximum(1);
+	// setup progressbar
+	_ui.progress->setValue(0);
+	_ui.progress->setMaximum(1);
 
-    _bImporting = false;
-    EnableControls();
-} // ImportData
+    _importing = false;
+    enableControls();
+} // importData
 
-const void WordsImportDialog::on_qpbPreviewRefresh_clicked(bool checked /* false */)
+void WordsImportDialog::preparePreviewColumns() const
 {
-    ImportData(TargetPreview);
-} // on_qpbPreviewRefresh_clicked
-
-const void WordsImportDialog::on_qtvCategoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
-{
-    EnableControls();
-} // on_qtvCategoriesSelectionModel_selectionChanged
-
-const void WordsImportDialog::PreparePreviewColumns() const
-{
-	QStringList qslColumns;
-	foreach (int iFieldId, _vVocabulary->fieldIds()) {
-		qslColumns.append(_vVocabulary->fieldName(iFieldId));
+	QStringList columns;
+	foreach (quint8 fieldId, _vocabulary->fieldIds())
+	{
+		columns.append(_vocabulary->fieldName(fieldId));
 	} // foreach
 
-	_qdwiWordsImport.qtwPreview->setColumnCount(qslColumns.size());
-	_qdwiWordsImport.qtwPreview->setHorizontalHeaderLabels(qslColumns);
-	for (int iColumn = 0; iColumn < _qdwiWordsImport.qtwPreview->horizontalHeader()->count(); iColumn++) {
-		_qdwiWordsImport.qtwPreview->horizontalHeader()->setSectionResizeMode(iColumn, QHeaderView::Stretch);
+	_ui.preview->setColumnCount(columns.size());
+	_ui.preview->setHorizontalHeaderLabels(columns);
+	for (quint8 column = 0; column < _ui.preview->horizontalHeader()->count(); column++)
+	{
+		_ui.preview->horizontalHeader()->setSectionResizeMode(column, QHeaderView::Stretch);
 	} // for
-} // PreparePreviewColumns
+} // preparePreviewColumns
 
 void WordsImportDialog::reject()
 {
-    if (_bImporting) {
-        _bInterrupt = true;
-    } else {
+    if (_importing)
+	{
+        _interrupt = true;
+    }
+	else
+	{
         QDialog::reject();
     } // if else
 } // reject
 
-WordsImportDialog::WordsImportDialog(const QString &pFile, Vocabulary *pVocabulary, ImpInterface *pPlugin, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags), _cmCategoriesModel(pVocabulary), _wiedEditorDelegate(pVocabulary), _wifmFieldsModel(pVocabulary)
+void WordsImportDialog::on_previewRefresh_clicked(bool checked /* false */)
 {
-	_qsFile = pFile;
-	_vVocabulary = pVocabulary;
-	_iiPlugin = pPlugin;
+    importData(TargetPreview);
+} // on_previewRefresh_clicked
 
-    _bImporting = false;
-    _bInterrupt = false;
-} // WordsImportDialog
+void WordsImportDialog::on_categoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
+{
+    enableControls();
+} // on_categoriesSelectionModel_selectionChanged
