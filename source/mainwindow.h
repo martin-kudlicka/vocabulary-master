@@ -17,6 +17,7 @@
 #include "updatechecker.h"
 #include <QtCore/QTimer>
 #include "vocabularyorganizer.h"
+#include <stdint.h>
 
 class MainWindow : public QMainWindow
 {
@@ -41,7 +42,7 @@ class MainWindow : public QMainWindow
 		static const quint16 MAX_NEXTRECORD_TRIES   = 9999;
 #endif
 		static const quint16 MILISECONDS_PER_SECOND = 1000;
-        static const quint8  RECORD_NONE            = -1;
+        static const quint32 RECORD_NONE            = UINT32_MAX;
 #ifndef EDITION_FREE
         static const quint16 SAY_BEEP_WAIT          = 500;
 #endif
