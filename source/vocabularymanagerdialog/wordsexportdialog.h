@@ -13,29 +13,30 @@ class WordsExportDialog : public QDialog
 	Q_OBJECT
 
 	public:
-		WordsExportDialog(const Vocabulary *pVocabulary, const Plugins::ExpPluginList &pExpPlugins, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+		         WordsExportDialog(const Vocabulary *vocabulary, const Plugins::ExpPluginList &expPlugins, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		virtual ~WordsExportDialog();
 
 	private:
-		CategoriesModel _cmCategoriesModel;
-		ExpPluginsModel _epmExpPluginsModel;
-        MarkLineEditPersistentDelegate _mlepdMarkDelegate;
-		Plugins::ExpPluginList _teplExpPlugins;
-		Ui::qdWordsExport _qdweWordsExport;
-		QHash<int, int> _qhExpPluginPage;
-		const Vocabulary *_vVocabulary;
-		WordsExportFieldsModel _wefmFieldsModel;
+		CategoriesModel                _categoriesModel;
+		ExpPluginsModel                _expPluginsModel;
+        MarkLineEditPersistentDelegate _markDelegate;
+		Plugins::ExpPluginList         _expPlugins;
+		Ui::WordsExportDialog          _ui;
+		QHash<quint8, quint8>          _expPluginPage;
+		const Vocabulary              *_vocabulary;
+		WordsExportFieldsModel         _fieldsModel;
 
 	private slots:
-        const void on_eiPlugin_ProgressExportSetMax(quint32 pMax) const;
-		const void on_eiPlugin_ProgressExportSetValue(quint32 pValue) const;
-        const void on_eiPlugin_VocabularyGetCategoryIds(ExpInterface::CategoryIdList *pCategoryIds) const;
-		const void on_eiPlugin_VocabularyGetCategoryName(quint8 pCategoryId, QString *pName) const;
-        const void on_eiPlugin_VocabularyGetMarks(QStringList *pMarks) const;
-		const void on_eiPlugin_VocabularyGetMarkText(quint32 pRecordId, const QString &pMark, QString *pText) const;
-		const void on_eiPlugin_VocabularyGetRecordCount(quint8 pCategoryId, quint32 *pCount) const;
-		const void on_eiPlugin_VocabularyGetRecordIds(quint8 pCategoryId, ExpInterface::RecordIdList *pRecordIds) const;
-        const void on_qpbExport_clicked(bool checked = false);
-		const void on_qtvExpPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+	    const void on_exportButton_clicked                     (bool checked = false);
+		const void on_expPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+        const void on_plugin_ProgressExportSetMax              (quint32 max)                                              const;
+		const void on_plugin_ProgressExportSetValue            (quint32 value)                                            const;
+        const void on_plugin_VocabularyGetCategoryIds          (ExpInterface::CategoryIdList *categoryIds)                const;
+		const void on_plugin_VocabularyGetCategoryName         (quint8 categoryId, QString *name)                         const;
+        const void on_plugin_VocabularyGetMarks                (QStringList *marks)                                       const;
+		const void on_plugin_VocabularyGetMarkText             (quint32 recordId, const QString &mark, QString *text)     const;
+		const void on_plugin_VocabularyGetRecordCount          (quint8 categoryId, quint32 *count)                        const;
+		const void on_plugin_VocabularyGetRecordIds            (quint8 categoryId, ExpInterface::RecordIdList *recordIds) const;
 }; // WordsExportDialog
 
 #endif // WORDSEXPORTDIALOG_H
