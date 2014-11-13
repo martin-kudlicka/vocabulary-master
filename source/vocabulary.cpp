@@ -284,7 +284,7 @@ bool Vocabulary::recordEnabled(quint32 recordId) const
 					}
 					else
 					{
-						return data.toInt();
+						return data.toUInt();
 					} // if else
 			} // switch
 		} // if

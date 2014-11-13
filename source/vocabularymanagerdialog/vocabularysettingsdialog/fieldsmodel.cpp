@@ -207,7 +207,7 @@ bool FieldsModel::setData(const QModelIndex &index, const QVariant &value, int r
             }
             break;
         case ColumnLanguage:
-            _vocabulary->setFieldLanguage(fieldId, static_cast<VocabularyDatabase::FieldLanguage>(value.toInt()));
+            _vocabulary->setFieldLanguage(fieldId, static_cast<VocabularyDatabase::FieldLanguage>(value.toUInt()));
     } // switch
 
     emit dataChanged(index, index);
