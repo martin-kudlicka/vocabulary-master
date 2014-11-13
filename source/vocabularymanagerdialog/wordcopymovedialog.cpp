@@ -1,39 +1,44 @@
 #include "vocabularymanagerdialog/wordcopymovedialog.h"
 
+WordsCopyMoveDialog::WordsCopyMoveDialog(quint8 categoryId, const RowNumList &rowNums, Vocabulary *vocabulary, QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _categoriesModel(vocabulary), _oldCategoryId(categoryId), _rowNums(rowNums), _vocabulary(vocabulary)
+{
+	_ui.setupUi(this);
+
+	// categories
+	_ui.categories->setModel(&_categoriesModel);
+	connect(_ui.categories->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_categoriesSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+} // WordsCopyMoveDialog
+
+WordsCopyMoveDialog::~WordsCopyMoveDialog()
+{
+} // ~WordsCopyMoveDialog
+
 void WordsCopyMoveDialog::accept()
 {
-    QModelIndex qmiIndex = _qdwcmCopyMove.qtvCategories->currentIndex();
-    int iNewCategoryId = _vVocabulary->categoryId(qmiIndex.row());
+    const QModelIndex index    = _ui.categories->currentIndex();
+    const quint8 newCategoryId = _vocabulary->categoryId(index.row());
 
-    if (_qdwcmCopyMove.qrbCopy->isChecked()) {
-        for (tRowNumList::const_iterator ciRow = _trnlRowNums.constBegin(); ciRow != _trnlRowNums.constEnd(); ciRow++) {
-            QStringList qslData = _vVocabulary->record(*ciRow);
-            _vVocabulary->addRecord(iNewCategoryId, qslData);
+    if (_ui.copy->isChecked())
+	{
+        for (RowNumList::const_iterator row = _rowNums.constBegin(); row != _rowNums.constEnd(); row++)
+		{
+            const QStringList data = _vocabulary->record(*row);
+            _vocabulary->addRecord(newCategoryId, data);
         } // for
-    } else {
-        for (tRowNumList::const_iterator ciRow = _trnlRowNums.constEnd(); ciRow != _trnlRowNums.constBegin();) {
-            ciRow--;
-            _vVocabulary->setRecordByRowCategory(_iOldCategoryId, *ciRow, iNewCategoryId);
+    }
+	else
+	{
+        for (RowNumList::const_iterator row = _rowNums.constEnd(); row != _rowNums.constBegin();)
+		{
+            row--;
+            _vocabulary->setRecordByRowCategory(_oldCategoryId, *row, newCategoryId);
         } // for
     } // if else
 
     QDialog::accept();
 } // accept
 
-const void WordsCopyMoveDialog::on_qtvCategoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
+void WordsCopyMoveDialog::on_categoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
-	_qdwcmCopyMove.qpbOk->setEnabled(_qdwcmCopyMove.qtvCategories->currentIndex() != QModelIndex());
+	_ui.okButton->setEnabled(_ui.categories->currentIndex() != QModelIndex());
 } // on_vvVocabularyViewSelectionModel_selectionChanged
-
-WordsCopyMoveDialog::WordsCopyMoveDialog(const int &pCategoryId, const tRowNumList &pRowNums, Vocabulary *pVocabulary, QWidget *pParent /* NULL */, Qt::WindowFlags pFlags /* 0 */) : QDialog(pParent, pFlags), _cmCategoriesModel(pVocabulary)
-{
-    _iOldCategoryId = pCategoryId;
-	_trnlRowNums = pRowNums;
-	_vVocabulary = pVocabulary;
-
-	_qdwcmCopyMove.setupUi(this);
-
-	// categories
-	_qdwcmCopyMove.qtvCategories->setModel(&_cmCategoriesModel);
-	connect(_qdwcmCopyMove.qtvCategories->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_qtvCategoriesSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
-} // WordsCopyMoveDialog

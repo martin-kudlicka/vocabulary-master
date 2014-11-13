@@ -558,7 +558,7 @@ void VocabularyManagerDialog::on_wordAdd_clicked(bool checked /* false */)
 void VocabularyManagerDialog::on_wordCopyMove_clicked(bool checked /* false */)
 {
 	// get selected records
-	WordsCopyMoveDialog::tRowNumList rowNums;
+	WordsCopyMoveDialog::RowNumList rowNums;
 	const VocabularyView *vocabularyView   = qobject_cast<const VocabularyView *>(_ui.tabs->currentWidget());
 	const VocabularyModel *vocabularyModel = qobject_cast<const VocabularyModel *>(vocabularyView->model());
 	const QItemSelectionModel *selection   = vocabularyView->selectionModel();

@@ -10,21 +10,22 @@ class WordsCopyMoveDialog : public QDialog
 	Q_OBJECT
 
 	public:
-        typedef QList<int> tRowNumList;
+        typedef QList<quint32> RowNumList;
 
-		WordsCopyMoveDialog(const int &pCategoryId, const tRowNumList &pRowNums, Vocabulary *pVocabulary, QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+		         WordsCopyMoveDialog(quint8 categoryId, const RowNumList &rowNums, Vocabulary *vocabulary, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		virtual ~WordsCopyMoveDialog();
 
 	private:
-		CategoriesModel _cmCategoriesModel;
-        int _iOldCategoryId;
-		Ui::qdWordCopyMove _qdwcmCopyMove;
-		tRowNumList _trnlRowNums;
-		Vocabulary *_vVocabulary;
+		CategoriesModel        _categoriesModel;
+        quint8                 _oldCategoryId;
+		Ui::WordCopyMoveDialog _ui;
+		RowNumList             _rowNums;
+		Vocabulary            *_vocabulary;
 
 		virtual void accept();
 
 	private slots:
-		const void on_qtvCategoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
+		void on_categoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
 }; // WordsCopyMoveDialog
 
 #endif // WORDCOPYMOVEDIALOG_H
