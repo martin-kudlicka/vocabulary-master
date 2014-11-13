@@ -23,7 +23,7 @@ VocabularyView::VocabularyView(
 
 VocabularyView::~VocabularyView()
 {
-}
+} // ~VocabularyView
 
 #ifndef EDITION_FREE
 bool VocabularyView::eventFilter(QObject *watched, QEvent *event)

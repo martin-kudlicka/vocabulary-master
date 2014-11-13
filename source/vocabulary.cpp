@@ -10,7 +10,7 @@ Vocabulary::Vocabulary()
 
 Vocabulary::~Vocabulary()
 {
-}
+} // ~Vocabulary
 
 quint8 Vocabulary::addCategory(const QString &name)
 {

@@ -10,6 +10,30 @@ WordsExportFieldsModel::~WordsExportFieldsModel()
 {
 } // ~WordsExportFieldsModel
 
+QModelIndex WordsExportFieldsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
+{
+    return createIndex(row, column);
+} // index
+
+int WordsExportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
+{
+    if (parent == QModelIndex())
+	{
+        // ignore built-in fields
+        quint8 count = 0;
+        foreach (quint8 vocabularyFieldId, _vocabulary->fieldIds())
+		{
+            if (!_vocabulary->fieldBuiltIn(vocabularyFieldId))
+			{
+                count++;
+            } // if
+        } // foreach
+        return count;
+    } else {
+        return 0;
+    } // if else
+} // rowCount
+
 int WordsExportFieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return ColumnCount;
@@ -83,31 +107,7 @@ QVariant WordsExportFieldsModel::headerData(int section, Qt::Orientation orienta
     } // switch
 } // headerData
 
-QModelIndex WordsExportFieldsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
-{
-    return createIndex(row, column);
-} // index
-
 QModelIndex WordsExportFieldsModel::parent(const QModelIndex &index) const
 {
     return QModelIndex();
 } // parent
-
-int WordsExportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
-{
-    if (parent == QModelIndex())
-	{
-        // ignore built-in fields
-        quint8 count = 0;
-        foreach (quint8 vocabularyFieldId, _vocabulary->fieldIds())
-		{
-            if (!_vocabulary->fieldBuiltIn(vocabularyFieldId))
-			{
-                count++;
-            } // if
-        } // foreach
-        return count;
-    } else {
-        return 0;
-    } // if else
-} // rowCount

@@ -27,7 +27,7 @@ VocabularyOrganizerDialog::VocabularyOrganizerDialog(VocabularyOrganizer *organi
 
 VocabularyOrganizerDialog::~VocabularyOrganizerDialog()
 {
-}
+} // ~VocabularyOrganizerDialog
 
 #ifndef EDITION_TRY
 void VocabularyOrganizerDialog::accept()

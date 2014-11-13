@@ -25,7 +25,7 @@ VocabularySettingsDialog::VocabularySettingsDialog(Vocabulary *vocabulary,
 
 VocabularySettingsDialog::~VocabularySettingsDialog()
 {
-}
+} // ~VocabularySettingsDialog
 
 void VocabularySettingsDialog::accept()
 {

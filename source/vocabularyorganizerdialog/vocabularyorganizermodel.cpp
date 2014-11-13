@@ -10,7 +10,7 @@ VocabularyOrganizerModel::VocabularyOrganizerModel(VocabularyOrganizer *organize
 
 VocabularyOrganizerModel::~VocabularyOrganizerModel()
 {
-}
+} // ~VocabularyOrganizerModel
 
 void VocabularyOrganizerModel::addRow()
 {
