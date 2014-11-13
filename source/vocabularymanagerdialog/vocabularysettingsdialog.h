@@ -17,60 +17,63 @@ class VocabularySettingsDialog : public QDialog
 	Q_OBJECT
 
 	public:
-		VocabularySettingsDialog(Vocabulary *pVocabulary,
+		         VocabularySettingsDialog(Vocabulary *vocabulary,
 #ifndef EDITION_FREE
-            const Plugins *pPlugins,
+            const Plugins *plugins,
 #endif
-            QWidget *pParent = NULL, Qt::WindowFlags pFlags = 0);
+            QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		virtual ~VocabularySettingsDialog();
 
 	private:
 #ifdef EDITION_FREE
-		enum eTab {
+		enum Tab
+		{
 			TabLanguages,
 			TabTemplates,
             TabFields
-		}; // eTab
+		}; // Tab
 #else
-		struct sSpeechVoice {
-			TTSInterface::TTSPlugin etpPlugin;
-			QString qsVoiceId;
-		};
+		struct SpeechVoice
+		{
+			TTSInterface::TTSPlugin ttsPlugin;
+			QString                 voiceId;
+		}; // SpeechVoice
 
-		typedef QList<sSpeechVoice> tVoices;
+		typedef QList<SpeechVoice> VoiceList;
 
-        FieldsModel _fmFieldsModel;
-        LanguageFieldDelegate _lfdLanguageDelegate;
-        LineEditPersistentDelegate _lepdLineEditDelegate;
-		const Plugins *_pPlugins;
-		tVoices _tvVoiceList;
+              FieldsModel                _fieldsModel;
+              LanguageFieldDelegate      _languageFieldDelegate;
+              LineEditPersistentDelegate _lineEditDelegate;
+		const Plugins                   *_plugins;
+		      VoiceList                  _voices;
 #endif
-		Ui::qdVocabularySettingsDialog _qdvsdVocabularySettingsDialog;
-		const Vocabulary *_vVocabulary;
+		      Ui::VocabularySettingsDialog _ui;
+		const Vocabulary                  *_vocabulary;
 
-		virtual void accept();
+		virtual void accept                   ();
 #ifndef EDITION_FREE
-        const void ActualizeFieldsEditor() const;
-		const void ActualizeFieldsEditor(const int &pRow) const;
+                void actualizeFieldsEditor    ()           const;
+		        void actualizeFieldsEditor    (quint8 row) const;
 #endif
-		const void FillOptions();
+		        void fillOptions              ();
 #ifndef EDITION_FREE
-		const void FillSpeech(QComboBox *pComboBox, const QString &pSpeech, const QString &pVoice);
-        const void PrepareFields();
-        const void PreparePlugins();
-		const void PrepareSpeechPlugins(QComboBox *pComboBox);
-        const void RefreshLanguageNameFields() const;
+		        void fillSpeech               (QComboBox *comboBox, const QString &speech, const QString &voice);
+                void prepareFields            ();
+                void preparePlugins           ();
+		        void prepareSpeechPlugins     (QComboBox *comboBox);
+                void refreshLanguageNameFields()           const;
 #endif
-		const void SaveOptions();
+		        void saveOptions              ();
 
 #ifndef EDITION_FREE
 	private slots:
-        const void on_leLanguageLeft_textEdited(const QString &text) const;
-        const void on_leLanguageRight_textEdited(const QString &text) const;
-        const void on_qpbFieldAdd_clicked(bool checked = false);
-		const void on_qpbFieldDown_clicked(bool checked = false);
-		const void on_qpbFieldRemove_clicked(bool checked = false);
-		const void on_qpbFieldUp_clicked(bool checked = false);
-		const void on_qtvFieldsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
+	    void on_fieldAdd_clicked                     (bool checked = false);
+		void on_fieldDown_clicked                    (bool checked = false);
+		void on_fieldRemove_clicked                  (bool checked = false);
+		void on_fieldUp_clicked                      (bool checked = false);
+		void on_fieldsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
+        void on_languageLeft_textEdited              (const QString &text)                                              const;
+        void on_languageRight_textEdited             (const QString &text)                                              const;
 #endif
 }; // VocabularySettingsDialog
 
