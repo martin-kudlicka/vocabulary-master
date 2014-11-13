@@ -102,9 +102,6 @@ void SettingsDialog::fillHotkey(HotkeyLineEdit *control, Settings::Hotkey hotkey
 void SettingsDialog::fillOptions()
 {
     // general
-#ifndef EDITION_FREE
-    _ui.horizontalLayout->setChecked(_settings->horizontalLayout());
-#endif
     _ui.alwaysOnTop->setChecked(_settings->alwaysOnTop());
 #ifndef EDITION_FREE
     _ui.rememberWindowPosition->setChecked(_settings->rememberWindowPosition());
@@ -141,6 +138,7 @@ void SettingsDialog::fillOptions()
 
 #ifndef EDITION_FREE
     // appearance
+	_ui.horizontalLayout->setChecked(_settings->horizontalLayout());
 	_ui.mainWindowToolBar->setChecked(_settings->showToolBar());
 	_ui.mainWindowLanguageNames->setChecked(_settings->showLanguageNames());
 	_ui.mainWindowCategoryName->setChecked(_settings->showCategoryName());
@@ -255,9 +253,6 @@ void SettingsDialog::saveHotkey(const HotkeyLineEdit *control, Settings::Hotkey 
 void SettingsDialog::saveOptions()
 {
     // general
-#ifndef EDITION_FREE
-    _settings->setHorizontalLayout(_ui.horizontalLayout->isChecked());
-#endif
     _settings->setAlwaysOnTop(_ui.alwaysOnTop->isChecked());
 #ifndef EDITION_FREE
     _settings->setRememberWindowPosition(_ui.rememberWindowPosition->isChecked());
@@ -292,6 +287,7 @@ void SettingsDialog::saveOptions()
 
 #ifndef EDITION_FREE
     // appearance
+	_settings->setHorizontalLayout(_ui.horizontalLayout->isChecked());
 	_settings->setShowToolBar(_ui.mainWindowToolBar->isChecked());
 	_settings->setShowLanguageNames(_ui.mainWindowLanguageNames->isChecked());
 	_settings->setShowCategoryName(_ui.mainWindowCategoryName->isChecked());
