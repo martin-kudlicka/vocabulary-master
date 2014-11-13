@@ -2,10 +2,13 @@
 
 const QString TEMPLATE_MARK = "${%1}";
 
-WordsExportFieldsModel::WordsExportFieldsModel(const Vocabulary *pVocabulary, QObject *pParent /* NULL */) : QAbstractItemModel(pParent)
+WordsExportFieldsModel::WordsExportFieldsModel(const Vocabulary *vocabulary, QObject *parent /* NULL */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
 {
-    _vVocabulary = pVocabulary;
 } // WordsExportFieldsModel
+
+WordsExportFieldsModel::~WordsExportFieldsModel()
+{
+} // ~WordsExportFieldsModel
 
 int WordsExportFieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
@@ -14,51 +17,60 @@ int WordsExportFieldsModel::columnCount(const QModelIndex &parent /* QModelIndex
 
 QVariant WordsExportFieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
-    switch (role) {
+    switch (role)
+	{
         case Qt::DisplayRole:
-            switch (index.column()) {
+            switch (index.column())
+			{
 				case ColumnLanguage:
 					{
-						int iFieldId = GetFieldId(index.row());
-						VocabularyDatabase::FieldLanguage eflLanguage = _vVocabulary->fieldLanguage(iFieldId);
-						return _vVocabulary->languageName(eflLanguage);
+						const quint8 languageFieldId                     = fieldId(index.row());
+						const VocabularyDatabase::FieldLanguage language = _vocabulary->fieldLanguage(languageFieldId);
+						return _vocabulary->languageName(language);
 					}
                 case ColumnName:
                     {
-                        int iFieldId = GetFieldId(index.row());
-                        return _vVocabulary->fieldName(iFieldId);
+                        const quint8 languageFieldId = fieldId(index.row());
+						return _vocabulary->fieldName(languageFieldId);
                     }
                 case ColumnMark:
-                    int iFieldId = GetFieldId(index.row());
-                    QString qsTemplate = _vVocabulary->fieldTemplateName(iFieldId);
-                    return TEMPLATE_MARK.arg(qsTemplate);
+					const quint8 languageFieldId = fieldId(index.row());
+                    const QString templateText   = _vocabulary->fieldTemplateName(languageFieldId);
+                    return TEMPLATE_MARK.arg(templateText);
             } // switch
         default:
             return QVariant();
     } // switch
 } // data
 
-const int WordsExportFieldsModel::GetFieldId(const int &pRow) const
+quint8 WordsExportFieldsModel::fieldId(const int &row) const
 {
-    int iNum = 0;
-    foreach (int iFieldId, _vVocabulary->fieldIds()) {
-        if (!_vVocabulary->fieldBuiltIn(iFieldId)) {
-            if (pRow == iNum) {
-                return iFieldId;
-            } else {
-                iNum++;
+    quint8 num = 0;
+    foreach (quint8 vocabularyFieldId, _vocabulary->fieldIds())
+	{
+        if (!_vocabulary->fieldBuiltIn(vocabularyFieldId))
+		{
+            if (row == num)
+			{
+                return vocabularyFieldId;
+            }
+			else
+			{
+                num++;
             } // if else
         } // if
     } // foreach
 
     return VocabularyDatabase::NOT_FOUND;
-} // GetFieldId
+} // fieldId
 
 QVariant WordsExportFieldsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
-    switch (role) {
+    switch (role)
+	{
         case Qt::DisplayRole:
-            switch (section) {
+            switch (section)
+			{
 				case ColumnLanguage:
 					return tr("Language");
                 case ColumnName:
@@ -83,15 +95,18 @@ QModelIndex WordsExportFieldsModel::parent(const QModelIndex &index) const
 
 int WordsExportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-    if (parent == QModelIndex()) {
+    if (parent == QModelIndex())
+	{
         // ignore built-in fields
-        int iCount = 0;
-        foreach (int iFieldId, _vVocabulary->fieldIds()) {
-            if (!_vVocabulary->fieldBuiltIn(iFieldId)) {
-                iCount++;
+        quint8 count = 0;
+        foreach (quint8 vocabularyFieldId, _vocabulary->fieldIds())
+		{
+            if (!_vocabulary->fieldBuiltIn(vocabularyFieldId))
+			{
+                count++;
             } // if
         } // foreach
-        return iCount;
+        return count;
     } else {
         return 0;
     } // if else
