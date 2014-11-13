@@ -189,10 +189,10 @@ void VocabularySettingsDialog::saveOptions()
     _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguageLeft, _ui.languageLeft->text());
     _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguageRight, _ui.languageRight->text());
 #else
-	SpeechVoice speechVoice = _voices.at(_ui.speechLeft->itemData(_ui.speechLeft->currentIndex()).toInt());
+	SpeechVoice speechVoice = _voices.at(_ui.speechLeft->itemData(_ui.speechLeft->currentIndex()).toUInt());
 	_vocabulary->setLanguageSpeech(VocabularyDatabase::FieldLanguageLeft, speechVoice.ttsPlugin);
 	_vocabulary->setLanguageVoice(VocabularyDatabase::FieldLanguageLeft, speechVoice.voiceId);
-	speechVoice = _voices.at(_ui.speechRight->itemData(_ui.speechRight->currentIndex()).toInt());
+	speechVoice = _voices.at(_ui.speechRight->itemData(_ui.speechRight->currentIndex()).toUInt());
 	_vocabulary->setLanguageSpeech(VocabularyDatabase::FieldLanguageRight, speechVoice.ttsPlugin);
 	_vocabulary->setLanguageVoice(VocabularyDatabase::FieldLanguageRight, speechVoice.voiceId);
 

@@ -421,7 +421,7 @@ quint8 MainWindow::recordPriority() const
             switch (builtInType)
 			{
                 case VocabularyDatabase::FieldBuiltInPriority:
-                    return _currentRecord.vocabulary->dataText(_currentRecord.id, fieldId).toInt();
+                    return _currentRecord.vocabulary->dataText(_currentRecord.id, fieldId).toUInt();
             } // switch
         } // if
     } // foreach

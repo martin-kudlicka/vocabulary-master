@@ -61,7 +61,7 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 									}
 									else
 									{
-										return _editorData.at(index.row()).toInt();
+										return _editorData.at(index.row()).toUInt();
 									} // if else
 								default:
 									return QVariant();
@@ -76,7 +76,7 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 									}
 									else
 									{
-										return _editorData.at(index.row()).toInt();
+										return _editorData.at(index.row()).toUInt();
 									} // if else
 								default:
 									return QVariant();
