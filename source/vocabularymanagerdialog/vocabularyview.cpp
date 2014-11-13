@@ -4,12 +4,34 @@
 #include <QtGui/QMouseEvent>
 #include <QtWidgets/QSpinBox>
 #include <QtCore/QCoreApplication>
+#endif
 
+VocabularyView::VocabularyView(
+#ifndef EDITION_FREE
+    Vocabulary *vocabulary,
+#endif
+    QWidget *parent /* NULL */) : QTableView(parent)
+#ifndef EDITION_FREE
+	, _vocabulary(vocabulary)
+#endif
+{
+#ifndef EDITION_FREE
+    setMouseTracking(true);
+    viewport()->installEventFilter(this);
+#endif
+} // VocabularyView
+
+VocabularyView::~VocabularyView()
+{
+}
+
+#ifndef EDITION_FREE
 bool VocabularyView::eventFilter(QObject *watched, QEvent *event)
 {
-    if (watched == viewport() && event->type() == QEvent::Leave) {
-        update(_qmiMoveOld);
-        _qmiMoveOld = QModelIndex();
+    if (watched == viewport() && event->type() == QEvent::Leave)
+	{
+        update(_moveOld);
+        _moveOld = QModelIndex();
     } // if
 
     return QTableView::eventFilter(watched, event);
@@ -17,17 +39,20 @@ bool VocabularyView::eventFilter(QObject *watched, QEvent *event)
 
 void VocabularyView::mouseMoveEvent(QMouseEvent *event)
 {
-    QModelIndex qmiMouse = indexAt(event->pos());
-    if (_qmiMoveOld.isValid() && _qmiMoveOld != qmiMouse) {
-        update(_qmiMoveOld);
+    const QModelIndex mouse = indexAt(event->pos());
+    if (_moveOld.isValid() && _moveOld != mouse)
+	{
+        update(_moveOld);
     } // if
-    _qmiMoveOld = qmiMouse;
+    _moveOld = mouse;
 
-    int iFieldId = _vVocabulary->fieldId(qmiMouse.column());
-    if (_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-        VocabularyDatabase::FieldBuiltIn efbBuiltIn = _vVocabulary->fieldBuiltIn(iFieldId);
-        if (efbBuiltIn == VocabularyDatabase::FieldBuiltInPriority) {
-            update(qmiMouse);
+    const quint8 fieldId = _vocabulary->fieldId(mouse.column());
+    if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+	{
+        const VocabularyDatabase::FieldBuiltIn builtIn = _vocabulary->fieldBuiltIn(fieldId);
+        if (builtIn == VocabularyDatabase::FieldBuiltInPriority)
+		{
+            update(mouse);
         } // if
     } // if
 
@@ -36,38 +61,27 @@ void VocabularyView::mouseMoveEvent(QMouseEvent *event)
 
 void VocabularyView::mousePressEvent(QMouseEvent *event)
 {
-    QModelIndex qmiOld = currentIndex();
+    const QModelIndex oldIndex = currentIndex();
     QTableView::mousePressEvent(event);
-    QModelIndex qmiNew = currentIndex();
+    const QModelIndex newIndex = currentIndex();
 
-    if (qmiOld != qmiNew && event->button() == Qt::LeftButton) {
-        int iFieldId = _vVocabulary->fieldId(qmiNew.column());
-        if (_vVocabulary->fieldHasAttribute(iFieldId, VocabularyDatabase::FieldAttributeBuiltIn)) {
-            VocabularyDatabase::FieldBuiltIn efbBuiltIn = _vVocabulary->fieldBuiltIn(iFieldId);
-            if (efbBuiltIn == VocabularyDatabase::FieldBuiltInPriority) {
-                QSpinBox *qsbEditor = qobject_cast<QSpinBox *>(indexWidget(qmiNew));
-                QPoint qpEditor = qsbEditor->mapFromParent(event->pos());
+    if (oldIndex != newIndex && event->button() == Qt::LeftButton)
+	{
+        const quint8 fieldId = _vocabulary->fieldId(newIndex.column());
+        if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+		{
+            const VocabularyDatabase::FieldBuiltIn builtIn = _vocabulary->fieldBuiltIn(fieldId);
+            if (builtIn == VocabularyDatabase::FieldBuiltInPriority)
+			{
+                QSpinBox *editor       = qobject_cast<QSpinBox *>(indexWidget(newIndex));
+                const QPoint editorPos = editor->mapFromParent(event->pos());
 
-                QMouseEvent qmePress(QEvent::MouseButtonPress, qpEditor, Qt::LeftButton, Qt::LeftButton, 0);
-                QCoreApplication::sendEvent(qsbEditor, &qmePress);
-                QMouseEvent qmeRelease(QEvent::MouseButtonRelease, qpEditor, Qt::LeftButton, Qt::LeftButton, 0);
-                QCoreApplication::sendEvent(qsbEditor, &qmeRelease);
+                QMouseEvent press(QEvent::MouseButtonPress, editorPos, Qt::LeftButton, Qt::LeftButton, 0);
+                QCoreApplication::sendEvent(editor, &press);
+                QMouseEvent release(QEvent::MouseButtonRelease, editorPos, Qt::LeftButton, Qt::LeftButton, 0);
+                QCoreApplication::sendEvent(editor, &release);
             } // if
         } // if
     } // if
 } // mousePressEvent
 #endif
-
-VocabularyView::VocabularyView(
-#ifndef EDITION_FREE
-    Vocabulary *pVocabulary,
-#endif
-    QWidget *pParent /* NULL */) : QTableView(pParent)
-{
-#ifndef EDITION_FREE
-    _vVocabulary = pVocabulary;
-
-    setMouseTracking(true);
-    viewport()->installEventFilter(this);
-#endif
-} // VocabularyView
