@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>qdVocabularySettingsDialog</class>
- <widget class="QDialog" name="qdVocabularySettingsDialog">
+ <class>VocabularySettingsDialog</class>
+ <widget class="QDialog" name="VocabularySettingsDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
-    <widget class="QTabWidget" name="qtwTabs">
+    <widget class="QTabWidget" name="tabs">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -36,12 +36,12 @@
              <string>L&amp;eft:</string>
             </property>
             <property name="buddy">
-             <cstring>leLanguageLeft</cstring>
+             <cstring>languageLeft</cstring>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="leLanguageLeft"/>
+           <widget class="QLineEdit" name="languageLeft"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_4">
@@ -49,18 +49,18 @@
              <string>&amp;Right:</string>
             </property>
             <property name="buddy">
-             <cstring>leLanguageRight</cstring>
+             <cstring>languageRight</cstring>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="leLanguageRight"/>
+           <widget class="QLineEdit" name="languageRight"/>
           </item>
          </layout>
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="qgbSpeech">
+        <widget class="QGroupBox" name="speech">
          <property name="title">
           <string>Speech</string>
          </property>
@@ -71,12 +71,12 @@
              <string>Le&amp;ft:</string>
             </property>
             <property name="buddy">
-             <cstring>qcbSpeechLeft</cstring>
+             <cstring>speechLeft</cstring>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QComboBox" name="qcbSpeechLeft"/>
+           <widget class="QComboBox" name="speechLeft"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_2">
@@ -84,12 +84,12 @@
              <string>R&amp;ight:</string>
             </property>
             <property name="buddy">
-             <cstring>qcbSpeechRight</cstring>
+             <cstring>speechRight</cstring>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QComboBox" name="qcbSpeechRight"/>
+           <widget class="QComboBox" name="speechRight"/>
           </item>
          </layout>
         </widget>
@@ -126,12 +126,12 @@
              <string>&amp;Left:</string>
             </property>
             <property name="buddy">
-             <cstring>qteLearningLeft</cstring>
+             <cstring>learningLeft</cstring>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QTextEdit" name="qteLearningLeft"/>
+           <widget class="QTextEdit" name="learningLeft"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_6">
@@ -139,12 +139,12 @@
              <string>&amp;Right:</string>
             </property>
             <property name="buddy">
-             <cstring>qteLearningRight</cstring>
+             <cstring>learningRight</cstring>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QTextEdit" name="qteLearningRight"/>
+           <widget class="QTextEdit" name="learningRight"/>
           </item>
          </layout>
         </widget>
@@ -161,12 +161,12 @@
              <string>L&amp;eft:</string>
             </property>
             <property name="buddy">
-             <cstring>qteTrayLeft</cstring>
+             <cstring>trayLeft</cstring>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QTextEdit" name="qteTrayLeft"/>
+           <widget class="QTextEdit" name="trayLeft"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_8">
@@ -174,12 +174,12 @@
              <string>R&amp;ight:</string>
             </property>
             <property name="buddy">
-             <cstring>qteTrayRight</cstring>
+             <cstring>trayRight</cstring>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QTextEdit" name="qteTrayRight"/>
+           <widget class="QTextEdit" name="trayRight"/>
           </item>
          </layout>
         </widget>
@@ -199,12 +199,12 @@
             <string>&amp;Type:</string>
            </property>
            <property name="buddy">
-            <cstring>qcbFieldType</cstring>
+            <cstring>fieldType</cstring>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="qcbFieldType">
+          <widget class="QComboBox" name="fieldType">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -214,7 +214,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="qpbFieldAdd">
+          <widget class="QPushButton" name="fieldAdd">
            <property name="text">
             <string>&amp;Add</string>
            </property>
@@ -225,7 +225,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QTreeView" name="qtvFields">
+          <widget class="QTreeView" name="fields">
            <property name="rootIsDecorated">
             <bool>false</bool>
            </property>
@@ -237,7 +237,7 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <widget class="QPushButton" name="qpbFieldUp">
+            <widget class="QPushButton" name="fieldUp">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -247,7 +247,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="qpbFieldDown">
+            <widget class="QPushButton" name="fieldDown">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -270,7 +270,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="qpbFieldRemove">
+            <widget class="QPushButton" name="fieldRemove">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -292,7 +292,16 @@
      <property name="spacing">
       <number>6</number>
      </property>
-     <property name="margin">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
       <number>0</number>
      </property>
      <item>
@@ -331,7 +340,7 @@
   <connection>
    <sender>qpbOK</sender>
    <signal>clicked()</signal>
-   <receiver>qdVocabularySettingsDialog</receiver>
+   <receiver>VocabularySettingsDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -347,7 +356,7 @@
   <connection>
    <sender>qpbCancel</sender>
    <signal>clicked()</signal>
-   <receiver>qdVocabularySettingsDialog</receiver>
+   <receiver>VocabularySettingsDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
