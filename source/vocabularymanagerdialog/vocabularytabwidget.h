@@ -14,31 +14,33 @@ class VocabularyTabWidget : public QTabWidget
 
     public:
 #ifndef EDITION_FREE
-        static const int CATEGORY_PRIORITY_MAX = 9;
+        static const quint8 CATEGORY_PRIORITY_MAX = 9;
 #endif
 
-        VocabularyTabWidget(QWidget *pParent = NULL);
+        VocabularyTabWidget(QWidget *parent = NULL);
 
 #ifndef EDITION_FREE
-        int addTab(QWidget *page, const QString &label, const bool &pEnabled, const int &pPriority);
-        const void SetShowEnabled(const bool &pEnabled);
-		const void SetShowPriorities(const bool &pEnabled);
+        quint8 addTab           (QWidget *page, const QString &label, bool enabled, quint8 priority);
+        void   setShowEnabled   (bool enabled);
+		void   setShowPriorities(bool enabled);
 
     private:
-		static const int CATEGORY_PRIORITY_MIN = 1;
-        static const QTabBar::ButtonPosition POSITION_BUTTON_ENABLED = QTabBar::LeftSide;
+		static const quint8                  CATEGORY_PRIORITY_MIN    = 1;
+        static const QTabBar::ButtonPosition POSITION_BUTTON_ENABLED  = QTabBar::LeftSide;
 		static const QTabBar::ButtonPosition POSITION_BUTTON_PRIORITY = QTabBar::RightSide;
 
-        bool _bShowEnabled;
-		bool _bShowPriorities;
+        bool _showEnabled;
+		bool _showPriorities;
+
+		virtual ~VocabularyTabWidget();
 
     signals:
-        void TabEnableChanged(quint8 pIndex, Qt::CheckState pState) const;
-		void TabPriorityChanged(quint8 pIndex, quint8 pValue) const;
+        void tabEnableChanged  (quint8 index, Qt::CheckState state) const;
+		void tabPriorityChanged(quint8 index, quint8 value)         const;
 
     private slots:
-        const void on_qcbEnabled_stateChanged(int state) const;
-		const void on_qsbPriority_valueChanged(int i) const;
+        void on_enabled_stateChanged (int state) const;
+		void on_priority_valueChanged(int i)     const;
 #endif
 }; // VocabularyTabWidget
 

@@ -3,67 +3,78 @@
 #ifndef EDITION_FREE
 # include <QtWidgets/QCheckBox>
 # include <QtWidgets/QSpinBox>
-
-int VocabularyTabWidget::addTab(QWidget *page, const QString &label, const bool &pEnabled, const int &pPriority)
-{
-    int iTab = QTabWidget::addTab(page, label);
-
-	// enabled/disabled
-    if (_bShowEnabled) {
-        QCheckBox *qcbEnabled = new QCheckBox(this);
-        qcbEnabled->setCheckState(pEnabled ? Qt::Checked : Qt::Unchecked);
-        tabBar()->setTabButton(iTab, POSITION_BUTTON_ENABLED, qcbEnabled);
-        connect(qcbEnabled, SIGNAL(stateChanged(int)), SLOT(on_qcbEnabled_stateChanged(int)));
-    } // if
-
-	// priority
-	if (_bShowPriorities) {
-		QSpinBox *qsbPriority = new QSpinBox(this);
-		qsbPriority->setMinimum(CATEGORY_PRIORITY_MIN);
-		qsbPriority->setMaximum(CATEGORY_PRIORITY_MAX);
-		qsbPriority->setValue(pPriority);
-		tabBar()->setTabButton(iTab, POSITION_BUTTON_PRIORITY, qsbPriority);
-		connect(qsbPriority, SIGNAL(valueChanged(int)), SLOT(on_qsbPriority_valueChanged(int)));
-	} // if
-
-    return iTab;
-} // addTab
-
-const void VocabularyTabWidget::on_qcbEnabled_stateChanged(int state) const
-{
-    for (int iI = 0; iI < count(); iI++) {
-        if (sender() == tabBar()->tabButton(iI, POSITION_BUTTON_ENABLED)) {
-            emit TabEnableChanged(iI, static_cast<Qt::CheckState>(state));
-            return;
-        } // if
-    } // for
-} // on_qcbEnabled_stateChanged
-
-const void VocabularyTabWidget::on_qsbPriority_valueChanged(int i) const
-{
-	for (int iI = 0; iI < count(); iI++) {
-		if (sender() == tabBar()->tabButton(iI, POSITION_BUTTON_PRIORITY)) {
-			emit TabPriorityChanged(iI, i);
-			return;
-		} // if
-	} // for
-} // on_qsbPriority_valueChanged
-
-const void VocabularyTabWidget::SetShowEnabled(const bool &pEnabled)
-{
-    _bShowEnabled = pEnabled;
-} // SetShowEnabled
-
-const void VocabularyTabWidget::SetShowPriorities(const bool &pEnabled)
-{
-	_bShowPriorities = pEnabled;
-} // SetShowPriorities
 #endif
 
 VocabularyTabWidget::VocabularyTabWidget(QWidget *pParent /* NULL */) : QTabWidget(pParent)
-{
 #ifndef EDITION_FREE
-    _bShowEnabled = true;
-	_bShowPriorities = true;
+    , _showEnabled(true), _showPriorities(true)
 #endif
+{
 } // VocabularyTabWidget
+
+VocabularyTabWidget::~VocabularyTabWidget()
+{
+}
+
+#ifndef EDITION_FREE
+quint8 VocabularyTabWidget::addTab(QWidget *page, const QString &label, bool enabled, quint8 priority)
+{
+    const quint8 tab = QTabWidget::addTab(page, label);
+
+	// enabled/disabled
+    if (_showEnabled)
+	{
+        QCheckBox *enabledCheckBox = new QCheckBox(this);
+        enabledCheckBox->setCheckState(enabled ? Qt::Checked : Qt::Unchecked);
+        tabBar()->setTabButton(tab, POSITION_BUTTON_ENABLED, enabledCheckBox);
+        connect(enabledCheckBox, SIGNAL(stateChanged(int)), SLOT(on_enabled_stateChanged(int)));
+    } // if
+
+	// priority
+	if (_showPriorities)
+	{
+		QSpinBox *prioritySpinBox = new QSpinBox(this);
+		prioritySpinBox->setMinimum(CATEGORY_PRIORITY_MIN);
+		prioritySpinBox->setMaximum(CATEGORY_PRIORITY_MAX);
+		prioritySpinBox->setValue(priority);
+		tabBar()->setTabButton(tab, POSITION_BUTTON_PRIORITY, prioritySpinBox);
+		connect(prioritySpinBox, SIGNAL(valueChanged(int)), SLOT(on_priority_valueChanged(int)));
+	} // if
+
+    return tab;
+} // addTab
+
+void VocabularyTabWidget::on_enabled_stateChanged(int state) const
+{
+    for (quint8 index = 0; index < count(); index++)
+	{
+        if (sender() == tabBar()->tabButton(index, POSITION_BUTTON_ENABLED))
+		{
+            emit tabEnableChanged(index, static_cast<Qt::CheckState>(state));
+            return;
+        } // if
+    } // for
+} // on_enabled_stateChanged
+
+void VocabularyTabWidget::on_priority_valueChanged(int i) const
+{
+	for (int index = 0; index < count(); index++)
+	{
+		if (sender() == tabBar()->tabButton(index, POSITION_BUTTON_PRIORITY))
+		{
+			emit tabPriorityChanged(index, i);
+			return;
+		} // if
+	} // for
+} // on_priority_valueChanged
+
+void VocabularyTabWidget::setShowEnabled(bool enabled)
+{
+    _showEnabled = enabled;
+} // setShowEnabled
+
+void VocabularyTabWidget::setShowPriorities(bool enabled)
+{
+	_showPriorities = enabled;
+} // setShowPriorities
+#endif

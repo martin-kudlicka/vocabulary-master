@@ -240,8 +240,8 @@ void VocabularyManagerDialog::initTabs()
 {
     VocabularyTabWidget *tabs = _ui.tabs;
 #ifndef EDITION_FREE
-    tabs->SetShowEnabled(_settings->canEnableCategories());
-	tabs->SetShowPriorities(_settings->canChangeCategoryPriority());
+    tabs->setShowEnabled(_settings->canEnableCategories());
+	tabs->setShowPriorities(_settings->canChangeCategoryPriority());
 #endif
 
     const VocabularyDatabase::CategoryIdList categories = _vocabulary->categoryIds();
