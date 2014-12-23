@@ -8,8 +8,10 @@ const QString ARRAY_VOCABULARIES            = "Vocabularies";
 const QString DEFAULT_COLORFLASH            = "chartreuse";
 #endif
 const QString KEY_ALWAYSONTOP               = "AlwaysOnTop";
-#ifndef EDITION_FREE
+#ifndef EDITION_TRY
 const QString KEY_CACHEVOCABULARY           = "CacheVocabulary";
+#endif
+#ifndef EDITION_FREE
 const QString KEY_CANCHANGECATEGORYPRIORITY = "CanChangeCategoryPriority";
 const QString KEY_CANENABLECATEGORIES       = "CanEnableCategories";
 const QString KEY_COLORFLASH                = "ColorFlash";
@@ -32,8 +34,10 @@ const QString KEY_PROXYPASSWORD             = "ProxyPassword";
 const QString KEY_PROXYPORT                 = "ProxyPort";
 const QString KEY_PROXYTYPE                 = "ProxyType";
 const QString KEY_PROXYUSERNAME             = "ProxyUsername";
-#ifndef EDITION_FREE
+#ifndef EDITION_TRY
 const QString KEY_RECORDSTOCACHE            = "RecordsToCache";
+#endif
+#ifndef EDITION_FREE
 const QString KEY_REMEMBERWINDOWPOSITION    = "RememberWindowPosition";
 const QString KEY_SHOWCATEGORYNAME          = "ShowCategoryName";
 const QString KEY_SHOWLANGUAGENAMES         = "ShowLanguageNames";
@@ -82,12 +86,14 @@ bool Settings::alwaysOnTop() const
     return _settings.value(KEY_ALWAYSONTOP, false).toBool();
 } // alwaysOnTop
 
-#ifndef EDITION_FREE
+#ifndef EDITION_TRY
 bool Settings::cacheVocabulary() const
 {
 	return _settings.value(KEY_CACHEVOCABULARY, true).toBool();
 } // cacheVocabulary
+#endif
 
+#ifndef EDITION_FREE
 bool Settings::canChangeCategoryPriority() const
 {
     return _settings.value(KEY_CANCHANGECATEGORYPRIORITY, true).toBool();
@@ -186,12 +192,14 @@ QString Settings::proxyUsername() const
 	return _settings.value(KEY_PROXYUSERNAME).toString();
 } // proxyUsername
 
-#ifndef EDITION_FREE
+#ifndef EDITION_TRY
 quint32 Settings::recordsToCache() const
 {
 	return _settings.value(KEY_RECORDSTOCACHE, 10).toUInt();
 } // recordsToCache
+#endif
 
+#ifndef EDITION_FREE
 bool Settings::rememberWindowPosition() const
 {
     return _settings.value(KEY_REMEMBERWINDOWPOSITION, true).toBool();
@@ -203,12 +211,14 @@ void Settings::setAlwaysOnTop(bool enable)
 	_settings.setValue(KEY_ALWAYSONTOP, enable);
 } // setAlwaysOnTop
 
-#ifndef EDITION_FREE
+#ifndef EDITION_TRY
 void Settings::setCacheVocabulary(bool enable)
 {
 	_settings.setValue(KEY_CACHEVOCABULARY, enable);
 } // setCacheVocabulary
+#endif
 
+#ifndef EDITION_FREE
 void Settings::setCanChangeCategoryPriority(bool enable)
 {
     _settings.setValue(KEY_CANCHANGECATEGORYPRIORITY, enable);
@@ -303,12 +313,14 @@ void Settings::setProxyUsername(const QString &username)
 	_settings.setValue(KEY_PROXYUSERNAME, username);
 } // setProxyUsername
 
-#ifndef EDITION_FREE
+#ifndef EDITION_TRY
 void Settings::setRecordsToCache(quint32 count)
 {
 	_settings.setValue(KEY_RECORDSTOCACHE, count);
 } // setRecordsToCache
+#endif
 
+#ifndef EDITION_FREE
 void Settings::setRememberWindowPosition(bool enable)
 {
     _settings.setValue(KEY_REMEMBERWINDOWPOSITION, enable);
