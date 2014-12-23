@@ -71,8 +71,10 @@ class SettingsDialog : public QDialog
         void saveOptions        ();
 
 	private slots:
-#ifndef EDITION_FREE
+#ifndef EDITION_TRY
 	    void on_cacheVocabulary_stateChanged(int state)            const;
+#endif
+#ifndef EDITION_FREE
 # ifdef Q_OS_WIN
 		void on_hotkeyAnswerClear_clicked   (bool checked = false) const;
 		void on_hotkeyMinimizeClear_clicked (bool checked = false) const;

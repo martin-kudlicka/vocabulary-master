@@ -53,8 +53,10 @@ class Settings
 		Settings();
 
         bool                     alwaysOnTop                 ()            const;
-#ifndef EDITION_FREE
+#ifndef EDITION_TRY
 		bool                     cacheVocabulary             ()            const;
+#endif
+#ifndef EDITION_FREE
         bool                     canChangeCategoryPriority   ()            const;
         bool                     canEnableCategories         ()            const;
         QString                  colorFlash                  ()            const;
@@ -76,13 +78,17 @@ class Settings
 		quint16                  proxyPort                   ()            const;
 		QNetworkProxy::ProxyType proxyType                   ()            const;
 		QString                  proxyUsername               ()            const;
-#ifndef EDITION_FREE
+#ifndef EDITION_TRY
 		quint32                  recordsToCache              ()            const;
+#endif
+#ifndef EDITION_FREE
         bool                     rememberWindowPosition      ()            const;
 #endif
 		void                     setAlwaysOnTop              (bool enable);
-#ifndef EDITION_FREE
+#ifndef EDITION_TRY
 		void                     setCacheVocabulary          (bool enable);
+#endif
+#ifndef EDITION_FREE
 		void                     setCanChangeCategoryPriority(bool enable);
 		void                     setCanEnableCategories      (bool enable);
 		void                     setColorFlash               (const QString &color);
@@ -104,8 +110,10 @@ class Settings
 		void                     setProxyPort                (quint16 port);
 		void                     setProxyType                (QNetworkProxy::ProxyType type);
 		void                     setProxyUsername            (const QString &username);
-#ifndef EDITION_FREE
+#ifndef EDITION_TRY
 		void                     setRecordsToCache           (quint32 count);
+#endif
+#ifndef EDITION_FREE
         void                     setRememberWindowPosition   (bool enable);
 		void                     setShowCategoryName         (bool show);
 		void                     setShowLanguageNames        (bool show);
