@@ -3,9 +3,8 @@
 #include <QtCore/QStringList>
 #include "vocabulary/clearcacheworker.h"
 
-Vocabulary::Vocabulary()
+Vocabulary::Vocabulary(const Settings *settings) : _cacheEnabled(false), _recordData(NULL), _settings(settings)
 {
-	_recordData = NULL;
 } // Vocabulary
 
 Vocabulary::~Vocabulary()
@@ -15,7 +14,12 @@ Vocabulary::~Vocabulary()
 quint8 Vocabulary::addCategory(const QString &name)
 {
 	const quint8 categoryId = VocabularyDatabase::addCategory(name);
-	_categoryRecords.insert(categoryId, RecordIdList());
+
+	if (_cacheEnabled)
+	{
+		_categoryRecords.insert(categoryId, RecordIdList());
+	} // if
+
 	return categoryId;
 } // addCategory
 
@@ -24,15 +28,22 @@ void Vocabulary::addField()
 {
     const quint8 fieldId = VocabularyDatabase::addField();
 
-    const FieldData fieldData = getFieldData(fieldId);
-    _fieldData.insert(fieldId, fieldData);
+	if (_cacheEnabled)
+	{
+		const FieldData fieldData = getFieldData(fieldId);
+		_fieldData.insert(fieldId, fieldData);
+	} // if
 } // addField
 #endif
 
 void Vocabulary::addRecord(quint8 categoryId)
 {
 	const quint32 recordId = VocabularyDatabase::addRecord(categoryId);
-	_categoryRecords[categoryId].append(recordId);
+
+	if (_cacheEnabled)
+	{
+		_categoryRecords[categoryId].append(recordId);
+	} // if
 } // addRecord
 
 #ifndef EDITION_FREE
@@ -54,8 +65,11 @@ void Vocabulary::addRecord(quint8 categoryId, const QStringList &data)
 
 void Vocabulary::beginEdit()
 {
-    _fieldDataBackup  = _fieldData;
-    _recordDataBackup = *_recordData;
+	if (_cacheEnabled)
+	{
+		_fieldDataBackup  = _fieldData;
+		_recordDataBackup = *_recordData;
+		}
 
     VocabularyDatabase::beginEdit();
 } // beginEdit
@@ -68,7 +82,7 @@ void Vocabulary::close()
 
 void Vocabulary::endEdit(bool save /* true */)
 {
-    if (!save)
+    if (!save && _cacheEnabled)
 	{
         _fieldData   = _fieldDataBackup;
         *_recordData = _recordDataBackup;
@@ -79,16 +93,21 @@ void Vocabulary::endEdit(bool save /* true */)
 
 void Vocabulary::clearCache()
 {
-	_categoryRecords.clear();
-	_fieldData.clear();
-
-    // clear large cache in background
-    if (_recordData)
+	if (_cacheEnabled)
 	{
-        ClearCacheWorker *clearCacheWorker = new ClearCacheWorker(_recordData);
-        clearCacheWorker->start(QThread::LowPriority);
-        _recordData = NULL;
-    } // if
+		_categoryRecords.clear();
+		_fieldData.clear();
+
+		// clear large cache in background
+		if (_recordData)
+		{
+			ClearCacheWorker *clearCacheWorker = new ClearCacheWorker(_recordData);
+			clearCacheWorker->start(QThread::LowPriority);
+			_recordData = NULL;
+		} // if
+
+		_cacheEnabled = false;
+	} // if
 } // clearCache
 
 bool Vocabulary::fieldHasAttribute(quint8 fieldId, FieldAttribute attribute) const
@@ -99,35 +118,77 @@ bool Vocabulary::fieldHasAttribute(quint8 fieldId, FieldAttribute attribute) con
 
 VocabularyDatabase::CategoryIdList Vocabulary::categoryIds() const
 {
-    return _categoryRecords.keys();
+	if (_cacheEnabled)
+	{
+		return _categoryRecords.keys();
+	}
+	else
+	{
+		return VocabularyDatabase::categoryIds();
+	} // if else
 } // categoryIds
 
 QString Vocabulary::dataText(quint8 categoryId, quint32 row, quint8 fieldId) const
 {
-    const quint32 recordId = _categoryRecords.value(categoryId).at(row);
-    return dataText(recordId, fieldId);
+	if (_cacheEnabled)
+	{
+		const quint32 recordId = _categoryRecords.value(categoryId).at(row);
+		return dataText(recordId, fieldId);
+	}
+	else
+	{
+		return VocabularyDatabase::dataText(categoryId, row, fieldId);
+	} // if else
 } // dataText
 
 QString Vocabulary::dataText(quint32 recordId, quint8 fieldId) const
 {
-    return _recordData->value(recordId).value(fieldId);
+	if (_cacheEnabled)
+	{
+		return _recordData->value(recordId).value(fieldId);
+	}
+	else
+	{
+		return VocabularyDatabase::dataText(recordId, fieldId);
+	} // if else
 } // dataText
 
 VocabularyDatabase::FieldAttributes Vocabulary::fieldAttributes(quint8 fieldId) const
 {
-    return _fieldData.value(fieldId).attributes;
+	if (_cacheEnabled)
+	{
+		return _fieldData.value(fieldId).attributes;
+	}
+	else
+	{
+		return VocabularyDatabase::fieldAttributes(fieldId);
+	} // if else
 } // fieldAttributes
 
 #ifndef EDITION_FREE
 VocabularyDatabase::FieldBuiltIn Vocabulary::fieldBuiltIn(quint8 fieldId) const
 {
-    return _fieldData.value(fieldId).builtIn;
+	if (_cacheEnabled)
+	{
+		return _fieldData.value(fieldId).builtIn;
+	}
+	else
+	{
+		return VocabularyDatabase::fieldBuiltIn(fieldId);
+	} // if else
 } // fieldBuiltIn
 #endif
 
 quint8 Vocabulary::fieldCount() const
 {
-    return _fieldData.size();
+	if (_cacheEnabled)
+	{
+		return _fieldData.size();
+	}
+	else
+	{
+		return VocabularyDatabase::fieldCount();
+	} // if else
 } // fieldCount
 
 Vocabulary::FieldData Vocabulary::getFieldData(quint8 fieldId) const
@@ -148,40 +209,74 @@ Vocabulary::FieldData Vocabulary::getFieldData(quint8 fieldId) const
 
 quint8 Vocabulary::fieldId(quint8 position) const
 {
-    quint8 pos = 0;
-    for (FieldDataMap::const_iterator fieldId = _fieldData.constBegin(); fieldId != _fieldData.constEnd(); fieldId++)
+	if (_cacheEnabled)
 	{
-        if (pos == position)
+		quint8 pos = 0;
+		for (FieldDataHash::const_iterator fieldId = _fieldData.constBegin(); fieldId != _fieldData.constEnd(); fieldId++)
 		{
-            return fieldId.key();
-        }
-		else
-		{
-            pos++;
-        } // if else
-    } // for
+			if (pos == position)
+			{
+				return fieldId.key();
+			}
+			else
+			{
+				pos++;
+			} // if else
+		} // for
 
-    return NOT_FOUND;
+		return NOT_FOUND;
+	}
+	else
+	{
+		return VocabularyDatabase::fieldId(position);
+	} // if else
 } // fieldId
 
 VocabularyDatabase::FieldIdList Vocabulary::fieldIds() const
 {
-    return _fieldData.keys();
+	if (_cacheEnabled)
+	{
+		return _fieldData.keys();
+	}
+	else
+	{
+		return VocabularyDatabase::fieldIds();
+	} // if else
 } // fieldIds
 
 VocabularyDatabase::FieldLanguage Vocabulary::fieldLanguage(quint8 fieldId) const
 {
-    return _fieldData.value(fieldId).language;
+	if (_cacheEnabled)
+	{
+		return _fieldData.value(fieldId).language;
+	}
+	else
+	{
+		return VocabularyDatabase::fieldLanguage(fieldId);
+	} // if else
 } // fieldLanguage
 
 QString Vocabulary::fieldName(quint8 fieldId) const
 {
-    return _fieldData.value(fieldId).name;
+	if (_cacheEnabled)
+	{
+		return _fieldData.value(fieldId).name;
+	}
+	else
+	{
+		return VocabularyDatabase::fieldName(fieldId);
+	} // if else
 } // fieldName
 
 QString Vocabulary::fieldTemplateName(quint8 fieldId) const
 {
-    return _fieldData.value(fieldId).templateName;
+	if (_cacheEnabled)
+	{
+		return _fieldData.value(fieldId).templateName;
+	}
+	else
+	{
+	} // if else
 } // fieldTemplateName
 
 VocabularyDatabase::FieldType Vocabulary::fieldType(quint8 fieldId) const
@@ -206,7 +301,7 @@ QStringList Vocabulary::record(quint32 recordId) const
 
 quint8 Vocabulary::recordCategory(quint32 recordId) const
 {
-    for (CategoryRecordsMap::const_iterator category = _categoryRecords.constBegin(); category != _categoryRecords.constEnd(); category++)
+    for (CategoryRecordsHash::const_iterator category = _categoryRecords.constBegin(); category != _categoryRecords.constEnd(); category++)
 	{
         if (category->contains(recordId))
 		{
@@ -297,7 +392,7 @@ bool Vocabulary::recordEnabled(quint32 recordId) const
 quint32 Vocabulary::recordId(quint32 row) const
 {
     quint32 recordsTotal = 0;
-    for (CategoryRecordsMap::const_iterator category = _categoryRecords.constBegin(); category != _categoryRecords.constEnd(); category++)
+    for (CategoryRecordsHash::const_iterator category = _categoryRecords.constBegin(); category != _categoryRecords.constEnd(); category++)
 	{
         const quint32 records = recordsTotal + category->size();
         if (row < records)
@@ -332,8 +427,13 @@ VocabularyDatabase::RecordIdList Vocabulary::recordIds(quint8 categoryId) const
 
 void Vocabulary::initCache()
 {
-	if (isOpen())
+	if (isOpen() && _settings->cacheVocabulary())
 	{
+		if (VocabularyDatabase::recordCount() < _settings->recordsToCache())
+		{
+			return;
+		}
+
         // fields
         const FieldIdList fieldIdList = VocabularyDatabase::fieldIds();
         foreach (quint8 fieldId, fieldIdList)
@@ -353,6 +453,8 @@ void Vocabulary::initCache()
         // records
         _recordData = new RecordDataHash();
         _recordData = VocabularyDatabase::dataText();
+
+		_cacheEnabled = true;
 	} // if
 } // initCache
 
