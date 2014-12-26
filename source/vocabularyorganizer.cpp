@@ -15,7 +15,7 @@ VocabularyOrganizer::~VocabularyOrganizer()
 #ifndef EDITION_TRY
 void VocabularyOrganizer::addExisting(VocabularyInfo *vocabularyInfo, QWidget *parent)
 {
-	vocabularyInfo->vocabulary = new Vocabulary;
+	vocabularyInfo->vocabulary = new Vocabulary(_settings);
 
 # ifndef EDITION_FREE
 	if (vocabularyInfo->vocabularyInfo.enabled)
@@ -43,7 +43,7 @@ void VocabularyOrganizer::addNew(
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
 	vocabularyInfo.vocabularyInfo.enabled  = true;
 #endif
-	vocabularyInfo.vocabulary              = new Vocabulary;
+	vocabularyInfo.vocabulary              = new Vocabulary(_settings);
 	vocabularyInfo.vocabulary->new2(
 #ifndef EDITION_TRY
 		file
