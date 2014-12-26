@@ -2,12 +2,12 @@
 #define VOCABULARY_H
 
 #include "vocabulary/vocabularydatabase.h"
-#include <QtCore/QMap>
+#include "settings.h"
 
 class Vocabulary : public VocabularyDatabase
 {
 	public:
-                 Vocabulary();
+                 Vocabulary(const Settings *settings);
 		virtual ~Vocabulary();
 
 		quint8          addCategory           (const QString &name);
@@ -88,14 +88,16 @@ class Vocabulary : public VocabularyDatabase
             FieldLanguage   language;
         }; // FieldData
 
-        typedef QHash<quint8, RecordIdList> CategoryRecordsMap;
-		typedef QMap <quint8, FieldData>    FieldDataMap;
+        typedef QHash<quint8, RecordIdList> CategoryRecordsHash;
+		typedef QHash<quint8, FieldData>    FieldDataHash;
 
-		CategoryRecordsMap _categoryRecords;
-        FieldDataMap       _fieldData;
-        FieldDataMap       _fieldDataBackup;
-        RecordDataHash    *_recordData;
-        RecordDataHash     _recordDataBackup;
+		      bool                _cacheEnabled;
+		      CategoryRecordsHash _categoryRecords;
+              FieldDataHash       _fieldData;
+              FieldDataHash       _fieldDataBackup;
+              RecordDataHash     *_recordData;
+              RecordDataHash      _recordDataBackup;
+		const Settings           *_settings;
 
 		void      clearCache  ();
 		FieldData getFieldData(quint8 fieldId) const;
