@@ -1,7 +1,6 @@
 #pragma once
 
 #include "vocabulary.h"
-#include "settings.h"
 
 class VocabularyOrganizer : public QObject
 {

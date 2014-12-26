@@ -110,61 +110,65 @@ class VocabularyDatabase : public QObject
     protected:
         typedef QList<quint32> RecordIdList;
 
-		quint8          addCategory         (const QString &name)                                                 const;
+		quint8          addCategory           (const QString &name)                                                 const;
 #ifndef EDITION_FREE
-		quint8          addField            ()                                                                    const;
+		quint8          addField              ()                                                                    const;
 #endif
-		quint32         addRecord           (quint8 categoryId)                                                   const;
+		quint32         addRecord             (quint8 categoryId)                                                   const;
 #ifndef EDITION_FREE
-		quint32         addRecord           (quint8 categoryId, const QStringList &data)                          const;
+		quint32         addRecord             (quint8 categoryId, const QStringList &data)                          const;
 #endif
-        void            beginEdit           ();
-		void            close               ();
-        void            endEdit             (bool save = true);
-        CategoryIdList  categoryIds         ()                                                                    const;
-        /*QString       dataText            (quint8 categoryId, quint32 row, quint8 fieldId)                      const;
-        QString         dataText            (quint32 recordId, quint8 fieldId)                                    const;*/
-        RecordDataHash *dataText            () const;
-        FieldAttributes fieldAttributes     (quint8 fieldId)                                                      const;
+        void            beginEdit             ();
+		void            close                 ();
+        void            endEdit               (bool save = true);
+        CategoryIdList  categoryIds           ()                                                                    const;
+        QString         dataText              (quint8 categoryId, quint32 row, quint8 fieldId)                      const;
+        QString         dataText              (quint32 recordId, quint8 fieldId)                                    const;
+        RecordDataHash *dataText              () const;
+        FieldAttributes fieldAttributes       (quint8 fieldId)                                                      const;
 #ifndef EDITION_FREE
-		FieldBuiltIn    fieldBuiltIn        (quint8 fieldId)                                                      const;
-		quint8          fieldCount          ()                                                                    const;
+		FieldBuiltIn    fieldBuiltIn          (quint8 fieldId)                                                      const;
+		quint8          fieldCount            ()                                                                    const;
 #endif
-        //quint8        getFieldId          (quint8 position)                                                     const;
-        FieldIdList     fieldIds            ()                                                                    const;
-		FieldLanguage   fieldLanguage       (quint8 fieldId)                                                      const;
-		QString         fieldName           (quint8 fieldId)                                                      const;
-		QString         fieldTemplateName   (quint8 fieldId)                                                      const;
-		FieldType       fieldType           (quint8 fieldId)                                                      const;
-		void            new2                (
+        quint8          fieldId               (quint8 position)                                                     const;
+        FieldIdList     fieldIds              ()                                                                    const;
+		FieldLanguage   fieldLanguage         (quint8 fieldId)                                                      const;
+		QString         fieldName             (quint8 fieldId)                                                      const;
+		QString         fieldTemplateName     (quint8 fieldId)                                                      const;
+		FieldType       fieldType             (quint8 fieldId)                                                      const;
+		void            new2                  (
 #ifndef EDITION_TRY
 			const QString &filePath
 #endif
 			);
-        /*quint8        recordCategory      (quint32 rRecordId)                                                   const;
-        quint32         recordCount         ()                                                                    const;
-		quint32         recordCount         (quint8 categoryId)                                                   const;
-        quint32         recordCount         (bool enabled)                                                        const;
-        quint32         recordId            (quint32 row)                                                         const;
-        quint32         recordId            (quint8 categoryId, quint32 row)                                      const;*/
-        RecordIdList    recordIds           (quint8 categoryId)                                                   const;
+        quint8          recordCategory        (quint32 recordId)                                                    const;
+        quint32         recordCount           ()                                                                    const;
+		quint32         recordCount           (quint8 categoryId)                                                   const;
+#ifndef EDITION_FREE
+		quint32         recordCount           (quint8 categoryId, bool enabled)                                     const;
+#endif
+		quint32         recordCount           (bool enabled)                                                        const;
+        quint32         recordId              (quint32 row)                                                         const;
+        quint32         recordId              (quint8 categoryId, quint32 row)                                      const;
+        RecordIdList    recordIds             (quint8 categoryId)                                                   const;
 #ifndef EDITION_TRY
-        void            open                (const QString &filePath);
+        void            open                  (const QString &filePath);
 #endif
-        void            removeCategory      (quint8 categoryId)                                                   const;
+        void            removeCategory        (quint8 categoryId)                                                   const;
 #ifndef EDITION_FREE
-		void            removeField         (quint8 fieldId)                                                      const;
+		void            removeField           (quint8 fieldId)                                                      const;
 #endif
-		void            removeRecord        (quint8 categoryId, quint32 row)                                      const;
-        //void          setDataText         (quint8 categoryId, quint32 row, quint8 fieldId, const QString &data) const;
-		void            setDataText         (quint32 recordId, quint8 fieldId, const QString &data)               const;
-		void            setFieldAttributes  (quint8 fieldId, FieldAttributes attributes)                          const;
+		void            removeRecord          (quint8 categoryId, quint32 row)                                      const;
+        void            setDataText           (quint8 categoryId, quint32 row, quint8 fieldId, const QString &data) const;
+		void            setDataText           (quint32 recordId, quint8 fieldId, const QString &data)               const;
+		void            setFieldAttributes    (quint8 fieldId, FieldAttributes attributes)                          const;
 #ifndef EDITION_FREE
-		void            setFieldLanguage    (quint8 fieldId, FieldLanguage language)                              const;
-		void            setFieldName        (quint8 fieldId, const QString &name)                                 const;
-		void            setFieldTemplateName(quint8 fieldId, const QString &templateName)                         const;
-		void            SetRecordCategory   (quint32 recordId, quint8 categoryId)                                 const;
-		void            swapFields          (quint8 sourceId, quint8 destinationId)                               const;
+		void            setFieldLanguage      (quint8 fieldId, FieldLanguage language)                              const;
+		void            setFieldName          (quint8 fieldId, const QString &name)                                 const;
+		void            setFieldTemplateName  (quint8 fieldId, const QString &templateName)                         const;
+		void            setRecordByRowCategory(quint8 oldCategoryId, quint32 recordRow, quint8 newCategoryId)       const;
+		void            SetRecordCategory     (quint32 recordId, quint8 categoryId)                                 const;
+		void            swapFields            (quint8 sourceId, quint8 destinationId)                               const;
 #endif
 
     private:
