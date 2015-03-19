@@ -14,11 +14,11 @@ class PriorityDelegate : public QStyledItemDelegate
 	private:
         static const quint8 SPINBOX_BUTTONS_WIDTH = 16;
 
-		virtual ~PriorityDelegate();
+		virtual ~PriorityDelegate() override;
 
-		virtual QWidget *createEditor (QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index)   const;
-		virtual void     paint        (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-		virtual void     setEditorData(QWidget *editor, const QModelIndex &index)                                       const;
+		virtual QWidget *createEditor (QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index)   const override;
+		virtual void     paint        (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+		virtual void     setEditorData(QWidget *editor, const QModelIndex &index)                                       const override;
 }; // PriorityDelegate
 
 #endif // PRIORITYDELEGATE_H

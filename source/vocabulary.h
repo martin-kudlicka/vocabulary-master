@@ -8,7 +8,7 @@ class Vocabulary : public VocabularyDatabase
 {
 	public:
                  Vocabulary(const Settings *settings);
-		virtual ~Vocabulary();
+		virtual ~Vocabulary() override;
 
 		quint8          addCategory           (const QString &name);
 #ifndef EDITION_FREE
@@ -77,7 +77,8 @@ class Vocabulary : public VocabularyDatabase
 #endif
 
 	private:
-        struct FieldData {
+        struct FieldData
+		{
             QString         templateName;
             QString         name;
             FieldType       type;

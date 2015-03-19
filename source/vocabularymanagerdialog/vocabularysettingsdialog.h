@@ -22,7 +22,7 @@ class VocabularySettingsDialog : public QDialog
             const Plugins *plugins,
 #endif
             QWidget *parent = NULL, Qt::WindowFlags flags = 0);
-		virtual ~VocabularySettingsDialog();
+		virtual ~VocabularySettingsDialog() override;
 
 	private:
 #ifdef EDITION_FREE
@@ -50,7 +50,7 @@ class VocabularySettingsDialog : public QDialog
 		      Ui::VocabularySettingsDialog _ui;
 		const Vocabulary                  *_vocabulary;
 
-		virtual void accept                   ();
+		virtual void accept                   () override;
 #ifndef EDITION_FREE
                 void actualizeFieldsEditor    ()           const;
 		        void actualizeFieldsEditor    (quint8 row) const;

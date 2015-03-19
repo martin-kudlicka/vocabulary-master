@@ -23,19 +23,19 @@ class PluginsModel : public QAbstractItemModel
         }; // PluginType
 
                  PluginsModel(const Plugins *plugins, PluginType type, QObject *parent = NULL);
-		virtual ~PluginsModel();
+		virtual ~PluginsModel() override;
 
-        virtual QVariant    data    (const QModelIndex &index, int role = Qt::DisplayRole)           const;
-        virtual QModelIndex index   (int row, int column, const QModelIndex &parent = QModelIndex()) const;
-        virtual int         rowCount(const QModelIndex &parent = QModelIndex())                      const;
+        virtual QVariant    data    (const QModelIndex &index, int role = Qt::DisplayRole)           const override;
+        virtual QModelIndex index   (int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+        virtual int         rowCount(const QModelIndex &parent = QModelIndex())                      const override;
 
     private:
               PluginType _type;
         const Plugins   *_plugins;
 
-        virtual int                 columnCount(const QModelIndex &parent = QModelIndex())                            const;
-        virtual QVariant            headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-        virtual QModelIndex         parent     (const QModelIndex &index)                                             const;
+        virtual int                 columnCount(const QModelIndex &parent = QModelIndex())                            const override;
+        virtual QVariant            headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+        virtual QModelIndex         parent     (const QModelIndex &index)                                             const override;
 		        Plugins::PluginInfo pluginInfo (quint8 number)                                                        const;
 }; // PluginsModel
 

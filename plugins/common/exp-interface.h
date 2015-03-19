@@ -21,7 +21,7 @@ class ExpInterface : public QObject, public TranslationHandler
 		virtual void    setupUi(QWidget *parent) = 0;
 
 	protected:
-		virtual ~ExpInterface();
+		virtual ~ExpInterface() override;
 
     signals:
         void progressExportSetMax     (quint32 pMax)                                               const;

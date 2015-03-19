@@ -11,7 +11,7 @@ class VocabularyOrganizerDialog : public QDialog
 
     public:
                  VocabularyOrganizerDialog(VocabularyOrganizer *organizer, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
-		virtual ~VocabularyOrganizerDialog();
+		virtual ~VocabularyOrganizerDialog() override;
 
 	private:
 		Ui::VocabularyOrganizerDialog _ui;
@@ -19,14 +19,14 @@ class VocabularyOrganizerDialog : public QDialog
 		VocabularyOrganizerModel      _model;
 
 #ifndef EDITION_TRY
-		virtual void    accept        ();
+		virtual void    accept        () override;
 #endif
 #ifdef EDITION_FREE
 		        void    enableControls() const;
 #endif
 #ifndef EDITION_TRY
 		        QString openPath      () const;
-		virtual void    reject        ();
+		virtual void    reject        () override;
 #endif
 
 	private slots:

@@ -13,9 +13,9 @@ class FieldLineEdit : public QLineEdit
 	private:
 		QString _defaultSheet;
 
-		virtual ~FieldLineEdit();
+		virtual ~FieldLineEdit() override;
 
-		virtual void showEvent(QShowEvent *event);
+		virtual void showEvent(QShowEvent *event) override;
 
 	private slots:
 		void on_textEdited(const QString &text);

@@ -20,7 +20,7 @@ class VocabularyManagerDialog : public QDialog
             const Plugins *plugins,
 #endif
             QWidget *parent = NULL, Qt::WindowFlags flags = 0);
-		virtual ~VocabularyManagerDialog();
+		virtual ~VocabularyManagerDialog() override;
 
 #ifndef EDITION_FREE
         void execOnRecord(quint32 recordId);

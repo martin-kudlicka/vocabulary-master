@@ -12,11 +12,11 @@ class ExpPlaintext : public ExpInterface
 	private:
         PlaintextExportWidget *_widget;
 
-		virtual ~ExpPlaintext();
+		virtual ~ExpPlaintext() override;
 
-        virtual void    beginExport() const;
-		virtual QString pluginName () const;
-		virtual void    setupUi    (QWidget *parent);
+		virtual void    beginExport() const          override;
+		virtual QString pluginName () const          override;
+		virtual void    setupUi    (QWidget *parent) override;
 
     private slots:
         void on_widget_progressExportSetMax     (quint32 max)                                              const;
