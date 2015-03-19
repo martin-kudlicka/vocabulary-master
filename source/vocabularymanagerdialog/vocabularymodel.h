@@ -12,22 +12,22 @@ class VocabularyModel : public QAbstractTableModel
         VocabularyModel(Vocabulary *vocabulary, quint8 categoryId, QObject *parent = NULL);
 
                 void addRow     ();
-		virtual int  columnCount(const QModelIndex &parent = QModelIndex()) const;
+		virtual int  columnCount(const QModelIndex &parent = QModelIndex()) const                      override;
                 void removeRow  (quint32 row);
-        virtual int  rowCount   (const QModelIndex &parent = QModelIndex()) const;
-		virtual bool setData    (const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+        virtual int  rowCount   (const QModelIndex &parent = QModelIndex()) const                      override;
+		virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
     private:
         const quint8      _categoryId;
               Vocabulary *_vocabulary;
 
-		virtual ~VocabularyModel();
+		virtual ~VocabularyModel() override;
 
-        virtual QVariant      data      (const QModelIndex &index, int role = Qt::DisplayRole)                 const;
+        virtual QVariant      data      (const QModelIndex &index, int role = Qt::DisplayRole)                 const override;
 #ifndef EDITION_FREE
-		virtual Qt::ItemFlags flags     (const QModelIndex &index)                                             const;
+		virtual Qt::ItemFlags flags     (const QModelIndex &index)                                             const override;
 #endif
-        virtual QVariant      headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+        virtual QVariant      headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 }; // VocabularyModel
 
 #endif // VOCABULARYMODEL_H

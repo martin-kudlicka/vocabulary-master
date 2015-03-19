@@ -67,7 +67,7 @@ class VocabularyDatabase : public QObject
         static const qint8 NOT_FOUND = -1;
 
                  VocabularyDatabase(QObject *parent = NULL);
-		virtual ~VocabularyDatabase();
+		virtual ~VocabularyDatabase() override;
 
 #ifndef EDITION_FREE
 		quint8                  categoryCount              ()                                                  const;

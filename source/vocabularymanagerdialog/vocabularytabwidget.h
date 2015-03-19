@@ -32,7 +32,7 @@ class VocabularyTabWidget : public QTabWidget
         bool _showEnabled;
 		bool _showPriorities;
 
-		virtual ~VocabularyTabWidget();
+		virtual ~VocabularyTabWidget() override;
 
     signals:
         void tabEnableChanged  (quint8 index, Qt::CheckState state) const;

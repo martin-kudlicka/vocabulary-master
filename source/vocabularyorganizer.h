@@ -19,7 +19,7 @@ class VocabularyOrganizer : public QObject
 		}; // VocabularyInfo
 
 		         VocabularyOrganizer(Settings *settings);
-		virtual ~VocabularyOrganizer();
+		virtual ~VocabularyOrganizer() override;
 
 #ifndef EDITION_TRY
 		      void            addExisting         (VocabularyInfo *vocabularyInfo, QWidget *parent);

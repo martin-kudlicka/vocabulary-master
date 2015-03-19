@@ -46,7 +46,7 @@ class HtmlExportWidget : public QWidget
         QList<TableColumn>   _tableColumns;
 		Ui::HtmlExportWidget _ui;
 
-		virtual ~HtmlExportWidget();
+		virtual ~HtmlExportWidget() override;
 
         void addTableColumn   ();
         void initTableColumns ();

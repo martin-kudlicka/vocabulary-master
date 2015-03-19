@@ -8,14 +8,14 @@ class LanguageFieldDelegate : public QStyledItemDelegate
 {
     public:
                  LanguageFieldDelegate(const Vocabulary *vocabulary, QObject *parent = NULL);
-		virtual ~LanguageFieldDelegate();
+		virtual ~LanguageFieldDelegate() override;
 
     private:
         const Vocabulary *_vocabulary;
 
-        virtual QWidget *createEditor (QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-        virtual void     setEditorData(QWidget *editor, const QModelIndex &index)                                     const;
-        virtual void     setModelData (QWidget *editor, QAbstractItemModel *model, const QModelIndex &index)          const;
+        virtual QWidget *createEditor (QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+        virtual void     setEditorData(QWidget *editor, const QModelIndex &index)                                     const override;
+        virtual void     setModelData (QWidget *editor, QAbstractItemModel *model, const QModelIndex &index)          const override;
 }; // LanguageFieldDelegate
 
 #endif // LANGUAGEFIELDDELEGATE_H

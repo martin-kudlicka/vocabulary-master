@@ -18,15 +18,15 @@ class ImpPlaintext : public QObject, private ImpInterface
 		PlaintextImportWidget *_widget;
 		QStringList            _cachedCapture;
 
-		virtual ~ImpPlaintext();
+		virtual ~ImpPlaintext() override;
 
-        virtual void        close      ();
-        virtual QString     filter     () const;
-        virtual QStringList marks      () const;
-		virtual bool        open       (const QString &fileName);
-        virtual quint16     recordCount() const;
-        virtual QString     recordData (quint16 record, const QString &mark);
-        virtual void        setupUI    (QGroupBox *parent);
+        virtual void        close      ()                                    override;
+        virtual QString     filter     () const                              override;
+        virtual QStringList marks      () const                              override;
+		virtual bool        open       (const QString &fileName)             override;
+		virtual quint16     recordCount() const                              override;
+        virtual QString     recordData (quint16 record, const QString &mark) override;
+        virtual void        setupUI    (QGroupBox *parent)                   override;
 }; // ImpPlaintext
 
 #endif // IMPPLAINTEXT_H

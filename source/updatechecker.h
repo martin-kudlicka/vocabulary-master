@@ -13,7 +13,7 @@ class UpdateChecker : public QObject
 
 	public:
 		         UpdateChecker(const Settings *settings, QObject *parent = NULL);
-		virtual ~UpdateChecker();
+		virtual ~UpdateChecker() override;
 
 		void                        checkForUpdate ();
 		QNetworkReply::NetworkError checkResult    () const;
@@ -22,14 +22,16 @@ class UpdateChecker : public QObject
 		QString                     updateVersion  () const;
 
 	private:
-		enum VerInfo {
+		enum VerInfo
+		{
 			VerInfoMajor,
 			VerInfoMinor,
 			VerInfoMinor2,
 			VerInfoRevision
 		}; // VerInfo
 
-		struct Version {
+		struct Version
+		{
 			ushort usMajor;
 			ushort usMinor;
 			ushort usMinor2;

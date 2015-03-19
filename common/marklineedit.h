@@ -14,12 +14,12 @@ class MarkLineEdit : public QLineEdit
     private:
         bool _focusedIn;
 
-		virtual ~MarkLineEdit();
+		virtual ~MarkLineEdit() override;
 
-        virtual void focusInEvent   (QFocusEvent *e);
+        virtual void focusInEvent   (QFocusEvent *e)    override;
                 void initialize     ();
-        virtual void mousePressEvent(QMouseEvent *e);
-        virtual void showEvent      (QShowEvent *event);
+        virtual void mousePressEvent(QMouseEvent *e)    override;
+        virtual void showEvent      (QShowEvent *event) override;
 }; // MarkLineEdit
 
 #endif // MARKLINEEDIT_H

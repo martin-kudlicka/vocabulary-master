@@ -12,7 +12,7 @@ class LicenseTextDialog : public QDialog
 {
     public:
                  LicenseTextDialog(const LicenseCommon::LicenseContentList &licenses, const Settings *settings, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
-		virtual ~LicenseTextDialog();
+		virtual ~LicenseTextDialog() override;
 
     private:
 		static const quint8 TAB_INVALID = UINT8_MAX;

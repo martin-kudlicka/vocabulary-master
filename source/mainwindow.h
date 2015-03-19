@@ -25,7 +25,7 @@ class MainWindow : public QMainWindow
 
 	public:
 		         MainWindow(QWidget *parent = NULL, Qt::WindowFlags flags = 0);
-		virtual ~MainWindow();
+		virtual ~MainWindow() override;
 
 	private:
 		enum Template
@@ -86,7 +86,7 @@ class MainWindow : public QMainWindow
 #endif
 		        void    createVocabulariesMenu();
                 void    enableControls        ();
-		virtual bool    event                 (QEvent *event);
+		virtual bool    event                 (QEvent *event) override;
                 QString languageText          (bool directionSwitched, bool answer)                        const;
 		        bool    learningDirection     ()                                                           const;
                 QString learningText          (Template templateType, bool directionSwitched, bool answer) const;

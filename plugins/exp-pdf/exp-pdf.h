@@ -24,10 +24,10 @@ class ExpPdf : public ExpInterface
 
 		PdfExportWidget *_widget;
 
-		virtual ~ExpPdf();
+		virtual ~ExpPdf() override;
 
 		        void    addFont           (HPDF_Doc pdfDocument, FontList *fontList, PdfExportWidget::FontRole fontRole, qint8 num = PdfExportWidget::FONTROLE_NONE) const;
-		virtual void    beginExport       ()                                                                                                                         const;
+		virtual void    beginExport       ()                                                                                                                         const override;
 		        void    exportTable       (quint32 recordId, HPDF_Page pdfPage, const FontList &fontList, const QStringList &marks)                                  const;
 		        void    exportText        (quint32 recordId, HPDF_Page pdfPage, const FontList &fontList, const QStringList &marks, const QString &templateText)     const;
 		        void    initFonts         (HPDF_Doc pdfDocument, FontList *fontList, quint8 markCount)                                                               const;
@@ -36,8 +36,8 @@ class ExpPdf : public ExpInterface
 		        void    pdfSetFont        (HPDF_Page pdfPage, HPDF_Font pdfFont, quint8 size)                                                                        const;
 		        void    pdfShowTableHeader(HPDF_Page pdfPage, const FontList &fontList)                                                                              const;
 		        void    pdfShowText       (HPDF_Page pdfPage, const QString &text, const QTextCodec *textCodec)                                                      const;
-		virtual QString pluginName        ()                                                                                                                         const;
-		virtual void    setupUi           (QWidget *parent);
+		virtual QString pluginName        ()                                                                                                                         const override;
+		virtual void    setupUi           (QWidget *parent)                                                                                                                override;
 
 	private slots:
 		void on_widget_vocabularyGetMarks(QStringList *marks) const;

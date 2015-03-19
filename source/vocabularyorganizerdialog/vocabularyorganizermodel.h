@@ -20,7 +20,7 @@ class VocabularyOrganizerModel : public QAbstractTableModel
 		}; // Column
 
 		         VocabularyOrganizerModel(VocabularyOrganizer *organizer, QWidget *parent);
-		virtual ~VocabularyOrganizerModel();
+		virtual ~VocabularyOrganizerModel() override;
 
 		void addRow   ();
 		void removeRow(quint8 row);
@@ -29,15 +29,15 @@ class VocabularyOrganizerModel : public QAbstractTableModel
 		QWidget             *_parent;
 		VocabularyOrganizer *_organizer;
 
-		virtual int           columnCount(const QModelIndex &parent = QModelIndex())                            const;
-		virtual QVariant      data       (const QModelIndex &index, int role = Qt::DisplayRole)                 const;
+		virtual int           columnCount(const QModelIndex &parent = QModelIndex())                            const override;
+		virtual QVariant      data       (const QModelIndex &index, int role = Qt::DisplayRole)                 const override;
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-		virtual Qt::ItemFlags flags      (const QModelIndex &index)                                             const;
+		virtual Qt::ItemFlags flags      (const QModelIndex &index)                                             const override;
 #endif
-		virtual QVariant      headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-		virtual int           rowCount   (const QModelIndex &parent = QModelIndex())                            const;
+		virtual QVariant      headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+		virtual int           rowCount   (const QModelIndex &parent = QModelIndex())                            const override;
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-		virtual bool          setData    (const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+		virtual bool          setData    (const QModelIndex &index, const QVariant &value, int role = Qt::EditRole)   override;
 #endif
 }; // VocabularyOrganizerModel
 

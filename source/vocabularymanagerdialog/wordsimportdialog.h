@@ -14,7 +14,7 @@ class WordsImportDialog : public QDialog
 
 	public:
 		         WordsImportDialog(const QString &file, Vocabulary *vocabulary, ImpInterface *plugin, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
-		virtual ~WordsImportDialog();
+		virtual ~WordsImportDialog() override;
 
 		int exec();
 
@@ -37,12 +37,12 @@ class WordsImportDialog : public QDialog
 		Vocabulary               *_vocabulary;
         WordsImportFieldsModel    _fieldsModel;
 
-        virtual void accept               ();
+        virtual void accept               () override;
                 void createFieldEditors   ();
                 void enableControls       () const;
 		        void importData           (const Target &target);
 		        void preparePreviewColumns() const;
-        virtual void reject               ();
+        virtual void reject               () override;
 
 	private slots:
 		void on_previewRefresh_clicked                   (bool checked = false);

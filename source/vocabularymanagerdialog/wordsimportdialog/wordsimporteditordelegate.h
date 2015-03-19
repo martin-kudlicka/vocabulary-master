@@ -8,12 +8,12 @@ class WordsImportEditorDelegate : public QStyledItemDelegate
 {
 	public:
 		         WordsImportEditorDelegate(const Vocabulary *vocabulary, QObject *parent = NULL);
-		virtual ~WordsImportEditorDelegate();
+		virtual ~WordsImportEditorDelegate() override;
 
 	private:
 		const Vocabulary *_vocabulary;
 
-		virtual QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+		virtual QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 }; // WordsImportEditorDelegate
 
 #endif // WORDSIMPORTEDITORDELEGATE_H

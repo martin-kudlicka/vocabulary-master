@@ -25,11 +25,12 @@ class SettingsDialog : public QDialog
             const Plugins *plugins,
 #endif
             Settings *settings, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
-		virtual ~SettingsDialog();
+		virtual ~SettingsDialog() override;
 
 	private:
 #if defined(EDITION_FREE) || !defined(Q_OS_WIN)
-		enum Tab {
+		enum Tab
+		{
 			TabGeneral,
 			TabLearning,
 			TabAppearance,
@@ -48,7 +49,7 @@ class SettingsDialog : public QDialog
 		      Settings          *_settings;
 		      Ui::SettingsDialog _ui;
 
-        virtual void accept     ();
+        virtual void accept     () override;
 #ifndef EDITION_FREE
 # ifdef Q_OS_WIN
 		void clearHotkey        (HotkeyLineEdit *control)                                const;

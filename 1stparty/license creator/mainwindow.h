@@ -12,7 +12,7 @@ class MainWindow : public QMainWindow
 
 	public:
 		         MainWindow(QWidget *parent = NULL, Qt::WindowFlags flags = 0);
-		virtual ~MainWindow();
+		virtual ~MainWindow() override;
 
 	private:
 		QXmlStreamWriter _xmlStreamWriter;

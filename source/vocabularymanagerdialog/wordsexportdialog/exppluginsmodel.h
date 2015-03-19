@@ -10,7 +10,7 @@ class ExpPluginsModel : public QAbstractItemModel
 
     public:
                  ExpPluginsModel(const Plugins::ExpPluginList *expPlugins, QObject *parent = NULL);
-		virtual ~ExpPluginsModel();
+		virtual ~ExpPluginsModel() override;
 
     private:
 		enum Column
@@ -21,12 +21,12 @@ class ExpPluginsModel : public QAbstractItemModel
 
         const Plugins::ExpPluginList *_expPlugins;
 
-        virtual int         columnCount(const QModelIndex &parent = QModelIndex())                            const;
-        virtual QVariant    data       (const QModelIndex &index, int role = Qt::DisplayRole)                 const;
-        virtual QVariant    headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-		virtual QModelIndex index      (int row, int column, const QModelIndex &parent = QModelIndex())       const;
-        virtual QModelIndex parent     (const QModelIndex &index)                                             const;
-		virtual int         rowCount   (const QModelIndex &parent = QModelIndex())                            const;
+		virtual int         columnCount(const QModelIndex &parent = QModelIndex())                            const override;
+        virtual QVariant    data       (const QModelIndex &index, int role = Qt::DisplayRole)                 const override;
+        virtual QVariant    headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+		virtual QModelIndex index      (int row, int column, const QModelIndex &parent = QModelIndex())       const override;
+        virtual QModelIndex parent     (const QModelIndex &index)                                             const override;
+		virtual int         rowCount   (const QModelIndex &parent = QModelIndex())                            const override;
 }; // ExpPluginsModel
 
 #endif // EXPPLUGINSMODEL_H
