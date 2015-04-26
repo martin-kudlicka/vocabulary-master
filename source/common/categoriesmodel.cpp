@@ -1,6 +1,6 @@
 #include "common/categoriesmodel.h"
 
-CategoriesModel::CategoriesModel(const Vocabulary *vocabulary, QObject *parent /* NULL */) : QAbstractItemModel(parent)
+CategoriesModel::CategoriesModel(const Vocabulary *vocabulary, QObject *parent /* nullptr */) : QAbstractItemModel(parent)
 {
     _vocabulary = vocabulary;
 } // CategoriesModel

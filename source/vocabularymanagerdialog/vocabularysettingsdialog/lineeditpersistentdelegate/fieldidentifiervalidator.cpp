@@ -1,6 +1,6 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate/fieldidentifiervalidator.h"
 
-FieldIdentifierValidator::FieldIdentifierValidator(quint8 row, const FieldsModel *model, QObject *parent /* NULL */) : QValidator(parent), _fieldsModel(model), _row(row)
+FieldIdentifierValidator::FieldIdentifierValidator(quint8 row, const FieldsModel *model, QObject *parent /* nullptr */) : QValidator(parent), _fieldsModel(model), _row(row)
 {
 } // FieldIdentifierValidator
 

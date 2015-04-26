@@ -133,7 +133,7 @@ VocabularyOrganizer::RecordInfo VocabularyOrganizer::recordInfo(quint32 row) con
 		} // if
 	} // foreach
 
-	recordInfo.vocabulary = NULL;
+	recordInfo.vocabulary = nullptr;
 	recordInfo.id         = VocabularyDatabase::NOT_FOUND;
 
 	return recordInfo;

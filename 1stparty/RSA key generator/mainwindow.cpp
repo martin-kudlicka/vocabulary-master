@@ -5,7 +5,7 @@
 #include "../../3rdparty/Crypto++/source/osrng.h"
 #include "../../3rdparty/Crypto++/source/files.h"
 
-MainWindow::MainWindow(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags)
+MainWindow::MainWindow(QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags)
 {
 	_ui.setupUi(this);
 } // MainWindow

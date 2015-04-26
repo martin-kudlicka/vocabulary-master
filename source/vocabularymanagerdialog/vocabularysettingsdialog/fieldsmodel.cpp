@@ -1,6 +1,6 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog/fieldsmodel.h"
 
-FieldsModel::FieldsModel(Vocabulary *vocabulary, QObject *parent /* NULL */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
+FieldsModel::FieldsModel(Vocabulary *vocabulary, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
 {
 } // FieldsModel
 

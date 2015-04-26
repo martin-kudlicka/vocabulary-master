@@ -11,7 +11,7 @@ class HtmlExportWidget : public QWidget
 	Q_OBJECT
 
 	public:
-		HtmlExportWidget(QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		HtmlExportWidget(QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
 
         QString codec  () const;
         void    refresh() const;

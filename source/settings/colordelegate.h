@@ -6,7 +6,7 @@
 class ColorDelegate : public QStyledItemDelegate
 {
 	public:
-		ColorDelegate(QObject *parent = NULL);
+		ColorDelegate(QObject *parent = nullptr);
 
 	private:
 		static const quint8 BORDER_WIDTH = 2;

@@ -7,7 +7,7 @@ const QString COLUMN_ID     = "id";
 const QString COLUMN_NAME   = "name";
 const QString TABLE_MODELS  = "models";
 
-ModelsModel::ModelsModel(const QSqlDatabase *database, QObject *parent /* NULL */) : QAbstractItemModel(parent), _deckId(0), _database(database)
+ModelsModel::ModelsModel(const QSqlDatabase *database, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _deckId(0), _database(database)
 {
 } // DecksModel
 

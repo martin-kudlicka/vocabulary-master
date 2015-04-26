@@ -4,7 +4,7 @@
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QLineEdit>
 
-WordsImportEditorDelegate::WordsImportEditorDelegate(const Vocabulary *vocabulary, QObject *parent /* NULL */) : QStyledItemDelegate(parent), _vocabulary(vocabulary)
+WordsImportEditorDelegate::WordsImportEditorDelegate(const Vocabulary *vocabulary, QObject *parent /* nullptr */) : QStyledItemDelegate(parent), _vocabulary(vocabulary)
 {
 } // WordsImportEditorDelegate
 
@@ -32,5 +32,5 @@ QWidget *WordsImportEditorDelegate::createEditor(QWidget *parent, const QStyleOp
 		return editor;
 	} // if else
 
-	return NULL;
+	return nullptr;
 } // createEditor

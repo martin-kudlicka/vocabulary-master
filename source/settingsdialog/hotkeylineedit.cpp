@@ -2,7 +2,7 @@
 
 #include <QtGui/QKeyEvent>
 
-HotkeyLineEdit::HotkeyLineEdit(QWidget *parent /* NULL */) : QLineEdit(parent)
+HotkeyLineEdit::HotkeyLineEdit(QWidget *parent /* nullptr */) : QLineEdit(parent)
 {
 } // HotkeyLineEdit
 

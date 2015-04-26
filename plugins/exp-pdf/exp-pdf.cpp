@@ -33,7 +33,7 @@ void ExpPdf::beginExport() const
 	emit vocabularyGetMarks(&marks);
 
 	// PDF
-	const HPDF_Doc pdfDocument = HPDF_New(NULL, NULL);
+	const HPDF_Doc pdfDocument = HPDF_New(nullptr, nullptr);
 	HPDF_SetCompressionMode(pdfDocument, _widget->compression());
 
 	// get font info with font and encoding set
@@ -55,7 +55,7 @@ void ExpPdf::beginExport() const
 	emit progressExportSetMax(totalRecords);
 
 	// export
-	HPDF_Page pdfPage = NULL;
+	HPDF_Page pdfPage = nullptr;
 	pdfAddPage(pdfDocument, &pdfPage, fonts.at(PdfExportWidget::FontRoleCategory).size);
 	bool firstLine = true;
 	quint32 records = 0;
@@ -264,7 +264,7 @@ void ExpPdf::pdfAddPage(HPDF_Doc pdfDocument, HPDF_Page *pdfPage, HPDF_REAL defa
 	}
 	else
 	{
-		pdfFont = NULL;
+		pdfFont = nullptr;
 		pdfSize = defaultSize;
 	} // if else
 

@@ -2,7 +2,7 @@
 
 #include "vocabularymanagerdialog/prioritydelegate.h"
 
-WordsImportFieldsModel::WordsImportFieldsModel(const Vocabulary *vocabulary, QObject *parent /* NULL */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
+WordsImportFieldsModel::WordsImportFieldsModel(const Vocabulary *vocabulary, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
 {
 	for (quint8 fieldIndex = 0; fieldIndex < _vocabulary->fieldCount(); fieldIndex++)
 	{

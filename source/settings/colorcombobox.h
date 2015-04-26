@@ -6,7 +6,7 @@
 class ColorComboBox : public QComboBox
 {
 	public:
-		ColorComboBox(QWidget *parent = NULL);
+		ColorComboBox(QWidget *parent = nullptr);
 
 	private:
 		static const quint8 BORDER_WIDTH = 2;

@@ -13,7 +13,7 @@ class WordsExportDialog : public QDialog
 	Q_OBJECT
 
 	public:
-		         WordsExportDialog(const Vocabulary *vocabulary, const Plugins::ExpPluginList &expPlugins, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		         WordsExportDialog(const Vocabulary *vocabulary, const Plugins::ExpPluginList &expPlugins, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
 		virtual ~WordsExportDialog() override;
 
 	private:

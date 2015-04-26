@@ -3,7 +3,7 @@
 #include <QtGui/QTextTable>
 #include <QtWidgets/QScrollBar>
 
-HtmlExportWidget::HtmlExportWidget(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QWidget(parent, flags)
+HtmlExportWidget::HtmlExportWidget(QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QWidget(parent, flags)
 {
 	_ui.setupUi(this);
 

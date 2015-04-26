@@ -4,7 +4,7 @@
 #include <QtWidgets/QApplication>
 #include "vocabularymanagerdialog/vocabularyview.h"
 
-PriorityDelegate::PriorityDelegate(QObject *pParent /* NULL */) : QStyledItemDelegate(pParent)
+PriorityDelegate::PriorityDelegate(QObject *pParent /* nullptr */) : QStyledItemDelegate(pParent)
 {
 } // PriorityDelegate
 

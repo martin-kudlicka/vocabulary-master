@@ -11,7 +11,7 @@ TTSSAPI::~TTSSAPI()
 
 void TTSSAPI::initialize()
 {
-	CoInitializeEx(NULL, COINIT_MULTITHREADED);
+	CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 } // initialize
 
 LicenseCommon::LicenseContentList TTSSAPI::licenseText() const
@@ -34,7 +34,7 @@ void TTSSAPI::say(const QString &voice, const QString &text)
 	CComPtr<IEnumSpObjectTokens> voiceTokens;
 	ULONG count;
 
-	SpEnumTokens(SPCAT_VOICES, NULL, NULL, &voiceTokens);
+	SpEnumTokens(SPCAT_VOICES, nullptr, nullptr, &voiceTokens);
 	voiceTokens->GetCount(&count);
 
 	for(ULONG voiceIndex = 0; voiceIndex < count; voiceIndex++)
@@ -42,7 +42,7 @@ void TTSSAPI::say(const QString &voice, const QString &text)
 		CComPtr<ISpObjectToken> voiceInfo;
 		WCHAR *id;
 
-		voiceTokens->Next(1, &voiceInfo, NULL);
+		voiceTokens->Next(1, &voiceInfo, nullptr);
 		voiceInfo->GetId(&id);
 
 		if (voice == QString::fromWCharArray(id))
@@ -50,7 +50,7 @@ void TTSSAPI::say(const QString &voice, const QString &text)
 			CComPtr<ISpVoice> voice;
 			voice.CoCreateInstance(CLSID_SpVoice);
 			voice->SetVoice(voiceInfo);
-			voice->Speak(reinterpret_cast<LPCWSTR>(text.unicode()), SPF_IS_NOT_XML, NULL);
+			voice->Speak(reinterpret_cast<LPCWSTR>(text.unicode()), SPF_IS_NOT_XML, nullptr);
 			//voiceInfo->Speak();
 		} // if
 	} // for
@@ -67,7 +67,7 @@ TTSInterface::VoiceInfoList TTSSAPI::voicesInfo() const
     TTSInterface::VoiceInfoList voices;
 	ULONG count;
 
-	SpEnumTokens(SPCAT_VOICES, NULL, NULL, &voiceTokens);
+	SpEnumTokens(SPCAT_VOICES, nullptr, nullptr, &voiceTokens);
 	voiceTokens->GetCount(&count);
 
 	for(ULONG voiceIndex = 0; voiceIndex < count; voiceIndex++)
@@ -75,7 +75,7 @@ TTSInterface::VoiceInfoList TTSSAPI::voicesInfo() const
 		CComPtr<ISpObjectToken> voiceInfo;
 		WCHAR *description, *id;
 
-		voiceTokens->Next(1, &voiceInfo, NULL);
+		voiceTokens->Next(1, &voiceInfo, nullptr);
 		voiceInfo->GetId(&id);
 		SpGetDescription(voiceInfo, &description);
 

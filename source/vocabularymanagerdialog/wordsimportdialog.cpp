@@ -3,7 +3,7 @@
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QLineEdit>
 
-WordsImportDialog::WordsImportDialog(const QString &file, Vocabulary *vocabulary, ImpInterface *plugin, QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _importing(false), _interrupt(false), _categoriesModel(vocabulary), _plugin(plugin), _file(file), _editorDelegate(vocabulary), _vocabulary(vocabulary), _fieldsModel(vocabulary)
+WordsImportDialog::WordsImportDialog(const QString &file, Vocabulary *vocabulary, ImpInterface *plugin, QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _importing(false), _interrupt(false), _categoriesModel(vocabulary), _plugin(plugin), _file(file), _editorDelegate(vocabulary), _vocabulary(vocabulary), _fieldsModel(vocabulary)
 {
 } // WordsImportDialog
 

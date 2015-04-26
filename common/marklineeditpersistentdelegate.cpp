@@ -2,7 +2,7 @@
 
 #include "marklineedit.h"
 
-MarkLineEditPersistentDelegate::MarkLineEditPersistentDelegate(QObject *pParent /* NULL */) : QStyledItemDelegate(pParent)
+MarkLineEditPersistentDelegate::MarkLineEditPersistentDelegate(QObject *pParent /* nullptr */) : QStyledItemDelegate(pParent)
 {
 } // MarkLineEditPersistentDelegate
 

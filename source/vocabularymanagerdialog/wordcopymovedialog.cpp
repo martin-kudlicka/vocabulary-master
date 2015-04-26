@@ -1,6 +1,6 @@
 #include "vocabularymanagerdialog/wordcopymovedialog.h"
 
-WordsCopyMoveDialog::WordsCopyMoveDialog(quint8 categoryId, const RowNumList &rowNums, Vocabulary *vocabulary, QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _categoriesModel(vocabulary), _oldCategoryId(categoryId), _rowNums(rowNums), _vocabulary(vocabulary)
+WordsCopyMoveDialog::WordsCopyMoveDialog(quint8 categoryId, const RowNumList &rowNums, Vocabulary *vocabulary, QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _categoriesModel(vocabulary), _oldCategoryId(categoryId), _rowNums(rowNums), _vocabulary(vocabulary)
 {
 	_ui.setupUi(this);
 

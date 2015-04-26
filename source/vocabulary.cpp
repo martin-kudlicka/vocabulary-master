@@ -3,7 +3,7 @@
 #include <QtCore/QStringList>
 #include "vocabulary/clearcacheworker.h"
 
-Vocabulary::Vocabulary(const Settings *settings) : _cacheEnabled(false), _recordData(NULL), _settings(settings)
+Vocabulary::Vocabulary(const Settings *settings) : _cacheEnabled(false), _recordData(nullptr), _settings(settings)
 {
 } // Vocabulary
 
@@ -103,7 +103,7 @@ void Vocabulary::clearCache()
 		{
 			ClearCacheWorker *clearCacheWorker = new ClearCacheWorker(_recordData);
 			clearCacheWorker->start(QThread::LowPriority);
-			_recordData = NULL;
+			_recordData = nullptr;
 		} // if
 
 		_cacheEnabled = false;

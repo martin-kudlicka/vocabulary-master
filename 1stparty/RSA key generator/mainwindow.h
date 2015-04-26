@@ -9,7 +9,7 @@ class MainWindow : public QMainWindow
 	Q_OBJECT
 
 	public:
-		         MainWindow(QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		         MainWindow(QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
 		virtual ~MainWindow() override;
 
 	private:

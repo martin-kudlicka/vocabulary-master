@@ -19,7 +19,7 @@ class VocabularyManagerDialog : public QDialog
             const Settings *settings,
             const Plugins *plugins,
 #endif
-            QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+            QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
 		virtual ~VocabularyManagerDialog() override;
 
 #ifndef EDITION_FREE

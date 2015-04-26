@@ -5,7 +5,7 @@
 # include <QtWidgets/QSpinBox>
 #endif
 
-VocabularyTabWidget::VocabularyTabWidget(QWidget *pParent /* NULL */) : QTabWidget(pParent)
+VocabularyTabWidget::VocabularyTabWidget(QWidget *pParent /* nullptr */) : QTabWidget(pParent)
 #ifndef EDITION_FREE
     , _showEnabled(true), _showPriorities(true)
 #endif

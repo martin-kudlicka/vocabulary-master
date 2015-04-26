@@ -3,7 +3,7 @@
 #include <QtWidgets/QFileDialog>
 #include "common/licensetextdialog.h"
 
-LicenseDialog::LicenseDialog(License *license, Settings *settings, QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _refreshed(false), _license(license), _settings(settings)
+LicenseDialog::LicenseDialog(License *license, Settings *settings, QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _refreshed(false), _license(license), _settings(settings)
 {
 	_ui.setupUi(this);
 

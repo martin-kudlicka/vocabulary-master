@@ -7,7 +7,7 @@
 class WordsImportEditorDelegate : public QStyledItemDelegate
 {
 	public:
-		         WordsImportEditorDelegate(const Vocabulary *vocabulary, QObject *parent = NULL);
+		         WordsImportEditorDelegate(const Vocabulary *vocabulary, QObject *parent = nullptr);
 		virtual ~WordsImportEditorDelegate() override;
 
 	private:

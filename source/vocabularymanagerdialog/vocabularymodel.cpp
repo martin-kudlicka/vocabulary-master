@@ -4,7 +4,7 @@
 # include "vocabularymanagerdialog/prioritydelegate.h"
 #endif
 
-VocabularyModel::VocabularyModel(Vocabulary *vocabulary, quint8 categoryId, QObject *parent /* NULL */) : QAbstractTableModel(parent), _vocabulary(vocabulary), _categoryId(categoryId)
+VocabularyModel::VocabularyModel(Vocabulary *vocabulary, quint8 categoryId, QObject *parent /* nullptr */) : QAbstractTableModel(parent), _vocabulary(vocabulary), _categoryId(categoryId)
 {
 } // VocabularyModel
 

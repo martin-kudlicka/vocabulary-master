@@ -2,7 +2,7 @@
 
 #include <QtGui/QPainter>
 
-ColorDelegate::ColorDelegate(QObject *parent /* NULL */) : QStyledItemDelegate(parent)
+ColorDelegate::ColorDelegate(QObject *parent /* nullptr */) : QStyledItemDelegate(parent)
 {
 } // ColorDelegate
 

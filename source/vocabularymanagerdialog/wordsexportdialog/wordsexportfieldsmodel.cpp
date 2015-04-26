@@ -2,7 +2,7 @@
 
 const QString TEMPLATE_MARK = "${%1}";
 
-WordsExportFieldsModel::WordsExportFieldsModel(const Vocabulary *vocabulary, QObject *parent /* NULL */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
+WordsExportFieldsModel::WordsExportFieldsModel(const Vocabulary *vocabulary, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
 {
 } // WordsExportFieldsModel
 

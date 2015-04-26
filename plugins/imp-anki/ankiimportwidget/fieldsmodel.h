@@ -16,7 +16,7 @@ class FieldsModel : public QAbstractItemModel
             ColumnCount
         }; // Column
 
-                 FieldsModel(const QSqlDatabase *database, QObject *parent = NULL);
+                 FieldsModel(const QSqlDatabase *database, QObject *parent = nullptr);
 		virtual ~FieldsModel() override;
 
         virtual QVariant    data      (const QModelIndex &index, int role = Qt::DisplayRole)           const override;

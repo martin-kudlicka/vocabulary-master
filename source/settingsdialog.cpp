@@ -13,7 +13,7 @@ SettingsDialog::SettingsDialog(
 #ifndef EDITION_FREE
     const Plugins *plugins,
 #endif
-    Settings *settings, QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags)
+    Settings *settings, QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags)
 #ifndef EDITION_FREE
 	, _plugins(plugins), _expPluginsModel(plugins, PluginsModel::PluginTypeExp), _impPluginsModel(plugins, PluginsModel::PluginTypeImp), _ttsPluginsModel(plugins, PluginsModel::PluginTypeTTS)
 #endif

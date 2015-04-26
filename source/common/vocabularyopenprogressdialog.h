@@ -11,7 +11,7 @@ class VocabularyOpenProgressDialog : public QDialog
 	Q_OBJECT
 
 	public:
-		         VocabularyOpenProgressDialog(const Vocabulary *vocabulary, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		         VocabularyOpenProgressDialog(const Vocabulary *vocabulary, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
 		virtual ~VocabularyOpenProgressDialog() override;
 
 	private:
