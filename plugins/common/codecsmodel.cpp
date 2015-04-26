@@ -2,9 +2,8 @@
 
 #include <QtCore/QTextCodec>
 
-CodecsModel::CodecsModel(QObject *pParent /* nullptr */) : QAbstractItemModel(pParent)
+CodecsModel::CodecsModel(QObject *pParent /* nullptr */) : QAbstractItemModel(pParent), _codecs(QTextCodec::availableCodecs())
 {
-    _codecs = QTextCodec::availableCodecs();
 } // CodecsModel
 
 CodecsModel::~CodecsModel()
