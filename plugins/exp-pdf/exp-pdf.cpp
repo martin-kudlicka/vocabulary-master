@@ -46,12 +46,12 @@ void ExpPdf::beginExport() const
 
 	// total record count for progress
 	quint32 totalRecords = 0;
-	foreach (const quint8 &categoryId, categoryIds)
+	for (const quint8 &categoryId : categoryIds)
 	{
 		quint32 records;
 		emit vocabularyGetRecordCount(categoryId, &records);
 		totalRecords += records;
-	} // foreach
+	} // for
 	emit progressExportSetMax(totalRecords);
 
 	// export
@@ -59,7 +59,7 @@ void ExpPdf::beginExport() const
 	pdfAddPage(pdfDocument, &pdfPage, fonts.at(PdfExportWidget::FontRoleCategory).size);
 	bool firstLine = true;
 	quint32 records = 0;
-	foreach (const quint8 &categoryId, categoryIds) {
+	for (const quint8 &categoryId : categoryIds) {
         if (firstLine)
 		{
             firstLine = false;
@@ -92,7 +92,7 @@ void ExpPdf::beginExport() const
         // records
         ExpInterface::RecordIdList recordIds;
         emit vocabularyGetRecordIds(categoryId, &recordIds);
-        foreach (const quint32 &recordId, recordIds)
+        for (const quint32 &recordId : recordIds)
 		{
 			if (pdfNextLine(pdfDocument, &pdfPage))
 			{
@@ -112,8 +112,8 @@ void ExpPdf::beginExport() const
 
             records++;
             emit progressExportSetValue(records);
-        } // foreach
-    } // foreach
+        } // for
+    } // for
 
 	HPDF_SaveToFile(pdfDocument, fileName.toLocal8Bit());
 
@@ -124,14 +124,14 @@ void ExpPdf::beginExport() const
 void ExpPdf::exportTable(quint32 recordId, HPDF_Page pdfPage, const FontList &fontList, const QStringList &marks) const
 {
 	const PdfExportWidget::TableColumns *tableColumns = _widget->tableColumns();
-	foreach (const PdfExportWidget::TableColumn &tableColumn, *tableColumns)
+	for (const PdfExportWidget::TableColumn &tableColumn : *tableColumns)
 	{
 		// write column text
 		exportText(recordId, pdfPage, fontList, marks, tableColumn.templateEdit->text());
 
 		// next column
 		HPDF_Page_MoveTextPos(pdfPage, tableColumn.width->value(), 0);
-	} // foreach
+	} // for
 } // exportTable
 
 void ExpPdf::exportText(quint32 recordId, HPDF_Page pdfPage, const FontList &fontList, const QStringList &marks, const QString &templateText) const
@@ -313,14 +313,14 @@ void ExpPdf::pdfSetFont(HPDF_Page pdfPage, HPDF_Font pdfFont, quint8 size) const
 void ExpPdf::pdfShowTableHeader(HPDF_Page pdfPage, const FontList &fontList) const
 {
 	const PdfExportWidget::TableColumns *columns = _widget->tableColumns();
-	foreach (const PdfExportWidget::TableColumn &column, *columns)
+	for (const PdfExportWidget::TableColumn &column : *columns)
 	{
 		// write column header
 		exportText(RECORD_NONE, pdfPage, fontList, QStringList(), column.headerEdit->text());
 
 		// next column
 		HPDF_Page_MoveTextPos(pdfPage, column.width->value(), 0);
-	} // foreach
+	} // for
 } // pdfShowTableHeader
 
 void ExpPdf::pdfShowText(HPDF_Page pdfPage, const QString &text, const QTextCodec *textCodec) const

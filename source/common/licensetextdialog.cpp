@@ -19,7 +19,7 @@ void LicenseTextDialog::showLicenses(const LicenseCommon::LicenseContentList &li
 {
     quint8 tab = TAB_INVALID;
 
-    foreach (const LicenseCommon::LicenseContent &license, licenses)
+    for (const LicenseCommon::LicenseContent &license : licenses)
 	{
         QPlainTextEdit *licenseEdit = new QPlainTextEdit(license.text, _ui.tabs);
         licenseEdit->setReadOnly(true);
@@ -28,7 +28,7 @@ void LicenseTextDialog::showLicenses(const LicenseCommon::LicenseContentList &li
 		{
             tab = newTab;
         } // if
-    } // foreach
+    } // for
 
     if (tab != TAB_INVALID)
 	{

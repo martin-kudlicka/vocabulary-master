@@ -105,10 +105,10 @@ void HtmlExportWidget::refreshTable() const
     // format
     QTextTableFormat textTableFormat;
     QVector<QTextLength> tableWidths;
-    foreach (const TableColumn &columnIndex, _tableColumns)
+    for (const TableColumn &columnIndex : _tableColumns)
 	{
         tableWidths.append(QTextLength(QTextLength::FixedLength, columnIndex.width->value()));
-    } // foreach
+    } // for
     textTableFormat.setColumnWidthConstraints(tableWidths);
     QTextTable *textTable = textCursor.insertTable(HEADER_ROW + 1, _tableColumns.size(), textTableFormat);
 
@@ -126,12 +126,12 @@ void HtmlExportWidget::refreshTable() const
 
     // total record count for progress
     quint32 totalRecords = 0;
-    foreach (const quint8 &categoryId, categoryIds)
+    for (const quint8 &categoryId : categoryIds)
 	{
         quint32 records;
         emit vocabularyGetRecordCount(categoryId, &records);
         totalRecords += records;
-    } // foreach
+    } // for
     emit progressExportSetMax(totalRecords);
     QCoreApplication::processEvents(); // to avoid crash
 
@@ -141,7 +141,7 @@ void HtmlExportWidget::refreshTable() const
     // preview
     bool firstLine  = true;
     quint32 records = 0;
-    foreach (const quint8 &categoryId, categoryIds)
+    for (const quint8 &categoryId : categoryIds)
 	{
         if (firstLine)
 		{
@@ -163,7 +163,7 @@ void HtmlExportWidget::refreshTable() const
         // records
         ExpInterface::RecordIdList recordIds;
         emit vocabularyGetRecordIds(categoryId, &recordIds);
-        foreach (const quint32 &recordId, recordIds)
+        for (const quint32 &recordId : recordIds)
 		{
             textTable->appendRows(1);
             tableRow = textTable->rows() - 1;
@@ -173,20 +173,20 @@ void HtmlExportWidget::refreshTable() const
                 QString templateText = _tableColumns.at(column).templateEdit->text();
 
                 // replace marks for data
-                foreach (const QString &mark, marks)
+                for (const QString &mark : marks)
 				{
                     QString data;
                     emit vocabularyGetMarkText(recordId, mark, &data);
                     templateText.replace(mark, data);
-                } // foreach
+                } // for
 
                 insertTableText(textTable, tableRow, column, templateText);
             } // for
 
             records++;
             emit progressExportSetValue(records);
-        } // foreach
-    } // foreach
+        } // for
+    } // for
 
     textCursor.endEditBlock();
 
@@ -206,12 +206,12 @@ void HtmlExportWidget::refreshText() const
 
     // total record count for progress
     quint32 totalRecords = 0;
-    foreach (const quint8 &categoryId, categoryIds)
+    for (const quint8 &categoryId : categoryIds)
 	{
         quint32 records;
         emit vocabularyGetRecordCount(categoryId, &records);
         totalRecords += records;
-    } // foreach
+    } // for
     emit progressExportSetMax(totalRecords);
 
     QStringList marks;
@@ -220,7 +220,7 @@ void HtmlExportWidget::refreshText() const
     // preview
     bool firstLine  = true;
     quint32 records = 0;
-    foreach (const quint8 &categoryId, categoryIds)
+    for (const quint8 &categoryId : categoryIds)
 	{
         if (firstLine)
 		{
@@ -238,24 +238,24 @@ void HtmlExportWidget::refreshText() const
         // records
         ExpInterface::RecordIdList recordIds;
         emit vocabularyGetRecordIds(categoryId, &recordIds);
-        foreach (const quint32 &recordId, recordIds)
+        for (const quint32 &recordId : recordIds)
 		{
             QString templateText = _ui.qleTextEdit->text();
 
             // replace marks for data
-            foreach (const QString &mark, marks)
+            for (const QString &mark : marks)
 			{
                 QString data;
                 emit vocabularyGetMarkText(recordId, mark, &data);
                 templateText.replace(mark, data);
-            } // foreach
+            } // for
 
             _ui.textPreview->append(templateText);
 
             records++;
             emit progressExportSetValue(records);
-        } // foreach
-    } // foreach
+        } // for
+    } // for
 
     textCursor.endEditBlock();
 

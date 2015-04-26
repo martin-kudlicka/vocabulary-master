@@ -176,7 +176,7 @@ void PdfExportWidget::initMarkFonts()
 	// mark fonts
 	QStringList marks;
 	emit vocabularyGetMarks(&marks);
-	foreach (const QString &mark, marks)
+	for (const QString &mark : marks)
 	{
 		// form label and field
 		QLabel *markLabel        = new QLabel(mark + ':', _ui.font);
@@ -208,7 +208,7 @@ void PdfExportWidget::initMarkFonts()
 		_fontControls.append(controls);
 
 		connect(font, SIGNAL(currentIndexChanged(int)), SLOT(on_font_currentIndexChanged(int)));
-	} // foreach
+	} // for
 } // initMarkFonts
 
 HPDF_PageSizes PdfExportWidget::pageSize() const
@@ -364,8 +364,10 @@ void PdfExportWidget::on_font_currentIndexChanged(int index) const
 {
 	// get font controls
 	FontControls controls;
-	foreach (controls, _fontControls) {
-		if (controls.font == sender()) {
+	foreach (controls, _fontControls)
+	{
+		if (controls.font == sender())
+		{
 			break;
 		} // if
 	} // foreach

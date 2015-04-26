@@ -21,15 +21,17 @@ int WordsExportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() 
 	{
         // ignore built-in fields
         quint8 count = 0;
-        foreach (quint8 vocabularyFieldId, _vocabulary->fieldIds())
+        for (quint8 vocabularyFieldId : _vocabulary->fieldIds())
 		{
             if (!_vocabulary->fieldBuiltIn(vocabularyFieldId))
 			{
                 count++;
             } // if
-        } // foreach
+        } // for
         return count;
-    } else {
+    }
+	else
+	{
         return 0;
     } // if else
 } // rowCount
@@ -70,7 +72,7 @@ QVariant WordsExportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 quint8 WordsExportFieldsModel::fieldId(const int &row) const
 {
     quint8 num = 0;
-    foreach (quint8 vocabularyFieldId, _vocabulary->fieldIds())
+    for (quint8 vocabularyFieldId : _vocabulary->fieldIds())
 	{
         if (!_vocabulary->fieldBuiltIn(vocabularyFieldId))
 		{
@@ -83,7 +85,7 @@ quint8 WordsExportFieldsModel::fieldId(const int &row) const
                 num++;
             } // if else
         } // if
-    } // foreach
+    } // for
 
     return VocabularyDatabase::NOT_FOUND;
 } // fieldId

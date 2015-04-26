@@ -16,11 +16,11 @@ const Plugins::ImpPluginList &Plugins::impPlugins() const
 
 void Plugins::initialize()
 {
-	foreach (const TTSPlugin &ttsPlugin, _ttsPlugins.values())
+	for (const TTSPlugin &ttsPlugin : _ttsPlugins.values())
 	{
         TTSInterface *ttsInterface = ttsPlugin.ttsInterface;
 		ttsInterface->initialize();
-	} // foreach
+	} // for
 } // initialize
 
 void Plugins::load()
@@ -31,11 +31,11 @@ void Plugins::load()
 	const QDir pluginsDir(QCoreApplication::applicationDirPath());
 	pluginsDir.cd(DIR_PLUGINS);
 
-	foreach (const QFileInfo &pluginDir, pluginsDir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot))
+	for (const QFileInfo &pluginDir : pluginsDir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot))
 	{
 		const QDir pluginDir(pluginDir.filePath());
 #endif
-		foreach (const QFileInfo &plugin, pluginDir.entryInfoList(QDir::Files))
+		for (const QFileInfo &plugin : pluginDir.entryInfoList(QDir::Files))
 		{
 			QPluginLoader pluginLoader(plugin.filePath());
 			if (pluginLoader.instance())
@@ -75,22 +75,22 @@ void Plugins::load()
 					} // if else
 				} // if else
 			} // if
-		} // foreach
+		} // for
 #ifndef _DEBUG
-	} // foreach
+	} // for
 #endif
 } // load
 
 void Plugins::setLanguage(const QString &language) const
 {
-	foreach (const ImpPlugin &impPlugin, _impPlugins)
+	for (const ImpPlugin &impPlugin : _impPlugins)
 	{
 		impPlugin.impInterface->setLanguage(language);
-	} // foreach
-	foreach (const ExpPlugin &expPlugin, _expPlugins)
+	} // for
+	for (const ExpPlugin &expPlugin : _expPlugins)
 	{
 		expPlugin.expInterface->setLanguage(language);
-	} // foreach
+	} // for
 } // setLanguage
 
 TTSInterface *Plugins::ttsPlugin(const TTSInterface::TTSPlugin &pPluginId) const
@@ -105,9 +105,9 @@ const Plugins::TTSPluginList Plugins::ttsPlugins() const
 
 void Plugins::uninitialize()
 {
-	foreach (const TTSPlugin &ttsPlugin, _ttsPlugins.values())
+	for (const TTSPlugin &ttsPlugin : _ttsPlugins.values())
 	{
         TTSInterface *ttsInterface = ttsPlugin.ttsInterface;
 		ttsInterface->uninitialize();
-	} // foreach
+	} // for
 } // uninitialize

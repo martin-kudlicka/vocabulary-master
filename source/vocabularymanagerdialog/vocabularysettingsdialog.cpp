@@ -152,20 +152,20 @@ void VocabularySettingsDialog::prepareSpeechPlugins(QComboBox *comboBox)
 	comboBox->addItem(tr("None"));
 	comboBox->setItemData(comboBox->count() - 1, _voices.size() - 1);
 
-    foreach (const Plugins::TTSPlugin &ttsPlugin, _plugins->ttsPlugins())
+    for (const Plugins::TTSPlugin &ttsPlugin : _plugins->ttsPlugins())
 	{
         const TTSInterface *plugin = ttsPlugin.ttsInterface;
 
         const TTSInterface::VoiceInfoList voices = plugin->voicesInfo();
-        foreach (const TTSInterface::VoiceInfo &voiceInfo, voices)
+        for (const TTSInterface::VoiceInfo &voiceInfo : voices)
 		{
 			speechVoice.ttsPlugin = plugin->pluginId();
 			speechVoice.voiceId   = voiceInfo.id;
 			_voices.append(speechVoice);
 			comboBox->addItem(QString("%1 (%2)").arg(plugin->pluginName()).arg(voiceInfo.description));
 			comboBox->setItemData(comboBox->count() - 1, _voices.size() - 1);
-		} // foreach
-	} // foreach
+		} // for
+	} // for
 } // prepareSpeechPlugins
 
 void VocabularySettingsDialog::refreshLanguageNameFields() const
