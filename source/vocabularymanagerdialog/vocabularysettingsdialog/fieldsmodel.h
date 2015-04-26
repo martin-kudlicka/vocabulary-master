@@ -19,7 +19,7 @@ class FieldsModel : public QAbstractItemModel
             ColumnCount
         }; // Column
 
-                 FieldsModel(Vocabulary *vocabulary, QObject *parent = NULL);
+                 FieldsModel(Vocabulary *vocabulary, QObject *parent = nullptr);
 		virtual ~FieldsModel() override;
 
                 void        addRow   ();

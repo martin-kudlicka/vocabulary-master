@@ -17,7 +17,7 @@ class WordsExportFieldsModel : public QAbstractItemModel
 			ColumnCount
 		}; // Column
 
-                 WordsExportFieldsModel(const Vocabulary *vocabulary, QObject *parent = NULL);
+                 WordsExportFieldsModel(const Vocabulary *vocabulary, QObject *parent = nullptr);
 		virtual ~WordsExportFieldsModel() override;
 
 		virtual QModelIndex index   (int row, int column, const QModelIndex &parent = QModelIndex()) const override;

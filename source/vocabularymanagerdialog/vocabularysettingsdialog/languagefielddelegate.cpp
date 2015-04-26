@@ -2,7 +2,7 @@
 
 #include <QtWidgets/QComboBox>
 
-LanguageFieldDelegate::LanguageFieldDelegate(const Vocabulary *vocabulary, QObject *parent /* NULL */) : QStyledItemDelegate(parent), _vocabulary(vocabulary)
+LanguageFieldDelegate::LanguageFieldDelegate(const Vocabulary *vocabulary, QObject *parent /* nullptr */) : QStyledItemDelegate(parent), _vocabulary(vocabulary)
 {
 } // LanguageFieldDelegate
 

@@ -1,6 +1,6 @@
 #include "vocabulary/clearcacheworker.h"
 
-ClearCacheWorker::ClearCacheWorker(VocabularyDatabase::RecordDataHash *recordData, QObject *parent /* NULL */) : QThread(parent), _recordData(recordData)
+ClearCacheWorker::ClearCacheWorker(VocabularyDatabase::RecordDataHash *recordData, QObject *parent /* nullptr */) : QThread(parent), _recordData(recordData)
 {
 	connect(this, SIGNAL(finished()), SLOT(deleteLater()));
 } // ClearCacheWorker

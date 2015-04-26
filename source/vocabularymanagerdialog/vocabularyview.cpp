@@ -10,7 +10,7 @@ VocabularyView::VocabularyView(
 #ifndef EDITION_FREE
     Vocabulary *vocabulary,
 #endif
-    QWidget *parent /* NULL */) : QTableView(parent)
+    QWidget *parent /* nullptr */) : QTableView(parent)
 #ifndef EDITION_FREE
 	, _vocabulary(vocabulary)
 #endif

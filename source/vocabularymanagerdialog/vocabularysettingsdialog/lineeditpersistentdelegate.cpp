@@ -3,7 +3,7 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate/fieldlineedit.h"
 #include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate/fieldidentifiervalidator.h"
 
-LineEditPersistentDelegate::LineEditPersistentDelegate(QObject *parent /* NULL */) : QStyledItemDelegate(parent)
+LineEditPersistentDelegate::LineEditPersistentDelegate(QObject *parent /* nullptr */) : QStyledItemDelegate(parent)
 {
 } // LineEditPersistentDelegate
 

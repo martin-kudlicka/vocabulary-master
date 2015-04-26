@@ -18,7 +18,7 @@ class WordsImportFieldsModel : public QAbstractItemModel
             ColumnCount
         }; // Column
 
-                 WordsImportFieldsModel(const Vocabulary *vocabulary, QObject *parent = NULL);
+                 WordsImportFieldsModel(const Vocabulary *vocabulary, QObject *parent = nullptr);
 		virtual ~WordsImportFieldsModel() override;
 
 		virtual QVariant    data    (const QModelIndex &index, int role = Qt::DisplayRole)           const override;

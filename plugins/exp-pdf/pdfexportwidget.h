@@ -85,7 +85,7 @@ class PdfExportWidget : public QWidget
 
 		typedef QList<TableColumn> TableColumns;
 
-		PdfExportWidget(QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		PdfExportWidget(QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
 
 		      quint8         border       ()                                             const;
 		      quint8         compression  ()                                             const;

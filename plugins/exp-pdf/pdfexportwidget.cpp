@@ -2,10 +2,10 @@
 
 #include <hpdf_consts.h>
 
-PdfExportWidget::EncodingInfo ENCODINGS[] = { {"StandardEncoding", PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::EncodingSetNone, NULL},
+PdfExportWidget::EncodingInfo ENCODINGS[] = { {"StandardEncoding", PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::EncodingSetNone, nullptr},
 												  {"MacRomanEncoding", PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::EncodingSetNone, "MacRoman"},
 												  {"WinAnsiEncoding",  PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::EncodingSetNone, "CP1252"},
-												  {"FontSpecific",	   PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::EncodingSetNone, NULL},
+												  {"FontSpecific",	   PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::EncodingSetNone, nullptr},
 												  {"ISO8859-2",		   PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::EncodingSetNone, "ISO-8859-2"},
 												  {"ISO8859-3",		   PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::EncodingSetNone, "ISO-8859-3"},
 												  {"ISO8859-4",		   PdfExportWidget::EncodingTypeSinglebyte, PdfExportWidget::EncodingSetNone, "ISO-8859-4"},
@@ -86,7 +86,7 @@ PdfExportWidget::PageSize PAGE_SIZES[] = { {"Letter",	HPDF_PAGE_SIZE_LETTER},
 											  {"US 5x7",	HPDF_PAGE_SIZE_US5x7},
 											  {"Comm 10",	HPDF_PAGE_SIZE_COMM10} };
 
-PdfExportWidget::PdfExportWidget(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QWidget(parent, flags)
+PdfExportWidget::PdfExportWidget(QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QWidget(parent, flags)
 {
 	_ui.setupUi(this);
 
@@ -338,7 +338,7 @@ char *PdfExportWidget::textCodec(const QString &encoding) const
 		} // if
 	} // for
 
-	return NULL;
+	return nullptr;
 } // textCodec
 
 void PdfExportWidget::initTableColumns()

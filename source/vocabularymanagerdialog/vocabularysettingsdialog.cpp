@@ -4,7 +4,7 @@ VocabularySettingsDialog::VocabularySettingsDialog(Vocabulary *vocabulary,
 #ifndef EDITION_FREE
     const Plugins *plugins,
 #endif
-    QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags)
+    QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags)
 #ifndef EDITION_FREE
 	, _fieldsModel(vocabulary), _languageFieldDelegate(vocabulary), _plugins(plugins)
 #endif

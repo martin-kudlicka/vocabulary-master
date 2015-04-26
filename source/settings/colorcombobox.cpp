@@ -3,7 +3,7 @@
 #include <QtWidgets/QStylePainter>
 #include <QtGui/QPaintEvent>
 
-ColorComboBox::ColorComboBox(QWidget *parent /* NULL */) : QComboBox(parent)
+ColorComboBox::ColorComboBox(QWidget *parent /* nullptr */) : QComboBox(parent)
 {
 } // ColorComboBox
 

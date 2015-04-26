@@ -24,7 +24,7 @@ class SettingsDialog : public QDialog
 #ifndef EDITION_FREE
             const Plugins *plugins,
 #endif
-            Settings *settings, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+            Settings *settings, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
 		virtual ~SettingsDialog() override;
 
 	private:

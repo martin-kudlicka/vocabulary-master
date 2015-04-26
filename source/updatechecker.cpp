@@ -1,8 +1,8 @@
 #include "updatechecker.h"
 
-UpdateChecker::UpdateChecker(const Settings *settings, QObject *parent /* NULL */) : QObject(parent), _settings(settings)
+UpdateChecker::UpdateChecker(const Settings *settings, QObject *parent /* nullptr */) : QObject(parent), _settings(settings)
 {
-	_lastReply = NULL;
+	_lastReply = nullptr;
 
 	_currentVersion.usMajor    = 1;
 	_currentVersion.usMinor    = 3;

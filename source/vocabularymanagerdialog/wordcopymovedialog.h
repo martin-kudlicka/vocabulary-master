@@ -12,7 +12,7 @@ class WordsCopyMoveDialog : public QDialog
 	public:
         typedef QList<quint32> RowNumList;
 
-		         WordsCopyMoveDialog(quint8 categoryId, const RowNumList &rowNums, Vocabulary *vocabulary, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		         WordsCopyMoveDialog(quint8 categoryId, const RowNumList &rowNums, Vocabulary *vocabulary, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
 		virtual ~WordsCopyMoveDialog() override;
 
 	private:

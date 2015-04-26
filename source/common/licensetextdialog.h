@@ -11,7 +11,7 @@
 class LicenseTextDialog : public QDialog
 {
     public:
-                 LicenseTextDialog(const LicenseCommon::LicenseContentList &licenses, const Settings *settings, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+                 LicenseTextDialog(const LicenseCommon::LicenseContentList &licenses, const Settings *settings, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
 		virtual ~LicenseTextDialog() override;
 
     private:

@@ -9,7 +9,7 @@ class PriorityDelegate : public QStyledItemDelegate
         static const quint8 RECORD_PRIORITY_MAX = 9;
 		static const quint8 RECORD_PRIORITY_MIN = 1;
 
-		PriorityDelegate(QObject *parent = NULL);
+		PriorityDelegate(QObject *parent = nullptr);
 
 	private:
         static const quint8 SPINBOX_BUTTONS_WIDTH = 16;

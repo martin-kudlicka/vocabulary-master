@@ -21,7 +21,7 @@ class VocabularySettingsDialog : public QDialog
 #ifndef EDITION_FREE
             const Plugins *plugins,
 #endif
-            QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+            QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
 		virtual ~VocabularySettingsDialog() override;
 
 	private:

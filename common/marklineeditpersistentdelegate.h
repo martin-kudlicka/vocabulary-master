@@ -6,7 +6,7 @@
 class MarkLineEditPersistentDelegate : public QStyledItemDelegate
 {
     public:
-                 MarkLineEditPersistentDelegate(QObject *parent = NULL);
+                 MarkLineEditPersistentDelegate(QObject *parent = nullptr);
 		virtual ~MarkLineEditPersistentDelegate() override;
 
     private:

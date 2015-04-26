@@ -27,9 +27,9 @@ const char *EDITION_TRY_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " Try edition")
 #endif
 const char *VOCABULARY_MASTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary Master");
 
-MainWindow::MainWindow(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags), _learning(false),
+MainWindow::MainWindow(QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags), _learning(false),
 #ifndef EDITION_FREE
-	_hboxLayoutInner(NULL),
+	_hboxLayoutInner(nullptr),
 #endif
 	_updateChecker(&_settings), _vocabularyOrganizer(&_settings)
 {
@@ -536,7 +536,7 @@ void MainWindow::setLayout()
     if (_hboxLayoutInner)
 	{
         _hboxLayoutInner->deleteLater();
-        _hboxLayoutInner = NULL;
+        _hboxLayoutInner = nullptr;
     } // if
 #endif
     if (_ui.centralWidget->layout())
@@ -783,7 +783,7 @@ void MainWindow::on_actionStart_triggered(bool checked /* false */)
 	_ui.recordControls->parentWidget()->setVisible(_settings.showRecordControls());
 #endif
 
-	_currentRecord.vocabulary = NULL;
+	_currentRecord.vocabulary = nullptr;
 	_currentRecord.id         = RECORD_NONE;
 	_learningTimer.start(0);
 } // on_actionStart_triggered

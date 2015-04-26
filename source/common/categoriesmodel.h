@@ -9,7 +9,7 @@ class CategoriesModel : public QAbstractItemModel
     Q_OBJECT
 
     public:
-                 CategoriesModel(const Vocabulary *vocabulary, QObject *parent = NULL);
+                 CategoriesModel(const Vocabulary *vocabulary, QObject *parent = nullptr);
 		virtual ~CategoriesModel() override;
 
     private:

@@ -22,7 +22,7 @@ class PluginsModel : public QAbstractItemModel
             PluginTypeTTS
         }; // PluginType
 
-                 PluginsModel(const Plugins *plugins, PluginType type, QObject *parent = NULL);
+                 PluginsModel(const Plugins *plugins, PluginType type, QObject *parent = nullptr);
 		virtual ~PluginsModel() override;
 
         virtual QVariant    data    (const QModelIndex &index, int role = Qt::DisplayRole)           const override;

@@ -64,7 +64,7 @@ const QString TABLE_LANGUAGES         = "languages";
 const QString TABLE_RECORDS           = "records";
 const QString TABLE_SETTINGS          = "settings";
 
-VocabularyDatabase::VocabularyDatabase(QObject *parent /* NULL */) : QObject(parent)
+VocabularyDatabase::VocabularyDatabase(QObject *parent /* nullptr */) : QObject(parent)
 {
 	// create empty database
 	_database = QSqlDatabase::addDatabase("QSQLITE", QString::number(qrand()));

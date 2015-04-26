@@ -2,7 +2,7 @@
 
 #include <QtWidgets/QScrollBar>
 
-PlaintextExportWidget::PlaintextExportWidget(QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QWidget(parent, flags)
+PlaintextExportWidget::PlaintextExportWidget(QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QWidget(parent, flags)
 {
 	_ui.setupUi(this);
 

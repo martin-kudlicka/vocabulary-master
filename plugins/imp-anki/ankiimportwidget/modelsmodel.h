@@ -9,7 +9,7 @@ class ModelsModel : public QAbstractItemModel
     Q_OBJECT
 
     public:
-                 ModelsModel(const QSqlDatabase *database, QObject *parent = NULL);
+                 ModelsModel(const QSqlDatabase *database, QObject *parent = nullptr);
 		virtual ~ModelsModel() override;
 
         void      deckId (quint8 deckId);

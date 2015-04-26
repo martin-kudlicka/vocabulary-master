@@ -21,7 +21,7 @@ VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *vocabulary,
     const Settings *settings,
     const Plugins *plugins,
 #endif
-	QWidget *parent /* NULL */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags | Qt::WindowMaximizeButtonHint), _vocabulary(vocabulary)
+	QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags | Qt::WindowMaximizeButtonHint), _vocabulary(vocabulary)
 #ifndef EDITION_FREE
 	, _settings(settings), _plugins(plugins)
 #endif
@@ -114,7 +114,7 @@ void VocabularyManagerDialog::enableWordControls() const
 	}
 	else
 	{
-		selection = NULL;
+		selection = nullptr;
 	} // if else
 
 	_ui.wordRemove->setEnabled(selection && vocabularyView->isEnabled() && selection->hasSelection());
@@ -260,7 +260,7 @@ void VocabularyManagerDialog::reassignModels() const
 	{
         VocabularyView *vocabularyView   = qobject_cast<VocabularyView *>(_ui.tabs->widget(tabIndex));
         VocabularyModel *vocabularyModel = qobject_cast<VocabularyModel *>(vocabularyView->model());
-        vocabularyView->setModel(NULL);
+        vocabularyView->setModel(nullptr);
         vocabularyView->setModel(vocabularyModel);
         connect(vocabularyView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_vocabularyViewSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
     } // for
@@ -302,12 +302,12 @@ void VocabularyManagerDialog::setPriorityDelegate(VocabularyView *tableView)
             }
 			else
 			{
-                tableView->setItemDelegateForColumn(column, NULL);
+                tableView->setItemDelegateForColumn(column, nullptr);
             } // if else
         }
 		else
 		{
-            tableView->setItemDelegateForColumn(column, NULL);
+            tableView->setItemDelegateForColumn(column, nullptr);
         } // if else
 	} // for
 } // setPriorityDelegate
@@ -347,7 +347,7 @@ void VocabularyManagerDialog::stretchColumns(const VocabularyView *tableView) co
 void VocabularyManagerDialog::uninitEditor() const
 {
     QLayoutItem *item;
-    while ((item = _ui.editorLayout->takeAt(0)) != NULL)
+    while ((item = _ui.editorLayout->takeAt(0)) != nullptr)
 	{
         item->widget()->deleteLater();
     } // while
@@ -364,7 +364,7 @@ void VocabularyManagerDialog::updateEditor() const
 	}
 	else
 	{
-		selection = NULL;
+		selection = nullptr;
 	} // if else
 	_ui.editorGroup->setEnabled(selection && selection->hasSelection());
 
@@ -390,7 +390,7 @@ void VocabularyManagerDialog::updateEditor(EditorColumn controlsColumn) const
 			}
 			else
 			{
-				selection = NULL;
+				selection = nullptr;
 			} // if else
 
 			if (selection && selection->hasSelection())

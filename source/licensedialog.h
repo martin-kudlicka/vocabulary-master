@@ -12,7 +12,7 @@ class LicenseDialog : public QDialog
 	Q_OBJECT
 
 	public:
-		         LicenseDialog(License *license, Settings *settings, QWidget *parent = NULL, Qt::WindowFlags flags = 0);
+		         LicenseDialog(License *license, Settings *settings, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
 		virtual ~LicenseDialog() override;
 
     private:

@@ -12,7 +12,7 @@ class UpdateChecker : public QObject
 	Q_OBJECT
 
 	public:
-		         UpdateChecker(const Settings *settings, QObject *parent = NULL);
+		         UpdateChecker(const Settings *settings, QObject *parent = nullptr);
 		virtual ~UpdateChecker() override;
 
 		void                        checkForUpdate ();

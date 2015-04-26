@@ -9,7 +9,7 @@ class VocabularyModel : public QAbstractTableModel
 	Q_OBJECT
 
     public:
-        VocabularyModel(Vocabulary *vocabulary, quint8 categoryId, QObject *parent = NULL);
+        VocabularyModel(Vocabulary *vocabulary, quint8 categoryId, QObject *parent = nullptr);
 
                 void addRow     ();
 		virtual int  columnCount(const QModelIndex &parent = QModelIndex()) const                      override;

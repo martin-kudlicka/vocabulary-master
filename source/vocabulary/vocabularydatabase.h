@@ -66,7 +66,7 @@ class VocabularyDatabase : public QObject
 
         static const qint8 NOT_FOUND = -1;
 
-                 VocabularyDatabase(QObject *parent = NULL);
+                 VocabularyDatabase(QObject *parent = nullptr);
 		virtual ~VocabularyDatabase() override;
 
 #ifndef EDITION_FREE
