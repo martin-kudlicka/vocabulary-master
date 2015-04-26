@@ -370,7 +370,8 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
 	// substitute variables in template
 	for (quint8 fieldId : _currentRecord.vocabulary->fieldIds())
 	{
-		if (_currentRecord.vocabulary->fieldLanguage(fieldId) == fieldLanguage) {
+		if (_currentRecord.vocabulary->fieldLanguage(fieldId) == fieldLanguage)
+		{
 			const QString data = _currentRecord.vocabulary->dataText(_currentRecord.id, fieldId);
 
 			QString field = _currentRecord.vocabulary->fieldTemplateName(fieldId);

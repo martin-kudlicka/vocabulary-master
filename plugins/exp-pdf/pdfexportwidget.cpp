@@ -125,15 +125,20 @@ quint8 PdfExportWidget::compression() const
 {
 	quint8 compression;
 
-	if (_ui.compressText->isChecked()) {
+	if (_ui.compressText->isChecked())
+	{
 		compression = HPDF_COMP_TEXT;
-	} else {
+	}
+	else
+	{
 		compression = HPDF_COMP_NONE;
 	} // if else
-	if (_ui.compressImage->isChecked()) {
+	if (_ui.compressImage->isChecked())
+	{
 		compression |= HPDF_COMP_IMAGE;
 	} // if
-	if (_ui.compressMetadata->isChecked()) {
+	if (_ui.compressMetadata->isChecked())
+	{
 		compression |= HPDF_COMP_METADATA;
 	} // if
 
@@ -221,7 +226,9 @@ PdfExportWidget::Style PdfExportWidget::style() const
 	if (_ui.styleText->isChecked())
 	{
 		return StyleText;
-	} else {
+	}
+	else
+	{
 		return StyleTable;
 	} // if else
 } // style
