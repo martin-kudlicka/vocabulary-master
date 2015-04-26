@@ -59,7 +59,8 @@ void ExpPdf::beginExport() const
 	pdfAddPage(pdfDocument, &pdfPage, fonts.at(PdfExportWidget::FontRoleCategory).size);
 	bool firstLine = true;
 	quint32 records = 0;
-	for (const quint8 &categoryId : categoryIds) {
+	for (const quint8 &categoryId : categoryIds)
+	{
         if (firstLine)
 		{
             firstLine = false;

@@ -63,7 +63,9 @@ void Plugins::load()
 							impPlugin.impInterface     = impInterface;
 							_impPlugins.append(impPlugin);
 						} // if
-					} else {
+					}
+					else
+					{
 						ExpInterface *expInterface = qobject_cast<ExpInterface *>(pluginLoader.instance());
 						if (expInterface)
 						{

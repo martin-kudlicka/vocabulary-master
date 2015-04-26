@@ -609,10 +609,12 @@ void Settings::updateSettings()
 {
 	const Version current = static_cast<Version>(_settings.value(KEY_VERSION, Version1).toUInt());
 
-	if (current < Version2) {
+	if (current < Version2)
+	{
 		// move vocabulary to vocabularies group
 		const QString vocabulary = _settings.value(KEY_VOCABULARYFILE).toString();
-		if (!vocabulary.isEmpty()) {
+		if (!vocabulary.isEmpty())
+		{
 			_settings.beginWriteArray(ARRAY_VOCABULARIES);
 			_settings.setArrayIndex(VocabularyPosition1);
 			_settings.setValue(KEY_VOCABULARYFILE, vocabulary);

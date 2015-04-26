@@ -423,7 +423,8 @@ void SettingsDialog::on_soundBrowse_clicked(bool checked /* false */)
         , tr("sound files (*.wav)")
 # endif
         );
-    if (!newFile.isEmpty()) {
+    if (!newFile.isEmpty())
+	{
         _ui.soundCustomEdit->setText(newFile);
     } // if
 } // on_soundBrowse_clicked
