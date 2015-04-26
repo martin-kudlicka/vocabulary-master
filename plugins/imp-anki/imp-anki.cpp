@@ -10,9 +10,8 @@ const QString COLUMN_ID           = "id";
 const QString COLUMN_VALUE        = "value";
 const QString TABLE_FIELDS        = "fields";
 
-ImpAnki::ImpAnki() : ImpInterface()
+ImpAnki::ImpAnki() : ImpInterface(), _database(QSqlDatabase::addDatabase("QSQLITE", "Anki"))
 {
-	_database = QSqlDatabase::addDatabase("QSQLITE", "Anki");
 } // ImpAnki
 
 ImpAnki::~ImpAnki()
