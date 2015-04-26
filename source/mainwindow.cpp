@@ -49,14 +49,14 @@ MainWindow::MainWindow(QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0
     _ui.actionAnswer->setVisible(false);
     _ui.actionMute->setVisible(false);
     _ui.actionLicense->setVisible(false);
-	foreach (const QObject *object, _ui.toolBar->children())
+	for (const QObject *object : _ui.toolBar->children())
 	{
 		const QAction *action = qobject_cast<QAction *>(object);
 		if (action && action->isSeparator())
 		{
 			action->deleteLater();
 		} // if
-	} // foreach
+	} // for
 #else
 # ifdef EDITION_TRY
     _ui.actionOpen->setVisible(false);
@@ -368,7 +368,7 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
 	} // if else
 
 	// substitute variables in template
-	foreach (quint8 fieldId, _currentRecord.vocabulary->fieldIds())
+	for (quint8 fieldId : _currentRecord.vocabulary->fieldIds())
 	{
 		if (_currentRecord.vocabulary->fieldLanguage(fieldId) == fieldLanguage) {
 			const QString data = _currentRecord.vocabulary->dataText(_currentRecord.id, fieldId);
@@ -376,7 +376,7 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
 			QString field = _currentRecord.vocabulary->fieldTemplateName(fieldId);
 			templateText.replace(VARIABLE_MARK + field, data);
 		} // if
-	} // foreach
+	} // for
 
 	return templateText;
 } // learningText
@@ -413,7 +413,7 @@ void MainWindow::openVocabulary(Vocabulary *vocabulary
 #ifndef EDITION_FREE
 quint8 MainWindow::recordPriority() const
 {
-    foreach (quint8 fieldId, _currentRecord.vocabulary->fieldIds())
+    for (quint8 fieldId : _currentRecord.vocabulary->fieldIds())
 	{
         if (_currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
 		{
@@ -424,7 +424,7 @@ quint8 MainWindow::recordPriority() const
                     return _currentRecord.vocabulary->dataText(_currentRecord.id, fieldId).toUInt();
             } // switch
         } // if
-    } // foreach
+    } // for
 
     return PriorityDelegate::RECORD_PRIORITY_MIN;
 } // recordPriority
@@ -501,7 +501,7 @@ void MainWindow::say(bool directionSwitched, bool answer) const
 
         // get text to speech
         QString text;
-        foreach (quint8 fieldId, _currentRecord.vocabulary->fieldIds())
+        for (quint8 fieldId : _currentRecord.vocabulary->fieldIds())
 		{
             if (_currentRecord.vocabulary->fieldLanguage(fieldId) == fieldLanguage && _currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeSpeech))
 			{
@@ -511,7 +511,7 @@ void MainWindow::say(bool directionSwitched, bool answer) const
                 } // if
                 text += _currentRecord.vocabulary->dataText(_currentRecord.id, fieldId);
             } // if
-        } // foreach
+        } // for
 
         if (!text.isEmpty())
 		{
@@ -572,7 +572,7 @@ void MainWindow::setLayout()
 #ifndef EDITION_FREE
 void MainWindow::setRecordEnabled(bool enabled)
 {
-	foreach (quint8 fieldId, _currentRecord.vocabulary->fieldIds())
+	for (quint8 fieldId : _currentRecord.vocabulary->fieldIds())
 	{
 		if (_currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
 		{
@@ -584,12 +584,12 @@ void MainWindow::setRecordEnabled(bool enabled)
 					return;
 			} // switch
 		} // if
-	} // foreach
+	} // for
 } // setRecordEnabled
 
 void MainWindow::setRecordPriority(quint8 priority)
 {
-	foreach (quint8 fieldId, _currentRecord.vocabulary->fieldIds())
+	for (quint8 fieldId : _currentRecord.vocabulary->fieldIds())
 	{
 		if (_currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
 		{
@@ -601,7 +601,7 @@ void MainWindow::setRecordPriority(quint8 priority)
 					return;
 			} // switch
 		} // if
-	} // foreach
+	} // for
 } // setRecordPriority
 
 void MainWindow::setupRecordControls() const

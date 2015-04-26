@@ -371,11 +371,11 @@ quint32 VocabularyDatabase::addRecord(quint8 categoryId, const QStringList &data
 
     // create new data
     quint8 dataIndex = 0;
-    foreach (quint8 fieldId, fieldIds())
+    for (quint8 fieldId : fieldIds())
 	{
 		query = _database.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(fieldId) + "', '" + QString::number(recordId) + "', '" + data.at(dataIndex) + "')");
 		dataIndex++;
-    } // foreach
+    } // for
 
     return recordId;
 } // addRecord
@@ -999,12 +999,12 @@ void VocabularyDatabase::updateDatabase()
 
         // add show attribute to fields
         FieldIdList fieldIdList = fieldIds();
-        foreach (quint8 fieldId, fieldIdList)
+        for (quint8 fieldId : fieldIdList)
 		{
             FieldAttributes attributes = fieldAttributes(fieldId);
             attributes                |= FieldAttributeShow;
             setFieldAttributes(fieldId, attributes);
-        } // foreach
+        } // for
 
         // create language table
         _database.exec("CREATE TABLE " + TABLE_LANGUAGES + " ("

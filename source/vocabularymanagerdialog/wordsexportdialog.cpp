@@ -90,11 +90,11 @@ const void WordsExportDialog::on_plugin_VocabularyGetCategoryIds(ExpInterface::C
     const QItemSelectionModel *selection = _ui.categories->selectionModel();
     const QModelIndexList selected       = selection->selectedRows();
 
-    foreach (const QModelIndex &index, selected)
+    for (const QModelIndex &index : selected)
 	{
         const quint8 categoryId = _vocabulary->categoryId(index.row());
         categoryIds->append(categoryId);
-    } // foreach
+    } // for
 } // on_plugin_VocabularyGetCategoryIds
 
 const void WordsExportDialog::on_plugin_VocabularyGetCategoryName(quint8 categoryId, QString *name) const

@@ -25,10 +25,10 @@ QWidget *LanguageFieldDelegate::createEditor(QWidget *parent, const QStyleOption
 	} // if else
 
 	QComboBox *editorBox = new QComboBox(parent);
-    foreach (quint8 languageId, languageIds)
+    for (quint8 languageId : languageIds)
 	{
         editorBox->addItem(_vocabulary->languageName(languageId), languageId);
-    } // foreach
+    } // for
 
     return editorBox;
 } // createEditor

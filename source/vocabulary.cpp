@@ -55,11 +55,11 @@ void Vocabulary::addRecord(quint8 categoryId, const QStringList &data)
     // insert data to cache
     quint8 dataIndex = 0;
     FieldDataHash *fieldData = &_recordData->operator[](recordId);
-    foreach (quint8 fieldId, fieldIds())
+    for (quint8 fieldId : fieldIds())
 	{
         fieldData->insert(fieldId, data.at(dataIndex));
         dataIndex++;
-    } // foreach*/
+    } // for*/
 } // addRecord
 #endif
 
@@ -298,10 +298,10 @@ QStringList Vocabulary::record(quint32 recordId) const
     QStringList data;
 
     const FieldIdList fieldIdList = fieldIds();
-    foreach (quint8 fieldId, fieldIdList)
+    for (quint8 fieldId : fieldIdList)
 	{
         data.append(dataText(recordId, fieldId));
-    } // foreach
+    } // for
 
     return data;
 } // record
@@ -333,10 +333,10 @@ quint32 Vocabulary::recordCount() const
 	{
 		quint32 recordCount = 0;
 		const QList<RecordIdList> allRecordIds = _categoryRecords.values();
-		foreach (RecordIdList recordIds, allRecordIds)
+		for (RecordIdList recordIds : allRecordIds)
 		{
 			recordCount += recordIds.size();
-		} // foreach
+		} // for
 
 		return recordCount;
 	}
@@ -366,13 +366,13 @@ quint32 Vocabulary::recordCount(quint8 categoryId, bool enabled) const
 		quint32 recordCount = 0;
 
 		const RecordIdList recordIds = _categoryRecords.value(categoryId);
-		foreach (quint32 recordId, recordIds)
+		for (quint32 recordId : recordIds)
 		{
 			if (recordEnabled(recordId))
 			{
 				recordCount++;
 			} // if
-		} // foreach
+		} // for
 
 		return recordCount;
 	}
@@ -389,13 +389,13 @@ quint32 Vocabulary::recordCount(bool enabled) const
 		quint32 records = 0;
 
 		const CategoryIdList categoryIdList = categoryIds();
-		foreach (quint8 categoryId, categoryIdList)
+		for (quint8 categoryId : categoryIdList)
 		{
 			if (categoryEnabled(categoryId))
 			{
 				records += recordCount(categoryId, enabled);
 			} // if
-		} // foreach
+		} // for
 
 		return records;
 	}
@@ -407,7 +407,7 @@ quint32 Vocabulary::recordCount(bool enabled) const
 
 bool Vocabulary::recordEnabled(quint32 recordId) const
 {
-	foreach (quint8 fieldId, fieldIds())
+	for (quint8 fieldId : fieldIds())
 	{
 		if (fieldHasAttribute(fieldId, FieldAttributeBuiltIn))
 		{
@@ -426,7 +426,7 @@ bool Vocabulary::recordEnabled(quint32 recordId) const
 					} // if else
 			} // switch
 		} // if
-	} // foreach
+	} // for
 
 	return true;
 } // recordEnabled
@@ -500,19 +500,19 @@ void Vocabulary::initCache()
 
         // fields
         const FieldIdList fieldIdList = VocabularyDatabase::fieldIds();
-        foreach (quint8 fieldId, fieldIdList)
+        for (quint8 fieldId : fieldIdList)
 		{
             const FieldData fieldData = getFieldData(fieldId);
             _fieldData.insert(fieldId, fieldData);
-        } // foreach
+        } // for
 
 		// categories
 		CategoryIdList categoryIdList = VocabularyDatabase::categoryIds();
-		foreach (quint8 categoryId, categoryIdList)
+		for (quint8 categoryId : categoryIdList)
 		{
             const RecordIdList recordIdList = VocabularyDatabase::recordIds(categoryId);
 			_categoryRecords.insert(categoryId, recordIdList);
-		} // foreach
+		} // for
 
         // records
         _recordData = new RecordDataHash();
@@ -555,10 +555,10 @@ void Vocabulary::removeCategory(quint8 categoryId)
 	if (_cacheEnabled)
 	{
 		const RecordIdList records = _categoryRecords.value(categoryId);
-		foreach (quint32 recordId, records)
+		for (quint32 recordId : records)
 		{
 			_recordData->remove(recordId);
-		} // foreach
+		} // for
 		_categoryRecords.remove(categoryId);
 	} // if
 

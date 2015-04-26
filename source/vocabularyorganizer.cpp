@@ -55,13 +55,13 @@ void VocabularyOrganizer::addNew(
 
 bool VocabularyOrganizer::isOpen() const
 {
-	foreach (const VocabularyInfo &vocabularyInfo, _vocabularies)
+	for (const VocabularyInfo &vocabularyInfo : _vocabularies)
 	{
 		if (vocabularyInfo.vocabulary->isOpen())
 		{
 			return true;
 		} // if
-	} // foreach
+	} // for
 
 	return false;
 } // isOpen
@@ -83,13 +83,13 @@ quint32 VocabularyOrganizer::recordCount() const
 {
 	quint32 count = 0;
 
-	foreach (const VocabularyInfo &vocabularyInfo, _vocabularies)
+	for (const VocabularyInfo &vocabularyInfo : _vocabularies)
 	{
 		if (vocabularyInfo.vocabulary->isOpen())
 		{
 			count += vocabularyInfo.vocabulary->recordCount();
 		} // if
-	} // foreach
+	} // for
 
 	return count;
 } // recordCount
@@ -98,13 +98,13 @@ quint32 VocabularyOrganizer::recordCount(bool enabled) const
 {
 	quint32 count = 0;
 
-	foreach (const VocabularyInfo &vocabularyInfo, _vocabularies)
+	for (const VocabularyInfo &vocabularyInfo : _vocabularies)
 	{
 		if (vocabularyInfo.vocabulary->isOpen())
 		{
 			count += vocabularyInfo.vocabulary->recordCount(enabled);
 		} // if
-	} // foreach
+	} // for
 
 	return count;
 } // recordCount
@@ -114,7 +114,7 @@ VocabularyOrganizer::RecordInfo VocabularyOrganizer::recordInfo(quint32 row) con
 	quint32 currentRow = 0;
 	RecordInfo recordInfo;
 
-	foreach (const VocabularyInfo &vocabularyInfo, _vocabularies)
+	for (const VocabularyInfo &vocabularyInfo : _vocabularies)
 	{
 		if (vocabularyInfo.vocabulary->isOpen())
 		{
@@ -131,7 +131,7 @@ VocabularyOrganizer::RecordInfo VocabularyOrganizer::recordInfo(quint32 row) con
 				currentRow += records;
 			} // if else
 		} // if
-	} // foreach
+	} // for
 
 	recordInfo.vocabulary = nullptr;
 	recordInfo.id         = VocabularyDatabase::NOT_FOUND;

@@ -161,7 +161,7 @@ void VocabularyManagerDialog::hideColumns() const
 void VocabularyManagerDialog::hideColumns(VocabularyView *tableView) const
 {
 	quint8 column = 0;
-	foreach (quint8 fieldId, _vocabulary->fieldIds())
+	for (quint8 fieldId : _vocabulary->fieldIds())
 	{
 #ifdef EDITION_FREE
 		if (!_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
@@ -177,7 +177,7 @@ void VocabularyManagerDialog::hideColumns(VocabularyView *tableView) const
 		} // if else
 
 		column++;
-	} // foreach
+	} // for
 } // hideColumns
 
 void VocabularyManagerDialog::initEditor()
@@ -187,7 +187,7 @@ void VocabularyManagerDialog::initEditor()
     quint8 posLeft     = 0;
 	quint8 posRight    = 0;
 
-	foreach (quint8 fieldId, _vocabulary->fieldIds())
+	for (quint8 fieldId : _vocabulary->fieldIds())
 	{
 		quint8 column, row;
 
@@ -233,7 +233,7 @@ void VocabularyManagerDialog::initEditor()
 		control->setProperty(PROPERTY_COLUMN, fieldsLeft + fieldsRight - 1);
 		connect(control, SIGNAL(textEdited(const QString &)), SLOT(on_control_textEdited(const QString &)));
 		_ui.editorLayout->addWidget(control, row, column + 1);
-	} // foreach
+	} // for
 } // initEditor
 
 void VocabularyManagerDialog::initTabs()
@@ -562,10 +562,10 @@ void VocabularyManagerDialog::on_wordCopyMove_clicked(bool checked /* false */)
 	const VocabularyView *vocabularyView   = qobject_cast<const VocabularyView *>(_ui.tabs->currentWidget());
 	const VocabularyModel *vocabularyModel = qobject_cast<const VocabularyModel *>(vocabularyView->model());
 	const QItemSelectionModel *selection   = vocabularyView->selectionModel();
-	foreach (const QModelIndex &qmiIndex, selection->selectedRows())
+	for (const QModelIndex &qmiIndex : selection->selectedRows())
 	{
 		rowNums.append(qmiIndex.row());
-	} // foreach
+	} // for
 
 	// copy/move dialog
 	WordsCopyMoveDialog copyMoveDialog(_categories.at(_ui.tabs->currentIndex()), rowNums, _vocabulary, this);
@@ -587,11 +587,11 @@ void VocabularyManagerDialog::on_wordImport_clicked(bool checked /* false */)
 {
 	// prepare filter
 	QStringList filters;
-    foreach (const Plugins::ImpPlugin &plugin, _plugins->impPlugins())
+    for (const Plugins::ImpPlugin &plugin : _plugins->impPlugins())
 	{
         const ImpInterface *pluginInterface = plugin.impInterface;
 		filters.append(pluginInterface->filter());
-	} // foreach
+	} // for
 
 	QString filterText;
 	const QString filePath = QFileDialog::getOpenFileName(this, tr("Import words"), QString(), filters.join(";;"), &filterText);

@@ -211,10 +211,10 @@ void SettingsDialog::fillTranslation()
 #ifndef EDITION_FREE
 void SettingsDialog::prepareColorFlash()
 {
-	foreach (const QString &qsColor, QColor::colorNames())
+	for (const QString &qsColor : QColor::colorNames())
 	{
 		_ui.colorFlashCombo->addItem(QString(), qsColor);
-	} // foreach
+	} // for
 } // prepareColorFlash
 
 void SettingsDialog::preparePlugins(QTreeView *treeView, PluginsModel *model) const
@@ -244,11 +244,11 @@ void SettingsDialog::prepareTranslations()
     dir.cd(DIR_LANG);
     const QFileInfoList files = dir.entryInfoList(QStringList() << "*." + LANG_SUFFIX, QDir::Files);
 
-    foreach (const QFileInfo &file, files)
+    for (const QFileInfo &file : files)
 	{
         const QLocale locale(file.completeBaseName());
         _ui.language->addItem(QLocale::languageToString(locale.language()) + " (" + QLocale::countryToString(locale.country()) + ')', file.fileName());
-    } // foreach
+    } // for
 } // prepareTranslations
 
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)

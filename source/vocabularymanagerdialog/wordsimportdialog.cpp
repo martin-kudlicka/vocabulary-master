@@ -129,7 +129,7 @@ void WordsImportDialog::importData(const Target &target)
 		// get mark data
 		bool skip = false;
 		QStringList markData;
-		foreach (const QString &mark, marks)
+		for (const QString &mark : marks)
 		{
 			const QString data = _plugin->recordData(record, mark);
 			if (_ui.skipPartialRecords->isChecked() && data.isEmpty())
@@ -139,7 +139,7 @@ void WordsImportDialog::importData(const Target &target)
 				break;
 			} // if
 			markData.append(data);
-		} // foreach
+		} // for
 		if (skip)
 		{
 			continue;
@@ -213,10 +213,10 @@ void WordsImportDialog::importData(const Target &target)
 void WordsImportDialog::preparePreviewColumns() const
 {
 	QStringList columns;
-	foreach (quint8 fieldId, _vocabulary->fieldIds())
+	for (quint8 fieldId : _vocabulary->fieldIds())
 	{
 		columns.append(_vocabulary->fieldName(fieldId));
-	} // foreach
+	} // for
 
 	_ui.preview->setColumnCount(columns.size());
 	_ui.preview->setHorizontalHeaderLabels(columns);
