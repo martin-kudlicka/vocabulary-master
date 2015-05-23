@@ -195,7 +195,7 @@ QString Settings::proxyUsername() const
 #ifndef EDITION_TRY
 quint32 Settings::recordsToCache() const
 {
-	return _settings.value(KEY_RECORDSTOCACHE, 10).toUInt();
+	return _settings.value(KEY_RECORDSTOCACHE, 200000).toUInt();
 } // recordsToCache
 #endif
 
