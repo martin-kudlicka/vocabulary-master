@@ -90,6 +90,9 @@ class MainWindow : public QMainWindow
                 QString languageText          (bool directionSwitched, bool answer)                        const;
 		        bool    learningDirection     ()                                                           const;
                 QString learningText          (Template templateType, bool directionSwitched, bool answer) const;
+#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
+		virtual bool    nativeEvent           (const QByteArray &eventType, void *message, long *result)         override;
+#endif
                 void    openVocabulary        (Vocabulary *vocabulary
 #ifndef EDITION_FREE
             , bool currentRecord
@@ -114,9 +117,6 @@ class MainWindow : public QMainWindow
                 void    showAnswer            ();
 #ifndef EDITION_FREE
 		        void    showTrayBalloon       (bool directionSwitched, bool answer);
-#endif
-#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
-		virtual bool    winEvent              (MSG *message, long *result);
 #endif
 
 	private slots:
