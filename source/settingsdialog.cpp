@@ -26,8 +26,6 @@ SettingsDialog::SettingsDialog(
     delete _ui.systemTrayIcon;
     delete _ui.showWordsInTrayBalloon;
     delete _ui.minimizeToTray;
-#endif
-#ifndef EDITION_TRY
 	delete _ui.cacheVocabulary;
 	delete _ui.recordsToCache;
 #endif
