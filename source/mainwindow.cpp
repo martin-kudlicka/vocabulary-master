@@ -382,6 +382,38 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
 	return templateText;
 } // learningText
 
+#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
+bool MainWindow::nativeEvent(const QByteArray &eventType, void *message, long *result)
+{
+	const LPMSG msg = static_cast<LPMSG>(message);
+	if (msg->message == WM_HOTKEY)
+	{
+		switch (msg->wParam)
+		{
+			case Settings::HotkeyAnswer:
+				if (_ui.actionAnswer->isEnabled())
+				{
+					on_actionAnswer_triggered();
+				} // if
+				break;
+			case Settings::HotkeyMinimize:
+				showMinimized();
+				break;
+			case Settings::HotkeyNext:
+				if (_ui.actionNext->isEnabled())
+				{
+					on_actionNext_triggered();
+				} // if
+				break;
+			case Settings::HotkeyRestore:
+				showNormal();
+		} // switch
+	} // if
+
+	return false;
+} // winEvent
+#endif
+
 void MainWindow::openVocabulary(Vocabulary *vocabulary
 #ifndef EDITION_FREE
     , bool currentRecord
@@ -659,37 +691,6 @@ void MainWindow::showTrayBalloon(bool directionSwitched, bool answer)
 
 	_trayIcon.showMessage(tr(VOCABULARY_MASTER), text);
 } // showTrayBalloon
-#endif
-
-#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
-bool MainWindow::winEvent(MSG *message, long *result)
-{
-	if (message->message == WM_HOTKEY)
-	{
-		switch (message->wParam)
-		{
-			case Settings::HotkeyAnswer:
-				if (_ui.actionAnswer->isEnabled())
-				{
-					on_actionAnswer_triggered();
-				} // if
-				break;
-			case Settings::HotkeyMinimize:
-				showMinimized();
-				break;
-			case Settings::HotkeyNext:
-				if (_ui.actionNext->isEnabled())
-				{
-					on_actionNext_triggered();
-				} // if
-				break;
-			case Settings::HotkeyRestore:
-				showNormal();
-		} // switch
-	} // if
-
-	return false;
-} // winEvent
 #endif
 
 void MainWindow::on_actionAbout_triggered(bool checked /* false */)
