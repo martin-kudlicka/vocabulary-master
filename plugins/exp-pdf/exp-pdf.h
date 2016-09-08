@@ -6,41 +6,40 @@
 
 class ExpPdf : public ExpInterface
 {
-	Q_OBJECT
-	Q_PLUGIN_METADATA(IID IID_EXPINTERFACE FILE "exp-pdf.json")
-	Q_INTERFACES(ExpInterface)
+  Q_OBJECT
+  Q_PLUGIN_METADATA(IID IID_EXPINTERFACE FILE "exp-pdf.json")
+  Q_INTERFACES(ExpInterface)
 
-	private:
-		static const qint8 RECORD_NONE = -1;
+  private:
+    struct Font
+    {
+      HPDF_Font         pdfFont;
+      quintptr          size;
+      const QTextCodec *textCodec;
+    };
 
-		struct Font
-		{
-			HPDF_Font         pdfFont;
-			quint8            size;
-			const QTextCodec *textCodec;
-		}; // Font
+    typedef QList<Font> FontList;
 
-		typedef QList<Font> FontList;
+    PdfExportWidget *_widget;
 
-		PdfExportWidget *_widget;
+    virtual ~ExpPdf() override;
 
-		virtual ~ExpPdf() override;
+    void addFont           (HPDF_Doc pdfDocument, FontList *fontList, PdfExportWidget::FontRole fontRole, qintptr num = PdfExportWidget::FONTROLE_NONE) const;
+    void exportTable       (quintptr recordId, HPDF_Page pdfPage, const FontList &fontList, const QStringList &marks)                                   const;
+    void exportText        (quintptr recordId, HPDF_Page pdfPage, const FontList &fontList, const QStringList &marks, const QString &templateText)      const;
+    void initFonts         (HPDF_Doc pdfDocument, FontList *fontList, qintptr markCount)                                                                const;
+    void pdfAddPage        (HPDF_Doc pdfDocument, HPDF_Page *pdfPage, HPDF_REAL defaultSize = 0)                                                        const;
+    bool pdfNextLine       (HPDF_Doc pdfDocument, HPDF_Page *pdfPage)                                                                                   const;
+    void pdfSetFont        (HPDF_Page pdfPage, HPDF_Font pdfFont, quintptr size)                                                                        const;
+    void pdfShowTableHeader(HPDF_Page pdfPage, const FontList &fontList)                                                                                const;
+    void pdfShowText       (HPDF_Page pdfPage, const QString &text, const QTextCodec *textCodec)                                                        const;
 
-		        void    addFont           (HPDF_Doc pdfDocument, FontList *fontList, PdfExportWidget::FontRole fontRole, qint8 num = PdfExportWidget::FONTROLE_NONE) const;
-		virtual void    beginExport       ()                                                                                                                         const override;
-		        void    exportTable       (quint32 recordId, HPDF_Page pdfPage, const FontList &fontList, const QStringList &marks)                                  const;
-		        void    exportText        (quint32 recordId, HPDF_Page pdfPage, const FontList &fontList, const QStringList &marks, const QString &templateText)     const;
-		        void    initFonts         (HPDF_Doc pdfDocument, FontList *fontList, quint8 markCount)                                                               const;
-		        void    pdfAddPage        (HPDF_Doc pdfDocument, HPDF_Page *pdfPage, HPDF_REAL defaultSize = 0)                                                      const;
-		        bool    pdfNextLine       (HPDF_Doc pdfDocument, HPDF_Page *pdfPage)                                                                                 const;
-		        void    pdfSetFont        (HPDF_Page pdfPage, HPDF_Font pdfFont, quint8 size)                                                                        const;
-		        void    pdfShowTableHeader(HPDF_Page pdfPage, const FontList &fontList)                                                                              const;
-		        void    pdfShowText       (HPDF_Page pdfPage, const QString &text, const QTextCodec *textCodec)                                                      const;
-		virtual QString pluginName        ()                                                                                                                         const override;
-		virtual void    setupUi           (QWidget *parent)                                                                                                                override;
+    virtual void    beginExport()                const override;
+    virtual QString pluginName ()                const override;
+    virtual void    setupUi    (QWidget *parent)       override;
 
-	private slots:
-		void on_widget_vocabularyGetMarks(QStringList *marks) const;
-}; // ExpPdf
+  private slots:
+    void on_widget_vocabularyGetMarks(QStringList *marks) const;
+};
 
-#endif // EXP_PDF_H
+#endif
