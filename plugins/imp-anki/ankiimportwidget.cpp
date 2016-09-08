@@ -21,7 +21,7 @@ AnkiImportWidget::~AnkiImportWidget()
 {
 }
 
-qlonglong AnkiImportWidget::fieldId(quint8 position) const
+qlonglong AnkiImportWidget::fieldId(quintptr position) const
 {
   return _fieldsModel.fieldId(position);
 }
