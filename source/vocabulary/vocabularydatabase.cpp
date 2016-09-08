@@ -189,7 +189,7 @@ TTSInterface::TTSPlugin VocabularyDatabase::languageSpeech(quint8 languageId) co
         return static_cast<const TTSInterface::TTSPlugin>(query.value(ColumnPosition1).toUInt());
     }
 
-    return TTSInterface::TTPluginNone;
+    return TTSInterface::TTSPlugin::None;
 }
 
 QString VocabularyDatabase::languageTrayTemplate(quint8 languageId) const
@@ -211,7 +211,7 @@ QString VocabularyDatabase::languageVoice(quint8 languageId) const
         return query.value(ColumnPosition1).toString();
     }
 
-    return TTSInterface::TTPluginNone;
+    return static_cast<quintptr>(TTSInterface::TTSPlugin::None);
 }
 #endif
 
@@ -290,7 +290,7 @@ void VocabularyDatabase::setLanguageName(quint8 languageId, const QString &name)
 #ifndef EDITION_FREE
 void VocabularyDatabase::setLanguageSpeech(quint8 languageId, TTSInterface::TTSPlugin speech) const
 {
-    _database.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_SPEECH + " = '" + QString::number(speech)+ "' WHERE " + COLUMN_ID + " = " + QString::number(languageId));
+    _database.exec("UPDATE " + TABLE_LANGUAGES + " SET " + COLUMN_SPEECH + " = '" + QString::number(static_cast<quintptr>(speech))+ "' WHERE " + COLUMN_ID + " = " + QString::number(languageId));
 }
 
 void VocabularyDatabase::setLanguageTrayTemplate(quint8 languageId, const QString &templateText) const
@@ -826,9 +826,9 @@ void VocabularyDatabase::addLanguage(const QString &name, const QString &learnin
 #endif
         "', '" +
 #ifdef EDITION_FREE
-        QString::number(TTSInterface::TTPluginNone)
+        QString::number(TTSInterface::TTPlugin::None)
 #else
-        QString::number(ttsPlugin)
+        QString::number(static_cast<quintptr>(ttsPlugin))
 #endif
         + "', '" +
 #ifndef EDITION_FREE
@@ -902,14 +902,14 @@ void VocabularyDatabase::initialize() const
 #ifdef EDITION_FREE
         LEARNING_TEMPLATE1
 #else
-        QString(), QString(), TTSInterface::TTPluginNone, QString()
+        QString(), QString(), TTSInterface::TTSPlugin::None, QString()
 #endif
         );
     addLanguage(tr("Language2"),
 #ifdef EDITION_FREE
         LEARNING_TEMPLATE2
 #else
-        QString(), QString(), TTSInterface::TTPluginNone, QString()
+        QString(), QString(), TTSInterface::TTSPlugin::None, QString()
 #endif
         );
 #ifdef EDITION_FREE

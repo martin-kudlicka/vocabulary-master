@@ -43,9 +43,9 @@ class Plugins
 		      void           uninitialize();
 
 	private:
-		ExpPluginList                             _expPlugins;
-		ImpPluginList                             _impPlugins;
-		QHash<TTSInterface::TTSPlugin, TTSPlugin> _ttsPlugins;
+		ExpPluginList              _expPlugins;
+		ImpPluginList              _impPlugins;
+		QHash<quintptr, TTSPlugin> _ttsPlugins;
 }; // Plugins
 
 #endif // PLUGINS_H

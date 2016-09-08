@@ -3,14 +3,14 @@
 
 class LicenseCommon
 {
-    public:
-        struct LicenseContent
-		{
-            QString title;
-            QString text;
-        }; // LicenseContent
+  public:
+    struct LicenseContent
+    {
+      QString title;
+      QString text;
+    };
 
-        typedef QList<LicenseContent> LicenseContentList;
-}; // LicenseCommon
+    typedef QList<LicenseContent> LicenseContentList;
+};
 
-#endif // LICENSECOMMON_H
+#endif
