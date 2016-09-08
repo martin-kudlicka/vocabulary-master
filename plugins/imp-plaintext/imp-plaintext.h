@@ -2,31 +2,31 @@
 #define IMPPLAINTEXT_H
 
 #include "../common/imp-interface.h"
-#include "plaintextimportwidget.h"
+#include "plaintextimportwidget/plaintextfile.h"
+
+class PlaintextImportWidget;
 
 class ImpPlaintext : public QObject, private ImpInterface
 {
-    Q_OBJECT
-	Q_PLUGIN_METADATA(IID IID_IMPINTERFACE FILE "imp-plaintext.json")
-    Q_INTERFACES(ImpInterface)
+  Q_OBJECT
+  Q_PLUGIN_METADATA(IID IID_IMPINTERFACE FILE "imp-plaintext.json")
+  Q_INTERFACES(ImpInterface)
 
-    private:
-		static const qint8 CACHED_NONE = -2;
+  private:
+    qintptr                _cachedRecord;
+    PlaintextFile          _plaintextFile;
+    PlaintextImportWidget *_widget;
+    QStringList            _cachedCapture;
 
-		qint16                 _cachedRecord;
-		PlaintextFile          _plaintextFile;
-		PlaintextImportWidget *_widget;
-		QStringList            _cachedCapture;
+    virtual ~ImpPlaintext() override;
 
-		virtual ~ImpPlaintext() override;
+    virtual void        close      ()                                     override;
+    virtual QString     filter     () const                               override;
+    virtual QStringList marks      () const                               override;
+    virtual bool        open       (const QString &fileName)              override;
+    virtual quintptr    recordCount() const                               override;
+    virtual QString     recordData (quintptr record, const QString &mark) override;
+    virtual void        setupUI    (QGroupBox *parent)                    override;
+};
 
-        virtual void        close      ()                                    override;
-        virtual QString     filter     () const                              override;
-        virtual QStringList marks      () const                              override;
-		virtual bool        open       (const QString &fileName)             override;
-		virtual quintptr    recordCount() const                              override;
-        virtual QString     recordData (quintptr record, const QString &mark) override;
-        virtual void        setupUI    (QGroupBox *parent)                   override;
-}; // ImpPlaintext
-
-#endif // IMPPLAINTEXT_H
+#endif
