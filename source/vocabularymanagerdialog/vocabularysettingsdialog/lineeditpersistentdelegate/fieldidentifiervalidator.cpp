@@ -1,6 +1,8 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate/fieldidentifiervalidator.h"
 
-FieldIdentifierValidator::FieldIdentifierValidator(quint8 row, const FieldsModel *model, QObject *parent /* nullptr */) : QValidator(parent), _fieldsModel(model), _row(row)
+#include "vocabularymanagerdialog/vocabularysettingsdialog/fieldsmodel.h"
+
+FieldIdentifierValidator::FieldIdentifierValidator(quintptr row, const FieldsModel *model, QObject *parent /* nullptr */) : QValidator(parent), _fieldsModel(model), _row(row)
 {
 }
 
@@ -14,7 +16,7 @@ QValidator::State FieldIdentifierValidator::validate(QString &input, int &pos) c
 	{
 		if (rowIndex != _row)
 		{
-			const QModelIndex modelIndex = _fieldsModel->index(rowIndex, FieldsModel::ColumnTemplateName);
+			const QModelIndex modelIndex = _fieldsModel->index(rowIndex, static_cast<int>(FieldsModel::Column::TemplateName));
 			const QString identifier     = _fieldsModel->data(modelIndex).toString();
 			if (input == identifier)
 			{

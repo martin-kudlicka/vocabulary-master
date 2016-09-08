@@ -2,6 +2,8 @@
 
 #include <QtGui/QPainter>
 
+const quint8 BORDER_WIDTH = 2;
+
 ColorDelegate::ColorDelegate(QObject *parent /* nullptr */) : QStyledItemDelegate(parent)
 {
 }

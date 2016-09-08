@@ -2,6 +2,8 @@
 
 #include <QtGui/QKeyEvent>
 
+const QChar MODIFIER_SEPARATOR = '+';
+
 HotkeyLineEdit::HotkeyLineEdit(QWidget *parent /* nullptr */) : QLineEdit(parent)
 {
 }

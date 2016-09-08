@@ -5,20 +5,20 @@
 
 class FieldLineEdit : public QLineEdit
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	public:
-		FieldLineEdit(QWidget *parent = nullptr);
+  public:
+    FieldLineEdit(QWidget *parent = nullptr);
 
-	private:
-		QString _defaultSheet;
+  private:
+    QString _defaultSheet;
 
-		virtual ~FieldLineEdit() override;
+    virtual ~FieldLineEdit() override;
 
-		virtual void showEvent(QShowEvent *event) override;
+    virtual void showEvent(QShowEvent *event) override;
 
-	private slots:
-		void on_textEdited(const QString &text);
-}; // FieldLineEdit
+  private slots:
+    void on_textEdited(const QString &text);
+};
 
-#endif // FIELDLINEEDIT_H
+#endif

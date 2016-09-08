@@ -4,20 +4,19 @@
 #include <QtWidgets/QLineEdit>
 
 static const char   *PROPERTY_VIRTUALKEY = "VirtualKey";
-       const QChar   MODIFIER_SEPARATOR  = '+';
        const QString MODIFIER_ALT        = "Alt";
        const QString MODIFIER_CTRL       = "Ctrl";
        const QString MODIFIER_SHIFT      = "Shift";
 
 class HotkeyLineEdit : public QLineEdit
 {
-    public:
-        HotkeyLineEdit(QWidget *parent = nullptr);
+  public:
+    HotkeyLineEdit(QWidget *parent = nullptr);
 
-    private:
-		virtual ~HotkeyLineEdit() override;
+  private:
+    virtual ~HotkeyLineEdit() override;
 
-		virtual void keyPressEvent(QKeyEvent *event) override;
-}; // HotkeyLineEdit
+    virtual void keyPressEvent(QKeyEvent *event) override;
+};
 
-#endif // HOTKEYLINEEDIT_H
+#endif

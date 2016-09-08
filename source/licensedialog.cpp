@@ -1,5 +1,7 @@
 #include "licensedialog.h"
 
+#include "license.h"
+#include "settings.h"
 #include <QtWidgets/QFileDialog>
 #include "common/licensetextdialog.h"
 
@@ -16,7 +18,7 @@ LicenseDialog::~LicenseDialog()
 
 void LicenseDialog::fillLicenseInfo() const
 {
-	if (_license->status() == License::StatusOk || _license->status() == License::StatusExpired)
+	if (_license->status() == License::Status::Ok || _license->status() == License::Status::Expired)
 	{
 		_ui.firstName->setText(_license->firstName());
 		_ui.lastName->setText(_license->lastName());
@@ -38,16 +40,16 @@ void LicenseDialog::fillLicenseInfo() const
 
 	switch (_license->status())
 	{
-		case License::StatusNone:
+		case License::Status::None:
 			_ui.status->setText(tr("No license."));
 			break;
-		case License::StatusExpired:
+		case License::Status::Expired:
 			_ui.status->setText(tr("License has been expired."));
 			break;
-		case License::StatusInvalid:
+		case License::Status::Invalid:
 			_ui.status->setText(tr("License is invalid."));
 	}
-	if (_license->status() == License::StatusOk)
+	if (_license->status() == License::Status::Ok)
 	{
 		_ui.status->hide();
 	}

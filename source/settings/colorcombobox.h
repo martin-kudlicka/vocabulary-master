@@ -5,15 +5,13 @@
 
 class ColorComboBox : public QComboBox
 {
-	public:
-		ColorComboBox(QWidget *parent = nullptr);
+  public:
+    ColorComboBox(QWidget *parent = nullptr);
 
-	private:
-		static const quint8 BORDER_WIDTH = 2;
+  private:
+    virtual ~ColorComboBox() override;
 
-		virtual ~ColorComboBox() override;
+    virtual void paintEvent(QPaintEvent * e) override;
+};
 
-		virtual void paintEvent(QPaintEvent * e) override;
-}; // ColorComboBox
-
-#endif // COLORCOMBOBOX_H
+#endif

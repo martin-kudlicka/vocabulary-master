@@ -10,7 +10,7 @@ ExpPluginsModel::~ExpPluginsModel()
 
 int ExpPluginsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-    return ColumnCount;
+    return static_cast<int>(Column::Count);
 }
 
 QVariant ExpPluginsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const

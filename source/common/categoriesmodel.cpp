@@ -1,5 +1,7 @@
 #include "common/categoriesmodel.h"
 
+#include "vocabulary.h"
+
 CategoriesModel::CategoriesModel(const Vocabulary *vocabulary, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
 {
 }
@@ -10,7 +12,7 @@ CategoriesModel::~CategoriesModel()
 
 int CategoriesModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-    return ColumnCount;
+    return static_cast<int>(Column::Count);
 }
 
 QVariant CategoriesModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const

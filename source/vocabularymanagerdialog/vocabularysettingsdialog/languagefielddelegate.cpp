@@ -1,5 +1,6 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog/languagefielddelegate.h"
 
+#include "vocabulary.h"
 #include <QtWidgets/QComboBox>
 
 LanguageFieldDelegate::LanguageFieldDelegate(const Vocabulary *vocabulary, QObject *parent /* nullptr */) : QStyledItemDelegate(parent), _vocabulary(vocabulary)

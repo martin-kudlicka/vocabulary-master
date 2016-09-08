@@ -1,7 +1,10 @@
 #include "common/licensetextdialog.h"
 
+#include "settings.h"
 #include <QtWidgets/QPlainTextEdit>
 #include <QtCore/QFile>
+
+const quint8 TAB_INVALID = UINT8_MAX;
 
 LicenseTextDialog::LicenseTextDialog(const LicenseCommon::LicenseContentList &licenses, const Settings *settings, QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags)
 {

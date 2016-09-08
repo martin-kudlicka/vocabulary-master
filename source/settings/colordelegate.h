@@ -5,15 +5,13 @@
 
 class ColorDelegate : public QStyledItemDelegate
 {
-	public:
-		ColorDelegate(QObject *parent = nullptr);
+  public:
+    ColorDelegate(QObject *parent = nullptr);
 
-	private:
-		static const quint8 BORDER_WIDTH = 2;
+  private:
+    virtual ~ColorDelegate() override;
 
-		virtual ~ColorDelegate() override;
+    virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+};
 
-		virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-}; // ColorDelegate
-
-#endif // COLORDELEGATE_H
+#endif
