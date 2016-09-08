@@ -1,11 +1,13 @@
 #include "updatechecker.h"
 
+#include "settings.h"
+
 UpdateChecker::UpdateChecker(const Settings *settings, QObject *parent /* nullptr */) : QObject(parent), _settings(settings), _lastReply(nullptr)
 {
-	_currentVersion.usMajor    = 1;
-	_currentVersion.usMinor    = 3;
-	_currentVersion.usMinor2   = 0;
-	_currentVersion.usRevision = 654;
+	_currentVersion.major    = 1;
+	_currentVersion.minor    = 3;
+	_currentVersion.minor2   = 0;
+	_currentVersion.revision = 654;
 
 	connect(&_networkAccessManager, SIGNAL(finished(QNetworkReply *)), SLOT(on_networkAccessManager_finished(QNetworkReply *)));
 }
@@ -42,36 +44,36 @@ QNetworkReply::NetworkError UpdateChecker::checkResult() const
 
 QString UpdateChecker::currentVersion() const
 {
-	return QString("%1.%2.%3.%4").arg(_currentVersion.usMajor).arg(_currentVersion.usMinor).arg(_currentVersion.usMinor2).arg(_currentVersion.usRevision);
+	return QString("%1.%2.%3.%4").arg(_currentVersion.major).arg(_currentVersion.minor).arg(_currentVersion.minor2).arg(_currentVersion.revision);
 }
 
 bool UpdateChecker::updateAvailable() const
 {
-	if (_updateVersion.usMajor >= _currentVersion.usMajor)
+	if (_updateVersion.major >= _currentVersion.major)
 	{
-		if (_updateVersion.usMajor > _currentVersion.usMajor)
+		if (_updateVersion.major > _currentVersion.major)
 		{
 			return true;
 		}
 		else
 		{
-			if (_updateVersion.usMinor >= _currentVersion.usMinor)
+			if (_updateVersion.minor >= _currentVersion.minor)
 			{
-				if (_updateVersion.usMinor > _currentVersion.usMinor)
+				if (_updateVersion.minor > _currentVersion.minor)
 				{
 					return true;
 				}
 				else
 				{
-					if (_updateVersion.usMinor2 >= _currentVersion.usMinor2)
+					if (_updateVersion.minor2 >= _currentVersion.minor2)
 					{
-						if (_updateVersion.usMinor2 > _currentVersion.usMinor2)
+						if (_updateVersion.minor2 > _currentVersion.minor2)
 						{
 							return true;
 						}
 						else
 						{
-							if (_updateVersion.usRevision > _currentVersion.usRevision)
+							if (_updateVersion.revision > _currentVersion.revision)
 							{
 								return true;
 							}
@@ -87,7 +89,7 @@ bool UpdateChecker::updateAvailable() const
 
 QString UpdateChecker::updateVersion() const
 {
-	return QString("%1.%2.%3.%4").arg(_updateVersion.usMajor).arg(_updateVersion.usMinor).arg(_updateVersion.usMinor2).arg(_updateVersion.usRevision);
+	return QString("%1.%2.%3.%4").arg(_updateVersion.major).arg(_updateVersion.minor).arg(_updateVersion.minor2).arg(_updateVersion.revision);
 }
 
 void UpdateChecker::analyzeReply()
@@ -95,10 +97,10 @@ void UpdateChecker::analyzeReply()
 	const QByteArray version        = _lastReply->readAll();
 	const QList<QByteArray> verInfo = version.split('.');
 
-	_updateVersion.usMajor    = verInfo.at(VerInfoMajor).toUShort();
-	_updateVersion.usMinor    = verInfo.at(VerInfoMinor).toUShort();
-	_updateVersion.usMinor2   = verInfo.at(VerInfoMinor2).toUShort();
-	_updateVersion.usRevision = verInfo.at(VerInfoRevision).toUShort();
+	_updateVersion.major    = verInfo.at(static_cast<int>(VerInfo::Major)).toUInt();
+	_updateVersion.minor    = verInfo.at(static_cast<int>(VerInfo::Minor)).toUInt();
+	_updateVersion.minor2   = verInfo.at(static_cast<int>(VerInfo::Minor2)).toUInt();
+	_updateVersion.revision = verInfo.at(static_cast<int>(VerInfo::Revision)).toUInt();
 }
 
 void UpdateChecker::on_networkAccessManager_finished(QNetworkReply *reply)

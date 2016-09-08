@@ -19,8 +19,8 @@ class VocabularyDatabase : public QObject
     public:
         typedef QHash<quint8, QString>   DataHash;
         typedef QHash<quint32, DataHash> RecordDataHash;
-        typedef QList<quint8>            CategoryIdList;
-		typedef QList<quint8>            FieldIdList;
+        typedef QList<quintptr>          CategoryIdList;
+		typedef QList<quintptr>            FieldIdList;
         typedef QList<quint8>            LanguageIdList;
 
         enum FieldAttribute
@@ -143,7 +143,7 @@ class VocabularyDatabase : public QObject
 			);
         quint8          recordCategory        (quint32 recordId)                                                    const;
         quint32         recordCount           ()                                                                    const;
-		quint32         recordCount           (quint8 categoryId)                                                   const;
+		quint32         recordCount           (quintptr categoryId)                                                   const;
 #ifndef EDITION_FREE
 		quint32         recordCount           (quint8 categoryId, bool enabled)                                     const;
 #endif
