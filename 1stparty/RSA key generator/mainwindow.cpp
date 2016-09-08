@@ -5,6 +5,8 @@
 #include "../../3rdparty/Crypto++/source/osrng.h"
 #include "../../3rdparty/Crypto++/source/files.h"
 
+const auto KEY_SIZE = 3072;
+
 MainWindow::MainWindow(QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags)
 {
   _ui.setupUi(this);
@@ -16,7 +18,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_browsePrivate_clicked(bool checked /* false */)
 {
-  const auto fileName(QFileDialog::getSaveFileName(this, tr("Private key file"), QString(), tr("private key (*.der)")));
+  const auto fileName = QFileDialog::getSaveFileName(this, tr("Private key file"), QString(), tr("private key (*.der)"));
   if (!fileName.isEmpty())
   {
     _ui.privateKey->setText(fileName);
@@ -25,7 +27,7 @@ void MainWindow::on_browsePrivate_clicked(bool checked /* false */)
 
 void MainWindow::on_browsePublic_clicked(bool checked /* false */)
 {
-  const auto fileName(QFileDialog::getSaveFileName(this, tr("Public key file"), QString(), tr("public key (*.der)")));
+  const auto fileName = QFileDialog::getSaveFileName(this, tr("Public key file"), QString(), tr("public key (*.der)"));
   if (!fileName.isEmpty())
   {
     _ui.publicKey->setText(fileName);

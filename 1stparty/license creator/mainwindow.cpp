@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0
   _ui.setupUi(this);
 
   // preset current date + 1 year
-  const auto presetDate(QDate::currentDate().addYears(1));
+  const auto presetDate = QDate::currentDate().addYears(1);
   _ui.validTo->setDate(presetDate);
 
   on_generateUid_clicked();
@@ -47,7 +47,7 @@ void MainWindow::writeLicensePersonal()
 
 void MainWindow::on_create_clicked(bool checked /* false */)
 {
-  const auto fileName(QFileDialog::getSaveFileName(this, tr("Create license"), QString(), tr("license (*.lic)")));
+  const auto fileName = QFileDialog::getSaveFileName(this, tr("Create license"), QString(), tr("license (*.lic)"));
   if (fileName.isEmpty())
   {
     return;
@@ -65,7 +65,7 @@ void MainWindow::on_create_clicked(bool checked /* false */)
   // get encrypt key
   QFile encryptKeyFile(":/MainWindow/res/mainwindow/encryptpublic.der");
   encryptKeyFile.open(QIODevice::ReadOnly);
-  const auto encryptKeyData(encryptKeyFile.readAll());
+  const auto encryptKeyData = encryptKeyFile.readAll();
 
   // encrypt license
   CryptoPP::ArraySource encryptKeyBuffer(reinterpret_cast<const byte *>(encryptKeyData.constData()), encryptKeyData.size(), true);
@@ -78,7 +78,7 @@ void MainWindow::on_create_clicked(bool checked /* false */)
   // get sign key
   QFile signKeyFile(":/MainWindow/res/mainwindow/signprivate.der");
   signKeyFile.open(QIODevice::ReadOnly);
-  const auto signKeyData(signKeyFile.readAll());
+  const auto signKeyData = signKeyFile.readAll();
 
   // sign encrypted license
   CryptoPP::ArraySource signKeyBuffer(reinterpret_cast<const byte *>(signKeyData.constData()), signKeyData.size(), true);
@@ -88,7 +88,7 @@ void MainWindow::on_create_clicked(bool checked /* false */)
   const QByteArray signedData(signedString.c_str(), signedString.size());
 
   // get size of encrypted data
-  const auto encryptedSize(encryptedData.size());
+  const auto encryptedSize = encryptedData.size();
   const QByteArray encryptedSizeData(reinterpret_cast<const char *>(&encryptedSize), sizeof(encryptedSize));
 
   // write license to file
@@ -101,6 +101,6 @@ void MainWindow::on_create_clicked(bool checked /* false */)
 
 void MainWindow::on_generateUid_clicked(bool checked /* false */)
 {
-  const auto uuid(QUuid::createUuid());
+  const auto uuid = QUuid::createUuid();
   _ui.uid->setText(uuid.toString());
 }

@@ -12,8 +12,6 @@ class MainWindow : public QMainWindow
     virtual ~MainWindow() override;
 
   private:
-    static const auto KEY_SIZE = 3072;
-
     Ui::MainWindow _ui;
 
   private slots:
