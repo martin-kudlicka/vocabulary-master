@@ -53,53 +53,53 @@
     <ClCompile Include="..\common\translationhandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\imp-anki\moc_imp-anki.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\imp-anki\moc_imp-anki.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="ankiimportwidget\modelsmodel.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\imp-anki\moc_modelsmodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\imp-anki\moc_modelsmodel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\imp-anki\moc_fieldsmodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\imp-anki\moc_fieldsmodel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\imp-anki\moc_decksmodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\imp-anki\moc_decksmodel.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="..\..\common\marklineeditpersistentdelegate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\imp-anki\moc_marklineedit.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\imp-anki\moc_marklineedit.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\common\marklineedit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\imp-anki\moc_ankiimportwidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\imp-anki\moc_ankiimportwidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="..\common\imp-interface.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-anki\Debug\moc_modelsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-anki\Release\moc_modelsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-anki\Debug\moc_marklineedit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-anki\Release\moc_marklineedit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-anki\Debug\moc_imp-anki.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-anki\Release\moc_imp-anki.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-anki\Debug\moc_fieldsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-anki\Release\moc_fieldsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-anki\Debug\moc_decksmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-anki\Release\moc_decksmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-anki\Debug\moc_ankiimportwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-anki\Release\moc_ankiimportwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,7 +112,7 @@
     <ClInclude Include="..\..\common\marklineeditpersistentdelegate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\temp\GeneratedFiles\imp-anki\ui_ankiimportwidget.h">
+    <ClInclude Include="..\..\..\..\intermediate\vocabularymaster\imp-anki\ui_ankiimportwidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

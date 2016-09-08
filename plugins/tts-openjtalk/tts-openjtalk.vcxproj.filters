@@ -38,11 +38,14 @@
     <ClCompile Include="tts-openjtalk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\tts-openjtalk\moc_tts-openjtalk.cpp">
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\tts-openjtalk\Debug\moc_tts-openjtalk.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\tts-openjtalk\moc_tts-openjtalk.cpp">
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\tts-openjtalk\Release\moc_tts-openjtalk.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\tts-openjtalk\qrc_tts-openjtalk.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -54,13 +57,19 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="tts-openjtalk.qrc">
+    <None Include="res\hts_engine API\COPYING">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Open JTalk\COPYING">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="tts-openjtalk.h">
       <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="tts-openjtalk.qrc">
+      <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

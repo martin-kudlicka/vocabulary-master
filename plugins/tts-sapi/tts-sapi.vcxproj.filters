@@ -38,10 +38,10 @@
     <ClCompile Include="tts-sapi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\tts-sapi\moc_tts-sapi.cpp">
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\tts-sapi\Debug\moc_tts-sapi.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\tts-sapi\moc_tts-sapi.cpp">
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\tts-sapi\Release\moc_tts-sapi.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>

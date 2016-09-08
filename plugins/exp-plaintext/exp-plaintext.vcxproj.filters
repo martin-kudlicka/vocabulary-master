@@ -55,18 +55,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\exp-plaintext\moc_exp-plaintext.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-plaintext\moc_exp-plaintext.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\exp-plaintext\moc_plaintextexportwidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-plaintext\moc_plaintextexportwidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="exp-plaintext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -76,30 +64,42 @@
     <ClCompile Include="..\common\translationhandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\exp-plaintext\moc_codecsmodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-plaintext\moc_codecsmodel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\exp-plaintext\moc_exp-interface.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-plaintext\moc_exp-interface.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="..\common\codecsmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\common\exp-interface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-plaintext\Debug\moc_codecsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-plaintext\Release\moc_codecsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-plaintext\Debug\moc_exp-interface.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-plaintext\Release\moc_exp-interface.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-plaintext\Debug\moc_exp-plaintext.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-plaintext\Release\moc_exp-plaintext.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-plaintext\Debug\moc_plaintextexportwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-plaintext\Release\moc_plaintextexportwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\translationhandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\temp\GeneratedFiles\exp-plaintext\ui_plaintextexportwidget.h">
+    <ClInclude Include="..\..\..\..\intermediate\vocabularymaster\exp-plaintext\ui_plaintextexportwidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

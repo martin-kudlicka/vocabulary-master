@@ -49,36 +49,36 @@
     <ClCompile Include="pdfexportwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\exp-pdf\moc_exp-interface.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-pdf\moc_exp-interface.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="..\common\translationhandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\exp-pdf\moc_exp-pdf.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-pdf\moc_exp-pdf.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\exp-pdf\moc_pdfexportwidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-pdf\moc_pdfexportwidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="..\common\exp-interface.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-pdf\Debug\moc_exp-interface.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-pdf\Release\moc_exp-interface.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-pdf\Debug\moc_exp-pdf.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-pdf\Release\moc_exp-pdf.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-pdf\Debug\moc_pdfexportwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-pdf\Release\moc_pdfexportwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\translationhandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\temp\GeneratedFiles\exp-pdf\ui_pdfexportwidget.h">
+    <ClInclude Include="..\..\..\..\intermediate\vocabularymaster\exp-pdf\ui_pdfexportwidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
