@@ -621,7 +621,7 @@ quint32 VocabularyDatabase::recordCount() const
 	}
 }
 
-quint32 VocabularyDatabase::recordCount(quint8 categoryId) const
+quint32 VocabularyDatabase::recordCount(quintptr categoryId) const
 {
 	QSqlQuery query = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_RECORDS + " WHERE " + COLUMN_CATEGORYID + " = " + QString::number(categoryId));
 	if (query.last())
