@@ -1,5 +1,6 @@
 #include "imp-plaintext.h"
 
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QBoxLayout>
 
 const QString TEMPLATE_MARK = "${%1}";
@@ -44,7 +45,7 @@ bool ImpPlaintext::open(const QString &fileName)
 	return _plaintextFile.open(fileName);
 }
 
-quint16 ImpPlaintext::recordCount() const
+quintptr ImpPlaintext::recordCount() const
 {
 	const quint16 fileLines = _widget->lineCount();
 	quint16 lines           = fileLines / _widget->linesPerRecord();
@@ -56,7 +57,7 @@ quint16 ImpPlaintext::recordCount() const
 	return lines;
 }
 
-QString ImpPlaintext::recordData(quint16 record, const QString &mark)
+QString ImpPlaintext::recordData(quintptr record, const QString &mark)
 {
 	if (_cachedRecord != record)
 	{
