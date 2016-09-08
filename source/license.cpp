@@ -1,5 +1,6 @@
 #include "license.h"
 
+#include "settings.h"
 #include <QtCore/QString>
 #include <QtCore/QXmlStreamReader>
 #include <QtCore/QFile>
@@ -28,7 +29,7 @@ const QString &License::firstName() const
 
 bool License::isLoaded() const
 {
-	return _status == StatusOk || _status == StatusExpired;
+	return _status == Status::Ok || _status == Status::Expired;
 }
 
 /*bool License::isOk() const
@@ -51,7 +52,7 @@ void License::refreshLicense()
 
 	if (licenseData.isEmpty())
 	{
-		_status = StatusNone;
+		_status = Status::None;
 		return;
 	}
 
@@ -65,7 +66,7 @@ void License::refreshLicense()
 	bool verified = rsa.verify(signKeyData, encryptedContent, signature);
 	if (!verified)
 	{
-		_status = StatusInvalid;
+		_status = Status::Invalid;
 		return;
 	}
 
@@ -117,11 +118,11 @@ void License::refreshLicense()
 
 	if (QDate::currentDate() > _validTo)
 	{
-		_status = StatusExpired;
+		_status = Status::Expired;
 	}
 	else
 	{
-		_status = StatusOk;
+		_status = Status::Ok;
 	}
 }
 

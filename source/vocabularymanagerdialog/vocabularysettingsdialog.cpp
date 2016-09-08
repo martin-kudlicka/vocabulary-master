@@ -1,5 +1,7 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog.h"
 
+#include "vocabulary.h"
+
 VocabularySettingsDialog::VocabularySettingsDialog(Vocabulary *vocabulary,
 #ifndef EDITION_FREE
     const Plugins *plugins,
@@ -47,9 +49,9 @@ void VocabularySettingsDialog::actualizeFieldsEditor(quint8 row) const
 {
 	const quint8 fieldId = _vocabulary->fieldId(row);
 
-	QModelIndex index = _fieldsModel.index(row, FieldsModel::ColumnTemplateName);
+	QModelIndex index = _fieldsModel.index(row, static_cast<int>(FieldsModel::Column::TemplateName));
 	_ui.fields->openPersistentEditor(index);
-	index = _fieldsModel.index(row, FieldsModel::ColumnName);
+  index = _fieldsModel.index(row, static_cast<int>(FieldsModel::Column::Name));
 	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
 	{
 		_ui.fields->closePersistentEditor(index);
@@ -58,7 +60,7 @@ void VocabularySettingsDialog::actualizeFieldsEditor(quint8 row) const
 	{
 		_ui.fields->openPersistentEditor(index);
 	}
-	index = _fieldsModel.index(row, FieldsModel::ColumnLanguage);
+  index = _fieldsModel.index(row, static_cast<int>(FieldsModel::Column::Language));
 	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
 	{
 		_ui.fields->closePersistentEditor(index);
@@ -115,9 +117,9 @@ void VocabularySettingsDialog::fillSpeech(QComboBox *comboBox, const QString &sp
 void VocabularySettingsDialog::prepareFields()
 {
     _ui.fields->setModel(&_fieldsModel);
-    _ui.fields->setItemDelegateForColumn(FieldsModel::ColumnTemplateName, &_lineEditDelegate);
-    _ui.fields->setItemDelegateForColumn(FieldsModel::ColumnName, &_lineEditDelegate);
-    _ui.fields->setItemDelegateForColumn(FieldsModel::ColumnLanguage, &_languageFieldDelegate);
+    _ui.fields->setItemDelegateForColumn(static_cast<int>(FieldsModel::Column::TemplateName), &_lineEditDelegate);
+    _ui.fields->setItemDelegateForColumn(static_cast<int>(FieldsModel::Column::Name), &_lineEditDelegate);
+    _ui.fields->setItemDelegateForColumn(static_cast<int>(FieldsModel::Column::Language), &_languageFieldDelegate);
     connect(_ui.fields->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_fieldsSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 
     _ui.fieldType->addItem(tr("Text"));
@@ -126,7 +128,7 @@ void VocabularySettingsDialog::prepareFields()
 
     for (quint8 column = 0; column < _ui.fields->header()->count(); column++)
 	{
-        if (column == FieldsModel::ColumnSpeech || column == FieldsModel::ColumnShow)
+        if (column == static_cast<int>(FieldsModel::Column::Speech) || column == static_cast<int>(FieldsModel::Column::Show))
 		{
             _ui.fields->header()->setSectionResizeMode(column, QHeaderView::ResizeToContents);
         }
@@ -175,7 +177,7 @@ void VocabularySettingsDialog::refreshLanguageNameFields() const
         _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguageLeft, _ui.languageLeft->text());
         _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguageRight, _ui.languageRight->text());
 
-        const QModelIndex index = _fieldsModel.index(row, FieldsModel::ColumnLanguage);
+        const QModelIndex index = _fieldsModel.index(row, static_cast<int>(FieldsModel::Column::Language));
         _ui.fields->closePersistentEditor(index);
         _ui.fields->openPersistentEditor(index);
     }

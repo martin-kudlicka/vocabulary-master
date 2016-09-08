@@ -1,5 +1,7 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog/fieldsmodel.h"
 
+#include "vocabulary.h"
+
 FieldsModel::FieldsModel(Vocabulary *vocabulary, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
 {
 }
@@ -15,13 +17,31 @@ void FieldsModel::addRow()
     endInsertRows();
 }
 
+void FieldsModel::removeRow(quintptr row)
+{
+	beginRemoveRows(QModelIndex(), row, row);
+	const qint8 fieldId = _vocabulary->fieldId(row);
+	_vocabulary->removeField(fieldId);
+	endRemoveRows();
+}
+
+void FieldsModel::swap(quintptr sourceRow, quintptr destinationRow)
+{
+	const qint8 sourceFieldId      = _vocabulary->fieldId(sourceRow);
+	const qint8 destinationFieldId = _vocabulary->fieldId(destinationRow);
+	_vocabulary->swapFields(sourceFieldId, destinationFieldId);
+
+	emit dataChanged(index(sourceRow, 0), index(sourceRow, static_cast<int>(Column::Count) - 1));
+	emit dataChanged(index(destinationRow, 0), index(destinationRow, static_cast<int>(Column::Count) - 1));
+}
+
 QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
 	const qint8 fieldId = _vocabulary->fieldId(index.row());
 
 	switch (index.column())
 	{
-		case ColumnTemplateName:
+		case Column::TemplateName:
 			switch (role)
 			{
 				case Qt::DisplayRole:
@@ -29,7 +49,7 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 				default:
 					return QVariant();
 			}
-		case ColumnName:
+		case Column::Name:
 			switch (role)
 			{
 				case Qt::DisplayRole:
@@ -37,7 +57,7 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 				default:
 					return QVariant();
 			}
-        case ColumnSpeech:
+        case Column::Speech:
             switch (role)
 			{
 				case Qt::CheckStateRole:
@@ -52,7 +72,7 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 				default:
 					return QVariant();
 			}
-        case ColumnShow:
+        case Column::Show:
             switch (role)
 			{
                 case Qt::CheckStateRole:
@@ -67,7 +87,7 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 				default:
 					return QVariant();
 			}
-		case ColumnLanguage:
+		case Column::Language:
 			switch (role)
 			{
 				case Qt::EditRole:
@@ -85,14 +105,6 @@ QModelIndex FieldsModel::index(int row, int column, const QModelIndex &parent /*
 	return createIndex(row, column);
 }
 
-void FieldsModel::removeRow(quint8 row)
-{
-	beginRemoveRows(QModelIndex(), row, row);
-	const qint8 fieldId = _vocabulary->fieldId(row);
-	_vocabulary->removeField(fieldId);
-	endRemoveRows();
-}
-
 int FieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
 	if (parent == QModelIndex())
@@ -105,30 +117,20 @@ int FieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 	}
 }
 
-void FieldsModel::swap(quint8 sourceRow, quint8 destinationRow)
-{
-	const qint8 sourceFieldId      = _vocabulary->fieldId(sourceRow);
-	const qint8 destinationFieldId = _vocabulary->fieldId(destinationRow);
-	_vocabulary->swapFields(sourceFieldId, destinationFieldId);
-
-	emit dataChanged(index(sourceRow, 0), index(sourceRow, ColumnCount - 1));
-	emit dataChanged(index(destinationRow, 0), index(destinationRow, ColumnCount - 1));
-}
-
 int FieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-	return ColumnCount;
+	return static_cast<int>(Column::Count);
 }
 
 Qt::ItemFlags FieldsModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags itemFlags = QAbstractItemModel::flags(index);
 
-    if (index.column() == ColumnSpeech || index.column() == ColumnShow)
+    if (index.column() == static_cast<int>(Column::Speech) || index.column() == static_cast<int>(Column::Show))
 	{
 		bool canSpeech = true;
 
-		if (index.column() == ColumnSpeech)
+    if (index.column() == static_cast<int>(Column::Speech))
 		{
 			const qint8 fieldId                           = _vocabulary->fieldId(index.row());
 			const VocabularyDatabase::FieldType fieldType = _vocabulary->fieldType(fieldId);
@@ -154,15 +156,15 @@ QVariant FieldsModel::headerData(int section, Qt::Orientation orientation, int r
         case Qt::DisplayRole:
             switch (section)
 			{
-                case ColumnTemplateName:
+                case Column::TemplateName:
                     return tr("Identifier");
-                case ColumnName:
+                case Column::Name:
                     return tr("Name");
-                case ColumnSpeech:
+                case Column::Speech:
                     return tr("Speech");
-                case ColumnShow:
+                case Column::Show:
                     return tr("Show");
-                case ColumnLanguage:
+                case Column::Language:
                     return tr("Language");
             }
         default:
@@ -186,27 +188,27 @@ bool FieldsModel::setData(const QModelIndex &index, const QVariant &value, int r
 
     switch (index.column())
 	{
-        case ColumnTemplateName:
+        case Column::TemplateName:
             _vocabulary->setFieldTemplateName(fieldId, value.toString());
             break;
-        case ColumnName:
+        case Column::Name:
             _vocabulary->setFieldName(fieldId, value.toString());
             break;
-        case ColumnSpeech:
+        case Column::Speech:
             {
                 VocabularyDatabase::FieldAttributes fieldAttributes = _vocabulary->fieldAttributes(fieldId);
                 fieldAttributes                                      ^= VocabularyDatabase::FieldAttributeSpeech;
                 _vocabulary->setFieldAttributes(fieldId, fieldAttributes);
             }
             break;
-        case ColumnShow:
+        case Column::Show:
             {
                 VocabularyDatabase::FieldAttributes fieldAttributes = _vocabulary->fieldAttributes(fieldId);
                 fieldAttributes                                      ^= VocabularyDatabase::FieldAttributeShow;
                 _vocabulary->setFieldAttributes(fieldId, fieldAttributes);
             }
             break;
-        case ColumnLanguage:
+        case Column::Language:
             _vocabulary->setFieldLanguage(fieldId, static_cast<VocabularyDatabase::FieldLanguage>(value.toUInt()));
     }
 

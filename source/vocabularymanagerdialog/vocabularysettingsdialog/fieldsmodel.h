@@ -2,41 +2,43 @@
 #define FIELDSMODEL_H
 
 #include <QtCore/QAbstractItemModel>
-#include "vocabulary.h"
+
+class Vocabulary;
 
 class FieldsModel : public QAbstractItemModel
 {
-    Q_OBJECT
+  Q_OBJECT
 
-    public:
-        enum Column
-		{
-            ColumnTemplateName,
-            ColumnName,
-            ColumnSpeech,
-            ColumnShow,
-            ColumnLanguage,
-            ColumnCount
-        }; // Column
+  public:
+    enum class Column
+    {
+      TemplateName,
+      Name,
+      Speech,
+      Show,
+      Language,
+      Count
+    };
 
-                 FieldsModel(Vocabulary *vocabulary, QObject *parent = nullptr);
-		virtual ~FieldsModel() override;
+             FieldsModel(Vocabulary *vocabulary, QObject *parent = nullptr);
+    virtual ~FieldsModel() override;
 
-                void        addRow   ();
-		virtual QVariant    data     (const QModelIndex &index, int role = Qt::DisplayRole)           const override;
-		virtual QModelIndex index    (int row, int column, const QModelIndex &parent = QModelIndex()) const override;
-		        void        removeRow(quint8 row);
-        virtual int         rowCount (const QModelIndex &parent = QModelIndex())                      const override;
-		        void        swap     (quint8 sourceRow, quint8 destinationRow);
+    void addRow   ();
+    void removeRow(quintptr row);
+    void swap     (quintptr sourceRow, quintptr destinationRow);
 
-    private:
-        Vocabulary *_vocabulary;
+    virtual QVariant    data    (const QModelIndex &index, int role = Qt::DisplayRole)           const override;
+    virtual QModelIndex index   (int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+    virtual int         rowCount(const QModelIndex &parent = QModelIndex())                      const override;
 
-        virtual int           columnCount(const QModelIndex &parent = QModelIndex())                            const override;
-        virtual Qt::ItemFlags flags      (const QModelIndex &index)                                             const override;
-        virtual QVariant      headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
-		virtual QModelIndex   parent     (const QModelIndex &index)                                             const override;
-        virtual bool          setData    (const QModelIndex &index, const QVariant &value, int role = Qt::EditRole)   override;
-}; // FieldsModel
+  private:
+    Vocabulary *_vocabulary;
 
-#endif // FIELDSMODEL_H
+    virtual int           columnCount(const QModelIndex &parent = QModelIndex())                            const override;
+    virtual Qt::ItemFlags flags      (const QModelIndex &index)                                             const override;
+    virtual QVariant      headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+    virtual QModelIndex   parent     (const QModelIndex &index)                                             const override;
+    virtual bool          setData    (const QModelIndex &index, const QVariant &value, int role = Qt::EditRole)   override;
+};
+
+#endif

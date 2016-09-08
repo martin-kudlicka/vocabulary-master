@@ -3,6 +3,8 @@
 #include <QtWidgets/QStylePainter>
 #include <QtGui/QPaintEvent>
 
+const quint8 BORDER_WIDTH = 2;
+
 ColorComboBox::ColorComboBox(QWidget *parent /* nullptr */) : QComboBox(parent)
 {
 }
