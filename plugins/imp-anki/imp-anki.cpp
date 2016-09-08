@@ -12,36 +12,36 @@ const QString TABLE_FIELDS        = "fields";
 
 ImpAnki::ImpAnki() : ImpInterface(), _database(QSqlDatabase::addDatabase("QSQLITE", "Anki"))
 {
-} // ImpAnki
+}
 
 ImpAnki::~ImpAnki()
 {
-} // ~ImpAnki
+}
 
 void ImpAnki::close()
 {
     if (_database.isOpen())
 	{
         _database.close();
-    } // if
-} // close
+    }
+}
 
 QString ImpAnki::filter() const
 {
 	return "Anki (*.anki)";
-} // filter
+}
 
 QStringList ImpAnki::marks() const
 {
 	return _widget->marks();
-} // marks
+}
 
 bool ImpAnki::open(const QString &fileName)
 {
 	close();
 	_database.setDatabaseName(fileName);
 	return _database.open();
-} // open
+}
 
 quint16 ImpAnki::recordCount() const
 {
@@ -54,8 +54,8 @@ quint16 ImpAnki::recordCount() const
 	else
 	{
 		return 0;
-	} // if else
-} // recordCount
+	}
+}
 
 QString ImpAnki::recordData(quint16 recordId, const QString &mark)
 {
@@ -77,14 +77,14 @@ QString ImpAnki::recordData(quint16 recordId, const QString &mark)
     if (data.endsWith(DATA_TAIL))
 	{
         data.chop(QString(DATA_TAIL).size());
-    } // if
+    }
 
 	return data;
-} // recordData
+}
 
 void ImpAnki::setupUI(QGroupBox *parent)
 {
     _widget = new AnkiImportWidget(&_database, parent);
     QBoxLayout *boxLayout = qobject_cast<QBoxLayout *>(parent->layout());
     boxLayout->insertWidget(WIDGET_POSITION, _widget);
-} // setupUI
+}

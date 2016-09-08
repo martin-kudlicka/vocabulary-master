@@ -11,17 +11,17 @@ HtmlExportWidget::HtmlExportWidget(QWidget *parent /* nullptr */, Qt::WindowFlag
 	preselectCodec("UTF-8");
 
 	initTableColumns();
-} // HtmlExportWidget
+}
 
 HtmlExportWidget::~HtmlExportWidget()
 {
-} // ~HtmlExportWidget
+}
 
 QString HtmlExportWidget::codec() const
 {
 	const QModelIndex modelIndex = _ui.codecs->currentIndex();
 	return _codecsModel.data(modelIndex).toString();
-} // codec
+}
 
 void HtmlExportWidget::refresh() const
 {
@@ -32,8 +32,8 @@ void HtmlExportWidget::refresh() const
 	else
 	{
 		refreshTable();
-	} // if else
-} // refresh
+	}
+}
 
 QString HtmlExportWidget::text() const
 {
@@ -44,8 +44,8 @@ QString HtmlExportWidget::text() const
 	else
 	{
 		return _ui.tablePreview->toHtml();
-	} // if else
-} // text
+	}
+}
 
 void HtmlExportWidget::addTableColumn()
 {
@@ -67,22 +67,22 @@ void HtmlExportWidget::addTableColumn()
     _ui.tableColumns->addWidget(tableColumn.headerWidget, TableRowHeader, _tableColumns.size() + LABEL_COLUMN);
     // template
     _ui.tableColumns->addWidget(tableColumn.templateEdit, TableRowTemplate, _tableColumns.size() + LABEL_COLUMN);
-} // addTableColumn
+}
 
 void HtmlExportWidget::initTableColumns()
 {
     for (quint8 columnIndex = 0; columnIndex < _ui.tableColums->value(); columnIndex++)
 	{
         addTableColumn();
-    } // for
-} // initTableColumns
+    }
+}
 
 void HtmlExportWidget::insertTableText(const QTextTable *tablePreview, quint32 row, quint8 column, const QString &text) const
 {
     const QTextTableCell cell = tablePreview->cellAt(row, column);
     QTextCursor cursor        = cell.firstCursorPosition();
     cursor.insertText(text);
-} // insertTableText
+}
 
 void HtmlExportWidget::preselectCodec(const QString &codec) const
 {
@@ -93,9 +93,9 @@ void HtmlExportWidget::preselectCodec(const QString &codec) const
 		{
             _ui.codecs->setCurrentIndex(modelIndex);
             return;
-        } // if
-    } // for
-} // preselectCodec
+        }
+    }
+}
 
 void HtmlExportWidget::refreshTable() const
 {
@@ -108,7 +108,7 @@ void HtmlExportWidget::refreshTable() const
     for (const TableColumn &columnIndex : _tableColumns)
 	{
         tableWidths.append(QTextLength(QTextLength::FixedLength, columnIndex.width->value()));
-    } // for
+    }
     textTableFormat.setColumnWidthConstraints(tableWidths);
     QTextTable *textTable = textCursor.insertTable(HEADER_ROW + 1, _tableColumns.size(), textTableFormat);
 
@@ -118,7 +118,7 @@ void HtmlExportWidget::refreshTable() const
     for (quint8 columnIndex = 0; columnIndex < _tableColumns.size(); columnIndex++)
 	{
         insertTableText(textTable, HEADER_ROW, columnIndex, _tableColumns.at(columnIndex).headerEdit->text());
-    } // for
+    }
 
     // categories
     ExpInterface::CategoryIdList categoryIds;
@@ -131,7 +131,7 @@ void HtmlExportWidget::refreshTable() const
         quint32 records;
         emit vocabularyGetRecordCount(categoryId, &records);
         totalRecords += records;
-    } // for
+    }
     emit progressExportSetMax(totalRecords);
     QCoreApplication::processEvents(); // to avoid crash
 
@@ -151,7 +151,7 @@ void HtmlExportWidget::refreshTable() const
 		{
             textTable->appendRows(1);
             textTable->mergeCells(textTable->rows() - 1, 0, 1, _tableColumns.size());
-        } // if else
+        }
 
         QString categoryName;
         emit vocabularyGetCategoryName(categoryId, &categoryName);
@@ -178,20 +178,20 @@ void HtmlExportWidget::refreshTable() const
                     QString data;
                     emit vocabularyGetMarkText(recordId, mark, &data);
                     templateText.replace(mark, data);
-                } // for
+                }
 
                 insertTableText(textTable, tableRow, column, templateText);
-            } // for
+            }
 
             records++;
             emit progressExportSetValue(records);
-        } // for
-    } // for
+        }
+    }
 
     textCursor.endEditBlock();
 
     emit progressExportSetValue(0);
-} // refreshTable
+}
 
 void HtmlExportWidget::refreshText() const
 {
@@ -211,7 +211,7 @@ void HtmlExportWidget::refreshText() const
         quint32 records;
         emit vocabularyGetRecordCount(categoryId, &records);
         totalRecords += records;
-    } // for
+    }
     emit progressExportSetMax(totalRecords);
 
     QStringList marks;
@@ -229,7 +229,7 @@ void HtmlExportWidget::refreshText() const
 		else
 		{
             _ui.textPreview->append("");
-        } // if
+        }
 
         QString categoryName;
         emit vocabularyGetCategoryName(categoryId, &categoryName);
@@ -248,21 +248,21 @@ void HtmlExportWidget::refreshText() const
                 QString data;
                 emit vocabularyGetMarkText(recordId, mark, &data);
                 templateText.replace(mark, data);
-            } // for
+            }
 
             _ui.textPreview->append(templateText);
 
             records++;
             emit progressExportSetValue(records);
-        } // for
-    } // for
+        }
+    }
 
     textCursor.endEditBlock();
 
     _ui.textPreview->verticalScrollBar()->setValue(0);
 
     emit progressExportSetValue(0);
-} // refreshText
+}
 
 void HtmlExportWidget::removeTableColumn()
 {
@@ -273,17 +273,17 @@ void HtmlExportWidget::removeTableColumn()
     tableColumn.headerWidget->deleteLater();
     // template
     tableColumn.templateEdit->deleteLater();
-} // removeTableColumn
+}
 
 void HtmlExportWidget::on_styleTable_clicked(bool checked /* false */) const
 {
 	_ui.styles->setCurrentIndex(StyleTable);
-} // on_styleTable_clicked
+}
 
 void HtmlExportWidget::on_styleText_clicked(bool checked /* false */) const
 {
 	_ui.styles->setCurrentIndex(StyleText);
-} // on_styleText_clicked
+}
 
 void HtmlExportWidget::on_tableColums_valueChanged(int i)
 {
@@ -294,15 +294,15 @@ void HtmlExportWidget::on_tableColums_valueChanged(int i)
 	else
 	{
 		addTableColumn();
-	} // if else
-} // on_tableColums_valueChanged
+	}
+}
 
 void HtmlExportWidget::on_tableRefresh_clicked(bool checked /* false */) const
 {
 	refreshTable();
-} // on_tableRefresh_clicked
+}
 
 void HtmlExportWidget::on_textRefresh_clicked(bool checked /* false */) const
 {
 	refreshText();
-} // on_textRefresh_clicked
+}

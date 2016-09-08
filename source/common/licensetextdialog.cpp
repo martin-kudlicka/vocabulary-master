@@ -9,11 +9,11 @@ LicenseTextDialog::LicenseTextDialog(const LicenseCommon::LicenseContentList &li
 
     showMainLicense(settings);
     showLicenses(licenses);
-} // LicenseTextDialog
+}
 
 LicenseTextDialog::~LicenseTextDialog()
 {
-} // ~LicenseTextDialog
+}
 
 void LicenseTextDialog::showLicenses(const LicenseCommon::LicenseContentList &licenses) const
 {
@@ -27,14 +27,14 @@ void LicenseTextDialog::showLicenses(const LicenseCommon::LicenseContentList &li
         if (tab == TAB_INVALID)
 		{
             tab = newTab;
-        } // if
-    } // for
+        }
+    }
 
     if (tab != TAB_INVALID)
 	{
         _ui.tabs->setCurrentIndex(tab);
-    } // if
-} // showLicenses
+    }
+}
 
 void LicenseTextDialog::showMainLicense(const Settings *settings) const
 {
@@ -51,7 +51,7 @@ void LicenseTextDialog::showMainLicense(const Settings *settings) const
 	else
 	{
         licenseFile.setFileName(":/res/eula/eng.txt");
-    } // if else
+    }
     licenseFile.open(QIODevice::ReadOnly);
     licenseContent.text = licenseFile.readAll();
 	licenseFile.close();
@@ -65,4 +65,4 @@ void LicenseTextDialog::showMainLicense(const Settings *settings) const
 	licenses.append(licenseContent);
 
     showLicenses(licenses);
-} // showMainLicense
+}

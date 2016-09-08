@@ -6,7 +6,7 @@
 
 ExpPdf::~ExpPdf()
 {
-} // ~ExpPdf
+}
 
 void ExpPdf::addFont(HPDF_Doc pdfDocument, FontList *fontList, PdfExportWidget::FontRole fontRole, qint8 num /* PdfExportWidget::FONTROLE_NONE */) const
 {
@@ -17,7 +17,7 @@ void ExpPdf::addFont(HPDF_Doc pdfDocument, FontList *fontList, PdfExportWidget::
 	font.size      = fontRoleInfo.size;
 	font.textCodec = QTextCodec::codecForName(fontRoleInfo.textCodec);
 	fontList->append(font);
-} // addFont
+}
 
 void ExpPdf::beginExport() const
 {
@@ -26,7 +26,7 @@ void ExpPdf::beginExport() const
 	if (fileName.isEmpty())
 	{
 		return;
-	} // if
+	}
 
 	// marks
 	QStringList marks;
@@ -51,7 +51,7 @@ void ExpPdf::beginExport() const
 		quint32 records;
 		emit vocabularyGetRecordCount(categoryId, &records);
 		totalRecords += records;
-	} // for
+	}
 	emit progressExportSetMax(totalRecords);
 
 	// export
@@ -71,14 +71,14 @@ void ExpPdf::beginExport() const
 			if (!newPage)
 			{
 				newPage = pdfNextLine(pdfDocument, &pdfPage);
-			} // if
+			}
 
 			if (newPage)
 			{
 				// header
 				pdfShowTableHeader(pdfPage, fonts);
-			} // if
-        } // if else
+			}
+        }
 
 		// category
         QString categoryName;
@@ -100,7 +100,7 @@ void ExpPdf::beginExport() const
 				// header
 				pdfShowTableHeader(pdfPage, fonts);
 				pdfNextLine(pdfDocument, &pdfPage);
-			} // if
+			}
 
 			if (_widget->style() == PdfExportWidget::StyleText)
 			{
@@ -109,18 +109,18 @@ void ExpPdf::beginExport() const
 			else
 			{
 				exportTable(recordId, pdfPage, fonts, marks);
-			} // if else
+			}
 
             records++;
             emit progressExportSetValue(records);
-        } // for
-    } // for
+        }
+    }
 
 	HPDF_SaveToFile(pdfDocument, fileName.toLocal8Bit());
 
 	emit progressExportSetValue(0);
 	HPDF_Free(pdfDocument);
-} // beginExport
+}
 
 void ExpPdf::exportTable(quint32 recordId, HPDF_Page pdfPage, const FontList &fontList, const QStringList &marks) const
 {
@@ -132,8 +132,8 @@ void ExpPdf::exportTable(quint32 recordId, HPDF_Page pdfPage, const FontList &fo
 
 		// next column
 		HPDF_Page_MoveTextPos(pdfPage, tableColumn.width->value(), 0);
-	} // for
-} // exportTable
+	}
+}
 
 void ExpPdf::exportText(quint32 recordId, HPDF_Page pdfPage, const FontList &fontList, const QStringList &marks, const QString &templateText) const
 {
@@ -160,7 +160,7 @@ void ExpPdf::exportText(quint32 recordId, HPDF_Page pdfPage, const FontList &fon
 				pdfSetFont(pdfPage, fontList.at(PdfExportWidget::FontRoleTemplate).pdfFont, fontList.at(PdfExportWidget::FontRoleTemplate).size);
 				const QString text = templateText.mid(pos, markPos - pos);
 				pdfShowText(pdfPage, text, fontList.at(PdfExportWidget::FontRoleTemplate).textCodec);
-			} // if
+			}
 			pos = markPos;
 
 			// check if valid mark
@@ -179,13 +179,13 @@ void ExpPdf::exportText(quint32 recordId, HPDF_Page pdfPage, const FontList &fon
 
 					pos += mark.size() - 1;
 					break;
-				} // if
-			} // for
+				}
+			}
 
 			pos++;
-		} // if else
-	} // while
-} // exportText
+		}
+	}
+}
 
 void ExpPdf::initFonts(HPDF_Doc pdfDocument, FontList *fontList, quint8 markCount) const
 {
@@ -201,43 +201,43 @@ void ExpPdf::initFonts(HPDF_Doc pdfDocument, FontList *fontList, quint8 markCoun
 		font          = _widget->fontRoleInfo(PdfExportWidget::FontRoleMark, markIndex);
 		fontSets     |= font.fontSet;
 		encodingSets |= font.encodingSet;
-	} // for
+	}
 
 	// enable demanded CID fonts
 	if (fontSets & PdfExportWidget::FontSetCNS)
 	{
 		HPDF_UseCNSFonts(pdfDocument);
-	} // if
+	}
 	if (fontSets & PdfExportWidget::FontSetCNT)
 	{
 		HPDF_UseCNTFonts(pdfDocument);
-	} // if
+	}
 	if (fontSets & PdfExportWidget::FontSetJP)
 	{
 		HPDF_UseJPFonts(pdfDocument);
-	} // if
+	}
 	if (fontSets & PdfExportWidget::FontSetKR)
 	{
 		HPDF_UseKRFonts(pdfDocument);
-	} // if
+	}
 
 	// enable demanded encodings
 	if (encodingSets & PdfExportWidget::EncodingSetCNS)
 	{
 		HPDF_UseCNSEncodings(pdfDocument);
-	} // if
+	}
 	if (encodingSets & PdfExportWidget::EncodingSetCNT)
 	{
 		HPDF_UseCNTEncodings(pdfDocument);
-	} // if
+	}
 	if (encodingSets & PdfExportWidget::EncodingSetJPE)
 	{
 		HPDF_UseJPEncodings(pdfDocument);
-	} // if
+	}
 	if (encodingSets & PdfExportWidget::EncodingSetKRE)
 	{
 		HPDF_UseKREncodings(pdfDocument);
-	} // if
+	}
 
 	// load fonts
 	addFont(pdfDocument, fontList, PdfExportWidget::FontRoleCategory);
@@ -245,13 +245,13 @@ void ExpPdf::initFonts(HPDF_Doc pdfDocument, FontList *fontList, quint8 markCoun
 	for (quint8 markIndex = 0; markIndex < markCount; markIndex++)
 	{
 		addFont(pdfDocument, fontList, PdfExportWidget::FontRoleMark, markIndex);
-	} // for
-} // initFonts
+	}
+}
 
 void ExpPdf::on_widget_vocabularyGetMarks(QStringList *marks) const
 {
 	emit vocabularyGetMarks(marks);
-} // on_widget_vocabularyGetMarks
+}
 
 void ExpPdf::pdfAddPage(HPDF_Doc pdfDocument, HPDF_Page *pdfPage, HPDF_REAL defaultSize /* 0 */) const
 {
@@ -267,7 +267,7 @@ void ExpPdf::pdfAddPage(HPDF_Doc pdfDocument, HPDF_Page *pdfPage, HPDF_REAL defa
 	{
 		pdfFont = nullptr;
 		pdfSize = defaultSize;
-	} // if else
+	}
 
 	*pdfPage = HPDF_AddPage(pdfDocument);
 	HPDF_Page_SetSize(*pdfPage, _widget->pageSize(), HPDF_PAGE_PORTRAIT);
@@ -280,8 +280,8 @@ void ExpPdf::pdfAddPage(HPDF_Doc pdfDocument, HPDF_Page *pdfPage, HPDF_REAL defa
 	if (pdfFont)
 	{
 		pdfSetFont(*pdfPage, pdfFont, pdfSize);
-	} // if
-} // pdfAddPage
+	}
+}
 
 bool ExpPdf::pdfNextLine(HPDF_Doc pdfDocument, HPDF_Page *pdfPage) const
 {
@@ -302,14 +302,14 @@ bool ExpPdf::pdfNextLine(HPDF_Doc pdfDocument, HPDF_Page *pdfPage) const
 		HPDF_Page_MoveTextPos(*pdfPage, _widget->border() - pdfPosition.x, 0);
 
 		return false;
-	} // if else
-} // pdfNextLine
+	}
+}
 
 void ExpPdf::pdfSetFont(HPDF_Page pdfPage, HPDF_Font pdfFont, quint8 size) const
 {
 	HPDF_Page_SetFontAndSize(pdfPage, pdfFont, size);
 	HPDF_Page_SetTextLeading(pdfPage, size);
-} // pdfSetFont
+}
 
 void ExpPdf::pdfShowTableHeader(HPDF_Page pdfPage, const FontList &fontList) const
 {
@@ -321,8 +321,8 @@ void ExpPdf::pdfShowTableHeader(HPDF_Page pdfPage, const FontList &fontList) con
 
 		// next column
 		HPDF_Page_MoveTextPos(pdfPage, column.width->value(), 0);
-	} // for
-} // pdfShowTableHeader
+	}
+}
 
 void ExpPdf::pdfShowText(HPDF_Page pdfPage, const QString &text, const QTextCodec *textCodec) const
 {
@@ -334,15 +334,15 @@ void ExpPdf::pdfShowText(HPDF_Page pdfPage, const QString &text, const QTextCode
 	else
 	{
 		encoded = text.toLatin1();
-	} // if else
+	}
 
 	HPDF_Page_ShowText(pdfPage, encoded);
-} // pdfShowText
+}
 
 QString ExpPdf::pluginName() const
 {
 	return tr("Adobe Reader (pdf)");
-} // pluginName
+}
 
 void ExpPdf::setupUi(QWidget *parent)
 {
@@ -353,4 +353,4 @@ void ExpPdf::setupUi(QWidget *parent)
 	connect(_widget, SIGNAL(vocabularyGetMarks(QStringList *)), SLOT(on_widget_vocabularyGetMarks(QStringList *)));
 
 	_widget->initMarkFonts();
-} // setupUi
+}

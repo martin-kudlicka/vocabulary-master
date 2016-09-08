@@ -14,32 +14,32 @@ const QString ELEM_VALIDTO   = "ValidTo";
 License::License(const Settings *settings) : _settings(settings)
 {
 	refreshLicense();
-} // License
+}
 
 const QString &License::email() const
 {
 	return _email;
-} // email
+}
 
 const QString &License::firstName() const
 {
     return _firstName;
-} // firstName
+}
 
 bool License::isLoaded() const
 {
 	return _status == StatusOk || _status == StatusExpired;
-} // isLoaded
+}
 
 /*bool License::isOk() const
 {
 	return _esStatus == StatusOk;
-} // isOk*/
+}*/
 
 const QString &License::lastName() const
 {
 	return _lastName;
-} // lastName
+}
 
 void License::refreshLicense()
 {
@@ -53,7 +53,7 @@ void License::refreshLicense()
 	{
 		_status = StatusNone;
 		return;
-	} // if
+	}
 
 	// get sign key
 	QFile signKeyFile(":/res/license/signpublic.der");
@@ -67,7 +67,7 @@ void License::refreshLicense()
 	{
 		_status = StatusInvalid;
 		return;
-	} // if
+	}
 
 	// get decrypt key
 	QFile decryptKeyFile(":/res/license/encryptprivate.der");
@@ -84,36 +84,36 @@ void License::refreshLicense()
 		if (tokenType != QXmlStreamReader::StartElement)
 		{
 			continue;
-		} // if
+		}
 
 		// general
 		if (xmlReader.name() == ELEM_UID)
 		{
 			_identifier = xmlReader.readElementText();
 			continue;
-		} // if
+		}
 		if (xmlReader.name() == ELEM_VALIDTO)
 		{
 			_validTo = QDate::fromString(xmlReader.readElementText(), Qt::ISODate);
 			continue;
-		} // if
+		}
 		// personal
 		if (xmlReader.name() == ELEM_FIRSTNAME)
 		{
 			_firstName = xmlReader.readElementText();
 			continue;
-		} // if
+		}
 		if (xmlReader.name() == ELEM_LASTNAME)
 		{
 			_lastName = xmlReader.readElementText();
 			continue;
-		} // if
+		}
 		if (xmlReader.name() == ELEM_EMAIL)
 		{
 			_email = xmlReader.readElementText();
 			continue;
-		} // if
-	} // while
+		}
+	}
 
 	if (QDate::currentDate() > _validTo)
 	{
@@ -122,20 +122,20 @@ void License::refreshLicense()
 	else
 	{
 		_status = StatusOk;
-	} // if
-} // refreshLicense
+	}
+}
 
 const License::Status &License::status() const
 {
 	return _status;
-} // status
+}
 
 const QUuid &License::uid() const
 {
 	return _identifier;
-} // uid
+}
 
 const QDate &License::validTo() const
 {
 	return _validTo;
-} // validTo
+}

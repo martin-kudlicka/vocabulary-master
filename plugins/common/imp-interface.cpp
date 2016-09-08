@@ -2,4 +2,4 @@
 
 ImpInterface::~ImpInterface()
 {
-} // ~ImpInterface
+}

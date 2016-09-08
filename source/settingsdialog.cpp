@@ -61,18 +61,18 @@ SettingsDialog::SettingsDialog(
 #endif
     prepareTranslations();
     fillOptions();
-} // SettingsDialog
+}
 
 SettingsDialog::~SettingsDialog()
 {
-} // ~SettingsDialog
+}
 
 void SettingsDialog::accept()
 {
     saveOptions();
 
     QDialog::accept();
-} // accept
+}
 
 #ifndef EDITION_FREE
 # ifdef Q_OS_WIN
@@ -80,7 +80,7 @@ void SettingsDialog::clearHotkey(HotkeyLineEdit *control) const
 {
 	control->clear();
 	control->setProperty(PROPERTY_VIRTUALKEY, VIRTUALKEY_NONE);
-} // clearHotkey
+}
 # endif
 
 void SettingsDialog::fillColorFlash()
@@ -91,9 +91,9 @@ void SettingsDialog::fillColorFlash()
 		{
             _ui.colorFlashCombo->setCurrentIndex(colorIndex);
             return;
-        } // if
-    } // for
-} // fillColorFlash
+        }
+    }
+}
 
 # ifdef Q_OS_WIN
 void SettingsDialog::fillHotkey(HotkeyLineEdit *control, Settings::Hotkey hotkey) const
@@ -101,7 +101,7 @@ void SettingsDialog::fillHotkey(HotkeyLineEdit *control, Settings::Hotkey hotkey
 	const Settings::HotkeyInfo hotkeyInfo = _settings->hotkey(hotkey);
 	control->setText(hotkeyInfo.text);
 	control->setProperty(PROPERTY_VIRTUALKEY, hotkeyInfo.virtualKey);
-} // FillHotkey
+}
 # endif
 #endif
 
@@ -137,7 +137,7 @@ void SettingsDialog::fillOptions()
 	else
 	{
         _ui.soundCustomRadio->click();
-    } // if else
+    }
     _ui.soundCustomEdit->setText(_settings->newWordSoundFile());
 	_ui.newWordFlash->setChecked(_settings->newWordFlash());
 	_ui.learnDisabledWords->setChecked(_settings->learnDisabledWords());
@@ -191,8 +191,8 @@ void SettingsDialog::fillOptions()
 			break;
 		case QNetworkProxy::HttpCachingProxy:
 			_ui.proxyTypeCachingOnlyHttp->setChecked(true);
-	} // switch
-} // fillOptions
+	}
+}
 
 void SettingsDialog::fillTranslation()
 {
@@ -202,9 +202,9 @@ void SettingsDialog::fillTranslation()
 		{
 			_ui.language->setCurrentIndex(languageIndex);
 			return;
-		} // if
-	} // for
-} // fillTranslation
+		}
+	}
+}
 
 #ifndef EDITION_FREE
 void SettingsDialog::prepareColorFlash()
@@ -212,8 +212,8 @@ void SettingsDialog::prepareColorFlash()
 	for (const QString &qsColor : QColor::colorNames())
 	{
 		_ui.colorFlashCombo->addItem(QString(), qsColor);
-	} // for
-} // prepareColorFlash
+	}
+}
 
 void SettingsDialog::preparePlugins(QTreeView *treeView, PluginsModel *model) const
 {
@@ -226,10 +226,10 @@ void SettingsDialog::preparePlugins(QTreeView *treeView, PluginsModel *model) co
         treeView->setIndexWidget(modelIndex, showButton);
 
         connect(showButton, SIGNAL(clicked(bool)), SLOT(on_showLicense_clicked(bool)));
-    } // for
+    }
     treeView->header()->setSectionResizeMode(PluginsModel::ColumnName,    QHeaderView::Stretch);
     treeView->header()->setSectionResizeMode(PluginsModel::ColumnLicense, QHeaderView::ResizeToContents);
-} // preparePlugins
+}
 #endif
 
 void SettingsDialog::prepareTranslations()
@@ -246,8 +246,8 @@ void SettingsDialog::prepareTranslations()
 	{
         const QLocale locale(file.completeBaseName());
         _ui.language->addItem(QLocale::languageToString(locale.language()) + " (" + QLocale::countryToString(locale.country()) + ')', file.fileName());
-    } // for
-} // prepareTranslations
+    }
+}
 
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
 void SettingsDialog::saveHotkey(const HotkeyLineEdit *control, Settings::Hotkey hotkey) const
@@ -258,7 +258,7 @@ void SettingsDialog::saveHotkey(const HotkeyLineEdit *control, Settings::Hotkey 
 	hotkeyInfo.virtualKey = control->property(PROPERTY_VIRTUALKEY).toUInt();
 
 	_settings->setHotkey(hotkey, hotkeyInfo);
-} // saveHotkey
+}
 #endif
 
 void SettingsDialog::saveOptions()
@@ -290,7 +290,7 @@ void SettingsDialog::saveOptions()
 	else 
 	{
         _settings->setNewWordSoundType(Settings::NewWordSoundTypeCustom);
-    } // if else
+    }
     _settings->setNewWordSoundFile(_ui.soundCustomEdit->text());
 	_settings->setNewWordFlash(_ui.newWordFlash->isChecked());
 	_settings->setLearnDisabledWords(_ui.learnDisabledWords->isChecked());
@@ -342,15 +342,15 @@ void SettingsDialog::saveOptions()
 		else
 		{
 			_settings->setProxyType(QNetworkProxy::HttpCachingProxy);
-		} // if else
-	} // if else
-} // saveOptions
+		}
+	}
+}
 
 #ifndef EDITION_TRY
 void SettingsDialog::on_cacheVocabulary_stateChanged(int state) const
 {
 	_ui.recordsToCache->setEnabled(state == Qt::Checked);
-} // on_cacheVocabulary_stateChanged
+}
 #endif
 
 #ifndef EDITION_FREE
@@ -358,29 +358,29 @@ void SettingsDialog::on_cacheVocabulary_stateChanged(int state) const
 void SettingsDialog::on_hotkeyAnswerClear_clicked(bool checked /* false */) const
 {
 	clearHotkey(_ui.hotkeyAnswer);
-} // on_hotkeyAnswerClear_clicked
+}
 
 void SettingsDialog::on_hotkeyMinimizeClear_clicked(bool checked /* false */) const
 {
 	clearHotkey(_ui.hotkeyMinimize);
-} // on_hotkeyMinimizeClear_clicked
+}
 
 void SettingsDialog::on_hotkeyNextClear_clicked(bool checked /* false */) const
 {
 	clearHotkey(_ui.hotkeyNext);
-} // on_hotkeyNextClear_clicked
+}
 
 void SettingsDialog::on_hotkeyRestoreClear_clicked(bool checked /* false */) const
 {
 	clearHotkey(_ui.hotkeyRestore);
-} // on_hotkeyRestoreClear_clicked
+}
 
 void SettingsDialog::on_newWordSound_stateChanged(int state) const
 {
     _ui.soundSystem->setEnabled(state == Qt::Checked);
     _ui.soundCustomRadio->setEnabled(state == Qt::Checked);
     on_soundCustomRadio_clicked(state == Qt::Checked && _ui.soundCustomRadio->isChecked());
-} // on_newWordSound_stateChanged
+}
 
 void SettingsDialog::on_showLicense_clicked(bool checked /* false */)
 {
@@ -396,8 +396,8 @@ void SettingsDialog::on_showLicense_clicked(bool checked /* false */)
         if (treeView->indexWidget(modelIndex) == button)
 		{
             break;
-        } // if
-    } // for
+        }
+    }
 
     // license
     LicenseCommon::LicenseContentList licenses;
@@ -405,12 +405,12 @@ void SettingsDialog::on_showLicense_clicked(bool checked /* false */)
 	{
         const Plugins::TTSPlugin ttsPlugin = _plugins->ttsPlugins().at(row);
         licenses = ttsPlugin.ttsInterface->licenseText();
-    } // if
+    }
 
     // show license
     LicenseTextDialog licenseTextDialog(licenses, _settings, this);
     licenseTextDialog.exec();
-} // on_showLicense_clicked
+}
 # endif
 
 void SettingsDialog::on_soundBrowse_clicked(bool checked /* false */)
@@ -424,28 +424,28 @@ void SettingsDialog::on_soundBrowse_clicked(bool checked /* false */)
     if (!newFile.isEmpty())
 	{
         _ui.soundCustomEdit->setText(newFile);
-    } // if
-} // on_soundBrowse_clicked
+    }
+}
 
 void SettingsDialog::on_soundCustomRadio_clicked(bool checked /* false */) const
 {
     _ui.soundCustomEdit->setEnabled(checked);
     _ui.soundBrowse->setEnabled(checked);
-} // on_soundCustomRadio_clicked
+}
 
 void SettingsDialog::on_soundSystem_clicked(bool checked /* false */) const
 {
     on_soundCustomRadio_clicked(false);
-} // on_soundSystem_clicked
+}
 
 void SettingsDialog::on_systemTrayIcon_stateChanged(int state) const
 {
 	_ui.minimizeToTray->setEnabled(state == Qt::Checked);
 	_ui.showWordsInTrayBalloon->setEnabled(state == Qt::Checked);
-} // on_systemTrayIcon_stateChanged
+}
 
 void SettingsDialog::on_wordsFrequency_valueChanged(int i) const
 {
 	_ui.waitForAnswerValue->setMaximum(i - 1);
-} // on_wordsFrequency_valueChanged
+}
 #endif

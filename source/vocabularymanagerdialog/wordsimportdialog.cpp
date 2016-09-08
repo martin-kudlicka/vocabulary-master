@@ -5,12 +5,12 @@
 
 WordsImportDialog::WordsImportDialog(const QString &file, Vocabulary *vocabulary, ImpInterface *plugin, QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _importing(false), _interrupt(false), _categoriesModel(vocabulary), _plugin(plugin), _file(file), _editorDelegate(vocabulary), _vocabulary(vocabulary), _fieldsModel(vocabulary)
 {
-} // WordsImportDialog
+}
 
 WordsImportDialog::~WordsImportDialog()
 {
     _plugin->close();
-} // ~WordsImportDialog
+}
 
 int WordsImportDialog::exec()
 {
@@ -18,7 +18,7 @@ int WordsImportDialog::exec()
 	{
         QMessageBox::critical(QApplication::activeWindow(), tr("Words import"), tr("Can't import data from selected file."));
         return QDialog::Rejected;
-    } // if
+    }
 
     // vocabulary UI
     _ui.setupUi(this);
@@ -39,7 +39,7 @@ int WordsImportDialog::exec()
     _plugin->setupUI(_ui.sourceGroup);
 
 	return QDialog::exec();
-} // exec
+}
 
 void WordsImportDialog::accept()
 {
@@ -47,8 +47,8 @@ void WordsImportDialog::accept()
     if (!_interrupt)
 	{
         QDialog::accept();
-    } // if
-} // accept
+    }
+}
 
 void WordsImportDialog::createFieldEditors()
 {
@@ -65,16 +65,16 @@ void WordsImportDialog::createFieldEditors()
 			if (builtIn == VocabularyDatabase::FieldBuiltInEnabled)
 			{
 				persistentEditor = false;
-			} // if
-		} // if
+			}
+		}
 
 		if (persistentEditor)
 		{
 			const QModelIndex index = _fieldsModel.index(row, WordsImportFieldsModel::ColumnEditor);
 			_ui.fields->openPersistentEditor(index);
-		} // if
-    } // for
-} // createFieldEditors
+		}
+    }
+}
 
 void WordsImportDialog::enableControls() const
 {
@@ -88,8 +88,8 @@ void WordsImportDialog::enableControls() const
 	else
 	{
         _ui.cancelButton->setText(tr("Cancel"));
-    } // if else
-} // enableControls
+    }
+}
 
 void WordsImportDialog::importData(const Target &target)
 {
@@ -107,7 +107,7 @@ void WordsImportDialog::importData(const Target &target)
 		const QModelIndex index = _fieldsModel.index(pattern, WordsImportFieldsModel::ColumnEditor);
 		const QString data      = _fieldsModel.data(index, Qt::EditRole).toString();
 		patterns.append(data);
-	} // for
+	}
 
 	const QStringList marks   = _plugin->marks();
 	const quint32 recordCount = _plugin->recordCount();
@@ -121,7 +121,7 @@ void WordsImportDialog::importData(const Target &target)
 		case TargetVocabulary:
 			const QModelIndex category = _ui.categories->currentIndex();
 			categoryId = _vocabulary->categoryId(category.row());
-	} // switch
+	}
 
 	quint32 skipCount = 0;
 	for (quint32 record = 0; record < recordCount && !_interrupt; record++)
@@ -137,13 +137,13 @@ void WordsImportDialog::importData(const Target &target)
 				skip = true;
 				skipCount++;
 				break;
-			} // if
+			}
 			markData.append(data);
-		} // for
+		}
 		if (skip)
 		{
 			continue;
-		} // if
+		}
 
         // get data
         QStringList data;
@@ -154,9 +154,9 @@ void WordsImportDialog::importData(const Target &target)
 			for (quint8 mark = 0; mark < marks.size(); mark++)
 			{
 				text.replace(marks.at(mark), markData.at(mark));
-			} // for
+			}
             data.append(text);
-        } // for
+        }
 
         // insert data into target
         switch (target)
@@ -164,7 +164,7 @@ void WordsImportDialog::importData(const Target &target)
             case TargetPreview:
                 for (quint8 column = 0; column < _vocabulary->fieldCount(); column++)
 				{
-					QTableWidgetItem *tableItem;
+					QTableWidgetItem *tableItem = nullptr;
 
 					const quint8 fieldId = _vocabulary->fieldId(column);
 					switch (_vocabulary->fieldType(fieldId))
@@ -179,28 +179,28 @@ void WordsImportDialog::importData(const Target &target)
 							break;
 						case VocabularyDatabase::FieldTypeSpinBox:
 							tableItem = new QTableWidgetItem(data.at(column));
-					} // switch
+					}
 
 					tableItem->setFlags(tableItem->flags() ^ Qt::ItemIsEditable);
 					_ui.preview->setItem(record - skipCount, column, tableItem);
-				} // for
+				}
 				break;
 			case TargetVocabulary:
 				_vocabulary->addRecord(categoryId, data);
-		} // switch
+		}
 
 		// progress
         if (record % IMPORT_REFRESHINTERVAL == 0)
 		{
 		    _ui.progress->setValue(record);
 		    QCoreApplication::processEvents();
-        } // if
-	} // for
+        }
+	}
 
 	if (target == TargetPreview && skipCount > 0)
 	{
 		_ui.preview->setRowCount(recordCount - skipCount);
-	} // if
+	}
 
 	// setup progressbar
 	_ui.progress->setValue(0);
@@ -208,7 +208,7 @@ void WordsImportDialog::importData(const Target &target)
 
     _importing = false;
     enableControls();
-} // importData
+}
 
 void WordsImportDialog::preparePreviewColumns() const
 {
@@ -216,15 +216,15 @@ void WordsImportDialog::preparePreviewColumns() const
 	for (quint8 fieldId : _vocabulary->fieldIds())
 	{
 		columns.append(_vocabulary->fieldName(fieldId));
-	} // for
+	}
 
 	_ui.preview->setColumnCount(columns.size());
 	_ui.preview->setHorizontalHeaderLabels(columns);
 	for (quint8 column = 0; column < _ui.preview->horizontalHeader()->count(); column++)
 	{
 		_ui.preview->horizontalHeader()->setSectionResizeMode(column, QHeaderView::Stretch);
-	} // for
-} // preparePreviewColumns
+	}
+}
 
 void WordsImportDialog::reject()
 {
@@ -235,15 +235,15 @@ void WordsImportDialog::reject()
 	else
 	{
         QDialog::reject();
-    } // if else
-} // reject
+    }
+}
 
 void WordsImportDialog::on_previewRefresh_clicked(bool checked /* false */)
 {
     importData(TargetPreview);
-} // on_previewRefresh_clicked
+}
 
 void WordsImportDialog::on_categoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
     enableControls();
-} // on_categoriesSelectionModel_selectionChanged
+}

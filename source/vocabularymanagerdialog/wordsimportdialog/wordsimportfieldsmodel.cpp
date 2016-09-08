@@ -7,12 +7,12 @@ WordsImportFieldsModel::WordsImportFieldsModel(const Vocabulary *vocabulary, QOb
 	for (quint8 fieldIndex = 0; fieldIndex < _vocabulary->fieldCount(); fieldIndex++)
 	{
 		_editorData.append(QString());
-	} // for
-} // WordsImportFieldsModel
+	}
+}
 
 WordsImportFieldsModel::~WordsImportFieldsModel()
 {
-} // ~WordsImportFieldsModel
+}
 
 QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
@@ -29,7 +29,7 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 					}
 				default:
 					return QVariant();
-			} // switch
+			}
 		case ColumnName:
 			switch (role)
 			{
@@ -40,7 +40,7 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 					}
 				default:
 					return QVariant();
-			} // switch
+			}
 		case ColumnEditor:
 			{
 				const quint8 fieldId = _vocabulary->fieldId(index.row());
@@ -62,10 +62,10 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 									else
 									{
 										return _editorData.at(index.row()).toUInt();
-									} // if else
+									}
 								default:
 									return QVariant();
-							} // switch
+							}
 						case VocabularyDatabase::FieldBuiltInPriority:
 							switch (role)
 							{
@@ -77,11 +77,11 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 									else
 									{
 										return _editorData.at(index.row()).toUInt();
-									} // if else
+									}
 								default:
 									return QVariant();
-							} // switch
-					} // switch
+							}
+					}
 				}
 				else
 				{
@@ -91,18 +91,18 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 							return _editorData.at(index.row());
 						default:
 							return QVariant();
-					} // switch
-				} // if else
+					}
+				}
 			}
 		default:
 			return QVariant();
-	} // switch
-} // data
+	}
+}
 
 QModelIndex WordsImportFieldsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
     return createIndex(row, column);
-} // index
+}
 
 int WordsImportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
@@ -113,13 +113,13 @@ int WordsImportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() 
 	else
 	{
         return 0;
-    } // if else
-} // rowCount
+    }
+}
 
 int WordsImportFieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return ColumnCount;
-} // columnCount
+}
 
 Qt::ItemFlags WordsImportFieldsModel::flags(const QModelIndex &index) const
 {
@@ -132,11 +132,11 @@ Qt::ItemFlags WordsImportFieldsModel::flags(const QModelIndex &index) const
 		if (fieldType == VocabularyDatabase::FieldTypeCheckBox)
 		{
 			itemFlags |= Qt::ItemIsUserCheckable;
-		} // if
-	} // if
+		}
+	}
 
 	return itemFlags;
-} // flags
+}
 
 QVariant WordsImportFieldsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
@@ -151,16 +151,16 @@ QVariant WordsImportFieldsModel::headerData(int section, Qt::Orientation orienta
                     return tr("Name");
                 case ColumnEditor:
                     return tr("Pattern");
-            } // switch
+            }
         default:
             return QVariant();
-    } // switch
-} // headerData
+    }
+}
 
 QModelIndex WordsImportFieldsModel::parent(const QModelIndex &index) const
 {
     return QModelIndex();
-} // parent
+}
 
 bool WordsImportFieldsModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)
 {
@@ -168,4 +168,4 @@ bool WordsImportFieldsModel::setData(const QModelIndex &index, const QVariant &v
 
 	emit dataChanged(index, index);
 	return true;
-} // setData
+}

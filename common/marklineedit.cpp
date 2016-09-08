@@ -5,16 +5,16 @@
 MarkLineEdit::MarkLineEdit(QWidget *parent /* nullptr */) : QLineEdit(parent)
 {
 	initialize();
-} // MarkLineEdit
+}
 
 MarkLineEdit::MarkLineEdit(const QString &contents, QWidget *parent /* nullptr */) : QLineEdit(contents, parent)
 {
 	initialize();
-} // MarkLineEdit
+}
 
 MarkLineEdit::~MarkLineEdit()
 {
-} // ~MarkLineEdit
+}
 
 void MarkLineEdit::focusInEvent(QFocusEvent *e)
 {
@@ -23,14 +23,14 @@ void MarkLineEdit::focusInEvent(QFocusEvent *e)
 	{
         selectAll();
         _focusedIn = true;
-    } // if
-} // focusInEvent
+    }
+}
 
 void MarkLineEdit::initialize()
 {
     _focusedIn = false;
     setReadOnly(true);
-} // initialize
+}
 
 void MarkLineEdit::mousePressEvent(QMouseEvent *e)
 {
@@ -41,11 +41,11 @@ void MarkLineEdit::mousePressEvent(QMouseEvent *e)
 	else
 	{
         QLineEdit::mousePressEvent(e);
-    } // if else
-} // mousePressEvent
+    }
+}
 
 void MarkLineEdit::showEvent(QShowEvent *event)
 {
     deselect();
     QLineEdit::showEvent(event);
-} // showEvent
+}

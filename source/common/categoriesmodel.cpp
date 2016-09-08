@@ -2,16 +2,16 @@
 
 CategoriesModel::CategoriesModel(const Vocabulary *vocabulary, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
 {
-} // CategoriesModel
+}
 
 CategoriesModel::~CategoriesModel()
 {
-} // ~CategoriesModel
+}
 
 int CategoriesModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return ColumnCount;
-} // columnCount
+}
 
 QVariant CategoriesModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
@@ -24,8 +24,8 @@ QVariant CategoriesModel::data(const QModelIndex &index, int role /* Qt::Display
             }
         default:
             return QVariant();
-    } // switch
-} // data
+    }
+}
 
 QVariant CategoriesModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
@@ -35,18 +35,18 @@ QVariant CategoriesModel::headerData(int section, Qt::Orientation orientation, i
             return tr("Category");
         default:
             return QVariant();
-    } // switch
-} // headerData
+    }
+}
 
 QModelIndex CategoriesModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
     return createIndex(row, column);
-} // index
+}
 
 QModelIndex CategoriesModel::parent(const QModelIndex &index) const
 {
     return QModelIndex();
-} // parent
+}
 
 int CategoriesModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
@@ -57,5 +57,5 @@ int CategoriesModel::rowCount(const QModelIndex &parent /* QModelIndex() */) con
 	else
 	{
         return 0;
-    } // if else
-} // rowCount
+    }
+}

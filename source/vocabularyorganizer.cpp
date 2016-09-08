@@ -6,11 +6,11 @@
 
 VocabularyOrganizer::VocabularyOrganizer(Settings *settings) : _settings(settings)
 {
-} // VocabularyOrganizer
+}
 
 VocabularyOrganizer::~VocabularyOrganizer()
 {
-} // ~VocabularyOrganizer
+}
 
 #ifndef EDITION_TRY
 void VocabularyOrganizer::addExisting(VocabularyInfo *vocabularyInfo, QWidget *parent)
@@ -23,11 +23,11 @@ void VocabularyOrganizer::addExisting(VocabularyInfo *vocabularyInfo, QWidget *p
 # endif
 		open(vocabularyInfo, parent);
 # ifndef EDITION_FREE
-	} // if
+	}
 # endif
 
 	_vocabularies.append(*vocabularyInfo);
-} // addExisting
+}
 #endif
 
 void VocabularyOrganizer::addNew(
@@ -51,7 +51,7 @@ void VocabularyOrganizer::addNew(
 		);
 
 	_vocabularies.append(vocabularyInfo);
-} // addNew
+}
 
 bool VocabularyOrganizer::isOpen() const
 {
@@ -60,11 +60,11 @@ bool VocabularyOrganizer::isOpen() const
 		if (vocabularyInfo.vocabulary->isOpen())
 		{
 			return true;
-		} // if
-	} // for
+		}
+	}
 
 	return false;
-} // isOpen
+}
 
 #ifndef EDITION_TRY
 void VocabularyOrganizer::openAll(QWidget *parent)
@@ -75,8 +75,8 @@ void VocabularyOrganizer::openAll(QWidget *parent)
 		VocabularyInfo vocabularyInfo;
 		vocabularyInfo.vocabularyInfo = _settings->vocabularyInfo(index);
 		addExisting(&vocabularyInfo, parent);
-	} // for
-} // openAll
+	}
+}
 #endif
 
 quint32 VocabularyOrganizer::recordCount() const
@@ -88,11 +88,11 @@ quint32 VocabularyOrganizer::recordCount() const
 		if (vocabularyInfo.vocabulary->isOpen())
 		{
 			count += vocabularyInfo.vocabulary->recordCount();
-		} // if
-	} // for
+		}
+	}
 
 	return count;
-} // recordCount
+}
 
 quint32 VocabularyOrganizer::recordCount(bool enabled) const
 {
@@ -103,11 +103,11 @@ quint32 VocabularyOrganizer::recordCount(bool enabled) const
 		if (vocabularyInfo.vocabulary->isOpen())
 		{
 			count += vocabularyInfo.vocabulary->recordCount(enabled);
-		} // if
-	} // for
+		}
+	}
 
 	return count;
-} // recordCount
+}
 
 VocabularyOrganizer::RecordInfo VocabularyOrganizer::recordInfo(quint32 row) const
 {
@@ -129,15 +129,15 @@ VocabularyOrganizer::RecordInfo VocabularyOrganizer::recordInfo(quint32 row) con
 			else
 			{
 				currentRow += records;
-			} // if else
-		} // if
-	} // for
+			}
+		}
+	}
 
 	recordInfo.vocabulary = nullptr;
 	recordInfo.id         = VocabularyDatabase::NOT_FOUND;
 
 	return recordInfo;
-} // recordInfo
+}
 
 void VocabularyOrganizer::remove(quint8 index)
 {
@@ -148,7 +148,7 @@ void VocabularyOrganizer::remove(quint8 index)
 
 	vocabulary->close();
 	delete vocabulary;
-} // remove
+}
 
 #ifndef EDITION_TRY
 void VocabularyOrganizer::saveAll()
@@ -158,9 +158,9 @@ void VocabularyOrganizer::saveAll()
 	for (quint8 index = 0; index < vocabularies; index++)
 	{
 		_settings->setVocabularyInfo(index, _vocabularies.at(index).vocabularyInfo);
-	} // for
+	}
 	_settings->setVocabularyCount(vocabularies);
-} // saveAll
+}
 
 # ifndef EDITION_FREE
 void VocabularyOrganizer::setVocabularyEnabled(quint8 index, bool enabled, QWidget *parent)
@@ -176,20 +176,20 @@ void VocabularyOrganizer::setVocabularyEnabled(quint8 index, bool enabled, QWidg
 	{
 		emit vocabularyClose(vocabularyInfo->vocabulary);
 		vocabularyInfo->vocabulary->close();
-	} // if else
-} // setVocabularyEnabled
+	}
+}
 # endif
 #endif
 
 quint8 VocabularyOrganizer::vocabularyCount() const
 {
 	return _vocabularies.size();
-} // vocabularyCount
+}
 
 const VocabularyOrganizer::VocabularyInfo &VocabularyOrganizer::vocabularyInfo(quint8 index) const
 {
 	return _vocabularies.at(index);
-} // vocabularyInfo
+}
 
 #ifndef EDITION_TRY
 void VocabularyOrganizer::open(VocabularyInfo *vocabularyInfo, QWidget *parent)
@@ -202,7 +202,7 @@ void VocabularyOrganizer::open(VocabularyInfo *vocabularyInfo, QWidget *parent)
 	if (!vocabularyInfo->vocabulary->isOpen())
 	{
 		vocabularyInfo->vocabularyInfo.enabled = false;
-	} // if
+	}
 # endif
-} // open
+}
 #endif

@@ -21,18 +21,18 @@ VocabularySettingsDialog::VocabularySettingsDialog(Vocabulary *vocabulary,
     prepareFields();
 #endif
 	fillOptions();
-} // VocabularySettingsDialog
+}
 
 VocabularySettingsDialog::~VocabularySettingsDialog()
 {
-} // ~VocabularySettingsDialog
+}
 
 void VocabularySettingsDialog::accept()
 {
 	saveOptions();
 
 	QDialog::accept();
-} // accept
+}
 
 #ifndef EDITION_FREE
 void VocabularySettingsDialog::actualizeFieldsEditor() const
@@ -40,8 +40,8 @@ void VocabularySettingsDialog::actualizeFieldsEditor() const
     for (quint8 row = 0; row < _fieldsModel.rowCount(); row++)
 	{
         actualizeFieldsEditor(row);
-    } // for
-} // actualizeFieldsEditor
+    }
+}
 
 void VocabularySettingsDialog::actualizeFieldsEditor(quint8 row) const
 {
@@ -57,7 +57,7 @@ void VocabularySettingsDialog::actualizeFieldsEditor(quint8 row) const
 	else
 	{
 		_ui.fields->openPersistentEditor(index);
-	} // if else
+	}
 	index = _fieldsModel.index(row, FieldsModel::ColumnLanguage);
 	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
 	{
@@ -66,8 +66,8 @@ void VocabularySettingsDialog::actualizeFieldsEditor(quint8 row) const
 	else
 	{
 		_ui.fields->openPersistentEditor(index);
-	} // if else
-} // actualizeFieldsEditor
+	}
+}
 #endif
 
 void VocabularySettingsDialog::fillOptions()
@@ -85,7 +85,7 @@ void VocabularySettingsDialog::fillOptions()
     _ui.trayLeft->setPlainText(_vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguageLeft));
     _ui.trayRight->setPlainText(_vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguageRight));
 #endif
-} // fillOptions
+}
 
 #ifndef EDITION_FREE
 void VocabularySettingsDialog::fillSpeech(QComboBox *comboBox, const QString &speech, const QString &voice)
@@ -100,8 +100,8 @@ void VocabularySettingsDialog::fillSpeech(QComboBox *comboBox, const QString &sp
 		{
 			comboBox->setCurrentIndex(voiceIndex);
 			return;
-		} // if
-	} // for
+		}
+	}
 
     // add unknown speech module when selected not found
     SpeechVoice speechVoice;
@@ -110,7 +110,7 @@ void VocabularySettingsDialog::fillSpeech(QComboBox *comboBox, const QString &sp
     _voices.append(speechVoice);
     comboBox->addItem(tr("Unknown"));
     comboBox->setItemData(comboBox->count() - 1, _voices.size() - 1);
-} // fillSpeech
+}
 
 void VocabularySettingsDialog::prepareFields()
 {
@@ -133,15 +133,15 @@ void VocabularySettingsDialog::prepareFields()
 		else
 		{
             _ui.fields->header()->setSectionResizeMode(column, QHeaderView::Stretch);
-        } // if else
-    } // for
-} // prepareFields
+        }
+    }
+}
 
 void VocabularySettingsDialog::preparePlugins()
 {
     prepareSpeechPlugins(_ui.speechLeft);
     prepareSpeechPlugins(_ui.speechRight);
-} // preparePlugins
+}
 
 void VocabularySettingsDialog::prepareSpeechPlugins(QComboBox *comboBox)
 {
@@ -164,9 +164,9 @@ void VocabularySettingsDialog::prepareSpeechPlugins(QComboBox *comboBox)
 			_voices.append(speechVoice);
 			comboBox->addItem(QString("%1 (%2)").arg(plugin->pluginName()).arg(voiceInfo.description));
 			comboBox->setItemData(comboBox->count() - 1, _voices.size() - 1);
-		} // for
-	} // for
-} // prepareSpeechPlugins
+		}
+	}
+}
 
 void VocabularySettingsDialog::refreshLanguageNameFields() const
 {
@@ -178,8 +178,8 @@ void VocabularySettingsDialog::refreshLanguageNameFields() const
         const QModelIndex index = _fieldsModel.index(row, FieldsModel::ColumnLanguage);
         _ui.fields->closePersistentEditor(index);
         _ui.fields->openPersistentEditor(index);
-    } // for
-} // refreshLanguageNameFields
+    }
+}
 #endif
 
 void VocabularySettingsDialog::saveOptions()
@@ -202,14 +202,14 @@ void VocabularySettingsDialog::saveOptions()
     _vocabulary->setLanguageTrayTemplate(VocabularyDatabase::FieldLanguageLeft, _ui.trayLeft->toPlainText());
     _vocabulary->setLanguageTrayTemplate(VocabularyDatabase::FieldLanguageRight, _ui.trayRight->toPlainText());
 #endif
-} // saveOptions
+}
 
 #ifndef EDITION_FREE
 void VocabularySettingsDialog::on_fieldAdd_clicked(bool checked /* false */)
 {
     _fieldsModel.addRow();
 	actualizeFieldsEditor(_fieldsModel.rowCount() - 1);
-} // on_fieldAdd_clicked
+}
 
 void VocabularySettingsDialog::on_fieldDown_clicked(bool checked /* false */)
 {
@@ -218,14 +218,14 @@ void VocabularySettingsDialog::on_fieldDown_clicked(bool checked /* false */)
     actualizeFieldsEditor();
 
 	_ui.fields->setCurrentIndex(_fieldsModel.index(current.row() + 1, current.column()));
-} // on_fieldDown_clicked
+}
 
 void VocabularySettingsDialog::on_fieldRemove_clicked(bool checked /* false */)
 {
 	const QItemSelectionModel *selection = _ui.fields->selectionModel();
 	_fieldsModel.removeRow(selection->currentIndex().row());
     actualizeFieldsEditor();
-} // on_fieldRemove_clicked
+}
 
 void VocabularySettingsDialog::on_fieldUp_clicked(bool checked /* false */)
 {
@@ -234,7 +234,7 @@ void VocabularySettingsDialog::on_fieldUp_clicked(bool checked /* false */)
     actualizeFieldsEditor();
 
 	_ui.fields->setCurrentIndex(_fieldsModel.index(current.row() - 1, current.column()));
-} // on_fieldUp_clicked
+}
 
 void VocabularySettingsDialog::on_fieldsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
@@ -244,20 +244,20 @@ void VocabularySettingsDialog::on_fieldsSelectionModel_selectionChanged(const QI
 	{
         const quint8 fieldId = _vocabulary->fieldId(_ui.fields->currentIndex().row());
         builtIn = _vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn);
-    } // if
+    }
 
 	_ui.fieldUp->setEnabled(selection->hasSelection() && _ui.fields->currentIndex().row() > 0);
 	_ui.fieldDown->setEnabled(selection->hasSelection() && _ui.fields->currentIndex().row() < _ui.fields->model()->rowCount() - 1);
 	_ui.fieldRemove->setEnabled(selection->hasSelection() && !builtIn);
-} // on_fieldsSelectionModel_selectionChanged
+}
 
 void VocabularySettingsDialog::on_languageLeft_textEdited(const QString &text) const
 {
     refreshLanguageNameFields();
-} // on_languageLeft_textEdited
+}
 
 void VocabularySettingsDialog::on_languageRight_textEdited(const QString &text) const
 {
     refreshLanguageNameFields();
-} // on_languageRight_textEdited
+}
 #endif

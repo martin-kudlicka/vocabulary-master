@@ -2,16 +2,16 @@
 
 ExpPluginsModel::ExpPluginsModel(const Plugins::ExpPluginList *expPlugins, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _expPlugins(expPlugins)
 {
-} // ExpPluginsModel
+}
 
 ExpPluginsModel::~ExpPluginsModel()
 {
-} // ~ExpPluginsModel
+}
 
 int ExpPluginsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return ColumnCount;
-} // columnCount
+}
 
 QVariant ExpPluginsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
@@ -21,8 +21,8 @@ QVariant ExpPluginsModel::data(const QModelIndex &index, int role /* Qt::Display
 			return _expPlugins->at(index.row()).expInterface->pluginName();
         default:
             return QVariant();
-    } // switch
-} // data
+    }
+}
 
 QVariant ExpPluginsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
@@ -32,18 +32,18 @@ QVariant ExpPluginsModel::headerData(int section, Qt::Orientation orientation, i
             return tr("Plugin");
         default:
             return QVariant();
-    } // switch
-} // headerData
+    }
+}
 
 QModelIndex ExpPluginsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
     return createIndex(row, column);
-} // index
+}
 
 QModelIndex ExpPluginsModel::parent(const QModelIndex &index) const
 {
     return QModelIndex();
-} // parent
+}
 
 int ExpPluginsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
@@ -54,5 +54,5 @@ int ExpPluginsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) con
 	else
 	{
         return 0;
-    } // if else
-} // rowCount
+    }
+}

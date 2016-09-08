@@ -11,11 +11,11 @@ const QString TEMPLATE_MARK     = "${%1}";
 
 FieldsModel::FieldsModel(const QSqlDatabase *database, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _modelId(0), _database(database)
 {
-} // DecksModel
+}
 
 FieldsModel::~FieldsModel()
 {
-} // ~FieldsModel
+}
 
 QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
@@ -35,23 +35,23 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 			const QModelIndex nameIndex = this->index(index.row(), ColumnName);
 			const QString name          = data(nameIndex).toString();
 			return TEMPLATE_MARK.arg(name);
-		} // switch
+		}
 	default:
 		return QVariant();
-	} // switch
-} // data
+	}
+}
 
 qlonglong FieldsModel::fieldId(quint8 row) const
 {
 	QSqlQuery query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDMODELS + " WHERE " + COLUMN_MODELID + " = " + QString::number(_modelId) + " ORDER BY " + COLUMN_ORDINAL);
 	query.seek(row);
 	return query.value(ColumnPosition1).toLongLong();
-} // fieldId
+}
 
 QModelIndex FieldsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
 	return createIndex(row, column);
-} // index
+}
 
 int FieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
@@ -65,23 +65,23 @@ int FieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 		else
 		{
 			return 0;
-		} // if else
+		}
 	}
 	else
 	{
 		return 0;
-	} // if else
-} // rowCount
+	}
+}
 
 void FieldsModel::setModelId(qlonglong modelId)
 {
 	_modelId = modelId;
-} // setModelId
+}
 
 int FieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return ColumnCount;
-} // columnCount
+}
 
 QVariant FieldsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
@@ -94,13 +94,13 @@ QVariant FieldsModel::headerData(int section, Qt::Orientation orientation, int r
                     return tr("Field");
                 case ColumnMark:
                     return tr("Mark");
-            } // switch
+            }
         default:
             return QVariant();
-    } // switch
-} // headerData
+    }
+}
 
 QModelIndex FieldsModel::parent(const QModelIndex &index) const
 {
     return QModelIndex();
-} // parent
+}

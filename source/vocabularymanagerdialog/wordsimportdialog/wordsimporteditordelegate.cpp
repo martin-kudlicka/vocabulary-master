@@ -6,11 +6,11 @@
 
 WordsImportEditorDelegate::WordsImportEditorDelegate(const Vocabulary *vocabulary, QObject *parent /* nullptr */) : QStyledItemDelegate(parent), _vocabulary(vocabulary)
 {
-} // WordsImportEditorDelegate
+}
 
 WordsImportEditorDelegate::~WordsImportEditorDelegate()
 {
-} // ~WordsImportEditorDelegate
+}
 
 QWidget *WordsImportEditorDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
@@ -24,13 +24,13 @@ QWidget *WordsImportEditorDelegate::createEditor(QWidget *parent, const QStyleOp
 			editor->setMinimum(PriorityDelegate::RECORD_PRIORITY_MIN);
 			editor->setMaximum(PriorityDelegate::RECORD_PRIORITY_MAX);
 			return editor;
-		} // if
+		}
 	}
 	else
 	{
 		QLineEdit *editor = new QLineEdit(parent);
 		return editor;
-	} // if else
+	}
 
 	return nullptr;
-} // createEditor
+}

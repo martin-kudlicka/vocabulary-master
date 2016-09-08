@@ -4,11 +4,11 @@
 
 LanguageFieldDelegate::LanguageFieldDelegate(const Vocabulary *vocabulary, QObject *parent /* nullptr */) : QStyledItemDelegate(parent), _vocabulary(vocabulary)
 {
-} // LanguageFieldDelegate
+}
 
 LanguageFieldDelegate::~LanguageFieldDelegate()
 {
-} // ~LanguageFieldDelegate
+}
 
 QWidget *LanguageFieldDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
@@ -22,16 +22,16 @@ QWidget *LanguageFieldDelegate::createEditor(QWidget *parent, const QStyleOption
 	else
 	{
 		languageIds = _vocabulary->languageIds(VocabularyDatabase::LanguageIdsUserDefined);
-	} // if else
+	}
 
 	QComboBox *editorBox = new QComboBox(parent);
     for (quint8 languageId : languageIds)
 	{
         editorBox->addItem(_vocabulary->languageName(languageId), languageId);
-    } // for
+    }
 
     return editorBox;
-} // createEditor
+}
 
 void LanguageFieldDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
@@ -45,12 +45,12 @@ void LanguageFieldDelegate::setEditorData(QWidget *editor, const QModelIndex &in
 		{
 			languageBox->setCurrentIndex(languageIndex);
 			break;
-		} // if
-	} // for
-} // setEditorData
+		}
+	}
+}
 
 void LanguageFieldDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     const QComboBox *languageBox = qobject_cast<QComboBox *>(editor);
     model->setData(index, languageBox->itemData(languageBox->currentIndex()), Qt::EditRole);
-} // setModelData
+}

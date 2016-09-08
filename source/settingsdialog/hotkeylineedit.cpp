@@ -4,11 +4,11 @@
 
 HotkeyLineEdit::HotkeyLineEdit(QWidget *parent /* nullptr */) : QLineEdit(parent)
 {
-} // HotkeyLineEdit
+}
 
 HotkeyLineEdit::~HotkeyLineEdit()
 {
-} // ~HotkeyLineEdit
+}
 
 void HotkeyLineEdit::keyPressEvent(QKeyEvent *event)
 {
@@ -19,27 +19,27 @@ void HotkeyLineEdit::keyPressEvent(QKeyEvent *event)
 	if (keyEvent->modifiers() & Qt::ControlModifier)
 	{
 		keySequence = MODIFIER_CTRL;
-	} // if
+	}
 	if (keyEvent->modifiers() & Qt::AltModifier)
 	{
 		if (!keySequence.isEmpty())
 		{
 			keySequence += MODIFIER_SEPARATOR;
-		} // if
+		}
 		keySequence += MODIFIER_ALT;
-	} // if
+	}
 	if (keyEvent->modifiers() & Qt::ShiftModifier)
 	{
 		if (!keySequence.isEmpty())
 		{
 			keySequence += MODIFIER_SEPARATOR;
-		} // if
+		}
 		keySequence += MODIFIER_SHIFT;
-	} // if
+	}
 	if (!keySequence.isEmpty())
 	{
 		keySequence += MODIFIER_SEPARATOR;
-	} // if
+	}
 
 	if (QKeySequence(keyEvent->key()).toString().at(0) != 0x17C0)
 	{
@@ -47,5 +47,5 @@ void HotkeyLineEdit::keyPressEvent(QKeyEvent *event)
 		keySequence += QKeySequence(keyEvent->key()).toString();
 		setText(keySequence);
 		setProperty(PROPERTY_VIRTUALKEY, keyEvent->nativeVirtualKey());
-	} // if
-} // keyPressEvent
+	}
+}

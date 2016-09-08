@@ -8,15 +8,15 @@ UpdateChecker::UpdateChecker(const Settings *settings, QObject *parent /* nullpt
 	_currentVersion.usRevision = 654;
 
 	connect(&_networkAccessManager, SIGNAL(finished(QNetworkReply *)), SLOT(on_networkAccessManager_finished(QNetworkReply *)));
-} // UpdateChecker
+}
 
 UpdateChecker::~UpdateChecker()
 {
 	if (_lastReply)
 	{
 		_lastReply->deleteLater();
-	} // if
-} // ~UpdateChecker
+	}
+}
 
 void UpdateChecker::checkForUpdate()
 {
@@ -29,21 +29,21 @@ void UpdateChecker::checkForUpdate()
 	else
 	{
 		_networkAccessManager.setProxy(QNetworkProxy());
-	} // if else
+	}
 
 	// check
 	_networkAccessManager.get(QNetworkRequest(QUrl("http://vocabulary-master.cz/sites/default/files/releases/version.txt")));
-} // checkForUpdate
+}
 
 QNetworkReply::NetworkError UpdateChecker::checkResult() const
 {
 	return _lastReply->error();
-} // checkResult
+}
 
 QString UpdateChecker::currentVersion() const
 {
 	return QString("%1.%2.%3.%4").arg(_currentVersion.usMajor).arg(_currentVersion.usMinor).arg(_currentVersion.usMinor2).arg(_currentVersion.usRevision);
-} // currentVersion
+}
 
 bool UpdateChecker::updateAvailable() const
 {
@@ -74,21 +74,21 @@ bool UpdateChecker::updateAvailable() const
 							if (_updateVersion.usRevision > _currentVersion.usRevision)
 							{
 								return true;
-							} // if
-						} // if else
-					} // if
-				} // if else
-			} // if
-		} // if else
-	} // if
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 
 	return false;
-} // updateAvailable
+}
 
 QString UpdateChecker::updateVersion() const
 {
 	return QString("%1.%2.%3.%4").arg(_updateVersion.usMajor).arg(_updateVersion.usMinor).arg(_updateVersion.usMinor2).arg(_updateVersion.usRevision);
-} // updateVersion
+}
 
 void UpdateChecker::analyzeReply()
 {
@@ -99,20 +99,20 @@ void UpdateChecker::analyzeReply()
 	_updateVersion.usMinor    = verInfo.at(VerInfoMinor).toUShort();
 	_updateVersion.usMinor2   = verInfo.at(VerInfoMinor2).toUShort();
 	_updateVersion.usRevision = verInfo.at(VerInfoRevision).toUShort();
-} // analyzeReply
+}
 
 void UpdateChecker::on_networkAccessManager_finished(QNetworkReply *reply)
 {
 	if (_lastReply) 
 	{
 		_lastReply->deleteLater();
-	} // if
+	}
 
 	_lastReply = reply;
 	if (reply->error() == QNetworkReply::NoError)
 	{
 		analyzeReply();
-	} // if
+	}
 
 	emit finished();
-} // on_networkAccessManager_finished
+}
