@@ -1,89 +1,91 @@
 #include "plaintextimportwidget.h"
 
+#include "plaintextimportwidget/plaintextfile.h"
+
 PlaintextImportWidget::PlaintextImportWidget(PlaintextFile *file, QWidget *parent /* nullptr */, Qt::WindowFlags pFlags /* 0 */) : QWidget(parent, pFlags), _file(file)
 {
-	_ui.setupUi(this);
+  _ui.setupUi(this);
 
-	_ui.codecs->setModel(&_codecsModel);
-	connect(_ui.codecs->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_codecs_selectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+  _ui.codecs->setModel(&_codecsModel);
+  connect(_ui.codecs->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_codecs_selectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
 
-	preselectCodec();
+  preselectCodec();
 
-	_ui.linesPerRecord->setMaximum(lineCount());
+  _ui.linesPerRecord->setMaximum(lineCount());
 }
 
 PlaintextImportWidget::~PlaintextImportWidget()
 {
 }
 
-const quint16 PlaintextImportWidget::lineCount() const
+quintptr PlaintextImportWidget::lineCount() const
 {
-	quint16 fileLines = 0;
-	_file->seek(PlaintextFile::PFILE_BEGIN);
-	while (!_file->readLine().isNull())
-	{
-		fileLines++;
-	}
+  auto fileLines = 0;
+  _file->seek(PlaintextFile::PFILE_BEGIN);
+  while (!_file->readLine().isNull())
+  {
+    fileLines++;
+  }
 
-	return fileLines;
+  return fileLines;
 }
 
-const quint16 PlaintextImportWidget::linesPerRecord() const
+quintptr PlaintextImportWidget::linesPerRecord() const
 {
-	return _ui.linesPerRecord->value();
+  return _ui.linesPerRecord->value();
 }
 
-const QString PlaintextImportWidget::regExp() const
+QString PlaintextImportWidget::regExp() const
 {
-	return _ui.regExp->text();
+  return _ui.regExp->text();
 }
 
-const void PlaintextImportWidget::preselectCodec() const
+void PlaintextImportWidget::preselectCodec() const
 {
-	const QString fileCodec = _file->codecName();
-	for (quint8 codecIndex = 0; codecIndex < _codecsModel.rowCount(); codecIndex++)
-	{
-		const QModelIndex modelIndex = _codecsModel.index(codecIndex, static_cast<int>(CodecsModel::Column::Codec));
-		const QString codec          = _codecsModel.data(modelIndex).toString();
+  const auto fileCodec = _file->codecName();
+  for (auto codecIndex = 0; codecIndex < _codecsModel.rowCount(); codecIndex++)
+  {
+    const auto modelIndex = _codecsModel.index(codecIndex, static_cast<int>(CodecsModel::Column::Codec));
+    const auto codec      = _codecsModel.data(modelIndex).toString();
 
-		if (fileCodec == codec)
-		{
-			_ui.codecs->blockSignals(true);
-			_ui.codecs->setCurrentIndex(modelIndex);
-			_ui.codecs->blockSignals(false);
-			refreshPreview();
-			return;
-		}
-	}
+    if (fileCodec == codec)
+    {
+      _ui.codecs->blockSignals(true);
+      _ui.codecs->setCurrentIndex(modelIndex);
+      _ui.codecs->blockSignals(false);
+      refreshPreview();
+      return;
+    }
+  }
 }
 
-const void PlaintextImportWidget::refreshPreview() const
+void PlaintextImportWidget::refreshPreview() const
 {
-	_file->seek(PlaintextFile::PFILE_BEGIN);
-	QString text;
-	for (quint16 lineIndex = 0; lineIndex < linesPerRecord(); lineIndex++)
-	{
-		if (!text.isEmpty())
-		{
-			text += "\n";
-		}
-		text += _file->readLine();
-	}
+  _file->seek(PlaintextFile::PFILE_BEGIN);
+  QString text;
+  for (auto lineIndex = 0; lineIndex < linesPerRecord(); lineIndex++)
+  {
+    if (!text.isEmpty())
+    {
+      text += "\n";
+    }
+    text += _file->readLine();
+  }
 
-	_ui.preview->setPlainText(text);
+  _ui.preview->setPlainText(text);
 }
 
-const void PlaintextImportWidget::on_codecs_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
+void PlaintextImportWidget::on_codecs_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
-	const QModelIndex modelIndex = _ui.codecs->currentIndex();
-	const QString codec          = _codecsModel.data(modelIndex).toString();
-	_file->setCodecName(codec);
+  const auto modelIndex = _ui.codecs->currentIndex();
+  const auto codec      = _codecsModel.data(modelIndex).toString();
+  _file->setCodecName(codec);
 
-	_ui.linesPerRecord->setMaximum(lineCount());
-	refreshPreview();
+  _ui.linesPerRecord->setMaximum(lineCount());
+  refreshPreview();
 }
 
-const void PlaintextImportWidget::on_linesPerRecord_valueChanged(int i) const
+void PlaintextImportWidget::on_linesPerRecord_valueChanged(int i) const
 {
-	refreshPreview();
+  refreshPreview();
 }
