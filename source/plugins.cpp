@@ -1,5 +1,7 @@
 #include "plugins.h"
 
+#include "../plugins/common/imp-interface.h"
+#include "../plugins/common/exp-interface.h"
 #include <QtCore/QDir>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QPluginLoader>
@@ -95,9 +97,9 @@ void Plugins::setLanguage(const QString &language) const
 	}
 }
 
-TTSInterface *Plugins::ttsPlugin(const TTSInterface::TTSPlugin &pPluginId) const
+TTSInterface *Plugins::ttsPlugin(TTSInterface::TTSPlugin pluginId) const
 {
-	return _ttsPlugins.value(static_cast<quintptr>(pPluginId)).ttsInterface;
+	return _ttsPlugins.value(static_cast<quintptr>(pluginId)).ttsInterface;
 }
 
 const Plugins::TTSPluginList Plugins::ttsPlugins() const

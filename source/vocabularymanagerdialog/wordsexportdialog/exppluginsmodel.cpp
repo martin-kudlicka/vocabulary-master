@@ -1,5 +1,7 @@
 #include "vocabularymanagerdialog/wordsexportdialog/exppluginsmodel.h"
 
+#include "../../../plugins/common/exp-interface.h"
+
 ExpPluginsModel::ExpPluginsModel(const Plugins::ExpPluginList *expPlugins, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _expPlugins(expPlugins)
 {
 }

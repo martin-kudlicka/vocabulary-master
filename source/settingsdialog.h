@@ -13,83 +13,84 @@ const QString LANG_SUFFIX = "qm";
 
 class SettingsDialog : public QDialog
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	public:
+  public:
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
-		static const quint8 VIRTUALKEY_NONE = 0;
+    static const auto VIRTUALKEY_NONE = 0;
 #endif
 
-		         SettingsDialog(
+             SettingsDialog(
 #ifndef EDITION_FREE
-            const Plugins *plugins,
+      const Plugins *plugins,
 #endif
-            Settings *settings, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
-		virtual ~SettingsDialog() override;
+      Settings *settings, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
+    virtual ~SettingsDialog() override;
 
-	private:
+  private:
 #if defined(EDITION_FREE) || !defined(Q_OS_WIN)
-		enum Tab
-		{
-			TabGeneral,
-			TabLearning,
-			TabAppearance,
-            TabHotkey,
-            TabPlugins,
-			TabNetwork
-		}; // Tab
+    enum class Tab
+    {
+      General,
+      Learning,
+      Appearance,
+      Hotkey,
+      Plugins,
+      Network
+    };
 #endif
 
 #ifndef EDITION_FREE
-        const Plugins           *_plugins;
-              PluginsModel       _expPluginsModel;
-              PluginsModel       _impPluginsModel;
-              PluginsModel       _ttsPluginsModel;
+    const Plugins           *_plugins;
+          PluginsModel       _expPluginsModel;
+          PluginsModel       _impPluginsModel;
+          PluginsModel       _ttsPluginsModel;
 #endif
-		      Settings          *_settings;
-		      Ui::SettingsDialog _ui;
+          Settings          *_settings;
+          Ui::SettingsDialog _ui;
 
-        virtual void accept     () override;
 #ifndef EDITION_FREE
 # ifdef Q_OS_WIN
-		void clearHotkey        (HotkeyLineEdit *control)                                const;
+    void clearHotkey        (HotkeyLineEdit *control)                                const;
 # endif
-        void fillColorFlash     ();
+    void fillColorFlash     ();
 # ifdef Q_OS_WIN
-		void fillHotkey         (HotkeyLineEdit *control, Settings::Hotkey hotkey)       const;
+    void fillHotkey         (HotkeyLineEdit *control, Settings::Hotkey hotkey)       const;
 # endif
 #endif
-        void fillOptions        ();
-        void fillTranslation    ();
+    void fillOptions        ();
+    void fillTranslation    ();
 #ifndef EDITION_FREE
-		void prepareColorFlash  ();
-        void preparePlugins     (QTreeView *treeView, PluginsModel *model)               const;
+    void prepareColorFlash  ();
+    void preparePlugins     (QTreeView *treeView, PluginsModel *model)               const;
 #endif
-        void prepareTranslations();
+    void prepareTranslations();
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
-		void saveHotkey         (const HotkeyLineEdit *control, Settings::Hotkey hotkey) const;
+    void saveHotkey         (const HotkeyLineEdit *control, Settings::Hotkey hotkey) const;
 #endif
-        void saveOptions        ();
+    void saveOptions        ();
 
-	private slots:
+    virtual void accept() override;
+
+  private slots:
 #ifndef EDITION_TRY
-	    void on_cacheVocabulary_stateChanged(int state)            const;
+    void on_cacheVocabulary_stateChanged(int state)            const;
 #endif
 #ifndef EDITION_FREE
 # ifdef Q_OS_WIN
-		void on_hotkeyAnswerClear_clicked   (bool checked = false) const;
-		void on_hotkeyMinimizeClear_clicked (bool checked = false) const;
-		void on_hotkeyNextClear_clicked     (bool checked = false) const;
-		void on_hotkeyRestoreClear_clicked  (bool checked = false) const;
+    void on_hotkeyAnswerClear_clicked   (bool checked = false) const;
+    void on_hotkeyMinimizeClear_clicked (bool checked = false) const;
+    void on_hotkeyNextClear_clicked     (bool checked = false) const;
+    void on_hotkeyRestoreClear_clicked  (bool checked = false) const;
 # endif
-		void on_newWordSound_stateChanged   (int state)            const;
-        void on_showLicense_clicked         (bool checked = false);
-        void on_soundBrowse_clicked         (bool checked = false);
-        void on_soundCustomRadio_clicked    (bool checked = false) const;
-        void on_soundSystem_clicked         (bool checked = false) const;
-		void on_systemTrayIcon_stateChanged (int state)            const;
-		void on_wordsFrequency_valueChanged (int i)                const;
+    void on_newWordSound_stateChanged   (int state)            const;
+    void on_showLicense_clicked         (bool checked = false);
+    void on_soundBrowse_clicked         (bool checked = false);
+    void on_soundCustomRadio_clicked    (bool checked = false) const;
+    void on_soundSystem_clicked         (bool checked = false) const;
+    void on_systemTrayIcon_stateChanged (int state)            const;
+    void on_wordsFrequency_valueChanged (int i)                const;
 #endif
-}; // MainWindow
+};
 
-#endif // SETTINGSDIALOG_H
+#endif

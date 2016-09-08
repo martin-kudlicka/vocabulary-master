@@ -6,37 +6,38 @@
 
 class PluginsModel : public QAbstractItemModel
 {
-    Q_OBJECT
+  Q_OBJECT
 
-    public:
-        enum Column
-		{
-            ColumnName,
-            ColumnLicense,
-            ColumnCount
-        }; // Column
-        enum PluginType
-		{
-            PluginTypeImp,
-            PluginTypeExp,
-            PluginTypeTTS
-        }; // PluginType
+  public:
+    enum class Column
+    {
+      Name,
+      License,
+      Count
+    };
+    enum class PluginType
+    {
+      Imp,
+      Exp,
+      TTS
+    };
 
-                 PluginsModel(const Plugins *plugins, PluginType type, QObject *parent = nullptr);
-		virtual ~PluginsModel() override;
+             PluginsModel(const Plugins *plugins, PluginType type, QObject *parent = nullptr);
+    virtual ~PluginsModel() override;
 
-        virtual QVariant    data    (const QModelIndex &index, int role = Qt::DisplayRole)           const override;
-        virtual QModelIndex index   (int row, int column, const QModelIndex &parent = QModelIndex()) const override;
-        virtual int         rowCount(const QModelIndex &parent = QModelIndex())                      const override;
+    virtual QVariant    data    (const QModelIndex &index, int role = Qt::DisplayRole)           const override;
+    virtual QModelIndex index   (int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+    virtual int         rowCount(const QModelIndex &parent = QModelIndex())                      const override;
 
-    private:
-              PluginType _type;
-        const Plugins   *_plugins;
+  private:
+          PluginType _type;
+    const Plugins   *_plugins;
 
-        virtual int                 columnCount(const QModelIndex &parent = QModelIndex())                            const override;
-        virtual QVariant            headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
-        virtual QModelIndex         parent     (const QModelIndex &index)                                             const override;
-		        Plugins::PluginInfo pluginInfo (quint8 number)                                                        const;
-}; // PluginsModel
+    Plugins::PluginInfo pluginInfo(quintptr number) const;
 
-#endif // PLUGINSMODEL_H
+    virtual int         columnCount(const QModelIndex &parent = QModelIndex())                            const override;
+    virtual QVariant    headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+    virtual QModelIndex parent     (const QModelIndex &index)                                             const override;
+};
+
+#endif

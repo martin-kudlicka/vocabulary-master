@@ -15,9 +15,9 @@ QVariant PluginsModel::data(const QModelIndex &index, int role /* Qt::DisplayRol
 	case Qt::DisplayRole:
 		switch (index.column())
 		{
-		case ColumnName:
+		case Column::Name:
 			return pluginInfo(index.row()).libraryName;
-		case ColumnLicense:
+		case Column::License:
 			return QVariant();
 		}
 	default:
@@ -36,11 +36,11 @@ int PluginsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 	{
 		switch (_type)
 		{
-		case PluginTypeImp:
+		case PluginType::Imp:
 			return _plugins->impPlugins().size();
-		case PluginTypeExp:
+		case PluginType::Exp:
 			return _plugins->explugins().size();
-		case PluginTypeTTS:
+		case PluginType::TTS:
 			return _plugins->ttsPlugins().size();
 		default:
 			return 0;
@@ -52,24 +52,24 @@ int PluginsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 	}
 }
 
-int PluginsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
-{
-    return ColumnCount;
-}
-
-Plugins::PluginInfo PluginsModel::pluginInfo(quint8 number) const
+Plugins::PluginInfo PluginsModel::pluginInfo(quintptr number) const
 {
     switch (_type)
 	{
-        case PluginTypeImp:
+        case PluginType::Imp:
             return _plugins->impPlugins().at(number).info;
-        case PluginTypeExp:
+        case PluginType::Exp:
             return _plugins->explugins().at(number).info;
-        case PluginTypeTTS:
+        case PluginType::TTS:
             return _plugins->ttsPlugins().at(number).info;
         default:
             return Plugins::PluginInfo();
     }
+}
+
+int PluginsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
+{
+    return static_cast<int>(Column::Count);
 }
 
 QVariant PluginsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
@@ -79,9 +79,9 @@ QVariant PluginsModel::headerData(int section, Qt::Orientation orientation, int 
         case Qt::DisplayRole:
             switch (section)
 			{
-                case ColumnName:
+                case Column::Name:
                     return tr("Name");
-                case ColumnLicense:
+                case Column::License:
                     return tr("License");
             }
         default:

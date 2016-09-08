@@ -163,7 +163,7 @@ QString Settings::newWordSoundFile() const
 
 Settings::NewWordSoundType Settings::newWordSoundType() const
 {
-    return static_cast<NewWordSoundType>(_settings.value(KEY_NEWWORDSOUNDTYPE, NewWordSoundTypeSystem).toUInt());
+    return static_cast<NewWordSoundType>(_settings.value(KEY_NEWWORDSOUNDTYPE, static_cast<quintptr>(NewWordSoundType::System)).toUInt());
 }
 #endif
 
@@ -177,7 +177,7 @@ QString Settings::proxyPassword() const
 	return _settings.value(KEY_PROXYPASSWORD).toString();
 }
 
-quint16 Settings::proxyPort() const
+quintptr Settings::proxyPort() const
 {
 	return _settings.value(KEY_PROXYPORT, 8080).toUInt();
 }
@@ -193,7 +193,7 @@ QString Settings::proxyUsername() const
 }
 
 #ifndef EDITION_TRY
-quint32 Settings::recordsToCache() const
+quintptr Settings::recordsToCache() const
 {
 	return _settings.value(KEY_RECORDSTOCACHE, 200000).toUInt();
 }
@@ -284,7 +284,7 @@ void Settings::setNewWordSoundFile(const QString &file)
 
 void Settings::setNewWordSoundType(NewWordSoundType type)
 {
-    _settings.setValue(KEY_NEWWORDSOUNDTYPE, type);
+    _settings.setValue(KEY_NEWWORDSOUNDTYPE, static_cast<quintptr>(type));
 }
 #endif
 
@@ -298,7 +298,7 @@ void Settings::setProxyPassword(const QString &password)
 	_settings.setValue(KEY_PROXYPASSWORD, password);
 }
 
-void Settings::setProxyPort(quint16 port)
+void Settings::setProxyPort(quintptr port)
 {
 	_settings.setValue(KEY_PROXYPORT, port);
 }
@@ -314,7 +314,7 @@ void Settings::setProxyUsername(const QString &username)
 }
 
 #ifndef EDITION_TRY
-void Settings::setRecordsToCache(quint32 count)
+void Settings::setRecordsToCache(quintptr count)
 {
 	_settings.setValue(KEY_RECORDSTOCACHE, count);
 }
@@ -390,13 +390,13 @@ void Settings::setUseProxy(bool use)
 }
 
 #ifndef EDITION_TRY
-void Settings::setVocabularyCount(quint8 count)
+void Settings::setVocabularyCount(quintptr count)
 {
 	_settings.beginWriteArray(ARRAY_VOCABULARIES, count);
 	_settings.endArray();
 }
 
-void Settings::setVocabularyInfo(quint8 index, const VocabularyInfo &info)
+void Settings::setVocabularyInfo(quintptr index, const VocabularyInfo &info)
 {
 	_settings.beginWriteArray(ARRAY_VOCABULARIES);
 	_settings.setArrayIndex(index);
@@ -409,33 +409,33 @@ void Settings::setVocabularyInfo(quint8 index, const VocabularyInfo &info)
 #endif
 
 #ifndef EDITION_FREE
-void Settings::setWaitForAnswer(quint8 time)
+void Settings::setWaitForAnswer(quintptr time)
 {
 	_settings.setValue(KEY_WAITFORANSWER, time);
 }
 
-void Settings::setWindowHeight(quint16 height)
+void Settings::setWindowHeight(quintptr height)
 {
 	_settings.setValue(KEY_WINDOWHEIGHT, height);
 }
 
-void Settings::setWindowWidth(quint16 width)
+void Settings::setWindowWidth(quintptr width)
 {
 	_settings.setValue(KEY_WINDOWWIDTH, width);
 }
 
-void Settings::setWindowX(quint16 x)
+void Settings::setWindowX(quintptr x)
 {
 	_settings.setValue(KEY_WINDOWX, x);
 }
 
-void Settings::setWindowY(quint16 y)
+void Settings::setWindowY(quintptr y)
 {
 	_settings.setValue(KEY_WINDOWY, y);
 }
 #endif
 
-void Settings::setWordsFrequency(quint8 frequency)
+void Settings::setWordsFrequency(quintptr frequency)
 {
     _settings.setValue(KEY_WORDSFREQUENCY, frequency);
 }
@@ -505,7 +505,7 @@ bool Settings::useProxy() const
 }
 
 #ifndef EDITION_TRY
-quint8 Settings::vocabularyCount()
+quintptr Settings::vocabularyCount()
 {
 	const quint8 count = _settings.beginReadArray(ARRAY_VOCABULARIES);
 	_settings.endArray();
@@ -517,7 +517,7 @@ quint8 Settings::vocabularyCount()
 #endif
 }
 
-Settings::VocabularyInfo Settings::vocabularyInfo(quint8 index)
+Settings::VocabularyInfo Settings::vocabularyInfo(quintptr index)
 {
 	VocabularyInfo vocabularyInfo;
 
@@ -533,7 +533,7 @@ Settings::VocabularyInfo Settings::vocabularyInfo(quint8 index)
 }
 #endif
 
-quint8 Settings::waitForAnswer() const
+quintptr Settings::waitForAnswer() const
 {
 #ifndef EDITION_FREE
 	return _settings.value(KEY_WAITFORANSWER, DEFAULT_WAIT).toUInt();
@@ -543,28 +543,28 @@ quint8 Settings::waitForAnswer() const
 }
 
 #ifndef EDITION_FREE
-quint16 Settings::windowHeight() const
+quintptr Settings::windowHeight() const
 {
 	return _settings.value(KEY_WINDOWHEIGHT, DEFAULT_DIMENSION).toUInt();
 }
 
-quint16 Settings::windowWidth() const
+quintptr Settings::windowWidth() const
 {
 	return _settings.value(KEY_WINDOWWIDTH, DEFAULT_DIMENSION).toUInt();
 }
 
-quint16 Settings::windowX() const
+quintptr Settings::windowX() const
 {
 	return _settings.value(KEY_WINDOWX, DEFAULT_DIMENSION).toUInt();
 }
 
-quint16 Settings::windowY() const
+quintptr Settings::windowY() const
 {
 	return _settings.value(KEY_WINDOWY, DEFAULT_DIMENSION).toUInt();
 }
 #endif
 
-quint8 Settings::wordsFrequency() const
+quintptr Settings::wordsFrequency() const
 {
     return _settings.value(KEY_WORDSFREQUENCY, DEFAULT_FREQUENCY).toUInt();
 }
@@ -576,16 +576,16 @@ QString Settings::hotkeyKey(Hotkey type) const
 
 	switch (type)
 	{
-	case HotkeyAnswer:
+	case Hotkey::Answer:
 		key += SHORTCUT_ANSWER;
 		break;
-	case HotkeyMinimize:
+	case Hotkey::Minimize:
 		key += SHORTCUT_MINIMIZE;
 		break;
-	case HotkeyNext:
+	case Hotkey::Next:
 		key += SHORTCUT_NEXT;
 		break;
-	case HotkeyRestore:
+	case Hotkey::Restore:
 		key += SHORTCUT_RESTORE;
 		break;
 	}
@@ -607,22 +607,22 @@ QString Settings::hotkeyKeyVirtualKey(Hotkey type) const
 #ifndef EDITION_TRY
 void Settings::updateSettings()
 {
-	const Version current = static_cast<Version>(_settings.value(KEY_VERSION, Version1).toUInt());
+	const Version current = static_cast<Version>(_settings.value(KEY_VERSION, static_cast<quintptr>(Version::N1)).toUInt());
 
-	if (current < Version2)
+	if (current < Version::N2)
 	{
 		// move vocabulary to vocabularies group
 		const QString vocabulary = _settings.value(KEY_VOCABULARYFILE).toString();
 		if (!vocabulary.isEmpty())
 		{
 			_settings.beginWriteArray(ARRAY_VOCABULARIES);
-			_settings.setArrayIndex(VocabularyPosition1);
+			_settings.setArrayIndex(static_cast<int>(VocabularyPosition::N1));
 			_settings.setValue(KEY_VOCABULARYFILE, vocabulary);
 			_settings.endArray();
 		}
 		_settings.remove(KEY_VOCABULARYFILE);
 
-		_settings.setValue(KEY_VERSION, Version2);
+		_settings.setValue(KEY_VERSION, static_cast<quintptr>(Version::N2));
 	}
 }
 #endif
