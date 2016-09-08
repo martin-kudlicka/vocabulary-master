@@ -549,7 +549,7 @@ void MainWindow::say(bool directionSwitched, bool answer) const
         if (!text.isEmpty())
 		{
 			const TTSInterface::TTSPlugin speechPlugin = _currentRecord.vocabulary->languageSpeech(fieldLanguage);
-	        if (speechPlugin != TTSInterface::TTPluginNone)
+	        if (speechPlugin != TTSInterface::TTSPlugin::None)
 			{
 		        TTSInterface *speechInterface = _plugins.ttsPlugin(speechPlugin);
                 if (speechInterface)

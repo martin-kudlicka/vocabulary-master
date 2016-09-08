@@ -21,7 +21,7 @@ LicenseCommon::LicenseContentList TTSSAPI::licenseText() const
 
 TTSInterface::TTSPlugin TTSSAPI::pluginId() const
 {
-    return TTSInterface::TTSPluginSAPI;
+    return TTSInterface::TTSPlugin::SAPI;
 }
 
 QString TTSSAPI::pluginName() const

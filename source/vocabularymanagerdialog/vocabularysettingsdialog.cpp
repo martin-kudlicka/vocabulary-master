@@ -76,8 +76,8 @@ void VocabularySettingsDialog::fillOptions()
     _ui.languageLeft->setText(_vocabulary->languageName(VocabularyDatabase::FieldLanguageLeft));
     _ui.languageRight->setText(_vocabulary->languageName(VocabularyDatabase::FieldLanguageRight));
 #ifndef EDITION_FREE
-    fillSpeech(_ui.speechLeft, QString::number(_vocabulary->languageSpeech(VocabularyDatabase::FieldLanguageLeft)), _vocabulary->languageVoice(VocabularyDatabase::FieldLanguageLeft));
-	fillSpeech(_ui.speechRight, QString::number(_vocabulary->languageSpeech(VocabularyDatabase::FieldLanguageRight)), _vocabulary->languageVoice(VocabularyDatabase::FieldLanguageRight));
+    fillSpeech(_ui.speechLeft, QString::number(static_cast<quintptr>(_vocabulary->languageSpeech(VocabularyDatabase::FieldLanguageLeft))), _vocabulary->languageVoice(VocabularyDatabase::FieldLanguageLeft));
+	fillSpeech(_ui.speechRight, QString::number(static_cast<quintptr>(_vocabulary->languageSpeech(VocabularyDatabase::FieldLanguageRight))), _vocabulary->languageVoice(VocabularyDatabase::FieldLanguageRight));
 
 	// templates
 	_ui.learningLeft->setPlainText(_vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguageLeft));
@@ -90,7 +90,7 @@ void VocabularySettingsDialog::fillOptions()
 #ifndef EDITION_FREE
 void VocabularySettingsDialog::fillSpeech(QComboBox *comboBox, const QString &speech, const QString &voice)
 {
-	const quint8 speechPlugin = _vocabulary->settings(speech).toUInt();
+  const TTSInterface::TTSPlugin speechPlugin = static_cast<TTSInterface::TTSPlugin>(_vocabulary->settings(speech).toUInt());
 	const QString voiceId     = _vocabulary->settings(voice);
 
 	for (quint8 voiceIndex = 0; voiceIndex < comboBox->count(); voiceIndex++)
@@ -147,7 +147,7 @@ void VocabularySettingsDialog::prepareSpeechPlugins(QComboBox *comboBox)
 {
 	SpeechVoice speechVoice;
 
-	speechVoice.ttsPlugin = TTSInterface::TTPluginNone;
+	speechVoice.ttsPlugin = TTSInterface::TTSPlugin::None;
 	_voices.append(speechVoice);
 	comboBox->addItem(tr("None"));
 	comboBox->setItemData(comboBox->count() - 1, _voices.size() - 1);

@@ -7,36 +7,36 @@
 
 #define IID_TTSINTERFACE "cz.martinkudlicka.VocabularMmaster.TTSInterface"
 #ifndef _DEBUG
-const QString DIR_PLUGINS = "plugins";
+const auto DIR_PLUGINS = "plugins";
 #endif
 
 class TTSInterface
 {
-	public:
-		enum TTSPlugin
-		{
-			TTPluginNone,
-			TTSPluginOpenJTalk,
-            TTSPluginSAPI
-		}; // TTSPlugin
+  public:
+    enum class TTSPlugin
+    {
+      None,
+      OpenJTalk,
+      SAPI
+    };
 
-        struct VoiceInfo
-		{
-            QString id;
-            QString description;
-        }; // VoiceInfo
+    struct VoiceInfo
+    {
+      QString id;
+      QString description;
+    };
 
-        typedef QList<VoiceInfo> VoiceInfoList;
+    typedef QList<VoiceInfo> VoiceInfoList;
 
-		virtual void                              initialize  ()                                          = 0;
-        virtual LicenseCommon::LicenseContentList licenseText () const                                    = 0;
-		virtual TTSPlugin                         pluginId    () const                                    = 0;
-		virtual QString                           pluginName  () const                                    = 0;
-		virtual void                              say         (const QString &voice, const QString &text) = 0;
-		virtual void                              uninitialize()                                          = 0;
-		virtual VoiceInfoList                     voicesInfo  () const                                    = 0;
-}; // TTSInterface
+    virtual void                              initialize  ()                                          = 0;
+    virtual LicenseCommon::LicenseContentList licenseText () const                                    = 0;
+    virtual TTSPlugin                         pluginId    () const                                    = 0;
+    virtual QString                           pluginName  () const                                    = 0;
+    virtual void                              say         (const QString &voice, const QString &text) = 0;
+    virtual void                              uninitialize()                                          = 0;
+    virtual VoiceInfoList                     voicesInfo  () const                                    = 0;
+};
 
 Q_DECLARE_INTERFACE(TTSInterface, IID_TTSINTERFACE);
 
-#endif // TTSINTERFACE_H
+#endif
