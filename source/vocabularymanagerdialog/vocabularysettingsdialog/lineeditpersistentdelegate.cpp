@@ -5,11 +5,11 @@
 
 LineEditPersistentDelegate::LineEditPersistentDelegate(QObject *parent /* nullptr */) : QStyledItemDelegate(parent)
 {
-} // LineEditPersistentDelegate
+}
 
 LineEditPersistentDelegate::~LineEditPersistentDelegate()
 {
-} // ~LineEditPersistentDelegate
+}
 
 QWidget *LineEditPersistentDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
@@ -17,16 +17,16 @@ QWidget *LineEditPersistentDelegate::createEditor(QWidget *parent, const QStyleO
 	if (index.column() == FieldsModel::ColumnTemplateName)
 	{
 		fieldLineEditor->setValidator(new FieldIdentifierValidator(index.row(), qobject_cast<const FieldsModel *>(index.model()), fieldLineEditor));
-	} // if
+	}
 
 	return fieldLineEditor;
-} // createEditor
+}
 
 void LineEditPersistentDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
     FieldLineEdit *fieldLineEditor = qobject_cast<FieldLineEdit *>(editor);
     fieldLineEditor->setText(index.model()->data(index).toString());
-} // setEditorData
+}
 
 void LineEditPersistentDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
@@ -34,5 +34,5 @@ void LineEditPersistentDelegate::setModelData(QWidget *editor, QAbstractItemMode
 	if (fieldLineEditor->hasAcceptableInput())
 	{
 		QStyledItemDelegate::setModelData(editor, model, index);
-	} // if
-} // setModelData
+	}
+}

@@ -10,11 +10,11 @@ PlaintextImportWidget::PlaintextImportWidget(PlaintextFile *file, QWidget *paren
 	preselectCodec();
 
 	_ui.linesPerRecord->setMaximum(lineCount());
-} // PlaintextImportWidget
+}
 
 PlaintextImportWidget::~PlaintextImportWidget()
 {
-} // ~PlaintextImportWidget
+}
 
 const quint16 PlaintextImportWidget::lineCount() const
 {
@@ -23,20 +23,20 @@ const quint16 PlaintextImportWidget::lineCount() const
 	while (!_file->readLine().isNull())
 	{
 		fileLines++;
-	} // while
+	}
 
 	return fileLines;
-} // lineCount
+}
 
 const quint16 PlaintextImportWidget::linesPerRecord() const
 {
 	return _ui.linesPerRecord->value();
-} // linesPerRecord
+}
 
 const QString PlaintextImportWidget::regExp() const
 {
 	return _ui.regExp->text();
-} // regExp
+}
 
 const void PlaintextImportWidget::preselectCodec() const
 {
@@ -53,9 +53,9 @@ const void PlaintextImportWidget::preselectCodec() const
 			_ui.codecs->blockSignals(false);
 			refreshPreview();
 			return;
-		} // if
-	} // for
-} // preselectCodec
+		}
+	}
+}
 
 const void PlaintextImportWidget::refreshPreview() const
 {
@@ -66,12 +66,12 @@ const void PlaintextImportWidget::refreshPreview() const
 		if (!text.isEmpty())
 		{
 			text += "\n";
-		} // if
+		}
 		text += _file->readLine();
-	} // for
+	}
 
 	_ui.preview->setPlainText(text);
-} // refreshPreview
+}
 
 const void PlaintextImportWidget::on_codecs_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
@@ -81,9 +81,9 @@ const void PlaintextImportWidget::on_codecs_selectionModel_selectionChanged(cons
 
 	_ui.linesPerRecord->setMaximum(lineCount());
 	refreshPreview();
-} // on_codecs_selectionModel_selectionChanged
+}
 
 const void PlaintextImportWidget::on_linesPerRecord_valueChanged(int i) const
 {
 	refreshPreview();
-} // on_linesPerRecord_valueChanged
+}

@@ -8,11 +8,11 @@ LicenseDialog::LicenseDialog(License *license, Settings *settings, QWidget *pare
 	_ui.setupUi(this);
 
 	fillLicenseInfo();
-} // LicenseDialog
+}
 
 LicenseDialog::~LicenseDialog()
 {
-} // ~LicenseDialog
+}
 
 void LicenseDialog::fillLicenseInfo() const
 {
@@ -34,7 +34,7 @@ void LicenseDialog::fillLicenseInfo() const
 		_ui.lastName->hide();
 		_ui.email->hide();
 		_ui.validTo->hide();
-	} // if else
+	}
 
 	switch (_license->status())
 	{
@@ -46,7 +46,7 @@ void LicenseDialog::fillLicenseInfo() const
 			break;
 		case License::StatusInvalid:
 			_ui.status->setText(tr("License is invalid."));
-	} // switch
+	}
 	if (_license->status() == License::StatusOk)
 	{
 		_ui.status->hide();
@@ -54,14 +54,14 @@ void LicenseDialog::fillLicenseInfo() const
 	else
 	{
 		_ui.status->show();
-	} // if else
-} // fillLicenseInfo
+	}
+}
 
 void LicenseDialog::on_eula_clicked(bool checked /* false */)
 {
 	LicenseTextDialog licenseTextDialog(LicenseCommon::LicenseContentList(), _settings, this);
 	licenseTextDialog.exec();
-} // on_eula_clicked
+}
 
 void LicenseDialog::on_load_clicked(bool checked /* false */)
 {
@@ -69,7 +69,7 @@ void LicenseDialog::on_load_clicked(bool checked /* false */)
 	if (fileName.isEmpty())
 	{
 		return;
-	} // if
+	}
 
 	QFile file(fileName);
 	file.open(QIODevice::ReadOnly);
@@ -81,7 +81,7 @@ void LicenseDialog::on_load_clicked(bool checked /* false */)
 	fillLicenseInfo();
 
 	_refreshed = true;
-} // on_load_clicked
+}
 
 void LicenseDialog::on_ok_clicked(bool checked /* false */)
 {
@@ -92,5 +92,5 @@ void LicenseDialog::on_ok_clicked(bool checked /* false */)
 	else
 	{
 		reject();
-	} // if else
-} // on_ok_clicked
+	}
+}

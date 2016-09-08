@@ -14,7 +14,7 @@ QByteArray RSA::decrypt(const QByteArray &privateKey, const QByteArray &content)
 	const CryptoPP::ArraySource decryptedBuffer(reinterpret_cast<const byte *>(content.constData()), content.size(), true, new CryptoPP::PK_DecryptorFilter(randomPool, decryptor, new CryptoPP::StringSink(decryptedString)));
 
 	return decryptedString.c_str();
-} // decrypt
+}
 
 bool RSA::verify(const QByteArray &publicKey, const QByteArray &content, const QByteArray &signature) const
 {
@@ -24,7 +24,7 @@ bool RSA::verify(const QByteArray &publicKey, const QByteArray &content, const Q
 	if (signature.size() != verifier.SignatureLength())
 	{
 		return false;
-	} // if
+	}
 
 	CryptoPP::ArraySource signatureBuffer(reinterpret_cast<const byte *>(signature.constData()), signature.size(), true);
 	CryptoPP::SecByteBlock secByteBlock(verifier.SignatureLength());
@@ -35,4 +35,4 @@ bool RSA::verify(const QByteArray &publicKey, const QByteArray &content, const Q
 	const CryptoPP::ArraySource contentBuffer(reinterpret_cast<const byte *>(content.constData()), content.size(), true, verifierFilter);
 
 	return verifierFilter->GetLastResult();
-} // verify
+}

@@ -19,25 +19,25 @@ WordsExportDialog::WordsExportDialog(const Vocabulary *vocabulary, const Plugins
 	{
         const QModelIndex index = _fieldsModel.index(row, WordsExportFieldsModel::ColumnMark);
         _ui.fields->openPersistentEditor(index);
-    } // for
+    }
 	for (quint8 column = 0; column < _ui.fields->header()->count(); column++)
 	{
 		_ui.fields->header()->setSectionResizeMode(column, QHeaderView::Stretch);
-	} // for
+	}
 
 	_ui.categories->selectAll();
-} // WordsExportDialog
+}
 
 WordsExportDialog::~WordsExportDialog()
 {
-} // ~WordsExportDialog
+}
 
 const void WordsExportDialog::on_exportButton_clicked(bool checked /* false */)
 {
     const QModelIndex index    = _ui.expPlugins->currentIndex();
     const ExpInterface *plugin = _expPlugins.at(index.row()).expInterface;
     plugin->beginExport();
-} // on_exportButton_clicked
+}
 
 const void WordsExportDialog::on_expPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
@@ -67,23 +67,23 @@ const void WordsExportDialog::on_expPluginsSelectionModel_selectionChanged(const
 
 		// setup page
 		plugin->setupUi(pluginWidget);
-	} // if
+	}
 
     // set plugin page
     _ui.expPluginsStack->setCurrentIndex(_expPluginPage.value(index.row()));
 
 	_ui.exportButton->setEnabled(true);
-} // on_expPluginsSelectionModel_selectionChanged
+}
 
 const void WordsExportDialog::on_plugin_ProgressExportSetMax(quint32 max) const
 {
     _ui.progress->setMaximum(max);
-} // on_plugin_ProgressExportSetMax
+}
 
 const void WordsExportDialog::on_plugin_ProgressExportSetValue(quint32 value) const
 {
     _ui.progress->setValue(value);
-} // on_plugin_ProgressExportSetValue
+}
 
 const void WordsExportDialog::on_plugin_VocabularyGetCategoryIds(ExpInterface::CategoryIdList *categoryIds) const
 {
@@ -94,13 +94,13 @@ const void WordsExportDialog::on_plugin_VocabularyGetCategoryIds(ExpInterface::C
 	{
         const quint8 categoryId = _vocabulary->categoryId(index.row());
         categoryIds->append(categoryId);
-    } // for
-} // on_plugin_VocabularyGetCategoryIds
+    }
+}
 
 const void WordsExportDialog::on_plugin_VocabularyGetCategoryName(quint8 categoryId, QString *name) const
 {
     *name = _vocabulary->categoryName(categoryId);
-} // on_plugin_VocabularyGetCategoryName
+}
 
 const void WordsExportDialog::on_plugin_VocabularyGetMarks(QStringList *pMarks) const
 {
@@ -109,8 +109,8 @@ const void WordsExportDialog::on_plugin_VocabularyGetMarks(QStringList *pMarks) 
         const QModelIndex editorIndex = _fieldsModel.index(row, WordsExportFieldsModel::ColumnMark);
         const MarkLineEdit *editor    = qobject_cast<const MarkLineEdit *>(_ui.fields->indexWidget(editorIndex));
         pMarks->append(editor->text());
-    } // for
-} // on_plugin_VocabularyGetMarks
+    }
+}
 
 const void WordsExportDialog::on_plugin_VocabularyGetMarkText(quint32 recordId, const QString &mark, QString *text) const
 {
@@ -120,14 +120,14 @@ const void WordsExportDialog::on_plugin_VocabularyGetMarkText(quint32 recordId, 
     const quint8 fieldId   = _vocabulary->fieldId(markIndex);
 
     *text = _vocabulary->dataText(recordId, fieldId);
-} // on_plugin_VocabularyGetMarkText
+}
 
 const void WordsExportDialog::on_plugin_VocabularyGetRecordCount(quint8 categoryId, quint32 *count) const
 {
     *count = _vocabulary->recordCount(categoryId, _ui.exportEnabledOnly->isChecked());
-} // on_plugin_VocabularyGetRecordCount
+}
 
 const void WordsExportDialog::on_plugin_VocabularyGetRecordIds(quint8 categoryId, ExpInterface::RecordIdList *recordIds) const
 {
     *recordIds = _vocabulary->recordIds(categoryId);
-} // on_plugin_VocabularyGetRecordIds
+}

@@ -4,16 +4,16 @@ const QString TEMPLATE_MARK = "${%1}";
 
 WordsExportFieldsModel::WordsExportFieldsModel(const Vocabulary *vocabulary, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
 {
-} // WordsExportFieldsModel
+}
 
 WordsExportFieldsModel::~WordsExportFieldsModel()
 {
-} // ~WordsExportFieldsModel
+}
 
 QModelIndex WordsExportFieldsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
     return createIndex(row, column);
-} // index
+}
 
 int WordsExportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
@@ -26,20 +26,20 @@ int WordsExportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() 
             if (!_vocabulary->fieldBuiltIn(vocabularyFieldId))
 			{
                 count++;
-            } // if
-        } // for
+            }
+        }
         return count;
     }
 	else
 	{
         return 0;
-    } // if else
-} // rowCount
+    }
+}
 
 int WordsExportFieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return ColumnCount;
-} // columnCount
+}
 
 QVariant WordsExportFieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
@@ -63,11 +63,11 @@ QVariant WordsExportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 					const quint8 languageFieldId = fieldId(index.row());
                     const QString templateText   = _vocabulary->fieldTemplateName(languageFieldId);
                     return TEMPLATE_MARK.arg(templateText);
-            } // switch
+            }
         default:
             return QVariant();
-    } // switch
-} // data
+    }
+}
 
 quint8 WordsExportFieldsModel::fieldId(const int &row) const
 {
@@ -83,12 +83,12 @@ quint8 WordsExportFieldsModel::fieldId(const int &row) const
 			else
 			{
                 num++;
-            } // if else
-        } // if
-    } // for
+            }
+        }
+    }
 
     return VocabularyDatabase::NOT_FOUND;
-} // fieldId
+}
 
 QVariant WordsExportFieldsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
@@ -103,13 +103,13 @@ QVariant WordsExportFieldsModel::headerData(int section, Qt::Orientation orienta
                     return tr("Name");
 				case ColumnMark:
 					return tr("Mark");
-            } // switch
+            }
         default:
             return QVariant();
-    } // switch
-} // headerData
+    }
+}
 
 QModelIndex WordsExportFieldsModel::parent(const QModelIndex &index) const
 {
     return QModelIndex();
-} // parent
+}

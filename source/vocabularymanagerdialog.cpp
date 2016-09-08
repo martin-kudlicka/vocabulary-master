@@ -49,19 +49,19 @@ VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *vocabulary,
 #endif
 
     vocabulary->beginEdit();
-} // VocabularyManagerDialog
+}
 
 VocabularyManagerDialog::~VocabularyManagerDialog()
 {
     _vocabulary->endEdit();
-} // ~VocabularyManagerDialog
+}
 
 #ifndef EDITION_FREE
 void VocabularyManagerDialog::execOnRecord(quint32 recordId)
 {
     focusOnRecord(recordId);
     exec();
-} // execOnRecord
+}
 #endif
 
 void VocabularyManagerDialog::addTab(quint8 categoryId)
@@ -91,7 +91,7 @@ void VocabularyManagerDialog::addTab(quint8 categoryId)
 #ifndef EDITION_FREE
     tabs->setTabEnabled(tabIndex, _vocabulary->categoryEnabled(categoryId));
 #endif
-} // addTab
+}
 
 void VocabularyManagerDialog::enableTabControls() const
 {
@@ -102,7 +102,7 @@ void VocabularyManagerDialog::enableTabControls() const
     _ui.wordImport->setEnabled(_ui.tabs->currentWidget());
     _ui.wordExport->setEnabled(_ui.tabs->currentWidget());
 #endif
-} // enableTabControls
+}
 
 void VocabularyManagerDialog::enableWordControls() const
 {
@@ -115,13 +115,13 @@ void VocabularyManagerDialog::enableWordControls() const
 	else
 	{
 		selection = nullptr;
-	} // if else
+	}
 
 	_ui.wordRemove->setEnabled(selection && vocabularyView->isEnabled() && selection->hasSelection());
 #ifndef EDITION_FREE
 	_ui.wordCopyMove->setEnabled(selection && vocabularyView->isEnabled() && selection->hasSelection());
 #endif
-} // enableWordControls
+}
 
 void VocabularyManagerDialog::focusOnRecord(quint32 recordId) const
 {
@@ -135,8 +135,8 @@ void VocabularyManagerDialog::focusOnRecord(quint32 recordId) const
         if (_categories.at(tabIndex) == category)
 		{
             break;
-        } // if
-    } // for
+        }
+    }
 
     // switch tabs
     _ui.tabs->setCurrentIndex(tabIndex);
@@ -145,7 +145,7 @@ void VocabularyManagerDialog::focusOnRecord(quint32 recordId) const
     VocabularyView *vocabularyView         = qobject_cast<VocabularyView *>(_ui.tabs->currentWidget());
     const VocabularyModel *vocabularyModel = qobject_cast<const VocabularyModel *>(vocabularyView->model());
     vocabularyView->setCurrentIndex(vocabularyModel->index(_vocabulary->row(recordId, category), 0));
-} // focusOnRecord
+}
 
 #ifndef EDITION_FREE
 void VocabularyManagerDialog::hideColumns() const
@@ -154,8 +154,8 @@ void VocabularyManagerDialog::hideColumns() const
 	{
 		VocabularyView *vocabularyView = qobject_cast<VocabularyView *>(_ui.tabs->widget(tabIndex));
 		hideColumns(vocabularyView);
-	} // for
-} // hideColumns
+	}
+}
 #endif
 
 void VocabularyManagerDialog::hideColumns(VocabularyView *tableView) const
@@ -174,11 +174,11 @@ void VocabularyManagerDialog::hideColumns(VocabularyView *tableView) const
 		else
 		{
 			tableView->hideColumn(column);
-		} // if else
+		}
 
 		column++;
-	} // for
-} // hideColumns
+	}
+}
 
 void VocabularyManagerDialog::initEditor()
 {
@@ -199,7 +199,7 @@ void VocabularyManagerDialog::initEditor()
 		else
 		{
             fieldsRight++;
-        } // if else
+        }
 
 		// check if visible or builtin field
 		const VocabularyDatabase::FieldAttributes attributes = _vocabulary->fieldAttributes(fieldId);
@@ -210,7 +210,7 @@ void VocabularyManagerDialog::initEditor()
 			attributes & VocabularyDatabase::FieldAttributeBuiltIn)
 		{
 			continue;
-		} // if
+		}
 
         // get field language
         if (_vocabulary->fieldLanguage(fieldId) == VocabularyDatabase::FieldLanguageLeft)
@@ -222,7 +222,7 @@ void VocabularyManagerDialog::initEditor()
 		{
             row    = posRight++;
             column = EditorColumnRightLabel;
-        } // if else
+        }
 
 		// label
 		QLabel *label = new QLabel(_vocabulary->fieldName(fieldId) + ':', _ui.editorGroup);
@@ -233,8 +233,8 @@ void VocabularyManagerDialog::initEditor()
 		control->setProperty(PROPERTY_COLUMN, fieldsLeft + fieldsRight - 1);
 		connect(control, SIGNAL(textEdited(const QString &)), SLOT(on_control_textEdited(const QString &)));
 		_ui.editorLayout->addWidget(control, row, column + 1);
-	} // for
-} // initEditor
+	}
+}
 
 void VocabularyManagerDialog::initTabs()
 {
@@ -250,8 +250,8 @@ void VocabularyManagerDialog::initTabs()
 	{
         addTab(*categoryId);
         _categories.append(*categoryId);
-    } // for
-} // initTabs
+    }
+}
 
 #ifndef EDITION_FREE
 void VocabularyManagerDialog::reassignModels() const
@@ -263,8 +263,8 @@ void VocabularyManagerDialog::reassignModels() const
         vocabularyView->setModel(nullptr);
         vocabularyView->setModel(vocabularyModel);
         connect(vocabularyView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_vocabularyViewSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
-    } // for
-} // reassignModels
+    }
+}
 
 void VocabularyManagerDialog::selectFirstEnabledTab()
 {
@@ -274,9 +274,9 @@ void VocabularyManagerDialog::selectFirstEnabledTab()
 		{
             _ui.tabs->setCurrentIndex(tabIndex);
             return;
-        } // if
-    } // for
-} // selectFirstEnabledTab
+        }
+    }
+}
 
 void VocabularyManagerDialog::setPriorityDelegate()
 {
@@ -284,8 +284,8 @@ void VocabularyManagerDialog::setPriorityDelegate()
 	{
 		VocabularyView *vocabularyView = qobject_cast<VocabularyView *>(_ui.tabs->widget(tabIndex));
 		setPriorityDelegate(vocabularyView);
-	} // for
-} // setPriorityDelegate
+	}
+}
 
 void VocabularyManagerDialog::setPriorityDelegate(VocabularyView *tableView)
 {
@@ -303,14 +303,14 @@ void VocabularyManagerDialog::setPriorityDelegate(VocabularyView *tableView)
 			else
 			{
                 tableView->setItemDelegateForColumn(column, nullptr);
-            } // if else
+            }
         }
 		else
 		{
             tableView->setItemDelegateForColumn(column, nullptr);
-        } // if else
-	} // for
-} // setPriorityDelegate
+        }
+	}
+}
 
 void VocabularyManagerDialog::stretchColumns() const
 {
@@ -318,8 +318,8 @@ void VocabularyManagerDialog::stretchColumns() const
 	{
         const VocabularyView *vocabularyView = qobject_cast<const VocabularyView *>(_ui.tabs->widget(tabIndex));
         stretchColumns(vocabularyView);
-    } // for
-} // stretchColumns
+    }
+}
 #endif
 
 void VocabularyManagerDialog::stretchColumns(const VocabularyView *tableView) const
@@ -338,10 +338,10 @@ void VocabularyManagerDialog::stretchColumns(const VocabularyView *tableView) co
 #endif
 			tableView->horizontalHeader()->setSectionResizeMode(column, QHeaderView::Stretch);
 #ifndef EDITION_FREE
-		} // if else
+		}
 #endif
-	} // for
-} // stretchColumns
+	}
+}
 
 #ifndef EDITION_FREE
 void VocabularyManagerDialog::uninitEditor() const
@@ -350,8 +350,8 @@ void VocabularyManagerDialog::uninitEditor() const
     while ((item = _ui.editorLayout->takeAt(0)) != nullptr)
 	{
         item->widget()->deleteLater();
-    } // while
-} // uninitEditor
+    }
+}
 #endif
 
 void VocabularyManagerDialog::updateEditor() const
@@ -365,12 +365,12 @@ void VocabularyManagerDialog::updateEditor() const
 	else
 	{
 		selection = nullptr;
-	} // if else
+	}
 	_ui.editorGroup->setEnabled(selection && selection->hasSelection());
 
 	updateEditor(EditorColumnLeftControl);
 	updateEditor(EditorColumnRightControl);
-} // updateEditor
+}
 
 void VocabularyManagerDialog::updateEditor(EditorColumn controlsColumn) const
 {
@@ -391,7 +391,7 @@ void VocabularyManagerDialog::updateEditor(EditorColumn controlsColumn) const
 			else
 			{
 				selection = nullptr;
-			} // if else
+			}
 
 			if (selection && selection->hasSelection())
 			{
@@ -403,10 +403,10 @@ void VocabularyManagerDialog::updateEditor(EditorColumn controlsColumn) const
 			else
 			{
 				control->clear();
-			} // if else
-		} // if
-	} // for
-} // updateEditor
+			}
+		}
+	}
+}
 
 void VocabularyManagerDialog::on_control_textEdited(const QString &text) const
 {
@@ -417,7 +417,7 @@ void VocabularyManagerDialog::on_control_textEdited(const QString &text) const
 
 	VocabularyModel *vocabularyModel = qobject_cast<VocabularyModel *>(vocabularyView->model());
 	vocabularyModel->setData(vocabularyModel->index(current.row(), column), text);
-} // on_control_textEdited
+}
 
 void VocabularyManagerDialog::on_categoryAdd_clicked(bool checked /* false */)
 {
@@ -430,8 +430,8 @@ void VocabularyManagerDialog::on_categoryAdd_clicked(bool checked /* false */)
 
 		_ui.tabs->setCurrentIndex(_ui.tabs->count() - 1);
 		enableTabControls();
-    } // if
-} // on_categoryAdd_clicked
+    }
+}
 
 void VocabularyManagerDialog::on_categoryRemove_clicked(bool checked /* false */)
 {
@@ -440,7 +440,7 @@ void VocabularyManagerDialog::on_categoryRemove_clicked(bool checked /* false */
     _vocabulary->removeCategory(_categories.takeAt(tabIndex));
 
 	enableTabControls();
-} // on_categoryRemove_clicked
+}
 
 void VocabularyManagerDialog::on_searchButton_clicked(bool checked /* false */) const
 {
@@ -455,21 +455,21 @@ void VocabularyManagerDialog::on_searchButton_clicked(bool checked /* false */) 
     if (recordId == VocabularyDatabase::NOT_FOUND)
 	{
         return;
-    } // if
+    }
 
     focusOnRecord(recordId);
-} // on_searchButton_clicked
+}
 
 void VocabularyManagerDialog::on_searchEdit_textChanged(const QString &text) const
 {
     _ui.searchButton->setEnabled(!text.isEmpty());
-} // on_searchEdit_textChanged
+}
 
 void VocabularyManagerDialog::on_tabs_currentChanged(int index) const
 {
 	updateEditor();
 	enableWordControls();
-} // on_tabs_currentChanged
+}
 
 #ifndef EDITION_FREE
 void VocabularyManagerDialog::on_tabs_TabEnableChanged(quint8 index, Qt::CheckState state) const
@@ -479,12 +479,12 @@ void VocabularyManagerDialog::on_tabs_TabEnableChanged(quint8 index, Qt::CheckSt
 
 	enableTabControls();
 	enableWordControls();
-} // on_tabs_TabEnableChanged
+}
 
 void VocabularyManagerDialog::on_tabs_TabPriorityChanged(quint8 index, quint8 value) const
 {
 	_vocabulary->setCategoryPriority(_categories.at(index), value);
-} // on_tabs_TabPriorityChanged
+}
 #endif
 
 void VocabularyManagerDialog::on_vocabularySettings_clicked(bool checked /* false */)
@@ -508,7 +508,7 @@ void VocabularyManagerDialog::on_vocabularySettings_clicked(bool checked /* fals
 		if (oldColumnCount != _vocabulary->fieldCount())
 		{
 			reassignModels();
-		} // if
+		}
         setPriorityDelegate();
         stretchColumns();
         uninitEditor();
@@ -521,8 +521,8 @@ void VocabularyManagerDialog::on_vocabularySettings_clicked(bool checked /* fals
 	{
         _vocabulary->endEdit(false);
         _vocabulary->beginEdit();
-    } // if else
-} // on_vocabularySettings_clicked
+    }
+}
 
 void VocabularyManagerDialog::on_vocabularyViewSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
@@ -532,11 +532,11 @@ void VocabularyManagerDialog::on_vocabularyViewSelectionModel_selectionChanged(c
 	{
 		// tab switching in progress
 		return;
-	} // if
+	}
 
     updateEditor();
     enableWordControls();
-} // on_vocabularyViewSelectionModel_selectionChanged
+}
 
 void VocabularyManagerDialog::on_wordAdd_clicked(bool checked /* false */)
 {
@@ -551,8 +551,8 @@ void VocabularyManagerDialog::on_wordAdd_clicked(bool checked /* false */)
 	{
         QLayoutItem *control = _ui.editorLayout->itemAtPosition(0, EditorColumnLeftControl);
         control->widget()->setFocus(Qt::OtherFocusReason);
-    } // if
-} // on_wordAdd_clicked
+    }
+}
 
 #ifndef EDITION_FREE
 void VocabularyManagerDialog::on_wordCopyMove_clicked(bool checked /* false */)
@@ -565,7 +565,7 @@ void VocabularyManagerDialog::on_wordCopyMove_clicked(bool checked /* false */)
 	for (const QModelIndex &qmiIndex : selection->selectedRows())
 	{
 		rowNums.append(qmiIndex.row());
-	} // for
+	}
 
 	// copy/move dialog
 	WordsCopyMoveDialog copyMoveDialog(_categories.at(_ui.tabs->currentIndex()), rowNums, _vocabulary, this);
@@ -574,14 +574,14 @@ void VocabularyManagerDialog::on_wordCopyMove_clicked(bool checked /* false */)
         reassignModels();
         stretchColumns();
         hideColumns();
-    } // if
-} // on_wordCopyMove_clicked
+    }
+}
 
 void VocabularyManagerDialog::on_wordExport_clicked(bool checked /* false */)
 {
 	WordsExportDialog wedExport(_vocabulary, _plugins->explugins(), this);
 	wedExport.exec();
-} // on_wordExport_clicked
+}
 
 void VocabularyManagerDialog::on_wordImport_clicked(bool checked /* false */)
 {
@@ -591,7 +591,7 @@ void VocabularyManagerDialog::on_wordImport_clicked(bool checked /* false */)
 	{
         const ImpInterface *pluginInterface = plugin.impInterface;
 		filters.append(pluginInterface->filter());
-	} // for
+	}
 
 	QString filterText;
 	const QString filePath = QFileDialog::getOpenFileName(this, tr("Import words"), QString(), filters.join(";;"), &filterText);
@@ -627,9 +627,9 @@ void VocabularyManagerDialog::on_wordImport_clicked(bool checked /* false */)
 		{
 			_vocabulary->endEdit(false);
 			_vocabulary->beginEdit();
-		} // if else
-	} // if
-} // on_wordImport_clicked
+		}
+	}
+}
 #endif
 
 void VocabularyManagerDialog::on_wordRemove_clicked(bool checked /* false */)
@@ -638,4 +638,4 @@ void VocabularyManagerDialog::on_wordRemove_clicked(bool checked /* false */)
     VocabularyModel *vocabularyModel     = qobject_cast<VocabularyModel *>(vocabularyView->model());
     const QItemSelectionModel *selection = vocabularyView->selectionModel();
     vocabularyModel->removeRow(selection->currentIndex().row());
-} // on_wordRemove_clicked
+}

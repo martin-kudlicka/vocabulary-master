@@ -23,18 +23,18 @@ VocabularyOrganizerDialog::VocabularyOrganizerDialog(VocabularyOrganizer *organi
 #endif
 
 	connect(_ui.vocabularies->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_vocabulariesSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
-} // VocabularyOrganizerDialog
+}
 
 VocabularyOrganizerDialog::~VocabularyOrganizerDialog()
 {
-} // ~VocabularyOrganizerDialog
+}
 
 #ifndef EDITION_TRY
 void VocabularyOrganizerDialog::accept()
 {
 	_organizer->saveAll();
 	QDialog::accept();
-} // accept
+}
 #endif
 
 #ifdef EDITION_FREE
@@ -42,7 +42,7 @@ void VocabularyOrganizerDialog::enableControls() const
 {
 	_ui.new2->setEnabled(_organizer->vocabularyCount() < Settings::EDITION_FREE_VOCABULARIES_MAX);
 	_ui.open->setEnabled(_organizer->vocabularyCount() < Settings::EDITION_FREE_VOCABULARIES_MAX);
-} // enableControls
+}
 #endif
 
 #ifndef EDITION_TRY
@@ -56,13 +56,13 @@ QString VocabularyOrganizerDialog::openPath() const
 	else
 	{
 		return QDir::homePath();
-	} // if else
-} // openPath
+	}
+}
 
 void VocabularyOrganizerDialog::reject()
 {
 	accept();
-} // reject
+}
 #endif
 
 void VocabularyOrganizerDialog::on_close_clicked(bool checked /* false */)
@@ -77,7 +77,7 @@ void VocabularyOrganizerDialog::on_close_clicked(bool checked /* false */)
 #ifdef EDITION_FREE
 	enableControls();
 #endif
-} // on_close_clicked
+}
 
 void VocabularyOrganizerDialog::on_new2_clicked(bool checked /* false */)
 {
@@ -95,7 +95,7 @@ void VocabularyOrganizerDialog::on_new2_clicked(bool checked /* false */)
 		else
 		{
 			vocabularyFile = newVocabulary.selectedFiles().at(0);
-		} // if else
+		}
 
 		_organizer->addNew(vocabularyFile);
 		_model.addRow();
@@ -103,12 +103,12 @@ void VocabularyOrganizerDialog::on_new2_clicked(bool checked /* false */)
 #ifdef EDITION_FREE
 		enableControls();
 #endif
-	} // if
+	}
 #else
 	_organizer->addNew();
 	_model.addRow();
 #endif
-} // on_new2_clicked
+}
 
 #ifndef EDITION_TRY
 void VocabularyOrganizerDialog::on_open_clicked(bool checked /* false */)
@@ -128,11 +128,11 @@ void VocabularyOrganizerDialog::on_open_clicked(bool checked /* false */)
 #ifdef EDITION_FREE
 		enableControls();
 #endif
-	} // if
-} // on_open_clicked
+	}
+}
 #endif
 
 void VocabularyOrganizerDialog::on_vocabulariesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
 	_ui.close->setEnabled(_ui.vocabularies->currentIndex().isValid());
-} // on_vocabulariesSelectionModel_selectionChanged
+}

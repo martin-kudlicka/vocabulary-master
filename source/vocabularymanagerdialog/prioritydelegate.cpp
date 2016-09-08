@@ -6,11 +6,11 @@
 
 PriorityDelegate::PriorityDelegate(QObject *pParent /* nullptr */) : QStyledItemDelegate(pParent)
 {
-} // PriorityDelegate
+}
 
 PriorityDelegate::~PriorityDelegate()
 {
-} // ~PriorityDelegate
+}
 
 QWidget *PriorityDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
@@ -20,7 +20,7 @@ QWidget *PriorityDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
 	editor->setMaximum(RECORD_PRIORITY_MAX);
 
 	return editor;
-} // createEditor
+}
 
 void PriorityDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
@@ -49,14 +49,14 @@ void PriorityDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
 		else
 		{
             styleOptionSpinBox.activeSubControls |= QStyle::SC_SpinBoxDown;
-        } // if else
-    } // if
+        }
+    }
 
 	QApplication::style()->drawComplexControl(QStyle::CC_SpinBox, &styleOptionSpinBox, painter);
-} // paint
+}
 
 void PriorityDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
 	QSpinBox *spinBoxEditor = qobject_cast<QSpinBox *>(editor);
 	spinBoxEditor->setValue(index.model()->data(index).toUInt());
-} // setEditorData
+}

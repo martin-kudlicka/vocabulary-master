@@ -7,23 +7,23 @@ const QString TABLE_DECKS = "decks";
 
 DecksModel::DecksModel(const QSqlDatabase *database, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _database(database)
 {
-} // DecksModel
+}
 
 DecksModel::~DecksModel()
 {
-} // ~DecksModel
+}
 
 quint8 DecksModel::deckId(quint8 row) const
 {
 	QSqlQuery query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DECKS);
 	query.seek(row);
 	return query.value(ColumnPosition1).toUInt();
-} // deckId
+}
 
 int DecksModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return ColumnCount;
-} // columnCount
+}
 
 QVariant DecksModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
@@ -38,12 +38,12 @@ QVariant DecksModel::data(const QModelIndex &index, int role /* Qt::DisplayRole 
 				{
                     case ColumnId:
                         return query.value(ColumnPosition1);
-                } // switch
+                }
             }
         default:
             return QVariant();
-    } // switch
-} // data
+    }
+}
 
 QVariant DecksModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
@@ -54,21 +54,21 @@ QVariant DecksModel::headerData(int section, Qt::Orientation orientation, int ro
 			{
                 case ColumnId:
                     return tr("Deck");
-            } // switch
+            }
         default:
             return QVariant();
-    } // switch
-} // headerData
+    }
+}
 
 QModelIndex DecksModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
     return createIndex(row, column);
-} // index
+}
 
 QModelIndex DecksModel::parent(const QModelIndex &index) const
 {
     return QModelIndex();
-} // parent
+}
 
 int DecksModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
@@ -82,10 +82,10 @@ int DecksModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 		else
 		{
             return 0;
-        } // if else
+        }
     }
 	else
 	{
         return 0;
-    } // if else
-} // rowCount
+    }
+}

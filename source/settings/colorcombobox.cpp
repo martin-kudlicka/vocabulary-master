@@ -5,11 +5,11 @@
 
 ColorComboBox::ColorComboBox(QWidget *parent /* nullptr */) : QComboBox(parent)
 {
-} // ColorComboBox
+}
 
 ColorComboBox::~ColorComboBox()
 {
-} // ~ColorComboBox
+}
 
 void ColorComboBox::paintEvent(QPaintEvent * e)
 {
@@ -23,4 +23,4 @@ void ColorComboBox::paintEvent(QPaintEvent * e)
     rect.adjust(BORDER_WIDTH, BORDER_WIDTH, - BORDER_WIDTH, - BORDER_WIDTH);
 
     stylePainter.fillRect(rect, QColor(itemData(currentIndex(), Qt::UserRole).toString()));
-} // paintEvent
+}

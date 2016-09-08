@@ -7,11 +7,11 @@ WordsCopyMoveDialog::WordsCopyMoveDialog(quint8 categoryId, const RowNumList &ro
 	// categories
 	_ui.categories->setModel(&_categoriesModel);
 	connect(_ui.categories->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_categoriesSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
-} // WordsCopyMoveDialog
+}
 
 WordsCopyMoveDialog::~WordsCopyMoveDialog()
 {
-} // ~WordsCopyMoveDialog
+}
 
 void WordsCopyMoveDialog::accept()
 {
@@ -24,7 +24,7 @@ void WordsCopyMoveDialog::accept()
 		{
             const QStringList data = _vocabulary->record(*row);
             _vocabulary->addRecord(newCategoryId, data);
-        } // for
+        }
     }
 	else
 	{
@@ -32,13 +32,13 @@ void WordsCopyMoveDialog::accept()
 		{
             row--;
             _vocabulary->setRecordByRowCategory(_oldCategoryId, *row, newCategoryId);
-        } // for
-    } // if else
+        }
+    }
 
     QDialog::accept();
-} // accept
+}
 
 void WordsCopyMoveDialog::on_categoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
 	_ui.okButton->setEnabled(_ui.categories->currentIndex() != QModelIndex());
-} // on_vvVocabularyViewSelectionModel_selectionChanged
+}

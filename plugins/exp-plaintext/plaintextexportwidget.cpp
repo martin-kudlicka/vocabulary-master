@@ -8,22 +8,22 @@ PlaintextExportWidget::PlaintextExportWidget(QWidget *parent /* nullptr */, Qt::
 
 	_ui.codecs->setModel(&_codecsModel);
 	preselectCodec("UTF-8");
-} // PlaintextExportWidget
+}
 
 PlaintextExportWidget::~PlaintextExportWidget()
 {
-} // ~PlaintextExportWidget
+}
 
 QString PlaintextExportWidget::codec() const
 {
     const QModelIndex modelIndex = _ui.codecs->currentIndex();
     return _codecsModel.data(modelIndex).toString();
-} // codec
+}
 
 QString PlaintextExportWidget::text() const
 {
     return _ui.plainPreview->toPlainText();
-} // text
+}
 
 void PlaintextExportWidget::refresh() const
 {
@@ -40,7 +40,7 @@ void PlaintextExportWidget::refresh() const
 		quint32 records;
 		emit vocabularyGetRecordCount(categoryId, &records);
 		totalRecords += records;
-	} // for
+	}
 	emit progressExportSetMax(totalRecords);
 
 	QStringList marks;
@@ -58,7 +58,7 @@ void PlaintextExportWidget::refresh() const
 		else
 		{
 			_ui.plainPreview->appendPlainText("");
-		} // if else
+		}
 
 		QString categoryName;
 		emit vocabularyGetCategoryName(categoryId, &categoryName);
@@ -77,19 +77,19 @@ void PlaintextExportWidget::refresh() const
 				QString data;
 				emit vocabularyGetMarkText(recordId, mark, &data);
 				templateText.replace(mark, data);
-			} // for
+			}
 
 			_ui.plainPreview->appendPlainText(templateText);
 
 			records++;
 			emit progressExportSetValue(records);
-		} // for
-	} // for
+		}
+	}
 
 	_ui.plainPreview->verticalScrollBar()->setValue(0);
 
 	emit progressExportSetValue(0);
-} // refresh
+}
 
 void PlaintextExportWidget::preselectCodec(const QString &codec) const
 {
@@ -100,11 +100,11 @@ void PlaintextExportWidget::preselectCodec(const QString &codec) const
 		{
 			_ui.codecs->setCurrentIndex(modelIndex);
 			return;
-		} // if
-	} // for
-} // preselectCodec
+		}
+	}
+}
 
 void PlaintextExportWidget::on_refresh_clicked(bool checked /* false */) const
 {
     refresh();
-} // on_refresh_clicked
+}

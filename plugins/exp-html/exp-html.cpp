@@ -5,7 +5,7 @@
 
 ExpHtml::~ExpHtml()
 {
-} // ~ExpHtml
+}
 
 void ExpHtml::beginExport() const
 {
@@ -14,7 +14,7 @@ void ExpHtml::beginExport() const
     if (fileName.isEmpty())
 	{
         return;
-    } // if
+    }
 
     // open file
     QFile file(fileName);
@@ -30,12 +30,12 @@ void ExpHtml::beginExport() const
 
     // save result to file
     textStream << _widget->text();
-} // beginExport
+}
 
 QString ExpHtml::pluginName() const
 {
 	return tr("HTML page (html)");
-} // pluginName
+}
 
 void ExpHtml::setupUi(QWidget *parent)
 {
@@ -51,44 +51,44 @@ void ExpHtml::setupUi(QWidget *parent)
 	connect(_widget, SIGNAL(vocabularyGetMarkText(quint32, const QString &, QString *)),   SLOT(on_widget_vocabularyGetMarkText(quint32, const QString &, QString *)));
 	connect(_widget, SIGNAL(vocabularyGetRecordCount(quint8, quint32 *)),                  SLOT(on_widget_vocabularyGetRecordCount(quint8, quint32 *)));
 	connect(_widget, SIGNAL(vocabularyGetRecordIds(quint8, ExpInterface::RecordIdList *)), SLOT(on_widget_vocabularyGetRecordIds(quint8, ExpInterface::RecordIdList *)));
-} // setupUi
+}
 
 void ExpHtml::on_widget_progressExportSetMax(quint32 max) const
 {
     emit progressExportSetMax(max);
-} // on_widget_progressExportSetMax
+}
 
 void ExpHtml::on_widget_progressExportSetValue(quint32 value) const
 {
     emit progressExportSetValue(value);
-} // on_widget_progressExportSetValue
+}
 
 void ExpHtml::on_widget_vocabularyGetCategoryIds(ExpInterface::CategoryIdList *categoryIds) const
 {
     emit vocabularyGetCategoryIds(categoryIds);
-} // on_widget_vocabularyGetCategoryIds
+}
 
 void ExpHtml::on_widget_vocabularyGetCategoryName(quint8 categoryId, QString *name) const
 {
     emit vocabularyGetCategoryName(categoryId, name);
-} // on_widget_vocabularyGetCategoryName
+}
 
 void ExpHtml::on_widget_vocabularyGetMarks(QStringList *marks) const
 {
     emit vocabularyGetMarks(marks);
-} // on_widget_vocabularyGetMarks
+}
 
 void ExpHtml::on_widget_vocabularyGetMarkText(quint32 recordId, const QString &mark, QString *text) const
 {
     emit vocabularyGetMarkText(recordId, mark, text);
-} // on_widget_vocabularyGetMarkText
+}
 
 void ExpHtml::on_widget_vocabularyGetRecordCount(quint8 categoryId, quint32 *count) const
 {
     emit vocabularyGetRecordCount(categoryId, count);
-} // on_widget_vocabularyGetRecordCount
+}
 
 void ExpHtml::on_widget_vocabularyGetRecordIds(quint8 categoryId, ExpInterface::RecordIdList *recordIds) const
 {
     emit vocabularyGetRecordIds(categoryId, recordIds);
-} // on_widget_vocabularyGetRecordCount
+}

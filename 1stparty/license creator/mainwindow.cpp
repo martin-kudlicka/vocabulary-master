@@ -16,11 +16,11 @@ MainWindow::MainWindow(QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0
 	_ui.validTo->setDate(presetDate);
 
 	on_generateUid_clicked();
-} // MainWindow
+}
 
 MainWindow::~MainWindow()
 {
-} // ~MainWindow
+}
 
 void MainWindow::writeLicense()
 {
@@ -30,20 +30,20 @@ void MainWindow::writeLicense()
 	writeLicensePersonal();
 	_xmlStreamWriter.writeEndElement();
 	_xmlStreamWriter.writeEndElement();
-} // writeLicense
+}
 
 void MainWindow::writeLicenseGeneral()
 {
 	_xmlStreamWriter.writeTextElement("UId", _ui.uid->text());
 	_xmlStreamWriter.writeTextElement("ValidTo", _ui.validTo->date().toString(Qt::ISODate));
-} // writeLicenseGeneral
+}
 
 void MainWindow::writeLicensePersonal()
 {
 	_xmlStreamWriter.writeTextElement("FirstName", _ui.firstName->text());
 	_xmlStreamWriter.writeTextElement("LastName", _ui.lastName->text());
 	_xmlStreamWriter.writeTextElement("Email", _ui.email->text());
-} // writeLicensePersonal
+}
 
 void MainWindow::on_create_clicked(bool checked /* false */)
 {
@@ -51,7 +51,7 @@ void MainWindow::on_create_clicked(bool checked /* false */)
 	if (fileName.isEmpty())
 	{
 		return;
-	} // if
+	}
 
 	// buffer
 	QBuffer licenseBuffer;
@@ -97,10 +97,10 @@ void MainWindow::on_create_clicked(bool checked /* false */)
 	licenseFile.write(encryptedSizeData + encryptedData + signedData);
 
 	QMessageBox::information(this, windowTitle(), tr("License created, encrypted and signed."));
-} // on_create_clicked
+}
 
 void MainWindow::on_generateUid_clicked(bool checked /* false */)
 {
 	const QUuid uuid = QUuid::createUuid();
 	_ui.uid->setText(uuid.toString());
-} // on_generateUid_clicked
+}

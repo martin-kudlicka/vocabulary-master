@@ -2,11 +2,11 @@
 
 FieldIdentifierValidator::FieldIdentifierValidator(quint8 row, const FieldsModel *model, QObject *parent /* nullptr */) : QValidator(parent), _fieldsModel(model), _row(row)
 {
-} // FieldIdentifierValidator
+}
 
 FieldIdentifierValidator::~FieldIdentifierValidator()
 {
-} // ~FieldIdentifierValidator
+}
 
 QValidator::State FieldIdentifierValidator::validate(QString &input, int &pos) const
 {
@@ -19,9 +19,9 @@ QValidator::State FieldIdentifierValidator::validate(QString &input, int &pos) c
 			if (input == identifier)
 			{
 				return Intermediate;
-			} // if
-		} // if
-	} // for
+			}
+		}
+	}
 
 	return Acceptable;
-} // validate
+}

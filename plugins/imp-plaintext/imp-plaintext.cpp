@@ -6,20 +6,20 @@ const QString TEMPLATE_MARK = "${%1}";
 
 ImpPlaintext::~ImpPlaintext()
 {
-} // ~ImpPlaintext
+}
 
 void ImpPlaintext::close()
 {
     if (_plaintextFile.isOpen())
 	{
         _plaintextFile.close();
-    } // if
-} // close
+    }
+}
 
 QString ImpPlaintext::filter() const
 {
     return tr("text file (*.txt)");
-} // filter
+}
 
 QStringList ImpPlaintext::marks() const
 {
@@ -31,18 +31,18 @@ QStringList ImpPlaintext::marks() const
 		{
 			const QString mark = TEMPLATE_MARK.arg(QString::number(markList.size() + 1));
 			markList.append(mark);
-		} // if
-	} // for
+		}
+	}
 
 	return markList;
-} // marks
+}
 
 bool ImpPlaintext::open(const QString &fileName)
 {
 	close();
 	_cachedRecord = CACHED_NONE;
 	return _plaintextFile.open(fileName);
-} // open
+}
 
 quint16 ImpPlaintext::recordCount() const
 {
@@ -51,10 +51,10 @@ quint16 ImpPlaintext::recordCount() const
 	if (fileLines % _widget->linesPerRecord())
 	{
 		lines++;
-	} // if
+	}
 
 	return lines;
-} // recordCount
+}
 
 QString ImpPlaintext::recordData(quint16 record, const QString &mark)
 {
@@ -70,10 +70,10 @@ QString ImpPlaintext::recordData(quint16 record, const QString &mark)
 				for (quint16 lineIndex = 0; lineIndex < _widget->linesPerRecord(); lineIndex++)
 				{
 					_plaintextFile.readLine();
-				} // for
+				}
 				line++;
-			} // while
-		} // if
+			}
+		}
 
 		// read record from file
 		QString line;
@@ -82,9 +82,9 @@ QString ImpPlaintext::recordData(quint16 record, const QString &mark)
 			if (!line.isEmpty())
 			{
 				line += ' ';
-			} // if
+			}
 			line += _plaintextFile.readLine();
-		} // for
+		}
 
 		// get capture
 		QRegExp regExp(_widget->regExp());
@@ -95,10 +95,10 @@ QString ImpPlaintext::recordData(quint16 record, const QString &mark)
 		else
 		{
 			_cachedCapture.clear();
-		} // if else
+		}
 
 		_cachedRecord = record;
-	} // if
+	}
 
 	// get mark ID
 	const QStringList markList = marks();
@@ -112,12 +112,12 @@ QString ImpPlaintext::recordData(quint16 record, const QString &mark)
 	else
 	{
 		return QString();
-	} // if else
-} // recordData
+	}
+}
 
 void ImpPlaintext::setupUI(QGroupBox *parent)
 {
     _widget = new PlaintextImportWidget(&_plaintextFile, parent);
     QBoxLayout *boxLayout = qobject_cast<QBoxLayout *>(parent->layout());
     boxLayout->insertWidget(WIDGET_POSITION, _widget);
-} // setupUI
+}

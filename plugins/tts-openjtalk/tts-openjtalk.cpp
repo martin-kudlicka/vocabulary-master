@@ -43,12 +43,12 @@ const QString VOICE_DIR     = "hts_voice_nitech_jp_atr503_m001";
 
 TTSOpenJTalk::~TTSOpenJTalk()
 {
-} // ~TTSOpenJTalk
+}
 
 QString TTSOpenJTalk::fileInSubdir(const QString &file, const QString &dir) const
 {
 	return subdir(dir) + QDir::separator() + file;
-} // fileInSubdir
+}
 
 void TTSOpenJTalk::initialize()
 {
@@ -105,7 +105,7 @@ void TTSOpenJTalk::initialize()
 		strcpy_s(cPath2, MAX_PATH + 1, fileInSubdir(FN_TS_LPF, VOICE_DIR).toLocal8Bit().data());
 		strcpy_s(cPath3, MAX_PATH + 1, fileInSubdir(FN_WS_LPF, VOICE_DIR).toLocal8Bit().data());
 		HTS_Engine_load_parameter_from_fn(&_htsEngine, &cPath1, &cPath2, &cPath3, 2, FALSE, NUM_WS_LPF, 1);
-	} // if
+	}
 	strcpy_s(cPath1, MAX_PATH + 1, fileInSubdir(FN_MS_GVM, VOICE_DIR).toLocal8Bit().data());
 	strcpy_s(cPath2, MAX_PATH + 1, fileInSubdir(FN_TS_GVM, VOICE_DIR).toLocal8Bit().data());
 	HTS_Engine_load_gv_from_fn(&_htsEngine, &cPath1, &cPath2, 0, 1);
@@ -120,7 +120,7 @@ void TTSOpenJTalk::initialize()
 	free(cPath4);
 	free(cPath5);
 	free(cPaths);
-} // initialize
+}
 
 LicenseCommon::LicenseContentList TTSOpenJTalk::licenseText() const
 {
@@ -141,17 +141,17 @@ LicenseCommon::LicenseContentList TTSOpenJTalk::licenseText() const
     licenses.append(content);
 
     return licenses;
-} // licenseText
+}
 
 TTSInterface::TTSPlugin TTSOpenJTalk::pluginId() const
 {
 	return TTSPluginOpenJTalk;
-} // pluginId
+}
 
 QString TTSOpenJTalk::pluginName() const
 {
 	return "Open JTalk";
-} // pluginName
+}
 
 void TTSOpenJTalk::say(const QString &voice, const QString &text)
 {
@@ -175,11 +175,11 @@ void TTSOpenJTalk::say(const QString &voice, const QString &text)
 		HTS_Engine_create_pstream(&_htsEngine);
 		HTS_Engine_create_gstream(&_htsEngine);
 		HTS_Engine_refresh(&_htsEngine);
-	} // if
+	}
 	JPCommon_refresh(&_jpCommon);
 	NJD_refresh(&_njd);
 	Mecab_refresh(&_mecab);
-} // say
+}
 
 QString TTSOpenJTalk::subdir(const QString &dir) const
 {
@@ -188,7 +188,7 @@ QString TTSOpenJTalk::subdir(const QString &dir) const
 		DIR_PLUGINS + QDir::separator() + "tts-openjtalk" + QDir::separator() +
 #endif
 		dir;
-} // subdir
+}
 
 void TTSOpenJTalk::uninitialize()
 {
@@ -196,11 +196,11 @@ void TTSOpenJTalk::uninitialize()
 	NJD_clear(&_njd);
 	JPCommon_clear(&_jpCommon);
 	HTS_Engine_clear(&_htsEngine);
-} // uninitialize
+}
 
 TTSInterface::VoiceInfoList TTSOpenJTalk::voicesInfo() const
 {
 	TTSInterface::VoiceInfo sviVoice;
 	sviVoice.description = "NIT ATR503 M001";
 	return TTSInterface::VoiceInfoList() << sviVoice;
-} // voicesInfo
+}

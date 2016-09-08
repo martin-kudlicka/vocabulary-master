@@ -7,12 +7,12 @@
 const Plugins::ExpPluginList &Plugins::explugins() const
 {
 	return _expPlugins;
-} // explugins
+}
 
 const Plugins::ImpPluginList &Plugins::impPlugins() const
 {
 	return _impPlugins;
-} // impPlugins
+}
 
 void Plugins::initialize()
 {
@@ -20,8 +20,8 @@ void Plugins::initialize()
 	{
         TTSInterface *ttsInterface = ttsPlugin.ttsInterface;
 		ttsInterface->initialize();
-	} // for
-} // initialize
+	}
+}
 
 void Plugins::load()
 {
@@ -49,7 +49,7 @@ void Plugins::load()
 						ttsPlugin.info.libraryName = plugin.fileName();
 						ttsPlugin.ttsInterface     = ttsInterface;
 						_ttsPlugins.insert(ttsInterface->pluginId(), ttsPlugin);
-					} // if
+					}
 				}
 				else
 				{
@@ -62,7 +62,7 @@ void Plugins::load()
 							impPlugin.info.libraryName = plugin.fileName();
 							impPlugin.impInterface     = impInterface;
 							_impPlugins.append(impPlugin);
-						} // if
+						}
 					}
 					else
 					{
@@ -73,37 +73,37 @@ void Plugins::load()
 							expPlugin.info.libraryName = plugin.fileName();
 							expPlugin.expInterface     = expInterface;
 							_expPlugins.append(expPlugin);
-						} // if
-					} // if else
-				} // if else
-			} // if
-		} // for
+						}
+					}
+				}
+			}
+		}
 #ifndef _DEBUG
-	} // for
+	}
 #endif
-} // load
+}
 
 void Plugins::setLanguage(const QString &language) const
 {
 	for (const ImpPlugin &impPlugin : _impPlugins)
 	{
 		impPlugin.impInterface->setLanguage(language);
-	} // for
+	}
 	for (const ExpPlugin &expPlugin : _expPlugins)
 	{
 		expPlugin.expInterface->setLanguage(language);
-	} // for
-} // setLanguage
+	}
+}
 
 TTSInterface *Plugins::ttsPlugin(const TTSInterface::TTSPlugin &pPluginId) const
 {
 	return _ttsPlugins.value(pPluginId).ttsInterface;
-} // ttsPlugin
+}
 
 const Plugins::TTSPluginList Plugins::ttsPlugins() const
 {
 	return _ttsPlugins.values();
-} // ttsPlugins
+}
 
 void Plugins::uninitialize()
 {
@@ -111,5 +111,5 @@ void Plugins::uninitialize()
 	{
         TTSInterface *ttsInterface = ttsPlugin.ttsInterface;
 		ttsInterface->uninitialize();
-	} // for
-} // uninitialize
+	}
+}

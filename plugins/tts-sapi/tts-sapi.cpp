@@ -7,27 +7,27 @@
 
 TTSSAPI::~TTSSAPI()
 {
-} // ~TTSSAPI
+}
 
 void TTSSAPI::initialize()
 {
 	CoInitializeEx(nullptr, COINIT_MULTITHREADED);
-} // initialize
+}
 
 LicenseCommon::LicenseContentList TTSSAPI::licenseText() const
 {
     return LicenseCommon::LicenseContentList();
-} // licenseText
+}
 
 TTSInterface::TTSPlugin TTSSAPI::pluginId() const
 {
     return TTSInterface::TTSPluginSAPI;
-} // pluginId
+}
 
 QString TTSSAPI::pluginName() const
 {
     return "SAPI";
-} // pluginName
+}
 
 void TTSSAPI::say(const QString &voice, const QString &text)
 {
@@ -52,14 +52,14 @@ void TTSSAPI::say(const QString &voice, const QString &text)
 			voice->SetVoice(voiceInfo);
 			voice->Speak(reinterpret_cast<LPCWSTR>(text.unicode()), SPF_IS_NOT_XML, nullptr);
 			//voiceInfo->Speak();
-		} // if
-	} // for
-} // say
+		}
+	}
+}
 
 void TTSSAPI::uninitialize()
 {
 	CoUninitialize();
-} // uninitialize
+}
 
 TTSInterface::VoiceInfoList TTSSAPI::voicesInfo() const
 {
@@ -83,7 +83,7 @@ TTSInterface::VoiceInfoList TTSSAPI::voicesInfo() const
         voice.id          = QString::fromWCharArray(id);
         voice.description = QString::fromWCharArray(description);
 		voices.append(voice);
-	} // for
+	}
 
 	return voices;
-} // voicesInfo
+}

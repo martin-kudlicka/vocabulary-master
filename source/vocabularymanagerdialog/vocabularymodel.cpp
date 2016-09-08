@@ -6,35 +6,35 @@
 
 VocabularyModel::VocabularyModel(Vocabulary *vocabulary, quint8 categoryId, QObject *parent /* nullptr */) : QAbstractTableModel(parent), _vocabulary(vocabulary), _categoryId(categoryId)
 {
-} // VocabularyModel
+}
 
 VocabularyModel::~VocabularyModel()
 {
-} // ~VocabularyModel
+}
 
 void VocabularyModel::addRow()
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     _vocabulary->addRecord(_categoryId);
     endInsertRows();
-} // addRow
+}
 
 int VocabularyModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return _vocabulary->fieldCount();
-} // columnCount
+}
 
 void VocabularyModel::removeRow(quint32 row)
 {
     beginRemoveRows(QModelIndex(), row, row);
     _vocabulary->removeRecord(_categoryId, row);
     endRemoveRows();
-} // removeRow
+}
 
 int VocabularyModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
     return _vocabulary->recordCount(_categoryId);
-} // rowCount
+}
 
 bool VocabularyModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)
 {
@@ -43,7 +43,7 @@ bool VocabularyModel::setData(const QModelIndex &index, const QVariant &value, i
 
 	emit dataChanged(index, index);
 	return true;
-} // setData
+}
 
 QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
@@ -58,7 +58,7 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 					return _vocabulary->dataText(_categoryId, index.row(), fieldId);
 				default:
 					return QVariant();
-			} // switch
+			}
 #ifndef EDITION_FREE
 		case VocabularyDatabase::FieldTypeCheckBox:
 			switch (role)
@@ -73,11 +73,11 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 						else
 						{
 							return checked.toUInt();
-						} // if else
+						}
 					}
 				default:
 					return QVariant();
-			} // switch
+			}
 		case VocabularyDatabase::FieldTypeSpinBox:
 			switch (role)
 			{
@@ -91,16 +91,16 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 						else
 						{
 							return priority.toUInt();
-						} // if else
+						}
 					}
 				default:
 					return QVariant();
-			} // switch
+			}
 #endif
-	} // switch
+	}
 
 	return QVariant();
-} // data
+}
 
 #ifndef EDITION_FREE
 Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
@@ -118,11 +118,11 @@ Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
 				break;
 			case VocabularyDatabase::FieldBuiltInPriority:
 				itemFlags |= Qt::ItemIsEditable;
-		} // switch
-	} // if
+		}
+	}
 
 	return itemFlags;
-} // flags
+}
 #endif
 
 QVariant VocabularyModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
@@ -137,8 +137,8 @@ QVariant VocabularyModel::headerData(int section, Qt::Orientation orientation, i
 			else
 			{
                 return section + 1;
-            } // if else
+            }
         default:
             return QVariant();
-    } // switch
-} // headerData
+    }
+}

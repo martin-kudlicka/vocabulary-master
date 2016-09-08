@@ -16,10 +16,10 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 	if (fdwReason == DLL_PROCESS_ATTACH)
 	{
 		TranslationHandler::_instance = hinstDLL;
-	} // if
+	}
 
 	return TRUE;
-} // DllMain
+}
 #endif
 
 TranslationHandler::TranslationHandler()
@@ -33,7 +33,7 @@ TranslationHandler::TranslationHandler()
 
 	_pluginDir = pluginPath.left(pluginPath.lastIndexOf(QDir::separator()) + 1);
 #endif
-} // TranslationHandler
+}
 
 void TranslationHandler::setLanguage(const QString &language)
 {
@@ -46,6 +46,6 @@ void TranslationHandler::setLanguage(const QString &language)
 		if (language.isEmpty())
 		{
 			_translator.load(QLocale::system().name(), DIR_LANG);
-		} // if
-	} // if
-} // setLanguage
+		}
+	}
+}

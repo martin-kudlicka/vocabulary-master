@@ -6,4 +6,4 @@ int main(int argc, char *argv[])
 	const MainWindow mainWindow;
 
 	return application.exec();
-} // main
+}

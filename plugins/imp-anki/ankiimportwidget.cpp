@@ -15,16 +15,16 @@ AnkiImportWidget::AnkiImportWidget(const QSqlDatabase *database, QWidget *parent
     connect(_ui.models->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_models_selectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
     // fields
     prepareTreeView(_ui.fields, &_fieldsModel);
-} // AnkiImportWidget
+}
 
 AnkiImportWidget::~AnkiImportWidget()
 {
-} // ~AnkiImportWidget
+}
 
 qlonglong AnkiImportWidget::fieldId(quint8 position) const
 {
 	return _fieldsModel.fieldId(position);
-} // fieldId
+}
 
 QStringList AnkiImportWidget::marks() const
 {
@@ -34,10 +34,10 @@ QStringList AnkiImportWidget::marks() const
 		const QModelIndex editorIndex = _fieldsModel.index(rowIndex, FieldsModel::ColumnMark);
 		const MarkLineEdit *markEditor = qobject_cast<const MarkLineEdit *>(_ui.fields->indexWidget(editorIndex));
 		marks.append(markEditor->text());
-	} // for
+	}
 
 	return marks;
-} // marks
+}
 
 void AnkiImportWidget::prepareTreeView(QTreeView *treeView, QAbstractItemModel *itemModel)
 {
@@ -46,15 +46,15 @@ void AnkiImportWidget::prepareTreeView(QTreeView *treeView, QAbstractItemModel *
 	for (quint8 columnIndex = 0; columnIndex < treeView->header()->count(); columnIndex++)
 	{
 		treeView->header()->setSectionResizeMode(columnIndex, QHeaderView::Stretch);
-	} // for
-} // prepareTreeView
+	}
+}
 
 void AnkiImportWidget::on_decks_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
     const quint8 deckId = _decksModel.deckId(_ui.decks->currentIndex().row());
     _modelsModel.deckId(deckId);
     _ui.models->reset();
-} // on_decks_selectionModel_selectionChanged
+}
 
 void AnkiImportWidget::on_models_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
@@ -67,5 +67,5 @@ void AnkiImportWidget::on_models_selectionModel_selectionChanged(const QItemSele
 	{
         const QModelIndex modelIndex = _fieldsModel.index(rowIndex, FieldsModel::ColumnMark);
         _ui.fields->openPersistentEditor(modelIndex);
-    } // for
-} // on_models_selectionModel_selectionChanged
+    }
+}

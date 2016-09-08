@@ -19,11 +19,11 @@ VocabularyView::VocabularyView(
     setMouseTracking(true);
     viewport()->installEventFilter(this);
 #endif
-} // VocabularyView
+}
 
 VocabularyView::~VocabularyView()
 {
-} // ~VocabularyView
+}
 
 #ifndef EDITION_FREE
 bool VocabularyView::eventFilter(QObject *watched, QEvent *event)
@@ -32,10 +32,10 @@ bool VocabularyView::eventFilter(QObject *watched, QEvent *event)
 	{
         update(_moveOld);
         _moveOld = QModelIndex();
-    } // if
+    }
 
     return QTableView::eventFilter(watched, event);
-} // eventFilter
+}
 
 void VocabularyView::mouseMoveEvent(QMouseEvent *event)
 {
@@ -43,7 +43,7 @@ void VocabularyView::mouseMoveEvent(QMouseEvent *event)
     if (_moveOld.isValid() && _moveOld != mouse)
 	{
         update(_moveOld);
-    } // if
+    }
     _moveOld = mouse;
 
     const quint8 fieldId = _vocabulary->fieldId(mouse.column());
@@ -53,11 +53,11 @@ void VocabularyView::mouseMoveEvent(QMouseEvent *event)
         if (builtIn == VocabularyDatabase::FieldBuiltInPriority)
 		{
             update(mouse);
-        } // if
-    } // if
+        }
+    }
 
     QTableView::mouseMoveEvent(event);
-} // mouseMoveEvent
+}
 
 void VocabularyView::mousePressEvent(QMouseEvent *event)
 {
@@ -80,8 +80,8 @@ void VocabularyView::mousePressEvent(QMouseEvent *event)
                 QCoreApplication::sendEvent(editor, &press);
                 QMouseEvent release(QEvent::MouseButtonRelease, editorPos, Qt::LeftButton, Qt::LeftButton, 0);
                 QCoreApplication::sendEvent(editor, &release);
-            } // if
-        } // if
-    } // if
-} // mousePressEvent
+            }
+        }
+    }
+}
 #endif
