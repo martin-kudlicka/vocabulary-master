@@ -30,9 +30,10 @@ bool RSA::verify(const QByteArray &publicKey, const QByteArray &content, const Q
   CryptoPP::SecByteBlock secByteBlock(verifier.SignatureLength());
   signatureBuffer.Get(secByteBlock, secByteBlock.size());
 
-  auto *verifierFilter(new CryptoPP::VerifierFilter(verifier));
+  auto *verifierFilter = new CryptoPP::VerifierFilter(verifier);
   verifierFilter->Put(secByteBlock, verifier.SignatureLength());
   const CryptoPP::ArraySource contentBuffer(reinterpret_cast<const byte *>(content.constData()), content.size(), true, verifierFilter);
 
+  // TODO memory leak?
   return verifierFilter->GetLastResult();
 }
