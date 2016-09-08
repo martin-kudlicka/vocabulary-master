@@ -6,9 +6,9 @@
 # include <QtCore/QDir>
 #endif
 
-HINSTANCE TranslationHandler::_instance;
+HINSTANCE TranslationHandler::_instance = nullptr;
 
-const QString DIR_LANG = "lang";
+const auto DIR_LANG = "lang";
 
 #ifdef Q_OS_WIN
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
@@ -27,9 +27,9 @@ TranslationHandler::TranslationHandler()
 	QCoreApplication::installTranslator(&_translator);
 
 #ifdef Q_OS_WIN
-	TCHAR fileName[MAX_PATH + 1];
+	TCHAR fileName[MAX_PATH];
 	GetModuleFileName(_instance, fileName, _countof(fileName));
-	QString pluginPath = QString::fromWCharArray(fileName);
+	const auto pluginPath = QString::fromWCharArray(fileName);
 
 	_pluginDir = pluginPath.left(pluginPath.lastIndexOf(QDir::separator()) + 1);
 #endif

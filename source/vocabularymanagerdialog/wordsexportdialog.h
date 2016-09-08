@@ -29,14 +29,14 @@ class WordsExportDialog : public QDialog
 	private slots:
 	    const void on_exportButton_clicked                     (bool checked = false);
 		const void on_expPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
-        const void on_plugin_ProgressExportSetMax              (quint32 max)                                              const;
-		const void on_plugin_ProgressExportSetValue            (quint32 value)                                            const;
+        const void on_plugin_ProgressExportSetMax              (quintptr max)                                              const;
+		const void on_plugin_ProgressExportSetValue            (quintptr value)                                            const;
         const void on_plugin_VocabularyGetCategoryIds          (ExpInterface::CategoryIdList *categoryIds)                const;
-		const void on_plugin_VocabularyGetCategoryName         (quint8 categoryId, QString *name)                         const;
+		const void on_plugin_VocabularyGetCategoryName         (quintptr categoryId, QString *name)                         const;
         const void on_plugin_VocabularyGetMarks                (QStringList *marks)                                       const;
-		const void on_plugin_VocabularyGetMarkText             (quint32 recordId, const QString &mark, QString *text)     const;
-		const void on_plugin_VocabularyGetRecordCount          (quint8 categoryId, quint32 *count)                        const;
-		const void on_plugin_VocabularyGetRecordIds            (quint8 categoryId, ExpInterface::RecordIdList *recordIds) const;
+		const void on_plugin_VocabularyGetMarkText             (quintptr recordId, const QString &mark, QString *text)     const;
+		const void on_plugin_VocabularyGetRecordCount          (quintptr categoryId, quintptr *count)                        const;
+		const void on_plugin_VocabularyGetRecordIds            (quintptr categoryId, ExpInterface::RecordIdList *recordIds) const;
 }; // WordsExportDialog
 
 #endif // WORDSEXPORTDIALOG_H

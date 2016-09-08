@@ -26,14 +26,14 @@ class PlaintextExportWidget : public QWidget
         void preselectCodec(const QString &pCodec) const;
 
     signals:
-        void progressExportSetMax     (quint32 max)                                              const;
-        void progressExportSetValue   (quint32 value)                                            const;
-        void vocabularyGetCategoryIds (ExpInterface::CategoryIdList *categoryIds)                const;
-        void vocabularyGetCategoryName(quint8 categoryId, QString *name)                         const;
-        void vocabularyGetMarks       (QStringList *marks)                                       const;
-        void vocabularyGetMarkText    (quint32 recordId, const QString &mark, QString *text)     const;
-        void vocabularyGetRecordCount (quint8 categoryId, quint32 *count)                        const;
-        void vocabularyGetRecordIds   (quint8 categoryId, ExpInterface::RecordIdList *recordIds) const;
+        void progressExportSetMax     (quintptr max)                                               const;
+        void progressExportSetValue   (quintptr value)                                             const;
+        void vocabularyGetCategoryIds (ExpInterface::CategoryIdList *categoryIds)                  const;
+        void vocabularyGetCategoryName(quintptr categoryId, QString *name)                         const;
+        void vocabularyGetMarks       (QStringList *marks)                                         const;
+        void vocabularyGetMarkText    (quintptr recordId, const QString &mark, QString *text)      const;
+        void vocabularyGetRecordCount (quintptr categoryId, quintptr *count)                       const;
+        void vocabularyGetRecordIds   (quintptr categoryId, ExpInterface::RecordIdList *recordIds) const;
 
     private slots:
         void on_refresh_clicked(bool checked = false) const;
