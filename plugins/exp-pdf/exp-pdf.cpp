@@ -267,7 +267,7 @@ void ExpPdf::beginExport() const
   auto totalRecords = 0;
   for (auto categoryId : categoryIds)
   {
-    quint32 records;
+    quintptr records;
     emit vocabularyGetRecordCount(categoryId, &records);
     totalRecords += records;
   }

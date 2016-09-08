@@ -128,7 +128,7 @@ quintptr PdfExportWidget::border() const
 
 quintptr PdfExportWidget::compression() const
 {
-  quint8 compression2;
+  quintptr compression2;
 
   if (_ui.compressText->isChecked())
   {

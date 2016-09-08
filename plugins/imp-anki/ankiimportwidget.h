@@ -15,8 +15,8 @@ class AnkiImportWidget : public QWidget
   public:
     AnkiImportWidget(const QSqlDatabase *database, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
 
-    qlonglong   fieldId(quint8 position) const;
-    QStringList marks  ()                const;
+    qlonglong   fieldId(quintptr position) const;
+    QStringList marks  ()                  const;
 
   private:
           DecksModel                     _decksModel;
