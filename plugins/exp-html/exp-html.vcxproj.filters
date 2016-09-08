@@ -50,32 +50,32 @@
     <ClCompile Include="..\common\translationhandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\exp-html\moc_exp-interface.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-html\moc_exp-interface.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\exp-html\moc_codecsmodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-html\moc_codecsmodel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\exp-html\moc_htmlexportwidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-html\moc_htmlexportwidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\exp-html\moc_exp-html.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\exp-html\moc_exp-html.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="..\common\exp-interface.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-html\Debug\moc_codecsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-html\Release\moc_codecsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-html\Debug\moc_exp-html.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-html\Release\moc_exp-html.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-html\Debug\moc_exp-interface.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-html\Release\moc_exp-interface.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-html\Debug\moc_htmlexportwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-html\Release\moc_htmlexportwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,7 +99,7 @@
     <ClInclude Include="..\common\translationhandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\temp\GeneratedFiles\exp-html\ui_htmlexportwidget.h">
+    <ClInclude Include="..\..\..\..\intermediate\vocabularymaster\exp-html\ui_htmlexportwidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

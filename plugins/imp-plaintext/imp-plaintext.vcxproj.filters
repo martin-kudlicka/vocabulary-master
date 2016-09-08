@@ -53,26 +53,26 @@
     <ClCompile Include="..\common\translationhandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\imp-plaintext\moc_imp-plaintext.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\imp-plaintext\moc_imp-plaintext.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\imp-plaintext\moc_plaintextimportwidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\imp-plaintext\moc_plaintextimportwidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Debug\imp-plaintext\moc_codecsmodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\temp\GeneratedFiles\Release\imp-plaintext\moc_codecsmodel.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="..\common\imp-interface.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-plaintext\Debug\moc_plaintextimportwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-plaintext\Release\moc_plaintextimportwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-plaintext\Debug\moc_imp-plaintext.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-plaintext\Release\moc_imp-plaintext.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-plaintext\Debug\moc_codecsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-plaintext\Release\moc_codecsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,7 +85,7 @@
     <ClInclude Include="..\common\translationhandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\temp\GeneratedFiles\imp-plaintext\ui_plaintextimportwidget.h">
+    <ClInclude Include="..\..\..\..\intermediate\vocabularymaster\imp-plaintext\ui_plaintextimportwidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
