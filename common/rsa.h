@@ -5,15 +5,15 @@
 
 class
 # ifdef RSA_LIB
-	Q_DECL_EXPORT
+  Q_DECL_EXPORT
 # else
-	Q_DECL_IMPORT
+  Q_DECL_IMPORT
 # endif
-	RSA
+  RSA
 {
-    public:
-		QByteArray decrypt(const QByteArray &privateKey, const QByteArray &content)                             const;
-		bool       verify (const QByteArray &publicKey, const QByteArray &content, const QByteArray &signature) const;
-}; // RSA
+  public:
+    QByteArray decrypt(const QByteArray &privateKey, const QByteArray &content)                             const;
+    bool       verify (const QByteArray &publicKey, const QByteArray &content, const QByteArray &signature) const;
+};
 
-#endif // RSA_H
+#endif
