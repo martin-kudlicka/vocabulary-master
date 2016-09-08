@@ -3,7 +3,7 @@
 #include <QtSql/QSqlQuery>
 
 const QString COLUMN_ID   = "id";
-const QString TABLE_DECKS = "decks";
+const auto    TABLE_DECKS = "decks";
 
 DecksModel::DecksModel(const QSqlDatabase *database, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _database(database)
 {
@@ -13,79 +13,79 @@ DecksModel::~DecksModel()
 {
 }
 
-quint8 DecksModel::deckId(quint8 row) const
+quintptr DecksModel::deckId(quintptr row) const
 {
-	QSqlQuery query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DECKS);
-	query.seek(row);
-	return query.value(ColumnPosition1).toUInt();
+  auto query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DECKS);
+  query.seek(row);
+  return query.value(static_cast<int>(ColumnPosition::N1)).toUInt();
 }
 
 int DecksModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-    return ColumnCount;
+  return static_cast<int>(Column::Count);
 }
 
 QVariant DecksModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
-    switch (role)
-	{
-        case Qt::DisplayRole:
-            {
-                QSqlQuery query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DECKS);
-                query.seek(index.row());
+  switch (role)
+  {
+    case Qt::DisplayRole:
+    {
+      auto query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DECKS);
+      query.seek(index.row());
 
-                switch (index.column())
-				{
-                    case ColumnId:
-                        return query.value(ColumnPosition1);
-                }
-            }
-        default:
-            return QVariant();
+      switch (index.column())
+      {
+        case Column::Id:
+          return query.value(static_cast<int>(ColumnPosition::N1));
+      }
     }
+    default:
+      return QVariant();
+  }
 }
 
 QVariant DecksModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
-    switch (role)
-	{
-        case Qt::DisplayRole:
-            switch (section)
-			{
-                case ColumnId:
-                    return tr("Deck");
-            }
-        default:
-            return QVariant();
-    }
+  switch (role)
+  {
+    case Qt::DisplayRole:
+      switch (section)
+      {
+        case Column::Id:
+          return tr("Deck");
+      }
+    default:
+      return QVariant();
+  }
 }
 
 QModelIndex DecksModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
-    return createIndex(row, column);
+  return createIndex(row, column);
 }
 
 QModelIndex DecksModel::parent(const QModelIndex &index) const
 {
-    return QModelIndex();
+  return QModelIndex();
 }
 
 int DecksModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-    if (parent == QModelIndex())
-	{
-        QSqlQuery query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DECKS);
-        if (query.last())
-		{
-            return query.at() + 1;
-        }
-		else
-		{
-            return 0;
-        }
+  if (parent == QModelIndex())
+  {
+    auto query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DECKS);
+    if (query.last())
+    {
+      return query.at() + 1;
     }
-	else
-	{
-        return 0;
+    else
+    {
+      return 0;
     }
+  }
+  else
+  {
+    return 0;
+  }
 }

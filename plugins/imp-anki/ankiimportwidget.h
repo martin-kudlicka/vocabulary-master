@@ -10,29 +10,29 @@
 
 class AnkiImportWidget : public QWidget
 {
-    Q_OBJECT
+  Q_OBJECT
 
-    public:
-        AnkiImportWidget(const QSqlDatabase *database, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
+  public:
+    AnkiImportWidget(const QSqlDatabase *database, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
 
-		qlonglong   fieldId(quint8 position) const;
-		QStringList marks()                  const;
+    qlonglong   fieldId(quint8 position) const;
+    QStringList marks  ()                const;
 
-    private:
-              DecksModel                     _decksModel;
-              FieldsModel                    _fieldsModel;
-              MarkLineEditPersistentDelegate _markEditDelegate;
-              ModelsModel                    _modelsModel;
-        const QSqlDatabase                  *_database;
-              Ui::AnkiImportWidget           _ui;
+  private:
+          DecksModel                     _decksModel;
+          FieldsModel                    _fieldsModel;
+          MarkLineEditPersistentDelegate _markEditDelegate;
+          ModelsModel                    _modelsModel;
+    const QSqlDatabase                  *_database;
+          Ui::AnkiImportWidget           _ui;
 
-		virtual ~AnkiImportWidget() override;
+    virtual ~AnkiImportWidget() override;
 
-        void prepareTreeView(QTreeView *treeView, QAbstractItemModel *itemModel);
+    void prepareTreeView(QTreeView *treeView, QAbstractItemModel *itemModel);
 
-    private slots:
-        void on_decks_selectionModel_selectionChanged (const QItemSelection &selected, const QItemSelection &deselected);
-        void on_models_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
-}; // AnkiImportWidget
+  private slots:
+    void on_decks_selectionModel_selectionChanged (const QItemSelection &selected, const QItemSelection &deselected);
+    void on_models_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+};
 
-#endif // ANKIIMPORTWIDGET_H
+#endif

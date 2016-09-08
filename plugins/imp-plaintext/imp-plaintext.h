@@ -24,8 +24,8 @@ class ImpPlaintext : public QObject, private ImpInterface
         virtual QString     filter     () const                              override;
         virtual QStringList marks      () const                              override;
 		virtual bool        open       (const QString &fileName)             override;
-		virtual quint16     recordCount() const                              override;
-        virtual QString     recordData (quint16 record, const QString &mark) override;
+		virtual quintptr    recordCount() const                              override;
+        virtual QString     recordData (quintptr record, const QString &mark) override;
         virtual void        setupUI    (QGroupBox *parent)                   override;
 }; // ImpPlaintext
 

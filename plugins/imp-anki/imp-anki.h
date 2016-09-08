@@ -2,39 +2,41 @@
 #define IMPANKI_H
 
 #include "../common/imp-interface.h"
-#include "ankiimportwidget.h"
+#include <QtSql/QSqlDatabase>
+
+class AnkiImportWidget;
 
 class ImpAnki : public QObject, private ImpInterface
 {
-	Q_OBJECT
-	Q_PLUGIN_METADATA(IID IID_IMPINTERFACE FILE "imp-anki.json")
-	Q_INTERFACES(ImpInterface)
+  Q_OBJECT
+  Q_PLUGIN_METADATA(IID IID_IMPINTERFACE FILE "imp-anki.json")
+  Q_INTERFACES(ImpInterface)
 
-    public:
-        ImpAnki();
+  public:
+    ImpAnki();
 
-	private:
-		enum ColumnPosition
-		{
-			ColumnPosition1
-		}; // ColumnPosition
-		enum FieldNum
-		{
-			FieldNum1
-		}; // FieldNum
+  private:
+    enum class ColumnPosition
+    {
+      N1
+    };
+    enum class FieldNum
+    {
+      N1
+    };
 
-		AnkiImportWidget *_widget;
-        QSqlDatabase      _database;
+    AnkiImportWidget *_widget;
+    QSqlDatabase      _database;
 
-		virtual ~ImpAnki() override;
+    virtual ~ImpAnki() override;
 
-        virtual void        close      ()                                      override;
-		virtual QString     filter     () const                                override;
-		virtual QStringList marks      () const                                override;
-		virtual bool        open       (const QString &fileName)               override;
-		virtual quint16     recordCount() const                                override;
-		virtual QString     recordData (quint16 recordId, const QString &mark) override;
-        virtual void        setupUI    (QGroupBox *parent)                     override;
-}; // ImpAnki
+    virtual void        close      ()                                       override;
+    virtual QString     filter     () const                                 override;
+    virtual QStringList marks      () const                                 override;
+    virtual bool        open       (const QString &fileName)                override;
+    virtual quintptr    recordCount() const                                 override;
+    virtual QString     recordData (quintptr recordId, const QString &mark) override;
+    virtual void        setupUI    (QGroupBox *parent)                      override;
+};
 
-#endif // IMPANKI_H
+#endif
