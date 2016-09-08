@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 
+#ifndef EDITION_FREE
+# include "license.h"
+#endif
 #include "settingsdialog.h"
 #include "vocabularymanagerdialog.h"
 #include <QtCore/QTime>
@@ -270,46 +273,6 @@ void MainWindow::enableControls()
 #endif
 }
 
-bool MainWindow::event(QEvent *event)
-{
-    switch (event->type())
-	{
-        case QEvent::LanguageChange:
-            {
-                QString category, language1, language2;
-                if (_learning)
-				{
-                    language1 = _ui.language1->text();
-                    language2 = _ui.language2->text();
-                    category  = _ui.category->text();
-                }
-                _ui.retranslateUi(this);
-                if (_learning)
-				{
-                    _ui.language1->setText(language1);
-                    _ui.language2->setText(language2);
-                    _ui.category->setText(category);
-                }
-            }
-#ifdef EDITION_FREE
-            setWindowTitle(windowTitle() + tr(EDITION_FREE_SUFFIX));
-#endif
-#ifdef EDITION_TRY
-            setWindowTitle(windowTitle() + tr(EDITION_TRY_SUFFIX));
-#endif
-            break;
-#ifndef EDITION_FREE
-        case QEvent::WindowStateChange:
-		    if (isMinimized() && _settings.systemTrayIcon() && _settings.minimizeToTray())
-			{
-			    setWindowFlags(windowFlags() | Qt::CustomizeWindowHint); // just add some flag to hide window
-		    }
-#endif
-	}
-
-	return QMainWindow::event(event);
-}
-
 QString MainWindow::languageText(bool directionSwitched, bool answer) const
 {
     if ((!directionSwitched && !answer) || (directionSwitched && answer))
@@ -340,7 +303,7 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
 	VocabularyDatabase::FieldLanguage fieldLanguage;
 	if ((!directionSwitched && !answer) || (directionSwitched && answer))
 	{
-		if (templateType == TemplateLearning)
+		if (templateType == Template::Learning)
 		{
 			templateText = _currentRecord.vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguageLeft);
 		}
@@ -354,7 +317,7 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
 	}
 	else
 	{
-		if (templateType == TemplateLearning)
+		if (templateType == Template::Learning)
 		{
 			templateText = _currentRecord.vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguageRight);
 		}
@@ -381,38 +344,6 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
 
 	return templateText;
 }
-
-#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
-bool MainWindow::nativeEvent(const QByteArray &eventType, void *message, long *result)
-{
-	const LPMSG msg = static_cast<LPMSG>(message);
-	if (msg->message == WM_HOTKEY)
-	{
-		switch (msg->wParam)
-		{
-			case Settings::HotkeyAnswer:
-				if (_ui.actionAnswer->isEnabled())
-				{
-					on_actionAnswer_triggered();
-				}
-				break;
-			case Settings::HotkeyMinimize:
-				showMinimized();
-				break;
-			case Settings::HotkeyNext:
-				if (_ui.actionNext->isEnabled())
-				{
-					on_actionNext_triggered();
-				}
-				break;
-			case Settings::HotkeyRestore:
-				showNormal();
-		}
-	}
-
-	return false;
-}
-#endif
 
 void MainWindow::openVocabulary(Vocabulary *vocabulary
 #ifndef EDITION_FREE
@@ -444,7 +375,7 @@ void MainWindow::openVocabulary(Vocabulary *vocabulary
 }
 
 #ifndef EDITION_FREE
-quint8 MainWindow::recordPriority() const
+quintptr MainWindow::recordPriority() const
 {
     for (quint8 fieldId : _currentRecord.vocabulary->fieldIds())
 	{
@@ -483,7 +414,7 @@ void MainWindow::refreshStatusBar()
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
 void MainWindow::registerHotkeys() const
 {
-	for (quint8 hotkeyIndex = 0; hotkeyIndex < Settings::HotkeyCount - 1; hotkeyIndex++)
+	for (quint8 hotkeyIndex = 0; hotkeyIndex < static_cast<quintptr>(Settings::Hotkey::Count) - 1; hotkeyIndex++)
 	{
 		const Settings::HotkeyInfo hotkeyInfo = _settings.hotkey(static_cast<Settings::Hotkey>(hotkeyIndex));
 
@@ -620,7 +551,7 @@ void MainWindow::setRecordEnabled(bool enabled)
 	}
 }
 
-void MainWindow::setRecordPriority(quint8 priority)
+void MainWindow::setRecordPriority(quintptr priority)
 {
 	for (quint8 fieldId : _currentRecord.vocabulary->fieldIds())
 	{
@@ -661,7 +592,7 @@ void MainWindow::showAnswer()
 #endif
 
     // gui
-    _ui.window2->setText(learningText(TemplateLearning, _directionSwitched, true));
+    _ui.window2->setText(learningText(Template::Learning, _directionSwitched, true));
     _ui.window2->repaint();
 
 #ifndef EDITION_FREE
@@ -683,13 +614,85 @@ void MainWindow::showAnswer()
 #ifndef EDITION_FREE
 void MainWindow::showTrayBalloon(bool directionSwitched, bool answer)
 {
-	QString text = learningText(TemplateTray, directionSwitched, false);
+	QString text = learningText(Template::Tray, directionSwitched, false);
 	if (answer)
 	{
-		text += " -> " + learningText(TemplateTray, directionSwitched, true);
+		text += " -> " + learningText(Template::Tray, directionSwitched, true);
 	}
 
 	_trayIcon.showMessage(tr(VOCABULARY_MASTER), text);
+}
+#endif
+
+bool MainWindow::event(QEvent *event)
+{
+    switch (event->type())
+	{
+        case QEvent::LanguageChange:
+            {
+                QString category, language1, language2;
+                if (_learning)
+				{
+                    language1 = _ui.language1->text();
+                    language2 = _ui.language2->text();
+                    category  = _ui.category->text();
+                }
+                _ui.retranslateUi(this);
+                if (_learning)
+				{
+                    _ui.language1->setText(language1);
+                    _ui.language2->setText(language2);
+                    _ui.category->setText(category);
+                }
+            }
+#ifdef EDITION_FREE
+            setWindowTitle(windowTitle() + tr(EDITION_FREE_SUFFIX));
+#endif
+#ifdef EDITION_TRY
+            setWindowTitle(windowTitle() + tr(EDITION_TRY_SUFFIX));
+#endif
+            break;
+#ifndef EDITION_FREE
+        case QEvent::WindowStateChange:
+		    if (isMinimized() && _settings.systemTrayIcon() && _settings.minimizeToTray())
+			{
+			    setWindowFlags(windowFlags() | Qt::CustomizeWindowHint); // just add some flag to hide window
+		    }
+#endif
+	}
+
+	return QMainWindow::event(event);
+}
+
+#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
+bool MainWindow::nativeEvent(const QByteArray &eventType, void *message, long *result)
+{
+	const LPMSG msg = static_cast<LPMSG>(message);
+	if (msg->message == WM_HOTKEY)
+	{
+		switch (msg->wParam)
+		{
+			case Settings::Hotkey::Answer:
+				if (_ui.actionAnswer->isEnabled())
+				{
+					on_actionAnswer_triggered();
+				}
+				break;
+			case Settings::Hotkey::Minimize:
+				showMinimized();
+				break;
+			case Settings::Hotkey::Next:
+				if (_ui.actionNext->isEnabled())
+				{
+					on_actionNext_triggered();
+				}
+				break;
+			case Settings::Hotkey::Restore:
+				showNormal();
+		}
+	}
+
+	return false;
 }
 #endif
 
@@ -915,7 +918,7 @@ void MainWindow::on_learningTimer_timeout()
 #endif
 			    _ui.language2->setText(lang2);
 		    }
-	        _ui.window1->setText(learningText(TemplateLearning, _directionSwitched, false));
+	        _ui.window1->setText(learningText(Template::Learning, _directionSwitched, false));
 	        _ui.window2->clear();
             _ui.category->setText(_currentRecord.vocabulary->name() + ", " + _currentRecord.vocabulary->categoryName(categoryId));
 #ifndef EDITION_FREE
@@ -932,7 +935,7 @@ void MainWindow::on_learningTimer_timeout()
             // sound
 	        if (_settings.newWordSound() && !_settings.mute())
 			{
-                if (_settings.newWordSoundType() == Settings::NewWordSoundTypeSystem)
+                if (_settings.newWordSoundType() == Settings::NewWordSoundType::System)
 				{
 		            QApplication::beep();
                 }

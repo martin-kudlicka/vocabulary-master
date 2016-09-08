@@ -5,6 +5,7 @@
 
 #include "common/categoriesmodel.h"
 #include "vocabularymanagerdialog/wordsexportdialog/wordsexportfieldsmodel.h"
+#include "../../plugins/common/exp-interface.h"
 #include "vocabularymanagerdialog/wordsexportdialog/exppluginsmodel.h"
 #include "../../common/marklineeditpersistentdelegate.h"
 

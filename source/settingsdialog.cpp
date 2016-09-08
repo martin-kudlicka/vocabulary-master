@@ -15,7 +15,7 @@ SettingsDialog::SettingsDialog(
 #endif
     Settings *settings, QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags)
 #ifndef EDITION_FREE
-	, _plugins(plugins), _expPluginsModel(plugins, PluginsModel::PluginTypeExp), _impPluginsModel(plugins, PluginsModel::PluginTypeImp), _ttsPluginsModel(plugins, PluginsModel::PluginTypeTTS)
+	, _plugins(plugins), _expPluginsModel(plugins, PluginsModel::PluginType::Exp), _impPluginsModel(plugins, PluginsModel::PluginType::Imp), _ttsPluginsModel(plugins, PluginsModel::PluginType::TTS)
 #endif
 	, _settings(settings)
 {
@@ -47,13 +47,13 @@ SettingsDialog::SettingsDialog(
 	delete _ui.horizontalLayout;
 
 	// plugins
-	_ui.tabs->removeTab(TabPlugins);
+	_ui.tabs->removeTab(Tab::Plugins);
 
     // appearance
-    _ui.tabs->removeTab(TabHotkey);
-    _ui.tabs->removeTab(TabAppearance);
+    _ui.tabs->removeTab(Tab::Hotkey);
+    _ui.tabs->removeTab(Tab::Appearance);
 #elif !defined(Q_OS_WIN)
-    _ui.tabs->removeTab(TabHotkey);
+    _ui.tabs->removeTab(Tab::Hotkey);
 #else
 	_ui.colorFlashCombo->setItemDelegate(new ColorDelegate(_ui.colorFlashCombo));
 
@@ -65,13 +65,6 @@ SettingsDialog::SettingsDialog(
 
 SettingsDialog::~SettingsDialog()
 {
-}
-
-void SettingsDialog::accept()
-{
-    saveOptions();
-
-    QDialog::accept();
 }
 
 #ifndef EDITION_FREE
@@ -130,7 +123,7 @@ void SettingsDialog::fillOptions()
 	_ui.waitForAnswerValue->setMaximum(_settings->wordsFrequency() - 1);
 	_ui.waitForAnswerValue->setValue(_settings->waitForAnswer());
 	_ui.newWordSound->setChecked(_settings->newWordSound());
-    if (_settings->newWordSoundType() == Settings::NewWordSoundTypeSystem)
+    if (_settings->newWordSoundType() == Settings::NewWordSoundType::System)
 	{
         _ui.soundSystem->click();
     }
@@ -162,11 +155,11 @@ void SettingsDialog::fillOptions()
 # ifdef Q_OS_WIN
     // hotkeys
     // learning
-	fillHotkey(_ui.hotkeyNext, Settings::HotkeyNext);
-    fillHotkey(_ui.hotkeyAnswer, Settings::HotkeyAnswer);
+	fillHotkey(_ui.hotkeyNext, Settings::Hotkey::Next);
+    fillHotkey(_ui.hotkeyAnswer, Settings::Hotkey::Answer);
     // window
-	fillHotkey(_ui.hotkeyMinimize, Settings::HotkeyMinimize);
-	fillHotkey(_ui.hotkeyRestore, Settings::HotkeyRestore);
+	fillHotkey(_ui.hotkeyMinimize, Settings::Hotkey::Minimize);
+	fillHotkey(_ui.hotkeyRestore, Settings::Hotkey::Restore);
 # endif
 
     // plugins
@@ -220,15 +213,15 @@ void SettingsDialog::preparePlugins(QTreeView *treeView, PluginsModel *model) co
     treeView->setModel(model);
     for (int row = 0; row < model->rowCount(); row++)
 	{
-        const QModelIndex modelIndex = model->index(row, PluginsModel::ColumnLicense);
+        const QModelIndex modelIndex = model->index(row, static_cast<int>(PluginsModel::Column::License));
 
         QPushButton *showButton = new QPushButton(tr("Show"), treeView);
         treeView->setIndexWidget(modelIndex, showButton);
 
         connect(showButton, SIGNAL(clicked(bool)), SLOT(on_showLicense_clicked(bool)));
     }
-    treeView->header()->setSectionResizeMode(PluginsModel::ColumnName,    QHeaderView::Stretch);
-    treeView->header()->setSectionResizeMode(PluginsModel::ColumnLicense, QHeaderView::ResizeToContents);
+    treeView->header()->setSectionResizeMode(static_cast<int>(PluginsModel::Column::Name),    QHeaderView::Stretch);
+    treeView->header()->setSectionResizeMode(static_cast<int>(PluginsModel::Column::License), QHeaderView::ResizeToContents);
 }
 #endif
 
@@ -285,11 +278,11 @@ void SettingsDialog::saveOptions()
 	_settings->setNewWordSound(_ui.newWordSound->isChecked());
     if (_ui.soundSystem->isChecked())
 	{
-        _settings->setNewWordSoundType(Settings::NewWordSoundTypeSystem);
+        _settings->setNewWordSoundType(Settings::NewWordSoundType::System);
     }
 	else 
 	{
-        _settings->setNewWordSoundType(Settings::NewWordSoundTypeCustom);
+        _settings->setNewWordSoundType(Settings::NewWordSoundType::Custom);
     }
     _settings->setNewWordSoundFile(_ui.soundCustomEdit->text());
 	_settings->setNewWordFlash(_ui.newWordFlash->isChecked());
@@ -315,11 +308,11 @@ void SettingsDialog::saveOptions()
 # ifdef Q_OS_WIN
 	// hotkeys
     // learning
-	saveHotkey(_ui.hotkeyNext, Settings::HotkeyNext);
-	saveHotkey(_ui.hotkeyAnswer, Settings::HotkeyAnswer);
+	saveHotkey(_ui.hotkeyNext, Settings::Hotkey::Next);
+	saveHotkey(_ui.hotkeyAnswer, Settings::Hotkey::Answer);
     // window
-	saveHotkey(_ui.hotkeyMinimize, Settings::HotkeyMinimize);
-	saveHotkey(_ui.hotkeyRestore, Settings::HotkeyRestore);
+	saveHotkey(_ui.hotkeyMinimize, Settings::Hotkey::Minimize);
+	saveHotkey(_ui.hotkeyRestore, Settings::Hotkey::Restore);
 # endif
 #endif
 
@@ -344,6 +337,13 @@ void SettingsDialog::saveOptions()
 			_settings->setProxyType(QNetworkProxy::HttpCachingProxy);
 		}
 	}
+}
+
+void SettingsDialog::accept()
+{
+    saveOptions();
+
+    QDialog::accept();
 }
 
 #ifndef EDITION_TRY
@@ -392,7 +392,7 @@ void SettingsDialog::on_showLicense_clicked(bool checked /* false */)
     const PluginsModel *pluginsModel = qobject_cast<const PluginsModel *>(treeView->model());
     for (row = 0; row < pluginsModel->rowCount(); row++)
 	{
-        const QModelIndex modelIndex = pluginsModel->index(row, PluginsModel::ColumnLicense);
+        const QModelIndex modelIndex = pluginsModel->index(row, static_cast<int>(PluginsModel::Column::License));
         if (treeView->indexWidget(modelIndex) == button)
 		{
             break;
