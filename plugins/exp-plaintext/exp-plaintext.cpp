@@ -43,22 +43,22 @@ void ExpPlaintext::setupUi(QWidget *parent)
 	QBoxLayout *boxLayout = qobject_cast<QBoxLayout *>(parent->layout());
 	boxLayout->insertWidget(WIDGET_POSITION, _widget);
 
-	connect(_widget, SIGNAL(progressExportSetMax(quint32)),                                SLOT(on_widget_progressExportSetMax(quint32)));
-	connect(_widget, SIGNAL(progressExportSetValue(quint32)),                              SLOT(on_widget_progressExportSetValue(quint32)));
+	connect(_widget, SIGNAL(progressExportSetMax(quintptr)),                               SLOT(on_widget_progressExportSetMax(quintptr)));
+	connect(_widget, SIGNAL(progressExportSetValue(quintptr)),                              SLOT(on_widget_progressExportSetValue(quintptr)));
 	connect(_widget, SIGNAL(vocabularyGetCategoryIds(ExpInterface::CategoryIdList *)),     SLOT(on_widget_vocabularyGetCategoryIds(ExpInterface::CategoryIdList *)));
-	connect(_widget, SIGNAL(vocabularyGetCategoryName(quint8, QString *)),                 SLOT(on_widget_vocabularyGetCategoryName(quint8, QString *)));
+	connect(_widget, SIGNAL(vocabularyGetCategoryName(quintptr, QString *)),                 SLOT(on_widget_vocabularyGetCategoryName(quintptr, QString *)));
 	connect(_widget, SIGNAL(vocabularyGetMarks(QStringList *)),                            SLOT(on_widget_vocabularyGetMarks(QStringList *)));
-	connect(_widget, SIGNAL(vocabularyGetMarkText(quint32, const QString &, QString *)),   SLOT(on_widget_vocabularyGetMarkText(quint32, const QString &, QString *)));
-	connect(_widget, SIGNAL(vocabularyGetRecordCount(quint8, quint32 *)),                  SLOT(on_widget_vocabularyGetRecordCount(quint8, quint32 *)));
-	connect(_widget, SIGNAL(vocabularyGetRecordIds(quint8, ExpInterface::RecordIdList *)), SLOT(on_widget_vocabularyGetRecordIds(quint8, ExpInterface::RecordIdList *)));
+	connect(_widget, SIGNAL(vocabularyGetMarkText(quintptr, const QString &, QString *)),   SLOT(on_widget_vocabularyGetMarkText(quintptr, const QString &, QString *)));
+	connect(_widget, SIGNAL(vocabularyGetRecordCount(quintptr, quintptr *)),                  SLOT(on_widget_vocabularyGetRecordCount(quintptr, quintptr *)));
+	connect(_widget, SIGNAL(vocabularyGetRecordIds(quintptr, ExpInterface::RecordIdList *)), SLOT(on_widget_vocabularyGetRecordIds(quintptr, ExpInterface::RecordIdList *)));
 }
 
-void ExpPlaintext::on_widget_progressExportSetMax(quint32 max) const
+void ExpPlaintext::on_widget_progressExportSetMax(quintptr max) const
 {
     emit progressExportSetMax(max);
 }
 
-void ExpPlaintext::on_widget_progressExportSetValue(quint32 value) const
+void ExpPlaintext::on_widget_progressExportSetValue(quintptr value) const
 {
     emit progressExportSetValue(value);
 }
@@ -68,7 +68,7 @@ void ExpPlaintext::on_widget_vocabularyGetCategoryIds(ExpInterface::CategoryIdLi
     emit vocabularyGetCategoryIds(categoryIds);
 }
 
-void ExpPlaintext::on_widget_vocabularyGetCategoryName(quint8 categoryId, QString *name) const
+void ExpPlaintext::on_widget_vocabularyGetCategoryName(quintptr categoryId, QString *name) const
 {
     emit vocabularyGetCategoryName(categoryId, name);
 }
@@ -78,17 +78,17 @@ void ExpPlaintext::on_widget_vocabularyGetMarks(QStringList *marks) const
     emit vocabularyGetMarks(marks);
 }
 
-void ExpPlaintext::on_widget_vocabularyGetMarkText(quint32 recordId, const QString &mark, QString *text) const
+void ExpPlaintext::on_widget_vocabularyGetMarkText(quintptr recordId, const QString &mark, QString *text) const
 {
     emit vocabularyGetMarkText(recordId, mark, text);
 }
 
-void ExpPlaintext::on_widget_vocabularyGetRecordCount(quint8 categoryId, quint32 *count) const
+void ExpPlaintext::on_widget_vocabularyGetRecordCount(quintptr categoryId, quintptr *count) const
 {
     emit vocabularyGetRecordCount(categoryId, count);
 }
 
-void ExpPlaintext::on_widget_vocabularyGetRecordIds(quint8 categoryId, ExpInterface::RecordIdList *recordIds) const
+void ExpPlaintext::on_widget_vocabularyGetRecordIds(quintptr categoryId, ExpInterface::RecordIdList *recordIds) const
 {
     emit vocabularyGetRecordIds(categoryId, recordIds);
 }

@@ -1,7 +1,6 @@
 #ifndef TRANSLATIONHANDLER_H
 #define TRANSLATIONHANDLER_H
 
-#include <QtCore/QString>
 #include <QtCore/QTranslator>
 #ifdef Q_OS_WIN
 # include <qt_windows.h>
@@ -9,20 +8,20 @@
 
 class TranslationHandler
 {
-	public:
+  public:
 #ifdef Q_OS_WIN
-		static HINSTANCE _instance;
+    static HINSTANCE _instance;
 #endif
 
-		TranslationHandler();
+    TranslationHandler();
 
-		virtual void setLanguage(const QString &language);
+    virtual void setLanguage(const QString &language);
 
-	private:
+  private:
 #ifdef Q_OS_WIN
-		QString _pluginDir;
+    QString     _pluginDir;
 #endif
-		QTranslator _translator;
-}; // TranslationHandler
+    QTranslator _translator;
+};
 
-#endif // TRANSLATIONHANDLER_H
+#endif

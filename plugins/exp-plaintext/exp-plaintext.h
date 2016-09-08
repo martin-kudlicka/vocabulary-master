@@ -19,14 +19,14 @@ class ExpPlaintext : public ExpInterface
 		virtual void    setupUi    (QWidget *parent) override;
 
     private slots:
-        void on_widget_progressExportSetMax     (quint32 max)                                              const;
-        void on_widget_progressExportSetValue   (quint32 value)                                            const;
-        void on_widget_vocabularyGetCategoryIds (ExpInterface::CategoryIdList *categoryIds)                const;
-        void on_widget_vocabularyGetCategoryName(quint8 categoryId, QString *name)                         const;
-        void on_widget_vocabularyGetMarks       (QStringList *marks)                                       const;
-        void on_widget_vocabularyGetMarkText    (quint32 recordId, const QString &mark, QString *text)     const;
-        void on_widget_vocabularyGetRecordCount (quint8 categoryId, quint32 *count)                        const;
-        void on_widget_vocabularyGetRecordIds   (quint8 categoryId, ExpInterface::RecordIdList *recordIds) const;
+        void on_widget_progressExportSetMax     (quintptr max)                                               const;
+        void on_widget_progressExportSetValue   (quintptr value)                                             const;
+        void on_widget_vocabularyGetCategoryIds (ExpInterface::CategoryIdList *categoryIds)                  const;
+        void on_widget_vocabularyGetCategoryName(quintptr categoryId, QString *name)                         const;
+        void on_widget_vocabularyGetMarks       (QStringList *marks)                                         const;
+        void on_widget_vocabularyGetMarkText    (quintptr recordId, const QString &mark, QString *text)      const;
+        void on_widget_vocabularyGetRecordCount (quintptr categoryId, quintptr *count)                       const;
+        void on_widget_vocabularyGetRecordIds   (quintptr categoryId, ExpInterface::RecordIdList *recordIds) const;
 }; // ExpPlaintext
 
 #endif // EXP_PLAINTEXT_H

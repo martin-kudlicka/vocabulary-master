@@ -95,7 +95,7 @@ void PlaintextExportWidget::preselectCodec(const QString &codec) const
 {
 	for (quint8 codecIndex = 0; codecIndex < _codecsModel.rowCount(); codecIndex++)
 	{
-		const QModelIndex modelIndex = _codecsModel.index(codecIndex, CodecsModel::ColumnCodec);
+		const QModelIndex modelIndex = _codecsModel.index(codecIndex, static_cast<int>(CodecsModel::Column::Codec));
 		if (codec == _codecsModel.data(modelIndex))
 		{
 			_ui.codecs->setCurrentIndex(modelIndex);

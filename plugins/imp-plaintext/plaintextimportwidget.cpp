@@ -43,7 +43,7 @@ const void PlaintextImportWidget::preselectCodec() const
 	const QString fileCodec = _file->codecName();
 	for (quint8 codecIndex = 0; codecIndex < _codecsModel.rowCount(); codecIndex++)
 	{
-		const QModelIndex modelIndex = _codecsModel.index(codecIndex, CodecsModel::ColumnCodec);
+		const QModelIndex modelIndex = _codecsModel.index(codecIndex, static_cast<int>(CodecsModel::Column::Codec));
 		const QString codec          = _codecsModel.data(modelIndex).toString();
 
 		if (fileCodec == codec)

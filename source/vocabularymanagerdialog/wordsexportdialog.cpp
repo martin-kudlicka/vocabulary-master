@@ -56,14 +56,14 @@ const void WordsExportDialog::on_expPluginsSelectionModel_selectionChanged(const
 		ExpInterface *plugin = _expPlugins.at(index.row()).expInterface;
 
         // connections
-		connect(plugin, SIGNAL(ProgressExportSetMax(quint32)), SLOT(on_plugin_ProgressExportSetMax(quint32)));
-		connect(plugin, SIGNAL(ProgressExportSetValue(quint32)), SLOT(on_plugin_ProgressExportSetValue(quint32)));
-        connect(plugin, SIGNAL(VocabularyGetCategoryIds(ExpInterface::CategoryIdList *)), SLOT(on_plugin_VocabularyGetCategoryIds(ExpInterface::CategoryIdList *)));
-		connect(plugin, SIGNAL(VocabularyGetCategoryName(quint8, QString *)), SLOT(on_plugin_VocabularyGetCategoryName(quint8, QString *)));
-        connect(plugin, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_plugin_VocabularyGetMarks(QStringList *)));
-		connect(plugin, SIGNAL(VocabularyGetMarkText(quint32, const QString &, QString *)), SLOT(on_plugin_VocabularyGetMarkText(quint32, const QString &, QString *)));
-		connect(plugin, SIGNAL(VocabularyGetRecordCount(quint8, quint32 *)), SLOT(on_plugin_VocabularyGetRecordCount(quint8, quint32 *)));
-		connect(plugin, SIGNAL(VocabularyGetRecordIds(quint8, ExpInterface::RecordIdList *)), SLOT(on_plugin_VocabularyGetRecordIds(quint8, ExpInterface::RecordIdList *)));
+    connect(plugin, SIGNAL(ProgressExportSetMax(quintptr)), SLOT(on_plugin_ProgressExportSetMax(quintptr)));
+    connect(plugin, SIGNAL(ProgressExportSetValue(quintptr)), SLOT(on_plugin_ProgressExportSetValue(quintptr)));
+    connect(plugin, SIGNAL(VocabularyGetCategoryIds(ExpInterface::CategoryIdList *)), SLOT(on_plugin_VocabularyGetCategoryIds(ExpInterface::CategoryIdList *)));
+    connect(plugin, SIGNAL(VocabularyGetCategoryName(quintptr, QString *)), SLOT(on_plugin_VocabularyGetCategoryName(quintptr, QString *)));
+    connect(plugin, SIGNAL(VocabularyGetMarks(QStringList *)), SLOT(on_plugin_VocabularyGetMarks(QStringList *)));
+    connect(plugin, SIGNAL(VocabularyGetMarkText(quintptr, const QString &, QString *)), SLOT(on_plugin_VocabularyGetMarkText(quintptr, const QString &, QString *)));
+    connect(plugin, SIGNAL(VocabularyGetRecordCount(quintptr, quintptr *)), SLOT(on_plugin_VocabularyGetRecordCount(quintptr, quintptr *)));
+    connect(plugin, SIGNAL(VocabularyGetRecordIds(quintptr, ExpInterface::RecordIdList *)), SLOT(on_plugin_VocabularyGetRecordIds(quintptr, ExpInterface::RecordIdList *)));
 
 		// setup page
 		plugin->setupUi(pluginWidget);
@@ -75,12 +75,12 @@ const void WordsExportDialog::on_expPluginsSelectionModel_selectionChanged(const
 	_ui.exportButton->setEnabled(true);
 }
 
-const void WordsExportDialog::on_plugin_ProgressExportSetMax(quint32 max) const
+const void WordsExportDialog::on_plugin_ProgressExportSetMax(quintptr max) const
 {
     _ui.progress->setMaximum(max);
 }
 
-const void WordsExportDialog::on_plugin_ProgressExportSetValue(quint32 value) const
+const void WordsExportDialog::on_plugin_ProgressExportSetValue(quintptr value) const
 {
     _ui.progress->setValue(value);
 }
@@ -97,7 +97,7 @@ const void WordsExportDialog::on_plugin_VocabularyGetCategoryIds(ExpInterface::C
     }
 }
 
-const void WordsExportDialog::on_plugin_VocabularyGetCategoryName(quint8 categoryId, QString *name) const
+const void WordsExportDialog::on_plugin_VocabularyGetCategoryName(quintptr categoryId, QString *name) const
 {
     *name = _vocabulary->categoryName(categoryId);
 }
@@ -112,7 +112,7 @@ const void WordsExportDialog::on_plugin_VocabularyGetMarks(QStringList *pMarks) 
     }
 }
 
-const void WordsExportDialog::on_plugin_VocabularyGetMarkText(quint32 recordId, const QString &mark, QString *text) const
+const void WordsExportDialog::on_plugin_VocabularyGetMarkText(quintptr recordId, const QString &mark, QString *text) const
 {
     QStringList marks;
     on_plugin_VocabularyGetMarks(&marks);
@@ -122,12 +122,12 @@ const void WordsExportDialog::on_plugin_VocabularyGetMarkText(quint32 recordId, 
     *text = _vocabulary->dataText(recordId, fieldId);
 }
 
-const void WordsExportDialog::on_plugin_VocabularyGetRecordCount(quint8 categoryId, quint32 *count) const
+const void WordsExportDialog::on_plugin_VocabularyGetRecordCount(quintptr categoryId, quintptr *count) const
 {
     *count = _vocabulary->recordCount(categoryId, _ui.exportEnabledOnly->isChecked());
 }
 
-const void WordsExportDialog::on_plugin_VocabularyGetRecordIds(quint8 categoryId, ExpInterface::RecordIdList *recordIds) const
+const void WordsExportDialog::on_plugin_VocabularyGetRecordIds(quintptr categoryId, ExpInterface::RecordIdList *recordIds) const
 {
     *recordIds = _vocabulary->recordIds(categoryId);
 }
