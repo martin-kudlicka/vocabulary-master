@@ -27,4 +27,4 @@ class MainWindow : public QMainWindow
     void on_generateUid_clicked(bool checked = false);
 };
 
-#endif // MAINWINDOW_H
+#endif

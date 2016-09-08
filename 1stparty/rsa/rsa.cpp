@@ -6,33 +6,33 @@
 
 QByteArray RSA::decrypt(const QByteArray &privateKey, const QByteArray &content) const
 {
-	CryptoPP::ArraySource keyBuffer(reinterpret_cast<const byte *>(privateKey.constData()), privateKey.size(), true);
-	const CryptoPP::RSAES_OAEP_SHA_Decryptor decryptor(keyBuffer);
+  CryptoPP::ArraySource keyBuffer(reinterpret_cast<const byte *>(privateKey.constData()), privateKey.size(), true);
+  const CryptoPP::RSAES_OAEP_SHA_Decryptor decryptor(keyBuffer);
 
-	CryptoPP::AutoSeededRandomPool randomPool;
-	std::string decryptedString;
-	const CryptoPP::ArraySource decryptedBuffer(reinterpret_cast<const byte *>(content.constData()), content.size(), true, new CryptoPP::PK_DecryptorFilter(randomPool, decryptor, new CryptoPP::StringSink(decryptedString)));
+  CryptoPP::AutoSeededRandomPool randomPool;
+  std::string decryptedString;
+  const CryptoPP::ArraySource decryptedBuffer(reinterpret_cast<const byte *>(content.constData()), content.size(), true, new CryptoPP::PK_DecryptorFilter(randomPool, decryptor, new CryptoPP::StringSink(decryptedString)));
 
-	return decryptedString.c_str();
+  return decryptedString.c_str();
 }
 
 bool RSA::verify(const QByteArray &publicKey, const QByteArray &content, const QByteArray &signature) const
 {
-	CryptoPP::ArraySource keyBuffer(reinterpret_cast<const byte *>(publicKey.constData()), publicKey.size(), true);
-	const CryptoPP::RSASS<CryptoPP::PKCS1v15, CryptoPP::SHA>::Verifier verifier(keyBuffer);
+  CryptoPP::ArraySource keyBuffer(reinterpret_cast<const byte *>(publicKey.constData()), publicKey.size(), true);
+  const CryptoPP::RSASS<CryptoPP::PKCS1v15, CryptoPP::SHA>::Verifier verifier(keyBuffer);
 
-	if (signature.size() != verifier.SignatureLength())
-	{
-		return false;
-	}
+  if (signature.size() != verifier.SignatureLength())
+  {
+    return false;
+  }
 
-	CryptoPP::ArraySource signatureBuffer(reinterpret_cast<const byte *>(signature.constData()), signature.size(), true);
-	CryptoPP::SecByteBlock secByteBlock(verifier.SignatureLength());
-	signatureBuffer.Get(secByteBlock, secByteBlock.size());
+  CryptoPP::ArraySource signatureBuffer(reinterpret_cast<const byte *>(signature.constData()), signature.size(), true);
+  CryptoPP::SecByteBlock secByteBlock(verifier.SignatureLength());
+  signatureBuffer.Get(secByteBlock, secByteBlock.size());
 
-	CryptoPP::VerifierFilter *verifierFilter = new CryptoPP::VerifierFilter(verifier);
-	verifierFilter->Put(secByteBlock, verifier.SignatureLength());
-	const CryptoPP::ArraySource contentBuffer(reinterpret_cast<const byte *>(content.constData()), content.size(), true, verifierFilter);
+  auto *verifierFilter(new CryptoPP::VerifierFilter(verifier));
+  verifierFilter->Put(secByteBlock, verifier.SignatureLength());
+  const CryptoPP::ArraySource contentBuffer(reinterpret_cast<const byte *>(content.constData()), content.size(), true, verifierFilter);
 
-	return verifierFilter->GetLastResult();
+  return verifierFilter->GetLastResult();
 }
