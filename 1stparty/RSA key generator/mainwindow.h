@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow
   private:
     Ui::MainWindow _ui;
 
-  private slots:
+  private Q_SLOTS:
     void on_browsePrivate_clicked(bool checked = false);
     void on_browsePublic_clicked (bool checked = false);
     void on_generate_clicked     (bool checked = false) const;
