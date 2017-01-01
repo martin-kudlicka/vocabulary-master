@@ -8,7 +8,7 @@
 
 HINSTANCE TranslationHandler::_instance = nullptr;
 
-const auto DIR_LANG = "lang";
+Q_DECL_CONSTEXPR auto DIR_LANG = "lang";
 
 #ifdef Q_OS_WIN
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)

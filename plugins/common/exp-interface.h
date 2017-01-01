@@ -10,8 +10,8 @@ class ExpInterface : public QObject, public TranslationHandler
   Q_OBJECT
 
   public:
-    typedef QList<quintptr> CategoryIdList;
-    typedef QList<quintptr> RecordIdList;
+    using CategoryIdList = QList<quintptr>;
+    using RecordIdList   = QList<quintptr> ;
 
     static const auto WIDGET_POSITION = 0;
 
@@ -20,9 +20,9 @@ class ExpInterface : public QObject, public TranslationHandler
     virtual void    setupUi    (QWidget *parent) = 0;
 
   protected:
-    virtual ~ExpInterface() override;
+    virtual ~ExpInterface() Q_DECL_OVERRIDE;
 
-  signals:
+  Q_SIGNALS:
     void progressExportSetMax     (quintptr pMax)                                                const;
     void progressExportSetValue   (quintptr pValue)                                              const;
     void vocabularyGetCategoryIds (ExpInterface::CategoryIdList *pCategoryIds)                   const;

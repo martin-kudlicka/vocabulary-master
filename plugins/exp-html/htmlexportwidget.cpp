@@ -3,10 +3,10 @@
 #include <QtGui/QTextTable>
 #include <QtWidgets/QScrollBar>
 
-const auto COLUMN_DEFAULTWIDTH = 100;
-const auto COLUMN_MAX_WIDTH    = 999;
-const auto HEADER_ROW          = 0;
-const auto LABEL_COLUMN        = 1;
+Q_DECL_CONSTEXPR auto COLUMN_DEFAULTWIDTH = 100;
+Q_DECL_CONSTEXPR auto COLUMN_MAX_WIDTH    = 999;
+Q_DECL_CONSTEXPR auto HEADER_ROW          = 0;
+Q_DECL_CONSTEXPR auto LABEL_COLUMN        = 1;
 
 HtmlExportWidget::HtmlExportWidget(QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QWidget(parent, flags)
 {
@@ -68,11 +68,14 @@ void HtmlExportWidget::addTableColumn()
   tableColumn.headerWidget = new QWidget(_ui.pageTable);
   _tableColumns.append(tableColumn);
 
-  // header
-  auto hBoxHeader = new QHBoxLayout(tableColumn.headerWidget);
-  hBoxHeader->setContentsMargins(QMargins());
-  hBoxHeader->addWidget(tableColumn.headerEdit);
-  hBoxHeader->addWidget(tableColumn.width);
+  {
+    // header
+    auto hBoxHeader = new QHBoxLayout(tableColumn.headerWidget);
+    hBoxHeader->setContentsMargins(QMargins());
+    hBoxHeader->addWidget(tableColumn.headerEdit);
+    hBoxHeader->addWidget(tableColumn.width);
+  }
+
   _ui.tableColumns->addWidget(tableColumn.headerWidget, static_cast<int>(TableRow::Header), _tableColumns.size() + LABEL_COLUMN);
   // template
   _ui.tableColumns->addWidget(tableColumn.templateEdit, static_cast<int>(TableRow::Template), _tableColumns.size() + LABEL_COLUMN);
@@ -110,94 +113,102 @@ void HtmlExportWidget::refreshTable() const
 {
   // prepare table
   _ui.tablePreview->clear();
-  auto textCursor = _ui.tablePreview->textCursor();
-  // format
-  QTextTableFormat textTableFormat;
-  QVector<QTextLength> tableWidths;
-  for (const auto &columnIndex : _tableColumns)
+
   {
-    tableWidths.append(QTextLength(QTextLength::FixedLength, columnIndex.width->value()));
-  }
-  textTableFormat.setColumnWidthConstraints(tableWidths);
-  auto textTable = textCursor.insertTable(HEADER_ROW + 1, _tableColumns.size(), textTableFormat);
+    auto textCursor = _ui.tablePreview->textCursor();
 
-  textCursor.beginEditBlock();
-
-  // header labels
-  for (auto columnIndex = 0; columnIndex < _tableColumns.size(); columnIndex++)
-  {
-    insertTableText(textTable, HEADER_ROW, columnIndex, _tableColumns.at(columnIndex).headerEdit->text());
-  }
-
-  // categories
-  ExpInterface::CategoryIdList categoryIds;
-  emit vocabularyGetCategoryIds(&categoryIds);
-
-  // total record count for progress
-  auto totalRecords = 0;
-  for (auto categoryId : categoryIds)
-  {
-    quintptr records;
-    emit vocabularyGetRecordCount(categoryId, &records);
-    totalRecords += records;
-  }
-  emit progressExportSetMax(totalRecords);
-  QCoreApplication::processEvents(); // to avoid crash
-
-  QStringList marks;
-  emit vocabularyGetMarks(&marks);
-
-  // preview
-  auto firstLine = true;
-  auto records   = 0;
-  for (auto categoryId : categoryIds)
-  {
-    if (firstLine)
     {
-      firstLine = false;
-    }
-    else
-    {
-      textTable->appendRows(1);
-      textTable->mergeCells(textTable->rows() - 1, 0, 1, _tableColumns.size());
-    }
-
-    QString categoryName;
-    emit vocabularyGetCategoryName(categoryId, &categoryName);
-    textTable->appendRows(1);
-    auto tableRow = textTable->rows() - 1;
-    textTable->mergeCells(tableRow, 0, 1, _tableColumns.size());
-    insertTableText(textTable, tableRow, 0, categoryName);
-
-    // records
-    ExpInterface::RecordIdList recordIds;
-    emit vocabularyGetRecordIds(categoryId, &recordIds);
-    for (auto recordId : recordIds)
-    {
-      textTable->appendRows(1);
-      tableRow = textTable->rows() - 1;
-
-      for (auto column = 0; column < _tableColumns.size(); column++)
+      // format
+      QTextTableFormat textTableFormat;
+      QVector<QTextLength> tableWidths;
+      for (const auto &columnIndex : _tableColumns)
       {
-        auto templateText = _tableColumns.at(column).templateEdit->text();
+        tableWidths.append(QTextLength(QTextLength::FixedLength, columnIndex.width->value()));
+      }
+      textTableFormat.setColumnWidthConstraints(tableWidths);
+      auto textTable = textCursor.insertTable(HEADER_ROW + 1, _tableColumns.size(), textTableFormat);
 
-        // replace marks for data
-        for (const auto &mark : marks)
-        {
-          QString data;
-          emit vocabularyGetMarkText(recordId, mark, &data);
-          templateText.replace(mark, data);
-        }
+      textCursor.beginEditBlock();
 
-        insertTableText(textTable, tableRow, column, templateText);
+      // header labels
+      for (auto columnIndex = 0; columnIndex < _tableColumns.size(); columnIndex++)
+      {
+        insertTableText(textTable, HEADER_ROW, columnIndex, _tableColumns.at(columnIndex).headerEdit->text());
       }
 
-      records++;
-      emit progressExportSetValue(records);
-    }
-  }
+      // categories
+      ExpInterface::CategoryIdList categoryIds;
+      emit vocabularyGetCategoryIds(&categoryIds);
 
-  textCursor.endEditBlock();
+      // total record count for progress
+      {
+        auto totalRecords = 0;
+        for (auto categoryId : categoryIds)
+        {
+          quintptr records;
+          emit vocabularyGetRecordCount(categoryId, &records);
+          totalRecords += records;
+        }
+        emit progressExportSetMax(totalRecords);
+      }
+      QCoreApplication::processEvents(); // to avoid crash
+
+      QStringList marks;
+      emit vocabularyGetMarks(&marks);
+
+      // preview
+      auto firstLine = true;
+      auto records   = 0;
+      for (auto categoryId : categoryIds)
+      {
+        if (firstLine)
+        {
+          firstLine = false;
+        }
+        else
+        {
+          textTable->appendRows(1);
+          textTable->mergeCells(textTable->rows() - 1, 0, 1, _tableColumns.size());
+        }
+
+        QString categoryName;
+        emit vocabularyGetCategoryName(categoryId, &categoryName);
+        textTable->appendRows(1);
+        auto tableRow = textTable->rows() - 1;
+        textTable->mergeCells(tableRow, 0, 1, _tableColumns.size());
+        insertTableText(textTable, tableRow, 0, categoryName);
+
+        // records
+        ExpInterface::RecordIdList recordIds;
+        emit vocabularyGetRecordIds(categoryId, &recordIds);
+        for (auto recordId : recordIds)
+        {
+          textTable->appendRows(1);
+          tableRow = textTable->rows() - 1;
+
+          for (auto column = 0; column < _tableColumns.size(); column++)
+          {
+            auto templateText = _tableColumns.at(column).templateEdit->text();
+
+            // replace marks for data
+            for (const auto &mark : marks)
+            {
+              QString data;
+              emit vocabularyGetMarkText(recordId, mark, &data);
+              templateText.replace(mark, data);
+            }
+
+            insertTableText(textTable, tableRow, column, templateText);
+          }
+
+          records++;
+          emit progressExportSetValue(records);
+        }
+      }
+    }
+
+    textCursor.endEditBlock();
+  }
 
   emit progressExportSetValue(0);
 }
@@ -206,67 +217,75 @@ void HtmlExportWidget::refreshText() const
 {
   _ui.textPreview->clear();
 
-  auto textCursor = _ui.textPreview->textCursor();
-  textCursor.beginEditBlock();
-
-  // categories
-  ExpInterface::CategoryIdList categoryIds;
-  emit vocabularyGetCategoryIds(&categoryIds);
-
-  // total record count for progress
-  auto totalRecords = 0;
-  for (auto categoryId : categoryIds)
   {
-    quintptr records;
-    emit vocabularyGetRecordCount(categoryId, &records);
-    totalRecords += records;
-  }
-  emit progressExportSetMax(totalRecords);
+    auto textCursor = _ui.textPreview->textCursor();
+    textCursor.beginEditBlock();
 
-  QStringList marks;
-  emit vocabularyGetMarks(&marks);
+    // categories
+    ExpInterface::CategoryIdList categoryIds;
+    emit vocabularyGetCategoryIds(&categoryIds);
 
-  // preview
-  auto firstLine = true;
-  auto records   = 0;
-  for (auto categoryId : categoryIds)
-  {
-    if (firstLine)
     {
-      firstLine = false;
-    }
-    else
-    {
-      _ui.textPreview->append("");
-    }
-
-    QString categoryName;
-    emit vocabularyGetCategoryName(categoryId, &categoryName);
-    _ui.textPreview->append(categoryName);
-
-    // records
-    ExpInterface::RecordIdList recordIds;
-    emit vocabularyGetRecordIds(categoryId, &recordIds);
-    for (auto recordId : recordIds)
-    {
-      auto templateText = _ui.qleTextEdit->text();
-
-      // replace marks for data
-      for (const auto &mark : marks)
+      // total record count for progress
+      auto totalRecords = 0;
+      for (auto categoryId : categoryIds)
       {
-        QString data;
-        emit vocabularyGetMarkText(recordId, mark, &data);
-        templateText.replace(mark, data);
+        quintptr records;
+        emit vocabularyGetRecordCount(categoryId, &records);
+        totalRecords += records;
+      }
+      emit progressExportSetMax(totalRecords);
+    }
+
+    QStringList marks;
+    emit vocabularyGetMarks(&marks);
+
+    // preview
+    auto firstLine = true;
+    auto records   = 0;
+    for (auto categoryId : categoryIds)
+    {
+      if (firstLine)
+      {
+        firstLine = false;
+      }
+      else
+      {
+        _ui.textPreview->append("");
       }
 
-      _ui.textPreview->append(templateText);
+      {
+        QString categoryName;
+        emit vocabularyGetCategoryName(categoryId, &categoryName);
+        _ui.textPreview->append(categoryName);
+      }
 
-      records++;
-      emit progressExportSetValue(records);
+      // records
+      ExpInterface::RecordIdList recordIds;
+      emit vocabularyGetRecordIds(categoryId, &recordIds);
+      for (auto recordId : recordIds)
+      {
+        {
+          auto templateText = _ui.qleTextEdit->text();
+
+          // replace marks for data
+          for (const auto &mark : marks)
+          {
+            QString data;
+            emit vocabularyGetMarkText(recordId, mark, &data);
+            templateText.replace(mark, data);
+          }
+
+          _ui.textPreview->append(templateText);
+        }
+
+        records++;
+        emit progressExportSetValue(records);
+      }
     }
-  }
 
-  textCursor.endEditBlock();
+    textCursor.endEditBlock();
+  }
 
   _ui.textPreview->verticalScrollBar()->setValue(0);
 
