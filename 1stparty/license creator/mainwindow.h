@@ -11,7 +11,7 @@ class MainWindow : public QMainWindow
 
   public:
              MainWindow(QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
-    virtual ~MainWindow() override;
+    virtual ~MainWindow() Q_DECL_OVERRIDE;
 
   private:
     QXmlStreamWriter _xmlStreamWriter;
@@ -21,7 +21,7 @@ class MainWindow : public QMainWindow
     void writeLicenseGeneral ();
     void writeLicensePersonal();
 
-  private slots:
+  private Q_SLOTS:
     void on_create_clicked     (bool checked = false);
     void on_generateUid_clicked(bool checked = false);
 };
