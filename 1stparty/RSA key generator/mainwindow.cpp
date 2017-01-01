@@ -5,7 +5,7 @@
 #include "../../3rdparty/Crypto++/source/osrng.h"
 #include "../../3rdparty/Crypto++/source/files.h"
 
-const auto KEY_SIZE = 3072;
+constexpr auto KEY_SIZE = 3072;
 
 MainWindow::MainWindow(QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags)
 {
