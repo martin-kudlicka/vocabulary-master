@@ -41,7 +41,7 @@ class HtmlExportWidget : public QWidget
     QList<TableColumn>   _tableColumns;
     Ui::HtmlExportWidget _ui;
 
-    virtual ~HtmlExportWidget() override;
+    virtual ~HtmlExportWidget() Q_DECL_OVERRIDE;
 
     void addTableColumn   ();
     void initTableColumns ();
@@ -51,7 +51,7 @@ class HtmlExportWidget : public QWidget
     void refreshText      ()                                                                                   const;
     void removeTableColumn();
 
-  signals:
+  Q_SIGNALS:
     void progressExportSetMax     (quintptr max)                                               const;
     void progressExportSetValue   (quintptr value)                                             const;
     void vocabularyGetCategoryIds (ExpInterface::CategoryIdList *categoryIds)                  const;
@@ -61,7 +61,7 @@ class HtmlExportWidget : public QWidget
     void vocabularyGetRecordCount (quintptr categoryId, quintptr *count)                       const;
     void vocabularyGetRecordIds   (quintptr categoryId, ExpInterface::RecordIdList *recordIds) const;
 
-  private slots:
+  private Q_SLOTS:
     void on_styleTable_clicked      (bool checked = false) const;
     void on_styleText_clicked       (bool checked = false) const;
     void on_tableColums_valueChanged(int i);

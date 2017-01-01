@@ -41,8 +41,11 @@ QString ExpHtml::pluginName() const
 void ExpHtml::setupUi(QWidget *parent)
 {
   _widget = new HtmlExportWidget(parent);
-  auto *boxLayout = qobject_cast<QBoxLayout *>(parent->layout());
-  boxLayout->insertWidget(WIDGET_POSITION, _widget);
+
+  {
+    auto *boxLayout = qobject_cast<QBoxLayout *>(parent->layout());
+    boxLayout->insertWidget(WIDGET_POSITION, _widget);
+  }
 
   connect(_widget, &HtmlExportWidget::progressExportSetMax,      this, &ExpHtml::on_widget_progressExportSetMax);
   connect(_widget, &HtmlExportWidget::progressExportSetValue,    this, &ExpHtml::on_widget_progressExportSetValue);
