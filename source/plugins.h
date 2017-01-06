@@ -30,9 +30,9 @@ class Plugins
       TTSInterface *ttsInterface;
     };
 
-    typedef QList<ExpPlugin> ExpPluginList;
-    typedef QList<ImpPlugin> ImpPluginList;
-    typedef QList<TTSPlugin> TTSPluginList;
+    using ExpPluginList = QList<ExpPlugin>;
+    using ImpPluginList = QList<ImpPlugin>;
+    using TTSPluginList = QList<TTSPlugin>;
 
     const ExpPluginList &explugins   ()                                 const;
     const ImpPluginList &impPlugins  ()                                 const;

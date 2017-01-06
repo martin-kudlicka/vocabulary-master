@@ -18,11 +18,11 @@ class ExpPdf : public ExpInterface
       const QTextCodec *textCodec;
     };
 
-    typedef QList<Font> FontList;
+    using FontList = QList<Font>;
 
     PdfExportWidget *_widget;
 
-    virtual ~ExpPdf() override;
+    virtual ~ExpPdf() Q_DECL_OVERRIDE;
 
     void addFont           (HPDF_Doc pdfDocument, FontList *fontList, PdfExportWidget::FontRole fontRole, qintptr num = PdfExportWidget::FONTROLE_NONE) const;
     void exportTable       (quintptr recordId, HPDF_Page pdfPage, const FontList &fontList, const QStringList &marks)                                   const;
@@ -34,11 +34,11 @@ class ExpPdf : public ExpInterface
     void pdfShowTableHeader(HPDF_Page pdfPage, const FontList &fontList)                                                                                const;
     void pdfShowText       (HPDF_Page pdfPage, const QString &text, const QTextCodec *textCodec)                                                        const;
 
-    virtual void    beginExport()                const override;
-    virtual QString pluginName ()                const override;
-    virtual void    setupUi    (QWidget *parent)       override;
+    virtual void    beginExport()                const Q_DECL_OVERRIDE;
+    virtual QString pluginName ()                const Q_DECL_OVERRIDE;
+    virtual void    setupUi    (QWidget *parent)       Q_DECL_OVERRIDE;
 
-  private slots:
+  private Q_SLOTS:
     void on_widget_vocabularyGetMarks(QStringList *marks) const;
 };
 
