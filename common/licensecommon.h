@@ -10,7 +10,7 @@ class LicenseCommon
       QString text;
     };
 
-    typedef QList<LicenseContent> LicenseContentList;
+    using LicenseContentList = QList<LicenseContent>;
 };
 
 #endif

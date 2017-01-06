@@ -10,10 +10,10 @@ class WordsCopyMoveDialog : public QDialog
 	Q_OBJECT
 
 	public:
-        typedef QList<quint32> RowNumList;
+        using RowNumList = QList<quint32>;
 
 		         WordsCopyMoveDialog(quint8 categoryId, const RowNumList &rowNums, Vocabulary *vocabulary, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
-		virtual ~WordsCopyMoveDialog() override;
+		virtual ~WordsCopyMoveDialog() Q_DECL_OVERRIDE;
 
 	private:
 		CategoriesModel        _categoriesModel;
@@ -22,9 +22,9 @@ class WordsCopyMoveDialog : public QDialog
 		RowNumList             _rowNums;
 		Vocabulary            *_vocabulary;
 
-		virtual void accept() override;
+		virtual void accept() Q_DECL_OVERRIDE;
 
-	private slots:
+	private Q_SLOTS:
 		void on_categoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
 }; // WordsCopyMoveDialog
 

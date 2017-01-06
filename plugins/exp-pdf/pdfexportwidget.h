@@ -83,7 +83,7 @@ class PdfExportWidget : public QWidget
       QLineEdit *templateEdit;
     };
 
-    typedef QList<TableColumn> TableColumns;
+    using TableColumns = QList<TableColumn>;
 
     PdfExportWidget(QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
 
@@ -114,7 +114,7 @@ class PdfExportWidget : public QWidget
     QList<TableColumn>  _tableColumns;
     Ui::PdfExportWidget _ui;
 
-    virtual ~PdfExportWidget() override;
+    virtual ~PdfExportWidget() Q_DECL_OVERRIDE;
 
     void        addTableColumn   ();
     void        fillEncodings    (QComboBox *comboBox, const QString &font) const;
@@ -126,10 +126,10 @@ class PdfExportWidget : public QWidget
     void        initTableColumns ();
     void        removeTableColumn();
 
-  signals:
+  Q_SIGNALS:
     void vocabularyGetMarks(QStringList *marks) const;
 
-  private slots:
+  private Q_SLOTS:
     void on_font_currentIndexChanged(int index)             const;
     void on_styleTable_clicked      (bool checked = false)  const;
     void on_styleText_clicked       (bool checked = false)  const;

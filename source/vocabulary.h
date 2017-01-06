@@ -9,7 +9,7 @@ class Vocabulary : public VocabularyDatabase
 {
   public:
              Vocabulary(const Settings *settings);
-    virtual ~Vocabulary() override;
+    virtual ~Vocabulary() Q_DECL_OVERRIDE;
 
     quintptr        addCategory           (const QString &name);
 #ifndef EDITION_FREE
@@ -90,8 +90,8 @@ class Vocabulary : public VocabularyDatabase
       FieldLanguage   language;
     };
 
-    typedef QHash<quintptr, RecordIdList> CategoryRecordsHash;
-    typedef QHash<quintptr, FieldData>    FieldDataHash;
+    using CategoryRecordsHash = QHash<quintptr, RecordIdList>;
+    using FieldDataHash       = QHash<quintptr, FieldData>;
 
           bool                _cacheEnabled;
           CategoryRecordsHash _categoryRecords;

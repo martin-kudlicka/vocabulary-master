@@ -26,7 +26,7 @@ class TTSInterface
       QString description;
     };
 
-    typedef QList<VoiceInfo> VoiceInfoList;
+    using VoiceInfoList = QList<VoiceInfo>;
 
     virtual void                              initialize  ()                                          = 0;
     virtual LicenseCommon::LicenseContentList licenseText () const                                    = 0;

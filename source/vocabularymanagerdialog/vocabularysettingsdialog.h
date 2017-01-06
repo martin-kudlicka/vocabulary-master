@@ -22,7 +22,7 @@ class VocabularySettingsDialog : public QDialog
             const Plugins *plugins,
 #endif
             QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
-		virtual ~VocabularySettingsDialog() override;
+		virtual ~VocabularySettingsDialog() Q_DECL_OVERRIDE;
 
 	private:
 #ifdef EDITION_FREE
@@ -39,7 +39,7 @@ class VocabularySettingsDialog : public QDialog
 			QString                 voiceId;
 		}; // SpeechVoice
 
-		typedef QList<SpeechVoice> VoiceList;
+		using VoiceList = QList<SpeechVoice>;
 
               FieldsModel                _fieldsModel;
               LanguageFieldDelegate      _languageFieldDelegate;
@@ -50,7 +50,7 @@ class VocabularySettingsDialog : public QDialog
 		      Ui::VocabularySettingsDialog _ui;
 		const Vocabulary                  *_vocabulary;
 
-		virtual void accept                   () override;
+		virtual void accept                   () Q_DECL_OVERRIDE;
 #ifndef EDITION_FREE
                 void actualizeFieldsEditor    ()           const;
 		        void actualizeFieldsEditor    (quint8 row) const;
@@ -66,7 +66,7 @@ class VocabularySettingsDialog : public QDialog
 		        void saveOptions              ();
 
 #ifndef EDITION_FREE
-	private slots:
+	private Q_SLOTS:
 	    void on_fieldAdd_clicked                     (bool checked = false);
 		void on_fieldDown_clicked                    (bool checked = false);
 		void on_fieldRemove_clicked                  (bool checked = false);
