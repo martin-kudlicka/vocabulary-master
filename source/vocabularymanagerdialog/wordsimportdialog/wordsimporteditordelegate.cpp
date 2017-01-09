@@ -4,7 +4,7 @@
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QLineEdit>
 
-WordsImportEditorDelegate::WordsImportEditorDelegate(const Vocabulary *vocabulary, QObject *parent /* nullptr */) : QStyledItemDelegate(parent), _vocabulary(vocabulary)
+WordsImportEditorDelegate::WordsImportEditorDelegate(const Vocabulary *vocabulary, QObject *parent /* Q_NULLPTR */) : QStyledItemDelegate(parent), _vocabulary(vocabulary)
 {
 }
 
@@ -15,10 +15,10 @@ WordsImportEditorDelegate::~WordsImportEditorDelegate()
 QWidget *WordsImportEditorDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	const quint8 fieldId = _vocabulary->fieldId(index.row());
-	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
 	{
 		const VocabularyDatabase::FieldBuiltIn builtIn = _vocabulary->fieldBuiltIn(fieldId);
-		if (builtIn == VocabularyDatabase::FieldBuiltInPriority)
+		if (builtIn == VocabularyDatabase::FieldBuiltIn::Priority)
 		{
 			QSpinBox *editor = new QSpinBox(parent);
 			editor->setMinimum(PriorityDelegate::RECORD_PRIORITY_MIN);
@@ -32,5 +32,5 @@ QWidget *WordsImportEditorDelegate::createEditor(QWidget *parent, const QStyleOp
 		return editor;
 	}
 
-	return nullptr;
+	return Q_NULLPTR;
 }

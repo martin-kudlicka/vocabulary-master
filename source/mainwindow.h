@@ -23,8 +23,8 @@ class MainWindow : public QMainWindow
   Q_OBJECT
 
   public:
-             MainWindow(QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
-    virtual ~MainWindow() override;
+             MainWindow(QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+    virtual ~MainWindow() Q_DECL_OVERRIDE;
 
   private:
     enum class Template
@@ -34,19 +34,6 @@ class MainWindow : public QMainWindow
       , Tray
 #endif
     }; // Template
-
-#ifndef EDITION_FREE
-    static const auto FLASH_COUNT            = 3;
-    static const auto FLASH_WAIT             = 100;
-    static const auto MAX_NEXTRECORD_TRIES   = 9999;
-#endif
-    static const auto MILISECONDS_PER_SECOND = 1000;
-    static const auto RECORD_NONE            = UINTPTR_MAX;
-#ifndef EDITION_FREE
-    static const auto SAY_BEEP_WAIT          = 500;
-#endif
-    static const auto TIME_NONE              = 0;
-    static const auto TIME_NOW               = 1;
 
           bool                            _directionSwitched;
           bool                            _learning;
@@ -114,12 +101,12 @@ class MainWindow : public QMainWindow
     void     showTrayBalloon       (bool directionSwitched, bool answer);
 #endif
 
-    virtual bool event      (QEvent *event)                                            override;
+    virtual bool event      (QEvent *event)                                            Q_DECL_OVERRIDE;
 #if !defined(EDITION_FREE) && defined(Q_OS_WIN)
-    virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
+    virtual bool nativeEvent(const QByteArray &eventType, void *message, long *result) Q_DECL_OVERRIDE;
 #endif
 
-  private slots:
+  private Q_SLOTS:
     void on_actionAbout_triggered              (bool checked = false);
 #ifndef EDITION_FREE
     void on_actionAnswer_triggered             (bool checked = false);

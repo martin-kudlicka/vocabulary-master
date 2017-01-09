@@ -6,7 +6,7 @@ VocabularySettingsDialog::VocabularySettingsDialog(Vocabulary *vocabulary,
 #ifndef EDITION_FREE
     const Plugins *plugins,
 #endif
-    QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags)
+    QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags)
 #ifndef EDITION_FREE
 	, _fieldsModel(vocabulary), _languageFieldDelegate(vocabulary), _plugins(plugins)
 #endif
@@ -52,7 +52,7 @@ void VocabularySettingsDialog::actualizeFieldsEditor(quint8 row) const
 	QModelIndex index = _fieldsModel.index(row, static_cast<int>(FieldsModel::Column::TemplateName));
 	_ui.fields->openPersistentEditor(index);
   index = _fieldsModel.index(row, static_cast<int>(FieldsModel::Column::Name));
-	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
 	{
 		_ui.fields->closePersistentEditor(index);
 	}
@@ -61,7 +61,7 @@ void VocabularySettingsDialog::actualizeFieldsEditor(quint8 row) const
 		_ui.fields->openPersistentEditor(index);
 	}
   index = _fieldsModel.index(row, static_cast<int>(FieldsModel::Column::Language));
-	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
 	{
 		_ui.fields->closePersistentEditor(index);
 	}
@@ -75,17 +75,17 @@ void VocabularySettingsDialog::actualizeFieldsEditor(quint8 row) const
 void VocabularySettingsDialog::fillOptions()
 {
     // languages
-    _ui.languageLeft->setText(_vocabulary->languageName(VocabularyDatabase::FieldLanguageLeft));
-    _ui.languageRight->setText(_vocabulary->languageName(VocabularyDatabase::FieldLanguageRight));
+    _ui.languageLeft->setText(_vocabulary->languageName(VocabularyDatabase::FieldLanguage::Left));
+    _ui.languageRight->setText(_vocabulary->languageName(VocabularyDatabase::FieldLanguage::Right));
 #ifndef EDITION_FREE
-    fillSpeech(_ui.speechLeft, QString::number(static_cast<quintptr>(_vocabulary->languageSpeech(VocabularyDatabase::FieldLanguageLeft))), _vocabulary->languageVoice(VocabularyDatabase::FieldLanguageLeft));
-	fillSpeech(_ui.speechRight, QString::number(static_cast<quintptr>(_vocabulary->languageSpeech(VocabularyDatabase::FieldLanguageRight))), _vocabulary->languageVoice(VocabularyDatabase::FieldLanguageRight));
+    fillSpeech(_ui.speechLeft, QString::number(static_cast<quintptr>(_vocabulary->languageSpeech(VocabularyDatabase::FieldLanguage::Left))), _vocabulary->languageVoice(VocabularyDatabase::FieldLanguage::Left));
+	fillSpeech(_ui.speechRight, QString::number(static_cast<quintptr>(_vocabulary->languageSpeech(VocabularyDatabase::FieldLanguage::Right))), _vocabulary->languageVoice(VocabularyDatabase::FieldLanguage::Right));
 
 	// templates
-	_ui.learningLeft->setPlainText(_vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguageLeft));
-	_ui.learningRight->setPlainText(_vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguageRight));
-    _ui.trayLeft->setPlainText(_vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguageLeft));
-    _ui.trayRight->setPlainText(_vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguageRight));
+	_ui.learningLeft->setPlainText(_vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguage::Left));
+	_ui.learningRight->setPlainText(_vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguage::Right));
+    _ui.trayLeft->setPlainText(_vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguage::Left));
+    _ui.trayRight->setPlainText(_vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguage::Right));
 #endif
 }
 
@@ -174,8 +174,8 @@ void VocabularySettingsDialog::refreshLanguageNameFields() const
 {
     for (quint8 row = 0; row < _fieldsModel.rowCount(); row++)
 	{
-        _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguageLeft, _ui.languageLeft->text());
-        _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguageRight, _ui.languageRight->text());
+        _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguage::Left, _ui.languageLeft->text());
+        _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguage::Right, _ui.languageRight->text());
 
         const QModelIndex index = _fieldsModel.index(row, static_cast<int>(FieldsModel::Column::Language));
         _ui.fields->closePersistentEditor(index);
@@ -188,21 +188,21 @@ void VocabularySettingsDialog::saveOptions()
 {
     // languages
 #ifdef EDITION_FREE
-    _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguageLeft, _ui.languageLeft->text());
-    _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguageRight, _ui.languageRight->text());
+    _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguage::Left, _ui.languageLeft->text());
+    _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguage::Right, _ui.languageRight->text());
 #else
 	SpeechVoice speechVoice = _voices.at(_ui.speechLeft->itemData(_ui.speechLeft->currentIndex()).toUInt());
-	_vocabulary->setLanguageSpeech(VocabularyDatabase::FieldLanguageLeft, speechVoice.ttsPlugin);
-	_vocabulary->setLanguageVoice(VocabularyDatabase::FieldLanguageLeft, speechVoice.voiceId);
+	_vocabulary->setLanguageSpeech(VocabularyDatabase::FieldLanguage::Left, speechVoice.ttsPlugin);
+	_vocabulary->setLanguageVoice(VocabularyDatabase::FieldLanguage::Left, speechVoice.voiceId);
 	speechVoice = _voices.at(_ui.speechRight->itemData(_ui.speechRight->currentIndex()).toUInt());
-	_vocabulary->setLanguageSpeech(VocabularyDatabase::FieldLanguageRight, speechVoice.ttsPlugin);
-	_vocabulary->setLanguageVoice(VocabularyDatabase::FieldLanguageRight, speechVoice.voiceId);
+	_vocabulary->setLanguageSpeech(VocabularyDatabase::FieldLanguage::Right, speechVoice.ttsPlugin);
+	_vocabulary->setLanguageVoice(VocabularyDatabase::FieldLanguage::Right, speechVoice.voiceId);
 
 	// templates
-	_vocabulary->setLanguageLearningTemplate(VocabularyDatabase::FieldLanguageLeft, _ui.learningLeft->toPlainText());
-	_vocabulary->setLanguageLearningTemplate(VocabularyDatabase::FieldLanguageRight, _ui.learningRight->toPlainText());
-    _vocabulary->setLanguageTrayTemplate(VocabularyDatabase::FieldLanguageLeft, _ui.trayLeft->toPlainText());
-    _vocabulary->setLanguageTrayTemplate(VocabularyDatabase::FieldLanguageRight, _ui.trayRight->toPlainText());
+	_vocabulary->setLanguageLearningTemplate(VocabularyDatabase::FieldLanguage::Left, _ui.learningLeft->toPlainText());
+	_vocabulary->setLanguageLearningTemplate(VocabularyDatabase::FieldLanguage::Right, _ui.learningRight->toPlainText());
+    _vocabulary->setLanguageTrayTemplate(VocabularyDatabase::FieldLanguage::Left, _ui.trayLeft->toPlainText());
+    _vocabulary->setLanguageTrayTemplate(VocabularyDatabase::FieldLanguage::Right, _ui.trayRight->toPlainText());
 #endif
 }
 
@@ -245,7 +245,7 @@ void VocabularySettingsDialog::on_fieldsSelectionModel_selectionChanged(const QI
     if (selection->hasSelection())
 	{
         const quint8 fieldId = _vocabulary->fieldId(_ui.fields->currentIndex().row());
-        builtIn = _vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn);
+        builtIn = _vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn);
     }
 
 	_ui.fieldUp->setEnabled(selection->hasSelection() && _ui.fields->currentIndex().row() > 0);

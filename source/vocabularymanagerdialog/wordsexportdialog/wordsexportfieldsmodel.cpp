@@ -2,7 +2,7 @@
 
 const QString TEMPLATE_MARK = "${%1}";
 
-WordsExportFieldsModel::WordsExportFieldsModel(const Vocabulary *vocabulary, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
+WordsExportFieldsModel::WordsExportFieldsModel(const Vocabulary *vocabulary, QObject *parent /* Q_NULLPTR */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
 {
 }
 
@@ -23,7 +23,7 @@ int WordsExportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() 
         quint8 count = 0;
         for (quint8 vocabularyFieldId : _vocabulary->fieldIds())
 		{
-            if (!_vocabulary->fieldBuiltIn(vocabularyFieldId))
+            if (_vocabulary->fieldBuiltIn(vocabularyFieldId) == VocabularyDatabase::FieldBuiltIn::None)
 			{
                 count++;
             }
@@ -74,7 +74,7 @@ quint8 WordsExportFieldsModel::fieldId(const int &row) const
     quint8 num = 0;
     for (quint8 vocabularyFieldId : _vocabulary->fieldIds())
 	{
-        if (!_vocabulary->fieldBuiltIn(vocabularyFieldId))
+        if (_vocabulary->fieldBuiltIn(vocabularyFieldId) == VocabularyDatabase::FieldBuiltIn::None)
 		{
             if (row == num)
 			{

@@ -21,7 +21,7 @@ VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *vocabulary,
     const Settings *settings,
     const Plugins *plugins,
 #endif
-	QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags | Qt::WindowMaximizeButtonHint), _vocabulary(vocabulary)
+	QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags | Qt::WindowMaximizeButtonHint), _vocabulary(vocabulary)
 #ifndef EDITION_FREE
 	, _settings(settings), _plugins(plugins)
 #endif
@@ -114,7 +114,7 @@ void VocabularyManagerDialog::enableWordControls() const
 	}
 	else
 	{
-		selection = nullptr;
+		selection = Q_NULLPTR;
 	}
 
 	_ui.wordRemove->setEnabled(selection && vocabularyView->isEnabled() && selection->hasSelection());
@@ -164,9 +164,9 @@ void VocabularyManagerDialog::hideColumns(VocabularyView *tableView) const
 	for (quint8 fieldId : _vocabulary->fieldIds())
 	{
 #ifdef EDITION_FREE
-		if (!_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+		if (!_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
 #else
-		if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeShow))
+		if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::Show))
 #endif
 		{
 			tableView->showColumn(column);
@@ -192,7 +192,7 @@ void VocabularyManagerDialog::initEditor()
 		quint8 column, row;
 
         // update field count
-        if (_vocabulary->fieldLanguage(fieldId) == VocabularyDatabase::FieldLanguageLeft)
+        if (_vocabulary->fieldLanguage(fieldId) == VocabularyDatabase::FieldLanguage::Left)
 		{
             fieldsLeft++;
         }
@@ -205,15 +205,15 @@ void VocabularyManagerDialog::initEditor()
 		const VocabularyDatabase::FieldAttributes attributes = _vocabulary->fieldAttributes(fieldId);
         if (
 #ifndef EDITION_FREE
-			!(attributes & VocabularyDatabase::FieldAttributeShow) ||
+			!(attributes & VocabularyDatabase::FieldAttribute::Show) ||
 #endif
-			attributes & VocabularyDatabase::FieldAttributeBuiltIn)
+			attributes & VocabularyDatabase::FieldAttribute::BuiltIn)
 		{
 			continue;
 		}
 
         // get field language
-        if (_vocabulary->fieldLanguage(fieldId) == VocabularyDatabase::FieldLanguageLeft)
+        if (_vocabulary->fieldLanguage(fieldId) == VocabularyDatabase::FieldLanguage::Left)
 		{
             row    = posLeft++;
             column = EditorColumnLeftLabel;
@@ -260,7 +260,7 @@ void VocabularyManagerDialog::reassignModels() const
 	{
         VocabularyView *vocabularyView   = qobject_cast<VocabularyView *>(_ui.tabs->widget(tabIndex));
         VocabularyModel *vocabularyModel = qobject_cast<VocabularyModel *>(vocabularyView->model());
-        vocabularyView->setModel(nullptr);
+        vocabularyView->setModel(Q_NULLPTR);
         vocabularyView->setModel(vocabularyModel);
         connect(vocabularyView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_vocabularyViewSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
     }
@@ -292,22 +292,22 @@ void VocabularyManagerDialog::setPriorityDelegate(VocabularyView *tableView)
 	for (quint8 column = 0; column < tableView->horizontalHeader()->count(); column++)
 	{
 		const quint8 fieldId = _vocabulary->fieldId(column);
-		if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+		if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
 		{
 			const VocabularyDatabase::FieldBuiltIn builtIn = _vocabulary->fieldBuiltIn(fieldId);
-			if (builtIn == VocabularyDatabase::FieldBuiltInPriority)
+			if (builtIn == VocabularyDatabase::FieldBuiltIn::Priority)
 			{
 				PriorityDelegate *priorityDelegate = new PriorityDelegate(tableView);
 				tableView->setItemDelegateForColumn(column, priorityDelegate);
             }
 			else
 			{
-                tableView->setItemDelegateForColumn(column, nullptr);
+                tableView->setItemDelegateForColumn(column, Q_NULLPTR);
             }
         }
 		else
 		{
-            tableView->setItemDelegateForColumn(column, nullptr);
+            tableView->setItemDelegateForColumn(column, Q_NULLPTR);
         }
 	}
 }
@@ -328,7 +328,7 @@ void VocabularyManagerDialog::stretchColumns(const VocabularyView *tableView) co
 	{
 #ifndef EDITION_FREE
 		const quint8 fieldId = _vocabulary->fieldId(column);
-		if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+		if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
 		{
 			tableView->horizontalHeader()->setSectionResizeMode(column, QHeaderView::Fixed);
             tableView->horizontalHeader()->resizeSection(column, BUILTIN_COLUMN_SIZE);
@@ -347,7 +347,7 @@ void VocabularyManagerDialog::stretchColumns(const VocabularyView *tableView) co
 void VocabularyManagerDialog::uninitEditor() const
 {
     QLayoutItem *item;
-    while ((item = _ui.editorLayout->takeAt(0)) != nullptr)
+    while ((item = _ui.editorLayout->takeAt(0)) != Q_NULLPTR)
 	{
         item->widget()->deleteLater();
     }
@@ -364,7 +364,7 @@ void VocabularyManagerDialog::updateEditor() const
 	}
 	else
 	{
-		selection = nullptr;
+		selection = Q_NULLPTR;
 	}
 	_ui.editorGroup->setEnabled(selection && selection->hasSelection());
 
@@ -390,7 +390,7 @@ void VocabularyManagerDialog::updateEditor(EditorColumn controlsColumn) const
 			}
 			else
 			{
-				selection = nullptr;
+				selection = Q_NULLPTR;
 			}
 
 			if (selection && selection->hasSelection())

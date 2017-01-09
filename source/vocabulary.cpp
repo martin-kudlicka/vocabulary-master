@@ -4,7 +4,7 @@
 #include <QtCore/QStringList>
 #include "vocabulary/clearcacheworker.h"
 
-Vocabulary::Vocabulary(const Settings *settings) : _cacheEnabled(false), _recordData(nullptr), _settings(settings)
+Vocabulary::Vocabulary(const Settings *settings) : _cacheEnabled(false), _recordData(Q_NULLPTR), _settings(settings)
 {
 }
 
@@ -375,12 +375,12 @@ bool Vocabulary::recordEnabled(quintptr recordId) const
 {
 	for (quint8 fieldId : fieldIds())
 	{
-		if (fieldHasAttribute(fieldId, FieldAttributeBuiltIn))
+		if (fieldHasAttribute(fieldId, FieldAttribute::BuiltIn))
 		{
 			const FieldBuiltIn builtIn = fieldBuiltIn(fieldId);
 			switch (builtIn)
 			{
-				case VocabularyDatabase::FieldBuiltInEnabled:
+				case VocabularyDatabase::FieldBuiltIn::Enabled:
 					const QString data = dataText(recordId, fieldId);
 					if (data.isNull())
 					{
@@ -641,7 +641,7 @@ void Vocabulary::clearCache()
 		{
 			ClearCacheWorker *clearCacheWorker = new ClearCacheWorker(_recordData);
 			clearCacheWorker->start(QThread::LowPriority);
-			_recordData = nullptr;
+			_recordData = Q_NULLPTR;
 		}
 
 		_cacheEnabled = false;
