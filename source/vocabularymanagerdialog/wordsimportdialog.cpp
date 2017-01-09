@@ -3,7 +3,7 @@
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QLineEdit>
 
-WordsImportDialog::WordsImportDialog(const QString &file, Vocabulary *vocabulary, ImpInterface *plugin, QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _importing(false), _interrupt(false), _categoriesModel(vocabulary), _plugin(plugin), _file(file), _editorDelegate(vocabulary), _vocabulary(vocabulary), _fieldsModel(vocabulary)
+WordsImportDialog::WordsImportDialog(const QString &file, Vocabulary *vocabulary, ImpInterface *plugin, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _importing(false), _interrupt(false), _categoriesModel(vocabulary), _plugin(plugin), _file(file), _editorDelegate(vocabulary), _vocabulary(vocabulary), _fieldsModel(vocabulary)
 {
 }
 
@@ -59,10 +59,10 @@ void WordsImportDialog::createFieldEditors()
 		bool persistentEditor = true;
 
 		const quint8 fieldId = _vocabulary->fieldId(row);
-		if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+		if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
 		{
 			const VocabularyDatabase::FieldBuiltIn builtIn = _vocabulary->fieldBuiltIn(fieldId);
-			if (builtIn == VocabularyDatabase::FieldBuiltInEnabled)
+			if (builtIn == VocabularyDatabase::FieldBuiltIn::Enabled)
 			{
 				persistentEditor = false;
 			}
@@ -164,20 +164,20 @@ void WordsImportDialog::importData(const Target &target)
             case TargetPreview:
                 for (quint8 column = 0; column < _vocabulary->fieldCount(); column++)
 				{
-					QTableWidgetItem *tableItem = nullptr;
+					QTableWidgetItem *tableItem = Q_NULLPTR;
 
 					const quint8 fieldId = _vocabulary->fieldId(column);
 					switch (_vocabulary->fieldType(fieldId))
 					{
-						case VocabularyDatabase::FieldTypeLineEdit:
+						case VocabularyDatabase::FieldType::LineEdit:
 							tableItem = new QTableWidgetItem(data.at(column));
 							break;
-						case VocabularyDatabase::FieldTypeCheckBox:
+						case VocabularyDatabase::FieldType::CheckBox:
 							tableItem = new QTableWidgetItem();
 							tableItem->setCheckState(static_cast<Qt::CheckState>(data.at(column).toUInt()));
 							tableItem->setFlags(tableItem->flags() | Qt::ItemIsUserCheckable);
 							break;
-						case VocabularyDatabase::FieldTypeSpinBox:
+						case VocabularyDatabase::FieldType::SpinBox:
 							tableItem = new QTableWidgetItem(data.at(column));
 					}
 

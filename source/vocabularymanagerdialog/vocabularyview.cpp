@@ -10,7 +10,7 @@ VocabularyView::VocabularyView(
 #ifndef EDITION_FREE
     Vocabulary *vocabulary,
 #endif
-    QWidget *parent /* nullptr */) : QTableView(parent)
+    QWidget *parent /* Q_NULLPTR */) : QTableView(parent)
 #ifndef EDITION_FREE
 	, _vocabulary(vocabulary)
 #endif
@@ -47,10 +47,10 @@ void VocabularyView::mouseMoveEvent(QMouseEvent *event)
     _moveOld = mouse;
 
     const quint8 fieldId = _vocabulary->fieldId(mouse.column());
-    if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+    if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
 	{
         const VocabularyDatabase::FieldBuiltIn builtIn = _vocabulary->fieldBuiltIn(fieldId);
-        if (builtIn == VocabularyDatabase::FieldBuiltInPriority)
+        if (builtIn == VocabularyDatabase::FieldBuiltIn::Priority)
 		{
             update(mouse);
         }
@@ -68,10 +68,10 @@ void VocabularyView::mousePressEvent(QMouseEvent *event)
     if (oldIndex != newIndex && event->button() == Qt::LeftButton)
 	{
         const quint8 fieldId = _vocabulary->fieldId(newIndex.column());
-        if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+        if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
 		{
             const VocabularyDatabase::FieldBuiltIn builtIn = _vocabulary->fieldBuiltIn(fieldId);
-            if (builtIn == VocabularyDatabase::FieldBuiltInPriority)
+            if (builtIn == VocabularyDatabase::FieldBuiltIn::Priority)
 			{
                 QSpinBox *editor       = qobject_cast<QSpinBox *>(indexWidget(newIndex));
                 const QPoint editorPos = editor->mapFromParent(event->pos());

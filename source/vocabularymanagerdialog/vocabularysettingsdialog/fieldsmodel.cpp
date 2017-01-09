@@ -2,7 +2,7 @@
 
 #include "vocabulary.h"
 
-FieldsModel::FieldsModel(Vocabulary *vocabulary, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
+FieldsModel::FieldsModel(Vocabulary *vocabulary, QObject *parent /* Q_NULLPTR */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
 {
 }
 
@@ -61,7 +61,7 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
             switch (role)
 			{
 				case Qt::CheckStateRole:
-                    if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeSpeech))
+                    if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::Speech))
 					{
                         return Qt::Checked;
                     }
@@ -76,7 +76,7 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
             switch (role)
 			{
                 case Qt::CheckStateRole:
-                    if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeShow))
+                    if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::Show))
 					{
                         return Qt::Checked;
                     }
@@ -91,7 +91,7 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 			switch (role)
 			{
 				case Qt::EditRole:
-					return _vocabulary->fieldLanguage(fieldId);
+					return static_cast<quintptr>(_vocabulary->fieldLanguage(fieldId));
 				default:
 					return QVariant();
 			}
@@ -134,7 +134,7 @@ Qt::ItemFlags FieldsModel::flags(const QModelIndex &index) const
 		{
 			const qint8 fieldId                           = _vocabulary->fieldId(index.row());
 			const VocabularyDatabase::FieldType fieldType = _vocabulary->fieldType(fieldId);
-			if (fieldType == VocabularyDatabase::FieldTypeCheckBox)
+			if (fieldType == VocabularyDatabase::FieldType::CheckBox)
 			{
 				canSpeech = false;
 			}
@@ -197,14 +197,14 @@ bool FieldsModel::setData(const QModelIndex &index, const QVariant &value, int r
         case Column::Speech:
             {
                 VocabularyDatabase::FieldAttributes fieldAttributes = _vocabulary->fieldAttributes(fieldId);
-                fieldAttributes                                      ^= VocabularyDatabase::FieldAttributeSpeech;
+                fieldAttributes                                      ^= VocabularyDatabase::FieldAttribute::Speech;
                 _vocabulary->setFieldAttributes(fieldId, fieldAttributes);
             }
             break;
         case Column::Show:
             {
                 VocabularyDatabase::FieldAttributes fieldAttributes = _vocabulary->fieldAttributes(fieldId);
-                fieldAttributes                                      ^= VocabularyDatabase::FieldAttributeShow;
+                fieldAttributes                                      ^= VocabularyDatabase::FieldAttribute::Show;
                 _vocabulary->setFieldAttributes(fieldId, fieldAttributes);
             }
             break;

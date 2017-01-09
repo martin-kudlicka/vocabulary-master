@@ -4,7 +4,7 @@
 # include "vocabularymanagerdialog/prioritydelegate.h"
 #endif
 
-VocabularyModel::VocabularyModel(Vocabulary *vocabulary, quint8 categoryId, QObject *parent /* nullptr */) : QAbstractTableModel(parent), _vocabulary(vocabulary), _categoryId(categoryId)
+VocabularyModel::VocabularyModel(Vocabulary *vocabulary, quint8 categoryId, QObject *parent /* Q_NULLPTR */) : QAbstractTableModel(parent), _vocabulary(vocabulary), _categoryId(categoryId)
 {
 }
 
@@ -51,7 +51,7 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 
 	switch (_vocabulary->fieldType(fieldId))
 	{
-		case VocabularyDatabase::FieldTypeLineEdit:
+		case VocabularyDatabase::FieldType::LineEdit:
 			switch (role)
 			{
 				case Qt::DisplayRole:
@@ -60,7 +60,7 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 					return QVariant();
 			}
 #ifndef EDITION_FREE
-		case VocabularyDatabase::FieldTypeCheckBox:
+		case VocabularyDatabase::FieldType::CheckBox:
 			switch (role)
 			{
 				case Qt::CheckStateRole:
@@ -78,7 +78,7 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
 				default:
 					return QVariant();
 			}
-		case VocabularyDatabase::FieldTypeSpinBox:
+		case VocabularyDatabase::FieldType::SpinBox:
 			switch (role)
 			{
 				case Qt::DisplayRole:
@@ -108,15 +108,15 @@ Qt::ItemFlags VocabularyModel::flags(const QModelIndex &index) const
 	Qt::ItemFlags itemFlags = QAbstractItemModel::flags(index);
 
 	const quint8 fieldId = _vocabulary->fieldId(index.column());
-	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
 	{
 		const VocabularyDatabase::FieldBuiltIn builtIn = _vocabulary->fieldBuiltIn(fieldId);
 		switch (builtIn)
 		{
-			case VocabularyDatabase::FieldBuiltInEnabled:
+			case VocabularyDatabase::FieldBuiltIn::Enabled:
 				itemFlags |= Qt::ItemIsUserCheckable;
 				break;
-			case VocabularyDatabase::FieldBuiltInPriority:
+			case VocabularyDatabase::FieldBuiltIn::Priority:
 				itemFlags |= Qt::ItemIsEditable;
 		}
 	}

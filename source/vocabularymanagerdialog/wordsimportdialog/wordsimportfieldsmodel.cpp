@@ -2,7 +2,7 @@
 
 #include "vocabularymanagerdialog/prioritydelegate.h"
 
-WordsImportFieldsModel::WordsImportFieldsModel(const Vocabulary *vocabulary, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
+WordsImportFieldsModel::WordsImportFieldsModel(const Vocabulary *vocabulary, QObject *parent /* Q_NULLPTR */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
 {
 	for (quint8 fieldIndex = 0; fieldIndex < _vocabulary->fieldCount(); fieldIndex++)
 	{
@@ -45,12 +45,12 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 			{
 				const quint8 fieldId = _vocabulary->fieldId(index.row());
 
-				if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+				if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
 				{
 					const VocabularyDatabase::FieldBuiltIn builtIn = _vocabulary->fieldBuiltIn(fieldId);
 					switch (builtIn)
 					{
-						case VocabularyDatabase::FieldBuiltInEnabled:
+						case VocabularyDatabase::FieldBuiltIn::Enabled:
 							switch (role)
 							{
 								case Qt::EditRole:
@@ -66,7 +66,7 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 								default:
 									return QVariant();
 							}
-						case VocabularyDatabase::FieldBuiltInPriority:
+						case VocabularyDatabase::FieldBuiltIn::Priority:
 							switch (role)
 							{
 								case Qt::EditRole:
@@ -129,7 +129,7 @@ Qt::ItemFlags WordsImportFieldsModel::flags(const QModelIndex &index) const
 	{
 		const quint8 fieldId                          = _vocabulary->fieldId(index.row());
 		const VocabularyDatabase::FieldType fieldType = _vocabulary->fieldType(fieldId);
-		if (fieldType == VocabularyDatabase::FieldTypeCheckBox)
+		if (fieldType == VocabularyDatabase::FieldType::CheckBox)
 		{
 			itemFlags |= Qt::ItemIsUserCheckable;
 		}

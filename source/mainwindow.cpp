@@ -23,16 +23,28 @@
 #include "vocabularyorganizerdialog.h"
 
 #ifdef EDITION_FREE
-const char *EDITION_FREE_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " Free edition");
+const char *EDITION_FREE_SUFFIX   = QT_TRANSLATE_NOOP("MainWindow", " Free edition");
 #endif
 #ifdef EDITION_TRY
-const char *EDITION_TRY_SUFFIX = QT_TRANSLATE_NOOP("MainWindow", " Try edition");
+const char *EDITION_TRY_SUFFIX    = QT_TRANSLATE_NOOP("MainWindow", " Try edition");
 #endif
-const char *VOCABULARY_MASTER = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary Master");
-
-MainWindow::MainWindow(QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags), _learning(false),
 #ifndef EDITION_FREE
-	_hboxLayoutInner(nullptr),
+const auto FLASH_COUNT            = 3;
+const auto FLASH_WAIT             = 100;
+const auto MAX_NEXTRECORD_TRIES   = 9999;
+#endif
+const auto MILISECONDS_PER_SECOND = 1000;
+const auto RECORD_NONE            = UINTPTR_MAX;
+#ifndef EDITION_FREE
+const auto SAY_BEEP_WAIT          = 500;
+#endif
+const auto TIME_NONE              = 0;
+const auto TIME_NOW               = 1;
+const auto *VOCABULARY_MASTER     = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary Master");
+
+MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags), _learning(false),
+#ifndef EDITION_FREE
+	_hboxLayoutInner(Q_NULLPTR),
 #endif
 	_updateChecker(&_settings), _vocabularyOrganizer(&_settings)
 {
@@ -277,11 +289,11 @@ QString MainWindow::languageText(bool directionSwitched, bool answer) const
 {
     if ((!directionSwitched && !answer) || (directionSwitched && answer))
 	{
-		return _currentRecord.vocabulary->languageName(VocabularyDatabase::FieldLanguageLeft);
+		return _currentRecord.vocabulary->languageName(VocabularyDatabase::FieldLanguage::Left);
     }
 	else
 	{
-        return _currentRecord.vocabulary->languageName(VocabularyDatabase::FieldLanguageRight);
+        return _currentRecord.vocabulary->languageName(VocabularyDatabase::FieldLanguage::Right);
     }
 }
 
@@ -305,29 +317,29 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
 	{
 		if (templateType == Template::Learning)
 		{
-			templateText = _currentRecord.vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguageLeft);
+			templateText = _currentRecord.vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguage::Left);
 		}
 #ifndef EDITION_FREE
 		else
 		{
-			templateText = _currentRecord.vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguageLeft);
+			templateText = _currentRecord.vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguage::Left);
 		}
 #endif
-		fieldLanguage = VocabularyDatabase::FieldLanguageLeft;
+		fieldLanguage = VocabularyDatabase::FieldLanguage::Left;
 	}
 	else
 	{
 		if (templateType == Template::Learning)
 		{
-			templateText = _currentRecord.vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguageRight);
+			templateText = _currentRecord.vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguage::Right);
 		}
 #ifndef EDITION_FREE
 		else
 		{
-			templateText = _currentRecord.vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguageRight);
+			templateText = _currentRecord.vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguage::Right);
 		}
 #endif
-		fieldLanguage = VocabularyDatabase::FieldLanguageRight;
+		fieldLanguage = VocabularyDatabase::FieldLanguage::Right;
 	}
 
 	// substitute variables in template
@@ -379,12 +391,12 @@ quintptr MainWindow::recordPriority() const
 {
     for (quint8 fieldId : _currentRecord.vocabulary->fieldIds())
 	{
-        if (_currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+        if (_currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
 		{
             const VocabularyDatabase::FieldBuiltIn builtInType = _currentRecord.vocabulary->fieldBuiltIn(fieldId);
             switch (builtInType)
 			{
-                case VocabularyDatabase::FieldBuiltInPriority:
+                case VocabularyDatabase::FieldBuiltIn::Priority:
                     return _currentRecord.vocabulary->dataText(_currentRecord.id, fieldId).toUInt();
             }
         }
@@ -456,18 +468,18 @@ void MainWindow::say(bool directionSwitched, bool answer) const
 	    VocabularyDatabase::FieldLanguage fieldLanguage;
 	    if ((!directionSwitched && !answer) || (directionSwitched && answer))
 		{
-		    fieldLanguage = VocabularyDatabase::FieldLanguageLeft;
+		    fieldLanguage = VocabularyDatabase::FieldLanguage::Left;
 	    }
 		else
 		{
-		    fieldLanguage = VocabularyDatabase::FieldLanguageRight;
+		    fieldLanguage = VocabularyDatabase::FieldLanguage::Right;
 	    }
 
         // get text to speech
         QString text;
         for (quint8 fieldId : _currentRecord.vocabulary->fieldIds())
 		{
-            if (_currentRecord.vocabulary->fieldLanguage(fieldId) == fieldLanguage && _currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeSpeech))
+            if (_currentRecord.vocabulary->fieldLanguage(fieldId) == fieldLanguage && _currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::Speech))
 			{
                 if (!text.isEmpty())
 				{
@@ -500,7 +512,7 @@ void MainWindow::setLayout()
     if (_hboxLayoutInner)
 	{
         _hboxLayoutInner->deleteLater();
-        _hboxLayoutInner = nullptr;
+        _hboxLayoutInner = Q_NULLPTR;
     }
 #endif
     if (_ui.centralWidget->layout())
@@ -538,12 +550,12 @@ void MainWindow::setRecordEnabled(bool enabled)
 {
 	for (quint8 fieldId : _currentRecord.vocabulary->fieldIds())
 	{
-		if (_currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+		if (_currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
 		{
 			const VocabularyDatabase::FieldBuiltIn builtInType = _currentRecord.vocabulary->fieldBuiltIn(fieldId);
 			switch (builtInType)
 			{
-				case VocabularyDatabase::FieldBuiltInEnabled:
+				case VocabularyDatabase::FieldBuiltIn::Enabled:
 					_currentRecord.vocabulary->setDataText(_currentRecord.id, fieldId, QString::number(enabled ? Qt::Checked : Qt::Unchecked));
 					return;
 			}
@@ -555,12 +567,12 @@ void MainWindow::setRecordPriority(quintptr priority)
 {
 	for (quint8 fieldId : _currentRecord.vocabulary->fieldIds())
 	{
-		if (_currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+		if (_currentRecord.vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
 		{
 			const VocabularyDatabase::FieldBuiltIn builtInType = _currentRecord.vocabulary->fieldBuiltIn(fieldId);
 			switch (builtInType)
 			{
-				case VocabularyDatabase::FieldBuiltInPriority:
+				case VocabularyDatabase::FieldBuiltIn::Priority:
 					_currentRecord.vocabulary->setDataText(_currentRecord.id, fieldId, QString::number(priority));
 					return;
 			}
@@ -788,7 +800,7 @@ void MainWindow::on_actionStart_triggered(bool checked /* false */)
 	_ui.recordControls->parentWidget()->setVisible(_settings.showRecordControls());
 #endif
 
-	_currentRecord.vocabulary = nullptr;
+	_currentRecord.vocabulary = Q_NULLPTR;
 	_currentRecord.id         = RECORD_NONE;
 	_learningTimer.start(0);
 }

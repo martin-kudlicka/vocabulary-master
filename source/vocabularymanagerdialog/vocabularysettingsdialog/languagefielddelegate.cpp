@@ -3,7 +3,7 @@
 #include "vocabulary.h"
 #include <QtWidgets/QComboBox>
 
-LanguageFieldDelegate::LanguageFieldDelegate(const Vocabulary *vocabulary, QObject *parent /* nullptr */) : QStyledItemDelegate(parent), _vocabulary(vocabulary)
+LanguageFieldDelegate::LanguageFieldDelegate(const Vocabulary *vocabulary, QObject *parent /* Q_NULLPTR */) : QStyledItemDelegate(parent), _vocabulary(vocabulary)
 {
 }
 
@@ -16,19 +16,19 @@ QWidget *LanguageFieldDelegate::createEditor(QWidget *parent, const QStyleOption
 	const qint8 fieldId = _vocabulary->fieldId(index.row());
 
 	VocabularyDatabase::LanguageIdList languageIds;
-	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttributeBuiltIn))
+	if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
 	{
-		languageIds = _vocabulary->languageIds(VocabularyDatabase::LanguageIdsAllOnly);
+		languageIds = _vocabulary->languageIds(VocabularyDatabase::LanguageId::AllOnly);
 	}
 	else
 	{
-		languageIds = _vocabulary->languageIds(VocabularyDatabase::LanguageIdsUserDefined);
+		languageIds = _vocabulary->languageIds(VocabularyDatabase::LanguageId::UserDefined);
 	}
 
 	QComboBox *editorBox = new QComboBox(parent);
-    for (quint8 languageId : languageIds)
+    for (auto languageId : languageIds)
 	{
-        editorBox->addItem(_vocabulary->languageName(languageId), languageId);
+        editorBox->addItem(_vocabulary->languageName(languageId), static_cast<quintptr>(languageId));
     }
 
     return editorBox;
