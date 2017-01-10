@@ -6,28 +6,28 @@
 
 class VocabularyModel : public QAbstractTableModel
 {
-	Q_OBJECT
+  Q_OBJECT
 
-    public:
-        VocabularyModel(Vocabulary *vocabulary, quint8 categoryId, QObject *parent = nullptr);
+  public:
+    VocabularyModel(Vocabulary *vocabulary, quintptr categoryId, QObject *parent = Q_NULLPTR);
 
-                void addRow     ();
-		virtual int  columnCount(const QModelIndex &parent = QModelIndex()) const                      override;
-                void removeRow  (quint32 row);
-        virtual int  rowCount   (const QModelIndex &parent = QModelIndex()) const                      override;
-		virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
+            void addRow     ();
+    virtual int  columnCount(const QModelIndex &parent = QModelIndex()) const                          Q_DECL_OVERRIDE;
+            void removeRow  (quint32 row);
+    virtual int  rowCount   (const QModelIndex &parent = QModelIndex()) const                          Q_DECL_OVERRIDE;
+    virtual bool setData    (const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) Q_DECL_OVERRIDE;
 
-    private:
-        const quint8      _categoryId;
-              Vocabulary *_vocabulary;
+  private:
+    const quintptr    _categoryId;
+          Vocabulary *_vocabulary;
 
-		virtual ~VocabularyModel() override;
+    virtual ~VocabularyModel() Q_DECL_OVERRIDE;
 
-        virtual QVariant      data      (const QModelIndex &index, int role = Qt::DisplayRole)                 const override;
+    virtual QVariant      data      (const QModelIndex &index, int role = Qt::DisplayRole)                 const Q_DECL_OVERRIDE;
 #ifndef EDITION_FREE
-		virtual Qt::ItemFlags flags     (const QModelIndex &index)                                             const override;
+    virtual Qt::ItemFlags flags     (const QModelIndex &index)                                             const Q_DECL_OVERRIDE;
 #endif
-        virtual QVariant      headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
-}; // VocabularyModel
+    virtual QVariant      headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+};
 
-#endif // VOCABULARYMODEL_H
+#endif
