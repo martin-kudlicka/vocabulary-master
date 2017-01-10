@@ -2,7 +2,8 @@
 #define VOCABULARYMODEL_H
 
 #include <QtCore/QAbstractTableModel>
-#include "vocabulary.h"
+
+class Vocabulary;
 
 class VocabularyModel : public QAbstractTableModel
 {
@@ -13,7 +14,7 @@ class VocabularyModel : public QAbstractTableModel
 
             void addRow     ();
     virtual int  columnCount(const QModelIndex &parent = QModelIndex()) const                          Q_DECL_OVERRIDE;
-            void removeRow  (quint32 row);
+            void removeRow  (quintptr row);
     virtual int  rowCount   (const QModelIndex &parent = QModelIndex()) const                          Q_DECL_OVERRIDE;
     virtual bool setData    (const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) Q_DECL_OVERRIDE;
 

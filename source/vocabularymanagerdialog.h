@@ -3,11 +3,12 @@
 
 #include <ui_vocabularymanagerdialog.h>
 
+class Vocabulary;
 #ifndef EDITION_FREE
-# include "settings.h"
-# include "plugins.h"
+class Settings;
+class Plugins;
 #endif
-#include "vocabularymanagerdialog/vocabularyview.h"
+class VocabularyView;
 
 class VocabularyManagerDialog : public QDialog
 {

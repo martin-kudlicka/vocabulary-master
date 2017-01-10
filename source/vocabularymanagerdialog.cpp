@@ -1,5 +1,9 @@
 #include "vocabularymanagerdialog.h"
 
+#ifndef EDITION_FREE
+# include "settings.h"
+#endif
+#include "vocabularymanagerdialog/vocabularyview.h"
 #include <QtWidgets/QInputDialog>
 #include "vocabularymanagerdialog/vocabularymodel.h"
 #include "vocabularymanagerdialog/vocabularysettingsdialog.h"

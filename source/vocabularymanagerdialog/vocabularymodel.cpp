@@ -1,5 +1,6 @@
 #include "vocabularymanagerdialog/vocabularymodel.h"
 
+#include "vocabulary.h"
 #ifndef EDITION_FREE
 # include "vocabularymanagerdialog/prioritydelegate.h"
 #endif
@@ -63,38 +64,38 @@ QVariant VocabularyModel::data(const QModelIndex &index, int role /* Qt::Display
   case VocabularyDatabase::FieldType::CheckBox:
     switch (role)
     {
-    case Qt::CheckStateRole:
-    {
-      const auto checked = _vocabulary->dataText(_categoryId, index.row(), fieldId);
-      if (checked.isEmpty())
+      case Qt::CheckStateRole:
       {
-        return Qt::Checked;
+        const auto checked = _vocabulary->dataText(_categoryId, index.row(), fieldId);
+        if (checked.isEmpty())
+        {
+          return Qt::Checked;
+        }
+        else
+        {
+          return checked.toUInt();
+        }
       }
-      else
-      {
-        return checked.toUInt();
-      }
-    }
-    default:
-      return QVariant();
+      default:
+        return QVariant();
     }
   case VocabularyDatabase::FieldType::SpinBox:
     switch (role)
     {
-    case Qt::DisplayRole:
-    {
-      const auto priority = _vocabulary->dataText(_categoryId, index.row(), fieldId);
-      if (priority.isEmpty())
+      case Qt::DisplayRole:
       {
-        return PriorityDelegate::RECORD_PRIORITY_MIN;
+        const auto priority = _vocabulary->dataText(_categoryId, index.row(), fieldId);
+        if (priority.isEmpty())
+        {
+          return PriorityDelegate::RECORD_PRIORITY_MIN;
+        }
+        else
+        {
+          return priority.toUInt();
+        }
       }
-      else
-      {
-        return priority.toUInt();
-      }
-    }
-    default:
-      return QVariant();
+      default:
+        return QVariant();
     }
 #endif
   }
@@ -129,16 +130,16 @@ QVariant VocabularyModel::headerData(int section, Qt::Orientation orientation, i
 {
   switch (role)
   {
-  case Qt::DisplayRole:
-    if (orientation == Qt::Horizontal)
-    {
-      return _vocabulary->fieldName(_vocabulary->fieldId(section));
-    }
-    else
-    {
-      return section + 1;
-    }
-  default:
-    return QVariant();
+    case Qt::DisplayRole:
+      if (orientation == Qt::Horizontal)
+      {
+        return _vocabulary->fieldName(_vocabulary->fieldId(section));
+      }
+      else
+      {
+        return section + 1;
+      }
+    default:
+      return QVariant();
   }
 }
