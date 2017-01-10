@@ -5,8 +5,8 @@ VocabularyOpenProgressDialog::VocabularyOpenProgressDialog(const Vocabulary *voc
 	_ui.setupUi(this);
 
 	// connect to vocabulary database
-	connect(vocabulary, SIGNAL(setOpenProgressValue(quintptr)), SLOT(on_vocabulary_setOpenProgressValue(quintptr)));
-	connect(vocabulary, SIGNAL(setOpenProgressMax(quintptr)), SLOT(on_vocabulary_setOpenProgressMax(quintptr)));
+	connect(vocabulary, SIGNAL(setOpenProgressValue(quintptr)),     SLOT(on_vocabulary_setOpenProgressValue(quintptr)));
+	connect(vocabulary, SIGNAL(setOpenProgressMax(quintptr)),       SLOT(on_vocabulary_setOpenProgressMax(quintptr)));
 	connect(vocabulary, SIGNAL(setVocabularyName(const QString &)), SLOT(on_vocabulary_setVocabularyName(const QString &)));
 }
 
