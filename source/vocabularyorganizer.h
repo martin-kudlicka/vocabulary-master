@@ -5,56 +5,56 @@
 
 class VocabularyOrganizer : public QObject
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	public:
-		struct RecordInfo
-		{
-			Vocabulary *vocabulary;
-			quint32     id;
-		}; // RecordInfo
-		struct VocabularyInfo
-		{
-			Settings::VocabularyInfo vocabularyInfo;
-			Vocabulary              *vocabulary;
-		}; // VocabularyInfo
+  public:
+    struct RecordInfo
+    {
+      Vocabulary *vocabulary;
+      quintptr     id;
+    };
+    struct VocabularyInfo
+    {
+      Settings::VocabularyInfo vocabularyInfo;
+      Vocabulary              *vocabulary;
+    };
 
-		         VocabularyOrganizer(Settings *settings);
-		virtual ~VocabularyOrganizer() override;
+             VocabularyOrganizer(Settings *settings);
+    virtual ~VocabularyOrganizer() Q_DECL_OVERRIDE;
 
 #ifndef EDITION_TRY
-		      void            addExisting         (VocabularyInfo *vocabularyInfo, QWidget *parent);
+          void            addExisting(VocabularyInfo *vocabularyInfo, QWidget *parent);
 #endif
-		      void            addNew              (
+          void            addNew(
 #ifndef EDITION_TRY
-			const QString &file
+                                 const QString &file
 #endif
-			);
-		      bool            isOpen              ()             const;
+                                 );
+          bool            isOpen()                       const;
 #ifndef EDITION_TRY
-		      void            openAll             (QWidget *parent);
+          void            openAll(QWidget *parent);
 #endif
-			  quint32         recordCount         ()             const;
-			  quint32         recordCount         (bool enabled) const;
-			  RecordInfo      recordInfo          (quint32 row)  const;
-		      void            remove              (quint8 index);
+          quintptr        recordCount()                  const;
+          quintptr        recordCount(bool enabled)      const;
+          RecordInfo      recordInfo(quintptr row)       const;
+          void            remove(quintptr index);
 #ifndef EDITION_TRY
-		      void            saveAll             ();
+          void            saveAll();
 # ifndef EDITION_FREE
-		      void            setVocabularyEnabled(quint8 index, bool enabled, QWidget *parent);
+          void            setVocabularyEnabled(quintptr index, bool enabled, QWidget *parent);
 # endif
 #endif
-			  quint8          vocabularyCount     ()             const;
-		const VocabularyInfo &vocabularyInfo      (quint8 index) const;
+          quintptr         vocabularyCount()             const;
+    const VocabularyInfo &vocabularyInfo(quintptr index) const;
 
-	private:
-		QList<VocabularyInfo> _vocabularies;
-		Settings             *_settings;
+  private:
+    QList<VocabularyInfo> _vocabularies;
+    Settings             *_settings;
 
 #ifndef EDITION_TRY
-		void open(VocabularyInfo *vocabularyInfo, QWidget *parent);
+    void open(VocabularyInfo *vocabularyInfo, QWidget *parent);
 #endif
 
-	signals:
-		void vocabularyClose(const Vocabulary *vocabulary) const;
-}; // VocabularyOrganizer
+  Q_SIGNALS:
+    void vocabularyClose(const Vocabulary *vocabulary) const;
+};

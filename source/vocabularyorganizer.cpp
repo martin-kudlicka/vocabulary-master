@@ -15,194 +15,194 @@ VocabularyOrganizer::~VocabularyOrganizer()
 #ifndef EDITION_TRY
 void VocabularyOrganizer::addExisting(VocabularyInfo *vocabularyInfo, QWidget *parent)
 {
-	vocabularyInfo->vocabulary = new Vocabulary(_settings);
+  vocabularyInfo->vocabulary = new Vocabulary(_settings);
 
 # ifndef EDITION_FREE
-	if (vocabularyInfo->vocabularyInfo.enabled)
-	{
+  if (vocabularyInfo->vocabularyInfo.enabled)
+  {
 # endif
-		open(vocabularyInfo, parent);
+    open(vocabularyInfo, parent);
 # ifndef EDITION_FREE
-	}
+  }
 # endif
 
-	_vocabularies.append(*vocabularyInfo);
+  _vocabularies.append(*vocabularyInfo);
 }
 #endif
 
 void VocabularyOrganizer::addNew(
 #ifndef EDITION_TRY
-	const QString &file
+                                 const QString &file
 #endif
-	)
+                                 )
 {
-	VocabularyInfo vocabularyInfo;
+  VocabularyInfo vocabularyInfo;
 #ifndef EDITION_TRY
-	vocabularyInfo.vocabularyInfo.filePath = file;
+  vocabularyInfo.vocabularyInfo.filePath = file;
 #endif
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-	vocabularyInfo.vocabularyInfo.enabled  = true;
+  vocabularyInfo.vocabularyInfo.enabled = true;
 #endif
-	vocabularyInfo.vocabulary              = new Vocabulary(_settings);
-	vocabularyInfo.vocabulary->new2(
+  vocabularyInfo.vocabulary             = new Vocabulary(_settings);
+  vocabularyInfo.vocabulary->new2(
 #ifndef EDITION_TRY
-		file
+    file
 #endif
-		);
+  );
 
-	_vocabularies.append(vocabularyInfo);
+  _vocabularies.append(vocabularyInfo);
 }
 
 bool VocabularyOrganizer::isOpen() const
 {
-	for (const VocabularyInfo &vocabularyInfo : _vocabularies)
-	{
-		if (vocabularyInfo.vocabulary->isOpen())
-		{
-			return true;
-		}
-	}
+  for (const auto &vocabularyInfo : _vocabularies)
+  {
+    if (vocabularyInfo.vocabulary->isOpen())
+    {
+      return true;
+    }
+  }
 
-	return false;
+  return false;
 }
 
 #ifndef EDITION_TRY
 void VocabularyOrganizer::openAll(QWidget *parent)
 {
-	const quint8 vocabularies = _settings->vocabularyCount();
-	for (quint8 index = 0; index < vocabularies; index++)
-	{
-		VocabularyInfo vocabularyInfo;
-		vocabularyInfo.vocabularyInfo = _settings->vocabularyInfo(index);
-		addExisting(&vocabularyInfo, parent);
-	}
+  const auto vocabularies = _settings->vocabularyCount();
+  for (auto index = 0; index < vocabularies; index++)
+  {
+    VocabularyInfo vocabularyInfo;
+    vocabularyInfo.vocabularyInfo = _settings->vocabularyInfo(index);
+    addExisting(&vocabularyInfo, parent);
+  }
 }
 #endif
 
-quint32 VocabularyOrganizer::recordCount() const
+quintptr VocabularyOrganizer::recordCount() const
 {
-	quint32 count = 0;
+  auto count = 0;
 
-	for (const VocabularyInfo &vocabularyInfo : _vocabularies)
-	{
-		if (vocabularyInfo.vocabulary->isOpen())
-		{
-			count += vocabularyInfo.vocabulary->recordCount();
-		}
-	}
+  for (const auto &vocabularyInfo : _vocabularies)
+  {
+    if (vocabularyInfo.vocabulary->isOpen())
+    {
+      count += vocabularyInfo.vocabulary->recordCount();
+    }
+  }
 
-	return count;
+  return count;
 }
 
-quint32 VocabularyOrganizer::recordCount(bool enabled) const
+quintptr VocabularyOrganizer::recordCount(bool enabled) const
 {
-	quint32 count = 0;
+  auto count = 0;
 
-	for (const VocabularyInfo &vocabularyInfo : _vocabularies)
-	{
-		if (vocabularyInfo.vocabulary->isOpen())
-		{
-			count += vocabularyInfo.vocabulary->recordCount(enabled);
-		}
-	}
+  for (const auto &vocabularyInfo : _vocabularies)
+  {
+    if (vocabularyInfo.vocabulary->isOpen())
+    {
+      count += vocabularyInfo.vocabulary->recordCount(enabled);
+    }
+  }
 
-	return count;
+  return count;
 }
 
-VocabularyOrganizer::RecordInfo VocabularyOrganizer::recordInfo(quint32 row) const
+VocabularyOrganizer::RecordInfo VocabularyOrganizer::recordInfo(quintptr row) const
 {
-	quint32 currentRow = 0;
-	RecordInfo recordInfo;
+  auto currentRow = 0;
+  RecordInfo recordInfo;
 
-	for (const VocabularyInfo &vocabularyInfo : _vocabularies)
-	{
-		if (vocabularyInfo.vocabulary->isOpen())
-		{
-			const quint32 records = vocabularyInfo.vocabulary->recordCount();
-			if (currentRow + records > row)
-			{
-				recordInfo.vocabulary = vocabularyInfo.vocabulary;
-				recordInfo.id         = vocabularyInfo.vocabulary->recordId(row - currentRow);
+  for (const auto &vocabularyInfo : _vocabularies)
+  {
+    if (vocabularyInfo.vocabulary->isOpen())
+    {
+      const auto records = vocabularyInfo.vocabulary->recordCount();
+      if (currentRow + records > row)
+      {
+        recordInfo.vocabulary = vocabularyInfo.vocabulary;
+        recordInfo.id         = vocabularyInfo.vocabulary->recordId(row - currentRow);
 
-				return recordInfo;
-			}
-			else
-			{
-				currentRow += records;
-			}
-		}
-	}
+        return recordInfo;
+      }
+      else
+      {
+        currentRow += records;
+      }
+    }
+  }
 
-	recordInfo.vocabulary = nullptr;
-	recordInfo.id         = VocabularyDatabase::NOT_FOUND;
+  recordInfo.vocabulary = Q_NULLPTR;
+  recordInfo.id         = VocabularyDatabase::NOT_FOUND;
 
-	return recordInfo;
+  return recordInfo;
 }
 
-void VocabularyOrganizer::remove(quint8 index)
+void VocabularyOrganizer::remove(quintptr index)
 {
-	Vocabulary *vocabulary = _vocabularies.at(index).vocabulary;
+  auto vocabulary = _vocabularies.at(index).vocabulary;
 
-	_vocabularies.removeAt(index);
-	emit vocabularyClose(vocabulary);
+  _vocabularies.removeAt(index);
+  emit vocabularyClose(vocabulary);
 
-	vocabulary->close();
-	delete vocabulary;
+  vocabulary->close();
+  delete vocabulary;
 }
 
 #ifndef EDITION_TRY
 void VocabularyOrganizer::saveAll()
 {
-	const quint8 vocabularies = _vocabularies.size();
+  const auto vocabularies = _vocabularies.size();
 
-	for (quint8 index = 0; index < vocabularies; index++)
-	{
-		_settings->setVocabularyInfo(index, _vocabularies.at(index).vocabularyInfo);
-	}
-	_settings->setVocabularyCount(vocabularies);
+  for (auto index = 0; index < vocabularies; index++)
+  {
+    _settings->setVocabularyInfo(index, _vocabularies.at(index).vocabularyInfo);
+  }
+  _settings->setVocabularyCount(vocabularies);
 }
 
 # ifndef EDITION_FREE
-void VocabularyOrganizer::setVocabularyEnabled(quint8 index, bool enabled, QWidget *parent)
+void VocabularyOrganizer::setVocabularyEnabled(quintptr index, bool enabled, QWidget *parent)
 {
-	VocabularyInfo *vocabularyInfo         = &_vocabularies[index];
-	vocabularyInfo->vocabularyInfo.enabled = enabled;
+  auto vocabularyInfo = &_vocabularies[index];
+  vocabularyInfo->vocabularyInfo.enabled = enabled;
 
-	if (enabled)
-	{
-		open(vocabularyInfo, parent);
-	}
-	else
-	{
-		emit vocabularyClose(vocabularyInfo->vocabulary);
-		vocabularyInfo->vocabulary->close();
-	}
+  if (enabled)
+  {
+    open(vocabularyInfo, parent);
+  }
+  else
+  {
+    emit vocabularyClose(vocabularyInfo->vocabulary);
+    vocabularyInfo->vocabulary->close();
+  }
 }
 # endif
 #endif
 
-quint8 VocabularyOrganizer::vocabularyCount() const
+quintptr VocabularyOrganizer::vocabularyCount() const
 {
-	return _vocabularies.size();
+  return _vocabularies.size();
 }
 
-const VocabularyOrganizer::VocabularyInfo &VocabularyOrganizer::vocabularyInfo(quint8 index) const
+const VocabularyOrganizer::VocabularyInfo &VocabularyOrganizer::vocabularyInfo(quintptr index) const
 {
-	return _vocabularies.at(index);
+  return _vocabularies.at(index);
 }
 
 #ifndef EDITION_TRY
 void VocabularyOrganizer::open(VocabularyInfo *vocabularyInfo, QWidget *parent)
 {
-	VocabularyOpenProgressDialog openProgress(vocabularyInfo->vocabulary, parent);
-	openProgress.show();
-	vocabularyInfo->vocabulary->open(vocabularyInfo->vocabularyInfo.filePath);
+  VocabularyOpenProgressDialog openProgress(vocabularyInfo->vocabulary, parent);
+  openProgress.show();
+  vocabularyInfo->vocabulary->open(vocabularyInfo->vocabularyInfo.filePath);
 
 # ifndef EDITION_FREE
-	if (!vocabularyInfo->vocabulary->isOpen())
-	{
-		vocabularyInfo->vocabularyInfo.enabled = false;
-	}
+  if (!vocabularyInfo->vocabulary->isOpen())
+  {
+    vocabularyInfo->vocabularyInfo.enabled = false;
+  }
 # endif
 }
 #endif
