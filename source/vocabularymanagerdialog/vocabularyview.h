@@ -2,30 +2,31 @@
 #define VOCABULARYVIEW_H
 
 #include <QtWidgets/QTableView>
-#include "vocabulary.h"
+
+class Vocabulary;
 
 class VocabularyView : public QTableView
 {
-    Q_OBJECT
+  Q_OBJECT
 
-    public:
-        VocabularyView(
+  public:
+    VocabularyView(
 #ifndef EDITION_FREE
-            Vocabulary *vocabulary,
+                   Vocabulary *vocabulary,
 #endif
-            QWidget *parent = nullptr);
+                   QWidget *parent = Q_NULLPTR);
 
 #ifndef EDITION_FREE
-    private:
-		      QModelIndex _moveOld;
-		const Vocabulary *_vocabulary;
+  private:
+          QModelIndex _moveOld;
+    const Vocabulary *_vocabulary;
 
-		virtual ~VocabularyView() override;
+    virtual ~VocabularyView() Q_DECL_OVERRIDE;
 
-        virtual bool eventFilter    (QObject *watched, QEvent *event) override;
-        virtual void mouseMoveEvent (QMouseEvent *event)              override;
-        virtual void mousePressEvent(QMouseEvent *event)              override;
+    virtual bool eventFilter    (QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
+    virtual void mouseMoveEvent (QMouseEvent *event)              Q_DECL_OVERRIDE;
+    virtual void mousePressEvent(QMouseEvent *event)              Q_DECL_OVERRIDE;
 #endif
-}; // VocabularyView
+};
 
-#endif // VOCABULARYVIEW_H
+#endif
