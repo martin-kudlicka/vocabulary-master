@@ -3,78 +3,78 @@
 
 #include <ui_vocabularysettingsdialog.h>
 
-#ifdef EDITION_FREE
-# include "vocabulary.h"
-#else
+#ifndef EDITION_FREE
 # include "vocabularymanagerdialog/vocabularysettingsdialog/fieldsmodel.h"
-# include "plugins.h"
+# include "../plugins/common/tts-interface.h"
 # include "vocabularymanagerdialog/vocabularysettingsdialog/languagefielddelegate.h"
 # include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate.h"
 #endif
 
+class Plugins;
+
 class VocabularySettingsDialog : public QDialog
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	public:
-		         VocabularySettingsDialog(Vocabulary *vocabulary,
+  public:
+             VocabularySettingsDialog(Vocabulary *vocabulary,
 #ifndef EDITION_FREE
-            const Plugins *plugins,
+                                      const Plugins *plugins,
 #endif
-            QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
-		virtual ~VocabularySettingsDialog() Q_DECL_OVERRIDE;
+                                      QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+    virtual ~VocabularySettingsDialog() Q_DECL_OVERRIDE;
 
-	private:
+  private:
 #ifdef EDITION_FREE
-		enum Tab
-		{
-			TabLanguages,
-			TabTemplates,
-            TabFields
-		}; // Tab
+    enum class Tab
+    {
+      Languages,
+      Templates,
+      Fields
+    };
 #else
-		struct SpeechVoice
-		{
-			TTSInterface::TTSPlugin ttsPlugin;
-			QString                 voiceId;
-		}; // SpeechVoice
+    struct SpeechVoice
+    {
+      TTSInterface::TTSPlugin ttsPlugin;
+      QString                 voiceId;
+    };
 
-		using VoiceList = QList<SpeechVoice>;
+    using VoiceList = QList<SpeechVoice>;
 
-              FieldsModel                _fieldsModel;
-              LanguageFieldDelegate      _languageFieldDelegate;
-              LineEditPersistentDelegate _lineEditDelegate;
-		const Plugins                   *_plugins;
-		      VoiceList                  _voices;
+          FieldsModel                  _fieldsModel;
+          LanguageFieldDelegate        _languageFieldDelegate;
+          LineEditPersistentDelegate   _lineEditDelegate;
+    const Plugins                     *_plugins;
+          VoiceList                    _voices;
 #endif
-		      Ui::VocabularySettingsDialog _ui;
-		const Vocabulary                  *_vocabulary;
+          Ui::VocabularySettingsDialog _ui;
+    const Vocabulary                  *_vocabulary;
 
-		virtual void accept                   () Q_DECL_OVERRIDE;
+    virtual void accept                   () Q_DECL_OVERRIDE;
 #ifndef EDITION_FREE
-                void actualizeFieldsEditor    ()           const;
-		        void actualizeFieldsEditor    (quint8 row) const;
+            void actualizeFieldsEditor    ()             const;
+            void actualizeFieldsEditor    (quintptr row) const;
 #endif
-		        void fillOptions              ();
+            void fillOptions              ();
 #ifndef EDITION_FREE
-		        void fillSpeech               (QComboBox *comboBox, const QString &speech, const QString &voice);
-                void prepareFields            ();
-                void preparePlugins           ();
-		        void prepareSpeechPlugins     (QComboBox *comboBox);
-                void refreshLanguageNameFields()           const;
+            void fillSpeech               (QComboBox *comboBox, const QString &speech, const QString &voice);
+            void prepareFields            ();
+            void preparePlugins           ();
+            void prepareSpeechPlugins     (QComboBox *comboBox);
+            void refreshLanguageNameFields()             const;
 #endif
-		        void saveOptions              ();
+            void saveOptions              ();
 
 #ifndef EDITION_FREE
-	private Q_SLOTS:
-	    void on_fieldAdd_clicked                     (bool checked = false);
-		void on_fieldDown_clicked                    (bool checked = false);
-		void on_fieldRemove_clicked                  (bool checked = false);
-		void on_fieldUp_clicked                      (bool checked = false);
-		void on_fieldsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
-        void on_languageLeft_textEdited              (const QString &text)                                              const;
-        void on_languageRight_textEdited             (const QString &text)                                              const;
+    private Q_SLOTS:
+      void on_fieldAdd_clicked                     (bool checked = false);
+      void on_fieldDown_clicked                    (bool checked = false);
+      void on_fieldRemove_clicked                  (bool checked = false);
+      void on_fieldUp_clicked                      (bool checked = false);
+      void on_fieldsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
+      void on_languageLeft_textEdited              (const QString &text)                                              const;
+      void on_languageRight_textEdited             (const QString &text)                                              const;
 #endif
-}; // VocabularySettingsDialog
+};
 
-#endif // VOCABULARYSETTINGSDIALOG_H
+#endif
