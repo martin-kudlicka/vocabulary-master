@@ -7,38 +7,38 @@
 
 class VocabularyOrganizerModel : public QAbstractTableModel
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	public:
-		enum Column
-		{
-			ColumnVocabularyFile,
+  public:
+    enum class Column
+    {
+      VocabularyFile,
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-			ColumnEnabled,
+      Enabled,
 #endif
-			ColumnCount
-		}; // Column
+      Count
+    };
 
-		         VocabularyOrganizerModel(VocabularyOrganizer *organizer, QWidget *parent);
-		virtual ~VocabularyOrganizerModel() override;
+             VocabularyOrganizerModel(VocabularyOrganizer *organizer, QWidget *parent);
+    virtual ~VocabularyOrganizerModel() Q_DECL_OVERRIDE;
 
-		void addRow   ();
-		void removeRow(quint8 row);
+    void addRow   ();
+    void removeRow(quintptr row);
 
-	private:
-		QWidget             *_parent;
-		VocabularyOrganizer *_organizer;
+  private:
+    QWidget             *_parent;
+    VocabularyOrganizer *_organizer;
 
-		virtual int           columnCount(const QModelIndex &parent = QModelIndex())                            const override;
-		virtual QVariant      data       (const QModelIndex &index, int role = Qt::DisplayRole)                 const override;
+    virtual int           columnCount(const QModelIndex &parent = QModelIndex())                            const Q_DECL_OVERRIDE;
+    virtual QVariant      data       (const QModelIndex &index, int role = Qt::DisplayRole)                 const Q_DECL_OVERRIDE;
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-		virtual Qt::ItemFlags flags      (const QModelIndex &index)                                             const override;
+    virtual Qt::ItemFlags flags      (const QModelIndex &index)                                             const Q_DECL_OVERRIDE;
 #endif
-		virtual QVariant      headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
-		virtual int           rowCount   (const QModelIndex &parent = QModelIndex())                            const override;
+    virtual QVariant      headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+    virtual int           rowCount   (const QModelIndex &parent = QModelIndex())                            const Q_DECL_OVERRIDE;
 #if !defined(EDITION_FREE) && !defined(EDITION_TRY)
-		virtual bool          setData    (const QModelIndex &index, const QVariant &value, int role = Qt::EditRole)   override;
+    virtual bool          setData    (const QModelIndex &index, const QVariant &value, int role = Qt::EditRole)   Q_DECL_OVERRIDE;
 #endif
-}; // VocabularyOrganizerModel
+};
 
-#endif // VOCABULARYORGANIZERMODEL_H
+#endif
