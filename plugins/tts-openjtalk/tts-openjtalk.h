@@ -19,18 +19,18 @@ class TTSOpenJTalk : public QObject, private TTSInterface
     NJD        _njd;
     JPCommon   _jpCommon;
 
-    virtual ~TTSOpenJTalk() override;
+    virtual ~TTSOpenJTalk() Q_DECL_OVERRIDE;
 
     QString fileInSubdir(const QString &file, const QString &dir) const;
     QString subdir      (const QString &dir)                      const;
 
-    virtual void                              initialize  ()                                          override;
-    virtual LicenseCommon::LicenseContentList licenseText () const                                    override;
-    virtual TTSPlugin                         pluginId    () const                                    override;
-    virtual QString                           pluginName  () const                                    override;
-    virtual void                              say         (const QString &voice, const QString &text) override;
-    virtual void                              uninitialize()                                          override;
-    virtual VoiceInfoList                     voicesInfo  () const                                    override;
+    virtual void                              initialize  ()                                          Q_DECL_OVERRIDE;
+    virtual LicenseCommon::LicenseContentList licenseText () const                                    Q_DECL_OVERRIDE;
+    virtual TTSPlugin                         pluginId    () const                                    Q_DECL_OVERRIDE;
+    virtual QString                           pluginName  () const                                    Q_DECL_OVERRIDE;
+    virtual void                              say         (const QString &voice, const QString &text) Q_DECL_OVERRIDE;
+    virtual void                              uninitialize()                                          Q_DECL_OVERRIDE;
+    virtual VoiceInfoList                     voicesInfo  () const                                    Q_DECL_OVERRIDE;
 };
 
 #endif
