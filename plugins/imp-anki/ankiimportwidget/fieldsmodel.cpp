@@ -9,7 +9,7 @@ const auto    COLUMN_ORDINAL    = "ordinal";
 const auto    TABLE_FIELDMODELS = "fieldModels";
 const QString TEMPLATE_MARK     = "${%1}";
 
-FieldsModel::FieldsModel(const QSqlDatabase *database, QObject *parent /* nullptr */) : QAbstractItemModel(parent), _modelId(0), _database(database)
+FieldsModel::FieldsModel(const QSqlDatabase *database, QObject *parent /* Q_NULLPTR */) : QAbstractItemModel(parent), _modelId(0), _database(database)
 {
 }
 
