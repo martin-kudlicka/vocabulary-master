@@ -7,7 +7,7 @@
 
 Q_DECL_CONSTEXPR auto KEY_SIZE = 3072;
 
-MainWindow::MainWindow(QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags)
+MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags)
 {
   _ui.setupUi(this);
 }
