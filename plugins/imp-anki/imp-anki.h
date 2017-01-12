@@ -28,15 +28,15 @@ class ImpAnki : public QObject, private ImpInterface
     AnkiImportWidget *_widget;
     QSqlDatabase      _database;
 
-    virtual ~ImpAnki() override;
+    virtual ~ImpAnki() Q_DECL_OVERRIDE;
 
-    virtual void        close      ()                                       override;
-    virtual QString     filter     () const                                 override;
-    virtual QStringList marks      () const                                 override;
-    virtual bool        open       (const QString &fileName)                override;
-    virtual quintptr    recordCount() const                                 override;
-    virtual QString     recordData (quintptr recordId, const QString &mark) override;
-    virtual void        setupUI    (QGroupBox *parent)                      override;
+    virtual void        close      ()                                       Q_DECL_OVERRIDE;
+    virtual QString     filter     () const                                 Q_DECL_OVERRIDE;
+    virtual QStringList marks      () const                                 Q_DECL_OVERRIDE;
+    virtual bool        open       (const QString &fileName)                Q_DECL_OVERRIDE;
+    virtual quintptr    recordCount() const                                 Q_DECL_OVERRIDE;
+    virtual QString     recordData (quintptr recordId, const QString &mark) Q_DECL_OVERRIDE;
+    virtual void        setupUI    (QGroupBox *parent)                      Q_DECL_OVERRIDE;
 };
 
 #endif

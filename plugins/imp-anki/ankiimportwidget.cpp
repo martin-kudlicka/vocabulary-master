@@ -3,7 +3,7 @@
 #include "../../common/marklineedit.h"
 #include "../common/imp-interface.h"
 
-AnkiImportWidget::AnkiImportWidget(const QSqlDatabase *database, QWidget *parent /* nullptr */, Qt::WindowFlags pFlags /* 0 */) : QWidget(parent, pFlags), _decksModel(database), _fieldsModel(database), _modelsModel(database), _database(database)
+AnkiImportWidget::AnkiImportWidget(const QSqlDatabase *database, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags pFlags /* 0 */) : QWidget(parent, pFlags), _decksModel(database), _fieldsModel(database), _modelsModel(database), _database(database)
 {
   _ui.setupUi(this);
 
