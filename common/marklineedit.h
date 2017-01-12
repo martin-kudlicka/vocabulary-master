@@ -8,19 +8,19 @@ class MarkLineEdit : public QLineEdit
   Q_OBJECT
 
   public:
-    MarkLineEdit(QWidget *parent = nullptr);
-    MarkLineEdit(const QString &contents, QWidget *parent = nullptr);
+    MarkLineEdit(QWidget *parent = Q_NULLPTR);
+    MarkLineEdit(const QString &contents, QWidget *parent = Q_NULLPTR);
 
   private:
     bool _focusedIn;
 
-    virtual ~MarkLineEdit() override;
+    virtual ~MarkLineEdit() Q_DECL_OVERRIDE;
 
     void initialize();
 
-    virtual void focusInEvent   (QFocusEvent *e)    override;
-    virtual void mousePressEvent(QMouseEvent *e)    override;
-    virtual void showEvent      (QShowEvent *event) override;
+    virtual void focusInEvent   (QFocusEvent *e)    Q_DECL_OVERRIDE;
+    virtual void mousePressEvent(QMouseEvent *e)    Q_DECL_OVERRIDE;
+    virtual void showEvent      (QShowEvent *event) Q_DECL_OVERRIDE;
 };
 
 #endif

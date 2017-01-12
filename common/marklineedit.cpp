@@ -2,12 +2,12 @@
 
 #include <QtGui/QFocusEvent>
 
-MarkLineEdit::MarkLineEdit(QWidget *parent /* nullptr */) : QLineEdit(parent)
+MarkLineEdit::MarkLineEdit(QWidget *parent /* Q_NULLPTR */) : QLineEdit(parent)
 {
   initialize();
 }
 
-MarkLineEdit::MarkLineEdit(const QString &contents, QWidget *parent /* nullptr */) : QLineEdit(contents, parent)
+MarkLineEdit::MarkLineEdit(const QString &contents, QWidget *parent /* Q_NULLPTR */) : QLineEdit(contents, parent)
 {
   initialize();
 }
