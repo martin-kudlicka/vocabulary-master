@@ -1,5 +1,6 @@
 #include "vocabularymanagerdialog/wordsexportdialog.h"
 
+#include "vocabulary.h"
 #include "../../common/marklineedit.h"
 
 WordsExportDialog::WordsExportDialog(const Vocabulary *vocabulary, const Plugins::ExpPluginList &expPlugins, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _categoriesModel(vocabulary), _expPluginsModel(&expPlugins), _expPlugins(expPlugins), _vocabulary(vocabulary), _fieldsModel(vocabulary)
@@ -14,10 +15,10 @@ WordsExportDialog::WordsExportDialog(const Vocabulary *vocabulary, const Plugins
   _ui.categories->setModel(&_categoriesModel);
   // fields
   _ui.fields->setModel(&_fieldsModel);
-  _ui.fields->setItemDelegateForColumn(WordsExportFieldsModel::ColumnMark, &_markDelegate);
+  _ui.fields->setItemDelegateForColumn(static_cast<int>(WordsExportFieldsModel::Column::Mark), &_markDelegate);
   for (auto row = 0; row < _fieldsModel.rowCount(); row++)
   {
-    const auto index = _fieldsModel.index(row, WordsExportFieldsModel::ColumnMark);
+    const auto index = _fieldsModel.index(row, static_cast<int>(WordsExportFieldsModel::Column::Mark));
     _ui.fields->openPersistentEditor(index);
   }
   for (auto column = 0; column < _ui.fields->header()->count(); column++)
@@ -106,7 +107,7 @@ const void WordsExportDialog::on_plugin_VocabularyGetMarks(QStringList *pMarks) 
 {
   for (auto row = 0; row < _fieldsModel.rowCount(); row++)
   {
-    const auto editorIndex = _fieldsModel.index(row, WordsExportFieldsModel::ColumnMark);
+    const auto editorIndex = _fieldsModel.index(row, static_cast<int>(WordsExportFieldsModel::Column::Mark));
     const auto editor      = qobject_cast<const MarkLineEdit *>(_ui.fields->indexWidget(editorIndex));
     pMarks->append(editor->text());
   }
