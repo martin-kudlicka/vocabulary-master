@@ -14,13 +14,13 @@ class ExpPlaintext : public ExpInterface
   private:
     PlaintextExportWidget *_widget;
 
-    virtual ~ExpPlaintext() override;
+    virtual ~ExpPlaintext() Q_DECL_OVERRIDE;
 
-    virtual void    beginExport() const          override;
-    virtual QString pluginName () const          override;
-    virtual void    setupUi    (QWidget *parent) override;
+    virtual void    beginExport() const          Q_DECL_OVERRIDE;
+    virtual QString pluginName () const          Q_DECL_OVERRIDE;
+    virtual void    setupUi    (QWidget *parent) Q_DECL_OVERRIDE;
 
-  private slots:
+  private Q_SLOTS:
     void on_widget_progressExportSetMax     (quintptr max)                                               const;
     void on_widget_progressExportSetValue   (quintptr value)                                             const;
     void on_widget_vocabularyGetCategoryIds (ExpInterface::CategoryIdList *categoryIds)                  const;
