@@ -51,7 +51,7 @@ const void PlaintextFile::setCodecName(const QString &codec)
   openTextStream(&codec);
 }
 
-void PlaintextFile::openTextStream(const QString *codec /* nullptr */)
+void PlaintextFile::openTextStream(const QString *codec /* Q_NULLPTR */)
 {
   const auto fileContent = _file.readAll();
   if (codec)

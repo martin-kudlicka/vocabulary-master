@@ -12,7 +12,7 @@ class PlaintextImportWidget : public QWidget
   Q_OBJECT
 
   public:
-    PlaintextImportWidget(PlaintextFile *file, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
+    PlaintextImportWidget(PlaintextFile *file, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
 
     quintptr lineCount     () const;
     quintptr linesPerRecord() const;
@@ -23,12 +23,12 @@ class PlaintextImportWidget : public QWidget
     PlaintextFile            *_file;
     Ui::PlaintextImportWidget _ui;
 
-    virtual ~PlaintextImportWidget() override;
+    virtual ~PlaintextImportWidget() Q_DECL_OVERRIDE;
 
     void preselectCodec() const;
     void refreshPreview() const;
 
-  private slots:
+  private Q_SLOTS:
     void on_codecs_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const;
     void on_linesPerRecord_valueChanged           (int i)                                                            const;
 };
