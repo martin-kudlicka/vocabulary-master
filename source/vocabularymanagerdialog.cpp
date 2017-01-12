@@ -8,6 +8,7 @@
 #include "vocabularymanagerdialog/vocabularymodel.h"
 #include "vocabularymanagerdialog/vocabularysettingsdialog.h"
 #ifndef EDITION_FREE
+# include "../plugins/common/imp-interface.h"
 # include "vocabularymanagerdialog/wordsimportdialog.h"
 #endif
 #include <QtWidgets/QFileDialog>
