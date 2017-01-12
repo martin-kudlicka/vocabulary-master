@@ -85,7 +85,7 @@ class PdfExportWidget : public QWidget
 
     using TableColumns = QList<TableColumn>;
 
-    PdfExportWidget(QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
+    PdfExportWidget(QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
 
           quintptr            border       ()                                               const;
           quintptr            compression  ()                                               const;
