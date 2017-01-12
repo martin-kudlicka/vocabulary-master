@@ -26,7 +26,7 @@ class PlaintextFile
     const QTextCodec *_textCodec;
           QTextStream _textStream;
 
-    void openTextStream(const QString *codec = nullptr);
+    void openTextStream(const QString *codec = Q_NULLPTR);
 };
 
 #endif

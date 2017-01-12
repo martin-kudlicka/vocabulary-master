@@ -2,7 +2,7 @@
 
 #include "plaintextimportwidget/plaintextfile.h"
 
-PlaintextImportWidget::PlaintextImportWidget(PlaintextFile *file, QWidget *parent /* nullptr */, Qt::WindowFlags pFlags /* 0 */) : QWidget(parent, pFlags), _file(file)
+PlaintextImportWidget::PlaintextImportWidget(PlaintextFile *file, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags pFlags /* 0 */) : QWidget(parent, pFlags), _file(file)
 {
   _ui.setupUi(this);
 
