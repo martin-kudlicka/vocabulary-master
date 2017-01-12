@@ -6,12 +6,12 @@
 class MarkLineEditPersistentDelegate : public QStyledItemDelegate
 {
   public:
-             MarkLineEditPersistentDelegate(QObject *parent = nullptr);
-    virtual ~MarkLineEditPersistentDelegate() override;
+             MarkLineEditPersistentDelegate(QObject *parent = Q_NULLPTR);
+    virtual ~MarkLineEditPersistentDelegate() Q_DECL_OVERRIDE;
 
   private:
-    virtual QWidget *createEditor (QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-    virtual void     setEditorData(QWidget *editor, const QModelIndex &index)                                     const override;
+    virtual QWidget *createEditor (QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
+    virtual void     setEditorData(QWidget *editor, const QModelIndex &index)                                     const Q_DECL_OVERRIDE;
 };
 
 #endif
