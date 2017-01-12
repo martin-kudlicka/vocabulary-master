@@ -6,7 +6,7 @@
 # include <QtCore/QDir>
 #endif
 
-HINSTANCE TranslationHandler::_instance = nullptr;
+HINSTANCE TranslationHandler::_instance = Q_NULLPTR;
 
 Q_DECL_CONSTEXPR auto DIR_LANG = "lang";
 
