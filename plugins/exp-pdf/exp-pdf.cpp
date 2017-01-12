@@ -4,7 +4,7 @@
 #include <QtCore/QTextCodec>
 #include <hpdf.h>
 
-const auto RECORD_NONE = -1;
+Q_DECL_CONSTEXPR auto RECORD_NONE = -1;
 
 ExpPdf::~ExpPdf()
 {
@@ -164,7 +164,7 @@ void ExpPdf::pdfAddPage(HPDF_Doc pdfDocument, HPDF_Page *pdfPage, HPDF_REAL defa
   }
   else
   {
-    pdfFont = nullptr;
+    pdfFont = Q_NULLPTR;
     pdfSize = defaultSize;
   }
 
@@ -252,7 +252,7 @@ void ExpPdf::beginExport() const
   emit vocabularyGetMarks(&marks);
 
   // PDF
-  const auto pdfDocument = HPDF_New(nullptr, nullptr);
+  const auto pdfDocument = HPDF_New(Q_NULLPTR, Q_NULLPTR);
   HPDF_SetCompressionMode(pdfDocument, _widget->compression());
 
   // get font info with font and encoding set
@@ -274,7 +274,7 @@ void ExpPdf::beginExport() const
   emit progressExportSetMax(totalRecords);
 
   // export
-  HPDF_Page pdfPage = nullptr;
+  HPDF_Page pdfPage = Q_NULLPTR;
   pdfAddPage(pdfDocument, &pdfPage, fonts.at(static_cast<int>(PdfExportWidget::FontRole::Category)).size);
   auto firstLine = true;
   auto records = 0;

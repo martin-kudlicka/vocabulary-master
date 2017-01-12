@@ -7,10 +7,10 @@ const auto COLUMN_DEFAULTWIDTH = 100;
 const auto COLUMN_MAX_WIDTH    = 999;
 const auto LABEL_COLUMN        = 1;
 
-PdfExportWidget::EncodingInfo ENCODINGS[] = { { "StandardEncoding", PdfExportWidget::EncodingType::Singlebyte, PdfExportWidget::EncodingSet::None, nullptr },
+PdfExportWidget::EncodingInfo ENCODINGS[] = { { "StandardEncoding", PdfExportWidget::EncodingType::Singlebyte, PdfExportWidget::EncodingSet::None, Q_NULLPTR },
                                               { "MacRomanEncoding", PdfExportWidget::EncodingType::Singlebyte, PdfExportWidget::EncodingSet::None, "MacRoman" },
                                               { "WinAnsiEncoding",  PdfExportWidget::EncodingType::Singlebyte, PdfExportWidget::EncodingSet::None, "CP1252" },
-                                              { "FontSpecific",     PdfExportWidget::EncodingType::Singlebyte, PdfExportWidget::EncodingSet::None, nullptr },
+                                              { "FontSpecific",     PdfExportWidget::EncodingType::Singlebyte, PdfExportWidget::EncodingSet::None, Q_NULLPTR },
                                               { "ISO8859-2",        PdfExportWidget::EncodingType::Singlebyte, PdfExportWidget::EncodingSet::None, "ISO-8859-2" },
                                               { "ISO8859-3",        PdfExportWidget::EncodingType::Singlebyte, PdfExportWidget::EncodingSet::None, "ISO-8859-3" },
                                               { "ISO8859-4",        PdfExportWidget::EncodingType::Singlebyte, PdfExportWidget::EncodingSet::None, "ISO-8859-4" },
@@ -91,7 +91,7 @@ PdfExportWidget::PageSize PAGE_SIZES[] = { { "Letter",    HPDF_PAGE_SIZE_LETTER 
                                            { "US 5x7",    HPDF_PAGE_SIZE_US5x7 },
                                            { "Comm 10",   HPDF_PAGE_SIZE_COMM10 } };
 
-PdfExportWidget::PdfExportWidget(QWidget *parent /* nullptr */, Qt::WindowFlags flags /* 0 */) : QWidget(parent, flags)
+PdfExportWidget::PdfExportWidget(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QWidget(parent, flags)
 {
   _ui.setupUi(this);
 
@@ -350,7 +350,7 @@ char *PdfExportWidget::textCodec(const QString &encoding) const
     }
   }
 
-  return nullptr;
+  return Q_NULLPTR;
 }
 
 void PdfExportWidget::initTableColumns()
