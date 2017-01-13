@@ -113,8 +113,8 @@ PdfExportWidget::PdfExportWidget(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlag
   controls.size     = _ui.templateFontSize;
   _fontControls.append(controls);
 
-  connect(_ui.categoryFont, SIGNAL(currentIndexChanged(int)), SLOT(on_font_currentIndexChanged(int)));
-  connect(_ui.templateFont, SIGNAL(currentIndexChanged(int)), SLOT(on_font_currentIndexChanged(int)));
+  connect(_ui.categoryFont, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &PdfExportWidget::on_font_currentIndexChanged);
+  connect(_ui.templateFont, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &PdfExportWidget::on_font_currentIndexChanged);
 }
 
 PdfExportWidget::~PdfExportWidget()
@@ -217,7 +217,7 @@ void PdfExportWidget::initMarkFonts()
     controls.size     = fontSize;
     _fontControls.append(controls);
 
-    connect(font, SIGNAL(currentIndexChanged(int)), SLOT(on_font_currentIndexChanged(int)));
+    connect(font, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &PdfExportWidget::on_font_currentIndexChanged);
   }
 }
 

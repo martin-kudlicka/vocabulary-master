@@ -348,11 +348,11 @@ QString ExpPdf::pluginName() const
 
 void ExpPdf::setupUi(QWidget *parent)
 {
-  _widget = new PdfExportWidget(parent);
+  _widget        = new PdfExportWidget(parent);
   auto boxLayout = qobject_cast<QBoxLayout *>(parent->layout());
   boxLayout->insertWidget(WIDGET_POSITION, _widget);
 
-  connect(_widget, SIGNAL(vocabularyGetMarks(QStringList *)), SLOT(on_widget_vocabularyGetMarks(QStringList *)));
+  connect(_widget, &PdfExportWidget::vocabularyGetMarks, this, &ExpPdf::on_widget_vocabularyGetMarks);
 
   _widget->initMarkFonts();
 }
