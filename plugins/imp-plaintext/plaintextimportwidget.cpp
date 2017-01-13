@@ -7,7 +7,7 @@ PlaintextImportWidget::PlaintextImportWidget(PlaintextFile *file, QWidget *paren
   _ui.setupUi(this);
 
   _ui.codecs->setModel(&_codecsModel);
-  connect(_ui.codecs->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_codecs_selectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+  connect(_ui.codecs->selectionModel(), &QItemSelectionModel::selectionChanged, this, &PlaintextImportWidget::on_codecs_selectionModel_selectionChanged);
 
   preselectCodec();
 
