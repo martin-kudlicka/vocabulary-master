@@ -2,7 +2,7 @@
 
 FieldLineEdit::FieldLineEdit(QWidget *parent /* Q_NULLPTR */) : QLineEdit(parent), _defaultSheet(styleSheet())
 {
-  connect(this, SIGNAL(textEdited(const QString &)), SLOT(on_textEdited(const QString &)));
+  connect(this, &FieldLineEdit::textEdited, this, &FieldLineEdit::on_textEdited);
 }
 
 FieldLineEdit::~FieldLineEdit()

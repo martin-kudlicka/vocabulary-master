@@ -24,7 +24,7 @@ VocabularyOrganizerDialog::VocabularyOrganizerDialog(VocabularyOrganizer *organi
   _ui.vocabularies->header()->setSectionResizeMode(static_cast<int>(VocabularyOrganizerModel::Column::Enabled),        QHeaderView::ResizeToContents);
 #endif
 
-  connect(_ui.vocabularies->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_vocabulariesSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+  connect(_ui.vocabularies->selectionModel(), &QItemSelectionModel::selectionChanged, this, &VocabularyOrganizerDialog::on_vocabulariesSelectionModel_selectionChanged);
 }
 
 VocabularyOrganizerDialog::~VocabularyOrganizerDialog()

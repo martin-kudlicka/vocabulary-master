@@ -52,8 +52,8 @@ VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *vocabulary,
   enableTabControls();
 
 #ifndef EDITION_FREE
-  connect(_ui.tabs, SIGNAL(tabEnableChanged(quintptr, Qt::CheckState)), SLOT(on_tabs_tabEnableChanged(quintptr, Qt::CheckState)));
-  connect(_ui.tabs, SIGNAL(tabPriorityChanged(quintptr, quintptr)),     SLOT(on_tabs_tabPriorityChanged(quintptr, quintptr)));
+  connect(_ui.tabs, &VocabularyTabWidget::tabEnableChanged,   this, &VocabularyManagerDialog::on_tabs_tabEnableChanged);
+  connect(_ui.tabs, &VocabularyTabWidget::tabPriorityChanged, this, &VocabularyManagerDialog::on_tabs_tabPriorityChanged);
 #endif
 
   vocabulary->beginEdit();
@@ -76,9 +76,9 @@ void VocabularyManagerDialog::addTab(quintptr categoryId)
 {
   auto vocabularyView = new VocabularyView(
 #ifndef EDITION_FREE
-                                                      _vocabulary,
+                                           _vocabulary,
 #endif
-                                                      _ui.tabs);
+                                           _ui.tabs);
   vocabularyView->setSelectionBehavior(QAbstractItemView::SelectRows);
   vocabularyView->setModel(new VocabularyModel(_vocabulary, categoryId, vocabularyView));
   hideColumns(vocabularyView);
@@ -86,7 +86,7 @@ void VocabularyManagerDialog::addTab(quintptr categoryId)
   setPriorityDelegate(vocabularyView);
   vocabularyView->setEditTriggers(QAbstractItemView::AllEditTriggers);
 #endif
-  connect(vocabularyView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_vocabularyViewSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+  connect(vocabularyView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &VocabularyManagerDialog::on_vocabularyViewSelectionModel_selectionChanged);
 
   stretchColumns(vocabularyView);
 
@@ -239,7 +239,7 @@ void VocabularyManagerDialog::initEditor()
     // control
     auto control = new QLineEdit(_ui.editorGroup);
     control->setProperty(PROPERTY_COLUMN, fieldsLeft + fieldsRight - 1);
-    connect(control, SIGNAL(textEdited(const QString &)), SLOT(on_control_textEdited(const QString &)));
+    connect(control, &QLineEdit::textEdited, this, &VocabularyManagerDialog::on_control_textEdited);
     _ui.editorLayout->addWidget(control, row, column + 1);
   }
 }
@@ -270,7 +270,7 @@ void VocabularyManagerDialog::reassignModels() const
     auto vocabularyModel = qobject_cast<VocabularyModel *>(vocabularyView->model());
     vocabularyView->setModel(Q_NULLPTR);
     vocabularyView->setModel(vocabularyModel);
-    connect(vocabularyView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_vocabularyViewSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+    connect(vocabularyView->selectionModel(), &QItemSelectionModel::selectionChanged,  this, &VocabularyManagerDialog::on_vocabularyViewSelectionModel_selectionChanged);
   }
 }
 

@@ -123,12 +123,12 @@ MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /*
 
   // connections
 #ifndef EDITION_FREE
-  connect(&_menuTrayVocabularies, SIGNAL(triggered(QAction *)),                         SLOT(on_menuVocabularies_triggered(QAction *)));
-  connect(&_trayIcon,             SIGNAL(activated(QSystemTrayIcon::ActivationReason)), SLOT(on_trayIcon_activated(QSystemTrayIcon::ActivationReason)));
+  connect(&_menuTrayVocabularies, &QMenu::triggered,                     this, &MainWindow::on_menuVocabularies_triggered);
+  connect(&_trayIcon,             &QSystemTrayIcon::activated,           this, &MainWindow::on_trayIcon_activated);
 #endif
-  connect(&_learningTimer,        SIGNAL(timeout()),                                    SLOT(on_learningTimer_timeout()));
-  connect(&_updateChecker,        SIGNAL(finished()),                                   SLOT(on_updateChecker_finished()));
-  connect(&_vocabularyOrganizer,  SIGNAL(vocabularyClose(const Vocabulary *)),          SLOT(on_vocabularyOrganizer_vocabularyClose(const Vocabulary *)));
+  connect(&_learningTimer,        &QTimer::timeout,                      this, &MainWindow::on_learningTimer_timeout);
+  connect(&_updateChecker,        &UpdateChecker::finished,              this, &MainWindow::on_updateChecker_finished);
+  connect(&_vocabularyOrganizer,  &VocabularyOrganizer::vocabularyClose, this, &MainWindow::on_vocabularyOrganizer_vocabularyClose);
 
 #ifndef EDITION_FREE
   // learning
@@ -224,7 +224,7 @@ void MainWindow::createTrayMenu()
   _menuTray.addSeparator();
   _trayExit = _menuTray.addAction(QIcon(":/res/mainwindow/menubar/exit.png"), tr("&Exit"));
 
-  connect(&_menuTray, SIGNAL(triggered(QAction *)), SLOT(on_menuTray_triggered(QAction *)));
+  connect(&_menuTray, &QMenu::triggered, this, &MainWindow::on_menuTray_triggered);
   _trayIcon.setContextMenu(&_menuTray);
 }
 #endif

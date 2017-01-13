@@ -640,6 +640,24 @@
     <ClCompile Include="..\..\..\intermediate\vocabularymaster\qrc_license.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\intermediate\vocabularymaster\DebugTryEdition\moc_exp-interface.cpp">
+      <Filter>Generated Files\DebugTryEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\intermediate\vocabularymaster\DebugFreeEdition\moc_exp-interface.cpp">
+      <Filter>Generated Files\DebugFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\intermediate\vocabularymaster\ReleaseFreeEdition\moc_exp-interface.cpp">
+      <Filter>Generated Files\ReleaseFreeEdition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\intermediate\vocabularymaster\Debug\moc_exp-interface.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\intermediate\vocabularymaster\Release\moc_exp-interface.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\intermediate\vocabularymaster\ReleaseTryEdition\moc_exp-interface.cpp">
+      <Filter>Generated Files\ReleaseTryEdition</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="common\categoriesmodel.h">
@@ -758,6 +776,9 @@
     </CustomBuild>
     <CustomBuild Include="licensedialog.ui">
       <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\plugins\common\exp-interface.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

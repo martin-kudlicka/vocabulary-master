@@ -8,7 +8,7 @@ WordsCopyMoveDialog::WordsCopyMoveDialog(quintptr categoryId, const RowNumList &
 
   // categories
   _ui.categories->setModel(&_categoriesModel);
-  connect(_ui.categories->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_categoriesSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+  connect(_ui.categories->selectionModel(), &QItemSelectionModel::selectionChanged, this, &WordsCopyMoveDialog::on_categoriesSelectionModel_selectionChanged);
 }
 
 WordsCopyMoveDialog::~WordsCopyMoveDialog()

@@ -5,8 +5,8 @@
 # include <QtWidgets/QSpinBox>
 #endif
 
-static const auto CATEGORY_PRIORITY_MIN = 1;
-static const auto POSITION_BUTTON_ENABLED = QTabBar::LeftSide;
+static const auto CATEGORY_PRIORITY_MIN    = 1;
+static const auto POSITION_BUTTON_ENABLED  = QTabBar::LeftSide;
 static const auto POSITION_BUTTON_PRIORITY = QTabBar::RightSide;
 
 VocabularyTabWidget::VocabularyTabWidget(QWidget *pParent /* Q_NULLPTR */) : QTabWidget(pParent)
@@ -31,7 +31,7 @@ quintptr VocabularyTabWidget::addTab(QWidget *page, const QString &label, bool e
     auto enabledCheckBox = new QCheckBox(this);
     enabledCheckBox->setCheckState(enabled ? Qt::Checked : Qt::Unchecked);
     tabBar()->setTabButton(tab, POSITION_BUTTON_ENABLED, enabledCheckBox);
-    connect(enabledCheckBox, SIGNAL(stateChanged(int)), SLOT(on_enabled_stateChanged(int)));
+    connect(enabledCheckBox, &QCheckBox::stateChanged, this, &VocabularyTabWidget::on_enabled_stateChanged);
   }
 
   // priority
@@ -42,7 +42,7 @@ quintptr VocabularyTabWidget::addTab(QWidget *page, const QString &label, bool e
     prioritySpinBox->setMaximum(CATEGORY_PRIORITY_MAX);
     prioritySpinBox->setValue(priority);
     tabBar()->setTabButton(tab, POSITION_BUTTON_PRIORITY, prioritySpinBox);
-    connect(prioritySpinBox, SIGNAL(valueChanged(int)), SLOT(on_priority_valueChanged(int)));
+    connect(prioritySpinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &VocabularyTabWidget::on_priority_valueChanged);
   }
 
   return tab;

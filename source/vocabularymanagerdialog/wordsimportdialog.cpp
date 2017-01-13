@@ -28,7 +28,7 @@ int WordsImportDialog::exec()
   _ui.setupUi(this);
   // categories
   _ui.categories->setModel(&_categoriesModel);
-  connect(_ui.categories->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_categoriesSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+  connect(_ui.categories->selectionModel(), &QItemSelectionModel::selectionChanged, this, &WordsImportDialog::on_categoriesSelectionModel_selectionChanged);
   // fields
   _ui.fields->setModel(&_fieldsModel);
   createFieldEditors();
