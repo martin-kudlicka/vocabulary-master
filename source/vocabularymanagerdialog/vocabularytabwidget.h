@@ -20,7 +20,7 @@ class VocabularyTabWidget : public QTabWidget
     VocabularyTabWidget(QWidget *parent = Q_NULLPTR);
 
 #ifndef EDITION_FREE
-    quintptr addTab           (QWidget *page, const QString &label, bool enabled, quint8 priority);
+    quintptr addTab           (QWidget *page, const QString &label, bool enabled, quintptr priority);
     void     setShowEnabled   (bool enabled);
     void     setShowPriorities(bool enabled);
 
@@ -34,7 +34,7 @@ class VocabularyTabWidget : public QTabWidget
     void tabEnableChanged  (quintptr index, Qt::CheckState state) const;
     void tabPriorityChanged(quintptr index, quintptr value)       const;
 
-    private Q_SLOTS:
+  private Q_SLOTS:
       void on_enabled_stateChanged (int state) const;
       void on_priority_valueChanged(int i)     const;
 #endif

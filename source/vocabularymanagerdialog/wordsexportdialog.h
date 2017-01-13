@@ -23,7 +23,7 @@ class WordsExportDialog : public QDialog
           MarkLineEditPersistentDelegate _markDelegate;
           Plugins::ExpPluginList         _expPlugins;
           Ui::WordsExportDialog          _ui;
-          QHash<quint8, quint8>          _expPluginPage;
+          QHash<quintptr, quintptr>      _expPluginPage;
     const Vocabulary                    *_vocabulary;
           WordsExportFieldsModel         _fieldsModel;
 

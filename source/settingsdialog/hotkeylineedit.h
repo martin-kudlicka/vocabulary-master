@@ -11,12 +11,12 @@ static const char   *PROPERTY_VIRTUALKEY = "VirtualKey";
 class HotkeyLineEdit : public QLineEdit
 {
   public:
-    HotkeyLineEdit(QWidget *parent = nullptr);
+    HotkeyLineEdit(QWidget *parent = Q_NULLPTR);
 
   private:
-    virtual ~HotkeyLineEdit() override;
+    virtual ~HotkeyLineEdit() Q_DECL_OVERRIDE;
 
-    virtual void keyPressEvent(QKeyEvent *event) override;
+    virtual void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
 };
 
 #endif

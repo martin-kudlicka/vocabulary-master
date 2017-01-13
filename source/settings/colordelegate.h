@@ -6,12 +6,12 @@
 class ColorDelegate : public QStyledItemDelegate
 {
   public:
-    ColorDelegate(QObject *parent = nullptr);
+    ColorDelegate(QObject *parent = Q_NULLPTR);
 
   private:
-    virtual ~ColorDelegate() override;
+    virtual ~ColorDelegate() Q_DECL_OVERRIDE;
 
-    virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
 };
 
 #endif

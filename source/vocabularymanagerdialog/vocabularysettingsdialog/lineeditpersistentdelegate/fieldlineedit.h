@@ -8,16 +8,16 @@ class FieldLineEdit : public QLineEdit
   Q_OBJECT
 
   public:
-    FieldLineEdit(QWidget *parent = nullptr);
+    FieldLineEdit(QWidget *parent = Q_NULLPTR);
 
   private:
     QString _defaultSheet;
 
-    virtual ~FieldLineEdit() override;
+    virtual ~FieldLineEdit() Q_DECL_OVERRIDE;
 
-    virtual void showEvent(QShowEvent *event) override;
+    virtual void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
 
-  private slots:
+  private Q_SLOTS:
     void on_textEdited(const QString &text);
 };
 

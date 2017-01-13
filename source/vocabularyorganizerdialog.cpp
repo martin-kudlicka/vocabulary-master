@@ -1,4 +1,6 @@
 #include "vocabularyorganizerdialog.h"
+
+#include "vocabularyorganizer.h"
 #ifndef EDITION_TRY
 # include <QtWidgets/QFileDialog>
 #endif

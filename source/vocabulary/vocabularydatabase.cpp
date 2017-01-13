@@ -918,7 +918,7 @@ void VocabularyDatabase::openDatabase()
   _database.open();
 }
 
-void VocabularyDatabase::removeRecord(quint32 recordId) const
+void VocabularyDatabase::removeRecord(quintptr recordId) const
 {
   // remove record's data
   auto query = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DATA + " WHERE " + COLUMN_RECORDID + " = " + QString::number(recordId));
