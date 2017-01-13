@@ -218,7 +218,7 @@ void SettingsDialog::preparePlugins(QTreeView *treeView, PluginsModel *model) co
     auto showButton = new QPushButton(tr("Show"), treeView);
     treeView->setIndexWidget(modelIndex, showButton);
 
-    connect(showButton, SIGNAL(clicked(bool)), SLOT(on_showLicense_clicked(bool)));
+    connect(showButton, &QPushButton::clicked, this, &SettingsDialog::on_showLicense_clicked);
   }
   treeView->header()->setSectionResizeMode(static_cast<int>(PluginsModel::Column::Name),    QHeaderView::Stretch);
   treeView->header()->setSectionResizeMode(static_cast<int>(PluginsModel::Column::License), QHeaderView::ResizeToContents);

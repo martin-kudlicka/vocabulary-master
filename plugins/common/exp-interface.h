@@ -23,14 +23,14 @@ class ExpInterface : public QObject, public TranslationHandler
     virtual ~ExpInterface() Q_DECL_OVERRIDE;
 
   Q_SIGNALS:
-    void progressExportSetMax     (quintptr pMax)                                                const;
-    void progressExportSetValue   (quintptr pValue)                                              const;
-    void vocabularyGetCategoryIds (ExpInterface::CategoryIdList *pCategoryIds)                   const;
-    void vocabularyGetCategoryName(quintptr pCategoryId, QString *pName)                         const;
-    void vocabularyGetMarks       (QStringList *pMarks)                                          const;
-    void vocabularyGetMarkText    (quintptr pRecordId, const QString &pMark, QString *pText)     const;
-    void vocabularyGetRecordCount (quintptr pCategoryId, quintptr *pCount)                       const;
-    void vocabularyGetRecordIds   (quintptr pCategoryId, ExpInterface::RecordIdList *pRecordIds) const;
+    void progressExportSetMax     (quintptr max)                                               const;
+    void progressExportSetValue   (quintptr value)                                             const;
+    void vocabularyGetCategoryIds (ExpInterface::CategoryIdList *categoryIds)                  const;
+    void vocabularyGetCategoryName(quintptr categoryId, QString *name)                         const;
+    void vocabularyGetMarks       (QStringList *marks)                                         const;
+    void vocabularyGetMarkText    (quintptr recordId, const QString &mark, QString *text)      const;
+    void vocabularyGetRecordCount (quintptr categoryId, quintptr *count)                       const;
+    void vocabularyGetRecordIds   (quintptr categoryId, ExpInterface::RecordIdList *recordIds) const;
 };
 
 Q_DECLARE_INTERFACE(ExpInterface, IID_EXPINTERFACE);

@@ -2,7 +2,7 @@
 
 ClearCacheWorker::ClearCacheWorker(VocabularyDatabase::RecordDataHash *recordData, QObject *parent /* Q_NULLPTR */) : QThread(parent), _recordData(recordData)
 {
-  connect(this, SIGNAL(finished()), SLOT(deleteLater()));
+  connect(this, &ClearCacheWorker::finished, this, &ClearCacheWorker::deleteLater);
 }
 
 ClearCacheWorker::~ClearCacheWorker()

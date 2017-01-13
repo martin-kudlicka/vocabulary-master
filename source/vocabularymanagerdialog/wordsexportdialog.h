@@ -28,16 +28,16 @@ class WordsExportDialog : public QDialog
           WordsExportFieldsModel         _fieldsModel;
 
   private Q_SLOTS:
-    const void on_exportButton_clicked                     (bool checked = false);
-    const void on_expPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
-    const void on_plugin_ProgressExportSetMax              (quintptr max)                                               const;
-    const void on_plugin_ProgressExportSetValue            (quintptr value)                                             const;
-    const void on_plugin_VocabularyGetCategoryIds          (ExpInterface::CategoryIdList *categoryIds)                  const;
-    const void on_plugin_VocabularyGetCategoryName         (quintptr categoryId, QString *name)                         const;
-    const void on_plugin_VocabularyGetMarks                (QStringList *marks)                                         const;
-    const void on_plugin_VocabularyGetMarkText             (quintptr recordId, const QString &mark, QString *text)      const;
-    const void on_plugin_VocabularyGetRecordCount          (quintptr categoryId, quintptr *count)                       const;
-    const void on_plugin_VocabularyGetRecordIds            (quintptr categoryId, ExpInterface::RecordIdList *recordIds) const;
+    void on_exportButton_clicked                     (bool checked = false);
+    void on_expPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+    void on_plugin_progressExportSetMax              (quintptr max)                                               const;
+    void on_plugin_progressExportSetValue            (quintptr value)                                             const;
+    void on_plugin_vocabularyGetCategoryIds          (ExpInterface::CategoryIdList *categoryIds)                  const;
+    void on_plugin_vocabularyGetCategoryName         (quintptr categoryId, QString *name)                         const;
+    void on_plugin_vocabularyGetMarks                (QStringList *marks)                                         const;
+    void on_plugin_vocabularyGetMarkText             (quintptr recordId, const QString &mark, QString *text)      const;
+    void on_plugin_vocabularyGetRecordCount          (quintptr categoryId, quintptr *count)                       const;
+    void on_plugin_vocabularyGetRecordIds            (quintptr categoryId, ExpInterface::RecordIdList *recordIds) const;
 };
 
 #endif

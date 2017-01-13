@@ -9,7 +9,7 @@ UpdateChecker::UpdateChecker(const Settings *settings, QObject *parent /* Q_NULL
   _currentVersion.minor2   = 0;
   _currentVersion.revision = 654;
 
-  connect(&_networkAccessManager, SIGNAL(finished(QNetworkReply *)), SLOT(on_networkAccessManager_finished(QNetworkReply *)));
+  connect(&_networkAccessManager, &QNetworkAccessManager::finished, this, &UpdateChecker::on_networkAccessManager_finished);
 }
 
 UpdateChecker::~UpdateChecker()

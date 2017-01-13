@@ -121,7 +121,7 @@ void VocabularySettingsDialog::prepareFields()
   _ui.fields->setItemDelegateForColumn(static_cast<int>(FieldsModel::Column::TemplateName), &_lineEditDelegate);
   _ui.fields->setItemDelegateForColumn(static_cast<int>(FieldsModel::Column::Name),         &_lineEditDelegate);
   _ui.fields->setItemDelegateForColumn(static_cast<int>(FieldsModel::Column::Language),     &_languageFieldDelegate);
-  connect(_ui.fields->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_fieldsSelectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+  connect(_ui.fields->selectionModel(), &QItemSelectionModel::selectionChanged, this, &VocabularySettingsDialog::on_fieldsSelectionModel_selectionChanged);
 
   _ui.fieldType->addItem(tr("Text"));
 
