@@ -13,8 +13,8 @@ class UpdateChecker : public QObject
   Q_OBJECT
 
   public:
-             UpdateChecker(const Settings *settings, QObject *parent = nullptr);
-    virtual ~UpdateChecker() override;
+             UpdateChecker(const Settings *settings, QObject *parent = Q_NULLPTR);
+    virtual ~UpdateChecker() Q_DECL_OVERRIDE;
 
     void                        checkForUpdate ();
     QNetworkReply::NetworkError checkResult    () const;
@@ -47,10 +47,10 @@ class UpdateChecker : public QObject
 
     void analyzeReply();
 
-  signals:
+  Q_SIGNALS:
     void finished() const;
 
-  private slots:
+  private Q_SLOTS:
     void on_networkAccessManager_finished(QNetworkReply *reply);
 };
 

@@ -3,7 +3,7 @@
 
 #include <QtCore/QAbstractTableModel>
 
-#include "vocabularyorganizer.h"
+class VocabularyOrganizer;
 
 class VocabularyOrganizerModel : public QAbstractTableModel
 {

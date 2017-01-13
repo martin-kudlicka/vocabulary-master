@@ -206,7 +206,7 @@ class VocabularyDatabase : public QObject
   #endif
     void         initialize    ()                                                                                                                                                  const;
     void         openDatabase  ();
-    void         removeRecord  (quint32 recordId)                                                                                                                                  const;
+    void         removeRecord  (quintptr recordId)                                                                                                                                 const;
   #ifndef EDITION_FREE
     void         update        (const QString &table, quintptr columnId, const QSqlRecord &record)                                                                                 const;
   #endif

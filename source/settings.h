@@ -175,9 +175,6 @@ class Settings
 #endif
 
   private:
-    static const auto DEFAULT_FREQUENCY = 60;
-    static const auto DEFAULT_WAIT      = 0;
-
 #ifndef EDITION_TRY
     enum class Version
     {

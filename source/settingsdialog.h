@@ -24,8 +24,8 @@ class SettingsDialog : public QDialog
 #ifndef EDITION_FREE
       const Plugins *plugins,
 #endif
-      Settings *settings, QWidget *parent = nullptr, Qt::WindowFlags flags = 0);
-    virtual ~SettingsDialog() override;
+      Settings *settings, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+    virtual ~SettingsDialog() Q_DECL_OVERRIDE;
 
   private:
 #if defined(EDITION_FREE) || !defined(Q_OS_WIN)
@@ -70,9 +70,9 @@ class SettingsDialog : public QDialog
 #endif
     void saveOptions        ();
 
-    virtual void accept() override;
+    virtual void accept() Q_DECL_OVERRIDE;
 
-  private slots:
+  private Q_SLOTS:
 #ifndef EDITION_TRY
     void on_cacheVocabulary_stateChanged(int state)            const;
 #endif

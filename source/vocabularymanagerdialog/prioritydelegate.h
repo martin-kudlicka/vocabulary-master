@@ -9,16 +9,14 @@ class PriorityDelegate : public QStyledItemDelegate
     static const auto RECORD_PRIORITY_MAX = 9;
     static const auto RECORD_PRIORITY_MIN = 1;
 
-    PriorityDelegate(QObject *parent = nullptr);
+    PriorityDelegate(QObject *parent = Q_NULLPTR);
 
   private:
-    static const auto SPINBOX_BUTTONS_WIDTH = 16;
+    virtual ~PriorityDelegate() Q_DECL_OVERRIDE;
 
-    virtual ~PriorityDelegate() override;
-
-    virtual QWidget *createEditor (QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index)   const override;
-    virtual void     paint        (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-    virtual void     setEditorData(QWidget *editor, const QModelIndex &index)                                       const override;
+    virtual QWidget *createEditor (QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index)   const Q_DECL_OVERRIDE;
+    virtual void     paint        (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
+    virtual void     setEditorData(QWidget *editor, const QModelIndex &index)                                       const Q_DECL_OVERRIDE;
 };
 
 #endif

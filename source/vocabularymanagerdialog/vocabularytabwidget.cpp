@@ -21,7 +21,7 @@ VocabularyTabWidget::~VocabularyTabWidget()
 }
 
 #ifndef EDITION_FREE
-quintptr VocabularyTabWidget::addTab(QWidget *page, const QString &label, bool enabled, quint8 priority)
+quintptr VocabularyTabWidget::addTab(QWidget *page, const QString &label, bool enabled, quintptr priority)
 {
   const auto tab = QTabWidget::addTab(page, label);
 

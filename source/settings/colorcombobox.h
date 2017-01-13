@@ -6,12 +6,12 @@
 class ColorComboBox : public QComboBox
 {
   public:
-    ColorComboBox(QWidget *parent = nullptr);
+    ColorComboBox(QWidget *parent = Q_NULLPTR);
 
   private:
-    virtual ~ColorComboBox() override;
+    virtual ~ColorComboBox() Q_DECL_OVERRIDE;
 
-    virtual void paintEvent(QPaintEvent * e) override;
+    virtual void paintEvent(QPaintEvent * e) Q_DECL_OVERRIDE;
 };
 
 #endif
