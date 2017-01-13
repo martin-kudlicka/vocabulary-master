@@ -9,10 +9,10 @@ AnkiImportWidget::AnkiImportWidget(const QSqlDatabase *database, QWidget *parent
 
   // decks
   prepareTreeView(_ui.decks, &_decksModel);
-  connect(_ui.decks->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_decks_selectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+  connect(_ui.decks->selectionModel(), &QItemSelectionModel::selectionChanged, this, &AnkiImportWidget::on_decks_selectionModel_selectionChanged);
   // models
   prepareTreeView(_ui.models, &_modelsModel);
-  connect(_ui.models->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), SLOT(on_models_selectionModel_selectionChanged(const QItemSelection &, const QItemSelection &)));
+  connect(_ui.models->selectionModel(), &QItemSelectionModel::selectionChanged, this, &AnkiImportWidget::on_models_selectionModel_selectionChanged);
   // fields
   prepareTreeView(_ui.fields, &_fieldsModel);
 }
