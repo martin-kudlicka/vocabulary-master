@@ -3,10 +3,10 @@
 
 #include <QtWidgets/QLineEdit>
 
-static const char   *PROPERTY_VIRTUALKEY = "VirtualKey";
-       const QString MODIFIER_ALT        = "Alt";
-       const QString MODIFIER_CTRL       = "Ctrl";
-       const QString MODIFIER_SHIFT      = "Shift";
+static const auto PROPERTY_VIRTUALKEY = "VirtualKey";
+       const auto MODIFIER_ALT        = "Alt";
+       const auto MODIFIER_CTRL       = "Ctrl";
+       const auto MODIFIER_SHIFT      = "Shift";
 
 class HotkeyLineEdit : public QLineEdit
 {

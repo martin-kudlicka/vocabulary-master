@@ -23,7 +23,7 @@
 #ifndef EDITION_FREE
 const auto BUILTIN_COLUMN_SIZE = 30;
 #endif
-const char *PROPERTY_COLUMN = "Column";
+const auto PROPERTY_COLUMN = "Column";
 
 VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *vocabulary,
 #ifndef EDITION_FREE
