@@ -1,47 +1,30 @@
 #include "mainwindow.h"
 
-#ifndef EDITION_FREE
-# include "license.h"
-#endif
+#include "license.h"
 #include "settingsdialog.h"
 #include "vocabularymanagerdialog.h"
 #include <QtCore/QTime>
 #include <QtTest/QTest>
 #include <QtWidgets/QMessageBox>
-#ifndef EDITION_FREE
-# ifdef Q_OS_WIN
-#  include <qt_windows.h>
-# endif
-# include "licensedialog.h"
+#ifdef Q_OS_WIN
+# include <qt_windows.h>
 #endif
-#ifndef EDITION_FREE
-# include <QtMultimedia/QSound>
-# include "vocabularymanagerdialog/prioritydelegate.h"
-#endif
+#include "licensedialog.h"
+#include <QtMultimedia/QSound>
+#include "vocabularymanagerdialog/prioritydelegate.h"
 #include "vocabularyorganizerdialog.h"
 
-#ifdef EDITION_FREE
-const auto *EDITION_FREE_SUFFIX   = QT_TRANSLATE_NOOP("MainWindow", " Free edition");
-#endif
-#ifndef EDITION_FREE
 const auto FLASH_COUNT            = 3;
 const auto FLASH_WAIT             = 100;
 const auto MAX_NEXTRECORD_TRIES   = 9999;
-#endif
 const auto MILISECONDS_PER_SECOND = 1000;
 const auto RECORD_NONE            = UINTPTR_MAX;
-#ifndef EDITION_FREE
 const auto SAY_BEEP_WAIT          = 500;
-#endif
 const auto TIME_NONE              = 0;
 const auto TIME_NOW               = 1;
 const auto *VOCABULARY_MASTER     = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary Master");
 
-MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags), _learning(false),
-#ifndef EDITION_FREE
-                       _hboxLayoutInner(Q_NULLPTR),
-#endif
-                       _updateChecker(&_settings), _vocabularyOrganizer(&_settings)
+MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags), _learning(false), _hboxLayoutInner(Q_NULLPTR), _updateChecker(&_settings), _vocabularyOrganizer(&_settings)
 {
   _learningTimer.setSingleShot(true);
 
@@ -49,32 +32,11 @@ MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /*
 
   // gui
   _ui.setupUi(this);
-#ifdef EDITION_FREE
-  _ui.recordControls->parentWidget()->hide();
-  _ui.language1->hide();
-  _ui.language2->hide();
-  _ui.category->hide();
-
-  _ui.actionFindInVocabulary->setVisible(false);
-  _ui.actionAnswer->setVisible(false);
-  _ui.actionMute->setVisible(false);
-  _ui.actionLicense->setVisible(false);
-  for (const auto object : _ui.toolBar->children())
-  {
-    const auto action = qobject_cast<QAction *>(object);
-    if (action && action->isSeparator())
-    {
-      action->deleteLater();
-    }
-  }
-#else
   _trayIcon.setToolTip("Vocabulary Master");
-#endif
   _ui.statusBar->addWidget(&_vocabularyStatus);
   _progressBarTimer.setTextVisible(false);
   _ui.statusBar->addWidget(&_progressBarTimer, 1);
 
-#ifndef EDITION_FREE
   // license
   _license = new License(&_settings);
 
@@ -85,7 +47,6 @@ MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /*
   // system tray icon
   const QIcon trayIcon(":/res/mainwindow/mainwindow.png");
   _trayIcon.setIcon(trayIcon);
-#endif
 
   // translator
   QCoreApplication::installTranslator(&_translator);
@@ -97,33 +58,25 @@ MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /*
   refreshStatusBar();
 
   // menus
-#ifndef EDITION_FREE
   createTrayMenu();
-#endif
   createVocabulariesMenu();
 
   // controls
   enableControls();
-#ifndef EDITION_FREE
   _ui.actionMute->setChecked(_settings.mute());
-#endif
 
   // connections
-#ifndef EDITION_FREE
   connect(&_menuTrayVocabularies, &QMenu::triggered,                     this, &MainWindow::on_menuVocabularies_triggered);
   connect(&_trayIcon,             &QSystemTrayIcon::activated,           this, &MainWindow::on_trayIcon_activated);
-#endif
   connect(&_learningTimer,        &QTimer::timeout,                      this, &MainWindow::on_learningTimer_timeout);
   connect(&_updateChecker,        &UpdateChecker::finished,              this, &MainWindow::on_updateChecker_finished);
   connect(&_vocabularyOrganizer,  &VocabularyOrganizer::vocabularyClose, this, &MainWindow::on_vocabularyOrganizer_vocabularyClose);
 
-#ifndef EDITION_FREE
   // learning
   if (_license->isLoaded() && _settings.startLearningOnStartup() && _vocabularyOrganizer.isOpen())
   {
     on_actionStart_triggered();
   }
-#endif
 
   // update check
   if (_settings.updateCheck())
@@ -134,7 +87,6 @@ MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /*
 
 MainWindow::~MainWindow()
 {
-#ifndef EDITION_FREE
   _settings.setWindowX(geometry().x());
   _settings.setWindowY(geometry().y());
   _settings.setWindowHeight(geometry().height());
@@ -142,7 +94,6 @@ MainWindow::~MainWindow()
 
   _plugins.uninitialize();
   delete _license;
-#endif
 }
 
 void MainWindow::applySettings(bool startup)
@@ -160,7 +111,6 @@ void MainWindow::applySettings(bool startup)
       }
     }
   }
-#ifndef EDITION_FREE
   _plugins.setLanguage(_settings.translation());
 
   _ui.toolBar->setVisible(_settings.showToolBar());
@@ -169,7 +119,6 @@ void MainWindow::applySettings(bool startup)
   _ui.category->setVisible(_learning && _settings.showCategoryName());
   _ui.recordControls->parentWidget()->setVisible(_learning && _settings.showRecordControls());
   _ui.statusBar->setVisible(_settings.showStatusBar());
-#endif
 
   if (_settings.alwaysOnTop())
   {
@@ -179,24 +128,19 @@ void MainWindow::applySettings(bool startup)
   {
     setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint);
   }
-#ifndef EDITION_FREE
   if (startup && _settings.windowX() != Settings::DEFAULT_DIMENSION)
   {
     setGeometry(_settings.windowX(), _settings.windowY(), _settings.windowWidth(), _settings.windowHeight());
   }
-#endif
   show();
 
-#ifndef EDITION_FREE
   _trayIcon.setVisible(_settings.systemTrayIcon());
-#endif
 
-#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
+#ifdef Q_OS_WIN
   registerHotkeys();
 #endif
 }
 
-#ifndef EDITION_FREE
 void MainWindow::createTrayMenu()
 {
   _trayVocabularies = _menuTray.addAction(QIcon(":/res/mainwindow/menubar/manage.png"), tr("&Vocabularies"));
@@ -208,14 +152,11 @@ void MainWindow::createTrayMenu()
   connect(&_menuTray, &QMenu::triggered, this, &MainWindow::on_menuTray_triggered);
   _trayIcon.setContextMenu(&_menuTray);
 }
-#endif
 
 void MainWindow::createVocabulariesMenu()
 {
   _ui.menuVocabularies->clear();
-#ifndef EDITION_FREE
   _menuTrayVocabularies.clear();
-#endif
 
   for (auto vocabularyIndex = 0; vocabularyIndex < _vocabularyOrganizer.vocabularyCount(); vocabularyIndex++)
   {
@@ -226,44 +167,28 @@ void MainWindow::createVocabulariesMenu()
     auto action = _ui.menuVocabularies->addAction(QIcon(":/res/mainwindow/menubar/vocabulary.png"), name);
     action->setData(vocabularyIndex);
 
-#ifndef EDITION_FREE
     // tray menu
     action = _menuTrayVocabularies.addAction(QIcon(":/res/mainwindow/menubar/vocabulary.png"), name);
     action->setData(vocabularyIndex);
-#endif
   }
 }
 
 void MainWindow::enableControls()
 {
   // menu
-#if !defined(EDITION_FREE)
   _ui.actionOrganizer->setEnabled(_license->isLoaded());
-#endif
-  _ui.menuVocabularies->setEnabled(
-#if !defined(EDITION_FREE)
-                                   _license->isLoaded() &&
-#endif
-                                   _vocabularyOrganizer.isOpen());
-#if !defined(EDITION_FREE)
+  _ui.menuVocabularies->setEnabled(_license->isLoaded() && _vocabularyOrganizer.isOpen());
   _ui.menuOptions->setEnabled(_license->isLoaded());
-#endif
 
   // tool bar
-  _ui.actionStart->setEnabled(
-#if !defined(EDITION_FREE)
-                              _license->isLoaded() &&
-#endif
-                              _vocabularyOrganizer.isOpen() && !_learning && _vocabularyOrganizer.recordCount(true) > 0);
+  _ui.actionStart->setEnabled(_license->isLoaded() && _vocabularyOrganizer.isOpen() && !_learning && _vocabularyOrganizer.recordCount(true) > 0);
   _ui.actionStop->setEnabled(_learning);
   _ui.actionNext->setEnabled(_learning);
-#ifndef EDITION_FREE
   _ui.actionFindInVocabulary->setEnabled(_learning);
   _ui.actionAnswer->setEnabled(_learning && _timeAnswer >= TIME_NOW);
 
   // tray
   _trayVocabularies->setEnabled(_vocabularyOrganizer.isOpen());
-#endif
 }
 
 QString MainWindow::languageText(bool directionSwitched, bool answer) const
@@ -300,12 +225,10 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
     {
       templateText = _currentRecord.vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguage::Left);
     }
-#ifndef EDITION_FREE
     else
     {
       templateText = _currentRecord.vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguage::Left);
     }
-#endif
     fieldLanguage = VocabularyDatabase::FieldLanguage::Left;
   }
   else
@@ -314,12 +237,10 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
     {
       templateText = _currentRecord.vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguage::Right);
     }
-#ifndef EDITION_FREE
     else
     {
       templateText = _currentRecord.vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguage::Right);
     }
-#endif
     fieldLanguage = VocabularyDatabase::FieldLanguage::Right;
   }
 
@@ -338,35 +259,22 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
   return templateText;
 }
 
-void MainWindow::openVocabulary(Vocabulary *vocabulary
-#ifndef EDITION_FREE
-                                , bool currentRecord
-#endif
-)
+void MainWindow::openVocabulary(Vocabulary *vocabulary, bool currentRecord)
 {
-  VocabularyManagerDialog vocabularyManagerDialog(vocabulary,
-#ifndef EDITION_FREE
-                                                  &_settings, &_plugins,
-#endif
-                                                  this);
-#ifndef EDITION_FREE
+  VocabularyManagerDialog vocabularyManagerDialog(vocabulary, &_settings, &_plugins, this);
   if (currentRecord)
   {
     vocabularyManagerDialog.execOnRecord(_currentRecord.id);
   }
   else
   {
-#endif
     vocabularyManagerDialog.exec();
-#ifndef EDITION_FREE
   }
-#endif
 
   _ui.actionStart->setEnabled(_vocabularyOrganizer.isOpen() && !_learning && _vocabularyOrganizer.recordCount() > 0);
   refreshStatusBar();
 }
 
-#ifndef EDITION_FREE
 quintptr MainWindow::recordPriority() const
 {
   for (auto fieldId : _currentRecord.vocabulary->fieldIds())
@@ -384,7 +292,6 @@ quintptr MainWindow::recordPriority() const
 
   return PriorityDelegate::RECORD_PRIORITY_MIN;
 }
-#endif
 
 void MainWindow::refreshStatusBar()
 {
@@ -394,16 +301,12 @@ void MainWindow::refreshStatusBar()
   }
   else
   {
-#ifdef EDITION_FREE
-    const auto count = QString("%1").arg(_vocabularyOrganizer.recordCount());
-#else
     const auto count = QString("%1/%2").arg(_vocabularyOrganizer.recordCount(true)).arg(_vocabularyOrganizer.recordCount());
-#endif
     _vocabularyStatus.setText(tr("%1 voc., %2 records").arg(_vocabularyOrganizer.vocabularyCount()).arg(count));
   }
 }
 
-#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
+#ifdef Q_OS_WIN
 void MainWindow::registerHotkeys() const
 {
   for (auto hotkeyIndex = 0; hotkeyIndex < static_cast<quintptr>(Settings::Hotkey::Count) - 1; hotkeyIndex++)
@@ -440,7 +343,6 @@ void MainWindow::registerHotkeys() const
 }
 #endif
 
-#ifndef EDITION_FREE
 void MainWindow::say(bool directionSwitched, bool answer) const
 {
   if (!_settings.mute())
@@ -484,24 +386,20 @@ void MainWindow::say(bool directionSwitched, bool answer) const
     }
   }
 }
-#endif
 
 void MainWindow::setLayout()
 {
-#ifndef EDITION_FREE
   if (_hboxLayoutInner)
   {
     _hboxLayoutInner->deleteLater();
     _hboxLayoutInner = Q_NULLPTR;
   }
-#endif
   if (_ui.centralWidget->layout())
   {
     delete _ui.centralWidget->layout();
   }
 
   auto mainLayout = new QVBoxLayout(_ui.centralWidget);
-#ifndef EDITION_FREE
   if (_settings.horizontalLayout())
   {
     mainLayout->addWidget(_ui.category);
@@ -513,19 +411,13 @@ void MainWindow::setLayout()
   }
   else
   {
-#endif
     mainLayout->addWidget(_ui.questionLayout->parentWidget());
     mainLayout->addWidget(_ui.category);
-#ifndef EDITION_FREE
     mainLayout->addWidget(_ui.recordControls->parentWidget());
-#endif
     mainLayout->addWidget(_ui.answerLayout->parentWidget());
-#ifndef EDITION_FREE
   }
-#endif
 }
 
-#ifndef EDITION_FREE
 void MainWindow::setRecordEnabled(bool enabled)
 {
   for (auto fieldId : _currentRecord.vocabulary->fieldIds())
@@ -574,20 +466,16 @@ void MainWindow::setupRecordControls() const
   _ui.priority9->setChecked(priority == 9);
   _ui.recordEnabled->setChecked(_currentRecord.vocabulary->recordEnabled(_currentRecord.id));
 }
-#endif
 
 void MainWindow::showAnswer()
 {
-#ifndef EDITION_FREE
   // answer
   _ui.actionAnswer->setEnabled(false);
-#endif
 
   // gui
   _ui.window2->setText(learningText(Template::Learning, _directionSwitched, true));
   _ui.window2->repaint();
 
-#ifndef EDITION_FREE
   // tray
   if (_settings.systemTrayIcon() && _settings.showWordsInTrayBalloon())
   {
@@ -596,14 +484,12 @@ void MainWindow::showAnswer()
 
   // speech
   say(_directionSwitched, true);
-#endif
 
   // progress
   _progressBarTimer.setMaximum(_timeQuestion);
   _progressBarTimer.setValue(_timeQuestion);
 }
 
-#ifndef EDITION_FREE
 void MainWindow::showTrayBalloon(bool directionSwitched, bool answer)
 {
   auto text = learningText(Template::Tray, directionSwitched, false);
@@ -614,46 +500,40 @@ void MainWindow::showTrayBalloon(bool directionSwitched, bool answer)
 
   _trayIcon.showMessage(tr(VOCABULARY_MASTER), text);
 }
-#endif
 
 bool MainWindow::event(QEvent *event)
 {
   switch (event->type())
   {
     case QEvent::LanguageChange:
-    {
-      QString category, language1, language2;
-      if (_learning)
       {
-        language1 = _ui.language1->text();
-        language2 = _ui.language2->text();
-        category = _ui.category->text();
+        QString category, language1, language2;
+        if (_learning)
+        {
+          language1 = _ui.language1->text();
+          language2 = _ui.language2->text();
+          category = _ui.category->text();
+        }
+        _ui.retranslateUi(this);
+        if (_learning)
+        {
+          _ui.language1->setText(language1);
+          _ui.language2->setText(language2);
+          _ui.category->setText(category);
+        }
       }
-      _ui.retranslateUi(this);
-      if (_learning)
-      {
-        _ui.language1->setText(language1);
-        _ui.language2->setText(language2);
-        _ui.category->setText(category);
-      }
-    }
-#ifdef EDITION_FREE
-    setWindowTitle(windowTitle() + tr(EDITION_FREE_SUFFIX));
-#endif
-    break;
-#ifndef EDITION_FREE
+      break;
     case QEvent::WindowStateChange:
       if (isMinimized() && _settings.systemTrayIcon() && _settings.minimizeToTray())
       {
         setWindowFlags(windowFlags() | Qt::CustomizeWindowHint); // just add some flag to hide window
       }
-#endif
   }
 
   return QMainWindow::event(event);
 }
 
-#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
+#ifdef Q_OS_WIN
 bool MainWindow::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
   const auto msg = static_cast<LPMSG>(message);
@@ -687,14 +567,9 @@ bool MainWindow::nativeEvent(const QByteArray &eventType, void *message, long *r
 
 void MainWindow::on_actionAbout_triggered(bool checked /* false */)
 {
-  QMessageBox::about(this, tr("About Vocabulary Master"), "<center><b>" + tr(VOCABULARY_MASTER)
-#ifdef EDITION_FREE
-                     + tr(EDITION_FREE_SUFFIX)
-#endif
-                     + "</b></center><center>Version " + _updateChecker.currentVersion() + "</center><br />Copyright (C) 2011 Isshou");
+  QMessageBox::about(this, tr("About Vocabulary Master"), "<center><b>" + tr(VOCABULARY_MASTER) + "</b></center><center>Version " + _updateChecker.currentVersion() + "</center><br />Copyright (C) 2011 Isshou");
 }
 
-#ifndef EDITION_FREE
 void MainWindow::on_actionAnswer_triggered(bool checked /* false */)
 {
   _timeAnswer = TIME_NONE;
@@ -720,7 +595,6 @@ void MainWindow::on_actionMute_toggled(bool checked)
 {
   _settings.setMute(checked);
 }
-#endif
 
 void MainWindow::on_actionNext_triggered(bool checked /* false */)
 {
@@ -747,11 +621,7 @@ void MainWindow::on_actionOrganizer_triggered(bool checked /* false */)
 
 void MainWindow::on_actionSettings_triggered(bool checked /* false */)
 {
-  SettingsDialog sdDialog(
-#ifndef EDITION_FREE
-                          &_plugins,
-#endif
-                          &_settings, this);
+  SettingsDialog sdDialog(&_plugins, &_settings, this);
   if (sdDialog.exec() == QDialog::Accepted)
   {
     applySettings(false);
@@ -765,12 +635,8 @@ void MainWindow::on_actionStart_triggered(bool checked /* false */)
   _learning     = true;
 
   enableControls();
-#ifdef EDITION_FREE
-  _ui.category->show();
-#else
   _ui.category->setVisible(_settings.showCategoryName());
   _ui.recordControls->parentWidget()->setVisible(_settings.showRecordControls());
-#endif
 
   _currentRecord.vocabulary = Q_NULLPTR;
   _currentRecord.id         = RECORD_NONE;
@@ -790,9 +656,7 @@ void MainWindow::on_actionStop_triggered(bool checked /* false */)
   _ui.language2->hide();
   _ui.window2->clear();
   _ui.category->hide();
-#ifndef EDITION_FREE
   _ui.recordControls->parentWidget()->hide();
-#endif
 }
 
 void MainWindow::on_learningTimer_timeout()
@@ -811,10 +675,8 @@ void MainWindow::on_learningTimer_timeout()
   if (_timeQuestion == 0)
   {
     _ui.actionNext->setEnabled(false);
-#ifndef EDITION_FREE
     // disable answer
     _ui.actionAnswer->setEnabled(false);
-#endif
 
     if (_vocabularyOrganizer.recordCount(true) == 0)
     {
@@ -823,17 +685,14 @@ void MainWindow::on_learningTimer_timeout()
     else
     {
       quintptr categoryId;
-      const auto lastRecord = _currentRecord;
-#ifndef EDITION_FREE
+      const auto lastRecord          = _currentRecord;
       const auto maxCategoryPriority = qrand() % VocabularyTabWidget::CATEGORY_PRIORITY_MAX + 1;
       const auto maxRecordPriority   = qrand() % PriorityDelegate::RECORD_PRIORITY_MAX + 1;
 
       auto nextRecordTry = 0;
-#endif
       while (true)
       {
         _currentRecord = _vocabularyOrganizer.recordInfo(qrand() % _vocabularyOrganizer.recordCount());
-#ifndef EDITION_FREE
         if (nextRecordTry == MAX_NEXTRECORD_TRIES)
         {
           on_actionStop_triggered(false);
@@ -848,17 +707,12 @@ void MainWindow::on_learningTimer_timeout()
         {
           continue;
         }
-#endif
 
         categoryId = _currentRecord.vocabulary->recordCategory(_currentRecord.id);
-#ifndef EDITION_FREE
         if (_currentRecord.vocabulary->categoryEnabled(categoryId) && _currentRecord.vocabulary->categoryPriority(categoryId) <= maxCategoryPriority && (_currentRecord.vocabulary->recordCount(true) == 1 || _currentRecord.vocabulary != lastRecord.vocabulary || _currentRecord.id != lastRecord.id))
         {
-#endif
           break;
-#ifndef EDITION_FREE
         }
-#endif
       }
 /*#ifdef _DEBUG
       qDebug("Current word: %d", _currentRecord.id);
@@ -881,11 +735,7 @@ void MainWindow::on_learningTimer_timeout()
       }
       else
       {
-#ifdef EDITION_FREE
-        _ui.language1->show();
-#else
         _ui.language1->setVisible(_settings.showLanguageNames());
-#endif
         _ui.language1->setText(lang1);
       }
       const auto lang2 = languageText(_directionSwitched, true);
@@ -895,21 +745,14 @@ void MainWindow::on_learningTimer_timeout()
       }
       else
       {
-#ifdef EDITION_FREE
-        _ui.language2->show();
-#else
         _ui.language2->setVisible(_settings.showLanguageNames());
-#endif
         _ui.language2->setText(lang2);
       }
       _ui.window1->setText(learningText(Template::Learning, _directionSwitched, false));
       _ui.window2->clear();
       _ui.category->setText(_currentRecord.vocabulary->name() + ", " + _currentRecord.vocabulary->categoryName(categoryId));
-#ifndef EDITION_FREE
       setupRecordControls();
-#endif
 
-#ifndef EDITION_FREE
       // tray
       if (_settings.systemTrayIcon() && _settings.showWordsInTrayBalloon())
       {
@@ -952,15 +795,12 @@ void MainWindow::on_learningTimer_timeout()
         QTest::qWait(SAY_BEEP_WAIT);
         say(_directionSwitched, false);
       }
-#endif
 
       // next question time
       _timeQuestion = _settings.wordsFrequency();
 
-#ifndef EDITION_FREE
       // enable answer
       _ui.actionAnswer->setEnabled(true);
-#endif
     }
   }
 
@@ -976,7 +816,6 @@ void MainWindow::on_learningTimer_timeout()
   }
 }
 
-#ifndef EDITION_FREE
 void MainWindow::on_menuTray_triggered(QAction *action)
 {
   if (action == _traySettings)
@@ -991,21 +830,15 @@ void MainWindow::on_menuTray_triggered(QAction *action)
     }
   }
 }
-#endif
 
 void MainWindow::on_menuVocabularies_triggered(QAction *action)
 {
   const auto vocabularyIndex = action->data().toUInt();
   const auto vocabularyInfo  = _vocabularyOrganizer.vocabularyInfo(vocabularyIndex);
 
-  openVocabulary(vocabularyInfo.vocabulary
-#ifndef EDITION_FREE
-                 , false
-#endif
-                 );
+  openVocabulary(vocabularyInfo.vocabulary, false);
 }
 
-#ifndef EDITION_FREE
 void MainWindow::on_priority1_clicked(bool checked /* false */)
 {
   if (checked)
@@ -1091,7 +924,6 @@ void MainWindow::on_trayIcon_activated(QSystemTrayIcon::ActivationReason reason)
     showNormal();
   }
 }
-#endif
 
 void MainWindow::on_updateChecker_finished()
 {

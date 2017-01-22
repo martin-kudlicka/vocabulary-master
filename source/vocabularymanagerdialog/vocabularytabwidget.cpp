@@ -1,18 +1,13 @@
 #include "vocabularymanagerdialog/vocabularytabwidget.h"
 
-#ifndef EDITION_FREE
-# include <QtWidgets/QCheckBox>
-# include <QtWidgets/QSpinBox>
-#endif
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QSpinBox>
 
 static const auto CATEGORY_PRIORITY_MIN    = 1;
 static const auto POSITION_BUTTON_ENABLED  = QTabBar::LeftSide;
 static const auto POSITION_BUTTON_PRIORITY = QTabBar::RightSide;
 
-VocabularyTabWidget::VocabularyTabWidget(QWidget *pParent /* Q_NULLPTR */) : QTabWidget(pParent)
-#ifndef EDITION_FREE
-                                         , _showEnabled(true), _showPriorities(true)
-#endif
+VocabularyTabWidget::VocabularyTabWidget(QWidget *pParent /* Q_NULLPTR */) : QTabWidget(pParent), _showEnabled(true), _showPriorities(true)
 {
 }
 
@@ -20,7 +15,6 @@ VocabularyTabWidget::~VocabularyTabWidget()
 {
 }
 
-#ifndef EDITION_FREE
 quintptr VocabularyTabWidget::addTab(QWidget *page, const QString &label, bool enabled, quintptr priority)
 {
   const auto tab = QTabWidget::addTab(page, label);
@@ -81,4 +75,3 @@ void VocabularyTabWidget::on_priority_valueChanged(int i) const
     }
   }
 }
-#endif

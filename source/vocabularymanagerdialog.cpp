@@ -1,60 +1,36 @@
 #include "vocabularymanagerdialog.h"
 
-#ifndef EDITION_FREE
-# include "settings.h"
-#endif
+#include "settings.h"
 #include "vocabularymanagerdialog/vocabularyview.h"
 #include <QtWidgets/QInputDialog>
 #include "vocabulary.h"
 #include "vocabularymanagerdialog/vocabularymodel.h"
 #include "vocabularymanagerdialog/vocabularysettingsdialog.h"
-#ifndef EDITION_FREE
-# include "../plugins/common/imp-interface.h"
-# include "vocabularymanagerdialog/wordsimportdialog.h"
-#endif
+#include "../plugins/common/imp-interface.h"
+#include "vocabularymanagerdialog/wordsimportdialog.h"
 #include <QtWidgets/QFileDialog>
-#ifndef EDITION_FREE
-# include "common/vocabularyopenprogressdialog.h"
-# include "vocabularymanagerdialog/wordsexportdialog.h"
-# include "vocabularymanagerdialog/prioritydelegate.h"
-# include "vocabularymanagerdialog/wordcopymovedialog.h"
-#endif
+#include "common/vocabularyopenprogressdialog.h"
+#include "vocabularymanagerdialog/wordsexportdialog.h"
+#include "vocabularymanagerdialog/prioritydelegate.h"
+#include "vocabularymanagerdialog/wordcopymovedialog.h"
 
-#ifndef EDITION_FREE
 const auto BUILTIN_COLUMN_SIZE = 30;
-#endif
-const auto PROPERTY_COLUMN = "Column";
+const auto PROPERTY_COLUMN     = "Column";
 
-VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *vocabulary,
-#ifndef EDITION_FREE
-                                                 const Settings *settings, const Plugins *plugins,
-#endif
-                                                 QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags | Qt::WindowMaximizeButtonHint), _vocabulary(vocabulary)
-#ifndef EDITION_FREE
-                                                 , _settings(settings), _plugins(plugins)
-#endif
+VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *vocabulary, const Settings *settings, const Plugins *plugins, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags | Qt::WindowMaximizeButtonHint), _vocabulary(vocabulary), _settings(settings), _plugins(plugins)
 {
   _ui.setupUi(this);
-#ifdef EDITION_FREE
-  delete _ui.wordCopyMove;
-  delete _ui.wordImport;
-  delete _ui.wordExport;
-#endif
 
   setWindowTitle(windowTitle() + " - " + vocabulary->name());
 
   initTabs();
   initEditor();
-#ifndef EDITION_FREE
   selectFirstEnabledTab();
-#endif
 
   enableTabControls();
 
-#ifndef EDITION_FREE
   connect(_ui.tabs, &VocabularyTabWidget::tabEnableChanged,   this, &VocabularyManagerDialog::on_tabs_tabEnableChanged);
   connect(_ui.tabs, &VocabularyTabWidget::tabPriorityChanged, this, &VocabularyManagerDialog::on_tabs_tabPriorityChanged);
-#endif
 
   vocabulary->beginEdit();
 }
@@ -64,41 +40,27 @@ VocabularyManagerDialog::~VocabularyManagerDialog()
   _vocabulary->endEdit();
 }
 
-#ifndef EDITION_FREE
 void VocabularyManagerDialog::execOnRecord(quintptr recordId)
 {
   focusOnRecord(recordId);
   exec();
 }
-#endif
 
 void VocabularyManagerDialog::addTab(quintptr categoryId)
 {
-  auto vocabularyView = new VocabularyView(
-#ifndef EDITION_FREE
-                                           _vocabulary,
-#endif
-                                           _ui.tabs);
+  auto vocabularyView = new VocabularyView(_vocabulary, _ui.tabs);
   vocabularyView->setSelectionBehavior(QAbstractItemView::SelectRows);
   vocabularyView->setModel(new VocabularyModel(_vocabulary, categoryId, vocabularyView));
   hideColumns(vocabularyView);
-#ifndef EDITION_FREE
   setPriorityDelegate(vocabularyView);
   vocabularyView->setEditTriggers(QAbstractItemView::AllEditTriggers);
-#endif
   connect(vocabularyView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &VocabularyManagerDialog::on_vocabularyViewSelectionModel_selectionChanged);
 
   stretchColumns(vocabularyView);
 
-        auto tabs     = _ui.tabs;
-  const auto tabIndex = tabs->addTab(vocabularyView, _vocabulary->categoryName(categoryId)
-#ifndef EDITION_FREE
-                                     , _vocabulary->categoryEnabled(categoryId), _vocabulary->categoryPriority(categoryId)
-#endif
-                                     );
-#ifndef EDITION_FREE
+  auto tabs           = _ui.tabs;
+  const auto tabIndex = tabs->addTab(vocabularyView, _vocabulary->categoryName(categoryId), _vocabulary->categoryEnabled(categoryId), _vocabulary->categoryPriority(categoryId));
   tabs->setTabEnabled(tabIndex, _vocabulary->categoryEnabled(categoryId));
-#endif
 }
 
 void VocabularyManagerDialog::enableTabControls() const
@@ -106,10 +68,8 @@ void VocabularyManagerDialog::enableTabControls() const
   _ui.categoryRemove->setEnabled(_ui.tabs->currentWidget());
   _ui.wordAdd->setEnabled(_ui.tabs->currentWidget() && _ui.tabs->isTabEnabled(_ui.tabs->currentIndex()));
 
-#ifndef EDITION_FREE
   _ui.wordImport->setEnabled(_ui.tabs->currentWidget());
   _ui.wordExport->setEnabled(_ui.tabs->currentWidget());
-#endif
 }
 
 void VocabularyManagerDialog::enableWordControls() const
@@ -126,9 +86,7 @@ void VocabularyManagerDialog::enableWordControls() const
   }
 
   _ui.wordRemove->setEnabled(selection && vocabularyView->isEnabled() && selection->hasSelection());
-#ifndef EDITION_FREE
   _ui.wordCopyMove->setEnabled(selection && vocabularyView->isEnabled() && selection->hasSelection());
-#endif
 }
 
 void VocabularyManagerDialog::focusOnRecord(quintptr recordId) const
@@ -155,7 +113,6 @@ void VocabularyManagerDialog::focusOnRecord(quintptr recordId) const
   vocabularyView->setCurrentIndex(vocabularyModel->index(_vocabulary->row(recordId, category), 0));
 }
 
-#ifndef EDITION_FREE
 void VocabularyManagerDialog::hideColumns() const
 {
   for (auto tabIndex = 0; tabIndex < _ui.tabs->count(); tabIndex++)
@@ -164,18 +121,13 @@ void VocabularyManagerDialog::hideColumns() const
     hideColumns(vocabularyView);
   }
 }
-#endif
 
 void VocabularyManagerDialog::hideColumns(VocabularyView *tableView) const
 {
   auto column = 0;
   for (auto fieldId : _vocabulary->fieldIds())
   {
-#ifdef EDITION_FREE
-    if (!_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
-#else
     if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::Show))
-#endif
     {
       tableView->showColumn(column);
     }
@@ -211,11 +163,7 @@ void VocabularyManagerDialog::initEditor()
 
     // check if visible or builtin field
     const auto attributes = _vocabulary->fieldAttributes(fieldId);
-    if (
-#ifndef EDITION_FREE
-        !(attributes & VocabularyDatabase::FieldAttribute::Show) ||
-#endif
-        attributes & VocabularyDatabase::FieldAttribute::BuiltIn)
+    if (!(attributes & VocabularyDatabase::FieldAttribute::Show) || attributes & VocabularyDatabase::FieldAttribute::BuiltIn)
     {
       continue;
     }
@@ -247,10 +195,8 @@ void VocabularyManagerDialog::initEditor()
 void VocabularyManagerDialog::initTabs()
 {
   auto tabs = _ui.tabs;
-#ifndef EDITION_FREE
   tabs->setShowEnabled(_settings->canEnableCategories());
   tabs->setShowPriorities(_settings->canChangeCategoryPriority());
-#endif
 
   const auto categories = _vocabulary->categoryIds();
   VocabularyDatabase::CategoryIdList::const_iterator categoryId;
@@ -261,7 +207,6 @@ void VocabularyManagerDialog::initTabs()
   }
 }
 
-#ifndef EDITION_FREE
 void VocabularyManagerDialog::reassignModels() const
 {
   for (auto tabIndex = 0; tabIndex < _ui.tabs->count(); tabIndex++)
@@ -328,13 +273,11 @@ void VocabularyManagerDialog::stretchColumns() const
     stretchColumns(vocabularyView);
   }
 }
-#endif
 
 void VocabularyManagerDialog::stretchColumns(const VocabularyView *tableView) const
 {
   for (auto column = 0; column < tableView->horizontalHeader()->count(); column++)
   {
-#ifndef EDITION_FREE
     const auto fieldId = _vocabulary->fieldId(column);
     if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
     {
@@ -343,15 +286,11 @@ void VocabularyManagerDialog::stretchColumns(const VocabularyView *tableView) co
     }
     else
     {
-#endif
       tableView->horizontalHeader()->setSectionResizeMode(column, QHeaderView::Stretch);
-#ifndef EDITION_FREE
     }
-#endif
   }
 }
 
-#ifndef EDITION_FREE
 void VocabularyManagerDialog::uninitEditor() const
 {
   QLayoutItem *item;
@@ -360,7 +299,6 @@ void VocabularyManagerDialog::uninitEditor() const
     item->widget()->deleteLater();
   }
 }
-#endif
 
 void VocabularyManagerDialog::updateEditor() const
 {
@@ -479,7 +417,6 @@ void VocabularyManagerDialog::on_tabs_currentChanged(int index) const
   enableWordControls();
 }
 
-#ifndef EDITION_FREE
 void VocabularyManagerDialog::on_tabs_tabEnableChanged(quintptr index, Qt::CheckState state) const
 {
   _vocabulary->setCategoryEnabled(_categories.at(index), state);
@@ -493,26 +430,18 @@ void VocabularyManagerDialog::on_tabs_tabPriorityChanged(quintptr index, quintpt
 {
   _vocabulary->setCategoryPriority(_categories.at(index), value);
 }
-#endif
 
 void VocabularyManagerDialog::on_vocabularySettings_clicked(bool checked /* false */)
 {
-  VocabularySettingsDialog vocabularySettings(_vocabulary,
-#ifndef EDITION_FREE
-                                              _plugins,
-#endif
-                                              this);
+  VocabularySettingsDialog vocabularySettings(_vocabulary, _plugins, this);
 
-#ifndef EDITION_FREE
   const auto oldColumnCount = _vocabulary->fieldCount();
-#endif
 
   _vocabulary->endEdit();
   _vocabulary->beginEdit();
 
   if (vocabularySettings.exec() == QDialog::Accepted)
   {
-#ifndef EDITION_FREE
     if (oldColumnCount != _vocabulary->fieldCount())
     {
       reassignModels();
@@ -523,7 +452,6 @@ void VocabularyManagerDialog::on_vocabularySettings_clicked(bool checked /* fals
     initEditor();
     updateEditor();
     hideColumns();
-#endif
   }
   else
   {
@@ -562,7 +490,6 @@ void VocabularyManagerDialog::on_wordAdd_clicked(bool checked /* false */)
   }
 }
 
-#ifndef EDITION_FREE
 void VocabularyManagerDialog::on_wordCopyMove_clicked(bool checked /* false */)
 {
   // get selected records
@@ -634,7 +561,6 @@ void VocabularyManagerDialog::on_wordImport_clicked(bool checked /* false */)
     }
   }
 }
-#endif
 
 void VocabularyManagerDialog::on_wordRemove_clicked(bool checked /* false */)
 {

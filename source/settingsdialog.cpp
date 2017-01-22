@@ -1,58 +1,15 @@
 #include "settingsdialog.h"
 
-#ifndef EDITION_FREE
-# include "settings/colordelegate.h"
-#endif
+#include "settings/colordelegate.h"
 #include <QtCore/QDir>
-#ifndef EDITION_FREE
-# include "common/licensetextdialog.h"
-# include <QtWidgets/QFileDialog>
-#endif
+#include "common/licensetextdialog.h"
+#include <QtWidgets/QFileDialog>
 
-SettingsDialog::SettingsDialog(
-#ifndef EDITION_FREE
-                               const Plugins *plugins,
-#endif
-                               Settings *settings, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags)
-#ifndef EDITION_FREE
-                               , _plugins(plugins), _expPluginsModel(plugins, PluginsModel::PluginType::Exp), _impPluginsModel(plugins, PluginsModel::PluginType::Imp), _ttsPluginsModel(plugins, PluginsModel::PluginType::TTS)
-#endif
-                               , _settings(settings)
+SettingsDialog::SettingsDialog(const Plugins *plugins, Settings *settings, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _plugins(plugins), _expPluginsModel(plugins, PluginsModel::PluginType::Exp), _impPluginsModel(plugins, PluginsModel::PluginType::Imp), _ttsPluginsModel(plugins, PluginsModel::PluginType::TTS), _settings(settings)
 {
   _ui.setupUi(this);
-#ifdef EDITION_FREE
-  // general
-  delete _ui.rememberWindowPosition;
-  delete _ui.systemTrayIcon;
-  delete _ui.showWordsInTrayBalloon;
-  delete _ui.minimizeToTray;
-  delete _ui.cacheVocabulary;
-  delete _ui.recordsToCache;
-#endif
 
-#ifdef EDITION_FREE
-  // learning
-  delete _ui.waitForAnswerLabel;
-  delete _ui.waitForAnswerValue;
-  delete _ui.newWordSound;
-  delete _ui.soundSystem;
-  delete _ui.soundCustomRadio;
-  delete _ui.soundCustomEdit;
-  delete _ui.soundBrowse;
-  delete _ui.newWordFlash;
-  delete _ui.learnDisabledWords;
-  delete _ui.startLearningOnStartup;
-
-  // appearance
-  delete _ui.horizontalLayout;
-
-  // plugins
-  _ui.tabs->removeTab(Tab::Plugins);
-
-  // appearance
-  _ui.tabs->removeTab(Tab::Hotkey);
-  _ui.tabs->removeTab(Tab::Appearance);
-#elif !defined(Q_OS_WIN)
+#ifndef Q_OS_WIN
   _ui.tabs->removeTab(Tab::Hotkey);
 #else
   _ui.colorFlashCombo->setItemDelegate(new ColorDelegate(_ui.colorFlashCombo));
@@ -67,14 +24,13 @@ SettingsDialog::~SettingsDialog()
 {
 }
 
-#ifndef EDITION_FREE
-# ifdef Q_OS_WIN
+#ifdef Q_OS_WIN
 void SettingsDialog::clearHotkey(HotkeyLineEdit *control) const
 {
   control->clear();
   control->setProperty(PROPERTY_VIRTUALKEY, VIRTUALKEY_NONE);
 }
-# endif
+#endif
 
 void SettingsDialog::fillColorFlash()
 {
@@ -88,27 +44,24 @@ void SettingsDialog::fillColorFlash()
   }
 }
 
-# ifdef Q_OS_WIN
+#ifdef Q_OS_WIN
 void SettingsDialog::fillHotkey(HotkeyLineEdit *control, Settings::Hotkey hotkey) const
 {
   const auto hotkeyInfo = _settings->hotkey(hotkey);
   control->setText(hotkeyInfo.text);
   control->setProperty(PROPERTY_VIRTUALKEY, hotkeyInfo.virtualKey);
 }
-# endif
 #endif
 
 void SettingsDialog::fillOptions()
 {
   // general
   _ui.alwaysOnTop->setChecked(_settings->alwaysOnTop());
-#ifndef EDITION_FREE
   _ui.rememberWindowPosition->setChecked(_settings->rememberWindowPosition());
   _ui.systemTrayIcon->setChecked(_settings->systemTrayIcon());
   on_systemTrayIcon_stateChanged(_ui.systemTrayIcon->checkState());
   _ui.showWordsInTrayBalloon->setChecked(_settings->showWordsInTrayBalloon());
   _ui.minimizeToTray->setChecked(_settings->minimizeToTray());
-#endif
   fillTranslation();
   _ui.updateCheck->setChecked(_settings->updateCheck());
   _ui.cacheVocabulary->setChecked(_settings->cacheVocabulary());
@@ -117,7 +70,6 @@ void SettingsDialog::fillOptions()
 
   // learning
   _ui.wordsFrequency->setValue(_settings->wordsFrequency());
-#ifndef EDITION_FREE
   _ui.waitForAnswerValue->setMaximum(_settings->wordsFrequency() - 1);
   _ui.waitForAnswerValue->setValue(_settings->waitForAnswer());
   _ui.newWordSound->setChecked(_settings->newWordSound());
@@ -132,13 +84,9 @@ void SettingsDialog::fillOptions()
   _ui.soundCustomEdit->setText(_settings->newWordSoundFile());
   _ui.newWordFlash->setChecked(_settings->newWordFlash());
   _ui.learnDisabledWords->setChecked(_settings->learnDisabledWords());
-#endif
   _ui.switchLearningDirection->setCheckState(_settings->switchLearningDirection());
-#ifndef EDITION_FREE
   _ui.startLearningOnStartup->setChecked(_settings->startLearningOnStartup());
-#endif
 
-#ifndef EDITION_FREE
   // appearance
   _ui.horizontalLayout->setChecked(_settings->horizontalLayout());
   _ui.mainWindowToolBar->setChecked(_settings->showToolBar());
@@ -150,7 +98,7 @@ void SettingsDialog::fillOptions()
   _ui.vocabularyManagerCategoriesEnable->setChecked(_settings->canEnableCategories());
   _ui.vocabularyManagerCategoryPriority->setChecked(_settings->canChangeCategoryPriority());
 
-# ifdef Q_OS_WIN
+#ifdef Q_OS_WIN
   // hotkeys
   // learning
   fillHotkey(_ui.hotkeyNext,   Settings::Hotkey::Next);
@@ -158,13 +106,12 @@ void SettingsDialog::fillOptions()
   // window
   fillHotkey(_ui.hotkeyMinimize, Settings::Hotkey::Minimize);
   fillHotkey(_ui.hotkeyRestore,  Settings::Hotkey::Restore);
-# endif
+#endif
 
   // plugins
   preparePlugins(_ui.pluginsImp, &_impPluginsModel);
   preparePlugins(_ui.pluginsExp, &_expPluginsModel);
   preparePlugins(_ui.pluginsTTS, &_ttsPluginsModel);
-#endif
 
   // network
   _ui.useProxy->setChecked(_settings->useProxy());
@@ -197,7 +144,6 @@ void SettingsDialog::fillTranslation()
   }
 }
 
-#ifndef EDITION_FREE
 void SettingsDialog::prepareColorFlash()
 {
   for (const auto &qsColor : QColor::colorNames())
@@ -221,7 +167,6 @@ void SettingsDialog::preparePlugins(QTreeView *treeView, PluginsModel *model) co
   treeView->header()->setSectionResizeMode(static_cast<int>(PluginsModel::Column::Name),    QHeaderView::Stretch);
   treeView->header()->setSectionResizeMode(static_cast<int>(PluginsModel::Column::License), QHeaderView::ResizeToContents);
 }
-#endif
 
 void SettingsDialog::prepareTranslations()
 {
@@ -240,7 +185,7 @@ void SettingsDialog::prepareTranslations()
   }
 }
 
-#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
+#ifdef Q_OS_WIN
 void SettingsDialog::saveHotkey(const HotkeyLineEdit *control, Settings::Hotkey hotkey) const
 {
   Settings::HotkeyInfo hotkeyInfo;
@@ -256,12 +201,10 @@ void SettingsDialog::saveOptions()
 {
   // general
   _settings->setAlwaysOnTop(_ui.alwaysOnTop->isChecked());
-#ifndef EDITION_FREE
   _settings->setRememberWindowPosition(_ui.rememberWindowPosition->isChecked());
   _settings->setSystemTrayIcon(_ui.systemTrayIcon->isChecked());
   _settings->setShowWordsInTrayBalloon(_ui.showWordsInTrayBalloon->isChecked());
   _settings->setMinimizeToTray(_ui.minimizeToTray->isChecked());
-#endif
   _settings->setTranslation(_ui.language->itemData(_ui.language->currentIndex()).toString());
   _settings->setUpdateCheck(_ui.updateCheck->isChecked());
   _settings->setCacheVocabulary(_ui.cacheVocabulary->isChecked());
@@ -269,7 +212,6 @@ void SettingsDialog::saveOptions()
 
   // learning
   _settings->setWordsFrequency(_ui.wordsFrequency->value());
-#ifndef EDITION_FREE
   _settings->setWaitForAnswer(_ui.waitForAnswerValue->value());
   _settings->setNewWordSound(_ui.newWordSound->isChecked());
   if (_ui.soundSystem->isChecked())
@@ -283,13 +225,9 @@ void SettingsDialog::saveOptions()
   _settings->setNewWordSoundFile(_ui.soundCustomEdit->text());
   _settings->setNewWordFlash(_ui.newWordFlash->isChecked());
   _settings->setLearnDisabledWords(_ui.learnDisabledWords->isChecked());
-#endif
   _settings->setSwitchLearningDirection(_ui.switchLearningDirection->checkState());
-#ifndef EDITION_FREE
   _settings->setStartLearningOnStartup(_ui.startLearningOnStartup->isChecked());
-#endif
 
-#ifndef EDITION_FREE
   // appearance
   _settings->setHorizontalLayout(_ui.horizontalLayout->isChecked());
   _settings->setShowToolBar(_ui.mainWindowToolBar->isChecked());
@@ -301,7 +239,7 @@ void SettingsDialog::saveOptions()
   _settings->setCanEnableCategories(_ui.vocabularyManagerCategoriesEnable->isChecked());
   _settings->setCanChangeCategoryPriority(_ui.vocabularyManagerCategoryPriority->isChecked());
 
-# ifdef Q_OS_WIN
+#ifdef Q_OS_WIN
   // hotkeys
     // learning
   saveHotkey(_ui.hotkeyNext,   Settings::Hotkey::Next);
@@ -309,7 +247,6 @@ void SettingsDialog::saveOptions()
   // window
   saveHotkey(_ui.hotkeyMinimize, Settings::Hotkey::Minimize);
   saveHotkey(_ui.hotkeyRestore,  Settings::Hotkey::Restore);
-# endif
 #endif
 
   // network
@@ -347,8 +284,7 @@ void SettingsDialog::on_cacheVocabulary_stateChanged(int state) const
   _ui.recordsToCache->setEnabled(state == Qt::Checked);
 }
 
-#ifndef EDITION_FREE
-# ifdef Q_OS_WIN
+#ifdef Q_OS_WIN
 void SettingsDialog::on_hotkeyAnswerClear_clicked(bool checked /* false */) const
 {
   clearHotkey(_ui.hotkeyAnswer);
@@ -405,15 +341,15 @@ void SettingsDialog::on_showLicense_clicked(bool checked /* false */)
   LicenseTextDialog licenseTextDialog(licenses, _settings, this);
   licenseTextDialog.exec();
 }
-# endif
+#endif
 
 void SettingsDialog::on_soundBrowse_clicked(bool checked /* false */)
 {
   const auto oldFile = _settings->newWordSoundFile();
   const auto newFile = QFileDialog::getOpenFileName(this, tr("Sound file"), QFileInfo(oldFile).path()
-# ifdef Q_OS_WIN
+#ifdef Q_OS_WIN
                                                     , tr("sound files (*.wav)")
-# endif
+#endif
                                                     );
   if (!newFile.isEmpty())
   {
@@ -442,4 +378,3 @@ void SettingsDialog::on_wordsFrequency_valueChanged(int i) const
 {
   _ui.waitForAnswerValue->setMaximum(i - 1);
 }
-#endif

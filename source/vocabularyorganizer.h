@@ -31,10 +31,8 @@ class VocabularyOrganizer : public QObject
           RecordInfo      recordInfo          (quintptr row)   const;
           void            remove              (quintptr index);
           void            saveAll             ();
-#ifndef EDITION_FREE
           void            setVocabularyEnabled(quintptr index, bool enabled, QWidget *parent);
-#endif
-          quintptr         vocabularyCount    ()               const;
+          quintptr        vocabularyCount     ()               const;
     const VocabularyInfo &vocabularyInfo      (quintptr index) const;
 
   private:

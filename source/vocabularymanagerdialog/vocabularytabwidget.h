@@ -2,24 +2,17 @@
 #define VOCABULARYTABWIDGET_H
 
 #include <QtWidgets/QTabWidget>
-#ifndef EDITION_FREE
-# include <QtWidgets/QTabBar>
-#endif
+#include <QtWidgets/QTabBar>
 
 class VocabularyTabWidget : public QTabWidget
 {
-#ifndef EDITION_FREE
   Q_OBJECT
-#endif
 
   public:
-#ifndef EDITION_FREE
     static const auto CATEGORY_PRIORITY_MAX = 9;
-#endif
 
     VocabularyTabWidget(QWidget *parent = Q_NULLPTR);
 
-#ifndef EDITION_FREE
     quintptr addTab           (QWidget *page, const QString &label, bool enabled, quintptr priority);
     void     setShowEnabled   (bool enabled);
     void     setShowPriorities(bool enabled);
@@ -37,7 +30,6 @@ class VocabularyTabWidget : public QTabWidget
   private Q_SLOTS:
       void on_enabled_stateChanged (int state) const;
       void on_priority_valueChanged(int i)     const;
-#endif
 };
 
 #endif

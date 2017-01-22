@@ -24,7 +24,6 @@ quintptr Vocabulary::addCategory(const QString &name)
   return categoryId;
 }
 
-#ifndef EDITION_FREE
 void Vocabulary::addField()
 {
   const auto fieldId = VocabularyDatabase::addField();
@@ -35,7 +34,6 @@ void Vocabulary::addField()
     _fieldData.insert(fieldId, fieldData2);
   }
 }
-#endif
 
 void Vocabulary::addRecord(quintptr categoryId)
 {
@@ -47,7 +45,6 @@ void Vocabulary::addRecord(quintptr categoryId)
   }
 }
 
-#ifndef EDITION_FREE
 void Vocabulary::addRecord(quintptr categoryId, const QStringList &data)
 {
   const auto recordId = VocabularyDatabase::addRecord(categoryId, data);
@@ -62,7 +59,6 @@ void Vocabulary::addRecord(quintptr categoryId, const QStringList &data)
         dataIndex++;
     }*/
 }
-#endif
 
 void Vocabulary::beginEdit()
 {
@@ -147,7 +143,6 @@ VocabularyDatabase::FieldAttributes Vocabulary::fieldAttributes(quintptr fieldId
   }
 }
 
-#ifndef EDITION_FREE
 VocabularyDatabase::FieldBuiltIn Vocabulary::fieldBuiltIn(quintptr fieldId) const
 {
   if (_cacheEnabled)
@@ -159,7 +154,6 @@ VocabularyDatabase::FieldBuiltIn Vocabulary::fieldBuiltIn(quintptr fieldId) cons
     return VocabularyDatabase::fieldBuiltIn(fieldId);
   }
 }
-#endif
 
 quintptr Vocabulary::fieldCount() const
 {
@@ -258,7 +252,6 @@ VocabularyDatabase::FieldType Vocabulary::fieldType(quintptr fieldId) const
   }
 }
 
-#ifndef EDITION_FREE
 QStringList Vocabulary::record(quintptr recordId) const
 {
   QStringList data;
@@ -271,7 +264,6 @@ QStringList Vocabulary::record(quintptr recordId) const
 
   return data;
 }
-#endif
 
 quintptr Vocabulary::recordCategory(quintptr recordId) const
 {
@@ -324,7 +316,6 @@ quintptr Vocabulary::recordCount(quintptr categoryId) const
   }
 }
 
-#ifndef EDITION_FREE
 quintptr Vocabulary::recordCount(quintptr categoryId, bool enabled) const
 {
   if (_cacheEnabled)
@@ -396,7 +387,6 @@ bool Vocabulary::recordEnabled(quintptr recordId) const
 
   return true;
 }
-#endif
 
 quintptr Vocabulary::recordId(quintptr row) const
 {
@@ -482,7 +472,6 @@ void Vocabulary::removeCategory(quintptr categoryId)
   VocabularyDatabase::removeCategory(categoryId);
 }
 
-#ifndef EDITION_FREE
 void Vocabulary::removeField(quintptr fieldId)
 {
   if (_cacheEnabled)
@@ -495,7 +484,6 @@ void Vocabulary::removeField(quintptr fieldId)
 
   VocabularyDatabase::removeField(fieldId);
 }
-#endif
 
 void Vocabulary::removeRecord(quintptr categoryId, quintptr row)
 {
@@ -531,7 +519,6 @@ void Vocabulary::setDataText(quintptr recordId, quintptr fieldId, const QString 
   VocabularyDatabase::setDataText(recordId, fieldId, data);
 }
 
-#ifndef EDITION_FREE
 void Vocabulary::setFieldAttributes(quintptr fieldId, VocabularyDatabase::FieldAttributes attributes)
 {
   if (_cacheEnabled)
@@ -611,7 +598,6 @@ void Vocabulary::swapFields(quintptr sourceId, quintptr destinationId)
 
   VocabularyDatabase::swapFields(sourceId, destinationId);
 }
-#endif
 
 void Vocabulary::clearCache()
 {
@@ -640,9 +626,7 @@ Vocabulary::FieldData Vocabulary::fieldData(quintptr fieldId) const
   fieldData.name         = VocabularyDatabase::fieldName(fieldId);
   fieldData.type         = VocabularyDatabase::fieldType(fieldId);
   fieldData.attributes   = VocabularyDatabase::fieldAttributes(fieldId);
-#ifndef EDITION_FREE
   fieldData.builtIn      = VocabularyDatabase::fieldBuiltIn(fieldId);
-#endif
   fieldData.language     = VocabularyDatabase::fieldLanguage(fieldId);
 
   return fieldData;

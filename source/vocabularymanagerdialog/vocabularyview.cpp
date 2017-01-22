@@ -1,32 +1,20 @@
 #include "vocabularymanagerdialog/vocabularyview.h"
 
 #include "vocabulary.h"
-#ifndef EDITION_FREE
 #include <QtGui/QMouseEvent>
 #include <QtWidgets/QSpinBox>
 #include <QtCore/QCoreApplication>
-#endif
 
-VocabularyView::VocabularyView(
-#ifndef EDITION_FREE
-                               Vocabulary *vocabulary,
-#endif
-                               QWidget *parent /* Q_NULLPTR */) : QTableView(parent)
-#ifndef EDITION_FREE
-                               , _vocabulary(vocabulary)
-#endif
+VocabularyView::VocabularyView(Vocabulary *vocabulary, QWidget *parent /* Q_NULLPTR */) : QTableView(parent), _vocabulary(vocabulary)
 {
-#ifndef EDITION_FREE
   setMouseTracking(true);
   viewport()->installEventFilter(this);
-#endif
 }
 
 VocabularyView::~VocabularyView()
 {
 }
 
-#ifndef EDITION_FREE
 bool VocabularyView::eventFilter(QObject *watched, QEvent *event)
 {
   if (watched == viewport() && event->type() == QEvent::Leave)
@@ -85,4 +73,3 @@ void VocabularyView::mousePressEvent(QMouseEvent *event)
     }
   }
 }
-#endif

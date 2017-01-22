@@ -19,9 +19,6 @@ class VocabularyOrganizerDialog : public QDialog
     VocabularyOrganizerModel      _model;
 
     virtual void    accept        () Q_DECL_OVERRIDE;
-#ifdef EDITION_FREE
-            void    enableControls() const;
-#endif
             QString openPath      () const;
     virtual void    reject        () Q_DECL_OVERRIDE;
 

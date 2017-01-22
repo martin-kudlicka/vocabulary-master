@@ -10,13 +10,8 @@ class VocabularyView : public QTableView
   Q_OBJECT
 
   public:
-    VocabularyView(
-#ifndef EDITION_FREE
-                   Vocabulary *vocabulary,
-#endif
-                   QWidget *parent = Q_NULLPTR);
+    VocabularyView(Vocabulary *vocabulary, QWidget *parent = Q_NULLPTR);
 
-#ifndef EDITION_FREE
   private:
           QModelIndex _moveOld;
     const Vocabulary *_vocabulary;
@@ -26,7 +21,6 @@ class VocabularyView : public QTableView
     virtual bool eventFilter    (QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
     virtual void mouseMoveEvent (QMouseEvent *event)              Q_DECL_OVERRIDE;
     virtual void mousePressEvent(QMouseEvent *event)              Q_DECL_OVERRIDE;
-#endif
 };
 
 #endif

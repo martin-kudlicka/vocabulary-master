@@ -14,14 +14,10 @@ void VocabularyOrganizer::addExisting(VocabularyInfo *vocabularyInfo, QWidget *p
 {
   vocabularyInfo->vocabulary = new Vocabulary(_settings);
 
-#ifndef EDITION_FREE
   if (vocabularyInfo->vocabularyInfo.enabled)
   {
-#endif
     open(vocabularyInfo, parent);
-#ifndef EDITION_FREE
   }
-#endif
 
   _vocabularies.append(*vocabularyInfo);
 }
@@ -30,10 +26,8 @@ void VocabularyOrganizer::addNew(const QString &file)
 {
   VocabularyInfo vocabularyInfo;
   vocabularyInfo.vocabularyInfo.filePath = file;
-#if !defined(EDITION_FREE)
-  vocabularyInfo.vocabularyInfo.enabled = true;
-#endif
-  vocabularyInfo.vocabulary             = new Vocabulary(_settings);
+  vocabularyInfo.vocabularyInfo.enabled  = true;
+  vocabularyInfo.vocabulary              = new Vocabulary(_settings);
   vocabularyInfo.vocabulary->new2(file);
 
   _vocabularies.append(vocabularyInfo);
@@ -145,7 +139,6 @@ void VocabularyOrganizer::saveAll()
   _settings->setVocabularyCount(vocabularies);
 }
 
-#ifndef EDITION_FREE
 void VocabularyOrganizer::setVocabularyEnabled(quintptr index, bool enabled, QWidget *parent)
 {
   auto vocabularyInfo = &_vocabularies[index];
@@ -161,7 +154,6 @@ void VocabularyOrganizer::setVocabularyEnabled(quintptr index, bool enabled, QWi
     vocabularyInfo->vocabulary->close();
   }
 }
-#endif
 
 quintptr VocabularyOrganizer::vocabularyCount() const
 {
@@ -179,10 +171,8 @@ void VocabularyOrganizer::open(VocabularyInfo *vocabularyInfo, QWidget *parent)
   openProgress.show();
   vocabularyInfo->vocabulary->open(vocabularyInfo->vocabularyInfo.filePath);
 
-#ifndef EDITION_FREE
   if (!vocabularyInfo->vocabulary->isOpen())
   {
     vocabularyInfo->vocabularyInfo.enabled = false;
   }
-#endif
 }

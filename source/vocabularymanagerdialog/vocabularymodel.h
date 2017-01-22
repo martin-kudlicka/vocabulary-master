@@ -25,9 +25,7 @@ class VocabularyModel : public QAbstractTableModel
     virtual ~VocabularyModel() Q_DECL_OVERRIDE;
 
     virtual QVariant      data      (const QModelIndex &index, int role = Qt::DisplayRole)                 const Q_DECL_OVERRIDE;
-#ifndef EDITION_FREE
     virtual Qt::ItemFlags flags     (const QModelIndex &index)                                             const Q_DECL_OVERRIDE;
-#endif
     virtual QVariant      headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
 };
 
