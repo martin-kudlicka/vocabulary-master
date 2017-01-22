@@ -1,8 +1,6 @@
 #include "vocabularyorganizer.h"
 
-#ifndef EDITION_TRY
-# include "common/vocabularyopenprogressdialog.h"
-#endif
+#include "common/vocabularyopenprogressdialog.h"
 
 VocabularyOrganizer::VocabularyOrganizer(Settings *settings) : _settings(settings)
 {
@@ -12,43 +10,31 @@ VocabularyOrganizer::~VocabularyOrganizer()
 {
 }
 
-#ifndef EDITION_TRY
 void VocabularyOrganizer::addExisting(VocabularyInfo *vocabularyInfo, QWidget *parent)
 {
   vocabularyInfo->vocabulary = new Vocabulary(_settings);
 
-# ifndef EDITION_FREE
+#ifndef EDITION_FREE
   if (vocabularyInfo->vocabularyInfo.enabled)
   {
-# endif
+#endif
     open(vocabularyInfo, parent);
-# ifndef EDITION_FREE
+#ifndef EDITION_FREE
   }
-# endif
+#endif
 
   _vocabularies.append(*vocabularyInfo);
 }
-#endif
 
-void VocabularyOrganizer::addNew(
-#ifndef EDITION_TRY
-                                 const QString &file
-#endif
-                                 )
+void VocabularyOrganizer::addNew(const QString &file)
 {
   VocabularyInfo vocabularyInfo;
-#ifndef EDITION_TRY
   vocabularyInfo.vocabularyInfo.filePath = file;
-#endif
-#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
+#if !defined(EDITION_FREE)
   vocabularyInfo.vocabularyInfo.enabled = true;
 #endif
   vocabularyInfo.vocabulary             = new Vocabulary(_settings);
-  vocabularyInfo.vocabulary->new2(
-#ifndef EDITION_TRY
-    file
-#endif
-  );
+  vocabularyInfo.vocabulary->new2(file);
 
   _vocabularies.append(vocabularyInfo);
 }
@@ -66,7 +52,6 @@ bool VocabularyOrganizer::isOpen() const
   return false;
 }
 
-#ifndef EDITION_TRY
 void VocabularyOrganizer::openAll(QWidget *parent)
 {
   const auto vocabularies = _settings->vocabularyCount();
@@ -77,7 +62,6 @@ void VocabularyOrganizer::openAll(QWidget *parent)
     addExisting(&vocabularyInfo, parent);
   }
 }
-#endif
 
 quintptr VocabularyOrganizer::recordCount() const
 {
@@ -150,7 +134,6 @@ void VocabularyOrganizer::remove(quintptr index)
   delete vocabulary;
 }
 
-#ifndef EDITION_TRY
 void VocabularyOrganizer::saveAll()
 {
   const auto vocabularies = _vocabularies.size();
@@ -162,7 +145,7 @@ void VocabularyOrganizer::saveAll()
   _settings->setVocabularyCount(vocabularies);
 }
 
-# ifndef EDITION_FREE
+#ifndef EDITION_FREE
 void VocabularyOrganizer::setVocabularyEnabled(quintptr index, bool enabled, QWidget *parent)
 {
   auto vocabularyInfo = &_vocabularies[index];
@@ -178,7 +161,6 @@ void VocabularyOrganizer::setVocabularyEnabled(quintptr index, bool enabled, QWi
     vocabularyInfo->vocabulary->close();
   }
 }
-# endif
 #endif
 
 quintptr VocabularyOrganizer::vocabularyCount() const
@@ -191,18 +173,16 @@ const VocabularyOrganizer::VocabularyInfo &VocabularyOrganizer::vocabularyInfo(q
   return _vocabularies.at(index);
 }
 
-#ifndef EDITION_TRY
 void VocabularyOrganizer::open(VocabularyInfo *vocabularyInfo, QWidget *parent)
 {
   VocabularyOpenProgressDialog openProgress(vocabularyInfo->vocabulary, parent);
   openProgress.show();
   vocabularyInfo->vocabulary->open(vocabularyInfo->vocabularyInfo.filePath);
 
-# ifndef EDITION_FREE
+#ifndef EDITION_FREE
   if (!vocabularyInfo->vocabulary->isOpen())
   {
     vocabularyInfo->vocabularyInfo.enabled = false;
   }
-# endif
-}
 #endif
+}

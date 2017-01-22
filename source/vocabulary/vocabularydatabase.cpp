@@ -12,12 +12,8 @@
 # include "../plugins/common/tts-interface.h"
 #endif
 
-#ifdef EDITION_TRY
-auto VocabularyDatabase::_memoryVocabularies = 0;
-#endif
-
 const auto OPENPROGRESS_REFRESHINTERVAL = 100;
-const auto PRIORITY_DEFAULT = 1;
+const auto PRIORITY_DEFAULT             = 1;
 
 #ifdef EDITION_FREE
 const auto *FIELD_NOTE1 = QT_TRANSLATE_NOOP("VocabularyDatabase", "Note1");
@@ -38,9 +34,7 @@ const auto    KEY_TRAYTEMPLATE2       = "traytemplate2";
 const auto    KEY_VOICE1              = "voice1";
 const auto    KEY_VOICE2              = "voice2";
 #endif
-#ifndef EDITION_TRY
 const auto    KEY_VERSION             = "version";
-#endif
 const QString COLUMN_ATTRIBUTES       = "attributes";
 const QString COLUMN_BUILTIN          = "builtin";
 const QString COLUMN_CATEGORYID       = "category_id";
@@ -214,11 +208,7 @@ QString VocabularyDatabase::languageVoice(FieldLanguage languageId) const
 
 QString VocabularyDatabase::name() const
 {
-#ifdef EDITION_TRY
-  return tr("memory %1").arg(_vocabularyNumber);
-#else
   return QFileInfo(_vocabularyFile).completeBaseName();
-#endif
 }
 
 quintptr VocabularyDatabase::row(quintptr recordId, quintptr categoryId) const
@@ -325,12 +315,10 @@ QString VocabularyDatabase::settings(const QString &key) const
   }
 }
 
-#ifndef EDITION_TRY
 const QString &VocabularyDatabase::vocabularyFile() const
 {
   return _vocabularyFile;
 }
-#endif
 
 quintptr VocabularyDatabase::addCategory(const QString &name) const
 {
@@ -570,22 +558,14 @@ VocabularyDatabase::FieldType VocabularyDatabase::fieldType(quintptr fieldId) co
   return FieldType::Unknown;
 }
 
-void VocabularyDatabase::new2(
-#ifndef EDITION_TRY
-  const QString &filePath
-#endif
-)
+void VocabularyDatabase::new2(const QString &filePath)
 {
-#ifdef EDITION_TRY
-  _vocabularyNumber = ++_memoryVocabularies;
-#else
   _vocabularyFile = filePath;
 
   if (QFile::exists(filePath))
   {
     QFile::remove(filePath);
   }
-#endif
 
   openDatabase();
   initialize();
@@ -670,7 +650,6 @@ VocabularyDatabase::RecordIdList VocabularyDatabase::recordIds(quintptr category
   return recordIdList;
 }
 
-#ifndef EDITION_TRY
 void VocabularyDatabase::open(const QString &filePath)
 {
   if (!QFile::exists(filePath))
@@ -685,7 +664,6 @@ void VocabularyDatabase::open(const QString &filePath)
 
   updateDatabase();
 }
-#endif
 
 void VocabularyDatabase::removeCategory(quintptr categoryId) const
 {
@@ -827,7 +805,6 @@ void VocabularyDatabase::closeDatabase()
   }
 }
 
-#ifndef EDITION_TRY
 VocabularyDatabase::RecordIdList VocabularyDatabase::recordIds() const
 {
   RecordIdList recordIdList;
@@ -839,7 +816,6 @@ VocabularyDatabase::RecordIdList VocabularyDatabase::recordIds() const
 
   return recordIdList;
 }
-#endif
 
 void VocabularyDatabase::initialize() const
 {
@@ -900,21 +876,15 @@ void VocabularyDatabase::initialize() const
   addField(tr(FIELD_WORD2), tr(FIELD_WORD2), FieldType::LineEdit, FieldAttribute::None, FieldBuiltIn::None, FieldLanguage::Right);
   addField(tr(FIELD_NOTE2), tr(FIELD_NOTE2), FieldType::LineEdit, FieldAttribute::None, FieldBuiltIn::None, FieldLanguage::Right);
 #endif
-  addField(tr("Enabled"), "", FieldType::CheckBox, FieldAttribute::Show | FieldAttribute::BuiltIn, FieldBuiltIn::Enabled, FieldLanguage::All);
-  addField(tr("Priority"), "", FieldType::SpinBox, FieldAttribute::Show | FieldAttribute::BuiltIn, FieldBuiltIn::Priority, FieldLanguage::All);
+  addField(tr("Enabled"),  "", FieldType::CheckBox, FieldAttribute::Show | FieldAttribute::BuiltIn, FieldBuiltIn::Enabled,  FieldLanguage::All);
+  addField(tr("Priority"), "", FieldType::SpinBox,  FieldAttribute::Show | FieldAttribute::BuiltIn, FieldBuiltIn::Priority, FieldLanguage::All);
 
-#ifndef EDITION_TRY
   setSettings(KEY_VERSION, QString::number(static_cast<quintptr>(Version::N2)));
-#endif
 }
 
 void VocabularyDatabase::openDatabase()
 {
-#ifdef EDITION_TRY
-  _database.setDatabaseName(":memory:");
-#else
   _database.setDatabaseName(_vocabularyFile);
-#endif
   _database.open();
 }
 
@@ -957,7 +927,6 @@ void VocabularyDatabase::update(const QString &table, quintptr columnId, const Q
 }
 #endif
 
-#ifndef EDITION_TRY
 void VocabularyDatabase::updateDatabase()
 {
   const auto version = settings(KEY_VERSION);
@@ -1040,4 +1009,3 @@ void VocabularyDatabase::updateDatabase()
 
   endEdit(true);
 }
-#endif

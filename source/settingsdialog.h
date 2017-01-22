@@ -73,9 +73,7 @@ class SettingsDialog : public QDialog
     virtual void accept() Q_DECL_OVERRIDE;
 
   private Q_SLOTS:
-#ifndef EDITION_TRY
     void on_cacheVocabulary_stateChanged(int state)            const;
-#endif
 #ifndef EDITION_FREE
 # ifdef Q_OS_WIN
     void on_hotkeyAnswerClear_clicked   (bool checked = false) const;

@@ -12,9 +12,7 @@
 # ifdef Q_OS_WIN
 #  include <qt_windows.h>
 # endif
-# ifndef EDITION_TRY
-#  include "licensedialog.h"
-# endif
+# include "licensedialog.h"
 #endif
 #ifndef EDITION_FREE
 # include <QtMultimedia/QSound>
@@ -24,9 +22,6 @@
 
 #ifdef EDITION_FREE
 const auto *EDITION_FREE_SUFFIX   = QT_TRANSLATE_NOOP("MainWindow", " Free edition");
-#endif
-#ifdef EDITION_TRY
-const auto *EDITION_TRY_SUFFIX    = QT_TRANSLATE_NOOP("MainWindow", " Try edition");
 #endif
 #ifndef EDITION_FREE
 const auto FLASH_COUNT            = 3;
@@ -73,10 +68,6 @@ MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /*
     }
   }
 #else
-# ifdef EDITION_TRY
-  _ui.actionOpen->setVisible(false);
-  _ui.actionLicense->setVisible(false);
-# endif
   _trayIcon.setToolTip("Vocabulary Master");
 #endif
   _ui.statusBar->addWidget(&_vocabularyStatus);
@@ -84,10 +75,8 @@ MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /*
   _ui.statusBar->addWidget(&_progressBarTimer, 1);
 
 #ifndef EDITION_FREE
-# ifndef EDITION_TRY
   // license
   _license = new License(&_settings);
-# endif
 
   // plugins
   _plugins.load();
@@ -104,9 +93,7 @@ MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /*
   // settings
   applySettings(true);
 
-#ifndef EDITION_TRY
   _vocabularyOrganizer.openAll(this);
-#endif
   refreshStatusBar();
 
   // menus
@@ -132,11 +119,7 @@ MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /*
 
 #ifndef EDITION_FREE
   // learning
-  if (
-# ifndef EDITION_TRY
-    _license->isLoaded() &&
-# endif
-    _settings.startLearningOnStartup() && _vocabularyOrganizer.isOpen())
+  if (_license->isLoaded() && _settings.startLearningOnStartup() && _vocabularyOrganizer.isOpen())
   {
     on_actionStart_triggered();
   }
@@ -158,9 +141,7 @@ MainWindow::~MainWindow()
   _settings.setWindowWidth(geometry().width());
 
   _plugins.uninitialize();
-# ifndef EDITION_TRY
   delete _license;
-# endif
 #endif
 }
 
@@ -256,21 +237,21 @@ void MainWindow::createVocabulariesMenu()
 void MainWindow::enableControls()
 {
   // menu
-#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
+#if !defined(EDITION_FREE)
   _ui.actionOrganizer->setEnabled(_license->isLoaded());
 #endif
   _ui.menuVocabularies->setEnabled(
-#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
+#if !defined(EDITION_FREE)
                                    _license->isLoaded() &&
 #endif
                                    _vocabularyOrganizer.isOpen());
-#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
+#if !defined(EDITION_FREE)
   _ui.menuOptions->setEnabled(_license->isLoaded());
 #endif
 
   // tool bar
   _ui.actionStart->setEnabled(
-#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
+#if !defined(EDITION_FREE)
                               _license->isLoaded() &&
 #endif
                               _vocabularyOrganizer.isOpen() && !_learning && _vocabularyOrganizer.recordCount(true) > 0);
@@ -659,9 +640,6 @@ bool MainWindow::event(QEvent *event)
 #ifdef EDITION_FREE
     setWindowTitle(windowTitle() + tr(EDITION_FREE_SUFFIX));
 #endif
-#ifdef EDITION_TRY
-    setWindowTitle(windowTitle() + tr(EDITION_TRY_SUFFIX));
-#endif
     break;
 #ifndef EDITION_FREE
     case QEvent::WindowStateChange:
@@ -713,9 +691,6 @@ void MainWindow::on_actionAbout_triggered(bool checked /* false */)
 #ifdef EDITION_FREE
                      + tr(EDITION_FREE_SUFFIX)
 #endif
-#ifdef EDITION_TRY
-                     + tr(EDITION_TRY_SUFFIX)
-#endif
                      + "</b></center><center>Version " + _updateChecker.currentVersion() + "</center><br />Copyright (C) 2011 Isshou");
 }
 
@@ -731,7 +706,6 @@ void MainWindow::on_actionFindInVocabulary_triggered(bool checked /* false */)
   openVocabulary(_currentRecord.vocabulary, true);
 }
 
-# ifndef EDITION_TRY
 void MainWindow::on_actionLicense_triggered(bool checked /* false */)
 {
   LicenseDialog ldLicenseDialog(_license, &_settings, this);
@@ -741,7 +715,6 @@ void MainWindow::on_actionLicense_triggered(bool checked /* false */)
     enableControls();
   }
 }
-# endif
 
 void MainWindow::on_actionMute_toggled(bool checked)
 {

@@ -1,9 +1,7 @@
 #include "vocabularyorganizerdialog.h"
 
 #include "vocabularyorganizer.h"
-#ifndef EDITION_TRY
-# include <QtWidgets/QFileDialog>
-#endif
+#include <QtWidgets/QFileDialog>
 
 const auto VOCABULARY_FILTER = QT_TRANSLATE_NOOP("VocabularyOrganizerDialog", "Vocabulary (*.sl3)");
 const auto VOCABULARY_SUFFIX = "sl3";
@@ -13,14 +11,12 @@ VocabularyOrganizerDialog::VocabularyOrganizerDialog(VocabularyOrganizer *organi
   _ui.setupUi(this);
 #ifdef EDITION_FREE
   enableControls();
-#elif defined EDITION_TRY
-  delete _ui.open;
 #endif
 
   _ui.vocabularies->setModel(&_model);
 
   _ui.vocabularies->header()->setSectionResizeMode(static_cast<int>(VocabularyOrganizerModel::Column::VocabularyFile), QHeaderView::Stretch);
-#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
+#if !defined(EDITION_FREE)
   _ui.vocabularies->header()->setSectionResizeMode(static_cast<int>(VocabularyOrganizerModel::Column::Enabled),        QHeaderView::ResizeToContents);
 #endif
 
@@ -31,13 +27,11 @@ VocabularyOrganizerDialog::~VocabularyOrganizerDialog()
 {
 }
 
-#ifndef EDITION_TRY
 void VocabularyOrganizerDialog::accept()
 {
   _organizer->saveAll();
   QDialog::accept();
 }
-#endif
 
 #ifdef EDITION_FREE
 void VocabularyOrganizerDialog::enableControls() const
@@ -47,7 +41,6 @@ void VocabularyOrganizerDialog::enableControls() const
 }
 #endif
 
-#ifndef EDITION_TRY
 QString VocabularyOrganizerDialog::openPath() const
 {
   if (_organizer->vocabularyCount() > 0)
@@ -65,7 +58,6 @@ void VocabularyOrganizerDialog::reject()
 {
   accept();
 }
-#endif
 
 void VocabularyOrganizerDialog::on_close_clicked(bool checked /* false */)
 {
@@ -83,7 +75,6 @@ void VocabularyOrganizerDialog::on_close_clicked(bool checked /* false */)
 
 void VocabularyOrganizerDialog::on_new2_clicked(bool checked /* false */)
 {
-#ifndef EDITION_TRY
   QFileDialog newVocabulary(this, tr("Create new vocabulary"), openPath(), tr(VOCABULARY_FILTER));
   newVocabulary.setAcceptMode(QFileDialog::AcceptSave);
   if (newVocabulary.exec() == QDialog::Accepted)
@@ -106,13 +97,8 @@ void VocabularyOrganizerDialog::on_new2_clicked(bool checked /* false */)
     enableControls();
 #endif
   }
-#else
-  _organizer->addNew();
-  _model.addRow();
-#endif
 }
 
-#ifndef EDITION_TRY
 void VocabularyOrganizerDialog::on_open_clicked(bool checked /* false */)
 {
   const auto vocabularyFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), openPath(), tr(VOCABULARY_FILTER));
@@ -132,7 +118,6 @@ void VocabularyOrganizerDialog::on_open_clicked(bool checked /* false */)
 #endif
   }
 }
-#endif
 
 void VocabularyOrganizerDialog::on_vocabulariesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {

@@ -104,9 +104,7 @@ class VocabularyDatabase : public QObject
 #endif
     void                    setSettings                (const QString &key, const QString &value)                 const;
     QString                 settings                   (const QString &key)                                       const;
-#ifndef EDITION_TRY
     const QString          &vocabularyFile             ()                                                         const;
-#endif
 
   protected:
     using RecordIdList = QList<quintptr>;
@@ -137,11 +135,7 @@ class VocabularyDatabase : public QObject
     QString         fieldName             (quintptr fieldId)                                                         const;
     QString         fieldTemplateName     (quintptr fieldId)                                                         const;
     FieldType       fieldType             (quintptr fieldId)                                                         const;
-    void            new2                  (
-#ifndef EDITION_TRY
-                                           const QString &filePath
-#endif
-                                          );
+    void            new2                  (const QString &filePath);
     quintptr        recordCategory        (quintptr recordId)                                                        const;
     quintptr        recordCount           ()                                                                         const;
     quintptr        recordCount           (quintptr categoryId)                                                      const;
@@ -152,9 +146,7 @@ class VocabularyDatabase : public QObject
     quintptr        recordId              (quintptr row)                                                             const;
     quintptr        recordId              (quintptr categoryId, quintptr row)                                        const;
     RecordIdList    recordIds             (quintptr categoryId)                                                      const;
-#ifndef EDITION_TRY
     void            open                  (const QString &filePath);
-#endif
     void            removeCategory        (quintptr categoryId)                                                      const;
 #ifndef EDITION_FREE
     void            removeField           (quintptr fieldId)                                                         const;
@@ -185,14 +177,8 @@ class VocabularyDatabase : public QObject
       N2,
     };
 
-  #ifdef EDITION_TRY
-    static quintptr     _memoryVocabularies;
-           quintptr     _vocabularyNumber;
-  #endif
-           QSqlDatabase _database;
-  #ifndef EDITION_TRY
-           QString      _vocabularyFile;
-  #endif
+    QSqlDatabase _database;
+    QString      _vocabularyFile;
 
     quintptr     addField      (const QString &templateText, const QString &name, const FieldType &type, FieldAttributes attributes, FieldBuiltIn builtIn, FieldLanguage language) const;
     void         addLanguage   (const QString &name, const QString &learningTemplate
@@ -201,18 +187,14 @@ class VocabularyDatabase : public QObject
   #endif
                                 )                                                                                                                                                  const;
     void         closeDatabase ();
-  #ifndef EDITION_TRY
     RecordIdList recordIds     ()                                                                                                                                                  const;
-  #endif
     void         initialize    ()                                                                                                                                                  const;
     void         openDatabase  ();
     void         removeRecord  (quintptr recordId)                                                                                                                                 const;
   #ifndef EDITION_FREE
     void         update        (const QString &table, quintptr columnId, const QSqlRecord &record)                                                                                 const;
   #endif
-  #ifndef EDITION_TRY
     void         updateDatabase();
-  #endif
 
   Q_SIGNALS:
     void setOpenProgressValue(quintptr value)      const;

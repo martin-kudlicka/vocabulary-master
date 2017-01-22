@@ -1,9 +1,7 @@
 #include "vocabularyorganizerdialog/vocabularyorganizermodel.h"
 
 #include "vocabularyorganizer.h"
-#ifndef EDITION_TRY
-# include <QtCore/QDir>
-#endif
+#include <QtCore/QDir>
 
 VocabularyOrganizerModel::VocabularyOrganizerModel(VocabularyOrganizer *organizer, QWidget *parent) : _organizer(organizer), _parent(parent)
 {
@@ -39,17 +37,13 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
       {
         case Qt::DisplayRole:
         {
-#ifdef EDITION_TRY
-          return _organizer->vocabularyInfo(index.row()).vocabulary->name();
-#else
           const auto file = _organizer->vocabularyInfo(index.row()).vocabularyInfo.filePath;
           return QDir::toNativeSeparators(file);
-#endif
         }
         default:
           return QVariant();
       }
-#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
+#if !defined(EDITION_FREE)
     case static_cast<int>(Column::Enabled):
       switch (role)
       {
@@ -74,7 +68,7 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
   }
 }
 
-#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
+#if !defined(EDITION_FREE)
 Qt::ItemFlags VocabularyOrganizerModel::flags(const QModelIndex &index) const
 {
   auto itemFlags = QAbstractItemModel::flags(index);
@@ -97,7 +91,7 @@ QVariant VocabularyOrganizerModel::headerData(int section, Qt::Orientation orien
       {
         case static_cast<int>(Column::VocabularyFile):
           return tr("Vocabulary");
-#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
+#if !defined(EDITION_FREE)
         case static_cast<int>(Column::Enabled):
           return tr("Enabled");
 #endif
@@ -117,7 +111,7 @@ int VocabularyOrganizerModel::rowCount(const QModelIndex &parent /* QModelIndex(
   return 0;
 }
 
-#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
+#if !defined(EDITION_FREE)
 bool VocabularyOrganizerModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)
 {
   switch (index.column())

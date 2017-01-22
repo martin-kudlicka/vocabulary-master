@@ -40,9 +40,7 @@ class MainWindow : public QMainWindow
           qintptr                         _timeAnswer;
           qintptr                         _timeQuestion;
 #ifndef EDITION_FREE
-# ifndef EDITION_TRY
           License                        *_license;
-# endif
           Plugins                         _plugins;
     const QAction                        *_trayExit;
     const QAction                        *_traySettings;
@@ -77,9 +75,9 @@ class MainWindow : public QMainWindow
     QString  learningText          (Template templateType, bool directionSwitched, bool answer) const;
     void     openVocabulary        (Vocabulary *vocabulary
 #ifndef EDITION_FREE
-      , bool currentRecord
+                                    , bool currentRecord
 #endif
-      );
+                                    );
 #ifndef EDITION_FREE
     quintptr recordPriority        ()                                                           const;
 #endif
@@ -111,9 +109,7 @@ class MainWindow : public QMainWindow
 #ifndef EDITION_FREE
     void on_actionAnswer_triggered             (bool checked = false);
     void on_actionFindInVocabulary_triggered   (bool checked = false);
-# ifndef EDITION_TRY
     void on_actionLicense_triggered            (bool checked = false);
-# endif
     void on_actionMute_toggled                 (bool checked);
 #endif
     void on_actionNext_triggered               (bool checked = false);

@@ -4,16 +4,12 @@ const auto DEFAULT_FREQUENCY = 60;
 const auto DEFAULT_WAIT      = 0;
 
 const auto APPLICATION                   = "Vocabulary Master";
-#ifndef EDITION_TRY
 const auto ARRAY_VOCABULARIES            = "Vocabularies";
-#endif
 #ifndef EDITION_FREE
 const auto DEFAULT_COLORFLASH            = "chartreuse";
 #endif
 const auto KEY_ALWAYSONTOP               = "AlwaysOnTop";
-#ifndef EDITION_TRY
 const auto KEY_CACHEVOCABULARY           = "CacheVocabulary";
-#endif
 #ifndef EDITION_FREE
 const auto KEY_CANCHANGECATEGORYPRIORITY = "CanChangeCategoryPriority";
 const auto KEY_CANENABLECATEGORIES       = "CanEnableCategories";
@@ -37,9 +33,7 @@ const auto KEY_PROXYPASSWORD             = "ProxyPassword";
 const auto KEY_PROXYPORT                 = "ProxyPort";
 const auto KEY_PROXYTYPE                 = "ProxyType";
 const auto KEY_PROXYUSERNAME             = "ProxyUsername";
-#ifndef EDITION_TRY
 const auto KEY_RECORDSTOCACHE            = "RecordsToCache";
-#endif
 #ifndef EDITION_FREE
 const auto KEY_REMEMBERWINDOWPOSITION    = "RememberWindowPosition";
 const auto KEY_SHOWCATEGORYNAME          = "ShowCategoryName";
@@ -57,9 +51,7 @@ const auto KEY_SYSTEMTRAYICON            = "SystemTrayIcon";
 const auto KEY_TRANSLATION               = "Translation";
 const auto KEY_UPDATECHECK               = "UpdateCheck";
 const auto KEY_USEPROXY                  = "UseProxy";
-#ifndef EDITION_TRY
 const auto KEY_VERSION                   = "Version";
-#endif
 const auto KEY_VOCABULARYFILE            = "VocabularyFile";
 #ifndef EDITION_FREE
 const auto KEY_WAITFORANSWER             = "WaitForAnswer";
@@ -79,9 +71,7 @@ const auto SHORTCUT_RESTORE              = "Restore";
 
 Settings::Settings() : _settings(ORGANIZATION, APPLICATION)
 {
-#ifndef EDITION_TRY
   updateSettings();
-#endif
 }
 
 bool Settings::alwaysOnTop() const
@@ -89,12 +79,10 @@ bool Settings::alwaysOnTop() const
   return _settings.value(KEY_ALWAYSONTOP, false).toBool();
 }
 
-#ifndef EDITION_TRY
 bool Settings::cacheVocabulary() const
 {
   return _settings.value(KEY_CACHEVOCABULARY, true).toBool();
 }
-#endif
 
 #ifndef EDITION_FREE
 bool Settings::canChangeCategoryPriority() const
@@ -195,12 +183,10 @@ QString Settings::proxyUsername() const
   return _settings.value(KEY_PROXYUSERNAME).toString();
 }
 
-#ifndef EDITION_TRY
 quintptr Settings::recordsToCache() const
 {
   return _settings.value(KEY_RECORDSTOCACHE, 200000).toUInt();
 }
-#endif
 
 #ifndef EDITION_FREE
 bool Settings::rememberWindowPosition() const
@@ -214,12 +200,10 @@ void Settings::setAlwaysOnTop(bool enable)
   _settings.setValue(KEY_ALWAYSONTOP, enable);
 }
 
-#ifndef EDITION_TRY
 void Settings::setCacheVocabulary(bool enable)
 {
   _settings.setValue(KEY_CACHEVOCABULARY, enable);
 }
-#endif
 
 #ifndef EDITION_FREE
 void Settings::setCanChangeCategoryPriority(bool enable)
@@ -316,12 +300,10 @@ void Settings::setProxyUsername(const QString &username)
   _settings.setValue(KEY_PROXYUSERNAME, username);
 }
 
-#ifndef EDITION_TRY
 void Settings::setRecordsToCache(quintptr count)
 {
   _settings.setValue(KEY_RECORDSTOCACHE, count);
 }
-#endif
 
 #ifndef EDITION_FREE
 void Settings::setRememberWindowPosition(bool enable)
@@ -392,7 +374,6 @@ void Settings::setUseProxy(bool use)
   _settings.setValue(KEY_USEPROXY, use);
 }
 
-#ifndef EDITION_TRY
 void Settings::setVocabularyCount(quintptr count)
 {
   _settings.beginWriteArray(ARRAY_VOCABULARIES, count);
@@ -404,12 +385,11 @@ void Settings::setVocabularyInfo(quintptr index, const VocabularyInfo &info)
   _settings.beginWriteArray(ARRAY_VOCABULARIES);
   _settings.setArrayIndex(index);
   _settings.setValue(KEY_VOCABULARYFILE, info.filePath);
-#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
+#if !defined(EDITION_FREE)
   _settings.setValue(KEY_ENABLED,        info.enabled);
 #endif
   _settings.endArray();
 }
-#endif
 
 #ifndef EDITION_FREE
 void Settings::setWaitForAnswer(quintptr time)
@@ -507,7 +487,6 @@ bool Settings::useProxy() const
   return _settings.value(KEY_USEPROXY, false).toBool();
 }
 
-#ifndef EDITION_TRY
 quintptr Settings::vocabularyCount()
 {
   const auto count = _settings.beginReadArray(ARRAY_VOCABULARIES);
@@ -527,14 +506,13 @@ Settings::VocabularyInfo Settings::vocabularyInfo(quintptr index)
   _settings.beginReadArray(ARRAY_VOCABULARIES);
   _settings.setArrayIndex(index);
   vocabularyInfo.filePath = _settings.value(KEY_VOCABULARYFILE).toString();
-#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
+#if !defined(EDITION_FREE)
   vocabularyInfo.enabled  = _settings.value(KEY_ENABLED, true).toBool();
 #endif
   _settings.endArray();
 
   return vocabularyInfo;
 }
-#endif
 
 quintptr Settings::waitForAnswer() const
 {
@@ -607,7 +585,6 @@ QString Settings::hotkeyKeyVirtualKey(Hotkey type) const
 }
 #endif
 
-#ifndef EDITION_TRY
 void Settings::updateSettings()
 {
   const auto current = static_cast<Version>(_settings.value(KEY_VERSION, static_cast<quintptr>(Version::N1)).toUInt());
@@ -628,4 +605,3 @@ void Settings::updateSettings()
     _settings.setValue(KEY_VERSION, static_cast<quintptr>(Version::N2));
   }
 }
-#endif

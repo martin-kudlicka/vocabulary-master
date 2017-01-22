@@ -455,33 +455,17 @@ VocabularyDatabase::RecordIdList Vocabulary::recordIds(quintptr categoryId) cons
   }
 }
 
-void Vocabulary::new2(
-#ifndef EDITION_TRY
-                      const QString &filePath
-#endif
-)
+void Vocabulary::new2(const QString &filePath)
 {
-  VocabularyDatabase::new2(
-#ifndef EDITION_TRY
-                           filePath
-#endif
-  );
+  VocabularyDatabase::new2(filePath);
   initCache();
 }
 
-#ifndef EDITION_TRY
 void Vocabulary::open(const QString &filePath)
 {
   VocabularyDatabase::open(filePath);
   initCache();
 }
-#else
-
-void Vocabulary::openMemory()
-{
-  initCache();
-}
-#endif
 
 void Vocabulary::removeCategory(quintptr categoryId)
 {

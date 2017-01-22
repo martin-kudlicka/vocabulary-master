@@ -111,11 +111,9 @@ void SettingsDialog::fillOptions()
 #endif
   fillTranslation();
   _ui.updateCheck->setChecked(_settings->updateCheck());
-#ifndef EDITION_TRY
   _ui.cacheVocabulary->setChecked(_settings->cacheVocabulary());
   on_cacheVocabulary_stateChanged(_ui.cacheVocabulary->checkState());
   _ui.recordsToCache->setValue(_settings->recordsToCache());
-#endif
 
   // learning
   _ui.wordsFrequency->setValue(_settings->wordsFrequency());
@@ -266,10 +264,8 @@ void SettingsDialog::saveOptions()
 #endif
   _settings->setTranslation(_ui.language->itemData(_ui.language->currentIndex()).toString());
   _settings->setUpdateCheck(_ui.updateCheck->isChecked());
-#ifndef EDITION_TRY
   _settings->setCacheVocabulary(_ui.cacheVocabulary->isChecked());
   _settings->setRecordsToCache(_ui.recordsToCache->value());
-#endif
 
   // learning
   _settings->setWordsFrequency(_ui.wordsFrequency->value());
@@ -346,12 +342,10 @@ void SettingsDialog::accept()
   QDialog::accept();
 }
 
-#ifndef EDITION_TRY
 void SettingsDialog::on_cacheVocabulary_stateChanged(int state) const
 {
   _ui.recordsToCache->setEnabled(state == Qt::Checked);
 }
-#endif
 
 #ifndef EDITION_FREE
 # ifdef Q_OS_WIN
