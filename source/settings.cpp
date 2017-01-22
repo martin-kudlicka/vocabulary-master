@@ -5,20 +5,17 @@ const auto DEFAULT_WAIT      = 0;
 
 const auto APPLICATION                   = "Vocabulary Master";
 const auto ARRAY_VOCABULARIES            = "Vocabularies";
-#ifndef EDITION_FREE
 const auto DEFAULT_COLORFLASH            = "chartreuse";
-#endif
 const auto KEY_ALWAYSONTOP               = "AlwaysOnTop";
 const auto KEY_CACHEVOCABULARY           = "CacheVocabulary";
-#ifndef EDITION_FREE
 const auto KEY_CANCHANGECATEGORYPRIORITY = "CanChangeCategoryPriority";
 const auto KEY_CANENABLECATEGORIES       = "CanEnableCategories";
 const auto KEY_COLORFLASH                = "ColorFlash";
 const auto KEY_ENABLED                   = "Enabled";
 const auto KEY_HORIZONTALLAYOUT          = "HorizontalLayout";
-# ifdef Q_OS_WIN
+#ifdef Q_OS_WIN
 const auto KEY_HOTKEY                    = "Hotkey";
-# endif
+#endif
 const auto KEY_LEARNDISABLEDWORDS        = "LearnDisabledWords";
 const auto KEY_LICENSE                   = "License";
 const auto KEY_MINIMIZETOTRAY            = "MinimizeToTray";
@@ -27,14 +24,12 @@ const auto KEY_NEWWORDFLASH              = "NewWordFlash";
 const auto KEY_NEWWORDSOUND              = "NewWordSound";
 const auto KEY_NEWWORDSOUNDFILE          = "NewWordSoundFile";
 const auto KEY_NEWWORDSOUNDTYPE          = "NewWordSoundType";
-#endif
 const auto KEY_PROXYHOSTNAME             = "ProxyHostname";
 const auto KEY_PROXYPASSWORD             = "ProxyPassword";
 const auto KEY_PROXYPORT                 = "ProxyPort";
 const auto KEY_PROXYTYPE                 = "ProxyType";
 const auto KEY_PROXYUSERNAME             = "ProxyUsername";
 const auto KEY_RECORDSTOCACHE            = "RecordsToCache";
-#ifndef EDITION_FREE
 const auto KEY_REMEMBERWINDOWPOSITION    = "RememberWindowPosition";
 const auto KEY_SHOWCATEGORYNAME          = "ShowCategoryName";
 const auto KEY_SHOWLANGUAGENAMES         = "ShowLanguageNames";
@@ -43,26 +38,21 @@ const auto KEY_SHOWSTATUSBAR             = "ShowStatusBar";
 const auto KEY_SHOWTOOLBAR               = "ShowToolBar";
 const auto KEY_SHOWWORDSINTRAYBALLOON    = "ShowWordsInTrayBalloon";
 const auto KEY_STARTLEARNINGONSTARTUP    = "StartLearningOnStartup";
-#endif
 const auto KEY_SWITCHLEARNINGDIRECTION   = "SwitchLearningDirection";
-#ifndef EDITION_FREE
 const auto KEY_SYSTEMTRAYICON            = "SystemTrayIcon";
-#endif
 const auto KEY_TRANSLATION               = "Translation";
 const auto KEY_UPDATECHECK               = "UpdateCheck";
 const auto KEY_USEPROXY                  = "UseProxy";
 const auto KEY_VERSION                   = "Version";
 const auto KEY_VOCABULARYFILE            = "VocabularyFile";
-#ifndef EDITION_FREE
 const auto KEY_WAITFORANSWER             = "WaitForAnswer";
 const auto KEY_WINDOWHEIGHT              = "WindowHeight";
 const auto KEY_WINDOWWIDTH               = "WindowWidth";
 const auto KEY_WINDOWX                   = "WindowX";
 const auto KEY_WINDOWY                   = "WindowY";
-#endif
 const auto KEY_WORDSFREQUENCY            = "WordsFrequency";
 const auto ORGANIZATION                  = "Isshou";
-#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
+#ifdef Q_OS_WIN
 const auto SHORTCUT_ANSWER               = "Answer";
 const auto SHORTCUT_MINIMIZE             = "Minimize";
 const auto SHORTCUT_NEXT                 = "Next";
@@ -84,7 +74,6 @@ bool Settings::cacheVocabulary() const
   return _settings.value(KEY_CACHEVOCABULARY, true).toBool();
 }
 
-#ifndef EDITION_FREE
 bool Settings::canChangeCategoryPriority() const
 {
   return _settings.value(KEY_CANCHANGECATEGORYPRIORITY, true).toBool();
@@ -105,7 +94,7 @@ bool Settings::horizontalLayout() const
   return _settings.value(KEY_HORIZONTALLAYOUT, false).toBool();
 }
 
-# ifdef Q_OS_WIN
+#ifdef Q_OS_WIN
 Settings::HotkeyInfo Settings::hotkey(Hotkey type) const
 {
   HotkeyInfo hotkeyInfo;
@@ -115,7 +104,7 @@ Settings::HotkeyInfo Settings::hotkey(Hotkey type) const
 
   return hotkeyInfo;
 }
-# endif
+#endif
 
 bool Settings::learnDisabledWords() const
 {
@@ -156,7 +145,6 @@ Settings::NewWordSoundType Settings::newWordSoundType() const
 {
   return static_cast<NewWordSoundType>(_settings.value(KEY_NEWWORDSOUNDTYPE, static_cast<quintptr>(NewWordSoundType::System)).toUInt());
 }
-#endif
 
 QString Settings::proxyHostname() const
 {
@@ -188,12 +176,10 @@ quintptr Settings::recordsToCache() const
   return _settings.value(KEY_RECORDSTOCACHE, 200000).toUInt();
 }
 
-#ifndef EDITION_FREE
 bool Settings::rememberWindowPosition() const
 {
   return _settings.value(KEY_REMEMBERWINDOWPOSITION, true).toBool();
 }
-#endif
 
 void Settings::setAlwaysOnTop(bool enable)
 {
@@ -205,7 +191,6 @@ void Settings::setCacheVocabulary(bool enable)
   _settings.setValue(KEY_CACHEVOCABULARY, enable);
 }
 
-#ifndef EDITION_FREE
 void Settings::setCanChangeCategoryPriority(bool enable)
 {
   _settings.setValue(KEY_CANCHANGECATEGORYPRIORITY, enable);
@@ -226,13 +211,13 @@ void Settings::setHorizontalLayout(bool enable)
   _settings.setValue(KEY_HORIZONTALLAYOUT, enable);
 }
 
-# ifdef Q_OS_WIN
+#ifdef Q_OS_WIN
 void Settings::setHotkey(Hotkey type, const HotkeyInfo &hotkeyInfo)
 {
   _settings.setValue(hotkeyKeyText(type),       hotkeyInfo.text);
   _settings.setValue(hotkeyKeyVirtualKey(type), hotkeyInfo.virtualKey);
 }
-# endif
+#endif
 
 void Settings::setLearnDisabledWords(bool enable)
 {
@@ -273,7 +258,6 @@ void Settings::setNewWordSoundType(NewWordSoundType type)
 {
   _settings.setValue(KEY_NEWWORDSOUNDTYPE, static_cast<quintptr>(type));
 }
-#endif
 
 void Settings::setProxyHostname(const QString &hostname)
 {
@@ -305,7 +289,6 @@ void Settings::setRecordsToCache(quintptr count)
   _settings.setValue(KEY_RECORDSTOCACHE, count);
 }
 
-#ifndef EDITION_FREE
 void Settings::setRememberWindowPosition(bool enable)
 {
   _settings.setValue(KEY_REMEMBERWINDOWPOSITION, enable);
@@ -345,19 +328,16 @@ void Settings::setStartLearningOnStartup(bool enable)
 {
   _settings.setValue(KEY_STARTLEARNINGONSTARTUP, enable);
 }
-#endif
 
 void Settings::setSwitchLearningDirection(Qt::CheckState switchDirection)
 {
   _settings.setValue(KEY_SWITCHLEARNINGDIRECTION, switchDirection);
 }
 
-#ifndef EDITION_FREE
 void Settings::setSystemTrayIcon(bool enable)
 {
   _settings.setValue(KEY_SYSTEMTRAYICON, enable);
 }
-#endif
 
 void Settings::setTranslation(const QString &translationName)
 {
@@ -385,13 +365,10 @@ void Settings::setVocabularyInfo(quintptr index, const VocabularyInfo &info)
   _settings.beginWriteArray(ARRAY_VOCABULARIES);
   _settings.setArrayIndex(index);
   _settings.setValue(KEY_VOCABULARYFILE, info.filePath);
-#if !defined(EDITION_FREE)
   _settings.setValue(KEY_ENABLED,        info.enabled);
-#endif
   _settings.endArray();
 }
 
-#ifndef EDITION_FREE
 void Settings::setWaitForAnswer(quintptr time)
 {
   _settings.setValue(KEY_WAITFORANSWER, time);
@@ -416,14 +393,12 @@ void Settings::setWindowY(quintptr y)
 {
   _settings.setValue(KEY_WINDOWY, y);
 }
-#endif
 
 void Settings::setWordsFrequency(quintptr frequency)
 {
   _settings.setValue(KEY_WORDSFREQUENCY, frequency);
 }
 
-#ifndef EDITION_FREE
 bool Settings::showCategoryName() const
 {
   return _settings.value(KEY_SHOWCATEGORYNAME, true).toBool();
@@ -458,19 +433,16 @@ bool Settings::startLearningOnStartup() const
 {
   return _settings.value(KEY_STARTLEARNINGONSTARTUP, false).toBool();
 }
-#endif
 
 Qt::CheckState Settings::switchLearningDirection() const
 {
   return static_cast<Qt::CheckState>(_settings.value(KEY_SWITCHLEARNINGDIRECTION, false).toUInt());
 }
 
-#ifndef EDITION_FREE
 bool Settings::systemTrayIcon() const
 {
   return _settings.value(KEY_SYSTEMTRAYICON, false).toBool();
 }
-#endif
 
 QString Settings::translation() const
 {
@@ -492,11 +464,7 @@ quintptr Settings::vocabularyCount()
   const auto count = _settings.beginReadArray(ARRAY_VOCABULARIES);
   _settings.endArray();
 
-#ifdef EDITION_FREE
-  return qMin(count, EDITION_FREE_VOCABULARIES_MAX);
-#else
   return count;
-#endif
 }
 
 Settings::VocabularyInfo Settings::vocabularyInfo(quintptr index)
@@ -506,9 +474,7 @@ Settings::VocabularyInfo Settings::vocabularyInfo(quintptr index)
   _settings.beginReadArray(ARRAY_VOCABULARIES);
   _settings.setArrayIndex(index);
   vocabularyInfo.filePath = _settings.value(KEY_VOCABULARYFILE).toString();
-#if !defined(EDITION_FREE)
   vocabularyInfo.enabled  = _settings.value(KEY_ENABLED, true).toBool();
-#endif
   _settings.endArray();
 
   return vocabularyInfo;
@@ -516,14 +482,9 @@ Settings::VocabularyInfo Settings::vocabularyInfo(quintptr index)
 
 quintptr Settings::waitForAnswer() const
 {
-#ifndef EDITION_FREE
   return _settings.value(KEY_WAITFORANSWER, DEFAULT_WAIT).toUInt();
-#else
-  return DEFAULT_WAIT;
-#endif
 }
 
-#ifndef EDITION_FREE
 quintptr Settings::windowHeight() const
 {
   return _settings.value(KEY_WINDOWHEIGHT, DEFAULT_DIMENSION).toUInt();
@@ -543,14 +504,13 @@ quintptr Settings::windowY() const
 {
   return _settings.value(KEY_WINDOWY, DEFAULT_DIMENSION).toUInt();
 }
-#endif
 
 quintptr Settings::wordsFrequency() const
 {
   return _settings.value(KEY_WORDSFREQUENCY, DEFAULT_FREQUENCY).toUInt();
 }
 
-#if !defined(EDITION_FREE) && defined(Q_OS_WIN)
+#ifdef Q_OS_WIN
 QString Settings::hotkeyKey(Hotkey type) const
 {
   QString key = KEY_HOTKEY;

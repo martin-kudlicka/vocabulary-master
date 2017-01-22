@@ -3,26 +3,12 @@
 #include "vocabulary.h"
 #include "plugins.h"
 
-VocabularySettingsDialog::VocabularySettingsDialog(Vocabulary *vocabulary,
-#ifndef EDITION_FREE
-                                                   const Plugins *plugins,
-#endif
-                                                   QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags)
-#ifndef EDITION_FREE
-                                                   , _fieldsModel(vocabulary), _languageFieldDelegate(vocabulary), _plugins(plugins)
-#endif
-                                                   , _vocabulary(vocabulary)
+VocabularySettingsDialog::VocabularySettingsDialog(Vocabulary *vocabulary, const Plugins *plugins, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _fieldsModel(vocabulary), _languageFieldDelegate(vocabulary), _plugins(plugins), _vocabulary(vocabulary)
 {
   _ui.setupUi(this);
-#ifdef EDITION_FREE
-  delete _ui.speech;
-  _ui.tabs->removeTab(Tab::Fields);
-  _ui.tabs->removeTab(Tab::Templates);
-#else
 
   preparePlugins();
   prepareFields();
-#endif
   fillOptions();
 }
 
@@ -37,7 +23,6 @@ void VocabularySettingsDialog::accept()
   QDialog::accept();
 }
 
-#ifndef EDITION_FREE
 void VocabularySettingsDialog::actualizeFieldsEditor() const
 {
   for (auto row = 0; row < _fieldsModel.rowCount(); row++)
@@ -71,14 +56,12 @@ void VocabularySettingsDialog::actualizeFieldsEditor(quintptr row) const
     _ui.fields->openPersistentEditor(index);
   }
 }
-#endif
 
 void VocabularySettingsDialog::fillOptions()
 {
   // languages
   _ui.languageLeft->setText(_vocabulary->languageName(VocabularyDatabase::FieldLanguage::Left));
   _ui.languageRight->setText(_vocabulary->languageName(VocabularyDatabase::FieldLanguage::Right));
-#ifndef EDITION_FREE
   fillSpeech(_ui.speechLeft, QString::number(static_cast<quintptr>(_vocabulary->languageSpeech(VocabularyDatabase::FieldLanguage::Left))), _vocabulary->languageVoice(VocabularyDatabase::FieldLanguage::Left));
   fillSpeech(_ui.speechRight, QString::number(static_cast<quintptr>(_vocabulary->languageSpeech(VocabularyDatabase::FieldLanguage::Right))), _vocabulary->languageVoice(VocabularyDatabase::FieldLanguage::Right));
 
@@ -87,10 +70,8 @@ void VocabularySettingsDialog::fillOptions()
   _ui.learningRight->setPlainText(_vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguage::Right));
   _ui.trayLeft->setPlainText(_vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguage::Left));
   _ui.trayRight->setPlainText(_vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguage::Right));
-#endif
 }
 
-#ifndef EDITION_FREE
 void VocabularySettingsDialog::fillSpeech(QComboBox *comboBox, const QString &speech, const QString &voice)
 {
   const auto speechPlugin = static_cast<TTSInterface::TTSPlugin>(_vocabulary->settings(speech).toUInt());
@@ -183,15 +164,10 @@ void VocabularySettingsDialog::refreshLanguageNameFields() const
     _ui.fields->openPersistentEditor(index);
   }
 }
-#endif
 
 void VocabularySettingsDialog::saveOptions()
 {
   // languages
-#ifdef EDITION_FREE
-  _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguage::Left, _ui.languageLeft->text());
-  _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguage::Right, _ui.languageRight->text());
-#else
   SpeechVoice speechVoice = _voices.at(_ui.speechLeft->itemData(_ui.speechLeft->currentIndex()).toUInt());
   _vocabulary->setLanguageSpeech(VocabularyDatabase::FieldLanguage::Left, speechVoice.ttsPlugin);
   _vocabulary->setLanguageVoice(VocabularyDatabase::FieldLanguage::Left, speechVoice.voiceId);
@@ -204,10 +180,8 @@ void VocabularySettingsDialog::saveOptions()
   _vocabulary->setLanguageLearningTemplate(VocabularyDatabase::FieldLanguage::Right, _ui.learningRight->toPlainText());
   _vocabulary->setLanguageTrayTemplate(VocabularyDatabase::FieldLanguage::Left, _ui.trayLeft->toPlainText());
   _vocabulary->setLanguageTrayTemplate(VocabularyDatabase::FieldLanguage::Right, _ui.trayRight->toPlainText());
-#endif
 }
 
-#ifndef EDITION_FREE
 void VocabularySettingsDialog::on_fieldAdd_clicked(bool checked /* false */)
 {
   _fieldsModel.addRow();
@@ -263,4 +237,3 @@ void VocabularySettingsDialog::on_languageRight_textEdited(const QString &text) 
 {
   refreshLanguageNameFields();
 }
-#endif

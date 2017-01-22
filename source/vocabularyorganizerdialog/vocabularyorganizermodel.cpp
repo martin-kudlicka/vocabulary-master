@@ -43,7 +43,6 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
         default:
           return QVariant();
       }
-#if !defined(EDITION_FREE)
     case static_cast<int>(Column::Enabled):
       switch (role)
       {
@@ -62,13 +61,11 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
         default:
           return QVariant();
       }
-#endif
     default:
       return QVariant();
   }
 }
 
-#if !defined(EDITION_FREE)
 Qt::ItemFlags VocabularyOrganizerModel::flags(const QModelIndex &index) const
 {
   auto itemFlags = QAbstractItemModel::flags(index);
@@ -80,7 +77,6 @@ Qt::ItemFlags VocabularyOrganizerModel::flags(const QModelIndex &index) const
 
   return itemFlags;
 }
-#endif
 
 QVariant VocabularyOrganizerModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
@@ -91,10 +87,8 @@ QVariant VocabularyOrganizerModel::headerData(int section, Qt::Orientation orien
       {
         case static_cast<int>(Column::VocabularyFile):
           return tr("Vocabulary");
-#if !defined(EDITION_FREE)
         case static_cast<int>(Column::Enabled):
           return tr("Enabled");
-#endif
       }
     default:
       return QVariant();
@@ -111,7 +105,6 @@ int VocabularyOrganizerModel::rowCount(const QModelIndex &parent /* QModelIndex(
   return 0;
 }
 
-#if !defined(EDITION_FREE)
 bool VocabularyOrganizerModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)
 {
   switch (index.column())
@@ -125,4 +118,3 @@ bool VocabularyOrganizerModel::setData(const QModelIndex &index, const QVariant 
       return false;
   }
 }
-#endif
