@@ -619,11 +619,7 @@ void VocabularyManagerDialog::on_wordImport_clicked(bool checked /* false */)
       VocabularyOpenProgressDialog openProgress(_vocabulary, this);
       openProgress.show();
       _vocabulary->close();
-# ifdef EDITION_TRY
-      _vocabulary->openMemory();
-# else
       _vocabulary->open(_vocabulary->vocabularyFile());
-# endif
       openProgress.hide();
 
       _vocabulary->beginEdit();

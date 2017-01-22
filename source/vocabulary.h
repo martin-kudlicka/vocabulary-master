@@ -51,16 +51,8 @@ class Vocabulary : public VocabularyDatabase
     quintptr        recordId              (quintptr row)                                        const;
     quintptr        recordId              (quintptr categoryId, quintptr row)                   const;
     RecordIdList    recordIds             (quintptr categoryId)                                 const;
-    void            new2                  (
-#ifndef EDITION_TRY
-      const QString &filePath
-#endif
-      );
-#ifndef EDITION_TRY
+    void            new2                  (const QString &filePath);
     void            open                  (const QString &filePath);
-#else
-    void            openMemory            ();
-#endif
     void            removeCategory        (quintptr categoryId);
 #ifndef EDITION_FREE
     void            removeField           (quintptr fieldId);

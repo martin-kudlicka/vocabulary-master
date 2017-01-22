@@ -38,10 +38,8 @@ class Settings
 #endif
     struct VocabularyInfo
     {
-#ifndef EDITION_TRY
       QString filePath;
-#endif
-#if !defined(EDITION_FREE) && !defined(EDITION_TRY)
+#if !defined(EDITION_FREE)
       bool    enabled;
 #endif
     };
@@ -54,9 +52,7 @@ class Settings
     Settings();
 
     bool                     alwaysOnTop                 ()            const;
-#ifndef EDITION_TRY
     bool                     cacheVocabulary             ()            const;
-#endif
 #ifndef EDITION_FREE
     bool                     canChangeCategoryPriority   ()            const;
     bool                     canEnableCategories         ()            const;
@@ -79,16 +75,12 @@ class Settings
     quintptr                 proxyPort                   ()            const;
     QNetworkProxy::ProxyType proxyType                   ()            const;
     QString                  proxyUsername               ()            const;
-#ifndef EDITION_TRY
     quintptr                 recordsToCache              ()            const;
-#endif
 #ifndef EDITION_FREE
     bool                     rememberWindowPosition      ()            const;
 #endif
     void                     setAlwaysOnTop              (bool enable);
-#ifndef EDITION_TRY
     void                     setCacheVocabulary          (bool enable);
-#endif
 #ifndef EDITION_FREE
     void                     setCanChangeCategoryPriority(bool enable);
     void                     setCanEnableCategories      (bool enable);
@@ -111,9 +103,7 @@ class Settings
     void                     setProxyPort                (quintptr port);
     void                     setProxyType                (QNetworkProxy::ProxyType type);
     void                     setProxyUsername            (const QString &username);
-#ifndef EDITION_TRY
     void                     setRecordsToCache           (quintptr count);
-#endif
 #ifndef EDITION_FREE
     void                     setRememberWindowPosition   (bool enable);
     void                     setShowCategoryName         (bool show);
@@ -131,10 +121,8 @@ class Settings
     void                     setTranslation              (const QString &translationName);
     void                     setUpdateCheck              (bool check);
     void                     setUseProxy                 (bool use);
-#ifndef EDITION_TRY
     void                     setVocabularyCount          (quintptr count);
     void                     setVocabularyInfo           (quintptr index, const VocabularyInfo &info);
-#endif
 #ifndef EDITION_FREE
     void                     setWaitForAnswer            (quintptr time);
     void                     setWindowHeight             (quintptr height);
@@ -159,10 +147,8 @@ class Settings
     QString                  translation                 ()            const;
     bool                     updateCheck                 ()            const;
     bool                     useProxy                    ()            const;
-#ifndef EDITION_TRY
     quintptr                 vocabularyCount             ();
     VocabularyInfo           vocabularyInfo              (quintptr index);
-#endif
     quintptr                 waitForAnswer               ()            const;
 #ifndef EDITION_FREE
     quintptr                 windowHeight                ()            const;
@@ -175,7 +161,6 @@ class Settings
 #endif
 
   private:
-#ifndef EDITION_TRY
     enum class Version
     {
       N1,
@@ -185,7 +170,6 @@ class Settings
     {
       N1
     };
-#endif
 
     QSettings _settings;
 
@@ -194,9 +178,7 @@ class Settings
     QString hotkeyKeyText      (Hotkey type) const;
     QString hotkeyKeyVirtualKey(Hotkey type) const;
 #endif
-#ifndef EDITION_TRY
     void    updateSettings();
-#endif
 };
 
 #endif
