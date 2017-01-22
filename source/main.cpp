@@ -2,8 +2,11 @@
 
 int main(int argc, char *argv[])
 {
-	QApplication application(argc, argv);
-	const MainWindow mainWindow;
+  QApplication application(argc, argv);
+  application.setOrganizationName("MartinK");
+  application.setApplicationName("Vocabulary Master");
 
-	return application.exec();
+  const MainWindow mainWindow;
+
+  return application.exec();
 }

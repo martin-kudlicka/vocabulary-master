@@ -3,7 +3,6 @@
 const auto DEFAULT_FREQUENCY = 60;
 const auto DEFAULT_WAIT      = 0;
 
-const auto APPLICATION                   = "Vocabulary Master";
 const auto ARRAY_VOCABULARIES            = "Vocabularies";
 const auto DEFAULT_COLORFLASH            = "chartreuse";
 const auto KEY_ALWAYSONTOP               = "AlwaysOnTop";
@@ -51,7 +50,6 @@ const auto KEY_WINDOWWIDTH               = "WindowWidth";
 const auto KEY_WINDOWX                   = "WindowX";
 const auto KEY_WINDOWY                   = "WindowY";
 const auto KEY_WORDSFREQUENCY            = "WordsFrequency";
-const auto ORGANIZATION                  = "Isshou";
 #ifdef Q_OS_WIN
 const auto SHORTCUT_ANSWER               = "Answer";
 const auto SHORTCUT_MINIMIZE             = "Minimize";
@@ -59,7 +57,7 @@ const auto SHORTCUT_NEXT                 = "Next";
 const auto SHORTCUT_RESTORE              = "Restore";
 #endif
 
-Settings::Settings() : _settings(ORGANIZATION, APPLICATION)
+Settings::Settings()
 {
   updateSettings();
 }
