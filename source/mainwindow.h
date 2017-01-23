@@ -12,8 +12,6 @@
 #include "vocabularyorganizer.h"
 #include <stdint.h>
 
-class License;
-
 class MainWindow : public QMainWindow
 {
   Q_OBJECT
@@ -33,7 +31,6 @@ class MainWindow : public QMainWindow
           bool                            _learning;
           qintptr                         _timeAnswer;
           qintptr                         _timeQuestion;
-          License                        *_license;
           Plugins                         _plugins;
     const QAction                        *_trayExit;
     const QAction                        *_traySettings;
