@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 
-#include "license.h"
 #include "settingsdialog.h"
 #include "vocabularymanagerdialog.h"
 #include <QtCore/QTime>
@@ -9,7 +8,7 @@
 #ifdef Q_OS_WIN
 # include <qt_windows.h>
 #endif
-#include "licensedialog.h"
+#include "common/licensetextdialog.h"
 #include <QtMultimedia/QSound>
 #include "vocabularymanagerdialog/prioritydelegate.h"
 #include "vocabularyorganizerdialog.h"
@@ -36,9 +35,6 @@ MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /*
   _ui.statusBar->addWidget(&_vocabularyStatus);
   _progressBarTimer.setTextVisible(false);
   _ui.statusBar->addWidget(&_progressBarTimer, 1);
-
-  // license
-  _license = new License(&_settings);
 
   // plugins
   _plugins.load();
@@ -73,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /*
   connect(&_vocabularyOrganizer,  &VocabularyOrganizer::vocabularyClose, this, &MainWindow::on_vocabularyOrganizer_vocabularyClose);
 
   // learning
-  if (_license->isLoaded() && _settings.startLearningOnStartup() && _vocabularyOrganizer.isOpen())
+  if (_settings.startLearningOnStartup() && _vocabularyOrganizer.isOpen())
   {
     on_actionStart_triggered();
   }
@@ -93,7 +89,6 @@ MainWindow::~MainWindow()
   _settings.setWindowWidth(geometry().width());
 
   _plugins.uninitialize();
-  delete _license;
 }
 
 void MainWindow::applySettings(bool startup)
@@ -176,12 +171,10 @@ void MainWindow::createVocabulariesMenu()
 void MainWindow::enableControls()
 {
   // menu
-  _ui.actionOrganizer->setEnabled(_license->isLoaded());
-  _ui.menuVocabularies->setEnabled(_license->isLoaded() && _vocabularyOrganizer.isOpen());
-  _ui.menuOptions->setEnabled(_license->isLoaded());
+  _ui.menuVocabularies->setEnabled(_vocabularyOrganizer.isOpen());
 
   // tool bar
-  _ui.actionStart->setEnabled(_license->isLoaded() && _vocabularyOrganizer.isOpen() && !_learning && _vocabularyOrganizer.recordCount(true) > 0);
+  _ui.actionStart->setEnabled(_vocabularyOrganizer.isOpen() && !_learning && _vocabularyOrganizer.recordCount(true) > 0);
   _ui.actionStop->setEnabled(_learning);
   _ui.actionNext->setEnabled(_learning);
   _ui.actionFindInVocabulary->setEnabled(_learning);
@@ -583,12 +576,8 @@ void MainWindow::on_actionFindInVocabulary_triggered(bool checked /* false */)
 
 void MainWindow::on_actionLicense_triggered(bool checked /* false */)
 {
-  LicenseDialog ldLicenseDialog(_license, &_settings, this);
-  if (ldLicenseDialog.exec() == QDialog::Accepted)
-  {
-    applySettings(false);
-    enableControls();
-  }
+  LicenseTextDialog licenseTextDialog(LicenseCommon::LicenseContentList(), &_settings, this);
+  licenseTextDialog.exec();
 }
 
 void MainWindow::on_actionMute_toggled(bool checked)

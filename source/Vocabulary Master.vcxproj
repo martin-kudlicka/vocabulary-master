@@ -91,9 +91,6 @@
     <ClCompile Include="..\..\..\intermediate\vocabularymaster\Debug\moc_fieldsmodel.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\intermediate\vocabularymaster\Debug\moc_licensedialog.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\..\intermediate\vocabularymaster\Debug\moc_mainwindow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -160,12 +157,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\..\intermediate\vocabularymaster\qrc_license.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="..\..\..\intermediate\vocabularymaster\qrc_mainwindow.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
@@ -185,9 +176,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\intermediate\vocabularymaster\Release\moc_fieldsmodel.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\intermediate\vocabularymaster\Release\moc_licensedialog.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\intermediate\vocabularymaster\Release\moc_mainwindow.cpp">
@@ -255,8 +243,6 @@
     <ClCompile Include="common\categoriesmodel.cpp" />
     <ClCompile Include="common\licensetextdialog.cpp" />
     <ClCompile Include="common\vocabularyopenprogressdialog.cpp" />
-    <ClCompile Include="license.cpp" />
-    <ClCompile Include="licensedialog.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="plugins.cpp" />
@@ -321,7 +307,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\intermediate\vocabularymaster\ui_licensedialog.h" />
     <ClInclude Include="..\..\..\intermediate\vocabularymaster\ui_licensetextdialog.h" />
     <ClInclude Include="..\..\..\intermediate\vocabularymaster\ui_mainwindow.h" />
     <ClInclude Include="..\..\..\intermediate\vocabularymaster\ui_settingsdialog.h" />
@@ -684,7 +669,6 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
-    <ClInclude Include="license.h" />
     <ClInclude Include="plugins.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="settings.h" />
@@ -873,32 +857,6 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="vocabularymanagerdialog\vocabularysettingsdialog\lineeditpersistentdelegate.h" />
-    <CustomBuild Include="licensedialog.h">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing licensedialog.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\intermediate\vocabularymaster\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\..\..\intermediate\vocabularymaster\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_TESTLIB_LIB -DQT_MULTIMEDIA_LIB -DWINVER=0x0502 -D_WIN32_WINNT=0x0502 -DPSAPI_VERSION=1 -D_user_mode_=1 "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtTest" "-I$(QTDIR)\include\QtMultimedia" "-I.\..\..\..\intermediate\vocabularymaster\$(ConfigurationName)\." "-I.\..\..\..\intermediate\vocabularymaster"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing licensedialog.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\intermediate\vocabularymaster\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\..\..\intermediate\vocabularymaster\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_TESTLIB_LIB -DQT_MULTIMEDIA_LIB -DWINVER=0x0502 -D_WIN32_WINNT=0x0502 -DPSAPI_VERSION=1 -D_user_mode_=1 "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtTest" "-I$(QTDIR)\include\QtMultimedia" "-I.\..\..\..\intermediate\vocabularymaster\$(ConfigurationName)\." "-I.\..\..\..\intermediate\vocabularymaster"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug Free edition|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\temp\GeneratedFiles\$(ConfigurationName)\vocabularymaster\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DEDITION_FREE -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_TESTLIB_LIB -DQT_MULTIMEDIA_LIB "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I.\..\temp\GeneratedFiles\$(ConfigurationName)\vocabularymaster" "-I.\..\temp\GeneratedFiles\vocabularymaster" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtTest" "-I$(QTDIR)\include\QtMultimedia"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug Free edition|Win32'">Moc%27ing licensedialog.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug Free edition|Win32'">.\..\temp\GeneratedFiles\$(ConfigurationName)\vocabularymaster\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug Try edition|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\temp\GeneratedFiles\$(ConfigurationName)\vocabularymaster\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DEDITION_TRY -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_TESTLIB_LIB -DQT_MULTIMEDIA_LIB "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I.\..\temp\GeneratedFiles\$(ConfigurationName)\vocabularymaster" "-I.\..\temp\GeneratedFiles\vocabularymaster" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtTest" "-I$(QTDIR)\include\QtMultimedia"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug Try edition|Win32'">Moc%27ing licensedialog.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug Try edition|Win32'">.\..\temp\GeneratedFiles\$(ConfigurationName)\vocabularymaster\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release Free edition|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\temp\GeneratedFiles\$(ConfigurationName)\vocabularymaster\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DEDITION_FREE -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_TESTLIB_LIB -DQT_MULTIMEDIA_LIB "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I.\..\temp\GeneratedFiles\$(ConfigurationName)\vocabularymaster" "-I.\..\temp\GeneratedFiles\vocabularymaster" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtTest" "-I$(QTDIR)\include\QtMultimedia"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release Free edition|Win32'">Moc%27ing licensedialog.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release Free edition|Win32'">.\..\temp\GeneratedFiles\$(ConfigurationName)\vocabularymaster\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release Try edition|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\temp\GeneratedFiles\$(ConfigurationName)\vocabularymaster\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DEDITION_TRY -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_TESTLIB_LIB -DQT_MULTIMEDIA_LIB "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I.\..\temp\GeneratedFiles\$(ConfigurationName)\vocabularymaster" "-I.\..\temp\GeneratedFiles\vocabularymaster" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtTest" "-I$(QTDIR)\include\QtMultimedia"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release Try edition|Win32'">Moc%27ing licensedialog.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release Try edition|Win32'">.\..\temp\GeneratedFiles\$(ConfigurationName)\vocabularymaster\moc_%(Filename).cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug Free edition|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug Try edition|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release Free edition|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release Try edition|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-    </CustomBuild>
     <ClInclude Include="settingsdialog\hotkeylineedit.h" />
     <ClInclude Include="settings\colorcombobox.h" />
     <ClInclude Include="settings\colordelegate.h" />
@@ -983,18 +941,6 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="vocabulary\clearcacheworker.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="licensedialog.ui">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\intermediate\vocabularymaster\ui_%(Filename).h;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\..\..\..\intermediate\vocabularymaster\ui_%(Filename).h" "%(FullPath)"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\intermediate\vocabularymaster\ui_%(Filename).h;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\..\..\..\intermediate\vocabularymaster\ui_%(Filename).h" "%(FullPath)"</Command>
-    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="common\licensetextdialog.ui">
@@ -1213,27 +1159,7 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="license.qrc">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);.\res\license\encryptprivate.der;.\res\license\signpublic.der;%(AdditionalInputs)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rcc%27ing %(Identity)...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\intermediate\vocabularymaster\qrc_%(Filename).cpp;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\..\..\..\intermediate\vocabularymaster\qrc_%(Filename).cpp</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FullPath);.\res\license\encryptprivate.der;.\res\license\signpublic.der;%(AdditionalInputs)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rcc%27ing %(Identity)...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\intermediate\vocabularymaster\qrc_%(Filename).cpp;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\..\..\..\intermediate\vocabularymaster\qrc_%(Filename).cpp</Command>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="lang\cs_CZ.ts" />
-    <None Include="res\license\encryptprivate.der">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="res\license\signpublic.der">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\1stparty\rsa\rsa.vcxproj">
