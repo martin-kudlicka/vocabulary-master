@@ -13,7 +13,7 @@ class VocabularyManagerDialog : public QDialog
   Q_OBJECT
 
   public:
-             VocabularyManagerDialog(Vocabulary *vocabulary, const Settings *settings, const Plugins *plugins, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+             VocabularyManagerDialog(const QSharedPointer<Vocabulary> &vocabulary, const Settings *settings, const Plugins *plugins, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
     virtual ~VocabularyManagerDialog() Q_DECL_OVERRIDE;
 
     void execOnRecord(quintptr recordId);
@@ -27,11 +27,11 @@ class VocabularyManagerDialog : public QDialog
       RightControl
     };
 
-    const Plugins              *_plugins;
-    QList<quintptr>             _categories;
-    const Settings             *_settings;
-    Ui::VocabularyManagerDialog _ui;
-    Vocabulary                 *_vocabulary;
+    const Plugins                    *_plugins;
+          QList<quintptr>             _categories;
+    const Settings                   *_settings;
+          Ui::VocabularyManagerDialog _ui;
+    const QSharedPointer<Vocabulary>  _vocabulary;
 
     void addTab               (quintptr categoryId);
     void enableTabControls    ()                                const;

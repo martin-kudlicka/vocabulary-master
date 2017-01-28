@@ -10,13 +10,13 @@ class VocabularyOrganizer : public QObject
   public:
     struct RecordInfo
     {
-      Vocabulary *vocabulary;
-      quintptr     id;
+      QSharedPointer<Vocabulary> vocabulary;
+      quintptr                   id;
     };
     struct VocabularyInfo
     {
-      Settings::VocabularyInfo vocabularyInfo;
-      Vocabulary              *vocabulary;
+      Settings::VocabularyInfo   vocabularyInfo;
+      QSharedPointer<Vocabulary> vocabulary;
     };
 
              VocabularyOrganizer(Settings *settings);
@@ -42,5 +42,5 @@ class VocabularyOrganizer : public QObject
     void open(VocabularyInfo *vocabularyInfo, QWidget *parent);
 
   Q_SIGNALS:
-    void vocabularyClose(const Vocabulary *vocabulary) const;
+    void vocabularyClose(const QSharedPointer<Vocabulary> &vocabulary) const;
 };

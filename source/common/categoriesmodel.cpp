@@ -2,7 +2,7 @@
 
 #include "vocabulary.h"
 
-CategoriesModel::CategoriesModel(const Vocabulary *vocabulary, QObject *parent /* Q_NULLPTR */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
+CategoriesModel::CategoriesModel(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent /* Q_NULLPTR */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
 {
 }
 

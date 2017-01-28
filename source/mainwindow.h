@@ -56,7 +56,7 @@ class MainWindow : public QMainWindow
     QString  languageText          (bool directionSwitched, bool answer)                        const;
     bool     learningDirection     ()                                                           const;
     QString  learningText          (Template templateType, bool directionSwitched, bool answer) const;
-    void     openVocabulary        (Vocabulary *vocabulary, bool currentRecord);
+    void     openVocabulary        (const QSharedPointer<Vocabulary> &vocabulary, bool currentRecord);
     quintptr recordPriority        ()                                                           const;
     void     refreshStatusBar      ();
 #ifdef Q_OS_WIN
@@ -101,7 +101,7 @@ class MainWindow : public QMainWindow
     void on_recordEnabled_clicked              (bool checked = false);
     void on_trayIcon_activated                 (QSystemTrayIcon::ActivationReason reason);
     void on_updateChecker_finished             ();
-    void on_vocabularyOrganizer_vocabularyClose(const Vocabulary *pVocabulary);
+    void on_vocabularyOrganizer_vocabularyClose(const QSharedPointer<Vocabulary> &vocabulary);
 };
 
 #endif

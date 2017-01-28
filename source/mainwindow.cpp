@@ -21,7 +21,7 @@ const auto RECORD_NONE            = UINTPTR_MAX;
 const auto SAY_BEEP_WAIT          = 500;
 const auto TIME_NONE              = 0;
 const auto TIME_NOW               = 1;
-const auto *VOCABULARY_MASTER     = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary Master");
+const auto VOCABULARY_MASTER      = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary Master");
 
 MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags), _learning(false), _hboxLayoutInner(Q_NULLPTR), _updateChecker(&_settings), _vocabularyOrganizer(&_settings)
 {
@@ -252,7 +252,7 @@ QString MainWindow::learningText(Template templateType, bool directionSwitched, 
   return templateText;
 }
 
-void MainWindow::openVocabulary(Vocabulary *vocabulary, bool currentRecord)
+void MainWindow::openVocabulary(const QSharedPointer<Vocabulary> &vocabulary, bool currentRecord)
 {
   VocabularyManagerDialog vocabularyManagerDialog(vocabulary, &_settings, &_plugins, this);
   if (currentRecord)
@@ -592,15 +592,15 @@ void MainWindow::on_actionNext_triggered(bool checked /* false */)
     _learningTimer.stop();
   }
   _timeQuestion = TIME_NOW;
-  _timeAnswer = TIME_NONE;
+  _timeAnswer   = TIME_NONE;
 
   _learningTimer.start(0);
 }
 
 void MainWindow::on_actionOrganizer_triggered(bool checked /* false */)
 {
-  VocabularyOrganizerDialog vodOrganizerDialog(&_vocabularyOrganizer, this);
-  if (vodOrganizerDialog.exec() == QDialog::Accepted)
+  VocabularyOrganizerDialog vocabularyOrganizerDialog(&_vocabularyOrganizer, this);
+  if (vocabularyOrganizerDialog.exec() == QDialog::Accepted)
   {
     enableControls();
     refreshStatusBar();
@@ -610,8 +610,8 @@ void MainWindow::on_actionOrganizer_triggered(bool checked /* false */)
 
 void MainWindow::on_actionSettings_triggered(bool checked /* false */)
 {
-  SettingsDialog sdDialog(&_plugins, &_settings, this);
-  if (sdDialog.exec() == QDialog::Accepted)
+  SettingsDialog settingsDialog(&_plugins, &_settings, this);
+  if (settingsDialog.exec() == QDialog::Accepted)
   {
     applySettings(false);
   }
@@ -627,8 +627,8 @@ void MainWindow::on_actionStart_triggered(bool checked /* false */)
   _ui.category->setVisible(_settings.showCategoryName());
   _ui.recordControls->parentWidget()->setVisible(_settings.showRecordControls());
 
-  _currentRecord.vocabulary = Q_NULLPTR;
-  _currentRecord.id         = RECORD_NONE;
+  _currentRecord.vocabulary.clear();
+  _currentRecord.id = RECORD_NONE;
   _learningTimer.start(0);
 }
 
@@ -928,7 +928,7 @@ void MainWindow::on_updateChecker_finished()
   }
 }
 
-void MainWindow::on_vocabularyOrganizer_vocabularyClose(const Vocabulary *vocabulary)
+void MainWindow::on_vocabularyOrganizer_vocabularyClose(const QSharedPointer<Vocabulary> &vocabulary)
 {
   if (_currentRecord.vocabulary == vocabulary)
   {

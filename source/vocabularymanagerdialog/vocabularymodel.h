@@ -2,6 +2,7 @@
 #define VOCABULARYMODEL_H
 
 #include <QtCore/QAbstractTableModel>
+#include <QtCore/QSharedPointer>
 
 class Vocabulary;
 
@@ -10,7 +11,7 @@ class VocabularyModel : public QAbstractTableModel
   Q_OBJECT
 
   public:
-    VocabularyModel(Vocabulary *vocabulary, quintptr categoryId, QObject *parent = Q_NULLPTR);
+    VocabularyModel(const QSharedPointer<Vocabulary> &vocabulary, quintptr categoryId, QObject *parent = Q_NULLPTR);
 
             void addRow     ();
     virtual int  columnCount(const QModelIndex &parent = QModelIndex()) const                          Q_DECL_OVERRIDE;
@@ -19,8 +20,8 @@ class VocabularyModel : public QAbstractTableModel
     virtual bool setData    (const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) Q_DECL_OVERRIDE;
 
   private:
-    const quintptr    _categoryId;
-          Vocabulary *_vocabulary;
+    const quintptr                   _categoryId;
+    const QSharedPointer<Vocabulary> _vocabulary;
 
     virtual ~VocabularyModel() Q_DECL_OVERRIDE;
 
