@@ -1164,11 +1164,6 @@
     <None Include="lang\cs_CZ.ts" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\1stparty\rsa\rsa.vcxproj">
-      <Project>{fa557eb5-6d73-4647-835e-2e21ffe41f0c}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="Vocabulary Master.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
