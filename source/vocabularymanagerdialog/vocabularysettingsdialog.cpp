@@ -3,7 +3,7 @@
 #include "vocabulary.h"
 #include "plugins.h"
 
-VocabularySettingsDialog::VocabularySettingsDialog(Vocabulary *vocabulary, const Plugins *plugins, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _fieldsModel(vocabulary), _languageFieldDelegate(vocabulary), _plugins(plugins), _vocabulary(vocabulary)
+VocabularySettingsDialog::VocabularySettingsDialog(const QSharedPointer<Vocabulary> &vocabulary, const Plugins *plugins, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _fieldsModel(vocabulary), _languageFieldDelegate(vocabulary), _plugins(plugins), _vocabulary(vocabulary)
 {
   _ui.setupUi(this);
 

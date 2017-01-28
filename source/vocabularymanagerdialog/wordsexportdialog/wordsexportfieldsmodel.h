@@ -2,6 +2,7 @@
 #define WORDSEXPORTFIELDSMODEL_H
 
 #include <QtCore/QAbstractItemModel>
+#include <QtCore/QSharedPointer>
 
 class Vocabulary;
 
@@ -18,14 +19,14 @@ class WordsExportFieldsModel : public QAbstractItemModel
       Count
     };
 
-             WordsExportFieldsModel(const Vocabulary *vocabulary, QObject *parent = Q_NULLPTR);
+             WordsExportFieldsModel(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent = Q_NULLPTR);
     virtual ~WordsExportFieldsModel() Q_DECL_OVERRIDE;
 
     virtual QModelIndex index   (int row, int column, const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
     virtual int         rowCount(const QModelIndex &parent = QModelIndex())                      const Q_DECL_OVERRIDE;
 
   private:
-    const Vocabulary *_vocabulary;
+    const QSharedPointer<Vocabulary> _vocabulary;
 
     virtual int         columnCount(const QModelIndex &parent = QModelIndex())                            const Q_DECL_OVERRIDE;
     virtual QVariant    data       (const QModelIndex &index, int role = Qt::DisplayRole)                 const Q_DECL_OVERRIDE;

@@ -2,7 +2,7 @@
 
 #include "vocabulary.h"
 
-WordsCopyMoveDialog::WordsCopyMoveDialog(quintptr categoryId, const RowNumList &rowNums, Vocabulary *vocabulary, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _categoriesModel(vocabulary), _oldCategoryId(categoryId), _rowNums(rowNums), _vocabulary(vocabulary)
+WordsCopyMoveDialog::WordsCopyMoveDialog(quintptr categoryId, const RowNumList &rowNums, const QSharedPointer<Vocabulary> &vocabulary, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _categoriesModel(vocabulary), _oldCategoryId(categoryId), _rowNums(rowNums), _vocabulary(vocabulary)
 {
   _ui.setupUi(this);
 

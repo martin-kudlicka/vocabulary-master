@@ -14,7 +14,7 @@ class WordsExportDialog : public QDialog
   Q_OBJECT
 
   public:
-             WordsExportDialog(const Vocabulary *vocabulary, const Plugins::ExpPluginList &expPlugins, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+             WordsExportDialog(const QSharedPointer<Vocabulary> &vocabulary, const Plugins::ExpPluginList &expPlugins, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
     virtual ~WordsExportDialog() Q_DECL_OVERRIDE;
 
   private:
@@ -24,7 +24,7 @@ class WordsExportDialog : public QDialog
           Plugins::ExpPluginList         _expPlugins;
           Ui::WordsExportDialog          _ui;
           QHash<quintptr, quintptr>      _expPluginPage;
-    const Vocabulary                    *_vocabulary;
+    const QSharedPointer<Vocabulary>     _vocabulary;
           WordsExportFieldsModel         _fieldsModel;
 
   private Q_SLOTS:

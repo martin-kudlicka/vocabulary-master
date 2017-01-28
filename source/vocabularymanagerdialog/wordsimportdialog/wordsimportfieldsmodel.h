@@ -3,6 +3,7 @@
 
 #include <QtCore/QAbstractItemModel>
 #include <QtCore/QStringList>
+#include <QtCore/QSharedPointer>
 
 class Vocabulary;
 
@@ -19,7 +20,7 @@ class WordsImportFieldsModel : public QAbstractItemModel
       Count
     };
 
-             WordsImportFieldsModel(const Vocabulary *vocabulary, QObject *parent = Q_NULLPTR);
+             WordsImportFieldsModel(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent = Q_NULLPTR);
     virtual ~WordsImportFieldsModel() Q_DECL_OVERRIDE;
 
     virtual QVariant    data    (const QModelIndex &index, int role = Qt::DisplayRole)           const Q_DECL_OVERRIDE;
@@ -27,8 +28,8 @@ class WordsImportFieldsModel : public QAbstractItemModel
     virtual int         rowCount(const QModelIndex &parent = QModelIndex())                      const Q_DECL_OVERRIDE;
 
   private:
-          QStringList _editorData;
-    const Vocabulary *_vocabulary;
+          QStringList                _editorData;
+    const QSharedPointer<Vocabulary> _vocabulary;
 
     virtual int           columnCount(const QModelIndex &parent = QModelIndex())                            const Q_DECL_OVERRIDE;
     virtual Qt::ItemFlags flags      (const QModelIndex &index)                                             const Q_DECL_OVERRIDE;

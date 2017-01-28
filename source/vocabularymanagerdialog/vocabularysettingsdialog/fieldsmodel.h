@@ -2,6 +2,7 @@
 #define FIELDSMODEL_H
 
 #include <QtCore/QAbstractItemModel>
+#include <QtCore/QSharedPointer>
 
 class Vocabulary;
 
@@ -20,7 +21,7 @@ class FieldsModel : public QAbstractItemModel
       Count
     };
 
-             FieldsModel(Vocabulary *vocabulary, QObject *parent = Q_NULLPTR);
+             FieldsModel(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent = Q_NULLPTR);
     virtual ~FieldsModel() Q_DECL_OVERRIDE;
 
     void addRow   ();
@@ -32,7 +33,7 @@ class FieldsModel : public QAbstractItemModel
     virtual int         rowCount(const QModelIndex &parent = QModelIndex())                      const Q_DECL_OVERRIDE;
 
   private:
-    Vocabulary *_vocabulary;
+    const QSharedPointer<Vocabulary> _vocabulary;
 
     virtual int           columnCount(const QModelIndex &parent = QModelIndex())                            const Q_DECL_OVERRIDE;
     virtual Qt::ItemFlags flags      (const QModelIndex &index)                                             const Q_DECL_OVERRIDE;

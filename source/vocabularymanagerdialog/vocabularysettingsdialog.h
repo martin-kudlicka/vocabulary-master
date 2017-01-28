@@ -15,7 +15,7 @@ class VocabularySettingsDialog : public QDialog
   Q_OBJECT
 
   public:
-             VocabularySettingsDialog(Vocabulary *vocabulary, const Plugins *plugins, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+             VocabularySettingsDialog(const QSharedPointer<Vocabulary> &vocabulary, const Plugins *plugins, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
     virtual ~VocabularySettingsDialog() Q_DECL_OVERRIDE;
 
   private:
@@ -33,7 +33,7 @@ class VocabularySettingsDialog : public QDialog
     const Plugins                     *_plugins;
           VoiceList                    _voices;
           Ui::VocabularySettingsDialog _ui;
-    const Vocabulary                  *_vocabulary;
+    const QSharedPointer<Vocabulary>   _vocabulary;
 
     virtual void accept                   () Q_DECL_OVERRIDE;
             void actualizeFieldsEditor    ()             const;

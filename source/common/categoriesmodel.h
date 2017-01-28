@@ -2,6 +2,7 @@
 #define CATEGORIESMODEL_H
 
 #include <QtCore/QAbstractItemModel>
+#include <QtCore/QSharedPointer>
 
 class Vocabulary;
 
@@ -10,7 +11,7 @@ class CategoriesModel : public QAbstractItemModel
   Q_OBJECT
 
   public:
-             CategoriesModel(const Vocabulary *vocabulary, QObject *parent = Q_NULLPTR);
+             CategoriesModel(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent = Q_NULLPTR);
     virtual ~CategoriesModel() Q_DECL_OVERRIDE;
 
   private:
@@ -20,7 +21,7 @@ class CategoriesModel : public QAbstractItemModel
       Count
     };
 
-    const Vocabulary *_vocabulary;
+    const QSharedPointer<Vocabulary> _vocabulary;
 
     virtual int         columnCount(const QModelIndex &parent = QModelIndex())                            const Q_DECL_OVERRIDE;
     virtual QVariant    data       (const QModelIndex &index, int role = Qt::DisplayRole)                 const Q_DECL_OVERRIDE;

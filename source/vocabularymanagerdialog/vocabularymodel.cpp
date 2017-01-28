@@ -3,7 +3,7 @@
 #include "vocabulary.h"
 #include "vocabularymanagerdialog/prioritydelegate.h"
 
-VocabularyModel::VocabularyModel(Vocabulary *vocabulary, quintptr categoryId, QObject *parent /* Q_NULLPTR */) : QAbstractTableModel(parent), _vocabulary(vocabulary), _categoryId(categoryId)
+VocabularyModel::VocabularyModel(const QSharedPointer<Vocabulary> &vocabulary, quintptr categoryId, QObject *parent /* Q_NULLPTR */) : QAbstractTableModel(parent), _vocabulary(vocabulary), _categoryId(categoryId)
 {
 }
 

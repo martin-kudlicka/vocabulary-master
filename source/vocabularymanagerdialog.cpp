@@ -17,7 +17,7 @@
 const auto BUILTIN_COLUMN_SIZE = 30;
 const auto PROPERTY_COLUMN     = "Column";
 
-VocabularyManagerDialog::VocabularyManagerDialog(Vocabulary *vocabulary, const Settings *settings, const Plugins *plugins, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags | Qt::WindowMaximizeButtonHint), _vocabulary(vocabulary), _settings(settings), _plugins(plugins)
+VocabularyManagerDialog::VocabularyManagerDialog(const QSharedPointer<Vocabulary> &vocabulary, const Settings *settings, const Plugins *plugins, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags | Qt::WindowMaximizeButtonHint), _vocabulary(vocabulary), _settings(settings), _plugins(plugins)
 {
   _ui.setupUi(this);
 
@@ -543,7 +543,7 @@ void VocabularyManagerDialog::on_wordImport_clicked(bool checked /* false */)
     {
       _vocabulary->endEdit();
 
-      VocabularyOpenProgressDialog openProgress(_vocabulary, this);
+      VocabularyOpenProgressDialog openProgress(_vocabulary.data(), this);
       openProgress.show();
       _vocabulary->close();
       _vocabulary->open(_vocabulary->vocabularyFile());

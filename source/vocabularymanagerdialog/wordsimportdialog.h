@@ -14,7 +14,7 @@ class WordsImportDialog : public QDialog
   Q_OBJECT
 
   public:
-             WordsImportDialog(const QString &file, Vocabulary *vocabulary, ImpInterface *plugin, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+             WordsImportDialog(const QString &file, const QSharedPointer<Vocabulary> &vocabulary, ImpInterface *plugin, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
     virtual ~WordsImportDialog() Q_DECL_OVERRIDE;
 
     int exec() Q_DECL_OVERRIDE;
@@ -26,15 +26,15 @@ class WordsImportDialog : public QDialog
       Vocabulary
     };
 
-    bool                      _importing;
-    bool                      _interrupt;
-    CategoriesModel           _categoriesModel;
-    ImpInterface             *_plugin;
-    QString                   _file;
-    WordsImportEditorDelegate _editorDelegate;
-    Ui::WordsImportDialog     _ui;
-    Vocabulary               *_vocabulary;
-    WordsImportFieldsModel    _fieldsModel;
+          bool                       _importing;
+          bool                       _interrupt;
+          CategoriesModel            _categoriesModel;
+          ImpInterface              *_plugin;
+          QString                    _file;
+          WordsImportEditorDelegate  _editorDelegate;
+          Ui::WordsImportDialog      _ui;
+    const QSharedPointer<Vocabulary> _vocabulary;
+          WordsImportFieldsModel     _fieldsModel;
 
     virtual void accept               () Q_DECL_OVERRIDE;
             void createFieldEditors   ();
