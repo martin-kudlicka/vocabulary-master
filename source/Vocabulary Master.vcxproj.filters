@@ -565,4 +565,7 @@
       <Filter>Translation Files</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Vocabulary Master.rc" />
+  </ItemGroup>
 </Project>
