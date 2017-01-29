@@ -5,6 +5,7 @@
 #include <QtCore/QObject>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
+#include <QtCore/QVersionNumber>
 
 class Settings;
 
@@ -18,32 +19,15 @@ class UpdateChecker : public QObject
 
     void                        checkForUpdate ();
     QNetworkReply::NetworkError checkResult    () const;
-    QString                     currentVersion () const;
     bool                        updateAvailable() const;
     QString                     updateVersion  () const;
 
   private:
-    enum class VerInfo
-    {
-      Major,
-      Minor,
-      Minor2,
-      Revision
-    };
-
-    struct Version
-    {
-      quintptr major;
-      quintptr minor;
-      quintptr minor2;
-      quintptr revision;
-    };
-
           QNetworkAccessManager _networkAccessManager;
           QNetworkReply        *_lastReply;
     const Settings             *_settings;
-          Version               _currentVersion;
-          Version               _updateVersion;
+          QVersionNumber        _currentVersion;
+          QVersionNumber        _updateVersion;
 
     void analyzeReply();
 
