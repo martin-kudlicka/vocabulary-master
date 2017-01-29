@@ -560,7 +560,7 @@ bool MainWindow::nativeEvent(const QByteArray &eventType, void *message, long *r
 
 void MainWindow::on_actionAbout_triggered(bool checked /* false */)
 {
-  QMessageBox::about(this, tr("About Vocabulary Master"), "<center><b>" + tr(VOCABULARY_MASTER) + "</b></center><center>Version " + _updateChecker.currentVersion() + "</center><br />Copyright (C) 2011 Isshou");
+  QMessageBox::about(this, tr("About Vocabulary Master"), "<center><b>" + tr(VOCABULARY_MASTER) + "</b> " + QCoreApplication::applicationVersion() +"</center><br />Copyright (C) " + QString(__DATE__).mid(7) + ' ' + QCoreApplication::organizationName());
 }
 
 void MainWindow::on_actionAnswer_triggered(bool checked /* false */)
