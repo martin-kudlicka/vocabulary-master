@@ -2,15 +2,15 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{2616db49-9fc1-4f81-9fb4-4b3bf29c37ba}</UniqueIdentifier>
+      <UniqueIdentifier>{0465ef4f-be03-463e-81e5-5a399f32620f}</UniqueIdentifier>
       <Extensions>.cpp</Extensions>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{e0277768-9d92-41bd-b0f0-5299d7e4cddd}</UniqueIdentifier>
+      <UniqueIdentifier>{1e9e61cf-0e3c-4b79-955f-9f077eabdb3e}</UniqueIdentifier>
       <Extensions>.;.h</Extensions>
     </Filter>
     <Filter Include="Miscellaneous">
-      <UniqueIdentifier>{f1910ef9-a892-4b59-b5e5-af1c42d50d40}</UniqueIdentifier>
+      <UniqueIdentifier>{5e447502-2b0f-49c8-9df5-45ea9e7fcfbd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -47,6 +47,9 @@
     <ClCompile Include="source\bfinit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\blake2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="source\blowfish.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -66,6 +69,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\ccm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\chacha.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\channels.cpp">
@@ -182,6 +188,9 @@
     <ClCompile Include="source\iterhash.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\keccak.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="source\luc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -260,6 +269,9 @@
     <ClCompile Include="source\rc6.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\rdrand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="source\rdtables.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -294,6 +306,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\sha.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sha3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\shacal2.cpp">
@@ -385,6 +400,12 @@
     <None Include="source\GNUmakefile">
       <Filter>Miscellaneous</Filter>
     </None>
+    <None Include="source\License.txt">
+      <Filter>Miscellaneous</Filter>
+    </None>
+    <None Include="source\Readme.txt">
+      <Filter>Miscellaneous</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\3way.h">
@@ -421,6 +442,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\basecode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\blake2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\blowfish.h">
@@ -510,6 +534,9 @@
     <ClInclude Include="source\fips140.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\fhmqv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="source\fltrimpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -537,7 +564,13 @@
     <ClInclude Include="source\hex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\hkdf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="source\hmac.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\hmqv.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\hrtimer.h">
@@ -553,6 +586,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\iterhash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\keccak.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\lubyrack.h">
@@ -651,6 +687,9 @@
     <ClInclude Include="source\rc6.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\rdrand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="source\rijndael.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -690,6 +729,9 @@
     <ClInclude Include="source\sha.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\sha3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="source\shacal2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -724,6 +766,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\tiger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\trap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\trdlocal.h">
@@ -771,23 +816,15 @@
     <ClInclude Include="source\zlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="source\License.txt">
-      <Filter>Miscellaneous</Filter>
-    </Text>
-    <Text Include="source\Readme.txt">
-      <Filter>Miscellaneous</Filter>
-    </Text>
+    <ClInclude Include="source\chacha.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="source\adhoc.cpp.proto">
       <Filter>Source Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="source\x64dll.asm">
-      <Filter>Source Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="source\x64masm.asm">
+    <CustomBuild Include="source\rdrand.asm">
       <Filter>Source Files</Filter>
     </CustomBuild>
   </ItemGroup>
