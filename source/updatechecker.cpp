@@ -1,13 +1,11 @@
 #include "updatechecker.h"
 
 #include "settings.h"
+#include <QtCore/QCoreApplication>
 
 UpdateChecker::UpdateChecker(const Settings *settings, QObject *parent /* Q_NULLPTR */) : QObject(parent), _settings(settings), _lastReply(Q_NULLPTR)
 {
-  _currentVersion.major    = 1;
-  _currentVersion.minor    = 3;
-  _currentVersion.minor2   = 0;
-  _currentVersion.revision = 654;
+  _currentVersion = QVersionNumber::fromString(QCoreApplication::applicationVersion());
 
   connect(&_networkAccessManager, &QNetworkAccessManager::finished, this, &UpdateChecker::on_networkAccessManager_finished);
 }
@@ -42,65 +40,20 @@ QNetworkReply::NetworkError UpdateChecker::checkResult() const
   return _lastReply->error();
 }
 
-QString UpdateChecker::currentVersion() const
-{
-  return QString("%1.%2.%3.%4").arg(_currentVersion.major).arg(_currentVersion.minor).arg(_currentVersion.minor2).arg(_currentVersion.revision);
-}
-
 bool UpdateChecker::updateAvailable() const
 {
-  if (_updateVersion.major >= _currentVersion.major)
-  {
-    if (_updateVersion.major > _currentVersion.major)
-    {
-      return true;
-    }
-    else
-    {
-      if (_updateVersion.minor >= _currentVersion.minor)
-      {
-        if (_updateVersion.minor > _currentVersion.minor)
-        {
-          return true;
-        }
-        else
-        {
-          if (_updateVersion.minor2 >= _currentVersion.minor2)
-          {
-            if (_updateVersion.minor2 > _currentVersion.minor2)
-            {
-              return true;
-            }
-            else
-            {
-              if (_updateVersion.revision > _currentVersion.revision)
-              {
-                return true;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return false;
+  return _updateVersion > _currentVersion;
 }
 
 QString UpdateChecker::updateVersion() const
 {
-  return QString("%1.%2.%3.%4").arg(_updateVersion.major).arg(_updateVersion.minor).arg(_updateVersion.minor2).arg(_updateVersion.revision);
+  return _updateVersion.toString();
 }
 
 void UpdateChecker::analyzeReply()
 {
   const auto version = _lastReply->readAll();
-  const auto verInfo = version.split('.');
-
-  _updateVersion.major    = verInfo.at(static_cast<int>(VerInfo::Major)).toUInt();
-  _updateVersion.minor    = verInfo.at(static_cast<int>(VerInfo::Minor)).toUInt();
-  _updateVersion.minor2   = verInfo.at(static_cast<int>(VerInfo::Minor2)).toUInt();
-  _updateVersion.revision = verInfo.at(static_cast<int>(VerInfo::Revision)).toUInt();
+  _updateVersion     = QVersionNumber::fromString(version);
 }
 
 void UpdateChecker::on_networkAccessManager_finished(QNetworkReply *reply)
