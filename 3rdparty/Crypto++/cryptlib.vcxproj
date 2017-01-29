@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -7,6 +7,14 @@
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="DLL-Import Debug|Win32">
@@ -25,1075 +33,306 @@
       <Configuration>DLL-Import Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x64">
-      <Configuration>Release</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3423EC9A-52E4-4A4D-9753-EDEBC38785EF}</ProjectGuid>
     <RootNamespace>cryptlib</RootNamespace>
-    <SccLocalPath>.</SccLocalPath>
+    <PlatformToolset>v140</PlatformToolset>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
-    <UseOfMfc>false</UseOfMfc>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
-    <UseOfMfc>false</UseOfMfc>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
-    <UseOfMfc>false</UseOfMfc>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
-    <UseOfMfc>false</UseOfMfc>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
-    <UseOfMfc>false</UseOfMfc>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
-    <UseOfMfc>false</UseOfMfc>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|Win32'" Label="PropertySheets">
+  <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">
     <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|Win32'">
     <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">
     <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|Win32'">
     <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup>
-    <_ProjectFileVersion>11.0.60610.1</_ProjectFileVersion>
+  <!-- End of Visual Studio boilerplate -->
+  <!-- All Configurations -->
+  <PropertyGroup Label="All Configurations">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <TargetName>cryptlib</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(Platform)\Output\$(Configuration)\</OutDir>
-    <IntDir>$(Platform)\$(ProjectName)\$(Configuration)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">
-    <OutDir>$(Platform)\DLL_Output\Release\</OutDir>
-    <IntDir>$(Platform)\$(ProjectName)\$(Configuration)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(Platform)\Output\$(Configuration)\</OutDir>
-    <IntDir>$(Platform)\$(ProjectName)\$(Configuration)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">
-    <OutDir>$(Platform)\DLL_Output\Debug\</OutDir>
-    <IntDir>$(Platform)\$(ProjectName)\$(Configuration)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|Win32'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|Win32'" />
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <!-- All Configurations -->
+  <ItemDefinitionGroup Label="All Configurations">
     <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <OmitFramePointers>true</OmitFramePointers>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;USE_PRECOMPILED_HEADERS;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <ErrorReporting>None</ErrorReporting>
+      <WarningLevel>Level4</WarningLevel>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <ProgramDataBaseFileName>$(OutDir)vc80.pdb</ProgramDataBaseFileName>
-      <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <SDLCheck>false</SDLCheck>
     </ClCompile>
-    <ResourceCompile>
-      <Culture>0x0409</Culture>
-    </ResourceCompile>
     <Lib>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <ErrorReporting>NoErrorReport</ErrorReporting>
     </Lib>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <!-- Debug Configurations -->
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug' Or '$(Configuration)'=='DLL-Import Debug'" Label="Debug Configuration">
     <ClCompile>
+      <PreprocessorDefinitions>USE_PRECOMPILED_HEADERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Optimization>Disabled</Optimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;USE_PRECOMPILED_HEADERS;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <ProgramDataBaseFileName>$(OutDir)vc80.pdb</ProgramDataBaseFileName>
-      <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <SDLCheck>false</SDLCheck>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0409</Culture>
     </ResourceCompile>
-    <Lib>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-    </Lib>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
+  <!-- Release Configurations -->
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release' Or '$(Configuration)'=='DLL-Import Release'" Label="Release Configuration">
     <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;USE_PRECOMPILED_HEADERS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <OmitFramePointers>true</OmitFramePointers>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;USE_PRECOMPILED_HEADERS;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <ProgramDataBaseFileName>$(OutDir)vc80.pdb</ProgramDataBaseFileName>
-      <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0409</Culture>
     </ResourceCompile>
+  </ItemDefinitionGroup>
+  <!-- DLL-Import Overrides for Preprocessor -->
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='DLL-Import Debug'" Label="DLL Debug Configuration">
+    <ClCompile>
+      <PreprocessorDefinitions>USE_PRECOMPILED_HEADERS;CRYPTOPP_IMPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='DLL-Import Release'" Label="DLL Debug Configuration">
+    <ClCompile>
+      <PreprocessorDefinitions>NDEBUG;USE_PRECOMPILED_HEADERS;CRYPTOPP_IMPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <!-- X86 Configurations -->
+  <ItemDefinitionGroup Condition="'$(Platform)'=='Win32'" Label="X86 Configuration">
+    <ClCompile>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+    </ClCompile>
     <Lib>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX86</TargetMachine>
+      <ImageHasSafeExceptionHandlers>true</ImageHasSafeExceptionHandlers>
     </Lib>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
+  <!-- X64 Configurations -->
+  <ItemDefinitionGroup Condition="'$(Platform)'=='x64'" Label="X64 Configuration">
     <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <OmitFramePointers>true</OmitFramePointers>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;USE_PRECOMPILED_HEADERS;WIN32;CRYPTOPP_IMPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <ProgramDataBaseFileName>$(OutDir)vc80.pdb</ProgramDataBaseFileName>
-      <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
-    <ResourceCompile>
-      <Culture>0x0409</Culture>
-    </ResourceCompile>
     <Lib>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetMachine>MachineX64</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;USE_PRECOMPILED_HEADERS;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <ProgramDataBaseFileName>$(OutDir)vc80.pdb</ProgramDataBaseFileName>
-      <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-    </ClCompile>
-    <ResourceCompile>
-      <Culture>0x0409</Culture>
-    </ResourceCompile>
-    <Lib>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-    </Lib>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">
-    <Midl>
-      <TargetEnvironment>X64</TargetEnvironment>
-    </Midl>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;USE_PRECOMPILED_HEADERS;WIN32;CRYPTOPP_IMPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <ProgramDataBaseFileName>$(OutDir)vc80.pdb</ProgramDataBaseFileName>
-      <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-    </ClCompile>
-    <ResourceCompile>
-      <Culture>0x0409</Culture>
-    </ResourceCompile>
-    <Lib>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-    </Lib>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|Win32'">
-    <ClCompile>
-      <SDLCheck>false</SDLCheck>
-    </ClCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|Win32'">
-    <ClCompile>
-      <SDLCheck>false</SDLCheck>
-    </ClCompile>
-  </ItemDefinitionGroup>
+  <!-- Original File with special treatment -->
+  <!-- Source Files -->
+  <!-- The order of the first three matters -->
   <ItemGroup>
-    <ClCompile Include="source\3way.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\adler32.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\algebra.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\algparam.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\arc4.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\asn.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\authenc.cpp" />
-    <ClCompile Include="source\base32.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\base64.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\basecode.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\bfinit.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\blowfish.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\blumshub.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\camellia.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\cast.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\casts.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\cbcmac.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\ccm.cpp" />
-    <ClCompile Include="source\channels.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\cmac.cpp" />
+    <ClCompile Include="source\cryptlib.cpp" />
     <ClCompile Include="source\cpu.cpp" />
-    <ClCompile Include="source\crc.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\cryptlib.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\default.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\des.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\dessp.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\dh.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\dh2.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
+    <ClCompile Include="source\integer.cpp" />
+    <ClCompile Include="source\3way.cpp" />
+    <ClCompile Include="source\adler32.cpp" />
+    <ClCompile Include="source\algebra.cpp" />
+    <ClCompile Include="source\algparam.cpp" />
+    <ClCompile Include="source\arc4.cpp" />
+    <ClCompile Include="source\asn.cpp" />
+    <ClCompile Include="source\authenc.cpp" />
+    <ClCompile Include="source\base32.cpp" />
+    <ClCompile Include="source\base64.cpp" />
+    <ClCompile Include="source\basecode.cpp" />
+    <ClCompile Include="source\bfinit.cpp" />
+    <ClCompile Include="source\blake2.cpp" />
+    <ClCompile Include="source\blowfish.cpp" />
+    <ClCompile Include="source\blumshub.cpp" />
+    <ClCompile Include="source\camellia.cpp" />
+    <ClCompile Include="source\cast.cpp" />
+    <ClCompile Include="source\casts.cpp" />
+    <ClCompile Include="source\cbcmac.cpp" />
+    <ClCompile Include="source\ccm.cpp" />
+    <ClCompile Include="source\chacha.cpp" />
+    <ClCompile Include="source\channels.cpp" />
+    <ClCompile Include="source\cmac.cpp" />
+    <ClCompile Include="source\crc.cpp" />
+    <ClCompile Include="source\default.cpp" />
+    <ClCompile Include="source\des.cpp" />
+    <ClCompile Include="source\dessp.cpp" />
+    <ClCompile Include="source\dh.cpp" />
+    <ClCompile Include="source\dh2.cpp" />
     <ClCompile Include="source\dll.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">
-      </PrecompiledHeader>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">
-      </PrecompiledHeader>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </PrecompiledHeader>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </PrecompiledHeader>
+      <PrecompiledHeader />
     </ClCompile>
-    <ClCompile Include="source\dsa.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
+    <ClCompile Include="source\dsa.cpp" />
     <ClCompile Include="source\eax.cpp" />
-    <ClCompile Include="source\ec2n.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
+    <ClCompile Include="source\ec2n.cpp" />
     <ClCompile Include="source\eccrypto.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">true</ExcludedFromBuild>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">true</ExcludedFromBuild>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="source\ecp.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\elgamal.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
+    <ClCompile Include="source\ecp.cpp" />
+    <ClCompile Include="source\elgamal.cpp" />
     <ClCompile Include="source\emsa2.cpp" />
     <ClCompile Include="source\eprecomp.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">true</ExcludedFromBuild>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">true</ExcludedFromBuild>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="source\esign.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\files.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\filters.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\fips140.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\fipstest.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
+    <ClCompile Include="source\esign.cpp" />
+    <ClCompile Include="source\files.cpp" />
+    <ClCompile Include="source\filters.cpp" />
+    <ClCompile Include="source\fips140.cpp" />
+    <ClCompile Include="source\fipstest.cpp" />
     <ClCompile Include="source\gcm.cpp" />
-    <ClCompile Include="source\gf256.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\gf2_32.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\gf2n.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\gfpcrypt.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\gost.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\gzip.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\hex.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\hmac.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\hrtimer.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\ida.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\idea.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\integer.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-      <AssemblerListingLocation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </AssemblerListingLocation>
-    </ClCompile>
+    <ClCompile Include="source\gf256.cpp" />
+    <ClCompile Include="source\gf2_32.cpp" />
+    <ClCompile Include="source\gf2n.cpp" />
+    <ClCompile Include="source\gfpcrypt.cpp" />
+    <ClCompile Include="source\gost.cpp" />
+    <ClCompile Include="source\gzip.cpp" />
+    <ClCompile Include="source\hex.cpp" />
+    <ClCompile Include="source\hmac.cpp" />
+    <ClCompile Include="source\hrtimer.cpp" />
+    <ClCompile Include="source\ida.cpp" />
+    <ClCompile Include="source\idea.cpp" />
     <ClCompile Include="source\iterhash.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">
-      </PrecompiledHeader>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">
-      </PrecompiledHeader>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </PrecompiledHeader>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </PrecompiledHeader>
+      <PrecompiledHeader />
     </ClCompile>
-    <ClCompile Include="source\luc.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\mars.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\marss.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\md2.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\md4.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\md5.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\misc.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\modes.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\mqueue.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\mqv.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\nbtheory.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\network.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\oaep.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\osrng.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\panama.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
+    <ClCompile Include="source\keccak.cpp" />
+    <ClCompile Include="source\luc.cpp" />
+    <ClCompile Include="source\mars.cpp" />
+    <ClCompile Include="source\marss.cpp" />
+    <ClCompile Include="source\md2.cpp" />
+    <ClCompile Include="source\md4.cpp" />
+    <ClCompile Include="source\md5.cpp" />
+    <ClCompile Include="source\misc.cpp" />
+    <ClCompile Include="source\modes.cpp" />
+    <ClCompile Include="source\mqueue.cpp" />
+    <ClCompile Include="source\mqv.cpp" />
+    <ClCompile Include="source\nbtheory.cpp" />
+    <ClCompile Include="source\network.cpp" />
+    <ClCompile Include="source\oaep.cpp" />
+    <ClCompile Include="source\osrng.cpp" />
+    <ClCompile Include="source\panama.cpp" />
     <ClCompile Include="source\pch.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Create</PrecompiledHeader>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">Create</PrecompiledHeader>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="source\pkcspad.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\polynomi.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\pssr.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\pubkey.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\queue.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\rabin.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\randpool.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\rc2.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\rc5.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\rc6.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\rdtables.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\rijndael.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\ripemd.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\rng.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\rsa.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\rw.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\safer.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
+    <ClCompile Include="source\pkcspad.cpp" />
+    <ClCompile Include="source\polynomi.cpp" />
+    <ClCompile Include="source\pssr.cpp" />
+    <ClCompile Include="source\pubkey.cpp" />
+    <ClCompile Include="source\queue.cpp" />
+    <ClCompile Include="source\rabin.cpp" />
+    <ClCompile Include="source\randpool.cpp" />
+    <ClCompile Include="source\rc2.cpp" />
+    <ClCompile Include="source\rc5.cpp" />
+    <ClCompile Include="source\rc6.cpp" />
+    <ClCompile Include="source\rdrand.cpp" />
+    <ClCompile Include="source\rdtables.cpp" />
+    <ClCompile Include="source\rijndael.cpp" />
+    <ClCompile Include="source\ripemd.cpp" />
+    <ClCompile Include="source\rng.cpp" />
+    <ClCompile Include="source\rsa.cpp" />
+    <ClCompile Include="source\rw.cpp" />
+    <ClCompile Include="source\safer.cpp" />
     <ClCompile Include="source\salsa.cpp" />
-    <ClCompile Include="source\seal.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
+    <ClCompile Include="source\seal.cpp" />
     <ClCompile Include="source\seed.cpp" />
-    <ClCompile Include="source\serpent.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\sha.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\shacal2.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\shark.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\sharkbox.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\simple.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\skipjack.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\socketft.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
+    <ClCompile Include="source\serpent.cpp" />
+    <ClCompile Include="source\sha.cpp" />
+    <ClCompile Include="source\sha3.cpp" />
+    <ClCompile Include="source\shacal2.cpp" />
+    <ClCompile Include="source\shark.cpp" />
+    <ClCompile Include="source\sharkbox.cpp" />
+    <ClCompile Include="source\simple.cpp" />
+    <ClCompile Include="source\skipjack.cpp" />
+    <ClCompile Include="source\socketft.cpp" />
     <ClCompile Include="source\sosemanuk.cpp" />
-    <ClCompile Include="source\square.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\squaretb.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\strciphr.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\tea.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\tftables.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\tiger.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\tigertab.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\trdlocal.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\ttmac.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\twofish.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
+    <ClCompile Include="source\square.cpp" />
+    <ClCompile Include="source\squaretb.cpp" />
+    <ClCompile Include="source\strciphr.cpp" />
+    <ClCompile Include="source\tea.cpp" />
+    <ClCompile Include="source\tftables.cpp" />
+    <ClCompile Include="source\tiger.cpp" />
+    <ClCompile Include="source\tigertab.cpp" />
+    <ClCompile Include="source\trdlocal.cpp" />
+    <ClCompile Include="source\ttmac.cpp" />
+    <ClCompile Include="source\twofish.cpp" />
     <ClCompile Include="source\vmac.cpp" />
-    <ClCompile Include="source\wait.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\wake.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\whrlpool.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\winpipes.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\xtr.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\xtrcrypt.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\zdeflate.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\zinflate.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
-    <ClCompile Include="source\zlib.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">MaxSpeed</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Disabled</Optimization>
-    </ClCompile>
+    <ClCompile Include="source\wait.cpp" />
+    <ClCompile Include="source\wake.cpp" />
+    <ClCompile Include="source\whrlpool.cpp" />
+    <ClCompile Include="source\winpipes.cpp" />
+    <ClCompile Include="source\xtr.cpp" />
+    <ClCompile Include="source\xtrcrypt.cpp" />
+    <ClCompile Include="source\zdeflate.cpp" />
+    <ClCompile Include="source\zinflate.cpp" />
+    <ClCompile Include="source\zlib.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="source\adhoc.cpp.proto">
-      <Command Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">if not exist adhoc.cpp copy "%(FullPath)" adhoc.cpp
-echo: &gt;&gt; adhoc.cpp.copied
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">adhoc.cpp.copied;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">if not exist adhoc.cpp copy "%(FullPath)" adhoc.cpp
-echo: &gt;&gt; adhoc.cpp.copied
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">adhoc.cpp.copied;%(Outputs)</Outputs>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist adhoc.cpp copy "%(FullPath)" adhoc.cpp
-echo: &gt;&gt; adhoc.cpp.copied
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">adhoc.cpp.copied;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">if not exist adhoc.cpp copy "%(FullPath)" adhoc.cpp
-echo: &gt;&gt; adhoc.cpp.copied
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">adhoc.cpp.copied;%(Outputs)</Outputs>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist adhoc.cpp copy "%(FullPath)" adhoc.cpp
-echo: &gt;&gt; adhoc.cpp.copied
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">adhoc.cpp.copied;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">if not exist adhoc.cpp copy "%(FullPath)" adhoc.cpp
-echo: &gt;&gt; adhoc.cpp.copied
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">adhoc.cpp.copied;%(Outputs)</Outputs>
-    </CustomBuild>
-    <CustomBuild Include="source\x64dll.asm">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">true</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">ml64.exe /c /nologo /Fo"$(IntDir)x64dll.obj" /Zi "%(FullPath)"
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">$(IntDir)x64dll.obj;%(Outputs)</Outputs>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">true</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">ml64.exe /c /nologo /Fo"$(IntDir)x64dll.obj" /Zi "%(FullPath)"
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">$(IntDir)x64dll.obj;%(Outputs)</Outputs>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ml64.exe /c /nologo /Fo"$(IntDir)x64dll.obj" /Zi "%(FullPath)"
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)x64dll.obj;%(Outputs)</Outputs>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ml64.exe /c /nologo /Fo"$(IntDir)x64dll.obj" /Zi "%(FullPath)"
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)x64dll.obj;%(Outputs)</Outputs>
-    </CustomBuild>
-    <CustomBuild Include="source\x64masm.asm">
-      <Command Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">ml64.exe /c /nologo /Fo"$(IntDir)x64masm.obj" /Zi "%(FullPath)"
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">$(IntDir)x64masm.obj;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">ml64.exe /c /nologo /Fo"$(IntDir)x64masm.obj" /Zi "%(FullPath)"
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">$(IntDir)x64masm.obj;%(Outputs)</Outputs>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ml64.exe /c /nologo /Fo"$(IntDir)x64masm.obj" /Zi "%(FullPath)"
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)x64masm.obj;%(Outputs)</Outputs>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ml64.exe /c /nologo /Fo"$(IntDir)x64masm.obj" /Zi "%(FullPath)"
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)x64masm.obj;%(Outputs)</Outputs>
+      <Command>
+        if not exist adhoc.cpp copy "%(FullPath)" source\adhoc.cpp
+        echo: &gt;&gt; source\adhoc.cpp.copied
+      </Command>
+      <Outputs>adhoc.cpp.copied;%(Outputs)</Outputs>
     </CustomBuild>
     <None Include="source\Doxyfile" />
     <None Include="source\GNUmakefile" />
+    <None Include="source\License.txt" />
+    <None Include="source\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Condition="'$(Platform)'=='Win32'" Include="source\rdrand.asm">
+      <Message>Building and assembling rdrand.asm</Message>
+      <Command>ml.exe /c /nologo /D_M_X86 /W3 /Cx /Zi /safeseh /Fo"$(IntDir)rdrand-x86.obj" "%(FullPath)"</Command>
+      <Outputs>$(IntDir)\rdrand-x86.obj</Outputs>
+    </CustomBuild>
+    <CustomBuild Condition="'$(Platform)'=='x64'" Include="source\rdrand.asm">
+      <Message>Building and assembling rdrand.asm</Message>
+      <Command>ml64.exe /c /nologo /D_M_X64 /W3 /Cx /Zi /Fo"$(IntDir)rdrand-x64.obj" "%(FullPath)"</Command>
+      <Outputs>$(IntDir)\rdrand-x64.obj</Outputs>
+    </CustomBuild>
+    <CustomBuild Condition="'$(Platform)'=='x64' AND ('$(Configuration)'=='Debug' Or '$(Configuration)'=='Release')" Include="source\x64dll.asm">
+      <Message>Building and assembling x64dll.asm</Message>
+      <Command>ml64.exe /c /nologo /D_M_X64 /W3 /Zi /Fo"$(IntDir)x64dll.obj" "%(FullPath)"</Command>
+      <Outputs>$(IntDir)x64dll.obj</Outputs>
+    </CustomBuild>
+    <CustomBuild Condition="'$(Platform)'=='x64'" Include="source\x64masm.asm">
+      <Message>Building and Assembling x64masm.asm</Message>
+      <Command>ml64.exe /c /nologo /D_M_X64 /W3 /Zi /Fo"$(IntDir)x64masm.obj" "%(FullPath)"</Command>
+      <Outputs>$(IntDir)x64masm.obj;%(Outputs)</Outputs>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\3way.h" />
@@ -1108,12 +347,14 @@ echo: &gt;&gt; adhoc.cpp.copied
     <ClInclude Include="source\base32.h" />
     <ClInclude Include="source\base64.h" />
     <ClInclude Include="source\basecode.h" />
+    <ClInclude Include="source\blake2.h" />
     <ClInclude Include="source\blowfish.h" />
     <ClInclude Include="source\blumshub.h" />
     <ClInclude Include="source\camellia.h" />
     <ClInclude Include="source\cast.h" />
     <ClInclude Include="source\cbcmac.h" />
     <ClInclude Include="source\ccm.h" />
+    <ClInclude Include="source\chacha.h" />
     <ClInclude Include="source\channels.h" />
     <ClInclude Include="source\cmac.h" />
     <ClInclude Include="source\config.h" />
@@ -1137,6 +378,7 @@ echo: &gt;&gt; adhoc.cpp.copied
     <ClInclude Include="source\files.h" />
     <ClInclude Include="source\filters.h" />
     <ClInclude Include="source\fips140.h" />
+    <ClInclude Include="source\fhmqv.h" />
     <ClInclude Include="source\fltrimpl.h" />
     <ClInclude Include="source\gcm.h" />
     <ClInclude Include="source\gf256.h" />
@@ -1146,12 +388,15 @@ echo: &gt;&gt; adhoc.cpp.copied
     <ClInclude Include="source\gost.h" />
     <ClInclude Include="source\gzip.h" />
     <ClInclude Include="source\hex.h" />
+    <ClInclude Include="source\hkdf.h" />
     <ClInclude Include="source\hmac.h" />
+    <ClInclude Include="source\hmqv.h" />
     <ClInclude Include="source\hrtimer.h" />
     <ClInclude Include="source\ida.h" />
     <ClInclude Include="source\idea.h" />
     <ClInclude Include="source\integer.h" />
     <ClInclude Include="source\iterhash.h" />
+    <ClInclude Include="source\keccak.h" />
     <ClInclude Include="source\lubyrack.h" />
     <ClInclude Include="source\luc.h" />
     <ClInclude Include="source\mars.h" />
@@ -1184,6 +429,7 @@ echo: &gt;&gt; adhoc.cpp.copied
     <ClInclude Include="source\rc2.h" />
     <ClInclude Include="source\rc5.h" />
     <ClInclude Include="source\rc6.h" />
+    <ClInclude Include="source\rdrand.h" />
     <ClInclude Include="source\rijndael.h" />
     <ClInclude Include="source\ripemd.h" />
     <ClInclude Include="source\rng.h" />
@@ -1197,6 +443,7 @@ echo: &gt;&gt; adhoc.cpp.copied
     <ClInclude Include="source\seed.h" />
     <ClInclude Include="source\serpent.h" />
     <ClInclude Include="source\sha.h" />
+    <ClInclude Include="source\sha3.h" />
     <ClInclude Include="source\shacal2.h" />
     <ClInclude Include="source\shark.h" />
     <ClInclude Include="source\simple.h" />
@@ -1209,6 +456,7 @@ echo: &gt;&gt; adhoc.cpp.copied
     <ClInclude Include="source\strciphr.h" />
     <ClInclude Include="source\tea.h" />
     <ClInclude Include="source\tiger.h" />
+    <ClInclude Include="source\trap.h" />
     <ClInclude Include="source\trdlocal.h" />
     <ClInclude Include="source\trunhash.h" />
     <ClInclude Include="source\ttmac.h" />
@@ -1225,11 +473,8 @@ echo: &gt;&gt; adhoc.cpp.copied
     <ClInclude Include="source\zinflate.h" />
     <ClInclude Include="source\zlib.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="source\License.txt" />
-    <Text Include="source\Readme.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
 </Project>
