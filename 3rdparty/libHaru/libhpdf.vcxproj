@@ -59,6 +59,9 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <SDLCheck>false</SDLCheck>
     </ClCompile>
+    <PreBuildEvent>
+      <Command>copy source\win32\include\hpdf_config.h source\include</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -73,6 +76,9 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <SDLCheck>false</SDLCheck>
     </ClCompile>
+    <PreBuildEvent>
+      <Command>copy source\win32\include\hpdf_config.h source\include</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\src\hpdf_3dmeasure.c" />
