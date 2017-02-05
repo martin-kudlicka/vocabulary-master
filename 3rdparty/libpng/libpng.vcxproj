@@ -48,7 +48,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PreBuildEvent>
-      <Command>copy source\scripts\pnglibconf.h.prebuilt pnglibconf.h</Command>
+      <Command>copy source\scripts\pnglibconf.h.prebuilt source\pnglibconf.h</Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -63,7 +63,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <PreBuildEvent>
-      <Command>copy source\scripts\pnglibconf.h.prebuilt pnglibconf.h</Command>
+      <Command>copy source\scripts\pnglibconf.h.prebuilt source\pnglibconf.h</Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
