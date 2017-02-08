@@ -173,9 +173,6 @@
     <ClInclude Include="source\mecab\src\viterbi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\mecab\src\viterbisub.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="source\mecab\src\writer.h">
       <Filter>Header Files</Filter>
     </ClInclude>

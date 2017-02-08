@@ -32,5 +32,14 @@
     <ClInclude Include="source\njd_set_long_vowel\njd_set_long_vowel_rule_utf_8.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\njd_set_long_vowel\njd_set_long_vowel_rule_ascii_for_euc_jp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\njd_set_long_vowel\njd_set_long_vowel_rule_ascii_for_shift_jis.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\njd_set_long_vowel\njd_set_long_vowel_rule_ascii_for_utf_8.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

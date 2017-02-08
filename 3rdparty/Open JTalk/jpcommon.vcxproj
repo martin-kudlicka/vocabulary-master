@@ -76,6 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\jpcommon\jpcommon.h" />
+    <ClInclude Include="source\jpcommon\jpcommon_rule_ascii_for_euc_jp.h" />
+    <ClInclude Include="source\jpcommon\jpcommon_rule_ascii_for_shift_jis.h" />
+    <ClInclude Include="source\jpcommon\jpcommon_rule_ascii_for_utf_8.h" />
     <ClInclude Include="source\jpcommon\jpcommon_rule_euc_jp.h" />
     <ClInclude Include="source\jpcommon\jpcommon_rule_shift_jis.h" />
     <ClInclude Include="source\jpcommon\jpcommon_rule_utf_8.h" />

@@ -1,9 +1,9 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.59)
-AC_INIT(open_jtalk, 1.06, open-jtalk-users@lists.sourceforge.net)
+AC_INIT(open_jtalk, 1.10, open-jtalk-users@lists.sourceforge.net)
 AC_CONFIG_AUX_DIR([config])
-AC_COPYRIGHT(Copyright 2008-2012 Nagoya Institute of Technology)
-AM_INIT_AUTOMAKE(open_jtalk, 1.06, nostdinc no-installinfo no-installman)
+AC_COPYRIGHT(Copyright 2008-2016 Nagoya Institute of Technology)
+AM_INIT_AUTOMAKE
 
 # Checks for C/C++ compiler
 AC_PROG_CC
@@ -195,7 +195,7 @@ if test "x$config_error" = xyes ; then
 fi
 AC_MSG_RESULT([yes])
 
-# for cygwin
+# For cygwin
 if test -n "$GCC"; then
 case "$host_os" in
    *cygwin* )
@@ -209,7 +209,7 @@ case "$host_os" in
 esac
 fi
 
-# define HTS_ENGINE_HEADER
+# Define HTS_ENGINE_HEADER
 AC_ARG_WITH(hts-engine-header-path,
             AS_HELP_STRING([--with-hts-engine-header-path],[specify the hts_engine_API header path]),
             [hts_engine_header_path=$withval],
@@ -222,11 +222,11 @@ AC_MSG_RESULT($hts_engine_header_path/HTS_engine.h)
 AC_SUBST(HTS_ENGINE_HEADER)
 HTS_ENGINE_HEADER=${hts_engine_header_path}/HTS_engine.h
 
-# define HTS_ENGINE_HEADER_DIR
+# Define HTS_ENGINE_HEADER_DIR
 AC_SUBST(HTS_ENGINE_HEADER_DIR)
 HTS_ENGINE_HEADER_DIR=${hts_engine_header_path}
 
-# define HTS_ENGINE_LIBRARY
+# Define HTS_ENGINE_LIBRARY
 AC_ARG_WITH(hts-engine-library-path,
             AS_HELP_STRING([--with-hts-engine-library-path],[specify the hts_engine_API library path]),
             [hts_engine_library_path=$withval],
@@ -239,69 +239,48 @@ AC_MSG_RESULT($hts_engine_library_path/libHTSEngine.a)
 AC_SUBST(HTS_ENGINE_LIBRARY)
 HTS_ENGINE_LIBRARY=${hts_engine_library_path}/libHTSEngine.a
 
-# define HTS_ENGINE_LIBRARY_DIR
+# Define HTS_ENGINE_LIBRARY_DIR
 AC_SUBST(HTS_ENGINE_LIBRARY_DIR)
 HTS_ENGINE_LIBRARY_DIR=${hts_engine_library_path}
 
-# Checks option for embedded device
-AC_ARG_ENABLE(embedded, [  --enable-embedded   turn on compiling for embedded devices (default=no)],,enable_embedded=no)
-AC_MSG_CHECKING(whether to enable compiling for embedded devices)
-AC_SUBST(HTS_EMBEDDED)
-if test x$enable_embedded = xyes; then
-   AC_MSG_RESULT(yes)
-   HTS_EMBEDDED="-D HTS_EMBEDDED"
-else
-   AC_MSG_RESULT(no)
-   HTS_EMBEDDED=""
-fi
-
-# search winmm for hts_engine API
-AC_SUBST(AUDIO_PLAY)
+# Check for windows audio devices
 case "$host_os" in
-   *wince* )
-      AC_HAVE_LIBRARY([winmm],,AC_MSG_ERROR(No winmm))
-      AUDIO_PLAY="-D AUDIO_PLAY_WINCE"
-      ;;
    *win32* | *wince* | *cygwin* | *mingw* )
       AC_HAVE_LIBRARY([winmm],,AC_MSG_ERROR(No winmm))
-      AUDIO_PLAY="-D AUDIO_PLAY_WIN32"
       ;;
    *)
-      AUDIO_PLAY=""
       ;;
 esac
 
-# define charset for mecab-naist-dic
+# Define charset
 AC_ARG_WITH(charset,
             [  --with-charset          specify charset (EUC-JP/SHIFT_JIS/UTF-8)],
             [charset=$withval],
-            [charset='euc-jp'])
+            [charset='UTF-8'])
 AC_MSG_CHECKING(charset)
 AC_MSG_RESULT($charset)
 AC_SUBST(MECAB_CHARSET)
+AC_SUBST(MECAB_DEFAULT_CHARSET)
 AC_SUBST(MECAB_USE_UTF8_ONLY)
-if test x$charset = xeucjp -o x$charset = xeuc-jp -o x$charset = xeuc_jp -o x$charset = xEUCJP -o x$charset = xEUC-JP -o x$charset = xEUC_JP ; then
-   MECAB_CHARSET=euc-jp
-   MECAB_USE_UTF8_ONLY=""
-elif test x$charset = xsjis -o x$charset = xshift-jis -o x$charset = xshift_jis -o x$charset = xSJIS -o x$charset = xSHIFT-JIS -o x$charset = xSHIFT_JIS ; then
-   MECAB_CHARSET=sjis
-   MECAB_USE_UTF8_ONLY=""
-elif test x$charset = xutf8 -o x$charset = xutf-8 -o x$charset = xutf_8 -o x$charset = xUTF8 -o x$charset = xUTF-8 -o x$charset = xUTF_8 ; then
-   MECAB_CHARSET=utf-8
-   MECAB_USE_UTF8_ONLY="-D MECAB_USE_UTF8_ONLY"
-else
-   AC_MSG_ERROR(Cannot recognize $charset)
-fi
-
-# define charset for open_jtalk
 AC_SUBST(CHARSET)
 if test x$charset = xeucjp -o x$charset = xeuc-jp -o x$charset = xeuc_jp -o x$charset = xEUCJP -o x$charset = xEUC-JP -o x$charset = xEUC_JP ; then
+   MECAB_CHARSET=EUC-JP
+   MECAB_DEFAULT_CHARSET="EUC-JP"
+   MECAB_USE_UTF8_ONLY=""
    CHARSET="-D CHARSET_EUC_JP"
+   CFLAGS="$CFLAGS -finput-charset=EUC-JP -fexec-charset=EUC-JP "
+   CXXFLAGS="$CXXFLAGS -finput-charset=EUC-JP -fexec-charset=EUC-JP "
 elif test x$charset = xsjis -o x$charset = xshift-jis -o x$charset = xshift_jis -o x$charset = xSJIS -o x$charset = xSHIFT-JIS -o x$charset = xSHIFT_JIS ; then
+   MECAB_CHARSET=SHIFT-JIS
+   MECAB_DEFAULT_CHARSET="SHIFT-JIS"
+   MECAB_USE_UTF8_ONLY=""
    CHARSET="-D CHARSET_SHIFT_JIS"
    CFLAGS="$CFLAGS -finput-charset=cp932 -fexec-charset=cp932 "
    CXXFLAGS="$CXXFLAGS -finput-charset=cp932 -fexec-charset=cp932 "
 elif test x$charset = xutf8 -o x$charset = xutf-8 -o x$charset = xutf_8 -o x$charset = xUTF8 -o x$charset = xUTF-8 -o x$charset = xUTF_8 ; then
+   MECAB_CHARSET=UTF-8
+   MECAB_DEFAULT_CHARSET="UTF-8"
+   MECAB_USE_UTF8_ONLY="-D MECAB_USE_UTF8_ONLY"
    CHARSET="-D CHARSET_UTF_8"
    CFLAGS="$CFLAGS -finput-charset=UTF-8 -fexec-charset=UTF-8 "
    CXXFLAGS="$CXXFLAGS -finput-charset=UTF-8 -fexec-charset=UTF-8 "
@@ -312,5 +291,5 @@ fi
 # Makefiles
 AC_CONFIG_FILES([Makefile bin/Makefile text2mecab/Makefile mecab/Makefile mecab/src/Makefile mecab2njd/Makefile njd/Makefile njd_set_pronunciation/Makefile njd_set_digit/Makefile njd_set_accent_phrase/Makefile njd_set_accent_type/Makefile njd_set_unvoiced_vowel/Makefile njd_set_long_vowel/Makefile njd2jpcommon/Makefile jpcommon/Makefile mecab-naist-jdic/Makefile])
 
-# make mecab/config.h
+# Make mecab/config.h
 AC_OUTPUT
