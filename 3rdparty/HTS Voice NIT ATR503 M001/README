@@ -1,12 +1,12 @@
 ===============================================================================
-                   HTS Voice "NIT ATR503 M001" version 1.04
-                             release July 7, 2011
+                   HTS Voice "NIT ATR503 M001" version 1.05
+                           release December 25, 2012
 
 
 HTS voice trained by using the Nitech Japanese Speech Database "NIT ATR503
 M001" is released as a part of Open JTalk (http://open-jtalk.sourceforge.net/).
 This voice consists of HMMs trained by using HMM-based Speech Synthesis System
-(HTS) version 2.2 (http://hts.sp.nitech.ac.jp/).
+(HTS) version 2.3 alpha (http://hts.sp.nitech.ac.jp/).
 
 *******************************************************************************
                                     Copying
@@ -18,7 +18,7 @@ This voice consists of HMMs trained by using HMM-based Speech Synthesis System
 #           http://open-jtalk.sourceforge.net/                      #
 # ----------------------------------------------------------------- #
 #                                                                   #
-#  Copyright (c) 2003-2011  Nagoya Institute of Technology          #
+#  Copyright (c) 2003-2012  Nagoya Institute of Technology          #
 #                           Department of Computer Science          #
 #                                                                   #
 #                2003-2008  Tokyo Institute of Technology           #
@@ -88,6 +88,7 @@ Synthesis System. Current members are
  (Design and Development, Main Maintainer)
  Kei Hashimoto       http://www.sp.nitech.ac.jp/~bonanza/
  Sayaka Shiota       http://www.sp.nitech.ac.jp/~sayaka/
+ Shinji Takaki       http://www.sp.nitech.ac.jp/~k-prr44/
  Heiga Zen
  Junichi Yamagishi   http://homepages.inf.ed.ac.uk/jyamagis/
  Tomoki Toda         http://spalab.naist.jp/~tomoki/index_e.html
