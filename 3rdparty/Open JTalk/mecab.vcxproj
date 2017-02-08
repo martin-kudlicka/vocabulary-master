@@ -124,7 +124,6 @@
     <ClInclude Include="source\mecab\src\ucstable.h" />
     <ClInclude Include="source\mecab\src\utils.h" />
     <ClInclude Include="source\mecab\src\viterbi.h" />
-    <ClInclude Include="source\mecab\src\viterbisub.h" />
     <ClInclude Include="source\mecab\src\writer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

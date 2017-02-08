@@ -10,7 +10,7 @@
 /*           http://open-jtalk.sourceforge.net/                      */
 /* ----------------------------------------------------------------- */
 /*                                                                   */
-/*  Copyright (c) 2008-2012  Nagoya Institute of Technology          */
+/*  Copyright (c) 2008-2016  Nagoya Institute of Technology          */
 /*                           Department of Computer Science          */
 /*                                                                   */
 /* All rights reserved.                                              */
@@ -50,6 +50,9 @@
 #include "param.h"
 #include "string_buffer.h"
 #include "utils.h"
+#ifdef __ANDROID__ /* for Open JTalk */
+#include "ctype.h"
+#endif /* __ANDROID__ */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -130,7 +133,6 @@ bool Param::load(const char *filename) {
   set<std::string>("bos-feature","BOS/EOS,*,*,*,*,*,*,*,*",false);
   set<std::string>("eval-size","8",false);
   set<std::string>("unk-eval-size","4",false);
-  set<std::string>("config-charset","EUC-JP",false);
   set<std::string>("node-format-yomi","%pS%f[7]",false);
   set<std::string>("unk-format-yomi","%M",false);
   set<std::string>("eos-format-yomi","\n",false);

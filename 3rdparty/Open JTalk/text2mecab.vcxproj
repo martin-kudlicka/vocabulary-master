@@ -70,6 +70,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\text2mecab\text2mecab.h" />
+    <ClInclude Include="source\text2mecab\text2mecab_rule_ascii_for_euc_jp.h" />
+    <ClInclude Include="source\text2mecab\text2mecab_rule_ascii_for_shift_jis.h" />
+    <ClInclude Include="source\text2mecab\text2mecab_rule_ascii_for_utf_8.h" />
     <ClInclude Include="source\text2mecab\text2mecab_rule_euc_jp.h" />
     <ClInclude Include="source\text2mecab\text2mecab_rule_shift_jis.h" />
     <ClInclude Include="source\text2mecab\text2mecab_rule_utf_8.h" />
