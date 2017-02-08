@@ -32,7 +32,7 @@ void UpdateChecker::checkForUpdate()
   }
 
   // check
-  _networkAccessManager.get(QNetworkRequest(QUrl("http://vocabulary-master.cz/sites/default/files/releases/version.txt")));
+  _networkAccessManager.get(QNetworkRequest(QUrl("http://vocabulary-master.martink.cz/sites/vocabulary-master.martink.cz/files/releases/version.txt")));
 }
 
 QNetworkReply::NetworkError UpdateChecker::checkResult() const
