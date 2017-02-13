@@ -43,7 +43,7 @@ void HotkeyLineEdit::keyPressEvent(QKeyEvent *event)
     keySequence += MODIFIER_SEPARATOR;
   }
 
-  if (QKeySequence(keyEvent->key()).toString().at(0) != 0x17C0)
+  if (QKeySequence(keyEvent->key()).toString().at(0) != QChar(0x17C0))
   {
     // not only Ctrl, Alt or Shift keys pressed
     keySequence += QKeySequence(keyEvent->key()).toString();
