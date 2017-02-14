@@ -40,6 +40,7 @@
     <ClInclude Include="..\..\..\..\intermediate\vocabularymaster\imp-plaintext\ui_plaintextimportwidget.h" />
     <ClInclude Include="..\common\imp-interface.h" />
     <ClInclude Include="..\common\translationhandler.h" />
+    <ClInclude Include="resource.h" />
     <CustomBuild Include="..\common\codecsmodel.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing codecsmodel.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\..\intermediate\vocabularymaster\imp-plaintext\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
@@ -84,6 +85,9 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\..\intermediate\vocabularymaster\imp-plaintext\ui_%(Filename).h;%(Outputs)</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\..\..\..\..\intermediate\vocabularymaster\imp-plaintext\ui_%(Filename).h" "%(FullPath)"</Command>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="imp-plaintext.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{229CE2D1-5FE0-4944-92D6-C502FC397F2D}</ProjectGuid>

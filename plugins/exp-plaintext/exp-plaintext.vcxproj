@@ -78,6 +78,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <CustomBuild Include="..\common\codecsmodel.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing codecsmodel.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\..\intermediate\vocabularymaster\exp-plaintext\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
@@ -103,6 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="lang\cs_CZ.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="exp-plaintext.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BF01CC9E-1BA5-4D16-A528-B19EADF326C6}</ProjectGuid>

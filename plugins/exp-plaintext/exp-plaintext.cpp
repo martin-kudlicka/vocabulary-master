@@ -40,7 +40,7 @@ QString ExpPlaintext::pluginName() const
 
 void ExpPlaintext::setupUi(QWidget *parent)
 {
-  _widget = new PlaintextExportWidget(parent);
+  _widget        = new PlaintextExportWidget(parent);
   auto boxLayout = qobject_cast<QBoxLayout *>(parent->layout());
   boxLayout->insertWidget(WIDGET_POSITION, _widget);
 

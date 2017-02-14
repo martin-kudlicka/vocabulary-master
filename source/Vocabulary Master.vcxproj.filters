@@ -566,6 +566,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Vocabulary Master.rc" />
+    <ResourceCompile Include="Vocabulary Master.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

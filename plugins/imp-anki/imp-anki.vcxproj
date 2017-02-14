@@ -58,6 +58,7 @@
     <ClCompile Include="imp-anki.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <CustomBuild Include="..\..\common\marklineedit.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing marklineedit.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\..\intermediate\vocabularymaster\imp-anki\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
@@ -135,6 +136,9 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\..\..\..\..\intermediate\vocabularymaster\imp-anki\ui_%(Filename).h" "%(FullPath)"</Command>
     </CustomBuild>
     <None Include="lang\cs_CZ.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="imp-anki.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2C2569A4-CFBC-4C8F-BA00-5A85203D9D3D}</ProjectGuid>

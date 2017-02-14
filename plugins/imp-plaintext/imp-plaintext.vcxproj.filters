@@ -88,6 +88,9 @@
     <ClInclude Include="..\..\..\..\intermediate\vocabularymaster\imp-plaintext\ui_plaintextimportwidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="lang\cs_CZ.ts">
@@ -107,5 +110,10 @@
     <CustomBuild Include="..\common\codecsmodel.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="imp-plaintext.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
