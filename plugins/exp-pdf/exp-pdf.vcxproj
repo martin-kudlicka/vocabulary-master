@@ -50,6 +50,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\intermediate\vocabularymaster\exp-pdf\ui_pdfexportwidget.h" />
     <ClInclude Include="..\common\translationhandler.h" />
+    <ClInclude Include="resource.h" />
     <CustomBuild Include="..\common\exp-interface.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing exp-interface.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\..\intermediate\vocabularymaster\exp-pdf\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
@@ -85,6 +86,9 @@
     <ProjectReference Include="..\..\3rdparty\libHaru\libhpdf.vcxproj">
       <Project>{5ac84d3e-3ebb-4bc0-9d59-481f3a909317}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="exp-pdf.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4190529F-E47A-458C-9259-3FBAA20381BD}</ProjectGuid>

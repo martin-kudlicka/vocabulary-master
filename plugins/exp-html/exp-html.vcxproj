@@ -81,6 +81,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\intermediate\vocabularymaster\exp-html\ui_htmlexportwidget.h" />
     <ClInclude Include="..\common\translationhandler.h" />
+    <ClInclude Include="resource.h" />
     <CustomBuild Include="..\common\exp-interface.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing exp-interface.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\..\intermediate\vocabularymaster\exp-html\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
@@ -101,6 +102,9 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="exp-html.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7E1B06B9-7D59-4F26-8BD5-8A66DBCB99D8}</ProjectGuid>

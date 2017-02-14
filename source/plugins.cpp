@@ -30,7 +30,7 @@ void Plugins::load()
 #ifdef _DEBUG
   const QDir pluginDir(QCoreApplication::applicationDirPath());
 #else
-  const QDir pluginsDir(QCoreApplication::applicationDirPath());
+  QDir pluginsDir(QCoreApplication::applicationDirPath());
   pluginsDir.cd(DIR_PLUGINS);
 
   for (const auto &pluginDir : pluginsDir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot))

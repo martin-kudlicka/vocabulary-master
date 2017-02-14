@@ -28,6 +28,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\common\licensecommon.h" />
     <ClInclude Include="..\common\tts-interface.h" />
+    <ClInclude Include="resource.h" />
     <CustomBuild Include="tts-openjtalk.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing tts-openjtalk.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\..\intermediate\vocabularymaster\tts-openjtalk\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
@@ -99,6 +100,9 @@
     <ProjectReference Include="..\..\3rdparty\Open JTalk\text2mecab.vcxproj">
       <Project>{29fb2828-2a74-4843-b31a-f7e3318d39bb}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="tts-openjtalk.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FDAF15A4-D6A7-45BE-97D7-639DEF84582B}</ProjectGuid>

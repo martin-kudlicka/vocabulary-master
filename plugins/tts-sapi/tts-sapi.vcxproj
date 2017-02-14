@@ -22,6 +22,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\common\licensecommon.h" />
     <ClInclude Include="..\common\tts-interface.h" />
+    <ClInclude Include="resource.h" />
     <CustomBuild Include="tts-sapi.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing tts-sapi.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\..\intermediate\vocabularymaster\tts-sapi\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
@@ -32,6 +33,9 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="tts-sapi.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{50D381F9-7A0C-4769-A830-8DC75BED7130}</ProjectGuid>

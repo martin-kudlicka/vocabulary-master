@@ -18,7 +18,7 @@ class VocabularyOpenProgressDialog : public QDialog
   private:
     Ui::VocabularyOpenProgressDialog _ui;
 
-    private Q_SLOTS:
+  private Q_SLOTS:
     void on_vocabulary_setOpenProgressValue(quintptr value)        const;
     void on_vocabulary_setOpenProgressMax  (quintptr max)          const;
     void on_vocabulary_setVocabularyName   (const QString &name)   const;
