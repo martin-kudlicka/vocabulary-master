@@ -795,7 +795,7 @@ void MainWindow::on_learningTimer_timeout()
     }
   }
 
-  if (_timeAnswer == 0 && _ui.actionStop->isEnabled())
+  if (_timeAnswer == 0 && _ui.actionAnswer->isEnabled())
   {
     showAnswer();
   }
