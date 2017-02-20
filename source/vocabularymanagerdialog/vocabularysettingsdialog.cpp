@@ -62,8 +62,8 @@ void VocabularySettingsDialog::fillOptions()
   // languages
   _ui.languageLeft->setText(_vocabulary->languageName(VocabularyDatabase::FieldLanguage::Left));
   _ui.languageRight->setText(_vocabulary->languageName(VocabularyDatabase::FieldLanguage::Right));
-  fillSpeech(_ui.speechLeft, QString::number(static_cast<quintptr>(_vocabulary->languageSpeech(VocabularyDatabase::FieldLanguage::Left))), _vocabulary->languageVoice(VocabularyDatabase::FieldLanguage::Left));
-  fillSpeech(_ui.speechRight, QString::number(static_cast<quintptr>(_vocabulary->languageSpeech(VocabularyDatabase::FieldLanguage::Right))), _vocabulary->languageVoice(VocabularyDatabase::FieldLanguage::Right));
+  fillSpeech(_ui.speechLeft, _vocabulary->languageSpeech(VocabularyDatabase::FieldLanguage::Left), _vocabulary->languageVoice(VocabularyDatabase::FieldLanguage::Left));
+  fillSpeech(_ui.speechRight, _vocabulary->languageSpeech(VocabularyDatabase::FieldLanguage::Right), _vocabulary->languageVoice(VocabularyDatabase::FieldLanguage::Right));
 
   // templates
   _ui.learningLeft->setPlainText(_vocabulary->languageLearningTemplate(VocabularyDatabase::FieldLanguage::Left));
@@ -72,10 +72,9 @@ void VocabularySettingsDialog::fillOptions()
   _ui.trayRight->setPlainText(_vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguage::Right));
 }
 
-void VocabularySettingsDialog::fillSpeech(QComboBox *comboBox, const QString &speech, const QString &voice)
+void VocabularySettingsDialog::fillSpeech(QComboBox *comboBox, TTSInterface::TTSPlugin speechPlugin, const QString &voice)
 {
-  const auto speechPlugin = static_cast<TTSInterface::TTSPlugin>(_vocabulary->settings(speech).toUInt());
-  const auto voiceId      = _vocabulary->settings(voice);
+  const auto voiceId = _vocabulary->settings(voice);
 
   for (auto voiceIndex = 0; voiceIndex < comboBox->count(); voiceIndex++)
   {

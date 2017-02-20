@@ -39,7 +39,7 @@ class VocabularySettingsDialog : public QDialog
             void actualizeFieldsEditor    ()             const;
             void actualizeFieldsEditor    (quintptr row) const;
             void fillOptions              ();
-            void fillSpeech               (QComboBox *comboBox, const QString &speech, const QString &voice);
+            void fillSpeech               (QComboBox *comboBox, TTSInterface::TTSPlugin speechPlugin, const QString &voice);
             void prepareFields            ();
             void preparePlugins           ();
             void prepareSpeechPlugins     (QComboBox *comboBox);
