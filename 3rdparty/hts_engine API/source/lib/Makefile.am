@@ -1,7 +1,7 @@
 
 EXTRA_DIST = Makefile.mak
 
-AM_CPPFLAGS = -I @top_srcdir@/include
+INCLUDES = -I$(top_srcdir)/include
 
 lib_LIBRARIES = libHTSEngine.a
 
