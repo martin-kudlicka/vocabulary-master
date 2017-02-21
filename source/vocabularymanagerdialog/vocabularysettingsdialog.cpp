@@ -72,10 +72,8 @@ void VocabularySettingsDialog::fillOptions()
   _ui.trayRight->setPlainText(_vocabulary->languageTrayTemplate(VocabularyDatabase::FieldLanguage::Right));
 }
 
-void VocabularySettingsDialog::fillSpeech(QComboBox *comboBox, TTSInterface::TTSPlugin speechPlugin, const QString &voice)
+void VocabularySettingsDialog::fillSpeech(QComboBox *comboBox, TTSInterface::TTSPlugin speechPlugin, const QString &voiceId)
 {
-  const auto voiceId = _vocabulary->settings(voice);
-
   for (auto voiceIndex = 0; voiceIndex < comboBox->count(); voiceIndex++)
   {
     const auto speechVoice = _voices.at(comboBox->itemData(voiceIndex).toUInt());
