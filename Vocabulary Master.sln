@@ -63,7 +63,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rsa", "1stparty\rsa\rsa.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RSA key generator", "1stparty\RSA key generator\RSA key generator.vcxproj", "{7341A11A-C697-4D27-A1D9-8F71EF9124B5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vocabulary Master", "source\Vocabulary Master.vcxproj", "{AE8D00E5-E6F2-41BC-AAE5-954585329B07}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vocabulary Master", "source\VocabularyMaster.vcxproj", "{AE8D00E5-E6F2-41BC-AAE5-954585329B07}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "exp-html", "plugins\exp-html\exp-html.vcxproj", "{7E1B06B9-7D59-4F26-8BD5-8A66DBCB99D8}"
 EndProject
