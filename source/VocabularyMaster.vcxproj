@@ -1157,7 +1157,7 @@
     <None Include="lang\cs_CZ.ts" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Vocabulary Master.rc" />
+    <ResourceCompile Include="VocabularyMaster.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
