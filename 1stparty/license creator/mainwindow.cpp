@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /*
   const auto presetDate = QDate::currentDate().addYears(1);
   _ui.validTo->setDate(presetDate);
 
-  on_generateUid_clicked();
+  _ui.generateUid->click();
 }
 
 MainWindow::~MainWindow()
