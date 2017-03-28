@@ -71,7 +71,7 @@ MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /*
   // learning
   if (_settings.startLearningOnStartup() && _vocabularyOrganizer.isOpen())
   {
-    on_actionStart_triggered();
+    _ui.actionStart->trigger();
   }
 
   // update check
@@ -537,7 +537,7 @@ bool MainWindow::nativeEvent(const QByteArray &eventType, void *message, long *r
       case Settings::Hotkey::Answer:
         if (_ui.actionAnswer->isEnabled())
         {
-          on_actionAnswer_triggered();
+          _ui.actionAnswer->trigger();
         }
         break;
       case Settings::Hotkey::Minimize:
@@ -546,7 +546,7 @@ bool MainWindow::nativeEvent(const QByteArray &eventType, void *message, long *r
       case Settings::Hotkey::Next:
         if (_ui.actionNext->isEnabled())
         {
-          on_actionNext_triggered();
+          _ui.actionNext->trigger();
         }
         break;
       case Settings::Hotkey::Restore:
@@ -671,7 +671,7 @@ void MainWindow::on_learningTimer_timeout()
 
     if (_vocabularyOrganizer.recordCount(true) == 0)
     {
-      on_actionStop_triggered();
+      _ui.actionStop->trigger();
     }
     else
     {
@@ -686,7 +686,7 @@ void MainWindow::on_learningTimer_timeout()
         _currentRecord = _vocabularyOrganizer.recordInfo(qrand() % _vocabularyOrganizer.recordCount());
         if (nextRecordTry == MAX_NEXTRECORD_TRIES)
         {
-          on_actionStop_triggered(false);
+          _ui.actionStop->trigger();
           return;
         }
         else
@@ -811,7 +811,7 @@ void MainWindow::on_menuTray_triggered(QAction *action)
 {
   if (action == _traySettings)
   {
-    on_actionSettings_triggered();
+    _ui.actionSettings->trigger();
   }
   else
   {
@@ -934,6 +934,6 @@ void MainWindow::on_vocabularyOrganizer_vocabularyClose(const QSharedPointer<Voc
 {
   if (_currentRecord.vocabulary == vocabulary)
   {
-    on_actionNext_triggered();
+    _ui.actionNext->trigger();
   }
 }

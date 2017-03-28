@@ -59,13 +59,13 @@ void SettingsDialog::fillOptions()
   _ui.alwaysOnTop->setChecked(_settings->alwaysOnTop());
   _ui.rememberWindowPosition->setChecked(_settings->rememberWindowPosition());
   _ui.systemTrayIcon->setChecked(_settings->systemTrayIcon());
-  on_systemTrayIcon_stateChanged(_ui.systemTrayIcon->checkState());
+  _ui.systemTrayIcon->setCheckState(_ui.systemTrayIcon->checkState());
   _ui.showWordsInTrayBalloon->setChecked(_settings->showWordsInTrayBalloon());
   _ui.minimizeToTray->setChecked(_settings->minimizeToTray());
   fillTranslation();
   _ui.updateCheck->setChecked(_settings->updateCheck());
   _ui.cacheVocabulary->setChecked(_settings->cacheVocabulary());
-  on_cacheVocabulary_stateChanged(_ui.cacheVocabulary->checkState());
+  _ui.cacheVocabulary->setCheckState(_ui.cacheVocabulary->checkState());
   _ui.recordsToCache->setValue(_settings->recordsToCache());
 
   // learning

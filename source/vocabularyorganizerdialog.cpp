@@ -53,7 +53,7 @@ void VocabularyOrganizerDialog::on_close_clicked(bool checked /* false */)
   _organizer->remove(index);
   _model.removeRow(index);
 
-  on_vocabulariesSelectionModel_selectionChanged(QItemSelection(), QItemSelection());
+  _ui.vocabularies->selectionModel()->select(QItemSelection(), QItemSelectionModel::Clear);
 }
 
 void VocabularyOrganizerDialog::on_new2_clicked(bool checked /* false */)
