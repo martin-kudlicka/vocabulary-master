@@ -32,7 +32,7 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
 {
   switch (index.column())
   {
-    case static_cast<int>(Column::VocabularyFile):
+    case Column::VocabularyFile:
       switch (role)
       {
         case Qt::DisplayRole:
@@ -43,7 +43,7 @@ QVariant VocabularyOrganizerModel::data(const QModelIndex &index, int role /* Qt
         default:
           return QVariant();
       }
-    case static_cast<int>(Column::Enabled):
+    case Column::Enabled:
       switch (role)
       {
         case Qt::CheckStateRole:
@@ -85,9 +85,9 @@ QVariant VocabularyOrganizerModel::headerData(int section, Qt::Orientation orien
     case Qt::DisplayRole:
       switch (section)
       {
-        case static_cast<int>(Column::VocabularyFile):
+        case Column::VocabularyFile:
           return tr("Vocabulary");
-        case static_cast<int>(Column::Enabled):
+        case Column::Enabled:
           return tr("Enabled");
       }
     default:
@@ -109,7 +109,7 @@ bool VocabularyOrganizerModel::setData(const QModelIndex &index, const QVariant 
 {
   switch (index.column())
   {
-    case static_cast<int>(Column::Enabled):
+    case Column::Enabled:
       _organizer->setVocabularyEnabled(index.row(), value.toBool(), _parent);
 
       emit dataChanged(index, index);

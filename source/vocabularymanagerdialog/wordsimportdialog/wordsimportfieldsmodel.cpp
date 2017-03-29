@@ -19,7 +19,7 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 {
   switch (index.column())
   {
-    case static_cast<int>(Column::Language):
+    case Column::Language:
       switch (role)
       {
         case Qt::DisplayRole:
@@ -31,7 +31,7 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
         default:
           return QVariant();
       }
-    case static_cast<int>(Column::Name):
+    case Column::Name:
       switch (role)
       {
         case Qt::DisplayRole:
@@ -42,7 +42,7 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
         default:
           return QVariant();
       }
-    case static_cast<int>(Column::Editor):
+    case Column::Editor:
     {
       const auto fieldId = _vocabulary->fieldId(index.row());
 
@@ -144,11 +144,11 @@ QVariant WordsImportFieldsModel::headerData(int section, Qt::Orientation orienta
     case Qt::DisplayRole:
       switch (section)
       {
-        case static_cast<int>(Column::Language):
+        case Column::Language:
           return tr("Language");
-        case static_cast<int>(Column::Name):
+        case Column::Name:
           return tr("Name");
-        case static_cast<int>(Column::Editor):
+        case Column::Editor:
           return tr("Pattern");
       }
     default:
