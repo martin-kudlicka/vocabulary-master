@@ -17,12 +17,11 @@ void HotkeyLineEdit::keyPressEvent(QKeyEvent *event)
   QString keySequence;
 
   // get shortcut
-  const auto keyEvent = static_cast<QKeyEvent *>(event);
-  if (keyEvent->modifiers() & Qt::ControlModifier)
+  if (event->modifiers() & Qt::ControlModifier)
   {
     keySequence = MODIFIER_CTRL;
   }
-  if (keyEvent->modifiers() & Qt::AltModifier)
+  if (event->modifiers() & Qt::AltModifier)
   {
     if (!keySequence.isEmpty())
     {
@@ -30,7 +29,7 @@ void HotkeyLineEdit::keyPressEvent(QKeyEvent *event)
     }
     keySequence += MODIFIER_ALT;
   }
-  if (keyEvent->modifiers() & Qt::ShiftModifier)
+  if (event->modifiers() & Qt::ShiftModifier)
   {
     if (!keySequence.isEmpty())
     {
@@ -43,11 +42,11 @@ void HotkeyLineEdit::keyPressEvent(QKeyEvent *event)
     keySequence += MODIFIER_SEPARATOR;
   }
 
-  if (QKeySequence(keyEvent->key()).toString().at(0) != QChar(0x17C0))
+  if (QKeySequence(event->key()).toString().at(0) != QChar(0x17C0))
   {
     // not only Ctrl, Alt or Shift keys pressed
-    keySequence += QKeySequence(keyEvent->key()).toString();
+    keySequence += QKeySequence(event->key()).toString();
     setText(keySequence);
-    setProperty(PROPERTY_VIRTUALKEY, keyEvent->nativeVirtualKey());
+    setProperty(PROPERTY_VIRTUALKEY, event->nativeVirtualKey());
   }
 }

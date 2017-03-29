@@ -48,18 +48,18 @@ QVariant WordsExportFieldsModel::data(const QModelIndex &index, int role /* Qt::
     case Qt::DisplayRole:
       switch (index.column())
       {
-        case static_cast<int>(Column::Language):
+        case Column::Language:
         {
           const auto languageFieldId = fieldId(index.row());
           const auto language        = _vocabulary->fieldLanguage(languageFieldId);
           return _vocabulary->languageName(language);
         }
-        case static_cast<int>(Column::Name):
+        case Column::Name:
         {
           const auto languageFieldId = fieldId(index.row());
           return _vocabulary->fieldName(languageFieldId);
         }
-        case static_cast<int>(Column::Mark):
+        case Column::Mark:
           const auto languageFieldId = fieldId(index.row());
           const auto templateText    = _vocabulary->fieldTemplateName(languageFieldId);
           return TEMPLATE_MARK.arg(templateText);
@@ -97,11 +97,11 @@ QVariant WordsExportFieldsModel::headerData(int section, Qt::Orientation orienta
     case Qt::DisplayRole:
       switch (section)
       {
-        case static_cast<int>(Column::Language):
+        case Column::Language:
           return tr("Language");
-        case static_cast<int>(Column::Name):
+        case Column::Name:
           return tr("Name");
-        case static_cast<int>(Column::Mark):
+        case Column::Mark:
           return tr("Mark");
       }
     default:
