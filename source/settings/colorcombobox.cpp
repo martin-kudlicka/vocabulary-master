@@ -9,10 +9,6 @@ ColorComboBox::ColorComboBox(QWidget *parent /* Q_NULLPTR */) : QComboBox(parent
 {
 }
 
-ColorComboBox::~ColorComboBox()
-{
-}
-
 void ColorComboBox::paintEvent(QPaintEvent * e)
 {
   QComboBox::paintEvent(e);

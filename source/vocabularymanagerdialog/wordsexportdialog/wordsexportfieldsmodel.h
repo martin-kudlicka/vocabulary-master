@@ -20,7 +20,7 @@ class WordsExportFieldsModel : public QAbstractItemModel
     };
 
              WordsExportFieldsModel(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent = Q_NULLPTR);
-    virtual ~WordsExportFieldsModel() Q_DECL_OVERRIDE;
+    virtual ~WordsExportFieldsModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual QModelIndex index   (int row, int column, const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
     virtual int         rowCount(const QModelIndex &parent = QModelIndex())                      const Q_DECL_OVERRIDE;

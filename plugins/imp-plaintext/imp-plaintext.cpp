@@ -7,10 +7,6 @@
 const auto    CACHED_NONE   = -2;
 const QString TEMPLATE_MARK = "${%1}";
 
-ImpPlaintext::~ImpPlaintext()
-{
-}
-
 void ImpPlaintext::close()
 {
   if (_plaintextFile.isOpen())

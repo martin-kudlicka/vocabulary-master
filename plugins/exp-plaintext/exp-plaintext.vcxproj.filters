@@ -67,9 +67,6 @@
     <ClCompile Include="..\common\codecsmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\common\exp-interface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\exp-plaintext\Debug\moc_codecsmodel.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>

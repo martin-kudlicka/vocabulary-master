@@ -14,7 +14,7 @@ class HotkeyLineEdit : public QLineEdit
     HotkeyLineEdit(QWidget *parent = Q_NULLPTR);
 
   private:
-    virtual ~HotkeyLineEdit() Q_DECL_OVERRIDE;
+    virtual ~HotkeyLineEdit() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
 };

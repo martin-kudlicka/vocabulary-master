@@ -11,10 +11,6 @@ WordsCopyMoveDialog::WordsCopyMoveDialog(quintptr categoryId, const RowNumList &
   connect(_ui.categories->selectionModel(), &QItemSelectionModel::selectionChanged, this, &WordsCopyMoveDialog::on_categoriesSelectionModel_selectionChanged);
 }
 
-WordsCopyMoveDialog::~WordsCopyMoveDialog()
-{
-}
-
 void WordsCopyMoveDialog::accept()
 {
   const auto index         = _ui.categories->currentIndex();

@@ -6,10 +6,6 @@
 
 Q_DECL_CONSTEXPR auto RECORD_NONE = -1;
 
-ExpPdf::~ExpPdf()
-{
-}
-
 void ExpPdf::addFont(HPDF_Doc pdfDocument, FontList *fontList, PdfExportWidget::FontRole fontRole, qintptr num /* PdfExportWidget::FONTROLE_NONE */) const
 {
   const auto fontRoleInfo = _widget->fontRoleInfo(fontRole, num);

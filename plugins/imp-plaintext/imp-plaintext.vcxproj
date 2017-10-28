@@ -30,7 +30,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\common\codecsmodel.cpp" />
-    <ClCompile Include="..\common\imp-interface.cpp" />
     <ClCompile Include="..\common\translationhandler.cpp" />
     <ClCompile Include="imp-plaintext.cpp" />
     <ClCompile Include="plaintextimportwidget.cpp" />

@@ -7,10 +7,6 @@ VocabularyModel::VocabularyModel(const QSharedPointer<Vocabulary> &vocabulary, q
 {
 }
 
-VocabularyModel::~VocabularyModel()
-{
-}
-
 void VocabularyModel::addRow()
 {
   beginInsertRows(QModelIndex(), rowCount(), rowCount());

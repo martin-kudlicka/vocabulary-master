@@ -19,7 +19,7 @@ class TTSOpenJTalk : public QObject, private TTSInterface
     NJD        _njd;
     JPCommon   _jpCommon;
 
-    virtual ~TTSOpenJTalk() Q_DECL_OVERRIDE;
+    virtual ~TTSOpenJTalk() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     QString fileInSubdir(const QString &file, const QString &dir) const;
     QString subdir      (const QString &dir)                      const;

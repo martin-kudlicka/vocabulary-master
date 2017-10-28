@@ -14,10 +14,6 @@ PlaintextImportWidget::PlaintextImportWidget(PlaintextFile *file, QWidget *paren
   _ui.linesPerRecord->setMaximum(lineCount());
 }
 
-PlaintextImportWidget::~PlaintextImportWidget()
-{
-}
-
 quintptr PlaintextImportWidget::lineCount() const
 {
   auto fileLines = 0;

@@ -8,10 +8,6 @@ HotkeyLineEdit::HotkeyLineEdit(QWidget *parent /* Q_NULLPTR */) : QLineEdit(pare
 {
 }
 
-HotkeyLineEdit::~HotkeyLineEdit()
-{
-}
-
 void HotkeyLineEdit::keyPressEvent(QKeyEvent *event)
 {
   QString keySequence;

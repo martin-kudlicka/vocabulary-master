@@ -16,7 +16,7 @@ class VocabularyView : public QTableView
           QModelIndex                _moveOld;
     const QSharedPointer<Vocabulary> _vocabulary;
 
-    virtual ~VocabularyView() Q_DECL_OVERRIDE;
+    virtual ~VocabularyView() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual bool eventFilter    (QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
     virtual void mouseMoveEvent (QMouseEvent *event)              Q_DECL_OVERRIDE;

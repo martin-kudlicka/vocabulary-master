@@ -4,10 +4,6 @@ PluginsModel::PluginsModel(const Plugins *plugins, PluginType type, QObject *par
 {
 }
 
-PluginsModel::~PluginsModel()
-{
-}
-
 QVariant PluginsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
   switch (role)

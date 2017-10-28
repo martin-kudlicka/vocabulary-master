@@ -16,7 +16,7 @@ class VocabularySettingsDialog : public QDialog
 
   public:
              VocabularySettingsDialog(const QSharedPointer<Vocabulary> &vocabulary, const Plugins *plugins, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
-    virtual ~VocabularySettingsDialog() Q_DECL_OVERRIDE;
+    virtual ~VocabularySettingsDialog() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:
     struct SpeechVoice

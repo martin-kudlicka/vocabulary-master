@@ -6,10 +6,6 @@ ExpPluginsModel::ExpPluginsModel(const Plugins::ExpPluginList *expPlugins, QObje
 {
 }
 
-ExpPluginsModel::~ExpPluginsModel()
-{
-}
-
 int ExpPluginsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
   return static_cast<int>(Column::Count);

@@ -5,10 +5,6 @@ FieldLineEdit::FieldLineEdit(QWidget *parent /* Q_NULLPTR */) : QLineEdit(parent
   connect(this, &FieldLineEdit::textEdited, this, &FieldLineEdit::on_textEdited);
 }
 
-FieldLineEdit::~FieldLineEdit()
-{
-}
-
 void FieldLineEdit::on_textEdited(const QString &text)
 {
   if (hasAcceptableInput())

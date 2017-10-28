@@ -11,7 +11,7 @@ class DecksModel : public QAbstractItemModel
 
   public:
              DecksModel(const QSqlDatabase *database, QObject *parent = Q_NULLPTR);
-    virtual ~DecksModel() Q_DECL_OVERRIDE;
+    virtual ~DecksModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     quintptr deckId(quintptr row) const;
 

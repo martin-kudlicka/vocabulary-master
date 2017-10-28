@@ -114,7 +114,7 @@ class PdfExportWidget : public QWidget
     QList<TableColumn>  _tableColumns;
     Ui::PdfExportWidget _ui;
 
-    virtual ~PdfExportWidget() Q_DECL_OVERRIDE;
+    virtual ~PdfExportWidget() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     void        addTableColumn   ();
     void        fillEncodings    (QComboBox *comboBox, const QString &font) const;

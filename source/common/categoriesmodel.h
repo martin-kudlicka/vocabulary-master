@@ -12,7 +12,7 @@ class CategoriesModel : public QAbstractItemModel
 
   public:
              CategoriesModel(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent = Q_NULLPTR);
-    virtual ~CategoriesModel() Q_DECL_OVERRIDE;
+    virtual ~CategoriesModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:
     enum class Column

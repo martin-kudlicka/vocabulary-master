@@ -49,7 +49,6 @@
     </ClCompile>
     <ClCompile Include="..\..\common\marklineedit.cpp" />
     <ClCompile Include="..\..\common\marklineeditpersistentdelegate.cpp" />
-    <ClCompile Include="..\common\imp-interface.cpp" />
     <ClCompile Include="..\common\translationhandler.cpp" />
     <ClCompile Include="ankiimportwidget.cpp" />
     <ClCompile Include="ankiimportwidget\decksmodel.cpp" />

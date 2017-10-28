@@ -28,7 +28,7 @@ class ImpAnki : public QObject, private ImpInterface
     AnkiImportWidget *_widget;
     QSqlDatabase      _database;
 
-    virtual ~ImpAnki() Q_DECL_OVERRIDE;
+    virtual ~ImpAnki() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual void        close      ()                                       Q_DECL_OVERRIDE;
     virtual QString     filter     () const                                 Q_DECL_OVERRIDE;

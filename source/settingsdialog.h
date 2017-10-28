@@ -19,7 +19,7 @@ class SettingsDialog : public QDialog
 #endif
 
              SettingsDialog(const Plugins *plugins, Settings *settings, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
-    virtual ~SettingsDialog() Q_DECL_OVERRIDE;
+    virtual ~SettingsDialog() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:
 #ifndef Q_OS_WIN

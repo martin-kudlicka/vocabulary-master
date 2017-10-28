@@ -6,10 +6,6 @@ CategoriesModel::CategoriesModel(const QSharedPointer<Vocabulary> &vocabulary, Q
 {
 }
 
-CategoriesModel::~CategoriesModel()
-{
-}
-
 int CategoriesModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
   return static_cast<int>(Column::Count);

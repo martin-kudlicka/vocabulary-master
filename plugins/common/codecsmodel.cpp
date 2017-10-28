@@ -6,10 +6,6 @@ CodecsModel::CodecsModel(QObject *pParent /* Q_NULLPTR */) : QAbstractItemModel(
 {
 }
 
-CodecsModel::~CodecsModel()
-{
-}
-
 QVariant CodecsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
   QVariant indexData;

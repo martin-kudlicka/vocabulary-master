@@ -18,10 +18,6 @@ VocabularyOrganizerDialog::VocabularyOrganizerDialog(VocabularyOrganizer *organi
   connect(_ui.vocabularies->selectionModel(), &QItemSelectionModel::selectionChanged, this, &VocabularyOrganizerDialog::on_vocabulariesSelectionModel_selectionChanged);
 }
 
-VocabularyOrganizerDialog::~VocabularyOrganizerDialog()
-{
-}
-
 void VocabularyOrganizerDialog::accept()
 {
   _organizer->saveAll();

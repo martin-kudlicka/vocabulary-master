@@ -11,10 +11,6 @@ ModelsModel::ModelsModel(const QSqlDatabase *database, QObject *parent /* Q_NULL
 {
 }
 
-ModelsModel::~ModelsModel()
-{
-}
-
 void ModelsModel::deckId(quintptr deckId)
 {
   _deckId = deckId;

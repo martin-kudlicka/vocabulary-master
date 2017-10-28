@@ -10,10 +10,6 @@ PriorityDelegate::PriorityDelegate(QObject *pParent /* Q_NULLPTR */) : QStyledIt
 {
 }
 
-PriorityDelegate::~PriorityDelegate()
-{
-}
-
 QWidget *PriorityDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
   auto editor = new QSpinBox(parent);

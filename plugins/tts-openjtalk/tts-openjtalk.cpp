@@ -49,10 +49,6 @@ const auto USE_LOG_GAIN    = FALSE;
 const auto UV_THRESHOLD    = 0.5;
 const auto VOICE_DIR       = "hts_voice_nitech_jp_atr503_m001";
 
-TTSOpenJTalk::~TTSOpenJTalk()
-{
-}
-
 QString TTSOpenJTalk::fileInSubdir(const QString &file, const QString &dir) const
 {
   return subdir(dir) + QDir::separator() + file;

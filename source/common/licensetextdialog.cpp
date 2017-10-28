@@ -14,10 +14,6 @@ LicenseTextDialog::LicenseTextDialog(const LicenseCommon::LicenseContentList &li
   showLicenses(licenses);
 }
 
-LicenseTextDialog::~LicenseTextDialog()
-{
-}
-
 void LicenseTextDialog::showLicenses(const LicenseCommon::LicenseContentList &licenses) const
 {
   auto tab = TAB_INVALID;

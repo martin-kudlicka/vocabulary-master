@@ -6,10 +6,6 @@ FieldsModel::FieldsModel(const QSharedPointer<Vocabulary> &vocabulary, QObject *
 {
 }
 
-FieldsModel::~FieldsModel()
-{
-}
-
 void FieldsModel::addRow()
 {
   beginInsertRows(QModelIndex(), rowCount(), rowCount());

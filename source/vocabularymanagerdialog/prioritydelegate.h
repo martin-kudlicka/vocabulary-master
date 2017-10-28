@@ -12,7 +12,7 @@ class PriorityDelegate : public QStyledItemDelegate
     PriorityDelegate(QObject *parent = Q_NULLPTR);
 
   private:
-    virtual ~PriorityDelegate() Q_DECL_OVERRIDE;
+    virtual ~PriorityDelegate() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual QWidget *createEditor (QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index)   const Q_DECL_OVERRIDE;
     virtual void     paint        (QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;

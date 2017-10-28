@@ -13,7 +13,7 @@ class WordsCopyMoveDialog : public QDialog
     using RowNumList = QList<quintptr>;
 
              WordsCopyMoveDialog(quintptr categoryId, const RowNumList &rowNums, const QSharedPointer<Vocabulary> &vocabulary, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
-    virtual ~WordsCopyMoveDialog() Q_DECL_OVERRIDE;
+    virtual ~WordsCopyMoveDialog() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:
           CategoriesModel            _categoriesModel;

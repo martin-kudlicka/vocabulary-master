@@ -117,10 +117,6 @@ PdfExportWidget::PdfExportWidget(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlag
   connect(_ui.templateFont, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &PdfExportWidget::on_font_currentIndexChanged);
 }
 
-PdfExportWidget::~PdfExportWidget()
-{
-}
-
 quintptr PdfExportWidget::border() const
 {
   return _ui.border->value();

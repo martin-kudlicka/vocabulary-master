@@ -14,7 +14,7 @@ class FieldIdentifierValidator : public QValidator
     const FieldsModel *_fieldsModel;
           quintptr     _row;
 
-    virtual ~FieldIdentifierValidator() Q_DECL_OVERRIDE;
+    virtual ~FieldIdentifierValidator() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual State validate(QString &input, int &pos) const Q_DECL_OVERRIDE;
 };

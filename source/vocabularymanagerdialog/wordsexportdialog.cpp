@@ -29,10 +29,6 @@ WordsExportDialog::WordsExportDialog(const QSharedPointer<Vocabulary> &vocabular
   _ui.categories->selectAll();
 }
 
-WordsExportDialog::~WordsExportDialog()
-{
-}
-
 void WordsExportDialog::on_exportButton_clicked(bool checked /* false */)
 {
   const auto index  = _ui.expPlugins->currentIndex();

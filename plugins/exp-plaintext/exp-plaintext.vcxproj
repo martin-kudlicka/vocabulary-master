@@ -48,7 +48,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\common\codecsmodel.cpp" />
-    <ClCompile Include="..\common\exp-interface.cpp" />
     <ClCompile Include="..\common\translationhandler.cpp" />
     <ClCompile Include="exp-plaintext.cpp" />
     <ClCompile Include="plaintextexportwidget.cpp" />

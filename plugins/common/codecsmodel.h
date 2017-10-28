@@ -15,7 +15,7 @@ class CodecsModel : public QAbstractItemModel
     };
 
              CodecsModel(QObject *parent = Q_NULLPTR);
-    virtual ~CodecsModel() Q_DECL_OVERRIDE;
+    virtual ~CodecsModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual QVariant    data    (const QModelIndex &index, int role = Qt::DisplayRole)           const Q_DECL_OVERRIDE;
     virtual QModelIndex index   (int row, int column, const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;

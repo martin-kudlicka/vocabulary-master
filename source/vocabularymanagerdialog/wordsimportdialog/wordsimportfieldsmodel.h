@@ -21,7 +21,7 @@ class WordsImportFieldsModel : public QAbstractItemModel
     };
 
              WordsImportFieldsModel(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent = Q_NULLPTR);
-    virtual ~WordsImportFieldsModel() Q_DECL_OVERRIDE;
+    virtual ~WordsImportFieldsModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual QVariant    data    (const QModelIndex &index, int role = Qt::DisplayRole)           const Q_DECL_OVERRIDE;
     virtual QModelIndex index   (int row, int column, const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
