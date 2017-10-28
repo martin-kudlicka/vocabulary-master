@@ -1,6 +1,6 @@
 #include "settingsdialog/pluginsmodel.h"
 
-PluginsModel::PluginsModel(const Plugins *plugins, PluginType type, QObject *parent /* Q_NULLPTR */) : QAbstractItemModel(parent), _plugins(plugins), _type(type)
+PluginsModel::PluginsModel(const Plugins *plugins, PluginType type) : _plugins(plugins), _type(type)
 {
 }
 

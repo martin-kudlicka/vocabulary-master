@@ -5,7 +5,7 @@
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QLineEdit>
 
-WordsImportEditorDelegate::WordsImportEditorDelegate(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent /* Q_NULLPTR */) : QStyledItemDelegate(parent), _vocabulary(vocabulary)
+WordsImportEditorDelegate::WordsImportEditorDelegate(const QSharedPointer<Vocabulary> &vocabulary) : _vocabulary(vocabulary)
 {
 }
 

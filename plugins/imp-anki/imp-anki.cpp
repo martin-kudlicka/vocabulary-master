@@ -12,7 +12,7 @@ const QString COLUMN_ID           = "id";
 const QString COLUMN_VALUE        = "value";
 const QString TABLE_FIELDS        = "fields";
 
-ImpAnki::ImpAnki() : ImpInterface(), _database(QSqlDatabase::addDatabase("QSQLITE", "Anki"))
+ImpAnki::ImpAnki() : _database(QSqlDatabase::addDatabase("QSQLITE", "Anki"))
 {
 }
 

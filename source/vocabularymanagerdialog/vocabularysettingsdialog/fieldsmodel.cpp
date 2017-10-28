@@ -2,7 +2,7 @@
 
 #include "vocabulary.h"
 
-FieldsModel::FieldsModel(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent /* Q_NULLPTR */) : QAbstractItemModel(parent), _vocabulary(vocabulary)
+FieldsModel::FieldsModel(const QSharedPointer<Vocabulary> &vocabulary) : _vocabulary(vocabulary)
 {
 }
 

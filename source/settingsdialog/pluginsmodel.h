@@ -22,7 +22,7 @@ class PluginsModel : public QAbstractItemModel
       TTS
     };
 
-             PluginsModel(const Plugins *plugins, PluginType type, QObject *parent = Q_NULLPTR);
+             PluginsModel(const Plugins *plugins, PluginType type);
     virtual ~PluginsModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual QVariant    data    (const QModelIndex &index, int role = Qt::DisplayRole)           const Q_DECL_OVERRIDE;

@@ -17,7 +17,7 @@ class FieldsModel : public QAbstractItemModel
       Count
     };
 
-             FieldsModel(const QSqlDatabase *database, QObject *parent = Q_NULLPTR);
+             FieldsModel(const QSqlDatabase *database);
     virtual ~FieldsModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     qlonglong fieldId   (quintptr row) const;

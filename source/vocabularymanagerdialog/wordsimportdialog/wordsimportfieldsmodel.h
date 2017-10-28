@@ -20,7 +20,7 @@ class WordsImportFieldsModel : public QAbstractItemModel
       Count
     };
 
-             WordsImportFieldsModel(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent = Q_NULLPTR);
+             WordsImportFieldsModel(const QSharedPointer<Vocabulary> &vocabulary);
     virtual ~WordsImportFieldsModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual QVariant    data    (const QModelIndex &index, int role = Qt::DisplayRole)           const Q_DECL_OVERRIDE;

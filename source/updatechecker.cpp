@@ -3,7 +3,7 @@
 #include "settings.h"
 #include <QtCore/QCoreApplication>
 
-UpdateChecker::UpdateChecker(const Settings *settings, QObject *parent /* Q_NULLPTR */) : QObject(parent), _settings(settings), _lastReply(Q_NULLPTR)
+UpdateChecker::UpdateChecker(const Settings *settings) : _settings(settings), _lastReply(Q_NULLPTR)
 {
   _currentVersion = QVersionNumber::fromString(QCoreApplication::applicationVersion());
 

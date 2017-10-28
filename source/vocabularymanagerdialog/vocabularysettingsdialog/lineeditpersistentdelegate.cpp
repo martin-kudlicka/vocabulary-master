@@ -4,10 +4,6 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate/fieldidentifiervalidator.h"
 #include "vocabularymanagerdialog/vocabularysettingsdialog/fieldsmodel.h"
 
-LineEditPersistentDelegate::LineEditPersistentDelegate(QObject *parent /* Q_NULLPTR */) : QStyledItemDelegate(parent)
-{
-}
-
 QWidget *LineEditPersistentDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
   auto fieldLineEditor = new FieldLineEdit(parent);

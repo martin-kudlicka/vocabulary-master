@@ -11,7 +11,7 @@ class CategoriesModel : public QAbstractItemModel
   Q_OBJECT
 
   public:
-             CategoriesModel(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent = Q_NULLPTR);
+             CategoriesModel(const QSharedPointer<Vocabulary> &vocabulary);
     virtual ~CategoriesModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:

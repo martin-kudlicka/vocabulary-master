@@ -5,7 +5,7 @@
 const QString COLUMN_ID   = "id";
 const auto    TABLE_DECKS = "decks";
 
-DecksModel::DecksModel(const QSqlDatabase *database, QObject *parent /* Q_NULLPTR */) : QAbstractItemModel(parent), _database(database)
+DecksModel::DecksModel(const QSqlDatabase *database) : _database(database)
 {
 }
 
