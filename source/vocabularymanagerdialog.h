@@ -13,7 +13,7 @@ class VocabularyManagerDialog : public QDialog
   Q_OBJECT
 
   public:
-             VocabularyManagerDialog(const QSharedPointer<Vocabulary> &vocabulary, const Settings *settings, const Plugins *plugins, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+             VocabularyManagerDialog(const QSharedPointer<Vocabulary> &vocabulary, const Settings *settings, const Plugins *plugins, QWidget *parent);
     virtual ~VocabularyManagerDialog() Q_DECL_OVERRIDE;
 
     void execOnRecord(quintptr recordId);

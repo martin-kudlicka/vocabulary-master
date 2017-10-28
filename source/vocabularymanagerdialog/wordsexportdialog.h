@@ -14,7 +14,7 @@ class WordsExportDialog : public QDialog
   Q_OBJECT
 
   public:
-             WordsExportDialog(const QSharedPointer<Vocabulary> &vocabulary, const Plugins::ExpPluginList &expPlugins, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+             WordsExportDialog(const QSharedPointer<Vocabulary> &vocabulary, const Plugins::ExpPluginList &expPlugins, QWidget *parent);
     virtual ~WordsExportDialog() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:

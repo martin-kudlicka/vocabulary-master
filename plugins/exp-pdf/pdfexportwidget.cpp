@@ -91,7 +91,7 @@ PdfExportWidget::PageSize PAGE_SIZES[] = { { "Letter",    HPDF_PAGE_SIZE_LETTER 
                                            { "US 5x7",    HPDF_PAGE_SIZE_US5x7 },
                                            { "Comm 10",   HPDF_PAGE_SIZE_COMM10 } };
 
-PdfExportWidget::PdfExportWidget(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QWidget(parent, flags)
+PdfExportWidget::PdfExportWidget(QWidget *parent) : QWidget(parent)
 {
   _ui.setupUi(this);
 

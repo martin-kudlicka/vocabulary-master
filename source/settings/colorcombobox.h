@@ -6,7 +6,7 @@
 class ColorComboBox : public QComboBox
 {
   public:
-    ColorComboBox(QWidget *parent = Q_NULLPTR);
+    ColorComboBox(QWidget *parent);
 
   private:
     virtual ~ColorComboBox() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;

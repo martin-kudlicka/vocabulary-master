@@ -4,7 +4,7 @@
 
 const auto BORDER_WIDTH = 2;
 
-ColorDelegate::ColorDelegate(QObject *parent /* Q_NULLPTR */) : QStyledItemDelegate(parent)
+ColorDelegate::ColorDelegate(QObject *parent) : QStyledItemDelegate(parent)
 {
 }
 

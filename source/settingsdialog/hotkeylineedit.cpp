@@ -4,7 +4,7 @@
 
 const auto MODIFIER_SEPARATOR = '+';
 
-HotkeyLineEdit::HotkeyLineEdit(QWidget *parent /* Q_NULLPTR */) : QLineEdit(parent)
+HotkeyLineEdit::HotkeyLineEdit(QWidget *parent) : QLineEdit(parent)
 {
 }
 

@@ -13,7 +13,7 @@ class AnkiImportWidget : public QWidget
   Q_OBJECT
 
   public:
-    AnkiImportWidget(const QSqlDatabase *database, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+    AnkiImportWidget(const QSqlDatabase *database, QWidget *parent);
 
     qlonglong   fieldId(quintptr position) const;
     QStringList marks  ()                  const;

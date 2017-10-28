@@ -2,7 +2,7 @@
 
 #include "vocabularymanagerdialog/vocabularysettingsdialog/fieldsmodel.h"
 
-FieldIdentifierValidator::FieldIdentifierValidator(quintptr row, const FieldsModel *model, QObject *parent /* Q_NULLPTR */) : QValidator(parent), _fieldsModel(model), _row(row)
+FieldIdentifierValidator::FieldIdentifierValidator(quintptr row, const FieldsModel *model, QObject *parent) : QValidator(parent), _fieldsModel(model), _row(row)
 {
 }
 

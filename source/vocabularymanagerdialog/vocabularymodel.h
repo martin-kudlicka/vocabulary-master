@@ -11,7 +11,7 @@ class VocabularyModel : public QAbstractTableModel
   Q_OBJECT
 
   public:
-    VocabularyModel(const QSharedPointer<Vocabulary> &vocabulary, quintptr categoryId, QObject *parent = Q_NULLPTR);
+    VocabularyModel(const QSharedPointer<Vocabulary> &vocabulary, quintptr categoryId, QObject *parent);
 
             void addRow     ();
     virtual int  columnCount(const QModelIndex &parent = QModelIndex()) const                          Q_DECL_OVERRIDE;

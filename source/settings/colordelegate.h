@@ -6,7 +6,7 @@
 class ColorDelegate : public QStyledItemDelegate
 {
   public:
-    ColorDelegate(QObject *parent = Q_NULLPTR);
+    ColorDelegate(QObject *parent);
 
   private:
     virtual ~ColorDelegate() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;

@@ -10,7 +10,7 @@ class VocabularyOrganizerDialog : public QDialog
   Q_OBJECT
 
   public:
-             VocabularyOrganizerDialog(VocabularyOrganizer *organizer, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+             VocabularyOrganizerDialog(VocabularyOrganizer *organizer, QWidget *parent);
     virtual ~VocabularyOrganizerDialog() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:

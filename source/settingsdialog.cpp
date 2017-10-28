@@ -5,7 +5,7 @@
 #include "common/licensetextdialog.h"
 #include <QtWidgets/QFileDialog>
 
-SettingsDialog::SettingsDialog(const Plugins *plugins, Settings *settings, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _plugins(plugins), _expPluginsModel(plugins, PluginsModel::PluginType::Exp), _impPluginsModel(plugins, PluginsModel::PluginType::Imp), _ttsPluginsModel(plugins, PluginsModel::PluginType::TTS), _settings(settings)
+SettingsDialog::SettingsDialog(const Plugins *plugins, Settings *settings, QWidget *parent) : QDialog(parent), _plugins(plugins), _expPluginsModel(plugins, PluginsModel::PluginType::Exp), _impPluginsModel(plugins, PluginsModel::PluginType::Imp), _ttsPluginsModel(plugins, PluginsModel::PluginType::TTS), _settings(settings)
 {
   _ui.setupUi(this);
 
