@@ -12,10 +12,6 @@ MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /*
   _ui.setupUi(this);
 }
 
-MainWindow::~MainWindow()
-{
-}
-
 void MainWindow::on_browsePrivate_clicked(bool checked /* false */)
 {
   const auto fileName = QFileDialog::getSaveFileName(this, tr("Private key file"), QString(), tr("private key (*.der)"));

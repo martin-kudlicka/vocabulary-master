@@ -18,10 +18,6 @@ MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /*
   _ui.generateUid->click();
 }
 
-MainWindow::~MainWindow()
-{
-}
-
 void MainWindow::writeLicense()
 {
   _xmlStreamWriter.writeStartElement("License");
