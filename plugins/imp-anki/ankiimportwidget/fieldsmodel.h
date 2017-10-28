@@ -18,7 +18,7 @@ class FieldsModel : public QAbstractItemModel
     };
 
              FieldsModel(const QSqlDatabase *database, QObject *parent = Q_NULLPTR);
-    virtual ~FieldsModel() Q_DECL_OVERRIDE;
+    virtual ~FieldsModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     qlonglong fieldId   (quintptr row) const;
     void      setModelId(qlonglong pModelId);

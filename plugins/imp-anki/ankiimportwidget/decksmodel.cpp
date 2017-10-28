@@ -9,10 +9,6 @@ DecksModel::DecksModel(const QSqlDatabase *database, QObject *parent /* Q_NULLPT
 {
 }
 
-DecksModel::~DecksModel()
-{
-}
-
 quintptr DecksModel::deckId(quintptr row) const
 {
   auto query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_DECKS);

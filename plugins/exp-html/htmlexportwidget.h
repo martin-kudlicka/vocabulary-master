@@ -41,7 +41,7 @@ class HtmlExportWidget : public QWidget
     QList<TableColumn>   _tableColumns;
     Ui::HtmlExportWidget _ui;
 
-    virtual ~HtmlExportWidget() Q_DECL_OVERRIDE;
+    virtual ~HtmlExportWidget() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     void addTableColumn   ();
     void initTableColumns ();

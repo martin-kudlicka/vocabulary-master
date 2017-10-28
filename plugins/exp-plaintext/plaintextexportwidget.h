@@ -21,7 +21,7 @@ class PlaintextExportWidget : public QWidget
     CodecsModel               _codecsModel;
     Ui::PlaintextExportWidget _ui;
 
-    virtual ~PlaintextExportWidget() Q_DECL_OVERRIDE;
+    virtual ~PlaintextExportWidget() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     void preselectCodec(const QString &pCodec) const;
 

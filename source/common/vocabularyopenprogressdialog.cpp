@@ -12,10 +12,6 @@ VocabularyOpenProgressDialog::VocabularyOpenProgressDialog(const Vocabulary *voc
   connect(vocabulary, &Vocabulary::setVocabularyName,    this, &VocabularyOpenProgressDialog::on_vocabulary_setVocabularyName);
 }
 
-VocabularyOpenProgressDialog::~VocabularyOpenProgressDialog()
-{
-}
-
 void VocabularyOpenProgressDialog::on_vocabulary_setOpenProgressValue(quintptr value) const
 {
   _ui.progress->setValue(value);

@@ -6,10 +6,6 @@ VocabularyOrganizer::VocabularyOrganizer(Settings *settings) : _settings(setting
 {
 }
 
-VocabularyOrganizer::~VocabularyOrganizer()
-{
-}
-
 void VocabularyOrganizer::addExisting(VocabularyInfo *vocabularyInfo, QWidget *parent)
 {
   vocabularyInfo->vocabulary.reset(new Vocabulary(_settings));

@@ -13,10 +13,6 @@ FieldsModel::FieldsModel(const QSqlDatabase *database, QObject *parent /* Q_NULL
 {
 }
 
-FieldsModel::~FieldsModel()
-{
-}
-
 qlonglong FieldsModel::fieldId(quintptr row) const
 {
   auto query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDMODELS + " WHERE " + COLUMN_MODELID + " = " + QString::number(_modelId) + " ORDER BY " + COLUMN_ORDINAL);

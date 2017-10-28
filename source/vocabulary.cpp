@@ -8,10 +8,6 @@ Vocabulary::Vocabulary(const Settings *settings) : _cacheEnabled(false), _record
 {
 }
 
-Vocabulary::~Vocabulary()
-{
-}
-
 quintptr Vocabulary::addCategory(const QString &name)
 {
   const auto categoryId = VocabularyDatabase::addCategory(name);

@@ -53,9 +53,6 @@
     <ClCompile Include="..\common\translationhandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\common\imp-interface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-plaintext\Debug\moc_plaintextimportwidget.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>

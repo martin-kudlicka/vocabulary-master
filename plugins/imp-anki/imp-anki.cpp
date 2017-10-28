@@ -16,10 +16,6 @@ ImpAnki::ImpAnki() : ImpInterface(), _database(QSqlDatabase::addDatabase("QSQLIT
 {
 }
 
-ImpAnki::~ImpAnki()
-{
-}
-
 void ImpAnki::close()
 {
   if (_database.isOpen())

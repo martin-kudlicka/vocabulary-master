@@ -17,10 +17,6 @@ AnkiImportWidget::AnkiImportWidget(const QSqlDatabase *database, QWidget *parent
   prepareTreeView(_ui.fields, &_fieldsModel);
 }
 
-AnkiImportWidget::~AnkiImportWidget()
-{
-}
-
 qlonglong AnkiImportWidget::fieldId(quintptr position) const
 {
   return _fieldsModel.fieldId(position);

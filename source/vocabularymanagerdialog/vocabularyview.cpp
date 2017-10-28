@@ -11,10 +11,6 @@ VocabularyView::VocabularyView(const QSharedPointer<Vocabulary> &vocabulary, QWi
   viewport()->installEventFilter(this);
 }
 
-VocabularyView::~VocabularyView()
-{
-}
-
 bool VocabularyView::eventFilter(QObject *watched, QEvent *event)
 {
   if (watched == viewport() && event->type() == QEvent::Leave)

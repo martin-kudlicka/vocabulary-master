@@ -23,7 +23,7 @@ class PlaintextImportWidget : public QWidget
     PlaintextFile            *_file;
     Ui::PlaintextImportWidget _ui;
 
-    virtual ~PlaintextImportWidget() Q_DECL_OVERRIDE;
+    virtual ~PlaintextImportWidget() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     void preselectCodec() const;
     void refreshPreview() const;

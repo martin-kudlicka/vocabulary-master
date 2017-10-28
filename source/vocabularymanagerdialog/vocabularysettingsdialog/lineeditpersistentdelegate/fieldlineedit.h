@@ -13,7 +13,7 @@ class FieldLineEdit : public QLineEdit
   private:
     QString _defaultSheet;
 
-    virtual ~FieldLineEdit() Q_DECL_OVERRIDE;
+    virtual ~FieldLineEdit() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
 

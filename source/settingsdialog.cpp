@@ -20,10 +20,6 @@ SettingsDialog::SettingsDialog(const Plugins *plugins, Settings *settings, QWidg
   fillOptions();
 }
 
-SettingsDialog::~SettingsDialog()
-{
-}
-
 #ifdef Q_OS_WIN
 void SettingsDialog::clearHotkey(HotkeyLineEdit *control) const
 {

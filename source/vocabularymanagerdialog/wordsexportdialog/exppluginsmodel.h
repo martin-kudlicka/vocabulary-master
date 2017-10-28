@@ -10,7 +10,7 @@ class ExpPluginsModel : public QAbstractItemModel
 
   public:
              ExpPluginsModel(const Plugins::ExpPluginList *expPlugins, QObject *parent = Q_NULLPTR);
-    virtual ~ExpPluginsModel() Q_DECL_OVERRIDE;
+    virtual ~ExpPluginsModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:
     enum class Column

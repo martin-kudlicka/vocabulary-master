@@ -14,7 +14,7 @@ class MarkLineEdit : public QLineEdit
   private:
     bool _focusedIn;
 
-    virtual ~MarkLineEdit() Q_DECL_OVERRIDE;
+    virtual ~MarkLineEdit() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     void initialize();
 

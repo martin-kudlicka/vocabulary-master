@@ -3,7 +3,7 @@
 
 #include "translationhandler.h"
 
-#define IID_EXPINTERFACE "cz.martinkudlicka.VocabularyMaster.ExpInterface"
+#define IID_EXPINTERFACE "cz.martink.VocabularyMaster.ExpInterface"
 
 class ExpInterface : public QObject, public TranslationHandler
 {
@@ -20,7 +20,7 @@ class ExpInterface : public QObject, public TranslationHandler
     virtual void    setupUi    (QWidget *parent) = 0;
 
   protected:
-    virtual ~ExpInterface() Q_DECL_OVERRIDE;
+    virtual ~ExpInterface() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   Q_SIGNALS:
     void progressExportSetMax     (quintptr max)                                               const;

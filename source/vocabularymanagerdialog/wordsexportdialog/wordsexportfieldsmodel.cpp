@@ -8,10 +8,6 @@ WordsExportFieldsModel::WordsExportFieldsModel(const QSharedPointer<Vocabulary> 
 {
 }
 
-WordsExportFieldsModel::~WordsExportFieldsModel()
-{
-}
-
 QModelIndex WordsExportFieldsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
   return createIndex(row, column);

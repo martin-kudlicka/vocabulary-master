@@ -6,7 +6,7 @@
 
 class QGroupBox;
 
-#define IID_IMPINTERFACE "cz.martinkudlicka.VocabularyMaster.ImpInterface"
+#define IID_IMPINTERFACE "cz.martink.VocabularyMaster.ImpInterface"
 
 class ImpInterface : public TranslationHandler
 {
@@ -22,7 +22,7 @@ class ImpInterface : public TranslationHandler
     virtual void        setupUI    (QGroupBox *parent)                      = 0;
 
   protected:
-    virtual ~ImpInterface();
+    virtual ~ImpInterface() Q_DECL_EQ_DEFAULT;
 };
 
 Q_DECLARE_INTERFACE(ImpInterface, IID_IMPINTERFACE);

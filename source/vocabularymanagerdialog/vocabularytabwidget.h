@@ -21,7 +21,7 @@ class VocabularyTabWidget : public QTabWidget
     bool _showEnabled;
     bool _showPriorities;
 
-    virtual ~VocabularyTabWidget() Q_DECL_OVERRIDE;
+    virtual ~VocabularyTabWidget() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   Q_SIGNALS:
     void tabEnableChanged  (quintptr index, Qt::CheckState state) const;

@@ -12,7 +12,7 @@ class ClearCacheWorker : public QThread
   private:
     VocabularyDatabase::RecordDataHash *_recordData;
 
-    virtual ~ClearCacheWorker() Q_DECL_OVERRIDE;
+    virtual ~ClearCacheWorker() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual void run() Q_DECL_OVERRIDE;
 };

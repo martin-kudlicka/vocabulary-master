@@ -62,9 +62,6 @@
     <ClCompile Include="..\..\common\marklineedit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\common\imp-interface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\intermediate\vocabularymaster\imp-anki\Debug\moc_modelsmodel.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>

@@ -9,10 +9,6 @@ WordsImportEditorDelegate::WordsImportEditorDelegate(const QSharedPointer<Vocabu
 {
 }
 
-WordsImportEditorDelegate::~WordsImportEditorDelegate()
-{
-}
-
 QWidget *WordsImportEditorDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
   const auto fieldId = _vocabulary->fieldId(index.row());

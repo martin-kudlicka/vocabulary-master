@@ -11,7 +11,7 @@ class ModelsModel : public QAbstractItemModel
 
   public:
              ModelsModel(const QSqlDatabase *database, QObject *parent = Q_NULLPTR);
-    virtual ~ModelsModel() Q_DECL_OVERRIDE;
+    virtual ~ModelsModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     void      deckId (quintptr deckId);
     qlonglong modelId(quintptr row) const;

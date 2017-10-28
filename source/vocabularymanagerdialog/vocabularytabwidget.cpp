@@ -11,10 +11,6 @@ VocabularyTabWidget::VocabularyTabWidget(QWidget *pParent /* Q_NULLPTR */) : QTa
 {
 }
 
-VocabularyTabWidget::~VocabularyTabWidget()
-{
-}
-
 quintptr VocabularyTabWidget::addTab(QWidget *page, const QString &label, bool enabled, quintptr priority)
 {
   const auto tab = QTabWidget::addTab(page, label);

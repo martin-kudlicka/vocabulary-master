@@ -14,7 +14,7 @@ class ExpPlaintext : public ExpInterface
   private:
     PlaintextExportWidget *_widget;
 
-    virtual ~ExpPlaintext() Q_DECL_OVERRIDE;
+    virtual ~ExpPlaintext() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual void    beginExport() const          Q_DECL_OVERRIDE;
     virtual QString pluginName () const          Q_DECL_OVERRIDE;

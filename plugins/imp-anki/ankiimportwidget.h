@@ -26,7 +26,7 @@ class AnkiImportWidget : public QWidget
     const QSqlDatabase                  *_database;
           Ui::AnkiImportWidget           _ui;
 
-    virtual ~AnkiImportWidget() Q_DECL_OVERRIDE;
+    virtual ~AnkiImportWidget() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     void prepareTreeView(QTreeView *treeView, QAbstractItemModel *itemModel);
 

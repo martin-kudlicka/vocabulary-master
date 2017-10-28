@@ -9,7 +9,7 @@ class ColorComboBox : public QComboBox
     ColorComboBox(QWidget *parent = Q_NULLPTR);
 
   private:
-    virtual ~ColorComboBox() Q_DECL_OVERRIDE;
+    virtual ~ColorComboBox() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual void paintEvent(QPaintEvent * e) Q_DECL_OVERRIDE;
 };

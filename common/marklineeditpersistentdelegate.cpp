@@ -6,10 +6,6 @@ MarkLineEditPersistentDelegate::MarkLineEditPersistentDelegate(QObject *pParent 
 {
 }
 
-MarkLineEditPersistentDelegate::~MarkLineEditPersistentDelegate()
-{
-}
-
 QWidget *MarkLineEditPersistentDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
   return new MarkLineEdit(parent);

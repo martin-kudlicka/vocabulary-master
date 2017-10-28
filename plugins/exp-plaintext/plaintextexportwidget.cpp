@@ -10,10 +10,6 @@ PlaintextExportWidget::PlaintextExportWidget(QWidget *parent /* Q_NULLPTR */, Qt
   preselectCodec("UTF-8");
 }
 
-PlaintextExportWidget::~PlaintextExportWidget()
-{
-}
-
 QString PlaintextExportWidget::codec() const
 {
   const auto modelIndex = _ui.codecs->currentIndex();

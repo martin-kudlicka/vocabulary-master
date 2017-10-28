@@ -9,7 +9,7 @@ class Vocabulary : public VocabularyDatabase
 {
   public:
              Vocabulary(const Settings *settings);
-    virtual ~Vocabulary() Q_DECL_OVERRIDE;
+    virtual ~Vocabulary() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     quintptr        addCategory           (const QString &name);
     void            addField              ();

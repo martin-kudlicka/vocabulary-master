@@ -12,10 +12,6 @@ VocabularySettingsDialog::VocabularySettingsDialog(const QSharedPointer<Vocabula
   fillOptions();
 }
 
-VocabularySettingsDialog::~VocabularySettingsDialog()
-{
-}
-
 void VocabularySettingsDialog::accept()
 {
   saveOptions();

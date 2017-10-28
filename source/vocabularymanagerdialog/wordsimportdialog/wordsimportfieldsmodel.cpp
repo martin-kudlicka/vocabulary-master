@@ -11,10 +11,6 @@ WordsImportFieldsModel::WordsImportFieldsModel(const QSharedPointer<Vocabulary> 
   }
 }
 
-WordsImportFieldsModel::~WordsImportFieldsModel()
-{
-}
-
 QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole */) const
 {
   switch (index.column())

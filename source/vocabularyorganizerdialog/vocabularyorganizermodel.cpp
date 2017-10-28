@@ -7,10 +7,6 @@ VocabularyOrganizerModel::VocabularyOrganizerModel(VocabularyOrganizer *organize
 {
 }
 
-VocabularyOrganizerModel::~VocabularyOrganizerModel()
-{
-}
-
 void VocabularyOrganizerModel::addRow()
 {
   beginInsertRows(QModelIndex(), rowCount(), rowCount());

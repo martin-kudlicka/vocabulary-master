@@ -18,7 +18,7 @@ class VocabularyOrganizerModel : public QAbstractTableModel
     };
 
              VocabularyOrganizerModel(VocabularyOrganizer *organizer, QWidget *parent);
-    virtual ~VocabularyOrganizerModel() Q_DECL_OVERRIDE;
+    virtual ~VocabularyOrganizerModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     void addRow   ();
     void removeRow(quintptr row);

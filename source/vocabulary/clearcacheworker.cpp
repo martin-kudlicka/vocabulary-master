@@ -5,10 +5,6 @@ ClearCacheWorker::ClearCacheWorker(VocabularyDatabase::RecordDataHash *recordDat
   connect(this, &ClearCacheWorker::finished, this, &ClearCacheWorker::deleteLater);
 }
 
-ClearCacheWorker::~ClearCacheWorker()
-{
-}
-
 void ClearCacheWorker::run()
 {
   _recordData->clear();

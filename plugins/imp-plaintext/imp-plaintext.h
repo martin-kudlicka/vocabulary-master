@@ -18,7 +18,7 @@ class ImpPlaintext : public QObject, private ImpInterface
     PlaintextImportWidget *_widget;
     QStringList            _cachedCapture;
 
-    virtual ~ImpPlaintext() Q_DECL_OVERRIDE;
+    virtual ~ImpPlaintext() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual void        close      ()                                     Q_DECL_OVERRIDE;
     virtual QString     filter     () const                               Q_DECL_OVERRIDE;

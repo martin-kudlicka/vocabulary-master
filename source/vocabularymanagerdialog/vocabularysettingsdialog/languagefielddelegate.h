@@ -9,7 +9,7 @@ class LanguageFieldDelegate : public QStyledItemDelegate
 {
   public:
              LanguageFieldDelegate(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent = Q_NULLPTR);
-    virtual ~LanguageFieldDelegate() Q_DECL_OVERRIDE;
+    virtual ~LanguageFieldDelegate() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:
     const QSharedPointer<Vocabulary> _vocabulary;

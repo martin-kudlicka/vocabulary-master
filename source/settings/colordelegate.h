@@ -9,7 +9,7 @@ class ColorDelegate : public QStyledItemDelegate
     ColorDelegate(QObject *parent = Q_NULLPTR);
 
   private:
-    virtual ~ColorDelegate() Q_DECL_OVERRIDE;
+    virtual ~ColorDelegate() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
 };

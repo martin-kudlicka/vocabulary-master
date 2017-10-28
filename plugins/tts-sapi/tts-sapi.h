@@ -10,7 +10,7 @@ class TTSSAPI : public QObject, private TTSInterface
   Q_INTERFACES(TTSInterface)
 
   private:
-    virtual ~TTSSAPI() Q_DECL_OVERRIDE;
+    virtual ~TTSSAPI() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual void                              initialize  ()                                          Q_DECL_OVERRIDE;
     virtual LicenseCommon::LicenseContentList licenseText () const                                    Q_DECL_OVERRIDE;

@@ -15,7 +15,7 @@ class WordsExportDialog : public QDialog
 
   public:
              WordsExportDialog(const QSharedPointer<Vocabulary> &vocabulary, const Plugins::ExpPluginList &expPlugins, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
-    virtual ~WordsExportDialog() Q_DECL_OVERRIDE;
+    virtual ~WordsExportDialog() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:
           CategoriesModel                _categoriesModel;

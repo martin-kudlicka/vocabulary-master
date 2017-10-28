@@ -1,13 +1,9 @@
 #include "tts-sapi.h"
 
-#include <qt_windows.h>
+#include <QtCore/qt_windows.h>
 #include <atlcomcli.h>
 #include <sapi.h>
 #include <sphelper.h>
-
-TTSSAPI::~TTSSAPI()
-{
-}
 
 void TTSSAPI::initialize()
 {

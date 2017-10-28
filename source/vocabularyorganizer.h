@@ -20,7 +20,7 @@ class VocabularyOrganizer : public QObject
     };
 
              VocabularyOrganizer(Settings *settings);
-    virtual ~VocabularyOrganizer() Q_DECL_OVERRIDE;
+    virtual ~VocabularyOrganizer() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
           void            addExisting         (VocabularyInfo *vocabularyInfo, QWidget *parent);
           void            addNew              (const QString &file);

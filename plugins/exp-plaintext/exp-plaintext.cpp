@@ -4,10 +4,6 @@
 #include <QtWidgets/QFileDialog>
 #include <QtCore/QTextStream>
 
-ExpPlaintext::~ExpPlaintext()
-{
-}
-
 void ExpPlaintext::beginExport() const
 {
   // get filename

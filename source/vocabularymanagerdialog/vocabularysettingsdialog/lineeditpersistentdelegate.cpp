@@ -8,10 +8,6 @@ LineEditPersistentDelegate::LineEditPersistentDelegate(QObject *parent /* Q_NULL
 {
 }
 
-LineEditPersistentDelegate::~LineEditPersistentDelegate()
-{
-}
-
 QWidget *LineEditPersistentDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
   auto fieldLineEditor = new FieldLineEdit(parent);

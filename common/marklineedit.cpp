@@ -12,10 +12,6 @@ MarkLineEdit::MarkLineEdit(const QString &contents, QWidget *parent /* Q_NULLPTR
   initialize();
 }
 
-MarkLineEdit::~MarkLineEdit()
-{
-}
-
 void MarkLineEdit::initialize()
 {
   _focusedIn = false;

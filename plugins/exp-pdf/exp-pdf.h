@@ -22,7 +22,7 @@ class ExpPdf : public ExpInterface
 
     PdfExportWidget *_widget;
 
-    virtual ~ExpPdf() Q_DECL_OVERRIDE;
+    virtual ~ExpPdf() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     void addFont           (HPDF_Doc pdfDocument, FontList *fontList, PdfExportWidget::FontRole fontRole, qintptr num = PdfExportWidget::FONTROLE_NONE) const;
     void exportTable       (quintptr recordId, HPDF_Page pdfPage, const FontList &fontList, const QStringList &marks)                                   const;

@@ -23,7 +23,7 @@ class VocabularyModel : public QAbstractTableModel
     const quintptr                   _categoryId;
     const QSharedPointer<Vocabulary> _vocabulary;
 
-    virtual ~VocabularyModel() Q_DECL_OVERRIDE;
+    virtual ~VocabularyModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     virtual QVariant      data      (const QModelIndex &index, int role = Qt::DisplayRole)                 const Q_DECL_OVERRIDE;
     virtual Qt::ItemFlags flags     (const QModelIndex &index)                                             const Q_DECL_OVERRIDE;
