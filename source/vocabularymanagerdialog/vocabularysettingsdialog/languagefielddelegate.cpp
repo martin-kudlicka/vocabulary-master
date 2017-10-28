@@ -3,7 +3,7 @@
 #include "vocabulary.h"
 #include <QtWidgets/QComboBox>
 
-LanguageFieldDelegate::LanguageFieldDelegate(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent /* Q_NULLPTR */) : QStyledItemDelegate(parent), _vocabulary(vocabulary)
+LanguageFieldDelegate::LanguageFieldDelegate(const QSharedPointer<Vocabulary> &vocabulary) : _vocabulary(vocabulary)
 {
 }
 

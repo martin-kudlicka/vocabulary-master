@@ -6,7 +6,6 @@
 class LineEditPersistentDelegate : public QStyledItemDelegate
 {
   public:
-             LineEditPersistentDelegate(QObject *parent = Q_NULLPTR);
     virtual ~LineEditPersistentDelegate() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:

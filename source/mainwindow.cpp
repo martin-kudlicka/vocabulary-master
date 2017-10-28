@@ -6,7 +6,7 @@
 #include <QtTest/QTest>
 #include <QtWidgets/QMessageBox>
 #ifdef Q_OS_WIN
-# include <qt_windows.h>
+# include <QtCore/qt_windows.h>
 #endif
 #include "common/licensetextdialog.h"
 #include <QtMultimedia/QSound>
@@ -23,7 +23,7 @@ const auto TIME_NONE              = 0;
 const auto TIME_NOW               = 1;
 const auto VOCABULARY_MASTER      = QT_TRANSLATE_NOOP("MainWindow", "Vocabulary Master");
 
-MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags), _learning(false), _hboxLayoutInner(Q_NULLPTR), _updateChecker(&_settings), _vocabularyOrganizer(&_settings)
+MainWindow::MainWindow() : _learning(false), _hboxLayoutInner(Q_NULLPTR), _updateChecker(&_settings), _vocabularyOrganizer(&_settings)
 {
   _learningTimer.setSingleShot(true);
 

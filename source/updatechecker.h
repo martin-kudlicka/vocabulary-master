@@ -14,7 +14,7 @@ class UpdateChecker : public QObject
   Q_OBJECT
 
   public:
-             UpdateChecker(const Settings *settings, QObject *parent = Q_NULLPTR);
+             UpdateChecker(const Settings *settings);
     virtual ~UpdateChecker() Q_DECL_OVERRIDE;
 
     void                        checkForUpdate ();

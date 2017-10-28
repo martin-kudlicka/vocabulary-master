@@ -2,7 +2,7 @@
 
 #include "../../../plugins/common/exp-interface.h"
 
-ExpPluginsModel::ExpPluginsModel(const Plugins::ExpPluginList *expPlugins, QObject *parent /* Q_NULLPTR */) : QAbstractItemModel(parent), _expPlugins(expPlugins)
+ExpPluginsModel::ExpPluginsModel(const Plugins::ExpPluginList *expPlugins) : _expPlugins(expPlugins)
 {
 }
 

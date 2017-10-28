@@ -9,7 +9,7 @@ class ExpPluginsModel : public QAbstractItemModel
   Q_OBJECT
 
   public:
-             ExpPluginsModel(const Plugins::ExpPluginList *expPlugins, QObject *parent = Q_NULLPTR);
+             ExpPluginsModel(const Plugins::ExpPluginList *expPlugins);
     virtual ~ExpPluginsModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:

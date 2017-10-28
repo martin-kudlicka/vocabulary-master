@@ -21,7 +21,7 @@ class FieldsModel : public QAbstractItemModel
       Count
     };
 
-             FieldsModel(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent = Q_NULLPTR);
+             FieldsModel(const QSharedPointer<Vocabulary> &vocabulary);
     virtual ~FieldsModel() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
     void addRow   ();

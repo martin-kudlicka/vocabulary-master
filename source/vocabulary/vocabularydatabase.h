@@ -59,7 +59,7 @@ class VocabularyDatabase : public QObject
 
     static const auto NOT_FOUND = -1;
 
-             VocabularyDatabase(QObject *parent = Q_NULLPTR);
+             VocabularyDatabase();
     virtual ~VocabularyDatabase() Q_DECL_OVERRIDE;
 
     quintptr                categoryCount              ()                                                         const;

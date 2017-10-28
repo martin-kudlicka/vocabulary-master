@@ -7,7 +7,7 @@
 #include "../../3rdparty/Crypto++/source/osrng.h"
 #include <QtWidgets/QMessageBox>
 
-MainWindow::MainWindow(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QMainWindow(parent, flags)
+MainWindow::MainWindow()
 {
   _ui.setupUi(this);
 

@@ -8,7 +8,7 @@ class Vocabulary;
 class WordsImportEditorDelegate : public QStyledItemDelegate
 {
   public:
-             WordsImportEditorDelegate(const QSharedPointer<Vocabulary> &vocabulary, QObject *parent = Q_NULLPTR);
+             WordsImportEditorDelegate(const QSharedPointer<Vocabulary> &vocabulary);
     virtual ~WordsImportEditorDelegate() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:
