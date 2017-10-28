@@ -11,7 +11,7 @@ class MainWindow : public QMainWindow
 
   public:
              MainWindow(QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
-    virtual ~MainWindow() Q_DECL_OVERRIDE;
+    virtual ~MainWindow() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:
     QXmlStreamWriter _xmlStreamWriter;
