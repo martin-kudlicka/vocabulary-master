@@ -17,7 +17,7 @@
 const auto BUILTIN_COLUMN_SIZE = 30;
 const auto PROPERTY_COLUMN     = "Column";
 
-VocabularyManagerDialog::VocabularyManagerDialog(const QSharedPointer<Vocabulary> &vocabulary, const Settings *settings, const Plugins *plugins, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags | Qt::WindowMaximizeButtonHint), _vocabulary(vocabulary), _settings(settings), _plugins(plugins)
+VocabularyManagerDialog::VocabularyManagerDialog(const QSharedPointer<Vocabulary> &vocabulary, const Settings *settings, const Plugins *plugins, QWidget *parent) : QDialog(parent, Qt::WindowMaximizeButtonHint), _vocabulary(vocabulary), _settings(settings), _plugins(plugins)
 {
   _ui.setupUi(this);
 

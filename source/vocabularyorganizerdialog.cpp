@@ -6,7 +6,7 @@
 const auto VOCABULARY_FILTER = QT_TRANSLATE_NOOP("VocabularyOrganizerDialog", "Vocabulary (*.sl3)");
 const auto VOCABULARY_SUFFIX = "sl3";
 
-VocabularyOrganizerDialog::VocabularyOrganizerDialog(VocabularyOrganizer *organizer, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _organizer(organizer), _model(organizer, this)
+VocabularyOrganizerDialog::VocabularyOrganizerDialog(VocabularyOrganizer *organizer, QWidget *parent) : QDialog(parent), _organizer(organizer), _model(organizer, this)
 {
   _ui.setupUi(this);
 

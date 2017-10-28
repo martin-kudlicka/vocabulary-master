@@ -5,7 +5,7 @@
 
 const auto BORDER_WIDTH = 2;
 
-ColorComboBox::ColorComboBox(QWidget *parent /* Q_NULLPTR */) : QComboBox(parent)
+ColorComboBox::ColorComboBox(QWidget *parent) : QComboBox(parent)
 {
 }
 

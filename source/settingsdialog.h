@@ -18,7 +18,7 @@ class SettingsDialog : public QDialog
     static const auto VIRTUALKEY_NONE = 0;
 #endif
 
-             SettingsDialog(const Plugins *plugins, Settings *settings, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+             SettingsDialog(const Plugins *plugins, Settings *settings, QWidget *parent);
     virtual ~SettingsDialog() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:

@@ -7,7 +7,7 @@ static const auto CATEGORY_PRIORITY_MIN    = 1;
 static const auto POSITION_BUTTON_ENABLED  = QTabBar::LeftSide;
 static const auto POSITION_BUTTON_PRIORITY = QTabBar::RightSide;
 
-VocabularyTabWidget::VocabularyTabWidget(QWidget *pParent /* Q_NULLPTR */) : QTabWidget(pParent), _showEnabled(true), _showPriorities(true)
+VocabularyTabWidget::VocabularyTabWidget(QWidget *pParent) : QTabWidget(pParent), _showEnabled(true), _showPriorities(true)
 {
 }
 

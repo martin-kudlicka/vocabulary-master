@@ -2,7 +2,7 @@
 
 #include "vocabulary.h"
 
-VocabularyOpenProgressDialog::VocabularyOpenProgressDialog(const Vocabulary *vocabulary, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags | Qt::FramelessWindowHint)
+VocabularyOpenProgressDialog::VocabularyOpenProgressDialog(const Vocabulary *vocabulary, QWidget *parent) : QDialog(parent, Qt::FramelessWindowHint)
 {
   _ui.setupUi(this);
 

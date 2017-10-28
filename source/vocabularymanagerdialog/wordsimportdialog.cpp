@@ -7,7 +7,7 @@
 
 const auto IMPORT_REFRESHINTERVAL = 20;
 
-WordsImportDialog::WordsImportDialog(const QString &file, const QSharedPointer<Vocabulary> &vocabulary, ImpInterface *plugin, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags), _importing(false), _interrupt(false), _categoriesModel(vocabulary), _plugin(plugin), _file(file), _editorDelegate(vocabulary), _vocabulary(vocabulary), _fieldsModel(vocabulary)
+WordsImportDialog::WordsImportDialog(const QString &file, const QSharedPointer<Vocabulary> &vocabulary, ImpInterface *plugin, QWidget *parent) : QDialog(parent), _importing(false), _interrupt(false), _categoriesModel(vocabulary), _plugin(plugin), _file(file), _editorDelegate(vocabulary), _vocabulary(vocabulary), _fieldsModel(vocabulary)
 {
 }
 

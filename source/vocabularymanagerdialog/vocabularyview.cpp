@@ -5,7 +5,7 @@
 #include <QtWidgets/QSpinBox>
 #include <QtCore/QCoreApplication>
 
-VocabularyView::VocabularyView(const QSharedPointer<Vocabulary> &vocabulary, QWidget *parent /* Q_NULLPTR */) : QTableView(parent), _vocabulary(vocabulary)
+VocabularyView::VocabularyView(const QSharedPointer<Vocabulary> &vocabulary, QWidget *parent) : QTableView(parent), _vocabulary(vocabulary)
 {
   setMouseTracking(true);
   viewport()->installEventFilter(this);

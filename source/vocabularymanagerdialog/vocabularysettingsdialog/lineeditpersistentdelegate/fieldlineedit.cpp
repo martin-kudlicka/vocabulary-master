@@ -1,6 +1,6 @@
 #include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate/fieldlineedit.h"
 
-FieldLineEdit::FieldLineEdit(QWidget *parent /* Q_NULLPTR */) : QLineEdit(parent), _defaultSheet(styleSheet())
+FieldLineEdit::FieldLineEdit(QWidget *parent) : QLineEdit(parent), _defaultSheet(styleSheet())
 {
   connect(this, &FieldLineEdit::textEdited, this, &FieldLineEdit::on_textEdited);
 }

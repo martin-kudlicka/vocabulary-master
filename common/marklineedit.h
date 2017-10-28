@@ -8,8 +8,8 @@ class MarkLineEdit : public QLineEdit
   Q_OBJECT
 
   public:
-    MarkLineEdit(QWidget *parent = Q_NULLPTR);
-    MarkLineEdit(const QString &contents, QWidget *parent = Q_NULLPTR);
+    MarkLineEdit(QWidget *parent);
+    MarkLineEdit(const QString &contents, QWidget *parent);
 
   private:
     bool _focusedIn;

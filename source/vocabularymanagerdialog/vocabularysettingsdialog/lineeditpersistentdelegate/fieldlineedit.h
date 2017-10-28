@@ -8,7 +8,7 @@ class FieldLineEdit : public QLineEdit
   Q_OBJECT
 
   public:
-    FieldLineEdit(QWidget *parent = Q_NULLPTR);
+    FieldLineEdit(QWidget *parent);
 
   private:
     QString _defaultSheet;

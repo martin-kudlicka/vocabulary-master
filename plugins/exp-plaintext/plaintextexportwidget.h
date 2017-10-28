@@ -11,7 +11,7 @@ class PlaintextExportWidget : public QWidget
   Q_OBJECT
 
   public:
-    PlaintextExportWidget(QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+    PlaintextExportWidget(QWidget *parent);
 
     QString codec  () const;
     QString text   () const;

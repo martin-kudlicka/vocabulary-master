@@ -12,7 +12,7 @@ class Settings;
 class LicenseTextDialog : public QDialog
 {
   public:
-             LicenseTextDialog(const LicenseCommon::LicenseContentList &licenses, const Settings *settings, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+             LicenseTextDialog(const LicenseCommon::LicenseContentList &licenses, const Settings *settings, QWidget *parent);
     virtual ~LicenseTextDialog() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:

@@ -6,7 +6,7 @@
 
 const auto TAB_INVALID = UINT8_MAX;
 
-LicenseTextDialog::LicenseTextDialog(const LicenseCommon::LicenseContentList &licenses, const Settings *settings, QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QDialog(parent, flags)
+LicenseTextDialog::LicenseTextDialog(const LicenseCommon::LicenseContentList &licenses, const Settings *settings, QWidget *parent) : QDialog(parent)
 {
   _ui.setupUi(this);
 

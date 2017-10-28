@@ -11,7 +11,7 @@ static const auto PROPERTY_VIRTUALKEY = "VirtualKey";
 class HotkeyLineEdit : public QLineEdit
 {
   public:
-    HotkeyLineEdit(QWidget *parent = Q_NULLPTR);
+    HotkeyLineEdit(QWidget *parent);
 
   private:
     virtual ~HotkeyLineEdit() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;

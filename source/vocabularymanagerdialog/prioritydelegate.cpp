@@ -6,7 +6,7 @@
 
 static const auto SPINBOX_BUTTONS_WIDTH = 16;
 
-PriorityDelegate::PriorityDelegate(QObject *pParent /* Q_NULLPTR */) : QStyledItemDelegate(pParent)
+PriorityDelegate::PriorityDelegate(QObject *pParent) : QStyledItemDelegate(pParent)
 {
 }
 

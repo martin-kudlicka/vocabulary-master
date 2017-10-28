@@ -9,7 +9,7 @@ class PriorityDelegate : public QStyledItemDelegate
     static const auto RECORD_PRIORITY_MAX = 9;
     static const auto RECORD_PRIORITY_MIN = 1;
 
-    PriorityDelegate(QObject *parent = Q_NULLPTR);
+    PriorityDelegate(QObject *parent);
 
   private:
     virtual ~PriorityDelegate() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;

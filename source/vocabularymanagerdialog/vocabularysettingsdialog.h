@@ -15,7 +15,7 @@ class VocabularySettingsDialog : public QDialog
   Q_OBJECT
 
   public:
-             VocabularySettingsDialog(const QSharedPointer<Vocabulary> &vocabulary, const Plugins *plugins, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+             VocabularySettingsDialog(const QSharedPointer<Vocabulary> &vocabulary, const Plugins *plugins, QWidget *parent);
     virtual ~VocabularySettingsDialog() Q_DECL_OVERRIDE Q_DECL_EQ_DEFAULT;
 
   private:

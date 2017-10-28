@@ -8,7 +8,7 @@ class FieldsModel;
 class FieldIdentifierValidator : public QValidator
 {
   public:
-    FieldIdentifierValidator(quintptr row, const FieldsModel *model, QObject *parent = Q_NULLPTR);
+    FieldIdentifierValidator(quintptr row, const FieldsModel *model, QObject *parent);
 
   private:
     const FieldsModel *_fieldsModel;

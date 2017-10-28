@@ -11,7 +11,7 @@ class VocabularyTabWidget : public QTabWidget
   public:
     static const auto CATEGORY_PRIORITY_MAX = 9;
 
-    VocabularyTabWidget(QWidget *parent = Q_NULLPTR);
+    VocabularyTabWidget(QWidget *parent);
 
     quintptr addTab           (QWidget *page, const QString &label, bool enabled, quintptr priority);
     void     setShowEnabled   (bool enabled);

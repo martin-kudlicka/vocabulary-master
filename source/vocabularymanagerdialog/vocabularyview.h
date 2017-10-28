@@ -10,7 +10,7 @@ class VocabularyView : public QTableView
   Q_OBJECT
 
   public:
-    VocabularyView(const QSharedPointer<Vocabulary> &vocabulary, QWidget *parent = Q_NULLPTR);
+    VocabularyView(const QSharedPointer<Vocabulary> &vocabulary, QWidget *parent);
 
   private:
           QModelIndex                _moveOld;

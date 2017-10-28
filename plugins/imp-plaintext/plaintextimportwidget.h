@@ -12,7 +12,7 @@ class PlaintextImportWidget : public QWidget
   Q_OBJECT
 
   public:
-    PlaintextImportWidget(PlaintextFile *file, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = 0);
+    PlaintextImportWidget(PlaintextFile *file, QWidget *parent);
 
     quintptr lineCount     () const;
     quintptr linesPerRecord() const;

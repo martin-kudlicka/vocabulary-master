@@ -8,7 +8,7 @@ Q_DECL_CONSTEXPR auto COLUMN_MAX_WIDTH    = 999;
 Q_DECL_CONSTEXPR auto HEADER_ROW          = 0;
 Q_DECL_CONSTEXPR auto LABEL_COLUMN        = 1;
 
-HtmlExportWidget::HtmlExportWidget(QWidget *parent /* Q_NULLPTR */, Qt::WindowFlags flags /* 0 */) : QWidget(parent, flags)
+HtmlExportWidget::HtmlExportWidget(QWidget *parent) : QWidget(parent)
 {
   _ui.setupUi(this);
 
