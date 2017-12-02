@@ -33,7 +33,7 @@ void TTSSAPI::say(const QString &voice, const QString &text)
   SpEnumTokens(SPCAT_VOICES, Q_NULLPTR, Q_NULLPTR, &voiceTokens);
   voiceTokens->GetCount(&count);
 
-  for (auto voiceIndex = 0; voiceIndex < count; voiceIndex++)
+  for (auto voiceIndex = 0; voiceIndex < count; ++voiceIndex)
   {
     CComPtr<ISpObjectToken> voiceInfo;
     WCHAR *id;
@@ -66,7 +66,7 @@ TTSInterface::VoiceInfoList TTSSAPI::voicesInfo() const
   SpEnumTokens(SPCAT_VOICES, Q_NULLPTR, Q_NULLPTR, &voiceTokens);
   voiceTokens->GetCount(&count);
 
-  for (auto voiceIndex = 0; voiceIndex < count; voiceIndex++)
+  for (auto voiceIndex = 0; voiceIndex < count; ++voiceIndex)
   {
     CComPtr<ISpObjectToken> voiceInfo;
     WCHAR *description, *id;

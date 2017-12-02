@@ -8,7 +8,7 @@ FieldIdentifierValidator::FieldIdentifierValidator(quintptr row, const FieldsMod
 
 QValidator::State FieldIdentifierValidator::validate(QString &input, int &pos) const
 {
-  for (auto rowIndex = 0; rowIndex < _fieldsModel->rowCount(); rowIndex++)
+  for (auto rowIndex = 0; rowIndex < _fieldsModel->rowCount(); ++rowIndex)
   {
     if (rowIndex != _row)
     {

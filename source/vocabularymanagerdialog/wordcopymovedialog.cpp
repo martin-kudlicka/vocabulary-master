@@ -18,7 +18,7 @@ void WordsCopyMoveDialog::accept()
 
   if (_ui.copy->isChecked())
   {
-    for (auto row = _rowNums.constBegin(); row != _rowNums.constEnd(); row++)
+    for (auto row = _rowNums.constBegin(); row != _rowNums.constEnd(); ++row)
     {
       const auto data = _vocabulary->record(*row);
       _vocabulary->addRecord(newCategoryId, data);

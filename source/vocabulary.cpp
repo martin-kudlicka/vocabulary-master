@@ -52,7 +52,7 @@ void Vocabulary::addRecord(quintptr categoryId, const QStringList &data)
     for (auto fieldId : fieldIds())
   {
         fieldData->insert(fieldId, data.at(dataIndex));
-        dataIndex++;
+        ++dataIndex;
     }*/
 }
 
@@ -168,7 +168,7 @@ quintptr Vocabulary::fieldId(quintptr position) const
   if (_cacheEnabled)
   {
     auto pos = 0;
-    for (auto fieldId = _fieldData.constBegin(); fieldId != _fieldData.constEnd(); fieldId++)
+    for (auto fieldId = _fieldData.constBegin(); fieldId != _fieldData.constEnd(); ++fieldId)
     {
       if (pos == position)
       {
@@ -176,7 +176,7 @@ quintptr Vocabulary::fieldId(quintptr position) const
       }
       else
       {
-        pos++;
+        ++pos;
       }
     }
 
@@ -265,7 +265,7 @@ quintptr Vocabulary::recordCategory(quintptr recordId) const
 {
   if (_cacheEnabled)
   {
-    for (auto category = _categoryRecords.constBegin(); category != _categoryRecords.constEnd(); category++)
+    for (auto category = _categoryRecords.constBegin(); category != _categoryRecords.constEnd(); ++category)
     {
       if (category->contains(recordId))
       {
@@ -323,7 +323,7 @@ quintptr Vocabulary::recordCount(quintptr categoryId, bool enabled) const
     {
       if (recordEnabled(recordId))
       {
-        recordCount++;
+        ++recordCount;
       }
     }
 
@@ -389,7 +389,7 @@ quintptr Vocabulary::recordId(quintptr row) const
   if (_cacheEnabled)
   {
     auto recordsTotal = 0;
-    for (auto category = _categoryRecords.constBegin(); category != _categoryRecords.constEnd(); category++)
+    for (auto category = _categoryRecords.constBegin(); category != _categoryRecords.constEnd(); ++category)
     {
       const auto records = recordsTotal + category->size();
       if (row < records)
@@ -472,7 +472,7 @@ void Vocabulary::removeField(quintptr fieldId)
 {
   if (_cacheEnabled)
   {
-    for (auto fieldData = _recordData->begin(); fieldData != _recordData->end(); fieldData++)
+    for (auto fieldData = _recordData->begin(); fieldData != _recordData->end(); ++fieldData)
     {
       fieldData->remove(fieldId);
     }
@@ -582,7 +582,7 @@ void Vocabulary::swapFields(quintptr sourceId, quintptr destinationId)
     _fieldData[destinationId] = fieldTemp;
 
     // swap in data table
-    for (auto record = _recordData->begin(); record != _recordData->end(); record++)
+    for (auto record = _recordData->begin(); record != _recordData->end(); ++record)
     {
       auto data = record.operator->();
 

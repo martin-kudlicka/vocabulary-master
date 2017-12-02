@@ -86,7 +86,7 @@ quintptr VocabularyDatabase::categoryId(quintptr row) const
       return query.value(static_cast<int>(ColumnPosition::N1)).toUInt();
     }
 
-    position++;
+    ++position;
   }
 
   return NOT_FOUND;
@@ -204,7 +204,7 @@ quintptr VocabularyDatabase::row(quintptr recordId, quintptr categoryId) const
       return row;
     }
 
-    row++;
+    ++row;
   }
 
   return NOT_FOUND;
@@ -332,7 +332,7 @@ quintptr VocabularyDatabase::addRecord(quintptr categoryId, const QStringList &d
   for (auto fieldId : fieldIds())
   {
     query = _database.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(fieldId) + "', '" + QString::number(recordId) + "', '" + data.at(dataIndex) + "')");
-    dataIndex++;
+    ++dataIndex;
   }
 
   return recordId;
@@ -414,7 +414,7 @@ VocabularyDatabase::RecordDataHash *VocabularyDatabase::dataText() const
       {
         emit setOpenProgressValue(progress);
       }
-      progress++;
+      ++progress;
     }
     while (query.next());
   }
@@ -466,7 +466,7 @@ quintptr VocabularyDatabase::fieldId(quintptr position) const
       return query.value(static_cast<int>(ColumnPosition::N1)).toUInt();
     }
 
-    currentPosition++;
+    ++currentPosition;
   }
 
   return NOT_FOUND;
@@ -832,7 +832,7 @@ void VocabularyDatabase::update(const QString &table, quintptr columnId, const Q
   auto query = "UPDATE " + table + " SET ";
 
   auto setIndex = 0;
-  for (auto column = 0; column < record.count(); column++)
+  for (auto column = 0; column < record.count(); ++column)
   {
     const auto field = record.field(column);
     if (field.name() != COLUMN_ID)
@@ -843,7 +843,7 @@ void VocabularyDatabase::update(const QString &table, quintptr columnId, const Q
       }
 
       query += field.name() + " = '" + field.value().toString() + "'";
-      setIndex++;
+      ++setIndex;
     }
   }
 

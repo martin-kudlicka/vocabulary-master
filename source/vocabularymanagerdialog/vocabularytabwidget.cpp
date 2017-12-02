@@ -50,7 +50,7 @@ void VocabularyTabWidget::setShowPriorities(bool enabled)
 
 void VocabularyTabWidget::on_enabled_stateChanged(int state) const
 {
-  for (auto index = 0; index < count(); index++)
+  for (auto index = 0; index < count(); ++index)
   {
     if (sender() == tabBar()->tabButton(index, POSITION_BUTTON_ENABLED))
     {
@@ -62,7 +62,7 @@ void VocabularyTabWidget::on_enabled_stateChanged(int state) const
 
 void VocabularyTabWidget::on_priority_valueChanged(int i) const
 {
-  for (auto index = 0; index < count(); index++)
+  for (auto index = 0; index < count(); ++index)
   {
     if (sender() == tabBar()->tabButton(index, POSITION_BUTTON_PRIORITY))
     {

@@ -30,7 +30,7 @@ void SettingsDialog::clearHotkey(HotkeyLineEdit *control) const
 
 void SettingsDialog::fillColorFlash()
 {
-  for (auto colorIndex = 0; colorIndex < _ui.colorFlashCombo->count(); colorIndex++)
+  for (auto colorIndex = 0; colorIndex < _ui.colorFlashCombo->count(); ++colorIndex)
   {
     if (_ui.colorFlashCombo->itemData(colorIndex, Qt::UserRole).toString() == _settings->colorFlash())
     {
@@ -130,7 +130,7 @@ void SettingsDialog::fillOptions()
 
 void SettingsDialog::fillTranslation()
 {
-  for (auto languageIndex = 0; languageIndex < _ui.language->count(); languageIndex++)
+  for (auto languageIndex = 0; languageIndex < _ui.language->count(); ++languageIndex)
   {
     if (_ui.language->itemData(languageIndex) == _settings->translation())
     {
@@ -151,7 +151,7 @@ void SettingsDialog::prepareColorFlash()
 void SettingsDialog::preparePlugins(QTreeView *treeView, PluginsModel *model) const
 {
   treeView->setModel(model);
-  for (auto row = 0; row < model->rowCount(); row++)
+  for (auto row = 0; row < model->rowCount(); ++row)
   {
     const auto modelIndex = model->index(row, static_cast<int>(PluginsModel::Column::License));
 
@@ -316,7 +316,7 @@ void SettingsDialog::on_showLicense_clicked(bool checked /* false */)
   // find plugin
   int row;
   const auto pluginsModel = qobject_cast<const PluginsModel *>(treeView->model());
-  for (row = 0; row < pluginsModel->rowCount(); row++)
+  for (row = 0; row < pluginsModel->rowCount(); ++row)
   {
     const auto modelIndex = pluginsModel->index(row, static_cast<int>(PluginsModel::Column::License));
     if (treeView->indexWidget(modelIndex) == button)

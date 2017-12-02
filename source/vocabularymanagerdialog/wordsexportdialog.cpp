@@ -16,12 +16,12 @@ WordsExportDialog::WordsExportDialog(const QSharedPointer<Vocabulary> &vocabular
   // fields
   _ui.fields->setModel(&_fieldsModel);
   _ui.fields->setItemDelegateForColumn(static_cast<int>(WordsExportFieldsModel::Column::Mark), &_markDelegate);
-  for (auto row = 0; row < _fieldsModel.rowCount(); row++)
+  for (auto row = 0; row < _fieldsModel.rowCount(); ++row)
   {
     const auto index = _fieldsModel.index(row, static_cast<int>(WordsExportFieldsModel::Column::Mark));
     _ui.fields->openPersistentEditor(index);
   }
-  for (auto column = 0; column < _ui.fields->header()->count(); column++)
+  for (auto column = 0; column < _ui.fields->header()->count(); ++column)
   {
     _ui.fields->header()->setSectionResizeMode(column, QHeaderView::Stretch);
   }
@@ -101,7 +101,7 @@ void WordsExportDialog::on_plugin_vocabularyGetCategoryName(quintptr categoryId,
 
 void WordsExportDialog::on_plugin_vocabularyGetMarks(QStringList *pMarks) const
 {
-  for (auto row = 0; row < _fieldsModel.rowCount(); row++)
+  for (auto row = 0; row < _fieldsModel.rowCount(); ++row)
   {
     const auto editorIndex = _fieldsModel.index(row, static_cast<int>(WordsExportFieldsModel::Column::Mark));
     const auto editor      = qobject_cast<const MarkLineEdit *>(_ui.fields->indexWidget(editorIndex));

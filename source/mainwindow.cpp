@@ -153,7 +153,7 @@ void MainWindow::createVocabulariesMenu()
   _ui.menuVocabularies->clear();
   _menuTrayVocabularies.clear();
 
-  for (auto vocabularyIndex = 0; vocabularyIndex < _vocabularyOrganizer.vocabularyCount(); vocabularyIndex++)
+  for (auto vocabularyIndex = 0; vocabularyIndex < _vocabularyOrganizer.vocabularyCount(); ++vocabularyIndex)
   {
     const auto vocabularyInfo = _vocabularyOrganizer.vocabularyInfo(vocabularyIndex);
     const auto name           = vocabularyInfo.vocabulary->name();
@@ -302,7 +302,7 @@ void MainWindow::refreshStatusBar()
 #ifdef Q_OS_WIN
 void MainWindow::registerHotkeys() const
 {
-  for (auto hotkeyIndex = 0; hotkeyIndex < static_cast<quintptr>(Settings::Hotkey::Count) - 1; hotkeyIndex++)
+  for (auto hotkeyIndex = 0; hotkeyIndex < static_cast<quintptr>(Settings::Hotkey::Count) - 1; ++hotkeyIndex)
   {
     const auto hotkeyInfo = _settings.hotkey(static_cast<Settings::Hotkey>(hotkeyIndex));
 
@@ -691,7 +691,7 @@ void MainWindow::on_learningTimer_timeout()
         }
         else
         {
-          nextRecordTry++;
+          ++nextRecordTry;
         }
 
         if ((!_settings.learnDisabledWords() && !_currentRecord.vocabulary->recordEnabled(_currentRecord.id)) || recordPriority() > maxRecordPriority)
@@ -768,7 +768,7 @@ void MainWindow::on_learningTimer_timeout()
       {
         const auto styleSheet = _ui.window1->styleSheet();
 
-        for (auto flashNum = 0; flashNum < FLASH_COUNT; flashNum++)
+        for (auto flashNum = 0; flashNum < FLASH_COUNT; ++flashNum)
         {
           _ui.window1->setStyleSheet(QString("QAbstractScrollArea { background-color: %1 }").arg(_settings.colorFlash()));
           QTest::qWait(FLASH_WAIT);

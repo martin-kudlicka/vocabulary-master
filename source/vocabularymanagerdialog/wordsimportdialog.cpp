@@ -58,7 +58,7 @@ void WordsImportDialog::createFieldEditors()
 {
   _ui.fields->setItemDelegateForColumn(static_cast<int>(WordsImportFieldsModel::Column::Editor), &_editorDelegate);
 
-  for (auto row = 0; row < _fieldsModel.rowCount(); row++)
+  for (auto row = 0; row < _fieldsModel.rowCount(); ++row)
   {
     auto persistentEditor = true;
 
@@ -106,7 +106,7 @@ void WordsImportDialog::importData(const Target &target)
 
   // patterns
   QStringList patterns;
-  for (auto pattern = 0; pattern < _vocabulary->fieldCount(); pattern++)
+  for (auto pattern = 0; pattern < _vocabulary->fieldCount(); ++pattern)
   {
     const auto index = _fieldsModel.index(pattern, static_cast<int>(WordsImportFieldsModel::Column::Editor));
     const auto data  = _fieldsModel.data(index, Qt::EditRole).toString();
@@ -128,7 +128,7 @@ void WordsImportDialog::importData(const Target &target)
   }
 
   auto skipCount = 0;
-  for (auto record = 0; record < recordCount && !_interrupt; record++)
+  for (auto record = 0; record < recordCount && !_interrupt; ++record)
   {
     // get mark data
     auto skip = false;
@@ -139,7 +139,7 @@ void WordsImportDialog::importData(const Target &target)
       if (_ui.skipPartialRecords->isChecked() && data.isEmpty())
       {
         skip = true;
-        skipCount++;
+        ++skipCount;
         break;
       }
       markData.append(data);
@@ -151,11 +151,11 @@ void WordsImportDialog::importData(const Target &target)
 
     // get data
     QStringList data;
-    for (auto column = 0; column < _vocabulary->fieldCount(); column++)
+    for (auto column = 0; column < _vocabulary->fieldCount(); ++column)
     {
       auto text = patterns.at(column);
 
-      for (auto mark = 0; mark < marks.size(); mark++)
+      for (auto mark = 0; mark < marks.size(); ++mark)
       {
         text.replace(marks.at(mark), markData.at(mark));
       }
@@ -166,7 +166,7 @@ void WordsImportDialog::importData(const Target &target)
     switch (target)
     {
       case Target::Preview:
-        for (auto column = 0; column < _vocabulary->fieldCount(); column++)
+        for (auto column = 0; column < _vocabulary->fieldCount(); ++column)
         {
           QTableWidgetItem *tableItem = Q_NULLPTR;
 
@@ -224,7 +224,7 @@ void WordsImportDialog::preparePreviewColumns() const
 
   _ui.preview->setColumnCount(columns.size());
   _ui.preview->setHorizontalHeaderLabels(columns);
-  for (auto column = 0; column < _ui.preview->horizontalHeader()->count(); column++)
+  for (auto column = 0; column < _ui.preview->horizontalHeader()->count(); ++column)
   {
     _ui.preview->horizontalHeader()->setSectionResizeMode(column, QHeaderView::Stretch);
   }

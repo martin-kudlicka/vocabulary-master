@@ -59,7 +59,7 @@ void ExpPdf::exportText(quintptr recordId, HPDF_Page pdfPage, const FontList &fo
       pos = markPos;
 
       // check if valid mark
-      for (auto markIndex = 0; markIndex < marks.size(); markIndex++)
+      for (auto markIndex = 0; markIndex < marks.size(); ++markIndex)
       {
         const auto mark = marks.at(markIndex);
         if (templateText.mid(markPos, mark.size()) == mark)
@@ -77,7 +77,7 @@ void ExpPdf::exportText(quintptr recordId, HPDF_Page pdfPage, const FontList &fo
         }
       }
 
-      pos++;
+      ++pos;
     }
   }
 }
@@ -91,7 +91,7 @@ void ExpPdf::initFonts(HPDF_Doc pdfDocument, FontList *fontList, qintptr markCou
   font              = _widget->fontRoleInfo(PdfExportWidget::FontRole::Template);
   fontSets         |= font.fontSet;
   encodingSets     |= font.encodingSet;
-  for (auto markIndex = 0; markIndex < markCount; markIndex++)
+  for (auto markIndex = 0; markIndex < markCount; ++markIndex)
   {
     font          = _widget->fontRoleInfo(PdfExportWidget::FontRole::Mark, markIndex);
     fontSets     |= font.fontSet;
@@ -137,7 +137,7 @@ void ExpPdf::initFonts(HPDF_Doc pdfDocument, FontList *fontList, qintptr markCou
   // load fonts
   addFont(pdfDocument, fontList, PdfExportWidget::FontRole::Category);
   addFont(pdfDocument, fontList, PdfExportWidget::FontRole::Template);
-  for (auto markIndex = 0; markIndex < markCount; markIndex++)
+  for (auto markIndex = 0; markIndex < markCount; ++markIndex)
   {
     addFont(pdfDocument, fontList, PdfExportWidget::FontRole::Mark, markIndex);
   }
@@ -326,7 +326,7 @@ void ExpPdf::beginExport() const
         exportTable(recordId, pdfPage, fonts, marks);
       }
 
-      records++;
+      ++records;
       emit progressExportSetValue(records);
     }
   }

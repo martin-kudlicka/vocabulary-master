@@ -270,7 +270,7 @@ void PdfExportWidget::fillEncodings(QComboBox *comboBox, const QString &font) co
 {
   // get font encoding type
   EncodingType encoding;
-  for (auto fontIndex = 0; fontIndex < _countof(FONTS); fontIndex++)
+  for (auto fontIndex = 0; fontIndex < _countof(FONTS); ++fontIndex)
   {
     if (FONTS[fontIndex].name == font)
     {
@@ -280,7 +280,7 @@ void PdfExportWidget::fillEncodings(QComboBox *comboBox, const QString &font) co
   }
 
   comboBox->clear();
-  for (auto encodingIndex = 0; encodingIndex < _countof(ENCODINGS); encodingIndex++)
+  for (auto encodingIndex = 0; encodingIndex < _countof(ENCODINGS); ++encodingIndex)
   {
     if (ENCODINGS[encodingIndex].encodingType == encoding)
     {
@@ -291,7 +291,7 @@ void PdfExportWidget::fillEncodings(QComboBox *comboBox, const QString &font) co
 
 void PdfExportWidget::fillFonts(QComboBox *comboBox) const
 {
-  for (auto fontIndex = 0; fontIndex < _countof(FONTS); fontIndex++)
+  for (auto fontIndex = 0; fontIndex < _countof(FONTS); ++fontIndex)
   {
     comboBox->addItem(FONTS[fontIndex].name);
   }
@@ -299,7 +299,7 @@ void PdfExportWidget::fillFonts(QComboBox *comboBox) const
 
 void PdfExportWidget::fillPageSizes() const
 {
-  for (auto sizeIndex = 0; sizeIndex < _countof(PAGE_SIZES); sizeIndex++)
+  for (auto sizeIndex = 0; sizeIndex < _countof(PAGE_SIZES); ++sizeIndex)
   {
     _ui.pageSize->addItem(PAGE_SIZES[sizeIndex].name, PAGE_SIZES[sizeIndex].pdfPageSize);
 
@@ -312,7 +312,7 @@ void PdfExportWidget::fillPageSizes() const
 
 PdfExportWidget::EncodingSet PdfExportWidget::encodingSet(const QString &encoding) const
 {
-  for (auto encodingIndex = 0; encodingIndex < _countof(ENCODINGS); encodingIndex++)
+  for (auto encodingIndex = 0; encodingIndex < _countof(ENCODINGS); ++encodingIndex)
   {
     if (ENCODINGS[encodingIndex].name == encoding)
     {
@@ -325,7 +325,7 @@ PdfExportWidget::EncodingSet PdfExportWidget::encodingSet(const QString &encodin
 
 PdfExportWidget::FontSet PdfExportWidget::fontSet(const QString &font) const
 {
-  for (auto fontIndex = 0; fontIndex < _countof(FONTS); fontIndex++)
+  for (auto fontIndex = 0; fontIndex < _countof(FONTS); ++fontIndex)
   {
     if (FONTS[fontIndex].name == font)
     {
@@ -338,7 +338,7 @@ PdfExportWidget::FontSet PdfExportWidget::fontSet(const QString &font) const
 
 char *PdfExportWidget::textCodec(const QString &encoding) const
 {
-  for (auto encodingIndex = 0; encodingIndex < _countof(ENCODINGS); encodingIndex++)
+  for (auto encodingIndex = 0; encodingIndex < _countof(ENCODINGS); ++encodingIndex)
   {
     if (ENCODINGS[encodingIndex].name == encoding)
     {
@@ -351,7 +351,7 @@ char *PdfExportWidget::textCodec(const QString &encoding) const
 
 void PdfExportWidget::initTableColumns()
 {
-  for (auto column = 0; column < _ui.tableColums->value(); column++)
+  for (auto column = 0; column < _ui.tableColums->value(); ++column)
   {
     addTableColumn();
   }

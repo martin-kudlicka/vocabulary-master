@@ -35,7 +35,7 @@ void LanguageFieldDelegate::setEditorData(QWidget *editor, const QModelIndex &in
   const auto languageId = index.model()->data(index, Qt::EditRole).toUInt();
 
   auto languageBox = qobject_cast<QComboBox *>(editor);
-  for (auto languageIndex = 0; languageIndex < languageBox->count(); languageIndex++)
+  for (auto languageIndex = 0; languageIndex < languageBox->count(); ++languageIndex)
   {
     const auto itemLanguageId = languageBox->itemData(languageIndex).toUInt();
     if (itemLanguageId == languageId)
