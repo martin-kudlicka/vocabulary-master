@@ -21,7 +21,7 @@ void VocabularySettingsDialog::accept()
 
 void VocabularySettingsDialog::actualizeFieldsEditor() const
 {
-  for (auto row = 0; row < _fieldsModel.rowCount(); row++)
+  for (auto row = 0; row < _fieldsModel.rowCount(); ++row)
   {
     actualizeFieldsEditor(row);
   }
@@ -70,7 +70,7 @@ void VocabularySettingsDialog::fillOptions()
 
 void VocabularySettingsDialog::fillSpeech(QComboBox *comboBox, TTSInterface::TTSPlugin speechPlugin, const QString &voiceId)
 {
-  for (auto voiceIndex = 0; voiceIndex < comboBox->count(); voiceIndex++)
+  for (auto voiceIndex = 0; voiceIndex < comboBox->count(); ++voiceIndex)
   {
     const auto speechVoice = _voices.at(comboBox->itemData(voiceIndex).toUInt());
     if (speechVoice.ttsPlugin == speechPlugin && speechVoice.voiceId == voiceId)
@@ -101,7 +101,7 @@ void VocabularySettingsDialog::prepareFields()
 
   actualizeFieldsEditor();
 
-  for (auto column = 0; column < _ui.fields->header()->count(); column++)
+  for (auto column = 0; column < _ui.fields->header()->count(); ++column)
   {
     if (column == static_cast<int>(FieldsModel::Column::Speech) || column == static_cast<int>(FieldsModel::Column::Show))
     {
@@ -147,7 +147,7 @@ void VocabularySettingsDialog::prepareSpeechPlugins(QComboBox *comboBox)
 
 void VocabularySettingsDialog::refreshLanguageNameFields() const
 {
-  for (auto row = 0; row < _fieldsModel.rowCount(); row++)
+  for (auto row = 0; row < _fieldsModel.rowCount(); ++row)
   {
     _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguage::Left, _ui.languageLeft->text());
     _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguage::Right, _ui.languageRight->text());

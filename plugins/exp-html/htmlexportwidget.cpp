@@ -79,7 +79,7 @@ void HtmlExportWidget::addTableColumn()
 
 void HtmlExportWidget::initTableColumns()
 {
-  for (auto columnIndex = 0; columnIndex < _ui.tableColums->value(); columnIndex++)
+  for (auto columnIndex = 0; columnIndex < _ui.tableColums->value(); ++columnIndex)
   {
     addTableColumn();
   }
@@ -94,7 +94,7 @@ void HtmlExportWidget::insertTableText(const QTextTable *tablePreview, quintptr 
 
 void HtmlExportWidget::preselectCodec(const QString &codec) const
 {
-  for (auto codecIndex = 0; codecIndex < _codecsModel.rowCount(); codecIndex++)
+  for (auto codecIndex = 0; codecIndex < _codecsModel.rowCount(); ++codecIndex)
   {
     const auto modelIndex = _codecsModel.index(codecIndex, static_cast<int>(CodecsModel::Column::Codec));
     if (codec == _codecsModel.data(modelIndex))
@@ -127,7 +127,7 @@ void HtmlExportWidget::refreshTable() const
       textCursor.beginEditBlock();
 
       // header labels
-      for (auto columnIndex = 0; columnIndex < _tableColumns.size(); columnIndex++)
+      for (auto columnIndex = 0; columnIndex < _tableColumns.size(); ++columnIndex)
       {
         insertTableText(textTable, HEADER_ROW, columnIndex, _tableColumns.at(columnIndex).headerEdit->text());
       }
@@ -182,7 +182,7 @@ void HtmlExportWidget::refreshTable() const
           textTable->appendRows(1);
           tableRow = textTable->rows() - 1;
 
-          for (auto column = 0; column < _tableColumns.size(); column++)
+          for (auto column = 0; column < _tableColumns.size(); ++column)
           {
             auto templateText = _tableColumns.at(column).templateEdit->text();
 
@@ -197,7 +197,7 @@ void HtmlExportWidget::refreshTable() const
             insertTableText(textTable, tableRow, column, templateText);
           }
 
-          records++;
+          ++records;
           emit progressExportSetValue(records);
         }
       }
@@ -275,7 +275,7 @@ void HtmlExportWidget::refreshText() const
           _ui.textPreview->append(templateText);
         }
 
-        records++;
+        ++records;
         emit progressExportSetValue(records);
       }
     }

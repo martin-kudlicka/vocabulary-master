@@ -77,7 +77,7 @@ void PlaintextExportWidget::refresh() const
 
       _ui.plainPreview->appendPlainText(templateText);
 
-      records++;
+      ++records;
       emit progressExportSetValue(records);
     }
   }
@@ -89,7 +89,7 @@ void PlaintextExportWidget::refresh() const
 
 void PlaintextExportWidget::preselectCodec(const QString &codec) const
 {
-  for (auto codecIndex = 0; codecIndex < _codecsModel.rowCount(); codecIndex++)
+  for (auto codecIndex = 0; codecIndex < _codecsModel.rowCount(); ++codecIndex)
   {
     const auto modelIndex = _codecsModel.index(codecIndex, static_cast<int>(CodecsModel::Column::Codec));
     if (codec == _codecsModel.data(modelIndex))

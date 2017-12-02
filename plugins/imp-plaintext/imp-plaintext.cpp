@@ -24,7 +24,7 @@ QStringList ImpPlaintext::marks() const
 {
   const auto regExp = _widget->regExp();
   QStringList markList;
-  for (auto regExpChar = regExp.constBegin(); regExpChar != regExp.constEnd(); regExpChar++)
+  for (auto regExpChar = regExp.constBegin(); regExpChar != regExp.constEnd(); ++regExpChar)
   {
     if (*regExpChar == '(')
     {
@@ -49,7 +49,7 @@ quintptr ImpPlaintext::recordCount() const
   auto lines = fileLines / _widget->linesPerRecord();
   if (fileLines % _widget->linesPerRecord())
   {
-    lines++;
+    ++lines;
   }
 
   return lines;
@@ -66,17 +66,17 @@ QString ImpPlaintext::recordData(quintptr record, const QString &mark)
       _plaintextFile.seek(PlaintextFile::PFILE_BEGIN);
       while (line != record)
       {
-        for (auto lineIndex = 0; lineIndex < _widget->linesPerRecord(); lineIndex++)
+        for (auto lineIndex = 0; lineIndex < _widget->linesPerRecord(); ++lineIndex)
         {
           _plaintextFile.readLine();
         }
-        line++;
+        ++line;
       }
     }
 
     // read record from file
     QString line;
-    for (auto lineIndex = 0; lineIndex < _widget->linesPerRecord() && !_plaintextFile.atEnd(); lineIndex++)
+    for (auto lineIndex = 0; lineIndex < _widget->linesPerRecord() && !_plaintextFile.atEnd(); ++lineIndex)
     {
       if (!line.isEmpty())
       {

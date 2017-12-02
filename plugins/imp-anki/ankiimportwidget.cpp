@@ -25,7 +25,7 @@ qlonglong AnkiImportWidget::fieldId(quintptr position) const
 QStringList AnkiImportWidget::marks() const
 {
   QStringList marks;
-  for (auto rowIndex = 0; rowIndex < _fieldsModel.rowCount(); rowIndex++)
+  for (auto rowIndex = 0; rowIndex < _fieldsModel.rowCount(); ++rowIndex)
   {
     const auto editorIndex = _fieldsModel.index(rowIndex, FieldsModel::Column::Mark);
     const auto markEditor  = qobject_cast<const MarkLineEdit *>(_ui.fields->indexWidget(editorIndex));
@@ -39,7 +39,7 @@ void AnkiImportWidget::prepareTreeView(QTreeView *treeView, QAbstractItemModel *
 {
   treeView->setModel(itemModel);
   treeView->setItemDelegateForColumn(FieldsModel::Column::Mark, &_markEditDelegate);
-  for (auto columnIndex = 0; columnIndex < treeView->header()->count(); columnIndex++)
+  for (auto columnIndex = 0; columnIndex < treeView->header()->count(); ++columnIndex)
   {
     treeView->header()->setSectionResizeMode(columnIndex, QHeaderView::Stretch);
   }
@@ -59,7 +59,7 @@ void AnkiImportWidget::on_models_selectionModel_selectionChanged(const QItemSele
 
   _ui.fields->reset();
 
-  for (auto rowIndex = 0; rowIndex < _fieldsModel.rowCount(); rowIndex++)
+  for (auto rowIndex = 0; rowIndex < _fieldsModel.rowCount(); ++rowIndex)
   {
     const auto modelIndex = _fieldsModel.index(rowIndex, FieldsModel::Column::Mark);
     _ui.fields->openPersistentEditor(modelIndex);

@@ -23,7 +23,7 @@ int WordsExportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() 
     {
       if (_vocabulary->fieldBuiltIn(vocabularyFieldId) == VocabularyDatabase::FieldBuiltIn::None)
       {
-        count++;
+        ++count;
       }
     }
     return count;
@@ -78,7 +78,7 @@ quintptr WordsExportFieldsModel::fieldId(quintptr row) const
       }
       else
       {
-        num++;
+        ++num;
       }
     }
   }

@@ -96,7 +96,7 @@ void VocabularyManagerDialog::focusOnRecord(quintptr recordId) const
 
   // get tab for category
   quintptr tabIndex;
-  for (tabIndex = 0; tabIndex < _ui.tabs->count(); tabIndex++)
+  for (tabIndex = 0; tabIndex < _ui.tabs->count(); ++tabIndex)
   {
     if (_categories.at(tabIndex) == category)
     {
@@ -115,7 +115,7 @@ void VocabularyManagerDialog::focusOnRecord(quintptr recordId) const
 
 void VocabularyManagerDialog::hideColumns() const
 {
-  for (auto tabIndex = 0; tabIndex < _ui.tabs->count(); tabIndex++)
+  for (auto tabIndex = 0; tabIndex < _ui.tabs->count(); ++tabIndex)
   {
     auto vocabularyView = qobject_cast<VocabularyView *>(_ui.tabs->widget(tabIndex));
     hideColumns(vocabularyView);
@@ -136,7 +136,7 @@ void VocabularyManagerDialog::hideColumns(VocabularyView *tableView) const
       tableView->hideColumn(column);
     }
 
-    column++;
+    ++column;
   }
 }
 
@@ -154,11 +154,11 @@ void VocabularyManagerDialog::initEditor()
     // update field count
     if (_vocabulary->fieldLanguage(fieldId) == VocabularyDatabase::FieldLanguage::Left)
     {
-      fieldsLeft++;
+      ++fieldsLeft;
     }
     else
     {
-      fieldsRight++;
+      ++fieldsRight;
     }
 
     // check if visible or builtin field
@@ -200,7 +200,7 @@ void VocabularyManagerDialog::initTabs()
 
   const auto categories = _vocabulary->categoryIds();
   VocabularyDatabase::CategoryIdList::const_iterator categoryId;
-  for (categoryId = categories.constBegin(); categoryId != categories.constEnd(); categoryId++)
+  for (categoryId = categories.constBegin(); categoryId != categories.constEnd(); ++categoryId)
   {
     addTab(*categoryId);
     _categories.append(*categoryId);
@@ -209,7 +209,7 @@ void VocabularyManagerDialog::initTabs()
 
 void VocabularyManagerDialog::reassignModels() const
 {
-  for (auto tabIndex = 0; tabIndex < _ui.tabs->count(); tabIndex++)
+  for (auto tabIndex = 0; tabIndex < _ui.tabs->count(); ++tabIndex)
   {
     auto vocabularyView  = qobject_cast<VocabularyView *>(_ui.tabs->widget(tabIndex));
     auto vocabularyModel = qobject_cast<VocabularyModel *>(vocabularyView->model());
@@ -221,7 +221,7 @@ void VocabularyManagerDialog::reassignModels() const
 
 void VocabularyManagerDialog::selectFirstEnabledTab()
 {
-  for (auto tabIndex = 0; tabIndex < _ui.tabs->count(); tabIndex++)
+  for (auto tabIndex = 0; tabIndex < _ui.tabs->count(); ++tabIndex)
   {
     if (_ui.tabs->isTabEnabled(tabIndex))
     {
@@ -233,7 +233,7 @@ void VocabularyManagerDialog::selectFirstEnabledTab()
 
 void VocabularyManagerDialog::setPriorityDelegate()
 {
-  for (auto tabIndex = 0; tabIndex < _ui.tabs->count(); tabIndex++)
+  for (auto tabIndex = 0; tabIndex < _ui.tabs->count(); ++tabIndex)
   {
     auto vocabularyView = qobject_cast<VocabularyView *>(_ui.tabs->widget(tabIndex));
     setPriorityDelegate(vocabularyView);
@@ -242,7 +242,7 @@ void VocabularyManagerDialog::setPriorityDelegate()
 
 void VocabularyManagerDialog::setPriorityDelegate(VocabularyView *tableView)
 {
-  for (auto column = 0; column < tableView->horizontalHeader()->count(); column++)
+  for (auto column = 0; column < tableView->horizontalHeader()->count(); ++column)
   {
     const auto fieldId = _vocabulary->fieldId(column);
     if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
@@ -267,7 +267,7 @@ void VocabularyManagerDialog::setPriorityDelegate(VocabularyView *tableView)
 
 void VocabularyManagerDialog::stretchColumns() const
 {
-  for (auto tabIndex = 0; tabIndex < _ui.tabs->count(); tabIndex++)
+  for (auto tabIndex = 0; tabIndex < _ui.tabs->count(); ++tabIndex)
   {
     const auto vocabularyView = qobject_cast<const VocabularyView *>(_ui.tabs->widget(tabIndex));
     stretchColumns(vocabularyView);
@@ -276,7 +276,7 @@ void VocabularyManagerDialog::stretchColumns() const
 
 void VocabularyManagerDialog::stretchColumns(const VocabularyView *tableView) const
 {
-  for (auto column = 0; column < tableView->horizontalHeader()->count(); column++)
+  for (auto column = 0; column < tableView->horizontalHeader()->count(); ++column)
   {
     const auto fieldId = _vocabulary->fieldId(column);
     if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
@@ -320,7 +320,7 @@ void VocabularyManagerDialog::updateEditor() const
 
 void VocabularyManagerDialog::updateEditor(EditorColumn controlsColumn) const
 {
-  for (auto row = 0; row < _ui.editorLayout->rowCount(); row++)
+  for (auto row = 0; row < _ui.editorLayout->rowCount(); ++row)
   {
     auto item = _ui.editorLayout->itemAtPosition(row, static_cast<int>(controlsColumn));
     if (item)

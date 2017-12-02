@@ -20,7 +20,7 @@ quintptr PlaintextImportWidget::lineCount() const
   _file->seek(PlaintextFile::PFILE_BEGIN);
   while (!_file->readLine().isNull())
   {
-    fileLines++;
+    ++fileLines;
   }
 
   return fileLines;
@@ -39,7 +39,7 @@ QString PlaintextImportWidget::regExp() const
 void PlaintextImportWidget::preselectCodec() const
 {
   const auto fileCodec = _file->codecName();
-  for (auto codecIndex = 0; codecIndex < _codecsModel.rowCount(); codecIndex++)
+  for (auto codecIndex = 0; codecIndex < _codecsModel.rowCount(); ++codecIndex)
   {
     const auto modelIndex = _codecsModel.index(codecIndex, static_cast<int>(CodecsModel::Column::Codec));
     const auto codec      = _codecsModel.data(modelIndex).toString();
@@ -59,7 +59,7 @@ void PlaintextImportWidget::refreshPreview() const
 {
   _file->seek(PlaintextFile::PFILE_BEGIN);
   QString text;
-  for (auto lineIndex = 0; lineIndex < linesPerRecord(); lineIndex++)
+  for (auto lineIndex = 0; lineIndex < linesPerRecord(); ++lineIndex)
   {
     if (!text.isEmpty())
     {
