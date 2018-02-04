@@ -47,7 +47,7 @@
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;RSA_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.;$(QTDIR)\include;$(QTDIR)\include\QtCore;.\..\..\..\..\intermediate\vocabularymaster\rsa\$(ConfigurationName);.\..\..\..\..\intermediate\vocabularymaster\rsa;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)\$(ProjectName).dll</OutputFile>
@@ -60,7 +60,7 @@
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;RSA_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.;$(QTDIR)\include;$(QTDIR)\include\QtCore;.\..\..\..\..\intermediate\vocabularymaster\rsa\$(ConfigurationName);.\..\..\..\..\intermediate\vocabularymaster\rsa;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)\$(ProjectName).dll</OutputFile>
