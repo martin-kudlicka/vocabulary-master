@@ -13,6 +13,7 @@
 #include "vocabularymanagerdialog/prioritydelegate.h"
 #include "vocabularyorganizerdialog.h"
 #include <MkWidgets/MAboutBox>
+#include <MkSupport/MFeedback>
 
 const auto FLASH_COUNT            = 3;
 const auto FLASH_WAIT             = 100;
@@ -607,6 +608,11 @@ void MainWindow::on_actionOrganizer_triggered(bool checked /* false */)
     refreshStatusBar();
     createVocabulariesMenu();
   }
+}
+
+void MainWindow::on_actionSendFeedback_triggered(bool checked /* false */) const
+{
+  MFeedback::createEmailForm();
 }
 
 void MainWindow::on_actionSettings_triggered(bool checked /* false */)

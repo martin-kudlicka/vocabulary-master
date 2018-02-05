@@ -83,6 +83,7 @@ class MainWindow : public QMainWindow
     void on_actionMute_toggled                 (bool checked);
     void on_actionNext_triggered               (bool checked = false);
     void on_actionOrganizer_triggered          (bool checked = false);
+    void on_actionSendFeedback_triggered       (bool checked = false) const;
     void on_actionSettings_triggered           (bool checked = false);
     void on_actionStart_triggered              (bool checked = false);
     void on_actionStop_triggered               (bool checked = false);
