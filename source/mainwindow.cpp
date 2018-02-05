@@ -12,6 +12,7 @@
 #include <QtMultimedia/QSound>
 #include "vocabularymanagerdialog/prioritydelegate.h"
 #include "vocabularyorganizerdialog.h"
+#include <MkWidgets/MAboutBox>
 
 const auto FLASH_COUNT            = 3;
 const auto FLASH_WAIT             = 100;
@@ -560,9 +561,7 @@ bool MainWindow::nativeEvent(const QByteArray &eventType, void *message, long *r
 
 void MainWindow::on_actionAbout_triggered(bool checked /* false */)
 {
-  QMessageBox::about(this, tr("About Vocabulary Master"), "<center><b>" + tr(VOCABULARY_MASTER) + "</b> " + QCoreApplication::applicationVersion() +"</center><br />"
-                           "Copyright (C) " + QString(__DATE__).mid(7) + ' ' + QCoreApplication::organizationName() + "<br /><br />" +
-                           tr("<a href=\"https://paypal.me/martinkdev/150\">Donate</a> via PayPal"));
+  MAboutBox(this).exec();
 }
 
 void MainWindow::on_actionAnswer_triggered(bool checked /* false */)
