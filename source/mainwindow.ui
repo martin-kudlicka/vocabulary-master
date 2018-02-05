@@ -297,6 +297,7 @@
      <string>&amp;Help</string>
     </property>
     <addaction name="actionLicense"/>
+    <addaction name="actionSendFeedback"/>
     <addaction name="actionAbout"/>
    </widget>
    <addaction name="menu_File"/>
@@ -445,6 +446,11 @@
    </property>
    <property name="text">
     <string>Find in vocabulary</string>
+   </property>
+  </action>
+  <action name="actionSendFeedback">
+   <property name="text">
+    <string>Send &amp;feedback...</string>
    </property>
   </action>
  </widget>
