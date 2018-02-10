@@ -5,7 +5,7 @@
 #include <QtPlugin>
 #include "../../common/licensecommon.h"
 
-#define IID_TTSINTERFACE "cz.martinkudlicka.VocabularMmaster.TTSInterface"
+#define IID_TTSINTERFACE "cz.martink.VocabularyMaster.TTSInterface"
 #ifndef _DEBUG
 const auto DIR_PLUGINS = "plugins";
 #endif
