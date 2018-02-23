@@ -28,7 +28,11 @@ QModelIndex PluginsModel::index(int row, int column, const QModelIndex &parent /
 
 int PluginsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-  if (parent == QModelIndex())
+  if (parent.isValid())
+  {
+    return 0;
+  }
+  else
   {
     switch (_type)
     {
@@ -41,10 +45,6 @@ int PluginsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
       default:
         return 0;
     }
-  }
-  else
-  {
-    return 0;
   }
 }
 

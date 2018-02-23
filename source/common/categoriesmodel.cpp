@@ -48,10 +48,10 @@ QModelIndex CategoriesModel::parent(const QModelIndex &index) const
 
 int CategoriesModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-  if (parent == QModelIndex())
+  if (parent.isValid())
   {
-    return _vocabulary->categoryCount();
+    return 0;
   }
 
-  return 0;
+  return _vocabulary->categoryCount();
 }

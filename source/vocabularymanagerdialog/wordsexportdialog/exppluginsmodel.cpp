@@ -45,12 +45,12 @@ QModelIndex ExpPluginsModel::parent(const QModelIndex &index) const
 
 int ExpPluginsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-  if (parent == QModelIndex())
+  if (parent.isValid())
   {
-    return _expPlugins->count();
+    return 0;
   }
   else
   {
-    return 0;
+    return _expPlugins->count();
   }
 }

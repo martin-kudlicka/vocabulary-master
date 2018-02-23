@@ -103,12 +103,12 @@ QModelIndex WordsImportFieldsModel::index(int row, int column, const QModelIndex
 
 int WordsImportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-  if (parent == QModelIndex())
+  if (parent.isValid())
   {
-    return _vocabulary->fieldCount();
+    return 0;
   }
 
-  return 0;
+  return _vocabulary->fieldCount();
 }
 
 int WordsImportFieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const

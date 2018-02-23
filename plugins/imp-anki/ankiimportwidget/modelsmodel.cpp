@@ -75,7 +75,11 @@ QModelIndex ModelsModel::parent(const QModelIndex &index) const
 
 int ModelsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-  if (parent == QModelIndex())
+  if (parent.isValid())
+  {
+    return 0;
+  }
+  else
   {
     auto query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_MODELS + " WHERE " + COLUMN_DECKID + " = " + QString::number(_deckId));
     if (query.last())
@@ -86,9 +90,5 @@ int ModelsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
     {
       return 0;
     }
-  }
-  else
-  {
-    return 0;
   }
 }

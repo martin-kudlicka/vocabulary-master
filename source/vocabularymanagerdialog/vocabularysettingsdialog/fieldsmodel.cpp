@@ -103,13 +103,13 @@ QModelIndex FieldsModel::index(int row, int column, const QModelIndex &parent /*
 
 int FieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-  if (parent == QModelIndex())
+  if (parent.isValid())
   {
-    return _vocabulary->fieldCount();
+    return 0;
   }
   else
   {
-    return 0;
+    return _vocabulary->fieldCount();
   }
 }
 
