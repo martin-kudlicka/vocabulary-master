@@ -27,7 +27,7 @@ int CodecsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
   if (parent == QModelIndex())
   {
-    return _codecs.size();
+    return _codecs.count();
   }
   else
   {

@@ -47,7 +47,7 @@ int ExpPluginsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) con
 {
   if (parent == QModelIndex())
   {
-    return _expPlugins->size();
+    return _expPlugins->count();
   }
   else
   {

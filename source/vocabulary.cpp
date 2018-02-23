@@ -155,7 +155,7 @@ quintptr Vocabulary::fieldCount() const
 {
   if (_cacheEnabled)
   {
-    return _fieldData.size();
+    return _fieldData.count();
   }
   else
   {
@@ -289,7 +289,7 @@ quintptr Vocabulary::recordCount() const
     const auto allRecordIds = _categoryRecords.values();
     for (const auto &recordIds : allRecordIds)
     {
-      recordCount += recordIds.size();
+      recordCount += recordIds.count();
     }
 
     return recordCount;
@@ -304,7 +304,7 @@ quintptr Vocabulary::recordCount(quintptr categoryId) const
 {
   if (_cacheEnabled)
   {
-    return _categoryRecords.value(categoryId).size();
+    return _categoryRecords.value(categoryId).count();
   }
   else
   {
@@ -391,7 +391,7 @@ quintptr Vocabulary::recordId(quintptr row) const
     auto recordsTotal = 0;
     for (auto category = _categoryRecords.constBegin(); category != _categoryRecords.constEnd(); ++category)
     {
-      const auto records = recordsTotal + category->size();
+      const auto records = recordsTotal + category->count();
       if (row < records)
       {
         return category->at(row - recordsTotal);

@@ -86,7 +86,7 @@ void VocabularySettingsDialog::fillSpeech(QComboBox *comboBox, TTSInterface::TTS
   speechVoice.voiceId   = voiceId;
   _voices.append(speechVoice);
   comboBox->addItem(tr("Unknown"));
-  comboBox->setItemData(comboBox->count() - 1, _voices.size() - 1);
+  comboBox->setItemData(comboBox->count() - 1, _voices.count() - 1);
 }
 
 void VocabularySettingsDialog::prepareFields()
@@ -127,7 +127,7 @@ void VocabularySettingsDialog::prepareSpeechPlugins(QComboBox *comboBox)
   speechVoice.ttsPlugin = TTSInterface::TTSPlugin::None;
   _voices.append(speechVoice);
   comboBox->addItem(tr("None"));
-  comboBox->setItemData(comboBox->count() - 1, _voices.size() - 1);
+  comboBox->setItemData(comboBox->count() - 1, _voices.count() - 1);
 
   for (const auto &ttsPlugin : _plugins->ttsPlugins())
   {
@@ -140,7 +140,7 @@ void VocabularySettingsDialog::prepareSpeechPlugins(QComboBox *comboBox)
       speechVoice.voiceId   = voiceInfo.id;
       _voices.append(speechVoice);
       comboBox->addItem(QString("%1 (%2)").arg(plugin->pluginName()).arg(voiceInfo.description));
-      comboBox->setItemData(comboBox->count() - 1, _voices.size() - 1);
+      comboBox->setItemData(comboBox->count() - 1, _voices.count() - 1);
     }
   }
 }

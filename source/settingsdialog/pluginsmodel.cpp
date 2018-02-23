@@ -33,11 +33,11 @@ int PluginsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
     switch (_type)
     {
       case PluginType::Imp:
-        return _plugins->impPlugins().size();
+        return _plugins->impPlugins().count();
       case PluginType::Exp:
-        return _plugins->explugins().size();
+        return _plugins->explugins().count();
       case PluginType::TTS:
-        return _plugins->ttsPlugins().size();
+        return _plugins->ttsPlugins().count();
       default:
         return 0;
     }
