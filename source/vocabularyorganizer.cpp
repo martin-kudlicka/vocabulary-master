@@ -8,7 +8,7 @@ VocabularyOrganizer::VocabularyOrganizer(Settings *settings) : _settings(setting
 
 void VocabularyOrganizer::addExisting(VocabularyInfo *vocabularyInfo, QWidget *parent)
 {
-  vocabularyInfo->vocabulary.reset(new Vocabulary(_settings));
+  vocabularyInfo->vocabulary = QSharedPointer<Vocabulary>::create(_settings);
 
   if (vocabularyInfo->vocabularyInfo.enabled)
   {
