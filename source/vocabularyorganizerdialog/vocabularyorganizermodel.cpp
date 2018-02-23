@@ -93,12 +93,12 @@ QVariant VocabularyOrganizerModel::headerData(int section, Qt::Orientation orien
 
 int VocabularyOrganizerModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-  if (parent == QModelIndex())
+  if (parent.isValid())
   {
-    return _organizer->vocabularyCount();
+    return 0;
   }
 
-  return 0;
+  return _organizer->vocabularyCount();
 }
 
 bool VocabularyOrganizerModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)

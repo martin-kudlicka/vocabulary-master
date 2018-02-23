@@ -25,13 +25,13 @@ QModelIndex CodecsModel::index(int row, int column, const QModelIndex &parent /*
 
 int CodecsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-  if (parent == QModelIndex())
+  if (parent.isValid())
   {
-    return _codecs.count();
+    return 0;
   }
   else
   {
-    return 0;
+    return _codecs.count();
   }
 }
 

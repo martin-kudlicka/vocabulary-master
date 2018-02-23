@@ -56,7 +56,11 @@ QModelIndex FieldsModel::index(int row, int column, const QModelIndex &parent /*
 
 int FieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-  if (parent == QModelIndex())
+  if (parent.isValid())
+  {
+    return 0;
+  }
+  else
   {
     auto query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDMODELS + " WHERE " + COLUMN_MODELID + " = " + QString::number(_modelId));
     if (query.last())
@@ -67,10 +71,6 @@ int FieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
     {
       return 0;
     }
-  }
-  else
-  {
-    return 0;
   }
 }
 

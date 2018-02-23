@@ -15,21 +15,21 @@ QModelIndex WordsExportFieldsModel::index(int row, int column, const QModelIndex
 
 int WordsExportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
-  if (parent == QModelIndex())
+  if (parent.isValid())
   {
-    // ignore built-in fields
-    auto count = 0;
-    for (auto vocabularyFieldId : _vocabulary->fieldIds())
-    {
-      if (_vocabulary->fieldBuiltIn(vocabularyFieldId) == VocabularyDatabase::FieldBuiltIn::None)
-      {
-        ++count;
-      }
-    }
-    return count;
+    return 0;
   }
 
-  return 0;
+  // ignore built-in fields
+  auto count = 0;
+  for (auto vocabularyFieldId : _vocabulary->fieldIds())
+  {
+    if (_vocabulary->fieldBuiltIn(vocabularyFieldId) == VocabularyDatabase::FieldBuiltIn::None)
+    {
+      ++count;
+    }
+  }
+  return count;
 }
 
 int WordsExportFieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
