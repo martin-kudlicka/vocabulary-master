@@ -28,7 +28,7 @@ QStringList ImpPlaintext::marks() const
   {
     if (*regExpChar == '(')
     {
-      const auto mark = TEMPLATE_MARK.arg(QString::number(markList.size() + 1));
+      const auto mark = TEMPLATE_MARK.arg(QString::number(markList.count() + 1));
       markList.append(mark);
     }
   }
@@ -104,7 +104,7 @@ QString ImpPlaintext::recordData(quintptr record, const QString &mark)
   const auto markIndex = markList.indexOf(mark);
 
   // get data
-  if (_cachedCapture.size() > markIndex + 1)
+  if (_cachedCapture.count() > markIndex + 1)
   {
     return _cachedCapture.at(markIndex + 1);
   }

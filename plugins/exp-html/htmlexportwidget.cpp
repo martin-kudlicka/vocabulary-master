@@ -72,9 +72,9 @@ void HtmlExportWidget::addTableColumn()
     hBoxHeader->addWidget(tableColumn.width);
   }
 
-  _ui.tableColumns->addWidget(tableColumn.headerWidget, static_cast<int>(TableRow::Header), _tableColumns.size() + LABEL_COLUMN);
+  _ui.tableColumns->addWidget(tableColumn.headerWidget, static_cast<int>(TableRow::Header), _tableColumns.count() + LABEL_COLUMN);
   // template
-  _ui.tableColumns->addWidget(tableColumn.templateEdit, static_cast<int>(TableRow::Template), _tableColumns.size() + LABEL_COLUMN);
+  _ui.tableColumns->addWidget(tableColumn.templateEdit, static_cast<int>(TableRow::Template), _tableColumns.count() + LABEL_COLUMN);
 }
 
 void HtmlExportWidget::initTableColumns()
@@ -122,12 +122,12 @@ void HtmlExportWidget::refreshTable() const
         tableWidths.append(QTextLength(QTextLength::FixedLength, columnIndex.width->value()));
       }
       textTableFormat.setColumnWidthConstraints(tableWidths);
-      auto textTable = textCursor.insertTable(HEADER_ROW + 1, _tableColumns.size(), textTableFormat);
+      auto textTable = textCursor.insertTable(HEADER_ROW + 1, _tableColumns.count(), textTableFormat);
 
       textCursor.beginEditBlock();
 
       // header labels
-      for (auto columnIndex = 0; columnIndex < _tableColumns.size(); ++columnIndex)
+      for (auto columnIndex = 0; columnIndex < _tableColumns.count(); ++columnIndex)
       {
         insertTableText(textTable, HEADER_ROW, columnIndex, _tableColumns.at(columnIndex).headerEdit->text());
       }
@@ -164,14 +164,14 @@ void HtmlExportWidget::refreshTable() const
         else
         {
           textTable->appendRows(1);
-          textTable->mergeCells(textTable->rows() - 1, 0, 1, _tableColumns.size());
+          textTable->mergeCells(textTable->rows() - 1, 0, 1, _tableColumns.count());
         }
 
         QString categoryName;
         emit vocabularyGetCategoryName(categoryId, &categoryName);
         textTable->appendRows(1);
         auto tableRow = textTable->rows() - 1;
-        textTable->mergeCells(tableRow, 0, 1, _tableColumns.size());
+        textTable->mergeCells(tableRow, 0, 1, _tableColumns.count());
         insertTableText(textTable, tableRow, 0, categoryName);
 
         // records
@@ -182,7 +182,7 @@ void HtmlExportWidget::refreshTable() const
           textTable->appendRows(1);
           tableRow = textTable->rows() - 1;
 
-          for (auto column = 0; column < _tableColumns.size(); ++column)
+          for (auto column = 0; column < _tableColumns.count(); ++column)
           {
             auto templateText = _tableColumns.at(column).templateEdit->text();
 
@@ -311,7 +311,7 @@ void HtmlExportWidget::on_styleText_clicked(bool checked /* false */) const
 
 void HtmlExportWidget::on_tableColums_valueChanged(int i)
 {
-  if (i < _tableColumns.size())
+  if (i < _tableColumns.count())
   {
     removeTableColumn();
   }

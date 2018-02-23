@@ -155,7 +155,7 @@ void WordsImportDialog::importData(const Target &target)
     {
       auto text = patterns.at(column);
 
-      for (auto mark = 0; mark < marks.size(); ++mark)
+      for (auto mark = 0; mark < marks.count(); ++mark)
       {
         text.replace(marks.at(mark), markData.at(mark));
       }
@@ -222,7 +222,7 @@ void WordsImportDialog::preparePreviewColumns() const
     columns.append(_vocabulary->fieldName(fieldId));
   }
 
-  _ui.preview->setColumnCount(columns.size());
+  _ui.preview->setColumnCount(columns.count());
   _ui.preview->setHorizontalHeaderLabels(columns);
   for (auto column = 0; column < _ui.preview->horizontalHeader()->count(); ++column)
   {

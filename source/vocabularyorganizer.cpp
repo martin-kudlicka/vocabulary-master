@@ -126,7 +126,7 @@ void VocabularyOrganizer::remove(quintptr index)
 
 void VocabularyOrganizer::saveAll()
 {
-  const auto vocabularies = _vocabularies.size();
+  const auto vocabularies = _vocabularies.count();
 
   for (auto index = 0; index < vocabularies; ++index)
   {
@@ -153,7 +153,7 @@ void VocabularyOrganizer::setVocabularyEnabled(quintptr index, bool enabled, QWi
 
 quintptr VocabularyOrganizer::vocabularyCount() const
 {
-  return _vocabularies.size();
+  return _vocabularies.count();
 }
 
 const VocabularyOrganizer::VocabularyInfo &VocabularyOrganizer::vocabularyInfo(quintptr index) const

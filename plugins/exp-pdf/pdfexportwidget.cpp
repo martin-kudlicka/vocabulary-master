@@ -261,9 +261,9 @@ void PdfExportWidget::addTableColumn()
   header->setContentsMargins(QMargins());
   header->addWidget(tableColumn.headerEdit);
   header->addWidget(tableColumn.width);
-  _ui.tableColumns->addWidget(tableColumn.headerWidget, static_cast<int>(TableRow::Header), _tableColumns.size() + LABEL_COLUMN);
+  _ui.tableColumns->addWidget(tableColumn.headerWidget, static_cast<int>(TableRow::Header), _tableColumns.count() + LABEL_COLUMN);
   // template
-  _ui.tableColumns->addWidget(tableColumn.templateEdit, static_cast<int>(TableRow::Template), _tableColumns.size() + LABEL_COLUMN);
+  _ui.tableColumns->addWidget(tableColumn.templateEdit, static_cast<int>(TableRow::Template), _tableColumns.count() + LABEL_COLUMN);
 }
 
 void PdfExportWidget::fillEncodings(QComboBox *comboBox, const QString &font) const
@@ -406,7 +406,7 @@ void PdfExportWidget::on_styleText_clicked(bool checked /* false */) const
 
 void PdfExportWidget::on_tableColums_valueChanged(int i)
 {
-  if (i < _tableColumns.size())
+  if (i < _tableColumns.count())
   {
     removeTableColumn();
   }

@@ -59,7 +59,7 @@ void ExpPdf::exportText(quintptr recordId, HPDF_Page pdfPage, const FontList &fo
       pos = markPos;
 
       // check if valid mark
-      for (auto markIndex = 0; markIndex < marks.size(); ++markIndex)
+      for (auto markIndex = 0; markIndex < marks.count(); ++markIndex)
       {
         const auto mark = marks.at(markIndex);
         if (templateText.mid(markPos, mark.size()) == mark)
@@ -253,7 +253,7 @@ void ExpPdf::beginExport() const
 
   // get font info with font and encoding set
   QList<Font> fonts;
-  initFonts(pdfDocument, &fonts, marks.size());
+  initFonts(pdfDocument, &fonts, marks.count());
 
   // categories
   ExpInterface::CategoryIdList categoryIds;
