@@ -9,7 +9,7 @@ class PlaintextImportWidget;
 class ImpPlaintext : public QObject, private ImpInterface
 {
   Q_OBJECT
-  Q_PLUGIN_METADATA(IID IID_IMPINTERFACE FILE "imp-plaintext.json")
+  Q_PLUGIN_METADATA(IID IID_IMPINTERFACE)
   Q_INTERFACES(ImpInterface)
 
   private:

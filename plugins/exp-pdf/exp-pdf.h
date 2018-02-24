@@ -7,7 +7,7 @@
 class ExpPdf : public ExpInterface
 {
   Q_OBJECT
-  Q_PLUGIN_METADATA(IID IID_EXPINTERFACE FILE "exp-pdf.json")
+  Q_PLUGIN_METADATA(IID IID_EXPINTERFACE)
   Q_INTERFACES(ExpInterface)
 
   private:

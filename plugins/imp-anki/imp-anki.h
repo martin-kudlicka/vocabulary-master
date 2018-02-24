@@ -9,7 +9,7 @@ class AnkiImportWidget;
 class ImpAnki : public QObject, private ImpInterface
 {
   Q_OBJECT
-  Q_PLUGIN_METADATA(IID IID_IMPINTERFACE FILE "imp-anki.json")
+  Q_PLUGIN_METADATA(IID IID_IMPINTERFACE)
   Q_INTERFACES(ImpInterface)
 
   public:
