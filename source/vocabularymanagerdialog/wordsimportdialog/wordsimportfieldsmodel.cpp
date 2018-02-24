@@ -51,6 +51,7 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
             switch (role)
             {
               case Qt::EditRole:
+                Q_FALLTHROUGH();
               case Qt::CheckStateRole:
                 if (_editorData.at(index.row()).isEmpty())
                 {
