@@ -6,7 +6,7 @@
 class TTSSAPI : public QObject, private TTSInterface
 {
   Q_OBJECT
-  Q_PLUGIN_METADATA(IID IID_TTSINTERFACE FILE "tts-sapi.json")
+  Q_PLUGIN_METADATA(IID IID_TTSINTERFACE)
   Q_INTERFACES(TTSInterface)
 
   private:

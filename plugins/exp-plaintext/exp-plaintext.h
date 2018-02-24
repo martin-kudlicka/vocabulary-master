@@ -8,7 +8,7 @@ class PlaintextExportWidget;
 class ExpPlaintext : public ExpInterface
 {
   Q_OBJECT
-  Q_PLUGIN_METADATA(IID IID_EXPINTERFACE FILE "exp-plaintext.json")
+  Q_PLUGIN_METADATA(IID IID_EXPINTERFACE)
   Q_INTERFACES(ExpInterface)
 
   private:
