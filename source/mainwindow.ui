@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="mainwindow.qrc">
-    <normaloff>:/res/mainwindow/mainwindow.png</normaloff>:/res/mainwindow/mainwindow.png</iconset>
+    <normaloff>:/resources/images/mainwindow.png</normaloff>:/resources/images/mainwindow.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QWidget" name="layoutWidget">
@@ -331,7 +331,7 @@
   <action name="actionExit">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/res/mainwindow/menubar/exit.png</normaloff>:/res/mainwindow/menubar/exit.png</iconset>
+     <normaloff>:/resources/images/menubar/exit.png</normaloff>:/resources/images/menubar/exit.png</iconset>
    </property>
    <property name="text">
     <string>E&amp;xit</string>
@@ -340,7 +340,7 @@
   <action name="actionSettings">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/res/mainwindow/menubar/settings.png</normaloff>:/res/mainwindow/menubar/settings.png</iconset>
+     <normaloff>:/resources/images/menubar/settings.png</normaloff>:/resources/images/menubar/settings.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Settings...</string>
@@ -349,7 +349,7 @@
   <action name="actionOrganizer">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/res/mainwindow/menubar/new.png</normaloff>:/res/mainwindow/menubar/new.png</iconset>
+     <normaloff>:/resources/images/menubar/new.png</normaloff>:/resources/images/menubar/new.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Organizer...</string>
@@ -358,7 +358,7 @@
   <action name="actionOpen">
    <property name="icon">
     <iconset>
-     <normaloff>:/res/mainwindow/menubar/open.png</normaloff>:/res/mainwindow/menubar/open.png</iconset>
+     <normaloff>:/resources/images/menubar/open.png</normaloff>:/resources/images/menubar/open.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Open...</string>
@@ -367,7 +367,7 @@
   <action name="qaManage">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/res/mainwindow/menubar/manage.png</normaloff>:/res/mainwindow/menubar/manage.png</iconset>
+     <normaloff>:/resources/images/menubar/manage.png</normaloff>:/resources/images/menubar/manage.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Manage...</string>
@@ -376,7 +376,7 @@
   <action name="actionStart">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/res/mainwindow/toolbar/play.png</normaloff>:/res/mainwindow/toolbar/play.png</iconset>
+     <normaloff>:/resources/images/toolbar/play.png</normaloff>:/resources/images/toolbar/play.png</iconset>
    </property>
    <property name="text">
     <string>Start</string>
@@ -385,7 +385,7 @@
   <action name="actionStop">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/res/mainwindow/toolbar/stop.png</normaloff>:/res/mainwindow/toolbar/stop.png</iconset>
+     <normaloff>:/resources/images/toolbar/stop.png</normaloff>:/resources/images/toolbar/stop.png</iconset>
    </property>
    <property name="text">
     <string>Stop</string>
@@ -394,7 +394,7 @@
   <action name="actionNext">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/res/mainwindow/toolbar/next.png</normaloff>:/res/mainwindow/toolbar/next.png</iconset>
+     <normaloff>:/resources/images/toolbar/next.png</normaloff>:/resources/images/toolbar/next.png</iconset>
    </property>
    <property name="text">
     <string>Next</string>
@@ -406,7 +406,7 @@
    </property>
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/res/mainwindow/toolbar/mute.png</normaloff>:/res/mainwindow/toolbar/mute.png</iconset>
+     <normaloff>:/resources/images/toolbar/mute.png</normaloff>:/resources/images/toolbar/mute.png</iconset>
    </property>
    <property name="text">
     <string>Mute</string>
@@ -415,7 +415,7 @@
   <action name="actionAnswer">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/res/mainwindow/toolbar/answer.png</normaloff>:/res/mainwindow/toolbar/answer.png</iconset>
+     <normaloff>:/resources/images/toolbar/answer.png</normaloff>:/resources/images/toolbar/answer.png</iconset>
    </property>
    <property name="text">
     <string>Answer</string>
@@ -424,7 +424,7 @@
   <action name="actionAbout">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/res/mainwindow/menubar/about.png</normaloff>:/res/mainwindow/menubar/about.png</iconset>
+     <normaloff>:/resources/images/menubar/about.png</normaloff>:/resources/images/menubar/about.png</iconset>
    </property>
    <property name="text">
     <string>&amp;About...</string>
@@ -433,7 +433,7 @@
   <action name="actionLicense">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/res/mainwindow/menubar/license.png</normaloff>:/res/mainwindow/menubar/license.png</iconset>
+     <normaloff>:/resources/images/menubar/license.png</normaloff>:/resources/images/menubar/license.png</iconset>
    </property>
    <property name="text">
     <string>&amp;License...</string>
@@ -442,7 +442,7 @@
   <action name="actionFindInVocabulary">
    <property name="icon">
     <iconset resource="mainwindow.qrc">
-     <normaloff>:/res/mainwindow/toolbar/findinvocabulary.png</normaloff>:/res/mainwindow/toolbar/findinvocabulary.png</iconset>
+     <normaloff>:/resources/images/toolbar/findinvocabulary.png</normaloff>:/resources/images/toolbar/findinvocabulary.png</iconset>
    </property>
    <property name="text">
     <string>Find in vocabulary</string>

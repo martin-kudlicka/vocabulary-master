@@ -45,11 +45,11 @@ void LicenseTextDialog::showMainLicense(const Settings *settings) const
   QFile licenseFile;
   if (settings->translation() == "cs_CZ.qm")
   {
-    licenseFile.setFileName(":/res/eula/cze.txt");
+    licenseFile.setFileName(":/resources/eula/cze.txt");
   }
   else
   {
-    licenseFile.setFileName(":/res/eula/eng.txt");
+    licenseFile.setFileName(":/resources/eula/eng.txt");
   }
   licenseFile.open(QIODevice::ReadOnly);
   licenseContent.text = licenseFile.readAll();
@@ -58,7 +58,7 @@ void LicenseTextDialog::showMainLicense(const Settings *settings) const
 
   // fugue-icons
   licenseContent.title = "Fugue Icons";
-  licenseFile.setFileName(":/res/eula/fugue-icons/README.txt");
+  licenseFile.setFileName(":/resources/eula/fugue-icons/README.txt");
   licenseFile.open(QIODevice::ReadOnly);
   licenseContent.text = licenseFile.readAll();
   licenses.append(licenseContent);

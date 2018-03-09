@@ -43,7 +43,7 @@ MainWindow::MainWindow() : _learning(false), _hboxLayoutInner(Q_NULLPTR), _updat
   _plugins.initialize();
 
   // system tray icon
-  const QIcon trayIcon(":/res/mainwindow/mainwindow.png");
+  const QIcon trayIcon(":/resources/images/mainwindow.png");
   _trayIcon.setIcon(trayIcon);
 
   // translator
@@ -140,11 +140,11 @@ void MainWindow::applySettings(bool startup)
 
 void MainWindow::createTrayMenu()
 {
-  _trayVocabularies = _menuTray.addAction(QIcon(":/res/mainwindow/menubar/manage.png"), tr("&Vocabularies"));
+  _trayVocabularies = _menuTray.addAction(QIcon(":/resources/images/menubar/manage.png"), tr("&Vocabularies"));
   _trayVocabularies->setMenu(&_menuTrayVocabularies);
-  _traySettings = _menuTray.addAction(QIcon(":/res/mainwindow/menubar/settings.png"), tr("&Settings"));
+  _traySettings = _menuTray.addAction(QIcon(":/resources/images/menubar/settings.png"), tr("&Settings"));
   _menuTray.addSeparator();
-  _trayExit = _menuTray.addAction(QIcon(":/res/mainwindow/menubar/exit.png"), tr("&Exit"));
+  _trayExit = _menuTray.addAction(QIcon(":/resources/images/menubar/exit.png"), tr("&Exit"));
 
   connect(&_menuTray, &QMenu::triggered, this, &MainWindow::on_menuTray_triggered);
   _trayIcon.setContextMenu(&_menuTray);
@@ -161,11 +161,11 @@ void MainWindow::createVocabulariesMenu()
     const auto name           = vocabularyInfo.vocabulary->name();
 
     // main menu
-    auto action = _ui.menuVocabularies->addAction(QIcon(":/res/mainwindow/menubar/vocabulary.png"), name);
+    auto action = _ui.menuVocabularies->addAction(QIcon(":/resources/images/menubar/vocabulary.png"), name);
     action->setData(vocabularyIndex);
 
     // tray menu
-    action = _menuTrayVocabularies.addAction(QIcon(":/res/mainwindow/menubar/vocabulary.png"), name);
+    action = _menuTrayVocabularies.addAction(QIcon(":/resources/images/menubar/vocabulary.png"), name);
     action->setData(vocabularyIndex);
   }
 }
@@ -686,7 +686,7 @@ void MainWindow::on_learningTimer_timeout()
       const auto maxRecordPriority   = qrand() % PriorityDelegate::RECORD_PRIORITY_MAX + 1;
 
       auto nextRecordTry = 0;
-      while (true)
+      forever
       {
         _currentRecord = _vocabularyOrganizer.recordInfo(qrand() % _vocabularyOrganizer.recordCount());
         if (nextRecordTry == MAX_NEXTRECORD_TRIES)
