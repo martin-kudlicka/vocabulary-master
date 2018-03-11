@@ -5,7 +5,7 @@
 
 WordsImportFieldsModel::WordsImportFieldsModel(const QSharedPointer<Vocabulary> &vocabulary) : _vocabulary(vocabulary)
 {
-  for (auto fieldIndex = 0; fieldIndex < _vocabulary->fieldCount(); ++fieldIndex)
+  for (decltype(_vocabulary->fieldCount()) fieldIndex = 0; fieldIndex < _vocabulary->fieldCount(); ++fieldIndex)
   {
     _editorData.append(QString());
   }

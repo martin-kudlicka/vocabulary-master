@@ -155,7 +155,7 @@ void MainWindow::createVocabulariesMenu()
   _ui.menuVocabularies->clear();
   _menuTrayVocabularies.clear();
 
-  for (auto vocabularyIndex = 0; vocabularyIndex < _vocabularyOrganizer.vocabularyCount(); ++vocabularyIndex)
+  for (decltype(_vocabularyOrganizer.vocabularyCount()) vocabularyIndex = 0; vocabularyIndex < _vocabularyOrganizer.vocabularyCount(); ++vocabularyIndex)
   {
     const auto vocabularyInfo = _vocabularyOrganizer.vocabularyInfo(vocabularyIndex);
     const auto name           = vocabularyInfo.vocabulary->name();
@@ -681,9 +681,9 @@ void MainWindow::on_learningTimer_timeout()
     else
     {
       quintptr categoryId;
-      const auto lastRecord          = _currentRecord;
-      const auto maxCategoryPriority = qrand() % VocabularyTabWidget::CATEGORY_PRIORITY_MAX + 1;
-      const auto maxRecordPriority   = qrand() % PriorityDelegate::RECORD_PRIORITY_MAX + 1;
+      const auto lastRecord              = _currentRecord;
+      const quintptr maxCategoryPriority = qrand() % VocabularyTabWidget::CATEGORY_PRIORITY_MAX + 1;
+      const quintptr maxRecordPriority   = qrand() % PriorityDelegate::RECORD_PRIORITY_MAX + 1;
 
       auto nextRecordTry = 0;
       forever

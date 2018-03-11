@@ -59,7 +59,7 @@ void PlaintextImportWidget::refreshPreview() const
 {
   _file->seek(PlaintextFile::PFILE_BEGIN);
   QString text;
-  for (auto lineIndex = 0; lineIndex < linesPerRecord(); ++lineIndex)
+  for (decltype(linesPerRecord()) lineIndex = 0; lineIndex < linesPerRecord(); ++lineIndex)
   {
     if (!text.isEmpty())
     {
