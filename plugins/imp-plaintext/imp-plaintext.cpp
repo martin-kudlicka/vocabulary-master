@@ -66,7 +66,7 @@ QString ImpPlaintext::recordData(quintptr record, const QString &mark)
       _plaintextFile.seek(PlaintextFile::PFILE_BEGIN);
       while (line != record)
       {
-        for (auto lineIndex = 0; lineIndex < _widget->linesPerRecord(); ++lineIndex)
+        for (decltype(_widget->linesPerRecord()) lineIndex = 0; lineIndex < _widget->linesPerRecord(); ++lineIndex)
         {
           _plaintextFile.readLine();
         }
@@ -76,7 +76,7 @@ QString ImpPlaintext::recordData(quintptr record, const QString &mark)
 
     // read record from file
     QString line;
-    for (auto lineIndex = 0; lineIndex < _widget->linesPerRecord() && !_plaintextFile.atEnd(); ++lineIndex)
+    for (decltype(_widget->linesPerRecord()) lineIndex = 0; lineIndex < _widget->linesPerRecord() && !_plaintextFile.atEnd(); ++lineIndex)
     {
       if (!line.isEmpty())
       {

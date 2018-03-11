@@ -95,7 +95,7 @@ void VocabularyManagerDialog::focusOnRecord(quintptr recordId) const
   const auto category = _vocabulary->recordCategory(recordId);
 
   // get tab for category
-  quintptr tabIndex;
+  decltype(_ui.tabs->count()) tabIndex;
   for (tabIndex = 0; tabIndex < _ui.tabs->count(); ++tabIndex)
   {
     if (_categories.at(tabIndex) == category)

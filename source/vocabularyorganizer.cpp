@@ -44,8 +44,8 @@ bool VocabularyOrganizer::isOpen() const
 
 void VocabularyOrganizer::openAll(QWidget *parent)
 {
-  const auto vocabularies = _settings->vocabularyCount();
-  for (auto index = 0; index < vocabularies; ++index)
+  auto vocabularies = _settings->vocabularyCount();
+  for (decltype(vocabularies) index = 0; index < vocabularies; ++index)
   {
     VocabularyInfo vocabularyInfo;
     vocabularyInfo.vocabularyInfo = _settings->vocabularyInfo(index);

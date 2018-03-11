@@ -391,7 +391,7 @@ quintptr Vocabulary::recordId(quintptr row) const
     auto recordsTotal = 0;
     for (auto category = _categoryRecords.constBegin(); category != _categoryRecords.constEnd(); ++category)
     {
-      const auto records = recordsTotal + category->count();
+      const decltype(row) records = recordsTotal + category->count();
       if (row < records)
       {
         return category->at(row - recordsTotal);

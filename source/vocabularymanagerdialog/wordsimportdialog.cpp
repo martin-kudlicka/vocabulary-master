@@ -106,15 +106,15 @@ void WordsImportDialog::importData(const Target &target)
 
   // patterns
   QStringList patterns;
-  for (auto pattern = 0; pattern < _vocabulary->fieldCount(); ++pattern)
+  for (decltype(_vocabulary->fieldCount()) pattern = 0; pattern < _vocabulary->fieldCount(); ++pattern)
   {
     const auto index = _fieldsModel.index(pattern, static_cast<int>(WordsImportFieldsModel::Column::Editor));
     const auto data  = _fieldsModel.data(index, Qt::EditRole).toString();
     patterns.append(data);
   }
 
-  const auto marks       = _plugin->marks();
-  const auto recordCount = _plugin->recordCount();
+  const auto marks = _plugin->marks();
+  auto recordCount = _plugin->recordCount();
 
   quintptr categoryId;
   switch (target)
@@ -128,7 +128,7 @@ void WordsImportDialog::importData(const Target &target)
   }
 
   auto skipCount = 0;
-  for (auto record = 0; record < recordCount && !_interrupt; ++record)
+  for (decltype(recordCount) record = 0; record < recordCount && !_interrupt; ++record)
   {
     // get mark data
     auto skip = false;
@@ -151,7 +151,7 @@ void WordsImportDialog::importData(const Target &target)
 
     // get data
     QStringList data;
-    for (auto column = 0; column < _vocabulary->fieldCount(); ++column)
+    for (decltype(_vocabulary->fieldCount()) column = 0; column < _vocabulary->fieldCount(); ++column)
     {
       auto text = patterns.at(column);
 
@@ -166,7 +166,7 @@ void WordsImportDialog::importData(const Target &target)
     switch (target)
     {
       case Target::Preview:
-        for (auto column = 0; column < _vocabulary->fieldCount(); ++column)
+        for (decltype(_vocabulary->fieldCount()) column = 0; column < _vocabulary->fieldCount(); ++column)
         {
           QTableWidgetItem *tableItem = Q_NULLPTR;
 
