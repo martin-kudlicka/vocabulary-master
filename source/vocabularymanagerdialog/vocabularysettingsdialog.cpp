@@ -177,12 +177,16 @@ void VocabularySettingsDialog::saveOptions()
 
 void VocabularySettingsDialog::on_fieldAdd_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   _fieldsModel.addRow();
   actualizeFieldsEditor(_fieldsModel.rowCount() - 1);
 }
 
 void VocabularySettingsDialog::on_fieldDown_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   const auto current = _ui.fields->currentIndex();
   _fieldsModel.swap(current.row(), current.row() + 1);
   actualizeFieldsEditor();
@@ -192,6 +196,8 @@ void VocabularySettingsDialog::on_fieldDown_clicked(bool checked /* false */)
 
 void VocabularySettingsDialog::on_fieldRemove_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   const auto selection = _ui.fields->selectionModel();
   _fieldsModel.removeRow(selection->currentIndex().row());
   actualizeFieldsEditor();
@@ -199,6 +205,8 @@ void VocabularySettingsDialog::on_fieldRemove_clicked(bool checked /* false */)
 
 void VocabularySettingsDialog::on_fieldUp_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   const auto current = _ui.fields->currentIndex();
   _fieldsModel.swap(current.row(), current.row() - 1);
   actualizeFieldsEditor();
@@ -208,8 +216,11 @@ void VocabularySettingsDialog::on_fieldUp_clicked(bool checked /* false */)
 
 void VocabularySettingsDialog::on_fieldsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
+  Q_UNUSED(selected);
+  Q_UNUSED(deselected);
+
   const auto selection = _ui.fields->selectionModel();
-  bool builtIn;
+  bool builtIn         = true;
   if (selection->hasSelection())
   {
     const auto fieldId = _vocabulary->fieldId(_ui.fields->currentIndex().row());
@@ -223,10 +234,14 @@ void VocabularySettingsDialog::on_fieldsSelectionModel_selectionChanged(const QI
 
 void VocabularySettingsDialog::on_languageLeft_textEdited(const QString &text) const
 {
+  Q_UNUSED(text);
+
   refreshLanguageNameFields();
 }
 
 void VocabularySettingsDialog::on_languageRight_textEdited(const QString &text) const
 {
+  Q_UNUSED(text);
+
   refreshLanguageNameFields();
 }

@@ -269,7 +269,7 @@ void PdfExportWidget::addTableColumn()
 void PdfExportWidget::fillEncodings(QComboBox *comboBox, const QString &font) const
 {
   // get font encoding type
-  EncodingType encoding;
+  EncodingType encoding = EncodingType::Singlebyte;
   for (auto fontIndex = 0; fontIndex < _countof(FONTS); ++fontIndex)
   {
     if (FONTS[fontIndex].name == font)
@@ -370,8 +370,10 @@ void PdfExportWidget::removeTableColumn()
 
 void PdfExportWidget::on_font_currentIndexChanged(int index) const
 {
+  Q_UNUSED(index);
+
   // get font controls
-  FontControls controls;
+  FontControls controls = {};
   foreach(controls, _fontControls)
   {
     if (controls.font == sender())
@@ -396,11 +398,15 @@ void PdfExportWidget::on_font_currentIndexChanged(int index) const
 
 void PdfExportWidget::on_styleTable_clicked(bool checked /* false */) const
 {
+  Q_UNUSED(checked);
+
   _ui.styles->setCurrentIndex(static_cast<int>(Style::Table));
 }
 
 void PdfExportWidget::on_styleText_clicked(bool checked /* false */) const
 {
+  Q_UNUSED(checked);
+
   _ui.styles->setCurrentIndex(static_cast<int>(Style::Text));
 }
 
