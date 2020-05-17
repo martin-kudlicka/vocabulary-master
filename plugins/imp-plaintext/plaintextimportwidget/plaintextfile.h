@@ -11,6 +11,8 @@ class PlaintextFile
   public:
     static const auto PFILE_BEGIN = 0;
 
+    PlaintextFile();
+
     const bool    atEnd       () const;
     const void    close       ();
     const QString codecName   () const;

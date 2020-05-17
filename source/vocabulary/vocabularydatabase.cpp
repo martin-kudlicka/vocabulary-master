@@ -77,8 +77,8 @@ bool VocabularyDatabase::categoryEnabled(quintptr categoryId) const
 
 quintptr VocabularyDatabase::categoryId(quintptr row) const
 {
-  auto query    = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_CATEGORIES);
-  auto position = 0;
+  auto query             = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_CATEGORIES);
+  decltype(row) position = 0;
   while (query.next())
   {
     if (position == row)
@@ -331,7 +331,7 @@ quintptr VocabularyDatabase::addRecord(quintptr categoryId, const QStringList &d
   auto dataIndex = 0;
   for (auto fieldId : fieldIds())
   {
-    query = _database.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(fieldId) + "', '" + QString::number(recordId) + "', '" + data.at(dataIndex) + "')");
+    _database.exec("INSERT INTO " + TABLE_DATA + " (" + COLUMN_FIELDID + ", " + COLUMN_RECORDID + ", " + COLUMN_TEXT + ") VALUES ('" + QString::number(fieldId) + "', '" + QString::number(recordId) + "', '" + data.at(dataIndex) + "')");
     ++dataIndex;
   }
 
@@ -457,8 +457,8 @@ quintptr VocabularyDatabase::fieldCount() const
 
 quintptr VocabularyDatabase::fieldId(quintptr position) const
 {
-  auto query = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS);
-  auto currentPosition = 0;
+  auto query                         = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS);
+  decltype(position) currentPosition = 0;
   while (query.next())
   {
     if (currentPosition == position)

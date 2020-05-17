@@ -4,8 +4,12 @@
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QBoxLayout>
 
-const auto    CACHED_NONE   = -2;
+const auto    CACHED_NONE   = std::numeric_limits<quintptr>::max();
 const QString TEMPLATE_MARK = "${%1}";
+
+ImpPlaintext::ImpPlaintext() : _cachedRecord(CACHED_NONE), _widget(Q_NULLPTR)
+{
+}
 
 void ImpPlaintext::close()
 {
@@ -62,7 +66,7 @@ QString ImpPlaintext::recordData(quintptr record, const QString &mark)
     if (_cachedRecord + 1 != record)
     {
       // seek to record in file
-      auto line = 0;
+      decltype(record) line = 0;
       _plaintextFile.seek(PlaintextFile::PFILE_BEGIN);
       while (line != record)
       {

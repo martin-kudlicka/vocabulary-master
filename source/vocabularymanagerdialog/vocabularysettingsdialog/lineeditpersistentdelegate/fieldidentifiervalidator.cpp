@@ -8,9 +8,11 @@ FieldIdentifierValidator::FieldIdentifierValidator(quintptr row, const FieldsMod
 
 QValidator::State FieldIdentifierValidator::validate(QString &input, int &pos) const
 {
+  Q_UNUSED(pos);
+
   for (auto rowIndex = 0; rowIndex < _fieldsModel->rowCount(); ++rowIndex)
   {
-    if (rowIndex != _row)
+    if (static_cast<decltype(_row)>(rowIndex) != _row)
     {
       const auto modelIndex = _fieldsModel->index(rowIndex, static_cast<int>(FieldsModel::Column::TemplateName));
       const auto identifier = _fieldsModel->data(modelIndex).toString();

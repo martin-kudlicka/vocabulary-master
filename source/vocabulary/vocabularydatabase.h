@@ -57,7 +57,7 @@ class VocabularyDatabase : public QObject
 
     using LanguageIdList = QList<FieldLanguage>;
 
-    static const auto NOT_FOUND = -1;
+    static const auto NOT_FOUND = std::numeric_limits<quintptr>::max();
 
              VocabularyDatabase();
     virtual ~VocabularyDatabase() Q_DECL_OVERRIDE;

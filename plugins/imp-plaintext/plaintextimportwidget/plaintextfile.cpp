@@ -2,6 +2,10 @@
 
 #include <QtCore/QTextCodec>
 
+PlaintextFile::PlaintextFile() : _textCodec(Q_NULLPTR)
+{
+}
+
 const bool PlaintextFile::atEnd() const
 {
   return _textStream.atEnd();

@@ -116,7 +116,7 @@ void WordsImportDialog::importData(const Target &target)
   const auto marks = _plugin->marks();
   auto recordCount = _plugin->recordCount();
 
-  quintptr categoryId;
+  auto categoryId = std::numeric_limits<quintptr>::max();
   switch (target)
   {
     case Target::Preview:
@@ -244,10 +244,15 @@ void WordsImportDialog::reject()
 
 void WordsImportDialog::on_previewRefresh_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   importData(Target::Preview);
 }
 
 void WordsImportDialog::on_categoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
+  Q_UNUSED(selected);
+  Q_UNUSED(deselected);
+
   enableControls();
 }

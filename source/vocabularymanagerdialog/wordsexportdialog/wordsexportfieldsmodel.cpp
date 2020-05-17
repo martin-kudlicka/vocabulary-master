@@ -10,6 +10,8 @@ WordsExportFieldsModel::WordsExportFieldsModel(const QSharedPointer<Vocabulary> 
 
 QModelIndex WordsExportFieldsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return createIndex(row, column);
 }
 
@@ -34,6 +36,8 @@ int WordsExportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() 
 
 int WordsExportFieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return static_cast<int>(Column::Count);
 }
 
@@ -67,7 +71,7 @@ QVariant WordsExportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 
 quintptr WordsExportFieldsModel::fieldId(quintptr row) const
 {
-  auto num = 0;
+  decltype(row) num = 0;
   for (auto vocabularyFieldId : _vocabulary->fieldIds())
   {
     if (_vocabulary->fieldBuiltIn(vocabularyFieldId) == VocabularyDatabase::FieldBuiltIn::None)
@@ -88,6 +92,8 @@ quintptr WordsExportFieldsModel::fieldId(quintptr row) const
 
 QVariant WordsExportFieldsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
+  Q_UNUSED(orientation);
+
   switch (role)
   {
     case Qt::DisplayRole:
@@ -107,5 +113,7 @@ QVariant WordsExportFieldsModel::headerData(int section, Qt::Orientation orienta
 
 QModelIndex WordsExportFieldsModel::parent(const QModelIndex &index) const
 {
+  Q_UNUSED(index);
+
   return QModelIndex();
 }

@@ -12,8 +12,11 @@ class ImpPlaintext : public QObject, private ImpInterface
   Q_PLUGIN_METADATA(IID IID_IMPINTERFACE)
   Q_INTERFACES(ImpInterface)
 
+  public:
+    ImpPlaintext();
+
   private:
-    qintptr                _cachedRecord;
+    quintptr               _cachedRecord;
     PlaintextFile          _plaintextFile;
     PlaintextImportWidget *_widget;
     QStringList            _cachedCapture;

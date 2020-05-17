@@ -167,7 +167,7 @@ quintptr Vocabulary::fieldId(quintptr position) const
 {
   if (_cacheEnabled)
   {
-    auto pos = 0;
+    decltype(position) pos = 0;
     for (auto fieldId = _fieldData.constBegin(); fieldId != _fieldData.constEnd(); ++fieldId)
     {
       if (pos == position)
