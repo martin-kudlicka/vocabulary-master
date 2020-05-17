@@ -3,6 +3,7 @@
 
 #include <ui_vocabularymanagerdialog.h>
 
+class QItemSelection;
 class Vocabulary;
 class Settings;
 class Plugins;
