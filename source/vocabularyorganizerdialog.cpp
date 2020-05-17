@@ -44,6 +44,8 @@ void VocabularyOrganizerDialog::reject()
 
 void VocabularyOrganizerDialog::on_close_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   const auto index = _ui.vocabularies->currentIndex().row();
 
   _organizer->remove(index);
@@ -54,6 +56,8 @@ void VocabularyOrganizerDialog::on_close_clicked(bool checked /* false */)
 
 void VocabularyOrganizerDialog::on_new2_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   QFileDialog newVocabulary(this, tr("Create new vocabulary"), openPath(), tr(VOCABULARY_FILTER));
   newVocabulary.setAcceptMode(QFileDialog::AcceptSave);
   if (newVocabulary.exec() == QDialog::Accepted)
@@ -76,6 +80,8 @@ void VocabularyOrganizerDialog::on_new2_clicked(bool checked /* false */)
 
 void VocabularyOrganizerDialog::on_open_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   const auto vocabularyFile = QFileDialog::getOpenFileName(this, tr("Open vocabulary"), openPath(), tr(VOCABULARY_FILTER));
   if (!vocabularyFile.isEmpty())
   {
@@ -90,5 +96,8 @@ void VocabularyOrganizerDialog::on_open_clicked(bool checked /* false */)
 
 void VocabularyOrganizerDialog::on_vocabulariesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
+  Q_UNUSED(selected);
+  Q_UNUSED(deselected);
+
   _ui.close->setEnabled(_ui.vocabularies->currentIndex().isValid());
 }

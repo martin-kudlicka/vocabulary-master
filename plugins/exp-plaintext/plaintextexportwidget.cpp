@@ -102,5 +102,7 @@ void PlaintextExportWidget::preselectCodec(const QString &codec) const
 
 void PlaintextExportWidget::on_refresh_clicked(bool checked /* false */) const
 {
+  Q_UNUSED(checked);
+
   refresh();
 }

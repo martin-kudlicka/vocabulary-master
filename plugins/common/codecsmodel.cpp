@@ -20,6 +20,8 @@ QVariant CodecsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 
 QModelIndex CodecsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return createIndex(row, column);
 }
 
@@ -37,11 +39,16 @@ int CodecsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 
 int CodecsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return static_cast<int>(Column::Count);
 }
 
 QVariant CodecsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
+  Q_UNUSED(section);
+  Q_UNUSED(orientation);
+
   QVariant sectionHeader;
 
   if (role == Qt::DisplayRole)
@@ -54,5 +61,7 @@ QVariant CodecsModel::headerData(int section, Qt::Orientation orientation, int r
 
 QModelIndex CodecsModel::parent(const QModelIndex &index) const
 {
+  Q_UNUSED(index);
+
   return QModelIndex();
 }

@@ -25,6 +25,8 @@ qlonglong ModelsModel::modelId(quintptr row) const
 
 int ModelsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return static_cast<int>(Column::Count);
 }
 
@@ -50,6 +52,8 @@ QVariant ModelsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 
 QVariant ModelsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
+  Q_UNUSED(orientation);
+
   switch (role)
   {
     case Qt::DisplayRole:
@@ -65,11 +69,15 @@ QVariant ModelsModel::headerData(int section, Qt::Orientation orientation, int r
 
 QModelIndex ModelsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return createIndex(row, column);
 }
 
 QModelIndex ModelsModel::parent(const QModelIndex &index) const
 {
+  Q_UNUSED(index);
+
   return QModelIndex();
 }
 

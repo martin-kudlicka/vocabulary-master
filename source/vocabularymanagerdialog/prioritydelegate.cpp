@@ -12,6 +12,9 @@ PriorityDelegate::PriorityDelegate(QObject *pParent) : QStyledItemDelegate(pPare
 
 QWidget *PriorityDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+  Q_UNUSED(option);
+  Q_UNUSED(index);
+
   auto editor = new QSpinBox(parent);
   editor->setFrame(false);
   editor->setMinimum(RECORD_PRIORITY_MIN);

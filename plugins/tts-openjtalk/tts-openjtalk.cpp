@@ -168,6 +168,8 @@ QString TTSOpenJTalk::pluginName() const
 
 void TTSOpenJTalk::say(const QString &voice, const QString &text)
 {
+  Q_UNUSED(voice);
+
   char cBuffer[1024];
   text2mecab(cBuffer, text.toUtf8().data());
   Mecab_analysis(&_mecab, cBuffer);

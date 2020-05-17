@@ -11,6 +11,8 @@ WordsImportEditorDelegate::WordsImportEditorDelegate(const QSharedPointer<Vocabu
 
 QWidget *WordsImportEditorDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+  Q_UNUSED(option);
+
   const auto fieldId = _vocabulary->fieldId(index.row());
   if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
   {

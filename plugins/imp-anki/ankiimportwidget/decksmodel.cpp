@@ -18,6 +18,8 @@ quintptr DecksModel::deckId(quintptr row) const
 
 int DecksModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return static_cast<int>(Column::Count);
 }
 
@@ -43,6 +45,8 @@ QVariant DecksModel::data(const QModelIndex &index, int role /* Qt::DisplayRole 
 
 QVariant DecksModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
+  Q_UNUSED(orientation);
+
   switch (role)
   {
     case Qt::DisplayRole:
@@ -58,11 +62,15 @@ QVariant DecksModel::headerData(int section, Qt::Orientation orientation, int ro
 
 QModelIndex DecksModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return createIndex(row, column);
 }
 
 QModelIndex DecksModel::parent(const QModelIndex &index) const
 {
+  Q_UNUSED(index);
+
   return QModelIndex();
 }
 

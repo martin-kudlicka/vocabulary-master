@@ -283,21 +283,29 @@ void SettingsDialog::on_cacheVocabulary_stateChanged(int state) const
 #ifdef Q_OS_WIN
 void SettingsDialog::on_hotkeyAnswerClear_clicked(bool checked /* false */) const
 {
+  Q_UNUSED(checked);
+
   clearHotkey(_ui.hotkeyAnswer);
 }
 
 void SettingsDialog::on_hotkeyMinimizeClear_clicked(bool checked /* false */) const
 {
+  Q_UNUSED(checked);
+
   clearHotkey(_ui.hotkeyMinimize);
 }
 
 void SettingsDialog::on_hotkeyNextClear_clicked(bool checked /* false */) const
 {
+  Q_UNUSED(checked);
+
   clearHotkey(_ui.hotkeyNext);
 }
 
 void SettingsDialog::on_hotkeyRestoreClear_clicked(bool checked /* false */) const
 {
+  Q_UNUSED(checked);
+
   clearHotkey(_ui.hotkeyRestore);
 }
 
@@ -310,6 +318,8 @@ void SettingsDialog::on_newWordSound_stateChanged(int state) const
 
 void SettingsDialog::on_showLicense_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   const auto button   = qobject_cast<const QPushButton *>(sender());
   const auto treeView = qobject_cast<const QTreeView *>(button->parent()->parent());
 
@@ -341,6 +351,8 @@ void SettingsDialog::on_showLicense_clicked(bool checked /* false */)
 
 void SettingsDialog::on_soundBrowse_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   const auto oldFile = _settings->newWordSoundFile();
   const auto newFile = QFileDialog::getOpenFileName(this, tr("Sound file"), QFileInfo(oldFile).path()
 #ifdef Q_OS_WIN
@@ -361,6 +373,8 @@ void SettingsDialog::on_soundCustomRadio_clicked(bool checked /* false */) const
 
 void SettingsDialog::on_soundSystem_clicked(bool checked /* false */) const
 {
+  Q_UNUSED(checked);
+
   on_soundCustomRadio_clicked(false);
 }
 

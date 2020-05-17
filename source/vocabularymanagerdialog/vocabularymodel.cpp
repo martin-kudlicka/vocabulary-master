@@ -16,6 +16,8 @@ void VocabularyModel::addRow()
 
 int VocabularyModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return _vocabulary->fieldCount();
 }
 
@@ -28,11 +30,15 @@ void VocabularyModel::removeRow(quintptr row)
 
 int VocabularyModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return _vocabulary->recordCount(_categoryId);
 }
 
 bool VocabularyModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)
 {
+  Q_UNUSED(role);
+
   const auto fieldId = _vocabulary->fieldId(index.column());
   _vocabulary->setDataText(_categoryId, index.row(), fieldId, value.toString());
 

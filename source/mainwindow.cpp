@@ -531,6 +531,9 @@ bool MainWindow::event(QEvent *event)
 #ifdef Q_OS_WIN
 bool MainWindow::nativeEvent(const QByteArray &eventType, void *message, long *result)
 {
+  Q_UNUSED(eventType);
+  Q_UNUSED(result);
+
   const auto msg = static_cast<LPMSG>(message);
   if (msg->message == WM_HOTKEY)
   {
@@ -562,22 +565,30 @@ bool MainWindow::nativeEvent(const QByteArray &eventType, void *message, long *r
 
 void MainWindow::on_actionAbout_triggered(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   MAboutBox(this).exec();
 }
 
 void MainWindow::on_actionAnswer_triggered(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   _timeAnswer = TIME_NONE;
   showAnswer();
 }
 
 void MainWindow::on_actionFindInVocabulary_triggered(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   openVocabulary(_currentRecord.vocabulary, true);
 }
 
 void MainWindow::on_actionLicense_triggered(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   LicenseTextDialog licenseTextDialog(LicenseCommon::LicenseContentList(), &_settings, this);
   licenseTextDialog.exec();
 }
@@ -589,6 +600,8 @@ void MainWindow::on_actionMute_toggled(bool checked)
 
 void MainWindow::on_actionNext_triggered(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   if (_learningTimer.isActive())
   {
     _learningTimer.stop();
@@ -601,6 +614,8 @@ void MainWindow::on_actionNext_triggered(bool checked /* false */)
 
 void MainWindow::on_actionOrganizer_triggered(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   VocabularyOrganizerDialog vocabularyOrganizerDialog(&_vocabularyOrganizer, this);
   if (vocabularyOrganizerDialog.exec() == QDialog::Accepted)
   {
@@ -612,11 +627,15 @@ void MainWindow::on_actionOrganizer_triggered(bool checked /* false */)
 
 void MainWindow::on_actionSendFeedback_triggered(bool checked /* false */) const
 {
+  Q_UNUSED(checked);
+
   MFeedback::createEmailForm();
 }
 
 void MainWindow::on_actionSettings_triggered(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   SettingsDialog settingsDialog(&_plugins, &_settings, this);
   if (settingsDialog.exec() == QDialog::Accepted)
   {
@@ -626,6 +645,8 @@ void MainWindow::on_actionSettings_triggered(bool checked /* false */)
 
 void MainWindow::on_actionStart_triggered(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   _timeQuestion = TIME_NOW;
   _timeAnswer   = TIME_NONE;
   _learning     = true;
@@ -641,6 +662,8 @@ void MainWindow::on_actionStart_triggered(bool checked /* false */)
 
 void MainWindow::on_actionStop_triggered(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   _learningTimer.stop();
   _learning = false;
   _progressBarTimer.setMaximum(1);

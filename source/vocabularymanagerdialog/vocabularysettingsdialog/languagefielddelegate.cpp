@@ -9,6 +9,8 @@ LanguageFieldDelegate::LanguageFieldDelegate(const QSharedPointer<Vocabulary> &v
 
 QWidget *LanguageFieldDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+  Q_UNUSED(option);
+
   const auto fieldId = _vocabulary->fieldId(index.row());
 
   VocabularyDatabase::LanguageIdList languageIds;

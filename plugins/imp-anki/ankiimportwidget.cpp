@@ -47,6 +47,9 @@ void AnkiImportWidget::prepareTreeView(QTreeView *treeView, QAbstractItemModel *
 
 void AnkiImportWidget::on_decks_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
+  Q_UNUSED(selected);
+  Q_UNUSED(deselected);
+
   const auto deckId = _decksModel.deckId(_ui.decks->currentIndex().row());
   _modelsModel.deckId(deckId);
   _ui.models->reset();
@@ -54,6 +57,9 @@ void AnkiImportWidget::on_decks_selectionModel_selectionChanged(const QItemSelec
 
 void AnkiImportWidget::on_models_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
+  Q_UNUSED(selected);
+  Q_UNUSED(deselected);
+
   const auto modelId = _modelsModel.modelId(_ui.models->currentIndex().row());
   _fieldsModel.setModelId(modelId);
 

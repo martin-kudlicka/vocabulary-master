@@ -38,5 +38,8 @@ void WordsCopyMoveDialog::accept()
 
 void WordsCopyMoveDialog::on_categoriesSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
+  Q_UNUSED(selected);
+  Q_UNUSED(deselected);
+
   _ui.okButton->setEnabled(_ui.categories->currentIndex().isValid());
 }

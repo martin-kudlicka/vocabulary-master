@@ -7,6 +7,8 @@ FieldLineEdit::FieldLineEdit(QWidget *parent) : QLineEdit(parent), _defaultSheet
 
 void FieldLineEdit::on_textEdited(const QString &text)
 {
+  Q_UNUSED(text);
+
   if (hasAcceptableInput())
   {
     setStyleSheet(_defaultSheet);

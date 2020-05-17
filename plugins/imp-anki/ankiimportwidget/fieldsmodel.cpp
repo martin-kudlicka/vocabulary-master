@@ -51,6 +51,8 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
 
 QModelIndex FieldsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return createIndex(row, column);
 }
 
@@ -76,11 +78,15 @@ int FieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() */) const
 
 int FieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return Column::Count;
 }
 
 QVariant FieldsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
+  Q_UNUSED(orientation);
+
   switch (role)
   {
     case Qt::DisplayRole:
@@ -98,5 +104,7 @@ QVariant FieldsModel::headerData(int section, Qt::Orientation orientation, int r
 
 QModelIndex FieldsModel::parent(const QModelIndex &index) const
 {
+  Q_UNUSED(index);
+
   return QModelIndex();
 }

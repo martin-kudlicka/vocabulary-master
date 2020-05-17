@@ -31,6 +31,8 @@ WordsExportDialog::WordsExportDialog(const QSharedPointer<Vocabulary> &vocabular
 
 void WordsExportDialog::on_exportButton_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   const auto index  = _ui.expPlugins->currentIndex();
   const auto plugin = _expPlugins.at(index.row()).expInterface;
   plugin->beginExport();
@@ -38,6 +40,9 @@ void WordsExportDialog::on_exportButton_clicked(bool checked /* false */)
 
 void WordsExportDialog::on_expPluginsSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
+  Q_UNUSED(selected);
+  Q_UNUSED(deselected);
+
   const auto index = _ui.expPlugins->currentIndex();
   if (!_expPluginPage.contains(index.row()))
   {

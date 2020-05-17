@@ -301,11 +301,15 @@ void HtmlExportWidget::removeTableColumn()
 
 void HtmlExportWidget::on_styleTable_clicked(bool checked /* false */) const
 {
+  Q_UNUSED(checked);
+
   _ui.styles->setCurrentIndex(static_cast<int>(Style::Table));
 }
 
 void HtmlExportWidget::on_styleText_clicked(bool checked /* false */) const
 {
+  Q_UNUSED(checked);
+
   _ui.styles->setCurrentIndex(static_cast<int>(Style::Text));
 }
 
@@ -323,10 +327,14 @@ void HtmlExportWidget::on_tableColums_valueChanged(int i)
 
 void HtmlExportWidget::on_tableRefresh_clicked(bool checked /* false */) const
 {
+  Q_UNUSED(checked);
+
   refreshTable();
 }
 
 void HtmlExportWidget::on_textRefresh_clicked(bool checked /* false */) const
 {
+  Q_UNUSED(checked);
+
   refreshText();
 }

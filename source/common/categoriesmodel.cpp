@@ -8,6 +8,8 @@ CategoriesModel::CategoriesModel(const QSharedPointer<Vocabulary> &vocabulary) :
 
 int CategoriesModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return static_cast<int>(Column::Count);
 }
 
@@ -27,6 +29,9 @@ QVariant CategoriesModel::data(const QModelIndex &index, int role /* Qt::Display
 
 QVariant CategoriesModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
+  Q_UNUSED(section);
+  Q_UNUSED(orientation);
+
   switch (role)
   {
     case Qt::DisplayRole:
@@ -38,11 +43,15 @@ QVariant CategoriesModel::headerData(int section, Qt::Orientation orientation, i
 
 QModelIndex CategoriesModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return createIndex(row, column);
 }
 
 QModelIndex CategoriesModel::parent(const QModelIndex &index) const
 {
+  Q_UNUSED(index);
+
   return QModelIndex();
 }
 

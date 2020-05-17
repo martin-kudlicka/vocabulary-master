@@ -23,6 +23,8 @@ QVariant PluginsModel::data(const QModelIndex &index, int role /* Qt::DisplayRol
 
 QModelIndex PluginsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return createIndex(row, column);
 }
 
@@ -65,11 +67,15 @@ Plugins::PluginInfo PluginsModel::pluginInfo(quintptr number) const
 
 int PluginsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return static_cast<int>(Column::Count);
 }
 
 QVariant PluginsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
+  Q_UNUSED(orientation);
+
   switch (role)
   {
     case Qt::DisplayRole:
@@ -87,5 +93,7 @@ QVariant PluginsModel::headerData(int section, Qt::Orientation orientation, int 
 
 QModelIndex PluginsModel::parent(const QModelIndex &index) const
 {
+  Q_UNUSED(index);
+
   return QModelIndex();
 }

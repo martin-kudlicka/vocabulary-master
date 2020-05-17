@@ -21,6 +21,8 @@ void VocabularyOrganizerModel::removeRow(quintptr row)
 
 int VocabularyOrganizerModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return static_cast<int>(Column::Count);
 }
 
@@ -76,6 +78,8 @@ Qt::ItemFlags VocabularyOrganizerModel::flags(const QModelIndex &index) const
 
 QVariant VocabularyOrganizerModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
+  Q_UNUSED(orientation);
+
   switch (role)
   {
     case Qt::DisplayRole:
@@ -103,6 +107,8 @@ int VocabularyOrganizerModel::rowCount(const QModelIndex &parent /* QModelIndex(
 
 bool VocabularyOrganizerModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)
 {
+  Q_UNUSED(role);
+
   switch (index.column())
   {
     case Column::Enabled:

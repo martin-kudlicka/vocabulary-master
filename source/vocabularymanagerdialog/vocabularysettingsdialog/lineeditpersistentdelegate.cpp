@@ -6,6 +6,8 @@
 
 QWidget *LineEditPersistentDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+  Q_UNUSED(option);
+
   auto fieldLineEditor = new FieldLineEdit(parent);
   if (index.column() == static_cast<int>(FieldsModel::Column::TemplateName))
   {

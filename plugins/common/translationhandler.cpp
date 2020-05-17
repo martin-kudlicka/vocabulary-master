@@ -13,6 +13,8 @@ Q_DECL_CONSTEXPR auto DIR_LANG = "lang";
 #ifdef Q_OS_WIN
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
+  Q_UNUSED(lpvReserved);
+
   if (fdwReason == DLL_PROCESS_ATTACH)
   {
     TranslationHandler::_instance = hinstDLL;

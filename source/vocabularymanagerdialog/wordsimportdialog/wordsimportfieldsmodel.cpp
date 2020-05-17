@@ -99,6 +99,8 @@ QVariant WordsImportFieldsModel::data(const QModelIndex &index, int role /* Qt::
 
 QModelIndex WordsImportFieldsModel::index(int row, int column, const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return createIndex(row, column);
 }
 
@@ -114,6 +116,8 @@ int WordsImportFieldsModel::rowCount(const QModelIndex &parent /* QModelIndex() 
 
 int WordsImportFieldsModel::columnCount(const QModelIndex &parent /* QModelIndex() */) const
 {
+  Q_UNUSED(parent);
+
   return static_cast<int>(Column::Count);
 }
 
@@ -136,6 +140,8 @@ Qt::ItemFlags WordsImportFieldsModel::flags(const QModelIndex &index) const
 
 QVariant WordsImportFieldsModel::headerData(int section, Qt::Orientation orientation, int role /* Qt::DisplayRole */) const
 {
+  Q_UNUSED(orientation);
+
   switch (role)
   {
     case Qt::DisplayRole:
@@ -155,11 +161,15 @@ QVariant WordsImportFieldsModel::headerData(int section, Qt::Orientation orienta
 
 QModelIndex WordsImportFieldsModel::parent(const QModelIndex &index) const
 {
+  Q_UNUSED(index);
+
   return QModelIndex();
 }
 
 bool WordsImportFieldsModel::setData(const QModelIndex &index, const QVariant &value, int role /* Qt::EditRole */)
 {
+  Q_UNUSED(role);
+
   _editorData[index.row()] = value.toString();
 
   emit dataChanged(index, index);

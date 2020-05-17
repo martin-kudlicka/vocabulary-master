@@ -73,6 +73,9 @@ void PlaintextImportWidget::refreshPreview() const
 
 void PlaintextImportWidget::on_codecs_selectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
+  Q_UNUSED(selected);
+  Q_UNUSED(deselected);
+
   const auto modelIndex = _ui.codecs->currentIndex();
   const auto codec      = _codecsModel.data(modelIndex).toString();
   _file->setCodecName(codec);
@@ -83,5 +86,7 @@ void PlaintextImportWidget::on_codecs_selectionModel_selectionChanged(const QIte
 
 void PlaintextImportWidget::on_linesPerRecord_valueChanged(int i) const
 {
+  Q_UNUSED(i);
+
   refreshPreview();
 }
