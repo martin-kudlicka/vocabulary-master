@@ -1059,96 +1059,97 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.qrc">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);.\res\mainwindow\menubar\vocabulary.png;.\res\mainwindow\menubar\license.png;.\res\mainwindow\toolbar\findinvocabulary.png;.\res\mainwindow\toolbar\next.png;.\res\mainwindow\toolbar\answer.png;.\res\mainwindow\toolbar\mute.png;.\res\mainwindow\toolbar\stop.png;.\res\mainwindow\toolbar\play.png;.\res\mainwindow\menubar\about.png;.\res\mainwindow\menubar\manage.png;.\res\mainwindow\menubar\new.png;.\res\mainwindow\menubar\settings.png;.\res\mainwindow\menubar\exit.png;.\res\mainwindow\mainwindow.png;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);.\resources\images\menubar\vocabulary.png;.\resources\images\menubar\license.png;.\resources\images\toolbar\findinvocabulary.png;.\resources\images\toolbar\next.png;.\resources\images\toolbar\answer.png;.\resources\images\toolbar\mute.png;.\resources\images\toolbar\stop.png;.\resources\images\toolbar\play.png;.\resources\images\menubar\about.png;.\resources\images\menubar\manage.png;.\resources\images\menubar\new.png;.\resources\images\menubar\settings.png;.\resources\images\menubar\exit.png;.\resources\images\mainwindow.png;%(AdditionalInputs)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rcc%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\intermediate\vocabularymaster\qrc_%(Filename).cpp;%(Outputs)</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\..\..\..\intermediate\vocabularymaster\qrc_%(Filename).cpp</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FullPath);.\res\mainwindow\menubar\vocabulary.png;.\res\mainwindow\menubar\license.png;.\res\mainwindow\toolbar\findinvocabulary.png;.\res\mainwindow\toolbar\next.png;.\res\mainwindow\toolbar\answer.png;.\res\mainwindow\toolbar\mute.png;.\res\mainwindow\toolbar\stop.png;.\res\mainwindow\toolbar\play.png;.\res\mainwindow\menubar\about.png;.\res\mainwindow\menubar\manage.png;.\res\mainwindow\menubar\new.png;.\res\mainwindow\menubar\settings.png;.\res\mainwindow\menubar\exit.png;.\res\mainwindow\mainwindow.png;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FullPath);.\resources\images\menubar\vocabulary.png;.\resources\images\menubar\license.png;.\resources\images\toolbar\findinvocabulary.png;.\resources\images\toolbar\next.png;.\resources\images\toolbar\answer.png;.\resources\images\toolbar\mute.png;.\resources\images\toolbar\stop.png;.\resources\images\toolbar\play.png;.\resources\images\menubar\about.png;.\resources\images\menubar\manage.png;.\resources\images\menubar\new.png;.\resources\images\menubar\settings.png;.\resources\images\menubar\exit.png;.\resources\images\mainwindow.png;%(AdditionalInputs)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rcc%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\intermediate\vocabularymaster\qrc_%(Filename).cpp;%(Outputs)</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\..\..\..\intermediate\vocabularymaster\qrc_%(Filename).cpp</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\mainwindow\mainwindow.png">
+    <Image Include="resources\main.ico" />
+    <Image Include="resources\images\mainwindow.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="res\mainwindow\menubar\about.png">
+    <Image Include="resources\images\menubar\about.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="res\mainwindow\menubar\exit.png">
+    <Image Include="resources\images\menubar\exit.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="res\mainwindow\menubar\license.png">
+    <Image Include="resources\images\menubar\license.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="res\mainwindow\menubar\manage.png">
+    <Image Include="resources\images\menubar\manage.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="res\mainwindow\menubar\new.png">
+    <Image Include="resources\images\menubar\new.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="res\mainwindow\menubar\settings.png">
+    <Image Include="resources\images\menubar\settings.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="res\mainwindow\menubar\vocabulary.png">
+    <Image Include="resources\images\menubar\vocabulary.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="res\mainwindow\toolbar\answer.png">
+    <Image Include="resources\images\toolbar\answer.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="res\mainwindow\toolbar\findinvocabulary.png">
+    <Image Include="resources\images\toolbar\findinvocabulary.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="res\mainwindow\toolbar\mute.png">
+    <Image Include="resources\images\toolbar\mute.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="res\mainwindow\toolbar\next.png">
+    <Image Include="resources\images\toolbar\next.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="res\mainwindow\toolbar\play.png">
+    <Image Include="resources\images\toolbar\play.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Image>
-    <Image Include="res\mainwindow\toolbar\stop.png">
+    <Image Include="resources\images\toolbar\stop.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Image>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="eula.qrc">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);.\res\eula\cze.txt;.\res\eula\eng.txt;.\res\eula\fugue-icons\README.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);.\resources\eula\cze.txt;.\resources\eula\eng.txt;.\resources\eula\fugue-icons\README.txt;%(AdditionalInputs)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rcc%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\..\intermediate\vocabularymaster\qrc_%(Filename).cpp;%(Outputs)</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\..\..\..\intermediate\vocabularymaster\qrc_%(Filename).cpp</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FullPath);.\res\eula\cze.txt;.\res\eula\eng.txt;.\res\eula\fugue-icons\README.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FullPath);.\resources\eula\cze.txt;.\resources\eula\eng.txt;.\resources\eula\fugue-icons\README.txt;%(AdditionalInputs)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rcc%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\..\intermediate\vocabularymaster\qrc_%(Filename).cpp;%(Outputs)</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\..\..\..\intermediate\vocabularymaster\qrc_%(Filename).cpp</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="res\eula\cze.txt">
+    <Text Include="resources\eula\cze.txt">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Text>
-    <Text Include="res\eula\eng.txt">
+    <Text Include="resources\eula\eng.txt">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Text>
-    <Text Include="res\eula\fugue-icons\README.txt">
+    <Text Include="resources\eula\fugue-icons\README.txt">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </Text>

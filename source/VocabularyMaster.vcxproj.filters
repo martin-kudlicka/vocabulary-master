@@ -506,57 +506,58 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\mainwindow\menubar\vocabulary.png">
+    <Image Include="resources\images\menubar\vocabulary.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\mainwindow\menubar\license.png">
+    <Image Include="resources\images\menubar\license.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\mainwindow\toolbar\findinvocabulary.png">
+    <Image Include="resources\images\toolbar\findinvocabulary.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\mainwindow\toolbar\next.png">
+    <Image Include="resources\images\toolbar\next.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\mainwindow\toolbar\answer.png">
+    <Image Include="resources\images\toolbar\answer.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\mainwindow\toolbar\mute.png">
+    <Image Include="resources\images\toolbar\mute.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\mainwindow\toolbar\stop.png">
+    <Image Include="resources\images\toolbar\stop.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\mainwindow\toolbar\play.png">
+    <Image Include="resources\images\toolbar\play.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\mainwindow\menubar\about.png">
+    <Image Include="resources\images\menubar\about.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\mainwindow\menubar\manage.png">
+    <Image Include="resources\images\menubar\manage.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\mainwindow\menubar\new.png">
+    <Image Include="resources\images\menubar\new.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\mainwindow\menubar\settings.png">
+    <Image Include="resources\images\menubar\settings.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\mainwindow\menubar\exit.png">
+    <Image Include="resources\images\menubar\exit.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\mainwindow\mainwindow.png">
+    <Image Include="resources\images\mainwindow.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="resources\main.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="res\eula\cze.txt">
+    <Text Include="resources\eula\cze.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="res\eula\eng.txt">
+    <Text Include="resources\eula\eng.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="res\eula\fugue-icons\README.txt">
+    <Text Include="resources\eula\fugue-icons\README.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
