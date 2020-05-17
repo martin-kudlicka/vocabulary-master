@@ -367,6 +367,8 @@ void VocabularyManagerDialog::on_control_textEdited(const QString &text) const
 
 void VocabularyManagerDialog::on_categoryAdd_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   const auto category = QInputDialog::getText(this, tr("Add category"), tr("New category name"));
   if (!category.isEmpty())
   {
@@ -381,6 +383,8 @@ void VocabularyManagerDialog::on_categoryAdd_clicked(bool checked /* false */)
 
 void VocabularyManagerDialog::on_categoryRemove_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   const auto tabIndex = _ui.tabs->currentIndex();
   _ui.tabs->removeTab(tabIndex);
   _vocabulary->removeCategory(_categories.takeAt(tabIndex));
@@ -390,11 +394,12 @@ void VocabularyManagerDialog::on_categoryRemove_clicked(bool checked /* false */
 
 void VocabularyManagerDialog::on_searchButton_clicked(bool checked /* false */) const
 {
+  Q_UNUSED(checked);
+
   // get current word id
-  const auto vocabularyView  = qobject_cast<VocabularyView *>(_ui.tabs->currentWidget());
-  const auto vocabularyModel = qobject_cast<const VocabularyModel *>(vocabularyView->model());
-  const auto selection       = vocabularyView->selectionModel();
-  const auto currentRecord   = _vocabulary->recordId(_categories.at(_ui.tabs->currentIndex()), selection->currentIndex().row());
+  const auto vocabularyView = qobject_cast<VocabularyView *>(_ui.tabs->currentWidget());
+  const auto selection      = vocabularyView->selectionModel();
+  const auto currentRecord  = _vocabulary->recordId(_categories.at(_ui.tabs->currentIndex()), selection->currentIndex().row());
 
   // search for next word
   auto recordId = _vocabulary->search(_ui.searchEdit->text(), currentRecord + 1);
@@ -413,6 +418,8 @@ void VocabularyManagerDialog::on_searchEdit_textChanged(const QString &text) con
 
 void VocabularyManagerDialog::on_tabs_currentChanged(int index) const
 {
+  Q_UNUSED(index);
+
   updateEditor();
   enableWordControls();
 }
@@ -433,6 +440,8 @@ void VocabularyManagerDialog::on_tabs_tabPriorityChanged(quintptr index, quintpt
 
 void VocabularyManagerDialog::on_vocabularySettings_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   VocabularySettingsDialog vocabularySettings(_vocabulary, _plugins, this);
 
   const auto oldColumnCount = _vocabulary->fieldCount();
@@ -462,6 +471,9 @@ void VocabularyManagerDialog::on_vocabularySettings_clicked(bool checked /* fals
 
 void VocabularyManagerDialog::on_vocabularyViewSelectionModel_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) const
 {
+  Q_UNUSED(selected);
+  Q_UNUSED(deselected);
+
   const auto currentTabView = qobject_cast<const VocabularyView *>(_ui.tabs->widget(_ui.tabs->currentIndex()));
   const auto vocabularyView = qobject_cast<const VocabularyView *>(_ui.tabs->currentWidget());
   if (currentTabView != vocabularyView)
@@ -476,6 +488,8 @@ void VocabularyManagerDialog::on_vocabularyViewSelectionModel_selectionChanged(c
 
 void VocabularyManagerDialog::on_wordAdd_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   auto vocabularyView  = qobject_cast<VocabularyView *>(_ui.tabs->currentWidget());
   auto vocabularyModel = qobject_cast<VocabularyModel *>(vocabularyView->model());
   vocabularyModel->addRow();
@@ -492,11 +506,12 @@ void VocabularyManagerDialog::on_wordAdd_clicked(bool checked /* false */)
 
 void VocabularyManagerDialog::on_wordCopyMove_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   // get selected records
   WordsCopyMoveDialog::RowNumList rowNums;
-  const auto vocabularyView  = qobject_cast<const VocabularyView *>(_ui.tabs->currentWidget());
-  const auto vocabularyModel = qobject_cast<const VocabularyModel *>(vocabularyView->model());
-  const auto selection       = vocabularyView->selectionModel();
+  const auto vocabularyView = qobject_cast<const VocabularyView *>(_ui.tabs->currentWidget());
+  const auto selection      = vocabularyView->selectionModel();
   for (const auto &qmiIndex : selection->selectedRows())
   {
     rowNums.append(qmiIndex.row());
@@ -514,12 +529,16 @@ void VocabularyManagerDialog::on_wordCopyMove_clicked(bool checked /* false */)
 
 void VocabularyManagerDialog::on_wordExport_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   WordsExportDialog wedExport(_vocabulary, _plugins->explugins(), this);
   wedExport.exec();
 }
 
 void VocabularyManagerDialog::on_wordImport_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   // prepare filter
   QStringList filters;
   for (const auto &plugin : _plugins->impPlugins())
@@ -564,6 +583,8 @@ void VocabularyManagerDialog::on_wordImport_clicked(bool checked /* false */)
 
 void VocabularyManagerDialog::on_wordRemove_clicked(bool checked /* false */)
 {
+  Q_UNUSED(checked);
+
   const auto vocabularyView = qobject_cast<const VocabularyView *>(_ui.tabs->currentWidget());
   auto vocabularyModel      = qobject_cast<VocabularyModel *>(vocabularyView->model());
   const auto selection      = vocabularyView->selectionModel();
