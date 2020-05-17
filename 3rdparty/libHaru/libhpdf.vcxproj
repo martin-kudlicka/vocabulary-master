@@ -14,18 +14,19 @@
     <ProjectGuid>{5AC84D3E-3EBB-4BC0-9D59-481F3A909317}</ProjectGuid>
     <RootNamespace>libhpdf</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -50,9 +51,9 @@
       <AdditionalIncludeDirectories>source\win32\include;source\include;..\zlib\source;..\libpng\source;..\libpng;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader />
       <SDLCheck>false</SDLCheck>
+      <WarningLevel>Level1</WarningLevel>
     </ClCompile>
     <PreBuildEvent>
       <Command>copy source\win32\include\hpdf_config.h source\include</Command>
@@ -62,9 +63,9 @@
     <ClCompile>
       <AdditionalIncludeDirectories>source\win32\include;source\include;..\zlib\source;..\libpng\source;..\libpng;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader />
       <SDLCheck>false</SDLCheck>
+      <WarningLevel>Level1</WarningLevel>
     </ClCompile>
     <PreBuildEvent>
       <Command>copy source\win32\include\hpdf_config.h source\include</Command>
