@@ -33,9 +33,9 @@ void Plugins::load()
   QDir pluginsDir(QCoreApplication::applicationDirPath());
   pluginsDir.cd(DIR_PLUGINS);
 
-  for (const auto &pluginDir : pluginsDir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot))
+  for (const auto &pluginDirInfo : pluginsDir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot))
   {
-    const QDir pluginDir(pluginDir.filePath());
+    const QDir pluginDir(pluginDirInfo.filePath());
 #endif
     for (const auto &plugin : pluginDir.entryInfoList(QDir::Files))
     {

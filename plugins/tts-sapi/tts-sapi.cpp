@@ -43,10 +43,10 @@ void TTSSAPI::say(const QString &voice, const QString &text)
 
     if (voice == QString::fromWCharArray(id))
     {
-      CComPtr<ISpVoice> voice;
-      voice.CoCreateInstance(CLSID_SpVoice);
-      voice->SetVoice(voiceInfo);
-      voice->Speak(reinterpret_cast<LPCWSTR>(text.unicode()), SPF_IS_NOT_XML, Q_NULLPTR);
+      CComPtr<ISpVoice> speechVoice;
+      speechVoice.CoCreateInstance(CLSID_SpVoice);
+      speechVoice->SetVoice(voiceInfo);
+      speechVoice->Speak(reinterpret_cast<LPCWSTR>(text.unicode()), SPF_IS_NOT_XML, Q_NULLPTR);
       //voiceInfo->Speak();
     }
   }
