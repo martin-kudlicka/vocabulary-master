@@ -50,28 +50,28 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|x64'">
-    <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
+    <Import Project="..\..\..\..\property-sheets\build settings.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='DLL-Import Debug|Win32'">
-    <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
+    <Import Project="..\..\..\..\property-sheets\build settings.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|x64'">
-    <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
+    <Import Project="..\..\..\..\property-sheets\build settings.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='DLL-Import Release|Win32'">
-    <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
+    <Import Project="..\..\..\..\property-sheets\build settings.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
+    <Import Project="..\..\..\..\property-sheets\build settings.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
+    <Import Project="..\..\..\..\property-sheets\build settings.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
+    <Import Project="..\..\..\..\property-sheets\build settings.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Import Project="..\..\..\..\property sheets\MartinK build settings.props" />
+    <Import Project="..\..\..\..\property-sheets\build settings.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <!-- End of Visual Studio boilerplate -->
