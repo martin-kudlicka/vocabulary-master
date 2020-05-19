@@ -61,44 +61,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\3rdparty\Open JTalk\jpcommon.vcxproj">
-      <Project>{f3faa179-bc8a-4f70-8aee-20265cdb2825}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\3rdparty\Open JTalk\mecab.vcxproj">
-      <Project>{0af3d1a2-4028-4ac2-941e-983b685b5282}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\3rdparty\Open JTalk\mecab2njd.vcxproj">
-      <Project>{33a2814a-1764-4cb6-b0c2-a29e715830e9}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd.vcxproj">
-      <Project>{636f2d95-9f1c-4b03-a22e-905cc39f49d7}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd2jpcommon.vcxproj">
-      <Project>{576cf895-cbb4-49a7-a2e2-62f2b4d2c8f2}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd_set_accent_phrase.vcxproj">
-      <Project>{c928f8f4-9beb-420c-b3ca-14d0778d1f7b}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd_set_accent_type.vcxproj">
-      <Project>{3393cff0-2550-404d-94b1-9eb82e9cf2d9}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd_set_digit.vcxproj">
-      <Project>{0114f7a6-18be-47e8-8571-86557474aef7}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd_set_long_vowel.vcxproj">
-      <Project>{0e209cb6-5c64-4640-b567-63d8ad4f81a9}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd_set_pronunciation.vcxproj">
-      <Project>{edea0bab-8da2-492e-bfeb-3948230e1f46}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\3rdparty\Open JTalk\njd_set_unvoiced_vowel.vcxproj">
-      <Project>{d727dbff-ee5f-4307-a37f-33d8dae68e2c}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\3rdparty\Open JTalk\text2mecab.vcxproj">
-      <Project>{29fb2828-2a74-4843-b31a-f7e3318d39bb}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="tts-openjtalk.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
