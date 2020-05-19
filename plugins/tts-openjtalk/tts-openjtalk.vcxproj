@@ -61,9 +61,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\3rdparty\hts_engine API\HTSEngine.vcxproj">
-      <Project>{986853a1-722b-4296-a4b0-a4f83c651777}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\3rdparty\Open JTalk\jpcommon.vcxproj">
       <Project>{f3faa179-bc8a-4f70-8aee-20265cdb2825}</Project>
     </ProjectReference>
