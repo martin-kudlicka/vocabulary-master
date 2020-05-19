@@ -118,11 +118,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\3rdparty\Crypto++\cryptlib.vcxproj">
-      <Project>{3423ec9a-52e4-4a4d-9753-edebc38785ef}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\..\..\..\intermediate\vocabularymaster\rsakeygenerator\ui_mainwindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
