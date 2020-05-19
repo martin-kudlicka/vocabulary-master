@@ -82,11 +82,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\3rdparty\libHaru\libhpdf.vcxproj">
-      <Project>{5ac84d3e-3ebb-4bc0-9d59-481f3a909317}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="exp-pdf.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
