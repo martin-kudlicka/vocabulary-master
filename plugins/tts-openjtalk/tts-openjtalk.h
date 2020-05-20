@@ -2,10 +2,10 @@
 #define TTSOPENJTALK_H
 
 #include "../common/tts-interface.h"
-#include "../../3rdparty/Open JTalk/source/mecab/src/mecab.h"
-#include "../../3rdparty/Open JTalk/source/njd/njd.h"
-#include "../../3rdparty/Open JTalk/source/jpcommon/jpcommon.h"
-#include "../../3rdparty/hts_engine API/source/include/HTS_engine.h"
+#include <mecab/src/mecab.h>
+#include <njd/njd.h>
+#include <jpcommon/jpcommon.h>
+#include <HTS_engine.h>
 
 class TTSOpenJTalk : public QObject, private TTSInterface
 {

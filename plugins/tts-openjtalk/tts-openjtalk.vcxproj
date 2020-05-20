@@ -85,10 +85,14 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\..\..\..\property-sheets\build settings.props" />
+    <Import Project="..\..\..\..\3rdparty\open_jtalk\open_jtalk.props" />
+    <Import Project="..\..\..\..\3rdparty\hts_engine_api\hts_engine_api.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\..\..\..\property-sheets\build settings.props" />
+    <Import Project="..\..\..\..\3rdparty\open_jtalk\open_jtalk.props" />
+    <Import Project="..\..\..\..\3rdparty\hts_engine_api\hts_engine_api.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>

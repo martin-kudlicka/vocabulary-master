@@ -2,15 +2,15 @@
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
-#include "../../3rdparty/Open JTalk/source/text2mecab/text2mecab.h"
-#include "../../3rdparty/Open JTalk/source/mecab2njd/mecab2njd.h"
-#include "../../3rdparty/Open JTalk/source/njd_set_pronunciation/njd_set_pronunciation.h"
-#include "../../3rdparty/Open JTalk/source/njd_set_digit/njd_set_digit.h"
-#include "../../3rdparty/Open JTalk/source/njd_set_accent_phrase/njd_set_accent_phrase.h"
-#include "../../3rdparty/Open JTalk/source/njd_set_accent_type/njd_set_accent_type.h"
-#include "../../3rdparty/Open JTalk/source/njd_set_unvoiced_vowel/njd_set_unvoiced_vowel.h"
-#include "../../3rdparty/Open JTalk/source/njd_set_long_vowel/njd_set_long_vowel.h"
-#include "../../3rdparty/Open JTalk/source/njd2jpcommon/njd2jpcommon.h"
+#include <text2mecab/text2mecab.h>
+#include <mecab2njd/mecab2njd.h>
+#include <njd_set_pronunciation/njd_set_pronunciation.h>
+#include <njd_set_digit/njd_set_digit.h>
+#include <njd_set_accent_phrase/njd_set_accent_phrase.h>
+#include <njd_set_accent_type/njd_set_accent_type.h>
+#include <njd_set_unvoiced_vowel/njd_set_unvoiced_vowel.h>
+#include <njd_set_long_vowel/njd_set_long_vowel.h>
+#include <njd2jpcommon/njd2jpcommon.h>
 
 const auto ALPHA           = 0.55;
 const auto AUDIO_BUFF_SIZE = 1600;
