@@ -73,12 +73,14 @@ TTSInterface::VoiceInfoList TTSSAPI::voicesInfo() const
 
     voiceTokens->Next(1, &voiceInfo, Q_NULLPTR);
     voiceInfo->GetId(&id);
-    SpGetDescription(voiceInfo, &description);
-
-    TTSInterface::VoiceInfo voice;
-    voice.id          = QString::fromWCharArray(id);
-    voice.description = QString::fromWCharArray(description);
-    voices.append(voice);
+    auto result = SpGetDescription(voiceInfo, &description);
+    if (SUCCEEDED(result))
+    {
+      TTSInterface::VoiceInfo voice;
+      voice.id          = QString::fromWCharArray(id);
+      voice.description = QString::fromWCharArray(description);
+      voices.append(voice);
+    }
   }
 
   return voices;
