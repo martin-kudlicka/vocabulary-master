@@ -1,7 +1,7 @@
+#include "pch.h"
 #include "updatechecker.h"
 
 #include "settings.h"
-#include <QtCore/QCoreApplication>
 
 UpdateChecker::UpdateChecker(const Settings *settings) : _settings(settings), _lastReply(Q_NULLPTR)
 {

@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "settingsdialog/hotkeylineedit.h"
-
-#include <QtGui/QKeyEvent>
 
 const auto MODIFIER_SEPARATOR = '+';
 

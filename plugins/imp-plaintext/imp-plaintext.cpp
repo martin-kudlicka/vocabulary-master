@@ -1,8 +1,7 @@
+#include "pch.h"
 #include "imp-plaintext.h"
 
 #include "plaintextimportwidget.h"
-#include <QtWidgets/QGroupBox>
-#include <QtWidgets/QBoxLayout>
 
 const auto    CACHED_NONE   = std::numeric_limits<quintptr>::max();
 const QString TEMPLATE_MARK = "${%1}";

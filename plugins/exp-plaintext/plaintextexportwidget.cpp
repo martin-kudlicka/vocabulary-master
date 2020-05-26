@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "plaintextexportwidget.h"
-
-#include <QtWidgets/QScrollBar>
 
 PlaintextExportWidget::PlaintextExportWidget(QWidget *parent) : QWidget(parent)
 {

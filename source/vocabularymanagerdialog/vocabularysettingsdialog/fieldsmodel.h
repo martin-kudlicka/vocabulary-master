@@ -1,9 +1,6 @@
 #ifndef FIELDSMODEL_H
 #define FIELDSMODEL_H
 
-#include <QtCore/QAbstractItemModel>
-#include <QtCore/QSharedPointer>
-
 class Vocabulary;
 
 class FieldsModel : public QAbstractItemModel

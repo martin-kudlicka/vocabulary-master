@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "vocabulary/clearcacheworker.h"
 
 ClearCacheWorker::ClearCacheWorker(VocabularyDatabase::RecordDataHash *recordData) : _recordData(recordData)

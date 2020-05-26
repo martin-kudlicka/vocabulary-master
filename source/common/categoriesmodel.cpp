@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "common/categoriesmodel.h"
 
 #include "vocabulary.h"

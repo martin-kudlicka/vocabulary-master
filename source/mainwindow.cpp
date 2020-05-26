@@ -1,19 +1,11 @@
+#include "pch.h"
 #include "mainwindow.h"
 
 #include "settingsdialog.h"
 #include "vocabularymanagerdialog.h"
-#include <QtCore/QTime>
-#include <QtTest/QTest>
-#include <QtWidgets/QMessageBox>
-#ifdef Q_OS_WIN
-# include <QtCore/qt_windows.h>
-#endif
 #include "common/licensetextdialog.h"
-#include <QtMultimedia/QSound>
 #include "vocabularymanagerdialog/prioritydelegate.h"
 #include "vocabularyorganizerdialog.h"
-#include <MkWidgets/MAboutBox>
-#include <MkSupport/MFeedback>
 
 const auto FLASH_COUNT            = 3;
 const auto FLASH_WAIT             = 100;

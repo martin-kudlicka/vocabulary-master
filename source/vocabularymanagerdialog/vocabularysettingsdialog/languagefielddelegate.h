@@ -1,8 +1,6 @@
 #ifndef LANGUAGEFIELDDELEGATE_H
 #define LANGUAGEFIELDDELEGATE_H
 
-#include <QtWidgets/QStyledItemDelegate>
-
 class Vocabulary;
 
 class LanguageFieldDelegate : public QStyledItemDelegate

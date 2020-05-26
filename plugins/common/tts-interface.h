@@ -1,8 +1,6 @@
 #ifndef TTSINTERFACE_H
 #define TTSINTERFACE_H
 
-#include <QtCore/QString>
-#include <QtPlugin>
 #include "../../common/licensecommon.h"
 
 #define IID_TTSINTERFACE "cz.martink.VocabularyMaster.TTSInterface"

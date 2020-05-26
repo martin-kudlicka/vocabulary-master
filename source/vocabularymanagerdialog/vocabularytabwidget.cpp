@@ -1,7 +1,5 @@
+#include "pch.h"
 #include "vocabularymanagerdialog/vocabularytabwidget.h"
-
-#include <QtWidgets/QCheckBox>
-#include <QtWidgets/QSpinBox>
 
 static const auto CATEGORY_PRIORITY_MIN    = 1;
 static const auto POSITION_BUTTON_ENABLED  = QTabBar::LeftSide;

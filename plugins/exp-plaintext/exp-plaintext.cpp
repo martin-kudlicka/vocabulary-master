@@ -1,8 +1,7 @@
+#include "pch.h"
 #include "exp-plaintext.h"
 
 #include "plaintextexportwidget.h"
-#include <QtWidgets/QFileDialog>
-#include <QtCore/QTextStream>
 
 void ExpPlaintext::beginExport() const
 {

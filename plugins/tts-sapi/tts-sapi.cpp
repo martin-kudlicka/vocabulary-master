@@ -1,9 +1,5 @@
+#include "pch.h"
 #include "tts-sapi.h"
-
-#include <QtCore/qt_windows.h>
-#include <atlcomcli.h>
-#include <sapi.h>
-#include <sphelper.h>
 
 void TTSSAPI::initialize()
 {

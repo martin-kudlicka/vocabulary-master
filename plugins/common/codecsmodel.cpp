@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "codecsmodel.h"
-
-#include <QtCore/QTextCodec>
 
 CodecsModel::CodecsModel() : _codecs(QTextCodec::availableCodecs())
 {

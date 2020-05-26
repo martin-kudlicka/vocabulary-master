@@ -3,9 +3,7 @@
 
 #include <ui_licensetextdialog.h>
 
-#include <QtWidgets/QDialog>
 #include "../../common/licensecommon.h"
-#include <stdint.h>
 
 class Settings;
 

@@ -1,7 +1,6 @@
 #ifndef PLUGINS_H
 #define PLUGINS_H
 
-#include <QtCore/QHash>
 #include "../plugins/common/tts-interface.h"
 
 class ExpInterface;

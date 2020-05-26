@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate.h"
 
 #include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate/fieldlineedit.h"

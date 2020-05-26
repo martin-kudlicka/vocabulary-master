@@ -1,8 +1,5 @@
+#include "pch.h"
 #include "exp-pdf.h"
-
-#include <QtWidgets/QFileDialog>
-#include <QtCore/QTextCodec>
-#include <hpdf.h>
 
 Q_DECL_CONSTEXPR auto RECORD_NONE = std::numeric_limits<quintptr>::max();
 

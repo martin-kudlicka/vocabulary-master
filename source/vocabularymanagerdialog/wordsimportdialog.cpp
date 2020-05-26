@@ -1,9 +1,8 @@
+#include "pch.h"
 #include "vocabularymanagerdialog/wordsimportdialog.h"
 
 #include "vocabulary.h"
 #include "../plugins/common/imp-interface.h"
-#include <QtWidgets/QMessageBox>
-#include <QtWidgets/QLineEdit>
 
 const auto IMPORT_REFRESHINTERVAL = 20;
 

@@ -1,10 +1,8 @@
+#include "pch.h"
 #include "plugins.h"
 
 #include "../plugins/common/imp-interface.h"
 #include "../plugins/common/exp-interface.h"
-#include <QtCore/QDir>
-#include <QtCore/QCoreApplication>
-#include <QtCore/QPluginLoader>
 
 const Plugins::ExpPluginList &Plugins::explugins() const
 {

@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "marklineedit.h"
-
-#include <QtGui/QFocusEvent>
 
 MarkLineEdit::MarkLineEdit(QWidget *parent) : QLineEdit(parent)
 {

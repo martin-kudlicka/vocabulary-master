@@ -1,14 +1,13 @@
+#include "pch.h"
 #include "vocabularymanagerdialog.h"
 
 #include "settings.h"
 #include "vocabularymanagerdialog/vocabularyview.h"
-#include <QtWidgets/QInputDialog>
 #include "vocabulary.h"
 #include "vocabularymanagerdialog/vocabularymodel.h"
 #include "vocabularymanagerdialog/vocabularysettingsdialog.h"
 #include "../plugins/common/imp-interface.h"
 #include "vocabularymanagerdialog/wordsimportdialog.h"
-#include <QtWidgets/QFileDialog>
 #include "common/vocabularyopenprogressdialog.h"
 #include "vocabularymanagerdialog/wordsexportdialog.h"
 #include "vocabularymanagerdialog/prioritydelegate.h"

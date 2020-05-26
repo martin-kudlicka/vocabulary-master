@@ -1,12 +1,6 @@
 #ifndef UPDATECHECKER_H
 #define UPDATECHECKER_H
 
-#include <QtCore/QString>
-#include <QtCore/QObject>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QtCore/QVersionNumber>
-
 class Settings;
 
 class UpdateChecker : public QObject

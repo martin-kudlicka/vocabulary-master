@@ -1,8 +1,6 @@
 #ifndef HOTKEYLINEEDIT_H
 #define HOTKEYLINEEDIT_H
 
-#include <QtWidgets/QLineEdit>
-
 static const auto PROPERTY_VIRTUALKEY = "VirtualKey";
        const auto MODIFIER_ALT        = "Alt";
        const auto MODIFIER_CTRL       = "Ctrl";

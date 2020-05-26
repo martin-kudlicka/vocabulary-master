@@ -1,9 +1,7 @@
+#include "pch.h"
 #include "imp-anki.h"
 
-#include <QtWidgets/QGroupBox>
 #include "ankiimportwidget.h"
-#include <QtWidgets/QBoxLayout>
-#include <QtSql/QSqlQuery>
 
 const QChar   DATA_TAIL           = ',';
 const QString COLUMN_FACTID       = "factId";

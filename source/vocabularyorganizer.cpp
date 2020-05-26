@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "vocabularyorganizer.h"
 
 #include "common/vocabularyopenprogressdialog.h"

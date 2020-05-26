@@ -1,7 +1,6 @@
+#include "pch.h"
 #include "vocabularymanagerdialog/prioritydelegate.h"
 
-#include <QtWidgets/QSpinBox>
-#include <QtWidgets/QApplication>
 #include "vocabularymanagerdialog/vocabularyview.h"
 
 static const auto SPINBOX_BUTTONS_WIDTH = 16;

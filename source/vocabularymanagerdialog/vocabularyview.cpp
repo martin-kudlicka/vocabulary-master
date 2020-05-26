@@ -1,9 +1,7 @@
+#include "pch.h"
 #include "vocabularymanagerdialog/vocabularyview.h"
 
 #include "vocabulary.h"
-#include <QtGui/QMouseEvent>
-#include <QtWidgets/QSpinBox>
-#include <QtCore/QCoreApplication>
 
 VocabularyView::VocabularyView(const QSharedPointer<Vocabulary> &vocabulary, QWidget *parent) : QTableView(parent), _vocabulary(vocabulary)
 {

@@ -1,8 +1,6 @@
 #ifndef FIELDIDENTIFIERVALIDATOR_H
 #define FIELDIDENTIFIERVALIDATOR_H
 
-#include <QtGui/QValidator>
-
 class FieldsModel;
 
 class FieldIdentifierValidator : public QValidator

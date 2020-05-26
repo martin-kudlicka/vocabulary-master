@@ -1,9 +1,8 @@
+#include "pch.h"
 #include "settingsdialog.h"
 
 #include "settings/colordelegate.h"
-#include <QtCore/QDir>
 #include "common/licensetextdialog.h"
-#include <QtWidgets/QFileDialog>
 
 SettingsDialog::SettingsDialog(const Plugins *plugins, Settings *settings, QWidget *parent) : QDialog(parent), _plugins(plugins), _expPluginsModel(plugins, PluginsModel::PluginType::Exp), _impPluginsModel(plugins, PluginsModel::PluginType::Imp), _ttsPluginsModel(plugins, PluginsModel::PluginType::TTS), _settings(settings)
 {

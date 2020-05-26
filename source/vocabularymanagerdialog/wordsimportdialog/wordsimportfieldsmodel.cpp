@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "vocabularymanagerdialog/wordsimportdialog/wordsimportfieldsmodel.h"
 
 #include "vocabulary.h"

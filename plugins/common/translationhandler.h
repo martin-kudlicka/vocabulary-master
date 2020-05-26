@@ -1,11 +1,6 @@
 #ifndef TRANSLATIONHANDLER_H
 #define TRANSLATIONHANDLER_H
 
-#include <QtCore/QTranslator>
-#ifdef Q_OS_WIN
-# include <qt_windows.h>
-#endif
-
 class TranslationHandler
 {
   public:

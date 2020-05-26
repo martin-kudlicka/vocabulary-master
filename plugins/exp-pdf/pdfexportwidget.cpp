@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "pdfexportwidget.h"
-
-#include <hpdf_consts.h>
 
 const auto DEFAULT_FONT_COUNT  = 2;
 const auto COLUMN_DEFAULTWIDTH = 100;

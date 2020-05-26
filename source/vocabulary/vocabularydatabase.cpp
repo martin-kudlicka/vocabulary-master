@@ -1,12 +1,5 @@
+#include "pch.h"
 #include "vocabulary/vocabularydatabase.h"
-
-#include <QtCore/QStringList>
-#include <QtSql/QSqlQuery>
-#include <QtCore/QVariant>
-#include <QtSql/QSqlRecord>
-#include <QtCore/QFile>
-#include <QtCore/QFileInfo>
-#include <QtSql/QSqlField>
 
 const auto OPENPROGRESS_REFRESHINTERVAL = 100;
 const auto PRIORITY_DEFAULT             = 1;

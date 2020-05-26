@@ -4,7 +4,6 @@
 #include <ui_pdfexportwidget.h>
 
 #include "../common/exp-interface.h"
-#include <hpdf_types.h>
 
 class PdfExportWidget : public QWidget
 {

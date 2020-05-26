@@ -3,14 +3,9 @@
 
 #include <ui_mainwindow.h>
 
-#include <QtWidgets/QProgressBar>
 #include "plugins.h"
-#include <QtWidgets/QSystemTrayIcon>
-#include <QtCore/QTranslator>
 #include "updatechecker.h"
-#include <QtCore/QTimer>
 #include "vocabularyorganizer.h"
-#include <stdint.h>
 
 class MainWindow : public QMainWindow
 {

@@ -1,8 +1,6 @@
 #ifndef MODELSMODEL_H
 #define MODELSMODEL_H
 
-#include <QtCore/QAbstractItemModel>
-
 class QSqlDatabase;
 
 class ModelsModel : public QAbstractItemModel

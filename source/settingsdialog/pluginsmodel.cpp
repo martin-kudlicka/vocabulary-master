@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "settingsdialog/pluginsmodel.h"
 
 PluginsModel::PluginsModel(const Plugins *plugins, PluginType type) : _plugins(plugins), _type(type)

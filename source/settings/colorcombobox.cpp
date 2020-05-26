@@ -1,7 +1,5 @@
+#include "pch.h"
 #include "settings/colorcombobox.h"
-
-#include <QtWidgets/QStylePainter>
-#include <QtGui/QPaintEvent>
 
 const auto BORDER_WIDTH = 2;
 

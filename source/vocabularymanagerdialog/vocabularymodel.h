@@ -1,9 +1,6 @@
 #ifndef VOCABULARYMODEL_H
 #define VOCABULARYMODEL_H
 
-#include <QtCore/QAbstractTableModel>
-#include <QtCore/QSharedPointer>
-
 class Vocabulary;
 
 class VocabularyModel : public QAbstractTableModel

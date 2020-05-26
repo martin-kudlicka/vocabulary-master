@@ -1,7 +1,7 @@
+#include "pch.h"
 #include "vocabularymanagerdialog/vocabularysettingsdialog/languagefielddelegate.h"
 
 #include "vocabulary.h"
-#include <QtWidgets/QComboBox>
 
 LanguageFieldDelegate::LanguageFieldDelegate(const QSharedPointer<Vocabulary> &vocabulary) : _vocabulary(vocabulary)
 {

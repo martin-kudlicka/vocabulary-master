@@ -1,9 +1,6 @@
 #ifndef VOCABULARYDATABASE_H
 #define VOCABULARYDATABASE_H
 
-#include <QtSql/QSqlDatabase>
-#include <QtCore/QList>
-#include <QtCore/QHash>
 #include "../plugins/common/tts-interface.h"
 
 const auto VARIABLE_MARK = "$";

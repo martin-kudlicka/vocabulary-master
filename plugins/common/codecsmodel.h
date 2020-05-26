@@ -1,8 +1,6 @@
 #ifndef CODECSMODEL_H
 #define CODECSMODEL_H
 
-#include <QtCore/QAbstractItemModel>
-
 class CodecsModel : public QAbstractItemModel
 {
   Q_OBJECT

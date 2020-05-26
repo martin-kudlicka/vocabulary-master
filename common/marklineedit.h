@@ -1,8 +1,6 @@
 #ifndef MARKLINEEDIT_H
 #define MARKLINEEDIT_H
 
-#include <QtWidgets/QLineEdit>
-
 class MarkLineEdit : public QLineEdit
 {
   Q_OBJECT

@@ -2,7 +2,6 @@
 #define IMPANKI_H
 
 #include "../common/imp-interface.h"
-#include <QtSql/QSqlDatabase>
 
 class AnkiImportWidget;
 

@@ -1,7 +1,6 @@
 #ifndef IMPINTERFACE_H
 #define IMPINTERFACE_H
 
-#include <QtCore/QString>
 #include "translationhandler.h"
 
 class QGroupBox;

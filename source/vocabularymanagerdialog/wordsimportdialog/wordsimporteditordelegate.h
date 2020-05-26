@@ -1,8 +1,6 @@
 #ifndef WORDSIMPORTEDITORDELEGATE_H
 #define WORDSIMPORTEDITORDELEGATE_H
 
-#include <QtWidgets/QStyledItemDelegate>
-
 class Vocabulary;
 
 class WordsImportEditorDelegate : public QStyledItemDelegate

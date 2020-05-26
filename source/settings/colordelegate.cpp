@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "settings/colordelegate.h"
-
-#include <QtGui/QPainter>
 
 const auto BORDER_WIDTH = 2;
 

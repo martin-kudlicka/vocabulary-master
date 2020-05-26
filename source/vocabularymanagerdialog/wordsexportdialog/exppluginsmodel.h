@@ -1,7 +1,6 @@
 #ifndef EXPPLUGINSMODEL_H
 #define EXPPLUGINSMODEL_H
 
-#include <QtCore/QAbstractItemModel>
 #include "plugins.h"
 
 class ExpPluginsModel : public QAbstractItemModel

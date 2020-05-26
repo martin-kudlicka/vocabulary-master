@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "vocabularymanagerdialog/wordsexportdialog/exppluginsmodel.h"
 
 #include "../../../plugins/common/exp-interface.h"

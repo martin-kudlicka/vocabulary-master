@@ -1,8 +1,6 @@
 #ifndef COLORDELEGATE_H
 #define COLORDELEGATE_H
 
-#include <QtWidgets/QStyledItemDelegate>
-
 class ColorDelegate : public QStyledItemDelegate
 {
   public:

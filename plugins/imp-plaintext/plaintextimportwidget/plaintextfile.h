@@ -1,9 +1,6 @@
 #ifndef PLAINTEXTFILE_H
 #define PLAINTEXTFILE_H
 
-#include <QtCore/QFile>
-#include <QtCore/QTextStream>
-
 class QTextCodec;
 
 class PlaintextFile

@@ -1,7 +1,7 @@
+#include "pch.h"
 #include "vocabularyorganizerdialog/vocabularyorganizermodel.h"
 
 #include "vocabularyorganizer.h"
-#include <QtCore/QDir>
 
 VocabularyOrganizerModel::VocabularyOrganizerModel(VocabularyOrganizer *organizer, QWidget *parent) : _organizer(organizer), _parent(parent)
 {

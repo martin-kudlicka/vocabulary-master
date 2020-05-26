@@ -1,7 +1,6 @@
 #ifndef CLEARCACHEWORKER_H
 #define CLEARCACHEWORKER_H
 
-#include <QtCore/QThread>
 #include "vocabulary/vocabularydatabase.h"
 
 class ClearCacheWorker : public QThread

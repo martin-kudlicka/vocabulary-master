@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "settings.h"
 
 const auto DEFAULT_FREQUENCY = 60;

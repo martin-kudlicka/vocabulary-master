@@ -1,9 +1,6 @@
 #ifndef VOCABULARYTABWIDGET_H
 #define VOCABULARYTABWIDGET_H
 
-#include <QtWidgets/QTabWidget>
-#include <QtWidgets/QTabBar>
-
 class VocabularyTabWidget : public QTabWidget
 {
   Q_OBJECT

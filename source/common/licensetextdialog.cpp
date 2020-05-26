@@ -1,8 +1,7 @@
+#include "pch.h"
 #include "common/licensetextdialog.h"
 
 #include "settings.h"
-#include <QtWidgets/QPlainTextEdit>
-#include <QtCore/QFile>
 
 const auto TAB_INVALID = UINT8_MAX;
 

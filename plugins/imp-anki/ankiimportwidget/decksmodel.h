@@ -1,8 +1,6 @@
 #ifndef DECKSMODEL_H
 #define DECKSMODEL_H
 
-#include <QtCore/QAbstractItemModel>
-
 class QSqlDatabase;
 
 class DecksModel : public QAbstractItemModel

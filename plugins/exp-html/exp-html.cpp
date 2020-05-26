@@ -1,8 +1,7 @@
+#include "pch.h"
 #include "exp-html.h"
 
 #include "htmlexportwidget.h"
-#include <QtWidgets/QFileDialog>
-#include <QtCore/QTextStream>
 
 void ExpHtml::beginExport() const
 {

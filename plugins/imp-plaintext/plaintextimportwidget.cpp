@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "plaintextimportwidget.h"
 
 #include "plaintextimportwidget/plaintextfile.h"

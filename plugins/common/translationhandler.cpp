@@ -1,10 +1,5 @@
+#include "pch.h"
 #include "translationhandler.h"
-
-#include <QtCore/QLocale>
-#include <QtCore/QCoreApplication>
-#ifdef Q_OS_WIN
-# include <QtCore/QDir>
-#endif
 
 HINSTANCE TranslationHandler::_instance = Q_NULLPTR;
 

@@ -1,7 +1,5 @@
+#include "pch.h"
 #include "htmlexportwidget.h"
-
-#include <QtGui/QTextTable>
-#include <QtWidgets/QScrollBar>
 
 Q_DECL_CONSTEXPR auto COLUMN_DEFAULTWIDTH = 100;
 Q_DECL_CONSTEXPR auto COLUMN_MAX_WIDTH    = 999;

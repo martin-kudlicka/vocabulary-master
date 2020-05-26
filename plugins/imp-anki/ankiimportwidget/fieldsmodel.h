@@ -1,8 +1,6 @@
 #ifndef FIELDSMODEL_H
 #define FIELDSMODEL_H
 
-#include <QtCore/QAbstractItemModel>
-
 class QSqlDatabase;
 
 class FieldsModel : public QAbstractItemModel

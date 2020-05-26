@@ -1,10 +1,6 @@
 #ifndef WORDSIMPORTFIELDSMODEL_H
 #define WORDSIMPORTFIELDSMODEL_H
 
-#include <QtCore/QAbstractItemModel>
-#include <QtCore/QStringList>
-#include <QtCore/QSharedPointer>
-
 class Vocabulary;
 
 class WordsImportFieldsModel : public QAbstractItemModel

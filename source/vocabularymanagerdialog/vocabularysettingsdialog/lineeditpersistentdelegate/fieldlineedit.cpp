@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "vocabularymanagerdialog/vocabularysettingsdialog/lineeditpersistentdelegate/fieldlineedit.h"
 
 FieldLineEdit::FieldLineEdit(QWidget *parent) : QLineEdit(parent), _defaultSheet(styleSheet())

@@ -1,9 +1,6 @@
 #ifndef WORDSEXPORTFIELDSMODEL_H
 #define WORDSEXPORTFIELDSMODEL_H
 
-#include <QtCore/QAbstractItemModel>
-#include <QtCore/QSharedPointer>
-
 class Vocabulary;
 
 class WordsExportFieldsModel : public QAbstractItemModel

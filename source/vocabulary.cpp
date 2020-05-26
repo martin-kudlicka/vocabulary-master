@@ -1,7 +1,7 @@
+#include "pch.h"
 #include "vocabulary.h"
 
 #include "settings.h"
-#include <QtCore/QStringList>
 #include "vocabulary/clearcacheworker.h"
 
 Vocabulary::Vocabulary(const Settings *settings) : _cacheEnabled(false), _recordData(Q_NULLPTR), _settings(settings)

@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "plaintextimportwidget/plaintextfile.h"
-
-#include <QtCore/QTextCodec>
 
 PlaintextFile::PlaintextFile() : _textCodec(Q_NULLPTR)
 {

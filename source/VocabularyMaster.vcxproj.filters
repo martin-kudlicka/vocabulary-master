@@ -311,6 +311,9 @@
     <ClCompile Include="..\..\..\intermediate\vocabularymaster\Release\moc_categoriesmodel.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="common\categoriesmodel.h">
@@ -504,6 +507,9 @@
     <ClInclude Include="..\..\..\intermediate\vocabularymaster\ui_wordsimportdialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\images\menubar\vocabulary.png">
@@ -548,7 +554,9 @@
     <Image Include="resources\images\mainwindow.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="resources\main.ico" />
+    <Image Include="resources\main.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="resources\eula\cze.txt">

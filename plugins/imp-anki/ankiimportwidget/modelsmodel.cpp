@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "ankiimportwidget/modelsmodel.h"
-
-#include <QtSql/QSqlQuery>
 
 const auto    COLUMN_DECKID = "deckId";
 const QString COLUMN_ID     = "id";

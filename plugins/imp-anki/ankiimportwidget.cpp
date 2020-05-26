@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "ankiimportwidget.h"
 
 #include "../../common/marklineedit.h"

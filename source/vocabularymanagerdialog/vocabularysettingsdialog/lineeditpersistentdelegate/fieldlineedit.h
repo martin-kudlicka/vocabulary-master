@@ -1,8 +1,6 @@
 #ifndef FIELDLINEEDIT_H
 #define FIELDLINEEDIT_H
 
-#include <QtWidgets/QLineEdit>
-
 class FieldLineEdit : public QLineEdit
 {
   Q_OBJECT

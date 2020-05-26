@@ -1,7 +1,7 @@
+#include "pch.h"
 #include "vocabularyorganizerdialog.h"
 
 #include "vocabularyorganizer.h"
-#include <QtWidgets/QFileDialog>
 
 const auto VOCABULARY_FILTER = QT_TRANSLATE_NOOP("VocabularyOrganizerDialog", "Vocabulary (*.sl3)");
 const auto VOCABULARY_SUFFIX = "sl3";

@@ -1,9 +1,6 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include <QtCore/QSettings>
-#include <QtNetwork/QNetworkProxy>
-
 const auto DIR_LANG = "lang";
 
 class Settings

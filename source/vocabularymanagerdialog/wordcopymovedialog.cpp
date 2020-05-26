@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "vocabularymanagerdialog/wordcopymovedialog.h"
 
 #include "vocabulary.h"

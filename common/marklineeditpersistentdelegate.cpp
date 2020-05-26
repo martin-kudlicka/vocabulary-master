@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "marklineeditpersistentdelegate.h"
 
 #include "marklineedit.h"

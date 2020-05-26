@@ -1,8 +1,6 @@
 #ifndef VOCABULARYORGANIZERMODEL_H
 #define VOCABULARYORGANIZERMODEL_H
 
-#include <QtCore/QAbstractTableModel>
-
 class VocabularyOrganizer;
 
 class VocabularyOrganizerModel : public QAbstractTableModel

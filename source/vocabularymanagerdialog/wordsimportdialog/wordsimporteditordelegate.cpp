@@ -1,9 +1,8 @@
+#include "pch.h"
 #include "vocabularymanagerdialog/wordsimportdialog/wordsimporteditordelegate.h"
 
 #include "vocabulary.h"
 #include "vocabularymanagerdialog/prioritydelegate.h"
-#include <QtWidgets/QSpinBox>
-#include <QtWidgets/QLineEdit>
 
 WordsImportEditorDelegate::WordsImportEditorDelegate(const QSharedPointer<Vocabulary> &vocabulary) : _vocabulary(vocabulary)
 {

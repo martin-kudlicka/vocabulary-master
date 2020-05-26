@@ -1,9 +1,6 @@
 #ifndef CATEGORIESMODEL_H
 #define CATEGORIESMODEL_H
 
-#include <QtCore/QAbstractItemModel>
-#include <QtCore/QSharedPointer>
-
 class Vocabulary;
 
 class CategoriesModel : public QAbstractItemModel
