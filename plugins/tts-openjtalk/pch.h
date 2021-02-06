@@ -1,8 +1,6 @@
 #ifndef PCH_H
 #define PCH_H
 
-#include <QtCore>
-
 #include <mecab/src/mecab.h>
 #include <njd/njd.h>
 #include <jpcommon/jpcommon.h>
@@ -16,5 +14,7 @@
 #include <njd_set_unvoiced_vowel/njd_set_unvoiced_vowel.h>
 #include <njd_set_long_vowel/njd_set_long_vowel.h>
 #include <njd2jpcommon/njd2jpcommon.h>
+
+#include <QtCore>
 
 #endif
