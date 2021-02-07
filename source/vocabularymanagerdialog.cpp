@@ -171,12 +171,12 @@ void VocabularyManagerDialog::initEditor()
     if (_vocabulary->fieldLanguage(fieldId) == VocabularyDatabase::FieldLanguage::Left)
     {
       row = posLeft++;
-      column = static_cast<quintptr>(EditorColumn::LeftLabel);
+      column = gsl::narrow<quintptr>(EditorColumn::LeftLabel);
     }
     else
     {
       row = posRight++;
-      column = static_cast<quintptr>(EditorColumn::RightLabel);
+      column = gsl::narrow<quintptr>(EditorColumn::RightLabel);
     }
 
     // label
@@ -321,7 +321,7 @@ void VocabularyManagerDialog::updateEditor(EditorColumn controlsColumn) const
 {
   for (auto row = 0; row < _ui.editorLayout->rowCount(); ++row)
   {
-    auto item = _ui.editorLayout->itemAtPosition(row, static_cast<int>(controlsColumn));
+    auto item = _ui.editorLayout->itemAtPosition(row, gsl::narrow<int>(controlsColumn));
     if (item)
     {
       auto widget  = item->widget();
@@ -498,7 +498,7 @@ void VocabularyManagerDialog::on_wordAdd_clicked(bool checked /* false */)
 
   if (!_ui.editorLayout->isEmpty())
   {
-    auto control = _ui.editorLayout->itemAtPosition(0, static_cast<int>(EditorColumn::LeftControl));
+    auto control = _ui.editorLayout->itemAtPosition(0, gsl::narrow<int>(EditorColumn::LeftControl));
     control->widget()->setFocus(Qt::OtherFocusReason);
   }
 }

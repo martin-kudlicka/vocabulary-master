@@ -152,15 +152,15 @@ void SettingsDialog::preparePlugins(QTreeView *treeView, PluginsModel *model) co
   treeView->setModel(model);
   for (auto row = 0; row < model->rowCount(); ++row)
   {
-    const auto modelIndex = model->index(row, static_cast<int>(PluginsModel::Column::License));
+    const auto modelIndex = model->index(row, gsl::narrow<int>(PluginsModel::Column::License));
 
     auto showButton = new QPushButton(tr("Show"), treeView);
     treeView->setIndexWidget(modelIndex, showButton);
 
     connect(showButton, &QPushButton::clicked, this, &SettingsDialog::on_showLicense_clicked);
   }
-  treeView->header()->setSectionResizeMode(static_cast<int>(PluginsModel::Column::Name),    QHeaderView::Stretch);
-  treeView->header()->setSectionResizeMode(static_cast<int>(PluginsModel::Column::License), QHeaderView::ResizeToContents);
+  treeView->header()->setSectionResizeMode(gsl::narrow<int>(PluginsModel::Column::Name),    QHeaderView::Stretch);
+  treeView->header()->setSectionResizeMode(gsl::narrow<int>(PluginsModel::Column::License), QHeaderView::ResizeToContents);
 }
 
 void SettingsDialog::prepareTranslations()
@@ -327,7 +327,7 @@ void SettingsDialog::on_showLicense_clicked(bool checked /* false */)
   const auto pluginsModel = qobject_cast<const PluginsModel *>(treeView->model());
   for (row = 0; row < pluginsModel->rowCount(); ++row)
   {
-    const auto modelIndex = pluginsModel->index(row, static_cast<int>(PluginsModel::Column::License));
+    const auto modelIndex = pluginsModel->index(row, gsl::narrow<int>(PluginsModel::Column::License));
     if (treeView->indexWidget(modelIndex) == button)
     {
       break;

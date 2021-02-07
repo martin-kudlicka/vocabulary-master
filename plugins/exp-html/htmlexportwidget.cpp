@@ -70,9 +70,9 @@ void HtmlExportWidget::addTableColumn()
     hBoxHeader->addWidget(tableColumn.width);
   }
 
-  _ui.tableColumns->addWidget(tableColumn.headerWidget, static_cast<int>(TableRow::Header), _tableColumns.count() + LABEL_COLUMN);
+  _ui.tableColumns->addWidget(tableColumn.headerWidget, gsl::narrow<int>(TableRow::Header), _tableColumns.count() + LABEL_COLUMN);
   // template
-  _ui.tableColumns->addWidget(tableColumn.templateEdit, static_cast<int>(TableRow::Template), _tableColumns.count() + LABEL_COLUMN);
+  _ui.tableColumns->addWidget(tableColumn.templateEdit, gsl::narrow<int>(TableRow::Template), _tableColumns.count() + LABEL_COLUMN);
 }
 
 void HtmlExportWidget::initTableColumns()
@@ -94,7 +94,7 @@ void HtmlExportWidget::preselectCodec(const QString &codec) const
 {
   for (auto codecIndex = 0; codecIndex < _codecsModel.rowCount(); ++codecIndex)
   {
-    const auto modelIndex = _codecsModel.index(codecIndex, static_cast<int>(CodecsModel::Column::Codec));
+    const auto modelIndex = _codecsModel.index(codecIndex, gsl::narrow<int>(CodecsModel::Column::Codec));
     if (codec == _codecsModel.data(modelIndex))
     {
       _ui.codecs->setCurrentIndex(modelIndex);
@@ -301,14 +301,14 @@ void HtmlExportWidget::on_styleTable_clicked(bool checked /* false */) const
 {
   Q_UNUSED(checked);
 
-  _ui.styles->setCurrentIndex(static_cast<int>(Style::Table));
+  _ui.styles->setCurrentIndex(gsl::narrow<int>(Style::Table));
 }
 
 void HtmlExportWidget::on_styleText_clicked(bool checked /* false */) const
 {
   Q_UNUSED(checked);
 
-  _ui.styles->setCurrentIndex(static_cast<int>(Style::Text));
+  _ui.styles->setCurrentIndex(gsl::narrow<int>(Style::Text));
 }
 
 void HtmlExportWidget::on_tableColums_valueChanged(int i)

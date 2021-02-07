@@ -52,7 +52,7 @@ void VocabularyTabWidget::on_enabled_stateChanged(int state) const
   {
     if (sender() == tabBar()->tabButton(index, POSITION_BUTTON_ENABLED))
     {
-      emit tabEnableChanged(index, static_cast<Qt::CheckState>(state));
+      emit tabEnableChanged(index, gsl::narrow<Qt::CheckState>(state));
       return;
     }
   }

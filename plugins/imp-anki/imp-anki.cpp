@@ -41,7 +41,7 @@ bool ImpAnki::open(const QString &fileName)
 
 quintptr ImpAnki::recordCount() const
 {
-  const auto fieldId = _widget->fieldId(static_cast<int>(FieldNum::N1));
+  const auto fieldId = _widget->fieldId(gsl::narrow<int>(FieldNum::N1));
   auto query         = _database.exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FIELDMODELID + " = " + QString::number(fieldId));
   if (query.last())
   {
@@ -56,10 +56,10 @@ quintptr ImpAnki::recordCount() const
 QString ImpAnki::recordData(quintptr recordId, const QString &mark)
 {
   // query records by first field ID to get always same sequence
-  const auto fieldId = _widget->fieldId(static_cast<int>(FieldNum::N1));
+  const auto fieldId = _widget->fieldId(gsl::narrow<int>(FieldNum::N1));
   auto query         = _database.exec("SELECT " + COLUMN_FACTID + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FIELDMODELID + " = " + QString::number(fieldId));
   query.seek(recordId);
-  const auto factId = query.value(static_cast<int>(ColumnPosition::N1)).toLongLong();
+  const auto factId = query.value(gsl::narrow<int>(ColumnPosition::N1)).toLongLong();
 
   // get mark ID
   const auto marks     = _widget->marks();
@@ -69,7 +69,7 @@ QString ImpAnki::recordData(quintptr recordId, const QString &mark)
   // get data
   query = _database.exec("SELECT " + COLUMN_VALUE + " FROM " + TABLE_FIELDS + " WHERE " + COLUMN_FACTID + " = " + QString::number(factId) + " AND " + COLUMN_FIELDMODELID + " = " + QString::number(markId));
   query.next();
-  auto data = query.value(static_cast<int>(ColumnPosition::N1)).toString();
+  auto data = query.value(gsl::narrow<int>(ColumnPosition::N1)).toString();
   if (data.endsWith(DATA_TAIL))
   {
     data.chop(QString(DATA_TAIL).size());

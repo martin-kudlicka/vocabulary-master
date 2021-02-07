@@ -42,7 +42,7 @@ void PlaintextImportWidget::preselectCodec() const
   const auto fileCodec = _file->codecName();
   for (auto codecIndex = 0; codecIndex < _codecsModel.rowCount(); ++codecIndex)
   {
-    const auto modelIndex = _codecsModel.index(codecIndex, static_cast<int>(CodecsModel::Column::Codec));
+    const auto modelIndex = _codecsModel.index(codecIndex, gsl::narrow<int>(CodecsModel::Column::Codec));
     const auto codec      = _codecsModel.data(modelIndex).toString();
 
     if (fileCodec == codec)

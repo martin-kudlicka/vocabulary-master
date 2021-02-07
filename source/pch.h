@@ -1,6 +1,8 @@
 #ifndef PCH_H
 #define PCH_H
 
+#include <gsl/gsl>
+
 #include <stdint.h>
 
 #ifdef Q_OS_WIN

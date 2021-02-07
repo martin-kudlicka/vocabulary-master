@@ -12,8 +12,8 @@ VocabularyOrganizerDialog::VocabularyOrganizerDialog(VocabularyOrganizer *organi
 
   _ui.vocabularies->setModel(&_model);
 
-  _ui.vocabularies->header()->setSectionResizeMode(static_cast<int>(VocabularyOrganizerModel::Column::VocabularyFile), QHeaderView::Stretch);
-  _ui.vocabularies->header()->setSectionResizeMode(static_cast<int>(VocabularyOrganizerModel::Column::Enabled),        QHeaderView::ResizeToContents);
+  _ui.vocabularies->header()->setSectionResizeMode(gsl::narrow<int>(VocabularyOrganizerModel::Column::VocabularyFile), QHeaderView::Stretch);
+  _ui.vocabularies->header()->setSectionResizeMode(gsl::narrow<int>(VocabularyOrganizerModel::Column::Enabled),        QHeaderView::ResizeToContents);
 
   connect(_ui.vocabularies->selectionModel(), &QItemSelectionModel::selectionChanged, this, &VocabularyOrganizerDialog::on_vocabulariesSelectionModel_selectionChanged);
 }

@@ -16,7 +16,7 @@ qlonglong FieldsModel::fieldId(quintptr row) const
 {
   auto query = _database->exec("SELECT " + COLUMN_ID + " FROM " + TABLE_FIELDMODELS + " WHERE " + COLUMN_MODELID + " = " + QString::number(_modelId) + " ORDER BY " + COLUMN_ORDINAL);
   query.seek(row);
-  return query.value(static_cast<int>(ColumnPosition::N1)).toLongLong();
+  return query.value(gsl::narrow<int>(ColumnPosition::N1)).toLongLong();
 }
 
 void FieldsModel::setModelId(qlonglong modelId)
@@ -36,7 +36,7 @@ QVariant FieldsModel::data(const QModelIndex &index, int role /* Qt::DisplayRole
           auto query = _database->exec("SELECT " + COLUMN_NAME + " FROM " + TABLE_FIELDMODELS + " WHERE " + COLUMN_MODELID + " = " + QString::number(_modelId) + " ORDER BY " + COLUMN_ORDINAL);
           query.seek(index.row());
 
-          return query.value(static_cast<int>(ColumnPosition::N1));
+          return query.value(gsl::narrow<int>(ColumnPosition::N1));
         }
         case Column::Mark:
           const auto nameIndex = this->index(index.row(), Column::Name);

@@ -32,9 +32,9 @@ void VocabularySettingsDialog::actualizeFieldsEditor(quintptr row) const
 {
   const auto fieldId = _vocabulary->fieldId(row);
 
-  auto index = _fieldsModel.index(row, static_cast<int>(FieldsModel::Column::TemplateName));
+  auto index = _fieldsModel.index(row, gsl::narrow<int>(FieldsModel::Column::TemplateName));
   _ui.fields->openPersistentEditor(index);
-  index = _fieldsModel.index(row, static_cast<int>(FieldsModel::Column::Name));
+  index = _fieldsModel.index(row, gsl::narrow<int>(FieldsModel::Column::Name));
   if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
   {
     _ui.fields->closePersistentEditor(index);
@@ -43,7 +43,7 @@ void VocabularySettingsDialog::actualizeFieldsEditor(quintptr row) const
   {
     _ui.fields->openPersistentEditor(index);
   }
-  index = _fieldsModel.index(row, static_cast<int>(FieldsModel::Column::Language));
+  index = _fieldsModel.index(row, gsl::narrow<int>(FieldsModel::Column::Language));
   if (_vocabulary->fieldHasAttribute(fieldId, VocabularyDatabase::FieldAttribute::BuiltIn))
   {
     _ui.fields->closePersistentEditor(index);
@@ -83,7 +83,7 @@ void VocabularySettingsDialog::fillSpeech(QComboBox *comboBox, TTSInterface::TTS
 
   // add unknown speech module when selected not found
   SpeechVoice speechVoice;
-  speechVoice.ttsPlugin = static_cast<TTSInterface::TTSPlugin>(speechPlugin);
+  speechVoice.ttsPlugin = gsl::narrow<decltype(speechVoice.ttsPlugin)>(speechPlugin);
   speechVoice.voiceId   = voiceId;
   _voices.append(speechVoice);
   comboBox->addItem(tr("Unknown"));
@@ -93,9 +93,9 @@ void VocabularySettingsDialog::fillSpeech(QComboBox *comboBox, TTSInterface::TTS
 void VocabularySettingsDialog::prepareFields()
 {
   _ui.fields->setModel(&_fieldsModel);
-  _ui.fields->setItemDelegateForColumn(static_cast<int>(FieldsModel::Column::TemplateName), &_lineEditDelegate);
-  _ui.fields->setItemDelegateForColumn(static_cast<int>(FieldsModel::Column::Name),         &_lineEditDelegate);
-  _ui.fields->setItemDelegateForColumn(static_cast<int>(FieldsModel::Column::Language),     &_languageFieldDelegate);
+  _ui.fields->setItemDelegateForColumn(gsl::narrow<int>(FieldsModel::Column::TemplateName), &_lineEditDelegate);
+  _ui.fields->setItemDelegateForColumn(gsl::narrow<int>(FieldsModel::Column::Name),         &_lineEditDelegate);
+  _ui.fields->setItemDelegateForColumn(gsl::narrow<int>(FieldsModel::Column::Language),     &_languageFieldDelegate);
   connect(_ui.fields->selectionModel(), &QItemSelectionModel::selectionChanged, this, &VocabularySettingsDialog::on_fieldsSelectionModel_selectionChanged);
 
   _ui.fieldType->addItem(tr("Text"));
@@ -104,7 +104,7 @@ void VocabularySettingsDialog::prepareFields()
 
   for (auto column = 0; column < _ui.fields->header()->count(); ++column)
   {
-    if (column == static_cast<int>(FieldsModel::Column::Speech) || column == static_cast<int>(FieldsModel::Column::Show))
+    if (column == gsl::narrow<decltype(column)>(FieldsModel::Column::Speech) || column == gsl::narrow<decltype(column)>(FieldsModel::Column::Show))
     {
       _ui.fields->header()->setSectionResizeMode(column, QHeaderView::ResizeToContents);
     }
@@ -153,7 +153,7 @@ void VocabularySettingsDialog::refreshLanguageNameFields() const
     _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguage::Left, _ui.languageLeft->text());
     _vocabulary->setLanguageName(VocabularyDatabase::FieldLanguage::Right, _ui.languageRight->text());
 
-    const auto index = _fieldsModel.index(row, static_cast<int>(FieldsModel::Column::Language));
+    const auto index = _fieldsModel.index(row, gsl::narrow<int>(FieldsModel::Column::Language));
     _ui.fields->closePersistentEditor(index);
     _ui.fields->openPersistentEditor(index);
   }

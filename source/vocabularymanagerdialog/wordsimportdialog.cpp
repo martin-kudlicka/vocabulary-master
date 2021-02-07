@@ -31,9 +31,9 @@ int WordsImportDialog::exec()
   // fields
   _ui.fields->setModel(&_fieldsModel);
   createFieldEditors();
-  _ui.fields->header()->setSectionResizeMode(static_cast<int>(WordsImportFieldsModel::Column::Name),     QHeaderView::ResizeToContents);
-  _ui.fields->header()->setSectionResizeMode(static_cast<int>(WordsImportFieldsModel::Column::Language), QHeaderView::ResizeToContents);
-  _ui.fields->header()->setSectionResizeMode(static_cast<int>(WordsImportFieldsModel::Column::Editor),   QHeaderView::Stretch);
+  _ui.fields->header()->setSectionResizeMode(gsl::narrow<int>(WordsImportFieldsModel::Column::Name),     QHeaderView::ResizeToContents);
+  _ui.fields->header()->setSectionResizeMode(gsl::narrow<int>(WordsImportFieldsModel::Column::Language), QHeaderView::ResizeToContents);
+  _ui.fields->header()->setSectionResizeMode(gsl::narrow<int>(WordsImportFieldsModel::Column::Editor),   QHeaderView::Stretch);
   // preview
   preparePreviewColumns();
 
@@ -55,7 +55,7 @@ void WordsImportDialog::accept()
 
 void WordsImportDialog::createFieldEditors()
 {
-  _ui.fields->setItemDelegateForColumn(static_cast<int>(WordsImportFieldsModel::Column::Editor), &_editorDelegate);
+  _ui.fields->setItemDelegateForColumn(gsl::narrow<int>(WordsImportFieldsModel::Column::Editor), &_editorDelegate);
 
   for (auto row = 0; row < _fieldsModel.rowCount(); ++row)
   {
@@ -73,7 +73,7 @@ void WordsImportDialog::createFieldEditors()
 
     if (persistentEditor)
     {
-      const auto index = _fieldsModel.index(row, static_cast<int>(WordsImportFieldsModel::Column::Editor));
+      const auto index = _fieldsModel.index(row, gsl::narrow<int>(WordsImportFieldsModel::Column::Editor));
       _ui.fields->openPersistentEditor(index);
     }
   }
@@ -107,7 +107,7 @@ void WordsImportDialog::importData(const Target &target)
   QStringList patterns;
   for (decltype(_vocabulary->fieldCount()) pattern = 0; pattern < _vocabulary->fieldCount(); ++pattern)
   {
-    const auto index = _fieldsModel.index(pattern, static_cast<int>(WordsImportFieldsModel::Column::Editor));
+    const auto index = _fieldsModel.index(pattern, gsl::narrow<int>(WordsImportFieldsModel::Column::Editor));
     const auto data  = _fieldsModel.data(index, Qt::EditRole).toString();
     patterns.append(data);
   }
@@ -177,7 +177,7 @@ void WordsImportDialog::importData(const Target &target)
               break;
             case VocabularyDatabase::FieldType::CheckBox:
               tableItem = new QTableWidgetItem();
-              tableItem->setCheckState(static_cast<Qt::CheckState>(data.at(column).toUInt()));
+              tableItem->setCheckState(gsl::narrow<Qt::CheckState>(data.at(column).toUInt()));
               tableItem->setFlags(tableItem->flags() | Qt::ItemIsUserCheckable);
               break;
             case VocabularyDatabase::FieldType::SpinBox:

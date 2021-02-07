@@ -38,9 +38,9 @@ void ExpPdf::exportText(quintptr recordId, HPDF_Page pdfPage, const FontList &fo
     if (markPos == -1)
     {
       // no other mark on the line
-      pdfSetFont(pdfPage, fontList.at(static_cast<int>(PdfExportWidget::FontRole::Template)).pdfFont, fontList.at(static_cast<int>(PdfExportWidget::FontRole::Template)).size);
+      pdfSetFont(pdfPage, fontList.at(gsl::narrow<int>(PdfExportWidget::FontRole::Template)).pdfFont, fontList.at(gsl::narrow<int>(PdfExportWidget::FontRole::Template)).size);
       const auto text = templateText.mid(pos);
-      pdfShowText(pdfPage, text, fontList.at(static_cast<int>(PdfExportWidget::FontRole::Template)).textCodec);
+      pdfShowText(pdfPage, text, fontList.at(gsl::narrow<int>(PdfExportWidget::FontRole::Template)).textCodec);
 
       break;
     }
@@ -49,9 +49,9 @@ void ExpPdf::exportText(quintptr recordId, HPDF_Page pdfPage, const FontList &fo
       // text before possible mark
       if (markPos > pos)
       {
-        pdfSetFont(pdfPage, fontList.at(static_cast<int>(PdfExportWidget::FontRole::Template)).pdfFont, fontList.at(static_cast<int>(PdfExportWidget::FontRole::Template)).size);
+        pdfSetFont(pdfPage, fontList.at(gsl::narrow<int>(PdfExportWidget::FontRole::Template)).pdfFont, fontList.at(gsl::narrow<int>(PdfExportWidget::FontRole::Template)).size);
         const auto text = templateText.mid(pos, markPos - pos);
-        pdfShowText(pdfPage, text, fontList.at(static_cast<int>(PdfExportWidget::FontRole::Template)).textCodec);
+        pdfShowText(pdfPage, text, fontList.at(gsl::narrow<int>(PdfExportWidget::FontRole::Template)).textCodec);
       }
       pos = markPos;
 
@@ -66,8 +66,8 @@ void ExpPdf::exportText(quintptr recordId, HPDF_Page pdfPage, const FontList &fo
           emit vocabularyGetMarkText(recordId, mark, &data);
 
           // show data
-          pdfSetFont(pdfPage, fontList.at(static_cast<int>(PdfExportWidget::FontRole::Mark) + markIndex).pdfFont, fontList.at(static_cast<int>(PdfExportWidget::FontRole::Mark) + markIndex).size);
-          pdfShowText(pdfPage, data, fontList.at(static_cast<int>(PdfExportWidget::FontRole::Mark) + markIndex).textCodec);
+          pdfSetFont(pdfPage, fontList.at(gsl::narrow<int>(PdfExportWidget::FontRole::Mark) + markIndex).pdfFont, fontList.at(gsl::narrow<int>(PdfExportWidget::FontRole::Mark) + markIndex).size);
+          pdfShowText(pdfPage, data, fontList.at(gsl::narrow<int>(PdfExportWidget::FontRole::Mark) + markIndex).textCodec);
 
           pos += mark.size() - 1;
           break;
@@ -268,7 +268,7 @@ void ExpPdf::beginExport() const
 
   // export
   HPDF_Page pdfPage = Q_NULLPTR;
-  pdfAddPage(pdfDocument, &pdfPage, fonts.at(static_cast<int>(PdfExportWidget::FontRole::Category)).size);
+  pdfAddPage(pdfDocument, &pdfPage, fonts.at(gsl::narrow<int>(PdfExportWidget::FontRole::Category)).size);
   auto firstLine = true;
   auto records = 0;
   for (auto categoryId : categoryIds)
@@ -295,8 +295,8 @@ void ExpPdf::beginExport() const
     // category
     QString categoryName;
     emit vocabularyGetCategoryName(categoryId, &categoryName);
-    pdfSetFont(pdfPage, fonts.at(static_cast<int>(PdfExportWidget::FontRole::Category)).pdfFont, fonts.at(static_cast<int>(PdfExportWidget::FontRole::Category)).size);
-    pdfShowText(pdfPage, categoryName, fonts.at(static_cast<int>(PdfExportWidget::FontRole::Category)).textCodec);
+    pdfSetFont(pdfPage, fonts.at(gsl::narrow<int>(PdfExportWidget::FontRole::Category)).pdfFont, fonts.at(gsl::narrow<int>(PdfExportWidget::FontRole::Category)).size);
+    pdfShowText(pdfPage, categoryName, fonts.at(gsl::narrow<int>(PdfExportWidget::FontRole::Category)).textCodec);
 
     // header
     pdfNextLine(pdfDocument, &pdfPage);

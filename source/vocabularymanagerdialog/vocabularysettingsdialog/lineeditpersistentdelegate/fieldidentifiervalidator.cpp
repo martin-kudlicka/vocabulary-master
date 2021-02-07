@@ -13,9 +13,9 @@ QValidator::State FieldIdentifierValidator::validate(QString &input, int &pos) c
 
   for (auto rowIndex = 0; rowIndex < _fieldsModel->rowCount(); ++rowIndex)
   {
-    if (static_cast<decltype(_row)>(rowIndex) != _row)
+    if (gsl::narrow<decltype(_row)>(rowIndex) != _row)
     {
-      const auto modelIndex = _fieldsModel->index(rowIndex, static_cast<int>(FieldsModel::Column::TemplateName));
+      const auto modelIndex = _fieldsModel->index(rowIndex, gsl::narrow<int>(FieldsModel::Column::TemplateName));
       const auto identifier = _fieldsModel->data(modelIndex).toString();
       if (input == identifier)
       {

@@ -48,7 +48,7 @@ void Plugins::load()
             TTSPlugin ttsPlugin;
             ttsPlugin.info.libraryName = plugin.fileName();
             ttsPlugin.ttsInterface     = ttsInterface;
-            _ttsPlugins.insert(static_cast<quintptr>(ttsInterface->pluginId()), ttsPlugin);
+            _ttsPlugins.insert(gsl::narrow<quintptr>(ttsInterface->pluginId()), ttsPlugin);
           }
         }
         else
@@ -97,7 +97,7 @@ void Plugins::setLanguage(const QString &language) const
 
 TTSInterface *Plugins::ttsPlugin(TTSInterface::TTSPlugin pluginId) const
 {
-  return _ttsPlugins.value(static_cast<quintptr>(pluginId)).ttsInterface;
+  return _ttsPlugins.value(gsl::narrow<quintptr>(pluginId)).ttsInterface;
 }
 
 const Plugins::TTSPluginList Plugins::ttsPlugins() const
